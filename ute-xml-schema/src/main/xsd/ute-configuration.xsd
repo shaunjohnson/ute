@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Copyright (C) 2011 Shaun Johnson, LMXM LLC
+ 
+ This file is part of Universal Task Executor.
+ 
+ Universal Task Executor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by the Free
+ Software Foundation, either version 3 of the License, or (at your option) any
+ later version.
+ 
+ Universal Task Executor is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ details.
+ 
+ You should have received a copy of the GNU General Public License along with
+ Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="ute-configuration" type="ute-configuration-type">
+		<xs:annotation>
+			<xs:documentation>Root of the UTE configuration file</xs:documentation>
+		</xs:annotation>
+		<xs:key name="file-system-location-id-key">
+			<xs:selector xpath="./locations/file-system-location"/>
+			<xs:field xpath="@id"/>
+		</xs:key>
+		<xs:key name="subversion-repository-location-id-key">
+			<xs:selector xpath="./locations/subversion-respository-location"/>
+			<xs:field xpath="@id"/>
+		</xs:key>
+		<xs:keyref name="source-subversion-repository-location-id-key-ref" refer="subversion-repository-location-id-key">
+			<xs:selector xpath="./jobs/job/tasks/task/*/subversion-repository-source"/>
+			<xs:field xpath="@location-id"/>
+		</xs:keyref>
+		<xs:keyref name="target-file-system-location-id-key-ref" refer="file-system-location-id-key">
+			<xs:selector xpath="./jobs/job/tasks/task/*/file-system-target"/>
+			<xs:field xpath="@location-id"/>
+		</xs:keyref>
+	</xs:element>
+	<xs:complexType name="file-system-delete-task-type">
+		<xs:sequence>
+			<xs:element name="file-system-target" type="file-system-target-type"/>
+			<xs:element name="files" type="files-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="file-system-location-type">
+		<xs:attribute name="id" type="xs:NCName" use="required"/>
+		<xs:attribute name="path" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="file-system-target-type">
+		<xs:sequence>
+			<xs:element name="relative-path" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="location-id" type="xs:NCName" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="file-type">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="targetName" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="files-type">
+		<xs:sequence>
+			<xs:element name="file" type="file-type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="http-download-task-type	">
+		<xs:sequence>
+			<xs:element name="http-source" type="http-source-type"/>
+			<xs:element name="file-system-target" type="file-system-target-type"/>
+			<xs:element name="files" type="files-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="http-location-type">
+		<xs:attribute name="id" type="xs:NCName" use="required"/>
+		<xs:attribute name="url" type="xs:anyURI" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="http-source-type">
+		<xs:sequence>
+			<xs:element name="relative-path" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="location-id" type="xs:NCName" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="job-type">
+		<xs:sequence>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+			<xs:element name="tasks" type="tasks-type"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="jobs-type">
+		<xs:sequence>
+			<xs:element name="job" type="job-type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="locations-type">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="file-system-location" type="file-system-location-type"/>
+			<xs:element name="http-location" type="http-location-type"/>
+			<xs:element name="subversion-respository-location" type="subversion-respository-location-type"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ute-configuration-type">
+		<xs:sequence>
+			<xs:element name="jobs" type="jobs-type"/>
+			<xs:element name="locations" type="locations-type"/>
+			<xs:element name="properties" type="properties-type"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="property-type">
+		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="properties-type">
+		<xs:sequence>
+			<xs:element name="property" type="property-type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="subversion-repository-source-type">
+		<xs:sequence>
+			<xs:element name="relative-path" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="location-id" type="xs:NCName"/>
+	</xs:complexType>
+	<xs:complexType name="subversion-export-task-type">
+		<xs:sequence>
+			<xs:element name="subversion-repository-source" type="subversion-repository-source-type"/>
+			<xs:element name="file-system-target" type="file-system-target-type"/>
+			<xs:element name="files" type="files-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="subversion-respository-location-type">
+		<xs:attribute name="id" type="xs:NCName" use="required"/>
+		<xs:attribute name="url" type="xs:anyURI" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="subversion-update-task-type">
+		<xs:sequence>
+			<xs:element name="file-system-target" type="file-system-target-type"/>
+			<xs:element name="files" type="files-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="task-type">
+		<xs:sequence>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+			<xs:choice>
+				<xs:element name="file-system-delete-task" type="file-system-delete-task-type"/>
+				<xs:element name="http-download-task" type="http-download-task-type"/>
+				<xs:element name="subversion-export-task" type="subversion-export-task-type"/>
+				<xs:element name="subversion-update-task" type="subversion-update-task-type"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="tasks-type">
+		<xs:sequence>
+			<xs:element name="task" type="task-type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

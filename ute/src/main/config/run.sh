@@ -1,0 +1,1 @@
+java -jar ./${project.artifactId}-${project.version}-${project.packaging}-with-dependencies.${project.packaging} ${mainPackage}.${mainClass} $1 $2 $3 $4 $5
