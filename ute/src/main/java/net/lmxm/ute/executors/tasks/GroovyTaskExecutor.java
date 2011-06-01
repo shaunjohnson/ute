@@ -24,8 +24,8 @@ import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.executors.AbstractTaskExecutor;
 import net.lmxm.ute.listeners.StatusChangeListener;
-import net.lmxm.ute.utils.GroovyUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
+import net.lmxm.ute.utils.GroovyUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +70,7 @@ public final class GroovyTaskExecutor extends AbstractTaskExecutor {
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
 
-		GroovyUtils.executeScript(task.getScript(), path, files, getStatusChangeListener());
+		GroovyUtils.getInstance().executeScript(task.getScript(), path, files, getStatusChangeListener());
 
 		LOGGER.debug("{} returning", prefix);
 	}

@@ -18,6 +18,14 @@
  */
 package net.lmxm.ute.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.Property;
@@ -29,18 +37,11 @@ import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.StringUtils;
@@ -70,7 +71,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Generate property maps.
-	 *
+	 * 
 	 * @param configuration the configuration
 	 * @return the map
 	 */
@@ -154,7 +155,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Gets the http location.
-	 *
+	 * 
 	 * @param configuration the configuration
 	 * @param locationId the location id
 	 * @return the http location
@@ -179,7 +180,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Gets the job.
-	 *
+	 * 
 	 * @param configuration the configuration
 	 * @param jobId the job id
 	 * @return the job
@@ -231,7 +232,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Interpolate files.
-	 *
+	 * 
 	 * @param files the files
 	 * @param propertyNames the property names
 	 * @param propertyValues the property values
@@ -257,7 +258,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Interpolate file system location.
-	 *
+	 * 
 	 * @param target the target
 	 * @param propertyNames the property names
 	 * @param propertyValues the property values
@@ -291,7 +292,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Interpolate http source.
-	 *
+	 * 
 	 * @param source the source
 	 * @param propertyNames the property names
 	 * @param propertyValues the property values
@@ -323,7 +324,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Interpolate job values.
-	 *
+	 * 
 	 * @param originalJob the original job
 	 * @param configuration the configuration
 	 * @return the job
@@ -333,7 +334,7 @@ public final class ConfigurationUtils {
 
 		LOGGER.debug("{} entered, originalJob={}", prefix, originalJob);
 
-		final Job job = (Job)SerializationUtils.clone(originalJob);
+		final Job job = (Job) SerializationUtils.clone(originalJob);
 
 		LOGGER.debug("{} cloned job={}", prefix, job);
 
@@ -343,26 +344,31 @@ public final class ConfigurationUtils {
 
 		for (final Task task : job.getTasks()) {
 			if (task instanceof FileSystemDeleteTask) {
-				final FileSystemDeleteTask fileSystemDeleteTask = (FileSystemDeleteTask)task;
+				final FileSystemDeleteTask fileSystemDeleteTask = (FileSystemDeleteTask) task;
 
 				interpolateFileSystemTarget(fileSystemDeleteTask.getTarget(), propertyNames, propertyValues);
 			}
+			else if (task instanceof GroovyTask) {
+				final GroovyTask groovyTask = (GroovyTask) task;
+
+				interpolateFileSystemTarget(groovyTask.getTarget(), propertyNames, propertyValues);
+			}
 			else if (task instanceof HttpDownloadTask) {
-				final HttpDownloadTask httpDownloadTask = (HttpDownloadTask)task;
+				final HttpDownloadTask httpDownloadTask = (HttpDownloadTask) task;
 
 				interpolateHttpSource(httpDownloadTask.getSource(), propertyNames, propertyValues);
 				interpolateFileSystemTarget(httpDownloadTask.getTarget(), propertyNames, propertyValues);
 				interpolateFiles(httpDownloadTask.getFiles(), propertyNames, propertyValues);
 			}
 			else if (task instanceof SubversionExportTask) {
-				final SubversionExportTask subversionExportTask = (SubversionExportTask)task;
+				final SubversionExportTask subversionExportTask = (SubversionExportTask) task;
 
 				interpolateSubversionRepositorySource(subversionExportTask.getSource(), propertyNames, propertyValues);
 				interpolateFileSystemTarget(subversionExportTask.getTarget(), propertyNames, propertyValues);
 				interpolateFiles(subversionExportTask.getFiles(), propertyNames, propertyValues);
 			}
 			else if (task instanceof SubversionUpdateTask) {
-				final SubversionUpdateTask subversionUpdateTask = (SubversionUpdateTask)task;
+				final SubversionUpdateTask subversionUpdateTask = (SubversionUpdateTask) task;
 
 				interpolateSubversionRepositorySource(subversionUpdateTask.getSource(), propertyNames, propertyValues);
 				interpolateFileSystemTarget(subversionUpdateTask.getTarget(), propertyNames, propertyValues);
@@ -380,7 +386,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Interpolate properties.
-	 *
+	 * 
 	 * @param string the string
 	 * @param propertyNames the property names
 	 * @param propertyValues the property values
@@ -397,7 +403,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Interpolate subversion repository source.
-	 *
+	 * 
 	 * @param source the source
 	 * @param propertyNames the property names
 	 * @param propertyValues the property values
@@ -429,7 +435,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Validate configuration.
-	 *
+	 * 
 	 * @param configuration the configuration
 	 */
 	public static void validateConfiguration(final Configuration configuration) {
@@ -440,7 +446,7 @@ public final class ConfigurationUtils {
 
 	/**
 	 * Validate does not contain properties.
-	 *
+	 * 
 	 * @param string the string
 	 */
 	protected static void validateDoesNotContainProperties(final String string) {

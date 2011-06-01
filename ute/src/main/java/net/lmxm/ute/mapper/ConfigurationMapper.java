@@ -37,6 +37,7 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.AbstractFilesTask;
 import net.lmxm.ute.beans.tasks.AbstractTask;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
@@ -48,6 +49,7 @@ import noNamespace.FileSystemLocationType;
 import noNamespace.FileSystemTargetType;
 import noNamespace.FileType;
 import noNamespace.FilesType;
+import noNamespace.GroovyTaskType;
 import noNamespace.HttpDownloadTaskType;
 import noNamespace.HttpLocationType;
 import noNamespace.HttpSourceType;
@@ -96,7 +98,7 @@ public final class ConfigurationMapper {
 
 	/**
 	 * Parses the.
-	 *
+	 * 
 	 * @param file the file
 	 * @return the configuration
 	 */
@@ -294,8 +296,32 @@ public final class ConfigurationMapper {
 	}
 
 	/**
+	 * Parses the groovy task.
+	 * 
+	 * @param taskType the task type
+	 * @param configuration the configuration
+	 * @return the abstract task
+	 */
+	private AbstractTask parseGroovyTask(final GroovyTaskType taskType, final Configuration configuration) {
+		final String prefix = "parseGroovyTask() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final GroovyTask task = new GroovyTask();
+
+		task.setScript(taskType.getScript());
+		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
+
+		parseFiles(task, taskType.getFiles());
+
+		LOGGER.debug("{} returning {}", prefix, task);
+
+		return task;
+	}
+
+	/**
 	 * Parses the http download task.
-	 *
+	 * 
 	 * @param taskType the task type
 	 * @param configuration the configuration
 	 * @return the abstract task
@@ -319,7 +345,7 @@ public final class ConfigurationMapper {
 
 	/**
 	 * Parses the http location.
-	 *
+	 * 
 	 * @param httpLocationType the http location type
 	 * @param configuration the configuration
 	 * @return the http location
@@ -343,7 +369,7 @@ public final class ConfigurationMapper {
 
 	/**
 	 * Parses the http locations.
-	 *
+	 * 
 	 * @param locationsType the locations type
 	 * @param configuration the configuration
 	 */
@@ -369,7 +395,7 @@ public final class ConfigurationMapper {
 
 	/**
 	 * Parses the http source.
-	 *
+	 * 
 	 * @param sourceType the source type
 	 * @param configuration the configuration
 	 * @return the http source
@@ -513,7 +539,7 @@ public final class ConfigurationMapper {
 
 	/**
 	 * Parses the subversion export task.
-	 *
+	 * 
 	 * @param taskType the task type
 	 * @param configuration the configuration
 	 * @return the task
@@ -619,7 +645,7 @@ public final class ConfigurationMapper {
 
 	/**
 	 * Parses the subversion export task.
-	 *
+	 * 
 	 * @param taskType the task type
 	 * @param configuration the configuration
 	 * @return the task
@@ -658,6 +684,9 @@ public final class ConfigurationMapper {
 
 		if (taskType.isSetFileSystemDeleteTask()) {
 			task = parseFileSystemDeleteTask(taskType.getFileSystemDeleteTask(), configuration);
+		}
+		else if (taskType.isSetGroovyTask()) {
+			task = parseGroovyTask(taskType.getGroovyTask(), configuration);
 		}
 		else if (taskType.isSetHttpDownloadTask()) {
 			task = parseHttpDownloadTask(taskType.getHttpDownloadTask(), configuration);

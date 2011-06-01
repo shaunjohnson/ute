@@ -18,17 +18,19 @@
  */
 package net.lmxm.ute.utils;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.listeners.StatusChangeEvent;
 import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
-import java.io.File;
-import java.util.List;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.plexus.util.DirectoryScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +46,54 @@ public final class FileSystemUtils {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemUtils.class);
+
+	/**
+	 * Convert to file objects.
+	 * 
+	 * @param path the path
+	 * @param fileReferences the file references
+	 * @return the list
+	 */
+	public static List<File> convertToFileObjects(final String path, final List<FileReference> fileReferences) {
+		final String prefix = "convertToFileObjects() :";
+
+		LOGGER.debug("{} entered, path={}", prefix, path);
+
+		final List<File> files = new ArrayList<File>();
+
+		if (fileReferences == null) {
+			LOGGER.debug("{} file references is null, unable to scan for files", prefix);
+		}
+		else {
+			if (fileReferences.size() == 0) {
+				LOGGER.debug("{} file references is empty, unable to scan for files", prefix);
+			}
+			else {
+				final List<String> includes = new ArrayList<String>();
+				for (final FileReference fileReference : fileReferences) {
+					includes.add(fileReference.getName());
+				}
+
+				final DirectoryScanner directoryScanner = new DirectoryScanner();
+				directoryScanner.setBasedir(path);
+				directoryScanner.setCaseSensitive(true);
+				directoryScanner.setFollowSymlinks(false);
+				directoryScanner.setIncludes(includes.toArray(new String[0]));
+
+				directoryScanner.scan();
+
+				final String[] filenames = directoryScanner.getIncludedFiles();
+
+				for (final String filename : filenames) {
+					files.add(new File(path, filename));
+				}
+			}
+		}
+
+		LOGGER.debug("{} returning {} files", prefix, files.size());
+
+		return files;
+	}
 
 	/**
 	 * Gets the single instance of FileSystemUtils.
@@ -63,7 +113,7 @@ public final class FileSystemUtils {
 
 	/**
 	 * Creates the directory.
-	 *
+	 * 
 	 * @param path the path
 	 * @return the file
 	 */
@@ -172,7 +222,7 @@ public final class FileSystemUtils {
 
 	/**
 	 * File exists.
-	 *
+	 * 
 	 * @param filePath the file path
 	 * @return true, if successful
 	 */
