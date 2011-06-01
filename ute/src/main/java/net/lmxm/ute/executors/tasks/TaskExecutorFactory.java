@@ -18,8 +18,8 @@
  */
 package net.lmxm.ute.executors.tasks;
 
-import net.lmxm.ute.beans.tasks.BeanShellTask;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
@@ -63,30 +63,30 @@ public final class TaskExecutorFactory implements ExecutorFactory {
 
 		Executor executor;
 
-		if (task instanceof BeanShellTask) {
-			LOGGER.debug("{} task is BeanShellTask", prefix);
+		if (task instanceof GroovyTask) {
+			LOGGER.debug("{} task is GroovyTask", prefix);
 
-			executor = new BeanShellTaskExecutor((BeanShellTask)task, statusChangeListener);
+			executor = new GroovyTaskExecutor((GroovyTask) task, statusChangeListener);
 		}
 		else if (task instanceof FileSystemDeleteTask) {
 			LOGGER.debug("{} task is FileSystemDeleteTask", prefix);
 
-			executor = new FileSystemDeleteTaskExecutor((FileSystemDeleteTask)task, statusChangeListener);
+			executor = new FileSystemDeleteTaskExecutor((FileSystemDeleteTask) task, statusChangeListener);
 		}
 		else if (task instanceof HttpDownloadTask) {
 			LOGGER.debug("{} task is HttpDownloadTask", prefix);
 
-			executor = new HttpDownloadTaskExecutor((HttpDownloadTask)task, statusChangeListener);
+			executor = new HttpDownloadTaskExecutor((HttpDownloadTask) task, statusChangeListener);
 		}
 		else if (task instanceof SubversionExportTask) {
 			LOGGER.debug("{} task is SubversionExportTask", prefix);
 
-			executor = new SubversionExportTaskExecutor((SubversionExportTask)task, statusChangeListener);
+			executor = new SubversionExportTaskExecutor((SubversionExportTask) task, statusChangeListener);
 		}
 		else if (task instanceof SubversionUpdateTask) {
 			LOGGER.debug("{} task is SubversionUpdateTask", prefix);
 
-			executor = new SubversionUpdateTaskExecutor((SubversionUpdateTask)task, statusChangeListener);
+			executor = new SubversionUpdateTaskExecutor((SubversionUpdateTask) task, statusChangeListener);
 		}
 		else {
 			LOGGER.error("{} unsupported task type {}", prefix, task);

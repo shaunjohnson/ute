@@ -18,14 +18,14 @@
  */
 package net.lmxm.ute.executors.tasks;
 
+import java.util.List;
+
 import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.tasks.BeanShellTask;
+import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.executors.AbstractTaskExecutor;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.BeanShellUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
-
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,23 +33,23 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 
 /**
- * The Class BeanShellTaskExecutor.
+ * The Class GroovyTaskExecutor.
  */
-public final class BeanShellTaskExecutor extends AbstractTaskExecutor {
+public final class GroovyTaskExecutor extends AbstractTaskExecutor {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(BeanShellTaskExecutor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GroovyTaskExecutor.class);
 
 	/** The task. */
-	private final BeanShellTask task;
+	private final GroovyTask task;
 
 	/**
-	 * Instantiates a new bean shell task executor.
-	 *
+	 * Instantiates a new groovy task executor.
+	 * 
 	 * @param task the task
 	 * @param statusChangeListener the status change listener
 	 */
-	public BeanShellTaskExecutor(final BeanShellTask task, final StatusChangeListener statusChangeListener) {
+	public GroovyTaskExecutor(final GroovyTask task, final StatusChangeListener statusChangeListener) {
 		super(statusChangeListener);
 
 		Preconditions.checkNotNull(task, "Task may not be null");
@@ -59,7 +59,6 @@ public final class BeanShellTaskExecutor extends AbstractTaskExecutor {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.executors.ExecutorIF#execute()
 	 */
 	@Override

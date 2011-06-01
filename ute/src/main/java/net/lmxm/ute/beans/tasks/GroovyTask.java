@@ -21,9 +21,9 @@ package net.lmxm.ute.beans.tasks;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 
 /**
- * The Class BeanShellTask.
+ * The Class GroovyTask.
  */
-public final class BeanShellTask extends AbstractFilesTask {
+public final class GroovyTask extends AbstractFilesTask {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5773262602501136737L;
@@ -37,13 +37,13 @@ public final class BeanShellTask extends AbstractFilesTask {
 	/**
 	 * Instantiates a new bean shell task.
 	 */
-	public BeanShellTask() {
+	public GroovyTask() {
 		super();
 	}
 
 	/**
 	 * Gets the script.
-	 *
+	 * 
 	 * @return the script
 	 */
 	public String getScript() {
@@ -61,7 +61,7 @@ public final class BeanShellTask extends AbstractFilesTask {
 
 	/**
 	 * Sets the script.
-	 *
+	 * 
 	 * @param script the new script
 	 */
 	public void setScript(final String script) {
