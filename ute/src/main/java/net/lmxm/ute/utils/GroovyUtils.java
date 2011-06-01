@@ -18,19 +18,19 @@
  */
 package net.lmxm.ute.utils;
 
+import java.util.List;
+
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
-import java.util.List;
-
 /**
- * The Class BeanShellUtils.
+ * The Class GroovyUtils.
  */
-public final class BeanShellUtils {
+public final class GroovyUtils {
 
 	/**
 	 * Execute script.
-	 *
+	 * 
 	 * @param script the script
 	 * @param path the path
 	 * @param files the files
