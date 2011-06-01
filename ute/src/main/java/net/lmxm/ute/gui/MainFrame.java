@@ -18,52 +18,6 @@
  */
 package net.lmxm.ute.gui;
 
-import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.Property;
-import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.beans.locations.FileSystemLocation;
-import net.lmxm.ute.beans.locations.HttpLocation;
-import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.beans.tasks.SubversionExportTask;
-import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.gui.dialogs.AboutDialog;
-import net.lmxm.ute.gui.editors.FileSystemDeleteTaskEditorPanel;
-import net.lmxm.ute.gui.editors.FileSystemLocationEditorPanel;
-import net.lmxm.ute.gui.editors.HttpDownloadTaskEditorPanel;
-import net.lmxm.ute.gui.editors.HttpLocationEditorPanel;
-import net.lmxm.ute.gui.editors.JobEditorPanel;
-import net.lmxm.ute.gui.editors.PropertyEditorPanel;
-import net.lmxm.ute.gui.editors.SubversionExportTaskEditorPanel;
-import net.lmxm.ute.gui.editors.SubversionRepositoryLocationEditorPanel;
-import net.lmxm.ute.gui.editors.SubversionUpdateTaskEditorPanel;
-import net.lmxm.ute.gui.menus.FileSystemLocationPopupMenu;
-import net.lmxm.ute.gui.menus.FileSystemLocationsRootPopupMenu;
-import net.lmxm.ute.gui.menus.HttpLocationPopupMenu;
-import net.lmxm.ute.gui.menus.HttpLocationsRootPopupMenu;
-import net.lmxm.ute.gui.menus.JobPopupMenu;
-import net.lmxm.ute.gui.menus.JobsRootPopupMenu;
-import net.lmxm.ute.gui.menus.PropertiesRootPopupMenu;
-import net.lmxm.ute.gui.menus.PropertyPopupMenu;
-import net.lmxm.ute.gui.menus.SubversionRepositoryLocationPopupMenu;
-import net.lmxm.ute.gui.menus.SubversionRepositoryLocationsRootPopupMenu;
-import net.lmxm.ute.gui.menus.TaskPopupMenu;
-import net.lmxm.ute.gui.renderers.JobDetailsTreeCellRenderer;
-import net.lmxm.ute.gui.utils.DialogUtil;
-import net.lmxm.ute.gui.utils.GuiUtils;
-import net.lmxm.ute.gui.utils.ImageUtil;
-import net.lmxm.ute.gui.utils.UserPreferences;
-import net.lmxm.ute.gui.workers.ExecuteJobWorker;
-import net.lmxm.ute.listeners.JobStatusListener;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
-import net.lmxm.ute.listeners.StatusChangeListener;
-import net.lmxm.ute.mapper.ConfigurationMapper;
-import net.lmxm.ute.utils.ConfigurationUtils;
-import net.lmxm.ute.utils.FileSystemUtils;
-import net.lmxm.ute.utils.ResourcesUtils;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -107,6 +61,54 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
+import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.GroovyTask;
+import net.lmxm.ute.beans.tasks.HttpDownloadTask;
+import net.lmxm.ute.beans.tasks.SubversionExportTask;
+import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
+import net.lmxm.ute.gui.dialogs.AboutDialog;
+import net.lmxm.ute.gui.editors.FileSystemDeleteTaskEditorPanel;
+import net.lmxm.ute.gui.editors.FileSystemLocationEditorPanel;
+import net.lmxm.ute.gui.editors.GroovyTaskEditorPanel;
+import net.lmxm.ute.gui.editors.HttpDownloadTaskEditorPanel;
+import net.lmxm.ute.gui.editors.HttpLocationEditorPanel;
+import net.lmxm.ute.gui.editors.JobEditorPanel;
+import net.lmxm.ute.gui.editors.PropertyEditorPanel;
+import net.lmxm.ute.gui.editors.SubversionExportTaskEditorPanel;
+import net.lmxm.ute.gui.editors.SubversionRepositoryLocationEditorPanel;
+import net.lmxm.ute.gui.editors.SubversionUpdateTaskEditorPanel;
+import net.lmxm.ute.gui.menus.FileSystemLocationPopupMenu;
+import net.lmxm.ute.gui.menus.FileSystemLocationsRootPopupMenu;
+import net.lmxm.ute.gui.menus.HttpLocationPopupMenu;
+import net.lmxm.ute.gui.menus.HttpLocationsRootPopupMenu;
+import net.lmxm.ute.gui.menus.JobPopupMenu;
+import net.lmxm.ute.gui.menus.JobsRootPopupMenu;
+import net.lmxm.ute.gui.menus.PropertiesRootPopupMenu;
+import net.lmxm.ute.gui.menus.PropertyPopupMenu;
+import net.lmxm.ute.gui.menus.SubversionRepositoryLocationPopupMenu;
+import net.lmxm.ute.gui.menus.SubversionRepositoryLocationsRootPopupMenu;
+import net.lmxm.ute.gui.menus.TaskPopupMenu;
+import net.lmxm.ute.gui.renderers.JobDetailsTreeCellRenderer;
+import net.lmxm.ute.gui.utils.DialogUtil;
+import net.lmxm.ute.gui.utils.GuiUtils;
+import net.lmxm.ute.gui.utils.ImageUtil;
+import net.lmxm.ute.gui.utils.UserPreferences;
+import net.lmxm.ute.gui.workers.ExecuteJobWorker;
+import net.lmxm.ute.listeners.JobStatusListener;
+import net.lmxm.ute.listeners.StatusChangeEvent;
+import net.lmxm.ute.listeners.StatusChangeEventType;
+import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.mapper.ConfigurationMapper;
+import net.lmxm.ute.utils.ConfigurationUtils;
+import net.lmxm.ute.utils.FileSystemUtils;
+import net.lmxm.ute.utils.ResourcesUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -173,6 +175,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The file tool bar. */
 	private JToolBar fileToolBar = null;
+
+	/** The groovy task editor panel. */
+	private GroovyTaskEditorPanel groovyTaskEditorPanel = null;
 
 	/** The help menu. */
 	private JMenu helpMenu = null;
@@ -308,7 +313,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		initialize();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
@@ -327,7 +333,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 				final Object userObject = getSelectedTreeObject();
 
 				if (userObject != null && userObject instanceof Job) {
-					final Job job = ConfigurationUtils.interpolateJobValues((Job)userObject, configuration);
+					final Job job = ConfigurationUtils.interpolateJobValues((Job) userObject, configuration);
 
 					getStopJobButton().setEnabled(true);
 
@@ -350,7 +356,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		getOutputEditorPane().setText("");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
 	@Override
@@ -360,7 +367,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the about menu item.
-	 *
+	 * 
 	 * @return the about menu item
 	 */
 	private JMenuItem getAboutMenuItem() {
@@ -384,7 +391,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the adds the job button.
-	 *
+	 * 
 	 * @return the adds the job button
 	 */
 	private JButton getAddJobButton() {
@@ -404,7 +411,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the adds the location button.
-	 *
+	 * 
 	 * @return the adds the location button
 	 */
 	private JButton getAddLocationButton() {
@@ -420,7 +427,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the adds the property button.
-	 *
+	 * 
 	 * @return the adds the property button
 	 */
 	private JButton getAddPropertyButton() {
@@ -436,7 +443,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the bottom panel.
-	 *
+	 * 
 	 * @return the bottom panel
 	 */
 	private JPanel getBottomPanel() {
@@ -451,7 +458,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the clear output button.
-	 *
+	 * 
 	 * @return the clear output button
 	 */
 	private JButton getClearOutputButton() {
@@ -471,7 +478,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the execute job button.
-	 *
+	 * 
 	 * @return the execute job button
 	 */
 	private JButton getExecuteJobButton() {
@@ -491,7 +498,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the exit button.
-	 *
+	 * 
 	 * @return the exit button
 	 */
 	private JButton getExitButton() {
@@ -512,7 +519,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the exit menu item.
-	 *
+	 * 
 	 * @return the exit menu item
 	 */
 	private JMenuItem getExitMenuItem() {
@@ -533,7 +540,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the file menu.
-	 *
+	 * 
 	 * @return the file menu
 	 */
 	private JMenu getFileMenu() {
@@ -552,7 +559,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the file system delete task editor panel.
-	 *
+	 * 
 	 * @param fileSystemDeleteTask the file system delete task
 	 * @return the file system delete task editor panel
 	 */
@@ -568,7 +575,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the file system location editor panel.
-	 *
+	 * 
 	 * @param fileSystemLocation the file system location
 	 * @return the file system location editor panel
 	 */
@@ -584,7 +591,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the file system location popup menu.
-	 *
+	 * 
 	 * @return the file system location popup menu
 	 */
 	protected FileSystemLocationPopupMenu getFileSystemLocationPopupMenu() {
@@ -597,7 +604,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the file system locations root popup menu.
-	 *
+	 * 
 	 * @return the file system locations root popup menu
 	 */
 	protected FileSystemLocationsRootPopupMenu getFileSystemLocationsRootPopupMenu() {
@@ -610,7 +617,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the file tool bar.
-	 *
+	 * 
 	 * @return the file tool bar
 	 */
 	private JToolBar getFileToolBar() {
@@ -626,8 +633,24 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
+	 * Gets the groovy task editor panel.
+	 * 
+	 * @param groovyTask the groovy task
+	 * @return the groovy task editor panel
+	 */
+	private GroovyTaskEditorPanel getGroovyTaskEditorPanel(final GroovyTask groovyTask) {
+		if (groovyTaskEditorPanel == null) {
+			groovyTaskEditorPanel = new GroovyTaskEditorPanel(configuration);
+		}
+
+		groovyTaskEditorPanel.loadData(groovyTask);
+
+		return groovyTaskEditorPanel;
+	}
+
+	/**
 	 * Gets the help menu.
-	 *
+	 * 
 	 * @return the help menu
 	 */
 	private JMenu getHelpMenu() {
@@ -641,7 +664,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the http download task editor panel.
-	 *
+	 * 
 	 * @param httpDownloadTask the http download task
 	 * @return the http download task editor panel
 	 */
@@ -657,7 +680,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the http location editor panel.
-	 *
+	 * 
 	 * @param httpLocation the http location
 	 * @return the http location editor panel
 	 */
@@ -673,7 +696,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the http location popup menu.
-	 *
+	 * 
 	 * @return the http location popup menu
 	 */
 	protected HttpLocationPopupMenu getHttpLocationPopupMenu() {
@@ -686,7 +709,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the http locations root popup menu.
-	 *
+	 * 
 	 * @return the http locations root popup menu
 	 */
 	protected HttpLocationsRootPopupMenu getHttpLocationsRootPopupMenu() {
@@ -699,7 +722,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the j content pane.
-	 *
+	 * 
 	 * @return the j content pane
 	 */
 	private JPanel getJContentPane() {
@@ -724,7 +747,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the job details editor scroll pane.
-	 *
+	 * 
 	 * @return the job details editor scroll pane
 	 */
 	private JScrollPane getJobDetailsEditorScrollPane() {
@@ -736,7 +759,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the job editor panel.
-	 *
+	 * 
 	 * @param job the job
 	 * @return the job editor panel
 	 */
@@ -752,7 +775,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the job popup menu.
-	 *
+	 * 
 	 * @return the job popup menu
 	 */
 	protected JobPopupMenu getJobPopupMenu() {
@@ -765,7 +788,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the job progress bar.
-	 *
+	 * 
 	 * @return the job progress bar
 	 */
 	private JProgressBar getJobProgressBar() {
@@ -782,7 +805,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the jobs root popup menu.
-	 *
+	 * 
 	 * @return the jobs root popup menu
 	 */
 	protected JobsRootPopupMenu getJobsRootPopupMenu() {
@@ -795,7 +818,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the jobs split pane.
-	 *
+	 * 
 	 * @return the jobs split pane
 	 */
 	protected JSplitPane getJobsSplitPane() {
@@ -811,7 +834,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the job status listener.
-	 *
+	 * 
 	 * @return the job status listener
 	 */
 	private JobStatusListener getJobStatusListener() {
@@ -820,7 +843,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the jobs tree scroll pane.
-	 *
+	 * 
 	 * @return the jobs tree scroll pane
 	 */
 	private JScrollPane getJobsTreeScrollPane() {
@@ -834,7 +857,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the main menu bar.
-	 *
+	 * 
 	 * @return the main menu bar
 	 */
 	private JMenuBar getMainMenuBar() {
@@ -848,7 +871,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the main split pane.
-	 *
+	 * 
 	 * @return the main split pane
 	 */
 	protected JSplitPane getMainSplitPane() {
@@ -865,7 +888,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the main tool bar.
-	 *
+	 * 
 	 * @return the main tool bar
 	 */
 	private JToolBar getMainToolBar() {
@@ -882,7 +905,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the main tree.
-	 *
+	 * 
 	 * @return the main tree
 	 */
 	private JTree getMainTree() {
@@ -917,7 +940,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the new file button.
-	 *
+	 * 
 	 * @return the new file button
 	 */
 	private JButton getNewFileButton() {
@@ -938,7 +961,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the new file menu item.
-	 *
+	 * 
 	 * @return the new file menu item
 	 */
 	private JMenuItem getNewFileMenuItem() {
@@ -959,7 +982,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the open file button.
-	 *
+	 * 
 	 * @return the open file button
 	 */
 	private JButton getOpenFileButton() {
@@ -979,7 +1002,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the open file menu item.
-	 *
+	 * 
 	 * @return the open file menu item
 	 */
 	private JMenuItem getOpenFileMenuItem() {
@@ -999,7 +1022,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the output button tool bar.
-	 *
+	 * 
 	 * @return the output button tool bar
 	 */
 	private JToolBar getOutputButtonToolBar() {
@@ -1014,7 +1037,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the output editor pane.
-	 *
+	 * 
 	 * @return the output editor pane
 	 */
 	private JEditorPane getOutputEditorPane() {
@@ -1028,7 +1051,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the output scroll pane.
-	 *
+	 * 
 	 * @return the output scroll pane
 	 */
 	private JScrollPane getOutputScrollPane() {
@@ -1041,7 +1064,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the properties root popup menu.
-	 *
+	 * 
 	 * @return the properties root popup menu
 	 */
 	protected PropertiesRootPopupMenu getPropertiesRootPopupMenu() {
@@ -1054,7 +1077,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the property editor panel.
-	 *
+	 * 
 	 * @param property the property
 	 * @return the property editor panel
 	 */
@@ -1070,7 +1093,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the property popup menu.
-	 *
+	 * 
 	 * @return the property popup menu
 	 */
 	protected PropertyPopupMenu getPropertyPopupMenu() {
@@ -1083,7 +1106,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the save as button.
-	 *
+	 * 
 	 * @return the save as button
 	 */
 	private JButton getSaveAsButton() {
@@ -1104,7 +1127,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the save as menu item.
-	 *
+	 * 
 	 * @return the save as menu item
 	 */
 	private JMenuItem getSaveAsMenuItem() {
@@ -1126,7 +1149,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the save button.
-	 *
+	 * 
 	 * @return the save button
 	 */
 	private JButton getSaveButton() {
@@ -1147,7 +1170,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the save menu item.
-	 *
+	 * 
 	 * @return the save menu item
 	 */
 	private JMenuItem getSaveMenuItem() {
@@ -1168,7 +1191,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the selected tree object.
-	 *
+	 * 
 	 * @return the selected tree object
 	 */
 	protected Object getSelectedTreeObject() {
@@ -1178,7 +1201,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			return null;
 		}
 
-		final DefaultMutableTreeNode node = (DefaultMutableTreeNode)treePath.getLastPathComponent();
+		final DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
 
 		if (node == null) {
 			return null;
@@ -1189,7 +1212,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the status change listener.
-	 *
+	 * 
 	 * @return the status change listener
 	 */
 	private StatusChangeListener getStatusChangeListener() {
@@ -1198,7 +1221,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the stop job button.
-	 *
+	 * 
 	 * @return the stop job button
 	 */
 	private JButton getStopJobButton() {
@@ -1227,7 +1250,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the subversion export task editor panel.
-	 *
+	 * 
 	 * @param subversionExportTask the subversion export task
 	 * @return the subversion export task editor panel
 	 */
@@ -1243,7 +1266,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the subversion repository location editor panel.
-	 *
+	 * 
 	 * @param subversionRepositoryLocation the subversion repository location
 	 * @return the subversion repository location editor panel
 	 */
@@ -1260,7 +1283,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the subversion repository location popup menu.
-	 *
+	 * 
 	 * @return the subversion repository location popup menu
 	 */
 	protected SubversionRepositoryLocationPopupMenu getSubversionRepositoryLocationPopupMenu() {
@@ -1273,7 +1296,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the subversion repository locations root popup menu.
-	 *
+	 * 
 	 * @return the subversion repository locations root popup menu
 	 */
 	protected SubversionRepositoryLocationsRootPopupMenu getSubversionRepositoryLocationsRootPopupMenu() {
@@ -1286,7 +1309,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the subversion update task editor panel.
-	 *
+	 * 
 	 * @param subversionUpdateTask the subversion update task
 	 * @return the subversion update task editor panel
 	 */
@@ -1302,7 +1325,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the task popup menu.
-	 *
+	 * 
 	 * @return the task popup menu
 	 */
 	protected TaskPopupMenu getTaskPopupMenu() {
@@ -1315,7 +1338,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Gets the toolbar panel.
-	 *
+	 * 
 	 * @return the toolbar panel
 	 */
 	private JPanel getToolbarPanel() {
@@ -1396,7 +1419,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Checks if is execute job enabled.
-	 *
+	 * 
 	 * @return true, if is execute job enabled
 	 */
 	public boolean isExecuteJobEnabled() {
@@ -1405,7 +1428,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobAborted()
 	 */
 	@Override
@@ -1417,7 +1441,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobCompleted()
 	 */
 	@Override
@@ -1429,7 +1454,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStopped()
 	 */
 	@Override
@@ -1441,7 +1467,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskCompleted()
 	 */
 	@Override
@@ -1451,7 +1478,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
 	@Override
@@ -1463,7 +1489,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
 	 */
 	@Override
@@ -1473,7 +1498,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
 	 */
 	@Override
@@ -1554,7 +1578,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/**
 	 * Select tree object at location.
-	 *
+	 * 
 	 * @param x the x
 	 * @param y the y
 	 */
@@ -1568,15 +1592,14 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.listeners.StatusChangeListener#statusChange(net.lmxm.ute.listeners .StatusChangeEvent)
 	 */
 	@Override
 	public void statusChange(final StatusChangeEvent changeEvent) {
 		final StatusChangeEventType eventType = changeEvent.getEventType();
 		final JEditorPane localStatusEditorPane = getOutputEditorPane();
-		final HTMLEditorKit ek = (HTMLEditorKit)localStatusEditorPane.getEditorKit();
-		final HTMLDocument doc = (HTMLDocument)localStatusEditorPane.getDocument();
+		final HTMLEditorKit ek = (HTMLEditorKit) localStatusEditorPane.getEditorKit();
+		final HTMLDocument doc = (HTMLDocument) localStatusEditorPane.getDocument();
 
 		try {
 			final StringBuilder builder = new StringBuilder();
@@ -1641,31 +1664,34 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		Component editorPane = null;
 
 		if (isJob) {
-			editorPane = getJobEditorPanel((Job)userObject);
+			editorPane = getJobEditorPanel((Job) userObject);
 		}
 		else if (userObject instanceof FileSystemDeleteTask) {
-			editorPane = getFileSystemDeleteTaskEditorPanel((FileSystemDeleteTask)userObject);
+			editorPane = getFileSystemDeleteTaskEditorPanel((FileSystemDeleteTask) userObject);
 		}
 		else if (userObject instanceof FileSystemLocation) {
-			editorPane = getFileSystemLocationEditorPanel((FileSystemLocation)userObject);
+			editorPane = getFileSystemLocationEditorPanel((FileSystemLocation) userObject);
+		}
+		else if (userObject instanceof GroovyTask) {
+			editorPane = getGroovyTaskEditorPanel((GroovyTask) userObject);
 		}
 		else if (userObject instanceof HttpDownloadTask) {
-			editorPane = getHttpDownloadTaskEditorPanel((HttpDownloadTask)userObject);
+			editorPane = getHttpDownloadTaskEditorPanel((HttpDownloadTask) userObject);
 		}
 		else if (userObject instanceof HttpLocation) {
-			editorPane = getHttpLocationEditorPanel((HttpLocation)userObject);
+			editorPane = getHttpLocationEditorPanel((HttpLocation) userObject);
 		}
 		else if (userObject instanceof Property) {
-			editorPane = getPropertyEditorPanel((Property)userObject);
+			editorPane = getPropertyEditorPanel((Property) userObject);
 		}
 		else if (userObject instanceof SubversionExportTask) {
-			editorPane = getSubversionExportTaskEditorPanel((SubversionExportTask)userObject);
+			editorPane = getSubversionExportTaskEditorPanel((SubversionExportTask) userObject);
 		}
 		else if (userObject instanceof SubversionRepositoryLocation) {
-			editorPane = getSubversionRepositoryLocationEditorPanel((SubversionRepositoryLocation)userObject);
+			editorPane = getSubversionRepositoryLocationEditorPanel((SubversionRepositoryLocation) userObject);
 		}
 		else if (userObject instanceof SubversionUpdateTask) {
-			editorPane = getSubversionUpdateTaskEditorPanel((SubversionUpdateTask)userObject);
+			editorPane = getSubversionUpdateTaskEditorPanel((SubversionUpdateTask) userObject);
 		}
 
 		getJobDetailsEditorScrollPane().setViewportView(editorPane);

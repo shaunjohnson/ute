@@ -68,6 +68,9 @@ public final class ImageUtil {
 	/** The Constant FOLDER_IMPORT_ICON. */
 	public static final Icon FOLDER_IMPORT_ICON;
 
+	/** The Constant GROOVY_ICON. */
+	public static final ImageIcon GROOVY_ICON;
+
 	/** The Constant JOB_ICON. */
 	public static final ImageIcon JOB_ICON;
 
@@ -114,6 +117,7 @@ public final class ImageUtil {
 		EXIT_ICON = new ImageIcon(thisClass.getResource("/images/door-open-out.png"));
 		EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
 		FOLDER_IMPORT_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
+		GROOVY_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
 		JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-task.png"));
 		NETWORK_HUB_ICON = new ImageIcon(thisClass.getResource("/images/network-hub.png"));
 		NEW_FILE_ICON = new ImageIcon(thisClass.getResource("/images/document.png"));

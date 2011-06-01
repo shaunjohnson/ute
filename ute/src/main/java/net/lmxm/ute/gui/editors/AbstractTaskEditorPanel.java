@@ -18,17 +18,6 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.locations.FileSystemLocation;
-import net.lmxm.ute.beans.locations.HttpLocation;
-import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.sources.HttpSource;
-import net.lmxm.ute.beans.sources.SubversionRepositorySource;
-import net.lmxm.ute.beans.targets.FileSystemTarget;
-import net.lmxm.ute.beans.tasks.AbstractFilesTask;
-import net.lmxm.ute.beans.tasks.Task;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -39,6 +28,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.beans.sources.HttpSource;
+import net.lmxm.ute.beans.sources.SubversionRepositorySource;
+import net.lmxm.ute.beans.targets.FileSystemTarget;
+import net.lmxm.ute.beans.tasks.AbstractFilesTask;
+import net.lmxm.ute.beans.tasks.Task;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +74,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Instantiates a new abstract task editor panel.
-	 *
+	 * 
 	 * @param configuration the configuration
 	 * @param titleText the title text
 	 */
@@ -147,7 +147,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Creates the empty files table model.
-	 *
+	 * 
 	 * @return the default table model
 	 */
 	protected final DefaultTableModel createEmptyFilesTableModel() {
@@ -161,7 +161,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Gets the files pane.
-	 *
+	 * 
 	 * @return the files pane
 	 */
 	protected final JPanel getFilesPane() {
@@ -169,6 +169,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 			filesPane = new JPanel();
 			filesPane.setLayout(new BorderLayout());
 			filesPane.add(getFilesScrollPane(), BorderLayout.CENTER);
+			filesPane.setMaximumSize(new Dimension(400, 100));
 		}
 
 		return filesPane;
@@ -176,7 +177,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Gets the files scroll pane.
-	 *
+	 * 
 	 * @return the files scroll pane
 	 */
 	protected final JScrollPane getFilesScrollPane() {
@@ -190,27 +191,37 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Gets the files table.
-	 *
+	 * 
 	 * @return the files table
 	 */
 	protected final JTable getFilesTable() {
 		if (filesTable == null) {
 			filesTable = new JTable(createEmptyFilesTableModel());
+			filesTable.setFillsViewportHeight(true);
 		}
 
 		return filesTable;
 	}
 
 	/**
+	 * Gets the monospace font.
+	 * 
+	 * @return the monospace font
+	 */
+	protected final Font getMonospaceFont() {
+		return monospaceFont;
+	}
+
+	/**
 	 * Gets the source relative path text field.
-	 *
+	 * 
 	 * @return the source relative path text field
 	 */
 	protected final JTextField getSourceRelativePathTextField() {
 		if (sourceRelativePathTextField == null) {
 			sourceRelativePathTextField = new JTextField();
 			sourceRelativePathTextField.setFont(monospaceFont);
-			sourceRelativePathTextField.setMinimumSize(new Dimension(400, (int)sourceRelativePathTextField.getSize()
+			sourceRelativePathTextField.setMinimumSize(new Dimension(400, (int) sourceRelativePathTextField.getSize()
 					.getHeight()));
 		}
 
@@ -219,14 +230,14 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Gets the target relative path text field.
-	 *
+	 * 
 	 * @return the target relative path text field
 	 */
 	protected final JTextField getTargetRelativePathTextField() {
 		if (targetRelativePathTextField == null) {
 			targetRelativePathTextField = new JTextField();
 			targetRelativePathTextField.setFont(monospaceFont);
-			targetRelativePathTextField.setMinimumSize(new Dimension(400, (int)targetRelativePathTextField.getSize()
+			targetRelativePathTextField.setMinimumSize(new Dimension(400, (int) targetRelativePathTextField.getSize()
 					.getHeight()));
 		}
 
@@ -235,7 +246,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Load files field data.
-	 *
+	 * 
 	 * @param abstractFilesTask the abstract files task
 	 */
 	protected final void loadFilesFieldData(final AbstractFilesTask abstractFilesTask) {
@@ -252,7 +263,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Load file system target field data.
-	 *
+	 * 
 	 * @param fileSystemTarget the file system target
 	 */
 	protected final void loadFileSystemTargetFieldData(final FileSystemTarget fileSystemTarget) {
@@ -273,7 +284,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Load http source field data.
-	 *
+	 * 
 	 * @param httpSource the http source
 	 */
 	protected final void loadHttpSourceFieldData(final HttpSource httpSource) {
@@ -294,7 +305,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Load subversion repository source field data.
-	 *
+	 * 
 	 * @param subversionRepositorySource the subversion repository source
 	 */
 	protected final void loadSubversionRepositorySourceFieldData(
@@ -318,7 +329,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Load task common field data.
-	 *
+	 * 
 	 * @param task the task
 	 */
 	protected final void loadTaskCommonFieldData(final Task task) {

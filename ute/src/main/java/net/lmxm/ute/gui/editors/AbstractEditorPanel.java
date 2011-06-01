@@ -18,8 +18,6 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -31,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import net.lmxm.ute.beans.Configuration;
 import net.miginfocom.swing.MigLayout;
 
 import org.slf4j.Logger;
@@ -73,7 +72,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/**
 	 * Instantiates a new abstract editor panel.
-	 *
+	 * 
 	 * @param configuration the configuration
 	 * @param titleText the title text
 	 */
@@ -100,7 +99,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/**
 	 * Gets the content panel.
-	 *
+	 * 
 	 * @return the content panel
 	 */
 	protected JPanel getContentPanel() {
@@ -109,7 +108,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/**
 	 * Gets the description pane.
-	 *
+	 * 
 	 * @return the description pane
 	 */
 	protected final JScrollPane getDescriptionPane() {
@@ -122,7 +121,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/**
 	 * Gets the description text area.
-	 *
+	 * 
 	 * @return the description text area
 	 */
 	protected final JTextArea getDescriptionTextArea() {
@@ -131,13 +130,14 @@ public abstract class AbstractEditorPanel extends JPanel {
 			descriptionTextArea.setColumns(40);
 			descriptionTextArea.setRows(5);
 			descriptionTextArea.setLineWrap(true);
+			descriptionTextArea.setTabSize(4);
 		}
 		return descriptionTextArea;
 	}
 
 	/**
 	 * Gets the file system location target combo box.
-	 *
+	 * 
 	 * @return the file system location target combo box
 	 */
 	protected final JComboBox getFileSystemLocationTargetComboBox() {
@@ -150,7 +150,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/**
 	 * Gets the http location source combo box.
-	 *
+	 * 
 	 * @return the http location source combo box
 	 */
 	protected final JComboBox getHttpLocationSourceComboBox() {
@@ -163,13 +163,13 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/**
 	 * Gets the id text field.
-	 *
+	 * 
 	 * @return the id text field
 	 */
 	protected final JTextField getIdTextField() {
 		if (idTextField == null) {
 			idTextField = new JTextField();
-			idTextField.setMinimumSize(new Dimension(400, (int)idTextField.getSize().getHeight()));
+			idTextField.setMinimumSize(new Dimension(400, (int) idTextField.getSize().getHeight()));
 		}
 
 		return idTextField;
@@ -177,7 +177,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/**
 	 * Gets the subversion repository location source combo box.
-	 *
+	 * 
 	 * @return the subversion repository location source combo box
 	 */
 	protected final JComboBox getSubversionRepositoryLocationSourceComboBox() {
@@ -191,7 +191,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/**
 	 * Sets the selected index.
-	 *
+	 * 
 	 * @param comboBox the combo box
 	 * @param value the value
 	 */
