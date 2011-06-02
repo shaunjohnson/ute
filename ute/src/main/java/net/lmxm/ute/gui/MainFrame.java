@@ -75,6 +75,7 @@ import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.gui.dialogs.AboutDialog;
+import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.editors.FileSystemDeleteTaskEditorPanel;
 import net.lmxm.ute.gui.editors.FileSystemLocationEditorPanel;
 import net.lmxm.ute.gui.editors.GroovyTaskEditorPanel;
@@ -155,6 +156,12 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The configuration. */
 	private Configuration configuration; // @jve:decl-index=0:
+
+	/** The edit menu. */
+	private JMenu editMenu = null;
+
+	/** The edit preferences menu item. */
+	private JMenuItem editPreferencesMenuItem = null;
 
 	/** The execute job button. */
 	private JButton executeJobButton = null;
@@ -506,6 +513,44 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			});
 		}
 		return clearOutputButton;
+	}
+
+	/**
+	 * Gets the edits the menu.
+	 * 
+	 * @return the edits the menu
+	 */
+	private JMenu getEditMenu() {
+		if (editMenu == null) {
+			editMenu = new JMenu();
+			editMenu.setText("Edit");
+			editMenu.add(getEditPreferencesMenuItem());
+		}
+		return editMenu;
+	}
+
+	/**
+	 * Gets the edits the preferences menu item.
+	 * 
+	 * @return the edits the preferences menu item
+	 */
+	private JMenuItem getEditPreferencesMenuItem() {
+		if (editPreferencesMenuItem == null) {
+			editPreferencesMenuItem = new JMenuItem();
+			editPreferencesMenuItem.setText("Edit Preferences");
+			editPreferencesMenuItem.setIcon(ImageUtil.EDIT_PREFERENCES_ICON);
+
+			final Component parent = this;
+			editPreferencesMenuItem.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent e) {
+					final JDialog dialog = new EditPreferencesDialog();
+					DialogUtil.center(parent, dialog);
+					dialog.setVisible(true);
+				}
+			});
+		}
+		return editPreferencesMenuItem;
 	}
 
 	/**
@@ -896,6 +941,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		if (mainMenuBar == null) {
 			mainMenuBar = new JMenuBar();
 			mainMenuBar.add(getFileMenu());
+			mainMenuBar.add(getEditMenu());
 			mainMenuBar.add(getHelpMenu());
 		}
 		return mainMenuBar;

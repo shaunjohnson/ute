@@ -29,33 +29,30 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
 
 import net.lmxm.ute.gui.utils.ImageUtil;
-import net.lmxm.ute.utils.ResourcesUtils;
 
 /**
- * The Class AboutDialog.
+ * The Class EditPreferencesDialog.
  */
-public class AboutDialog extends JDialog {
+public class EditPreferencesDialog extends JDialog {
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -3786034493887802467L;
-
-	/** The attributions text pane. */
-	private JTextPane attributionsTextPane = null;
+	private static final long serialVersionUID = -4775245952490720963L;
 
 	/** The button panel. */
 	private JPanel buttonPanel = null;
 
-	/** The close button. */
-	private JButton closeButton = null;
+	/** The cancel button. */
+	private JButton cancelButton = null;
 
 	/** The main layout panel. */
 	private JPanel mainLayoutPanel = null;
+
+	/** The save button. */
+	private JButton saveButton = null;
 
 	/** The title label. */
 	private JLabel titleLabel = null;
@@ -63,29 +60,13 @@ public class AboutDialog extends JDialog {
 	/** The title panel. */
 	private JPanel titlePanel = null;
 
-	/** The version label. */
-	private JLabel versionLabel = null;
-
 	/**
-	 * Instantiates a new about dialog.
+	 * Instantiates a new edits the preferences dialog.
 	 */
-	public AboutDialog() {
+	public EditPreferencesDialog() {
+		super();
+
 		initialize();
-	}
-
-	/**
-	 * Gets the attributions text pane.
-	 * 
-	 * @return the attributions text pane
-	 */
-	private JTextPane getAttributionsTextPane() {
-		if (attributionsTextPane == null) {
-			attributionsTextPane = new JTextPane();
-			attributionsTextPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-			attributionsTextPane.setText(ResourcesUtils.getApplicationAttributions());
-			attributionsTextPane.setOpaque(false);
-		}
-		return attributionsTextPane;
 	}
 
 	/**
@@ -96,28 +77,29 @@ public class AboutDialog extends JDialog {
 	private JPanel getButtonPanel() {
 		if (buttonPanel == null) {
 			buttonPanel = new JPanel();
-			buttonPanel.add(getCloseButton());
+			buttonPanel.add(getSaveButton());
+			buttonPanel.add(getCancelButton());
 		}
 		return buttonPanel;
 	}
 
 	/**
-	 * Gets the close button.
+	 * Gets the cancel button.
 	 * 
-	 * @return the close button
+	 * @return the cancel button
 	 */
-	private JButton getCloseButton() {
-		if (closeButton == null) {
-			closeButton = new JButton();
-			closeButton.setText("Close");
-			closeButton.addActionListener(new ActionListener() {
+	private JButton getCancelButton() {
+		if (cancelButton == null) {
+			cancelButton = new JButton();
+			cancelButton.setText("Cancel");
+			cancelButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent e) {
 					dispose();
 				}
 			});
 		}
-		return closeButton;
+		return cancelButton;
 	}
 
 	/**
@@ -130,10 +112,29 @@ public class AboutDialog extends JDialog {
 			mainLayoutPanel = new JPanel();
 			mainLayoutPanel.setLayout(new BorderLayout());
 			mainLayoutPanel.add(getTitlePanel(), BorderLayout.NORTH);
-			mainLayoutPanel.add(getAttributionsTextPane(), BorderLayout.CENTER);
+			// mainLayoutPanel.add(getAttributionsTextPane(), BorderLayout.CENTER);
 			mainLayoutPanel.add(getButtonPanel(), BorderLayout.SOUTH);
 		}
 		return mainLayoutPanel;
+	}
+
+	/**
+	 * Gets the save button.
+	 * 
+	 * @return the save button
+	 */
+	private JButton getSaveButton() {
+		if (saveButton == null) {
+			saveButton = new JButton();
+			saveButton.setText("Save");
+			saveButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent e) {
+					dispose();
+				}
+			});
+		}
+		return saveButton;
 	}
 
 	/**
@@ -148,18 +149,13 @@ public class AboutDialog extends JDialog {
 			gridLayout.setColumns(1);
 
 			titleLabel = new JLabel();
-			titleLabel.setText(ResourcesUtils.getApplicationName());
+			titleLabel.setText("Edit Preferences");
 			titleLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-			versionLabel = new JLabel();
-			versionLabel.setText(ResourcesUtils.getApplicationVersion());
-			versionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 			titlePanel = new JPanel();
 			titlePanel.setLayout(gridLayout);
 			titlePanel.add(titleLabel, null);
-			titlePanel.add(versionLabel, null);
 		}
 		return titlePanel;
 	}
@@ -169,15 +165,15 @@ public class AboutDialog extends JDialog {
 	 */
 	private void initialize() {
 		setIconImage(ImageUtil.APPLICATION_ICON_IMAGE);
-		setMinimumSize(new Dimension(400, 200));
-		setPreferredSize(new Dimension(400, 200));
+		setMinimumSize(new Dimension(600, 400));
+		setPreferredSize(new Dimension(600, 400));
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setContentPane(getMainLayoutPanel());
 		setModal(true);
-		setTitle("About " + ResourcesUtils.getApplicationName());
+		setTitle("Edit Preferences");
 
 		pack();
 
-		getCloseButton().requestFocus();
+		getCancelButton().requestFocus();
 	}
 }

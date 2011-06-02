@@ -59,6 +59,9 @@ public final class ImageUtil {
 	/** The Constant DRIVE_ICON. */
 	public static final ImageIcon DRIVE_ICON;
 
+	/** The Constant EDIT_PREFERENCES_ICON. */
+	public static final Icon EDIT_PREFERENCES_ICON;
+
 	/** The Constant EXECUTE_JOB_ICON. */
 	public static final Icon EXECUTE_JOB_ICON;
 
@@ -120,6 +123,7 @@ public final class ImageUtil {
 		CLEAR_ICON = new ImageIcon(thisClass.getResource("/images/eraser.png"));
 		DELETE_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
 		DRIVE_ICON = new ImageIcon(thisClass.getResource("/images/drive.png"));
+		EDIT_PREFERENCES_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
 		EXECUTE_JOB_ICON = new ImageIcon(thisClass.getResource("/images/lightning.png"));
 		EXIT_ICON = new ImageIcon(thisClass.getResource("/images/door-open-out.png"));
 		EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
