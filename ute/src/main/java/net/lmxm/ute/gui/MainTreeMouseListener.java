@@ -18,6 +18,12 @@
  */
 package net.lmxm.ute.gui;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JPopupMenu;
+
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -27,26 +33,20 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.nodes.FileSystemLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.HttpLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.JobsRootTreeNode;
+import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JPopupMenu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The listener interface for receiving mainTreeMouse events.
- * The class that is interested in processing a mainTreeMouse
- * event implements this interface, and the object created
- * with that class is registered with a component using the
+ * The listener interface for receiving mainTreeMouse events. The class that is interested in processing a mainTreeMouse
+ * event implements this interface, and the object created with that class is registered with a component using the
  * component's <code>addMainTreeMouseListener<code> method. When
  * the mainTreeMouse event occurs, that object's appropriate
  * method is invoked.
- *
+ * 
  * @see MainTreeMouseEvent
  */
 public final class MainTreeMouseListener extends MouseAdapter {
@@ -59,7 +59,7 @@ public final class MainTreeMouseListener extends MouseAdapter {
 
 	/**
 	 * Instantiates a new main tree mouse listener.
-	 *
+	 * 
 	 * @param mainFrame the main frame
 	 */
 	public MainTreeMouseListener(final MainFrame mainFrame) {
@@ -70,7 +70,7 @@ public final class MainTreeMouseListener extends MouseAdapter {
 
 	/**
 	 * Handle popup trigger.
-	 *
+	 * 
 	 * @param mouseEvent the mouse event
 	 */
 	public void handlePopupTrigger(final MouseEvent mouseEvent) {
@@ -117,6 +117,12 @@ public final class MainTreeMouseListener extends MouseAdapter {
 				else if (object instanceof SubversionRepositoryLocation) {
 					popupMenu = mainFrame.getSubversionRepositoryLocationPopupMenu();
 				}
+				else if (object instanceof PreferencesRootTreeNode) {
+					popupMenu = mainFrame.getPreferencesRootPopupMenu();
+				}
+				else if (object instanceof Preference) {
+					popupMenu = mainFrame.getPreferencePopupMenu();
+				}
 				else if (object instanceof PropertiesRootTreeNode) {
 					popupMenu = mainFrame.getPropertiesRootPopupMenu();
 				}
@@ -146,7 +152,8 @@ public final class MainTreeMouseListener extends MouseAdapter {
 		LOGGER.debug("{} leaving", prefix);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
 	 */
 	@Override
@@ -154,7 +161,8 @@ public final class MainTreeMouseListener extends MouseAdapter {
 		handlePopupTrigger(mouseEvent);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
 	 */
 	@Override
@@ -162,7 +170,8 @@ public final class MainTreeMouseListener extends MouseAdapter {
 		handlePopupTrigger(mouseEvent);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
 	 */
 	@Override

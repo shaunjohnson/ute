@@ -32,6 +32,9 @@ public final class ActionConstants {
 	/** The Constant ADD_JOB. */
 	public static final String ADD_JOB = "ADD_JOB";
 
+	/** The Constant ADD_PREFERENCE. */
+	public static final String ADD_PREFERENCE = "ADD_PREFERENCE";
+
 	/** The Constant ADD_PROPERTY. */
 	public static final String ADD_PROPERTY = "ADD_PROPERTY";
 
@@ -43,6 +46,9 @@ public final class ActionConstants {
 
 	/** The Constant DELETE_HTTP_LOCATION. */
 	public static final String DELETE_HTTP_LOCATION = "DELETE_HTTP_LOCATION";
+
+	/** The Constant DELETE_PREFERENCE. */
+	public static final String DELETE_PREFERENCE = "DELETE_PREFERENCE";
 
 	/** The Constant DELETE_PROPERTY. */
 	public static final String DELETE_PROPERTY = "DELETE_PROPERTY";

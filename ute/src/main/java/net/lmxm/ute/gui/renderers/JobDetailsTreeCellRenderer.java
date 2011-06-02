@@ -30,6 +30,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
 import net.lmxm.ute.beans.DescribableBean;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -126,6 +127,12 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 
 			setIcon(ImageUtil.NETWORK_HUB_ICON);
 			setText(httpLocation.getId());
+		}
+		else if (userObject instanceof Preference) {
+			final Preference preference = (Preference) userObject;
+
+			setIcon(ImageUtil.PREFERENCE_ICON);
+			setText(preference.getId());
 		}
 		else if (userObject instanceof Property) {
 			final Property property = (Property) userObject;

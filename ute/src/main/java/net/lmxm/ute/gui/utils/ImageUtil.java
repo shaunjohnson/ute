@@ -38,6 +38,9 @@ public final class ImageUtil {
 	/** The Constant ADD_LOCATION_ICON. */
 	public static final Icon ADD_LOCATION_ICON;
 
+	/** The Constant ADD_PREFERENCE_ICON. */
+	public static final Icon ADD_PREFERENCE_ICON;
+
 	/** The Constant ADD_PROPERTY_ICON. */
 	public static final Icon ADD_PROPERTY_ICON;
 
@@ -83,6 +86,9 @@ public final class ImageUtil {
 	/** The Constant OPEN_FILE_ICON. */
 	public static final Icon OPEN_FILE_ICON;
 
+	/** The Constant PREFERENCE_ICON. */
+	public static final ImageIcon PREFERENCE_ICON;
+
 	/** The Constant PROPERTY_ICON. */
 	public static final ImageIcon PROPERTY_ICON;
 
@@ -108,6 +114,7 @@ public final class ImageUtil {
 		ABOUT_ICON = new ImageIcon(thisClass.getResource("/images/information.png"));
 		ADD_JOB_ICON = new ImageIcon(thisClass.getResource("/images/document--plus.png"));
 		ADD_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/drive--plus.png"));
+		ADD_PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/plus.png"));
 		ADD_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/plus.png"));
 		CHECKOUT_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
 		CLEAR_ICON = new ImageIcon(thisClass.getResource("/images/eraser.png"));
@@ -122,6 +129,7 @@ public final class ImageUtil {
 		NETWORK_HUB_ICON = new ImageIcon(thisClass.getResource("/images/network-hub.png"));
 		NEW_FILE_ICON = new ImageIcon(thisClass.getResource("/images/document.png"));
 		OPEN_FILE_ICON = new ImageIcon(thisClass.getResource("/images/folder-open-document.png"));
+		PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
 		PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
 		SAVE_FILE_AS_ICON = new ImageIcon(thisClass.getResource("/images/disks-black.png"));
 		SAVE_FILE_ICON = new ImageIcon(thisClass.getResource("/images/disk-black.png"));

@@ -18,7 +18,17 @@
  */
 package net.lmxm.ute.gui.utils;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.List;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
+
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -28,17 +38,9 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.nodes.FileSystemLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.HttpLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.JobsRootTreeNode;
+import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
-
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.util.List;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +57,7 @@ public final class GuiUtils {
 
 	/**
 	 * Adds the file system locations to tree model.
-	 *
+	 * 
 	 * @param rootNode the root node
 	 * @param configuration the configuration
 	 */
@@ -83,7 +85,7 @@ public final class GuiUtils {
 
 	/**
 	 * Adds the http locations to tree model.
-	 *
+	 * 
 	 * @param rootNode the root node
 	 * @param configuration the configuration
 	 */
@@ -110,7 +112,7 @@ public final class GuiUtils {
 
 	/**
 	 * Adds the jobs to tree model.
-	 *
+	 * 
 	 * @param rootNode the root node
 	 * @param configuration the configuration
 	 */
@@ -145,8 +147,35 @@ public final class GuiUtils {
 	}
 
 	/**
+	 * Adds the preferences to tree model.
+	 * 
+	 * @param rootNode the root node
+	 * @param configuration the configuration
+	 */
+	private static void addPreferencesToTreeModel(final DefaultMutableTreeNode rootNode,
+			final Configuration configuration) {
+		final String prefix = "addPreferencesToTreeModel() :";
+
+		LOGGER.debug("{} entered, configuration={}", prefix, configuration);
+
+		final List<Preference> preferences = configuration.getPreferences();
+		final PreferencesRootTreeNode preferencesRootTreeNode = new PreferencesRootTreeNode("Preferences ("
+				+ preferences.size() + ")");
+		final DefaultMutableTreeNode preferencesNode = new DefaultMutableTreeNode(preferencesRootTreeNode);
+		rootNode.add(preferencesNode);
+
+		LOGGER.debug("{} loading {} preferences", prefix, preferences.size());
+
+		for (final Preference preference : preferences) {
+			preferencesNode.add(new DefaultMutableTreeNode(preference));
+		}
+
+		LOGGER.debug("{} leaving");
+	}
+
+	/**
 	 * Adds the properties to tree model.
-	 *
+	 * 
 	 * @param rootNode the root node
 	 * @param configuration the configuration
 	 */
@@ -173,7 +202,7 @@ public final class GuiUtils {
 
 	/**
 	 * Adds the subversion repository locations to tree model.
-	 *
+	 * 
 	 * @param rootNode the root node
 	 * @param configuration the configuration
 	 */
@@ -223,7 +252,7 @@ public final class GuiUtils {
 
 	/**
 	 * Load job details tree model.
-	 *
+	 * 
 	 * @param configuration the configuration
 	 * @return the tree model
 	 */
@@ -242,6 +271,7 @@ public final class GuiUtils {
 		addHttpLocationsToTreeModel(rootNode, configuration);
 		addSubversionRepositoryLocationsToTreeModel(rootNode, configuration);
 		addPropertiesToTreeModel(rootNode, configuration);
+		addPreferencesToTreeModel(rootNode, configuration);
 
 		LOGGER.debug("{} returning treeModel={}", prefix, treeModel);
 

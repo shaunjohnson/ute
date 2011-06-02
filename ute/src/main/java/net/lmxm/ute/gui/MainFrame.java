@@ -63,6 +63,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -80,6 +81,7 @@ import net.lmxm.ute.gui.editors.GroovyTaskEditorPanel;
 import net.lmxm.ute.gui.editors.HttpDownloadTaskEditorPanel;
 import net.lmxm.ute.gui.editors.HttpLocationEditorPanel;
 import net.lmxm.ute.gui.editors.JobEditorPanel;
+import net.lmxm.ute.gui.editors.PreferenceEditorPanel;
 import net.lmxm.ute.gui.editors.PropertyEditorPanel;
 import net.lmxm.ute.gui.editors.SubversionExportTaskEditorPanel;
 import net.lmxm.ute.gui.editors.SubversionRepositoryLocationEditorPanel;
@@ -90,6 +92,8 @@ import net.lmxm.ute.gui.menus.HttpLocationPopupMenu;
 import net.lmxm.ute.gui.menus.HttpLocationsRootPopupMenu;
 import net.lmxm.ute.gui.menus.JobPopupMenu;
 import net.lmxm.ute.gui.menus.JobsRootPopupMenu;
+import net.lmxm.ute.gui.menus.PreferencePopupMenu;
+import net.lmxm.ute.gui.menus.PreferencesRootPopupMenu;
 import net.lmxm.ute.gui.menus.PropertiesRootPopupMenu;
 import net.lmxm.ute.gui.menus.PropertyPopupMenu;
 import net.lmxm.ute.gui.menus.SubversionRepositoryLocationPopupMenu;
@@ -136,6 +140,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The add location button. */
 	private JButton addLocationButton = null;
+
+	/** The add preferece button. */
+	private JButton addPrefereceButton = null;
 
 	/** The add property button. */
 	private JButton addPropertyButton = null;
@@ -256,6 +263,15 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The output scroll pane. */
 	private JScrollPane outputScrollPane = null;
+
+	/** The preference editor panel. */
+	private PreferenceEditorPanel preferenceEditorPanel = null;
+
+	/** The preference popup menu. */
+	private PreferencePopupMenu preferencePopupMenu = null;
+
+	/** The preferences root popup menu. */
+	private PreferencesRootPopupMenu preferencesRootPopupMenu = null;
 
 	/** The properties root popup menu. */
 	private PropertiesRootPopupMenu propertiesRootPopupMenu = null;
@@ -423,6 +439,22 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			addLocationButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return addLocationButton;
+	}
+
+	/**
+	 * Gets the adds the preference button.
+	 * 
+	 * @return the adds the preference button
+	 */
+	private JButton getAddPreferenceButton() {
+		if (addPrefereceButton == null) {
+			addPrefereceButton = new JButton();
+			addPrefereceButton.setIcon(ImageUtil.ADD_PREFERENCE_ICON);
+			addPrefereceButton.setToolTipText("Add new preference");
+			addPrefereceButton.setText("Add Preference");
+			addPrefereceButton.setEnabled(false); // TODO disabled since it is not implemented
+		}
+		return addPrefereceButton;
 	}
 
 	/**
@@ -899,6 +931,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			mainToolBar.add(getAddJobButton());
 			mainToolBar.add(getAddLocationButton());
 			mainToolBar.add(getAddPropertyButton());
+			mainToolBar.add(getAddPreferenceButton());
 		}
 		return mainToolBar;
 	}
@@ -1060,6 +1093,48 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			outputScrollPane.setViewportView(getOutputEditorPane());
 		}
 		return outputScrollPane;
+	}
+
+	/**
+	 * Gets the preference editor panel.
+	 * 
+	 * @param preference the preference
+	 * @return the preference editor panel
+	 */
+	private JPanel getPreferenceEditorPanel(final Preference preference) {
+		if (preferenceEditorPanel == null) {
+			preferenceEditorPanel = new PreferenceEditorPanel(configuration);
+		}
+
+		preferenceEditorPanel.loadData(preference);
+
+		return preferenceEditorPanel;
+	}
+
+	/**
+	 * Gets the preference popup menu.
+	 * 
+	 * @return the preference popup menu
+	 */
+	protected PreferencePopupMenu getPreferencePopupMenu() {
+		if (preferencePopupMenu == null) {
+			preferencePopupMenu = new PreferencePopupMenu(this, this);
+		}
+
+		return preferencePopupMenu;
+	}
+
+	/**
+	 * Gets the preferences root popup menu.
+	 * 
+	 * @return the preferences root popup menu
+	 */
+	protected PreferencesRootPopupMenu getPreferencesRootPopupMenu() {
+		if (preferencesRootPopupMenu == null) {
+			preferencesRootPopupMenu = new PreferencesRootPopupMenu(this, this);
+		}
+
+		return preferencesRootPopupMenu;
 	}
 
 	/**
@@ -1680,6 +1755,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 		else if (userObject instanceof HttpLocation) {
 			editorPane = getHttpLocationEditorPanel((HttpLocation) userObject);
+		}
+		else if (userObject instanceof Preference) {
+			editorPane = getPreferenceEditorPanel((Preference) userObject);
 		}
 		else if (userObject instanceof Property) {
 			editorPane = getPropertyEditorPanel((Property) userObject);
