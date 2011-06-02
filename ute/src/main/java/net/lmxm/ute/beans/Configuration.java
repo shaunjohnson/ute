@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Class Configuration.
@@ -46,6 +46,9 @@ public final class Configuration implements DomainBean {
 	/** The jobs. */
 	private List<Job> jobs;
 
+	/** The preferences. */
+	private List<Preference> preferences;
+
 	/** The properties. */
 	private List<Property> properties;
 
@@ -61,13 +64,14 @@ public final class Configuration implements DomainBean {
 		jobs = new ArrayList<Job>();
 		fileSystemLocations = new ArrayList<FileSystemLocation>();
 		HttpLocations = new ArrayList<HttpLocation>();
+		preferences = new ArrayList<Preference>();
 		properties = new ArrayList<Property>();
 		subversionRepositoryLocations = new ArrayList<SubversionRepositoryLocation>();
 	}
 
 	/**
 	 * Gets the absolute path.
-	 *
+	 * 
 	 * @return the absolute path
 	 */
 	public String getAbsolutePath() {
@@ -85,7 +89,7 @@ public final class Configuration implements DomainBean {
 
 	/**
 	 * Gets the http locations.
-	 *
+	 * 
 	 * @return the http locations
 	 */
 	public List<HttpLocation> getHttpLocations() {
@@ -99,6 +103,15 @@ public final class Configuration implements DomainBean {
 	 */
 	public List<Job> getJobs() {
 		return jobs;
+	}
+
+	/**
+	 * Gets the preferences.
+	 * 
+	 * @return the preferences
+	 */
+	public List<Preference> getPreferences() {
+		return preferences;
 	}
 
 	/**
@@ -121,7 +134,7 @@ public final class Configuration implements DomainBean {
 
 	/**
 	 * Sets the absolute path.
-	 *
+	 * 
 	 * @param absolutePath the new absolute path
 	 */
 	public void setAbsolutePath(final String absolutePath) {
@@ -139,7 +152,7 @@ public final class Configuration implements DomainBean {
 
 	/**
 	 * Sets the http locations.
-	 *
+	 * 
 	 * @param httpLocations the new http locations
 	 */
 	public void setHttpLocations(final List<HttpLocation> httpLocations) {
@@ -153,6 +166,15 @@ public final class Configuration implements DomainBean {
 	 */
 	public void setJobs(final List<Job> jobs) {
 		this.jobs = jobs;
+	}
+
+	/**
+	 * Sets the preferences.
+	 * 
+	 * @param preferences the new preferences
+	 */
+	public void setPreferences(final List<Preference> preferences) {
+		this.preferences = preferences;
 	}
 
 	/**

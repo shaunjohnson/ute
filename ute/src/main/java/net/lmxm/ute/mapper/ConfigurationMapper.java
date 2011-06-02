@@ -25,6 +25,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.BasicJob;
 import net.lmxm.ute.beans.jobs.Job;
@@ -55,6 +56,7 @@ import noNamespace.HttpLocationType;
 import noNamespace.HttpSourceType;
 import noNamespace.JobType;
 import noNamespace.LocationsType;
+import noNamespace.PreferenceType;
 import noNamespace.PropertyType;
 import noNamespace.SubversionExportTaskType;
 import noNamespace.SubversionRepositorySourceType;
@@ -115,6 +117,7 @@ public final class ConfigurationMapper {
 			final UteConfigurationDocument document = UteConfigurationDocument.Factory.parse(file);
 			final UteConfigurationType configurationType = document.getUteConfiguration();
 
+			parsePreferences(configurationType, configuration);
 			parseProperties(configurationType, configuration);
 			parseLocations(configurationType, configuration);
 			parseJobs(configurationType, configuration);
@@ -492,6 +495,50 @@ public final class ConfigurationMapper {
 	}
 
 	/**
+	 * Parses the preference.
+	 * 
+	 * @param preferenceType the preference type
+	 * @return the preference
+	 */
+	private Preference parsePreference(final PreferenceType preferenceType) {
+		final String prefix = "parsePreference() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final Preference preference = new Preference();
+
+		preference.setId(preferenceType.getId());
+
+		LOGGER.debug("{} returning {}", prefix, preference);
+
+		return preference;
+	}
+
+	/**
+	 * Parses the preferences.
+	 * 
+	 * @param configurationType the configuration type
+	 * @param configuration the configuration
+	 */
+	private void parsePreferences(final UteConfigurationType configurationType, final Configuration configuration) {
+		final String prefix = "parsePreferences() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final List<Preference> preferences = configuration.getPreferences();
+
+		LOGGER.debug("{} parsing {} preferences", prefix, preferences.size());
+
+		for (final PreferenceType preferenceType : configurationType.getPreferences().getPreferenceArray()) {
+			preferences.add(parsePreference(preferenceType));
+		}
+
+		Collections.sort(preferences);
+
+		LOGGER.debug("{} exiting", prefix);
+	}
+
+	/**
 	 * Parses the properties.
 	 * 
 	 * @param configurationType the configuration type
@@ -523,7 +570,7 @@ public final class ConfigurationMapper {
 	 * @return the property
 	 */
 	private Property parseProperty(final PropertyType propertyType) {
-		final String prefix = "parseFile() :";
+		final String prefix = "parseProperty() :";
 
 		LOGGER.debug("{} entered", prefix);
 

@@ -111,7 +111,16 @@
 		<xs:sequence>
 			<xs:element name="jobs" type="jobs-type"/>
 			<xs:element name="locations" type="locations-type"/>
-			<xs:element name="properties" type="properties-type"/>
+			<xs:element name="properties" type="properties-type" minOccurs="0"/>
+			<xs:element name="preferences" type="preferences-type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="preference-type">
+		<xs:attribute name="id" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="preferences-type">
+		<xs:sequence>
+			<xs:element name="preference" type="preference-type" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="property-type">

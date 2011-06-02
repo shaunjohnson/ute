@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -83,14 +84,19 @@ public final class ConfigurationUtils {
 		final List<String> propertyNames = new ArrayList<String>();
 		final List<String> propertyValues = new ArrayList<String>();
 
+		for (final Preference preference : configuration.getPreferences()) {
+			propertyNames.add("${pref." + preference.getId() + "}");
+			propertyValues.add(StringUtils.trimToEmpty(preference.getValue()));
+		}
+
 		for (final Property property : configuration.getProperties()) {
 			propertyNames.add("${" + property.getId() + "}");
-			propertyValues.add(property.getValue());
+			propertyValues.add(StringUtils.trimToEmpty(property.getValue()));
 		}
 
 		for (final Entry<String, String> entry : System.getenv().entrySet()) {
 			propertyNames.add("${env." + entry.getKey() + "}");
-			propertyValues.add(entry.getValue());
+			propertyValues.add(StringUtils.trimToEmpty(entry.getValue()));
 		}
 
 		final Map<PropertyType, String[]> propertyMaps = new HashMap<PropertyType, String[]>();
