@@ -41,7 +41,7 @@ public final class ApplicationPreferences {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationPreferences.class);
 
 	/** The Constant PREFERENCES_FILE_NAME. */
-	private static final String PREFERENCES_FILE_NAME = "ute_prefs.xml";
+	private static final String PREFERENCES_FILE_NAME = "ute-prefs.xml";
 
 	/** The configuration. */
 	private final Configuration configuration;
