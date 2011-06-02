@@ -20,8 +20,10 @@ package net.lmxm.ute.utils;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +57,30 @@ public abstract class AbstractPreferences {
 	 */
 	public AbstractPreferences(final Class<?> userNode) {
 		preferences = Preferences.userNodeForPackage(userNode);
+	}
+
+	/**
+	 * Gets the all keys.
+	 * 
+	 * @return the all keys
+	 */
+	protected final String[] getAllKeys() {
+		final String prefix = "getDimension() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		String[] keys;
+
+		try {
+			keys = preferences.keys();
+		}
+		catch (final BackingStoreException e) {
+			LOGGER.warn("{} IllegalStateException caught loading preference keys", prefix);
+
+			keys = new String[0];
+		}
+
+		return keys;
 	}
 
 	/**
@@ -140,6 +166,33 @@ public abstract class AbstractPreferences {
 		LOGGER.debug("{} returning {}", prefix, value);
 
 		return value;
+	}
+
+	/**
+	 * Checks for preference.
+	 * 
+	 * @param key the key
+	 * @return true, if successful
+	 */
+	protected final boolean hasPreference(final String key) {
+		final String prefix = "hasPreference() :";
+
+		LOGGER.debug("{} entered, key={}", prefix, key);
+
+		final boolean hasPreference = StringUtils.isNotBlank(getString(key));
+
+		LOGGER.debug("{} returning {}", prefix, hasPreference);
+
+		return hasPreference;
+	}
+
+	/**
+	 * Removes the all preferences.
+	 */
+	public final void removeAllPreferences() {
+		for (final String key : getAllKeys()) {
+			removePreference(key);
+		}
 	}
 
 	/**

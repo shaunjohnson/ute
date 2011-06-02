@@ -24,14 +24,20 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
+import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
@@ -51,6 +57,10 @@ public class EditPreferencesDialog extends JDialog {
 	/** The main layout panel. */
 	private JPanel mainLayoutPanel = null;
 
+	private JScrollPane preferencesScrollPane = null;
+
+	private JTable preferencesTable = null;
+
 	/** The save button. */
 	private JButton saveButton = null;
 
@@ -67,6 +77,15 @@ public class EditPreferencesDialog extends JDialog {
 		super();
 
 		initialize();
+	}
+
+	protected final DefaultTableModel createEmptyPreferencesTableModel() {
+		final DefaultTableModel tableModel = new DefaultTableModel();
+
+		tableModel.addColumn("Name");
+		tableModel.addColumn("Value");
+
+		return tableModel;
 	}
 
 	/**
@@ -112,10 +131,28 @@ public class EditPreferencesDialog extends JDialog {
 			mainLayoutPanel = new JPanel();
 			mainLayoutPanel.setLayout(new BorderLayout());
 			mainLayoutPanel.add(getTitlePanel(), BorderLayout.NORTH);
-			// mainLayoutPanel.add(getAttributionsTextPane(), BorderLayout.CENTER);
+			mainLayoutPanel.add(getPreferencesScrollPane(), BorderLayout.CENTER);
 			mainLayoutPanel.add(getButtonPanel(), BorderLayout.SOUTH);
 		}
 		return mainLayoutPanel;
+	}
+
+	protected final JScrollPane getPreferencesScrollPane() {
+		if (preferencesScrollPane == null) {
+			preferencesScrollPane = new JScrollPane(getPreferencesTable());
+			preferencesScrollPane.setMaximumSize(new Dimension(400, 100));
+		}
+
+		return preferencesScrollPane;
+	}
+
+	protected final JTable getPreferencesTable() {
+		if (preferencesTable == null) {
+			preferencesTable = new JTable(createEmptyPreferencesTableModel());
+			preferencesTable.setFillsViewportHeight(true);
+		}
+
+		return preferencesTable;
 	}
 
 	/**
@@ -175,5 +212,19 @@ public class EditPreferencesDialog extends JDialog {
 		pack();
 
 		getCancelButton().requestFocus();
+	}
+
+	public void loadPreferencesData(final Configuration configuration) {
+		final DefaultTableModel tableModel = createEmptyPreferencesTableModel();
+
+		final List<Preference> preferences = configuration.getPreferences();
+
+		if (preferences != null) {
+			for (final Preference preference : preferences) {
+				tableModel.addRow(new Object[] { preference.getId(), preference.getValue() });
+			}
+		}
+
+		getPreferencesTable().setModel(tableModel);
 	}
 }

@@ -40,7 +40,7 @@ public final class UserPreferences extends AbstractPreferences {
 	/** The Constant MAIN_SPLIT_PANE_DIVIDER_LOCATION. */
 	private static final String MAIN_SPLIT_PANE_DIVIDER_LOCATION = "mainSplitPaneDividerLocation";
 
-	/** The Constant WINDOW_LOCATION_X. */
+	/** The Constant WINDOW_LOCATION. */
 	private static final String WINDOW_LOCATION = "windowLocation";
 
 	/** The Constant WINDOW_SIZE. */

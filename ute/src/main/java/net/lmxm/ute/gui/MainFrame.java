@@ -111,6 +111,7 @@ import net.lmxm.ute.listeners.StatusChangeEvent;
 import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.mapper.ConfigurationMapper;
+import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.ConfigurationUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 import net.lmxm.ute.utils.ResourcesUtils;
@@ -142,11 +143,13 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	/** The add location button. */
 	private JButton addLocationButton = null;
 
-	/** The add preferece button. */
-	private JButton addPrefereceButton = null;
+	/** The add preference button. */
+	private JButton addPreferenceButton = null;
 
 	/** The add property button. */
 	private JButton addPropertyButton = null;
+
+	private final ApplicationPreferences applicationPreferences = new ApplicationPreferences();
 
 	/** The bottom panel. */
 	private JPanel bottomPanel = null;
@@ -337,6 +340,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		initialize();
+
+		validatePreferencesAreSet();
 	}
 
 	/*
@@ -457,14 +462,14 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @return the adds the preference button
 	 */
 	private JButton getAddPreferenceButton() {
-		if (addPrefereceButton == null) {
-			addPrefereceButton = new JButton();
-			addPrefereceButton.setIcon(ImageUtil.ADD_PREFERENCE_ICON);
-			addPrefereceButton.setToolTipText("Add new preference");
-			addPrefereceButton.setText("Add Preference");
-			addPrefereceButton.setEnabled(false); // TODO disabled since it is not implemented
+		if (addPreferenceButton == null) {
+			addPreferenceButton = new JButton();
+			addPreferenceButton.setIcon(ImageUtil.ADD_PREFERENCE_ICON);
+			addPreferenceButton.setToolTipText("Add new preference");
+			addPreferenceButton.setText("Add Preference");
+			addPreferenceButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
-		return addPrefereceButton;
+		return addPreferenceButton;
 	}
 
 	/**
@@ -547,7 +552,10 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			editPreferencesMenuItem.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent e) {
-					final JDialog dialog = new EditPreferencesDialog();
+					final EditPreferencesDialog dialog = new EditPreferencesDialog();
+
+					dialog.loadPreferencesData(configuration);
+
 					DialogUtil.center(parent, dialog);
 					dialog.setVisible(true);
 				}
@@ -1840,5 +1848,28 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 
 		setTitle(builder.toString());
+	}
+
+	/**
+	 * Validate preferences are set.
+	 */
+	private void validatePreferencesAreSet() {
+		final String prefix = "validatePreferencesAreSet() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		applicationPreferences.loadPreferenceValues(configuration.getPreferences());
+
+		if (applicationPreferences.hasAllPreferences(configuration.getPreferences())) {
+			LOGGER.debug("{} all preferences have values", prefix);
+		}
+		else {
+			LOGGER.debug("{} at least one preference does not have a value", prefix);
+
+			JOptionPane.showMessageDialog(this, "Preferences must be assigned values before continuing", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		LOGGER.debug("{} leaving", prefix);
 	}
 }
