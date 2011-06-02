@@ -18,33 +18,16 @@
  */
 package net.lmxm.ute;
 
-import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.console.ConsoleJobStatusListener;
-import net.lmxm.ute.console.ConsoleStatusChangeListener;
-import net.lmxm.ute.executors.jobs.JobExecutorFactory;
-import net.lmxm.ute.gui.MainFrame;
-import net.lmxm.ute.mapper.ConfigurationMapper;
-import net.lmxm.ute.utils.ConfigurationUtils;
-import net.lmxm.ute.utils.FileSystemUtils;
-
-import java.io.File;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-import org.apache.commons.lang.StringUtils;
+import net.lmxm.ute.console.ConsoleApplication;
+import net.lmxm.ute.gui.MainFrame;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jgoodies.looks.Options;
-import com.martiansoftware.jsap.FlaggedOption;
-import com.martiansoftware.jsap.JSAP;
-import com.martiansoftware.jsap.JSAPException;
-import com.martiansoftware.jsap.JSAPResult;
 
 /**
  * The Class Application.
@@ -52,14 +35,7 @@ import com.martiansoftware.jsap.JSAPResult;
 public final class Application {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(Application.class);
-
-	/** The Constant stderr. */
-	private static final PrintStream stderr = System.err;
-
-	/** The Constant stdout. */
-	private static final PrintStream stdout = System.out;
+	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
 	/**
 	 * Execute command line.
@@ -67,76 +43,12 @@ public final class Application {
 	 * @param args the args
 	 */
 	private static void executeCommandLine(final String[] args) {
-		final String prefix = "executeCommandLine(String[]) :";
+		final String prefix = "executeCommandLine() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final JSAP jsap = new JSAP();
-
-		try {
-			setupJsap(jsap);
-		} catch (final JSAPException e1) {
-			LOGGER.error("{} Error occurred processing arguments", prefix);
-		}
-
-		final JSAPResult result = jsap.parse(args);
-
-		final String[] jobIds = result.getStringArray("job-id");
-		final String inputFile = result.getString("input-file");
-
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("{} jobIds={}", prefix, jobIds);
-			LOGGER.debug("{} inputFile={}", prefix, inputFile);
-		}
-
-		if (jobIds == null || jobIds.length == 0
-				|| StringUtils.isBlank(inputFile)) {
-			LOGGER.error("{} insufficient arguments", prefix);
-
-			printUsage(jsap, null);
-
-			return;
-		}
-
-		if (!FileSystemUtils.getInstance().fileExists(inputFile)) {
-			LOGGER.error("{} Input file does not exist", prefix);
-
-			printUsage(jsap, "Input file does not exist");
-
-			return;
-		}
-
-		final Configuration configuration = new ConfigurationMapper()
-				.parse(new File(inputFile));
-		final List<Job> jobs = new ArrayList<Job>();
-
-		// Load jobs, validating that the job ids are valid
-		for (final String jobId : jobIds) {
-			final Job job = ConfigurationUtils.getJob(configuration, jobId);
-
-			if (job == null) {
-				LOGGER.error("{} job with id \"{}\" does not exist", prefix,
-						jobId);
-
-				printUsage(jsap, "Job with id \"" + jobId + "\" does not exist");
-
-				return;
-			}
-
-			jobs.add(job);
-		}
-
-		// Execute jobs
-		for (final Job job : jobs) {
-			LOGGER.debug("{} executing job {}", prefix, job.getId());
-
-			final Job jobInterpolated = ConfigurationUtils
-					.interpolateJobValues(job, configuration);
-
-			JobExecutorFactory.create(jobInterpolated,
-					new ConsoleJobStatusListener(),
-					new ConsoleStatusChangeListener()).execute();
-		}
+		final ConsoleApplication consoleApplication = new ConsoleApplication(args);
+		consoleApplication.execute();
 
 		LOGGER.debug("{} leaving", prefix);
 	}
@@ -150,9 +62,9 @@ public final class Application {
 		LOGGER.debug("{} entered", prefix);
 
 		try {
-			UIManager.setLookAndFeel(Options
-					.getCrossPlatformLookAndFeelClassName());
-		} catch (final Exception e) {
+			UIManager.setLookAndFeel(Options.getCrossPlatformLookAndFeelClassName());
+		}
+		catch (final Exception e) {
 			LOGGER.error("Error setting native LAF", e);
 		}
 
@@ -176,58 +88,11 @@ public final class Application {
 
 		if (args.length == 0) {
 			executeGui();
-		} else {
+		}
+		else {
 			executeCommandLine(args);
 		}
 
 		LOGGER.info("{} Application ended", prefix);
-	}
-
-	/**
-	 * Prints the usage.
-	 * 
-	 * @param jsap the jsap
-	 * @param errorMessage the error message
-	 */
-	private static void printUsage(final JSAP jsap, final String errorMessage) {
-		stderr.println("Universal Task Executor Usage\n");
-
-		if (StringUtils.isNotBlank(errorMessage)) {
-			stdout.println(errorMessage + "\n");
-		}
-
-		stderr.println(jsap.getHelp());
-	}
-
-	/**
-	 * Sets the up jsap.
-	 * 
-	 * @param jsap the new up jsap
-	 * @throws JSAPException the jSAP exception
-	 */
-	private static void setupJsap(final JSAP jsap) throws JSAPException {
-		final String prefix = "setupJsap() :";
-
-		LOGGER.info("{} entered", prefix);
-
-		// Input file option
-		final FlaggedOption inputFileOption = new FlaggedOption("input-file");
-		inputFileOption.setStringParser(JSAP.STRING_PARSER);
-		inputFileOption.setShortFlag('i');
-		inputFileOption.setLongFlag("input-file");
-		inputFileOption.setHelp("Path of configuration file");
-		jsap.registerParameter(inputFileOption);
-
-		// Job ID option
-		final FlaggedOption jobIdOption = new FlaggedOption("job-id");
-		jobIdOption.setStringParser(JSAP.STRING_PARSER);
-		jobIdOption.setShortFlag('j');
-		jobIdOption.setLongFlag("job-id");
-		jobIdOption.setHelp("Job ID");
-		jobIdOption.setList(true);
-		jobIdOption.setListSeparator(',');
-		jsap.registerParameter(jobIdOption);
-
-		LOGGER.info("{} leaving", prefix);
 	}
 }
