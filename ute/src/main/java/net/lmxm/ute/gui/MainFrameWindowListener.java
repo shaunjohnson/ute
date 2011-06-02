@@ -18,22 +18,20 @@
  */
 package net.lmxm.ute.gui;
 
-import net.lmxm.ute.gui.utils.UserPreferences;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
+import net.lmxm.ute.gui.utils.UserPreferences;
+
 /**
- * The listener interface for receiving mainFrameWindow events.
- * The class that is interested in processing a mainFrameWindow
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addMainFrameWindowListener<code> method. When
+ * The listener interface for receiving mainFrameWindow events. The class that is interested in processing a
+ * mainFrameWindow event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addMainFrameWindowListener<code> method. When
  * the mainFrameWindow event occurs, that object's appropriate
  * method is invoked.
- *
+ * 
  * @see MainFrameWindowEvent
  */
 public final class MainFrameWindowListener extends WindowAdapter {
@@ -41,9 +39,11 @@ public final class MainFrameWindowListener extends WindowAdapter {
 	/** The main frame. */
 	private final MainFrame mainFrame;
 
+	private final UserPreferences userPreferences = new UserPreferences();
+
 	/**
 	 * Instantiates a new main frame window listener.
-	 *
+	 * 
 	 * @param mainFrame the main frame
 	 */
 	public MainFrameWindowListener(final MainFrame mainFrame) {
@@ -52,18 +52,19 @@ public final class MainFrameWindowListener extends WindowAdapter {
 		this.mainFrame = mainFrame;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
 	 */
 	@Override
 	public void windowClosing(final WindowEvent e) {
-		UserPreferences.setWindowState(mainFrame.getExtendedState());
+		userPreferences.setWindowState(mainFrame.getExtendedState());
 
 		mainFrame.setExtendedState(JFrame.NORMAL);
-		UserPreferences.setWindowSize(mainFrame.getSize());
+		userPreferences.setWindowSize(mainFrame.getSize());
 
-		UserPreferences.setWindowLocation(mainFrame.getLocation());
-		UserPreferences.setMainSplitPaneDividerLocation(mainFrame.getMainSplitPane().getDividerLocation());
-		UserPreferences.setJobsSplitPaneDividerLocation(mainFrame.getJobsSplitPane().getDividerLocation());
+		userPreferences.setWindowLocation(mainFrame.getLocation());
+		userPreferences.setMainSplitPaneDividerLocation(mainFrame.getMainSplitPane().getDividerLocation());
+		userPreferences.setJobsSplitPaneDividerLocation(mainFrame.getJobsSplitPane().getDividerLocation());
 	}
 }

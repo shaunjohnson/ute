@@ -325,6 +325,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	/** The toolbar panel. */
 	private JPanel toolbarPanel = null;
 
+	/** The user preferences. */
+	private final UserPreferences userPreferences = new UserPreferences();
+
 	/**
 	 * Instantiates a new main frame.
 	 */
@@ -1484,7 +1487,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 		LOGGER.debug("{} entered", prefix);
 
-		final String filePath = UserPreferences.getLastFileEditedPath();
+		final String filePath = userPreferences.getLastFileEditedPath();
 
 		if (FileSystemUtils.getInstance().fileExists(filePath)) {
 			LOGGER.debug("{} loading file {}", prefix, filePath);
@@ -1505,7 +1508,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			configuration.setAbsolutePath("new");
 
 			// Clear out invalid entry in user preferences
-			UserPreferences.removeLastFileEditedPath();
+			userPreferences.removeLastFileEditedPath();
 		}
 
 		addWindowListener(new MainFrameWindowListener(this));
@@ -1630,18 +1633,18 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * Load user preferences.
 	 */
 	private void loadUserPreferences() {
-		setSize(UserPreferences.getWindowSize());
+		setSize(userPreferences.getWindowSize());
 
-		final Point location = UserPreferences.getWindowLocation();
+		final Point location = userPreferences.getWindowLocation();
 
 		if (location != null) {
 			setLocation(location);
 		}
 
-		setExtendedState(UserPreferences.getWindowState());
+		setExtendedState(userPreferences.getWindowState());
 
-		getMainSplitPane().setDividerLocation(UserPreferences.getMainSplitPaneDividerLocation());
-		getJobsSplitPane().setDividerLocation(UserPreferences.getJobsSplitPaneDividerLocation());
+		getMainSplitPane().setDividerLocation(userPreferences.getMainSplitPaneDividerLocation());
+		getJobsSplitPane().setDividerLocation(userPreferences.getJobsSplitPaneDividerLocation());
 	}
 
 	/**
@@ -1664,7 +1667,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			try {
 				configuration = ConfigurationMapper.getInstance().parse(file);
 
-				UserPreferences.setLastFileEditedPath(file.getAbsolutePath());
+				userPreferences.setLastFileEditedPath(file.getAbsolutePath());
 
 				refreshJobsTree();
 				updateTitle();
