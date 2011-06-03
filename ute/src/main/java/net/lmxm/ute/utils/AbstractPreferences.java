@@ -60,6 +60,25 @@ public abstract class AbstractPreferences {
 	}
 
 	/**
+	 * Do all keys exist.
+	 * 
+	 * @param keys the keys
+	 * @return true, if successful
+	 */
+	public final boolean doAllKeysExist(final String... keys) {
+		boolean allKeysExist = true;
+
+		for (final String key : keys) {
+			if (preferences.get(key, null) == null) {
+				allKeysExist = false;
+				break;
+			}
+		}
+
+		return allKeysExist;
+	}
+
+	/**
 	 * Gets the all keys.
 	 * 
 	 * @return the all keys
@@ -93,6 +112,12 @@ public abstract class AbstractPreferences {
 		final String prefix = "getDimension() :";
 
 		LOGGER.debug("{} entered, key={}", prefix, key);
+
+		if (!doAllKeysExist(key + HEIGHT_SUFFIX, key + WIDTH_SUFFIX)) {
+			LOGGER.debug("{} height or width is missing, returning null", prefix);
+
+			return null;
+		}
 
 		final int height = getInt(key + HEIGHT_SUFFIX, 0);
 		final int width = getInt(key + WIDTH_SUFFIX, 0);
@@ -133,6 +158,12 @@ public abstract class AbstractPreferences {
 		final String prefix = "getPoint() :";
 
 		LOGGER.debug("{} entered, key={}", prefix, key);
+
+		if (!doAllKeysExist(key + X_SUFFIX, key + Y_SUFFIX)) {
+			LOGGER.debug("{} X or Y is missing, returning null", prefix);
+
+			return null;
+		}
 
 		final int x = getInt(key + X_SUFFIX, 0);
 		final int y = getInt(key + Y_SUFFIX, 0);

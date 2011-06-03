@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.utils;
 
+import net.lmxm.ute.utils.testimpl.TestStatusChangeListener;
+
 import org.junit.Test;
 
 /**

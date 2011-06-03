@@ -28,6 +28,7 @@ import java.util.List;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
+import net.lmxm.ute.utils.testimpl.TestStatusChangeListener;
 
 import org.junit.Test;
 

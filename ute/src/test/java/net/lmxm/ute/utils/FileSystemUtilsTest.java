@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.utils.testimpl.TestStatusChangeListener;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
