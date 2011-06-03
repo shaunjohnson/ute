@@ -32,6 +32,8 @@ import org.codehaus.groovy.control.CompilationFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Preconditions;
+
 /**
  * The Class GroovyUtils.
  */
@@ -72,6 +74,8 @@ public final class GroovyUtils {
 		final String prefix = "executeScript() :";
 
 		LOGGER.debug("{} entered", prefix);
+
+		Preconditions.checkNotNull(statusChangeListener, "Status change listener may not be null");
 
 		final Binding binding = new Binding();
 		binding.setVariable("path", path);
