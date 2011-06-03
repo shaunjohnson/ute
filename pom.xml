@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.lmxm.ute</groupId>
+	<artifactId>ute-parent</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>ute</module>
+		<module>ute-xml-schema</module>
+	</modules>
+	<name>Universal Task Executor Parent</name>
+	<description>Universal Task Executor</description>
+	<url>http://lmxm.net/ute</url>
+	<inceptionYear>2011</inceptionYear>
+	<issueManagement>
+	</issueManagement>
+	<ciManagement>
+	</ciManagement>
+	<developers>
+		<developer>
+			<id>shaun</id>
+			<name>Shaun Johnson</name>
+			<email>shaun at lmxm dot net</email>
+			<organization>LMXM LLC</organization>
+			<organizationUrl>http://lmxm.net</organizationUrl>
+			<roles>
+				<role>Lead Developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+	</scm>
+	<organization>
+		<name>LMXM LLC</name>
+		<url>http://lmxm.net</url>
+	</organization>
+</project>
