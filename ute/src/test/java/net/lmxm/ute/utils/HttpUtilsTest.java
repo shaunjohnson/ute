@@ -28,8 +28,6 @@ import java.util.List;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeListener;
 
 import org.junit.Test;
 
@@ -37,27 +35,6 @@ import org.junit.Test;
  * The Class HttpUtilsTest.
  */
 public class HttpUtilsTest {
-
-	/**
-	 * The listener interface for receiving myStatusChange events. The class that is interested in processing a
-	 * myStatusChange event implements this interface, and the object created with that class is registered with a
-	 * component using the component's <code>addMyStatusChangeListener<code> method. When
-	 * the myStatusChange event occurs, that object's appropriate
-	 * method is invoked.
-	 * 
-	 * @see MyStatusChangeEvent
-	 */
-	private static class MyStatusChangeListener implements StatusChangeListener {
-
-		/*
-		 * (non-Javadoc)
-		 * @see net.lmxm.ute.listeners.StatusChangeListener#statusChange(net.lmxm.ute.listeners.StatusChangeEvent)
-		 */
-		@Override
-		public void statusChange(final StatusChangeEvent changeEvent) {
-			System.out.println(changeEvent);
-		}
-	}
 
 	/** The Constant EMPTY_FILE_LIST. */
 	private static final List<FileReference> EMPTY_FILE_LIST = new ArrayList<FileReference>();
@@ -75,7 +52,7 @@ public class HttpUtilsTest {
 	private static final String RELATIVE_PATH = "mail";
 
 	/** The Constant STATUS_CHANGE_LISTENER. */
-	private static final MyStatusChangeListener STATUS_CHANGE_LISTENER = new MyStatusChangeListener();
+	private static final TestStatusChangeListener STATUS_CHANGE_LISTENER = new TestStatusChangeListener();
 
 	/** The Constant URL. */
 	private static final String URL = "http://google.com";
