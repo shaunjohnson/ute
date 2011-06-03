@@ -59,6 +59,8 @@ public final class FileSystemUtils {
 
 		LOGGER.debug("{} entered, path={}", prefix, path);
 
+		Preconditions.checkArgument(StringUtils.isNotBlank(path), "Path may not be blank or null");
+
 		final List<File> files = new ArrayList<File>();
 
 		if (fileReferences == null) {
@@ -122,6 +124,8 @@ public final class FileSystemUtils {
 
 		LOGGER.debug("{} entered", prefix);
 
+		Preconditions.checkArgument(StringUtils.isNotBlank(path), "Path may not be blank or null");
+
 		final File directory = new File(path);
 
 		if (directory.exists()) {
@@ -163,7 +167,7 @@ public final class FileSystemUtils {
 
 		final String pathTrimmed = StringUtils.trimToNull(path);
 
-		Preconditions.checkNotNull(pathTrimmed, "Path may not be blank");
+		Preconditions.checkArgument(pathTrimmed != null, "Path may not be blank");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
 		final File pathFile = new File(pathTrimmed);
@@ -178,7 +182,7 @@ public final class FileSystemUtils {
 		}
 
 		if (pathFile.isFile()) {
-			LOGGER.debug("{} deleting file {}", files.size(), pathFile.getName());
+			LOGGER.debug("{} deleting file {}", prefix, pathFile.getName());
 
 			FileUtils.deleteQuietly(pathFile);
 
@@ -188,10 +192,8 @@ public final class FileSystemUtils {
 		else if (pathFile.isDirectory()) {
 			LOGGER.debug("{} path is a directory", prefix);
 
-			Preconditions.checkNotNull(files, "Files may not be null");
-
 			if (CollectionUtils.isEmpty(files)) {
-				LOGGER.debug("{} deleting directory {}", files.size(), pathFile.getName());
+				LOGGER.debug("{} deleting directory {}", prefix, pathFile.getName());
 
 				FileUtils.deleteQuietly(pathFile);
 
@@ -199,12 +201,12 @@ public final class FileSystemUtils {
 						"Deleting directory \"" + pathFile + "\""));
 			}
 			else {
-				LOGGER.debug("{} deleting {} files in a directory", files.size(), prefix);
+				LOGGER.debug("{} deleting {} files in a directory", prefix, prefix);
 
 				for (final FileReference file : files) {
 					final String fileName = file.getName();
 
-					LOGGER.debug("{} deleting file {}", files.size(), fileName);
+					LOGGER.debug("{} deleting file {}", prefix, fileName);
 
 					FileUtils.deleteQuietly(new File(pathFile, fileName));
 

@@ -34,12 +34,15 @@ public class GroovyUtilsTest {
 	/** The Constant STATUS_CHANGE_LISTENER. */
 	private static final TestStatusChangeListener STATUS_CHANGE_LISTENER = new TestStatusChangeListener();
 
+	/** The Constant TMP_DIR. */
+	private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
+
 	/**
 	 * Test execute script.
 	 */
 	@Test
 	public void testExecuteScript() {
-		GROOVY_UTILS.executeScript(HELLO_WORLD, null, null, STATUS_CHANGE_LISTENER);
+		GROOVY_UTILS.executeScript(HELLO_WORLD, TMP_DIR, null, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -47,7 +50,7 @@ public class GroovyUtilsTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testExecuteScriptCompilationFailure() {
-		GROOVY_UTILS.executeScript("this will not compile", null, null, STATUS_CHANGE_LISTENER);
+		GROOVY_UTILS.executeScript("this will not compile", TMP_DIR, null, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -55,7 +58,7 @@ public class GroovyUtilsTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testExecuteScriptExecutionFailure() {
-		GROOVY_UTILS.executeScript("throw new IllegalArgumentException()", null, null, STATUS_CHANGE_LISTENER);
+		GROOVY_UTILS.executeScript("throw new IllegalArgumentException()", TMP_DIR, null, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -63,6 +66,6 @@ public class GroovyUtilsTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testExecuteScriptNullChangeListener() {
-		GROOVY_UTILS.executeScript(HELLO_WORLD, null, null, null);
+		GROOVY_UTILS.executeScript(HELLO_WORLD, TMP_DIR, null, null);
 	}
 }
