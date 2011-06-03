@@ -18,18 +18,18 @@
  */
 package net.lmxm.ute.utils;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.listeners.StatusChangeEvent;
 import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
@@ -55,7 +55,7 @@ public class HttpUtils {
 
 	/**
 	 * Gets the full url.
-	 *
+	 * 
 	 * @param source the source
 	 * @return the full url
 	 */
@@ -84,7 +84,7 @@ public class HttpUtils {
 
 	/**
 	 * Gets the single instance of HttpUtils.
-	 *
+	 * 
 	 * @return single instance of HttpUtils
 	 */
 	public static HttpUtils getInstance() {
@@ -100,7 +100,7 @@ public class HttpUtils {
 
 	/**
 	 * Download file.
-	 *
+	 * 
 	 * @param sourceUrl the source url
 	 * @param destinationFilePath the destination file path
 	 * @param statusChangeListener the status change listener
@@ -144,7 +144,6 @@ public class HttpUtils {
 						"Successfully download " + sourceUrl));
 			}
 		}
-
 		catch (final ClientProtocolException e) {
 			LOGGER.debug("ClientProtocolException caught", e);
 
@@ -175,7 +174,7 @@ public class HttpUtils {
 
 	/**
 	 * Download files.
-	 *
+	 * 
 	 * @param url the url
 	 * @param destinationPath the destination path
 	 * @param files the files
@@ -187,6 +186,11 @@ public class HttpUtils {
 
 		LOGGER.debug("{} entered", prefix);
 
+		Preconditions.checkArgument(StringUtils.isNotBlank(url), "URL may not be blank or null");
+		Preconditions.checkArgument(StringUtils.isNotBlank(destinationPath),
+				"Destination path may not be blank or null");
+		Preconditions.checkNotNull(statusChangeListener, "Status change listener may not be null");
+
 		FileSystemUtils.getInstance().createDirectory(destinationPath);
 
 		if (files == null || files.size() == 0) {
@@ -195,7 +199,7 @@ public class HttpUtils {
 			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.FATAL,
 					"List of files is empty"));
 
-			throw new RuntimeException(); // TODO Use appropriate exception
+			throw new IllegalArgumentException("List of files is empty"); // TODO Use appropriate exception
 		}
 
 		// Download each file

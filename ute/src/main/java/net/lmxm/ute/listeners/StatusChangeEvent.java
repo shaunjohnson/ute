@@ -74,4 +74,13 @@ public final class StatusChangeEvent extends EventObject {
 	public String getMessage() {
 		return message;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.EventObject#toString()
+	 */
+	@Override
+	public String toString() {
+		return eventType.toString() + " : " + message;
+	}
 }
