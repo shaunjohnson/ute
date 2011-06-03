@@ -181,6 +181,7 @@ public class FileSystemUtilsTest {
 		directory.mkdir();
 
 		final File file = new File(directory, "UTE.TEST");
+		file.deleteOnExit();
 		FileUtils.touch(file);
 
 		assertTrue(file.exists());
@@ -203,6 +204,7 @@ public class FileSystemUtilsTest {
 	 */
 	public void testDeleteFilesFileDoesNotExist() throws IOException {
 		final File file = new File(TMP_DIR, "TESTFILE.TEST");
+		file.deleteOnExit();
 
 		assertFalse(file.exists());
 
@@ -235,6 +237,7 @@ public class FileSystemUtilsTest {
 	@Test
 	public void testDeleteFilesSingleDirectory() throws IOException {
 		final File directory = new File(TMP_DIR, "TESTDIRECTORY");
+		directory.deleteOnExit();
 		directory.mkdir();
 
 		assertTrue(directory.exists());
@@ -252,6 +255,7 @@ public class FileSystemUtilsTest {
 	@Test
 	public void testDeleteFilesSingleFile() throws IOException {
 		final File file = File.createTempFile("UTE", ".TEST");
+		file.deleteOnExit();
 		FileUtils.touch(file);
 
 		assertTrue(file.exists());
