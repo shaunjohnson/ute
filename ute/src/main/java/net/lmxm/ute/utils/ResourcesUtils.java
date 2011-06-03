@@ -47,7 +47,7 @@ public final class ResourcesUtils {
 
 	/**
 	 * Gets the application attributions.
-	 *
+	 * 
 	 * @return the application attributions
 	 */
 	public static String getApplicationAttributions() {
@@ -56,7 +56,7 @@ public final class ResourcesUtils {
 
 	/**
 	 * Gets the application name.
-	 *
+	 * 
 	 * @return the application name
 	 */
 	public static String getApplicationName() {
@@ -65,10 +65,17 @@ public final class ResourcesUtils {
 
 	/**
 	 * Gets the application version.
-	 *
+	 * 
 	 * @return the application version
 	 */
 	public static String getApplicationVersion() {
 		return applicationVersion;
+	}
+
+	/**
+	 * Instantiates a new resources utils.
+	 */
+	private ResourcesUtils() {
+		throw new AssertionError();
 	}
 }

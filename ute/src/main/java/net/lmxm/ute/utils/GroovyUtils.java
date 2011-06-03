@@ -53,6 +53,13 @@ public final class GroovyUtils {
 	}
 
 	/**
+	 * Instantiates a new groovy utils.
+	 */
+	private GroovyUtils() {
+		super();
+	}
+
+	/**
 	 * Execute script.
 	 * 
 	 * @param script the script
