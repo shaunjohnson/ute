@@ -26,12 +26,13 @@ import org.slf4j.LoggerFactory;
  * The Class PathUtils.
  */
 public class PathUtils {
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(PathUtils.class);
 
 	/**
 	 * Builds the full path.
-	 *
+	 * 
 	 * @param rootPath the root path
 	 * @param relativePath the relative path
 	 * @return the string
@@ -41,13 +42,16 @@ public class PathUtils {
 
 		LOGGER.debug("{} entered, root={}, relativepath=" + relativePath, prefix, rootPath);
 
+		final String root = StringUtils.removeEnd(StringUtils.trimToEmpty(rootPath), "/");
+		final String relative = StringUtils.removeStart(StringUtils.trimToEmpty(relativePath), "/");
+
 		String fullPath;
 
-		if (StringUtils.isBlank(relativePath)) {
-			fullPath = rootPath;
+		if (StringUtils.isBlank(relative)) {
+			fullPath = root;
 		}
 		else {
-			fullPath = StringUtils.join(new Object[] { rootPath, "/", relativePath });
+			fullPath = StringUtils.join(new Object[] { root, "/", relative });
 		}
 
 		LOGGER.debug("{} returning {}", prefix, fullPath);
