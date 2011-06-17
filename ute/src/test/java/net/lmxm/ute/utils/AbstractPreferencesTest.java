@@ -49,12 +49,19 @@ public class AbstractPreferencesTest {
 	private static final String VALUE = "value";
 
 	/**
+	 * Removes the all preferences.
+	 */
+	@AfterClass
+	public static void removeAllPreferences() {
+		TEST_PREFERENCES.removeAllPreferences();
+	}
+
+	/**
 	 * Removes all preferences.
 	 */
 	@Before
-	@AfterClass
-	public void removeAllPreferences() {
-		TEST_PREFERENCES.removeAllPreferences();
+	public void setUp() {
+		removeAllPreferences();
 	}
 
 	/**
