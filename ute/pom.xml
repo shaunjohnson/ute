@@ -2,11 +2,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.lmxm.ute</groupId>
 	<artifactId>ute</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<parent>
 		<groupId>net.lmxm.ute</groupId>
 		<artifactId>ute-parent</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>0.2.0-SNAPSHOT</version>
 	</parent>
 	<name>Universal Task Executor</name>
 	<description>Universal Task Executor</description>
@@ -209,7 +209,7 @@
 		<dependency>
 			<groupId>net.lmxm.ute</groupId>
 			<artifactId>ute-config-xml-schema</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
+			<version>0.2.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
