@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import net.lmxm.ute.TestStatusChangeListener;
 import net.lmxm.ute.TestTask;
+import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
@@ -40,9 +41,18 @@ public class TaskExecutorFactoryTest {
 	 */
 	@Test
 	public void testCreate() {
-		// Null task and listener
+		// Null task, properties holder and listener
 		try {
-			TaskExecutorFactory.create(null, null);
+			TaskExecutorFactory.create(null, null, null);
+			fail();
+		}
+		catch (final NullPointerException e) {
+			assertNotNull(e.getMessage());
+		}
+
+		// Null properties holder and listener
+		try {
+			TaskExecutorFactory.create(new TestTask(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -51,7 +61,7 @@ public class TaskExecutorFactoryTest {
 
 		// Null listener
 		try {
-			TaskExecutorFactory.create(new TestTask(), null);
+			TaskExecutorFactory.create(new TestTask(), new Configuration(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -60,7 +70,7 @@ public class TaskExecutorFactoryTest {
 
 		// Null task
 		try {
-			TaskExecutorFactory.create(null, new TestStatusChangeListener());
+			TaskExecutorFactory.create(null, new Configuration(), new TestStatusChangeListener());
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -69,7 +79,7 @@ public class TaskExecutorFactoryTest {
 
 		// Unsupported task type
 		try {
-			TaskExecutorFactory.create(new TestTask(), new TestStatusChangeListener());
+			TaskExecutorFactory.create(new TestTask(), new Configuration(), new TestStatusChangeListener());
 			fail();
 		}
 		catch (final IllegalArgumentException e) {
@@ -78,21 +88,21 @@ public class TaskExecutorFactoryTest {
 
 		// Test file system delete task
 		final Executor fileSystemDeleteTaskExecutor = TaskExecutorFactory.create(new FileSystemDeleteTask(),
-				new TestStatusChangeListener());
+				new Configuration(), new TestStatusChangeListener());
 
 		assertNotNull(fileSystemDeleteTaskExecutor);
 		assertTrue(fileSystemDeleteTaskExecutor instanceof FileSystemDeleteTaskExecutor);
 
 		// Test Subversion export task
 		final Executor subversionExportTaskExecutor = TaskExecutorFactory.create(new SubversionExportTask(),
-				new TestStatusChangeListener());
+				new Configuration(), new TestStatusChangeListener());
 
 		assertNotNull(subversionExportTaskExecutor);
 		assertTrue(subversionExportTaskExecutor instanceof SubversionExportTaskExecutor);
 
 		// Test Subversion update task
 		final Executor subversionUpdateTaskExecutor = TaskExecutorFactory.create(new SubversionUpdateTask(),
-				new TestStatusChangeListener());
+				new Configuration(), new TestStatusChangeListener());
 
 		assertNotNull(subversionUpdateTaskExecutor);
 		assertTrue(subversionUpdateTaskExecutor instanceof SubversionUpdateTaskExecutor);

@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executors;
 
+import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
@@ -31,31 +32,46 @@ public abstract class AbstractJobExecutor implements Executor {
 	/** The job status listener. */
 	private final JobStatusListener jobStatusListener;
 
+	/** The properties holder. */
+	private final PropertiesHolder propertiesHolder;
+
 	/** The status change listener. */
 	private final StatusChangeListener statusChangeListener;
 
 	/**
 	 * Instantiates a new abstract job executor.
-	 *
+	 * 
+	 * @param propertiesHolder the properties holder
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
 	 */
-	public AbstractJobExecutor(final JobStatusListener jobStatusListener,
+	public AbstractJobExecutor(final PropertiesHolder propertiesHolder, final JobStatusListener jobStatusListener,
 			final StatusChangeListener statusChangeListener) {
+		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
+		this.propertiesHolder = propertiesHolder;
 		this.jobStatusListener = jobStatusListener;
 		this.statusChangeListener = statusChangeListener;
 	}
 
 	/**
 	 * Gets the job status listener.
-	 *
+	 * 
 	 * @return the job status listener
 	 */
 	protected final JobStatusListener getJobStatusListener() {
 		return jobStatusListener;
+	}
+
+	/**
+	 * Gets the properties holder.
+	 * 
+	 * @return the properties holder
+	 */
+	protected final PropertiesHolder getPropertiesHolder() {
+		return propertiesHolder;
 	}
 
 	/**

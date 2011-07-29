@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executors.jobs;
 
+import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.executors.Executor;
 import net.lmxm.ute.executors.ExecutorFactory;
@@ -39,15 +40,16 @@ public final class JobExecutorFactory implements ExecutorFactory {
 
 	/**
 	 * Creates the.
-	 *
+	 * 
 	 * @param job the job
+	 * @param propertiesHolder the properties holder
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
 	 * @return the executor if
 	 */
-	public static Executor create(final Job job, final JobStatusListener jobStatusListener,
-			final StatusChangeListener statusChangeListener) {
-		final String prefix = "create(Job,JobStatusListenerStatusChangeListener) :";
+	public static Executor create(final Job job, final PropertiesHolder propertiesHolder,
+			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
+		final String prefix = "create(Job,PropertiesHolder,JobStatusListenerStatusChangeListener) :";
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("{} entered", prefix);
@@ -57,10 +59,11 @@ public final class JobExecutorFactory implements ExecutorFactory {
 		}
 
 		Preconditions.checkNotNull(job, "Job may not be null");
+		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
-		final Executor executor = new JobExecutor(job, jobStatusListener, statusChangeListener);
+		final Executor executor = new JobExecutor(job, propertiesHolder, jobStatusListener, statusChangeListener);
 
 		LOGGER.debug("{} returning {}", prefix, executor);
 

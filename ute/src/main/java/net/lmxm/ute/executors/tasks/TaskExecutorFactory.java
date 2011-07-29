@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executors.tasks;
 
+import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
@@ -45,11 +46,12 @@ public final class TaskExecutorFactory implements ExecutorFactory {
 	 * Creates the.
 	 * 
 	 * @param task the task
+	 * @param propertiesHolder the properties holder
 	 * @param statusChangeListener the status change listener
-	 * 
 	 * @return the executor if
 	 */
-	public static Executor create(final Task task, final StatusChangeListener statusChangeListener) {
+	public static Executor create(final Task task, final PropertiesHolder propertiesHolder,
+			final StatusChangeListener statusChangeListener) {
 		final String prefix = "create(Task,StatusChangeListener) :";
 
 		if (LOGGER.isDebugEnabled()) {
@@ -59,6 +61,7 @@ public final class TaskExecutorFactory implements ExecutorFactory {
 		}
 
 		Preconditions.checkNotNull(task, "Task may not be null");
+		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
 		Executor executor;
@@ -66,7 +69,7 @@ public final class TaskExecutorFactory implements ExecutorFactory {
 		if (task instanceof GroovyTask) {
 			LOGGER.debug("{} task is GroovyTask", prefix);
 
-			executor = new GroovyTaskExecutor((GroovyTask) task, statusChangeListener);
+			executor = new GroovyTaskExecutor((GroovyTask) task, propertiesHolder, statusChangeListener);
 		}
 		else if (task instanceof FileSystemDeleteTask) {
 			LOGGER.debug("{} task is FileSystemDeleteTask", prefix);

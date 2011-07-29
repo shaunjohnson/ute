@@ -29,7 +29,7 @@ import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 /**
  * The Class Configuration.
  */
-public final class Configuration implements DomainBean {
+public final class Configuration implements DomainBean, PropertiesHolder {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 351774939048448102L;

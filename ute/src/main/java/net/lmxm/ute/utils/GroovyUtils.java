@@ -21,9 +21,14 @@ package net.lmxm.ute.utils;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.Preference;
+import net.lmxm.ute.beans.PropertiesHolder;
+import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.listeners.StatusChangeEvent;
 import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
@@ -62,24 +67,60 @@ public final class GroovyUtils {
 	}
 
 	/**
+	 * Convert preferences to map.
+	 * 
+	 * @param propertiesHolder the properties holder
+	 * @return the object
+	 */
+	private Map<String, String> convertPreferencesToMap(final PropertiesHolder propertiesHolder) {
+		final Map<String, String> preferences = new HashMap<String, String>();
+
+		for (final Preference preference : propertiesHolder.getPreferences()) {
+			preferences.put(preference.getId(), preference.getValue());
+		}
+
+		return preferences;
+	}
+
+	/**
+	 * Convert properties to map.
+	 * 
+	 * @param propertiesHolder the properties holder
+	 * @return the object
+	 */
+	private Object convertPropertiesToMap(final PropertiesHolder propertiesHolder) {
+		final Map<String, String> properties = new HashMap<String, String>();
+
+		for (final Property property : propertiesHolder.getProperties()) {
+			properties.put(property.getId(), property.getValue());
+		}
+
+		return properties;
+	}
+
+	/**
 	 * Execute script.
 	 * 
 	 * @param script the script
 	 * @param path the path
 	 * @param files the files
+	 * @param propertiesHolder the properties holder
 	 * @param statusChangeListener the status change listener
 	 */
 	public void executeScript(final String script, final String path, final List<FileReference> files,
-			final StatusChangeListener statusChangeListener) {
+			final PropertiesHolder propertiesHolder, final StatusChangeListener statusChangeListener) {
 		final String prefix = "executeScript() :";
 
 		LOGGER.debug("{} entered", prefix);
 
+		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "Status change listener may not be null");
 
 		final Binding binding = new Binding();
 		binding.setVariable("path", path);
 		binding.setVariable("files", FileSystemUtils.convertToFileObjects(path, files));
+		binding.setVariable("properties", convertPropertiesToMap(propertiesHolder));
+		binding.setVariable("preferences", convertPreferencesToMap(propertiesHolder));
 
 		statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
 				"Starting execution of script"));

@@ -18,14 +18,15 @@
  */
 package net.lmxm.ute.gui.workers;
 
+import javax.swing.SwingWorker;
+
+import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.executors.jobs.JobExecutorFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeEvent;
 import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
-
-import javax.swing.SwingWorker;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,18 +47,22 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 	/** The job status listener. */
 	private final JobStatusListener jobStatusListener;
 
+	/** The properties holder. */
+	private final PropertiesHolder propertiesHolder;
+
 	/** The status change listener. */
 	private final StatusChangeListener statusChangeListener;
 
 	/**
 	 * Instantiates a new execute job worker.
-	 *
+	 * 
 	 * @param job the job
+	 * @param propertiesHolder the properties holder
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
 	 */
-	public ExecuteJobWorker(final Job job, final JobStatusListener jobStatusListener,
-			final StatusChangeListener statusChangeListener) {
+	public ExecuteJobWorker(final Job job, final PropertiesHolder propertiesHolder,
+			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
 		super();
 
 		Preconditions.checkNotNull(job, "Job may not be null");
@@ -65,6 +70,7 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
 		this.job = job;
+		this.propertiesHolder = propertiesHolder;
 		this.jobStatusListener = jobStatusListener;
 		this.statusChangeListener = statusChangeListener;
 	}
@@ -80,14 +86,15 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 
 		LOGGER.debug("{} entered", prefix);
 
-		JobExecutorFactory.create(job, jobStatusListener, statusChangeListener).execute();
+		JobExecutorFactory.create(job, propertiesHolder, jobStatusListener, statusChangeListener).execute();
 
 		LOGGER.debug("{} leaving", prefix);
 
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see javax.swing.SwingWorker#done()
 	 */
 	@Override

@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.executors.jobs;
 
+import java.util.List;
+
+import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executors.AbstractJobExecutor;
@@ -26,8 +29,6 @@ import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeEvent;
 import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
-
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,14 +48,15 @@ public final class JobExecutor extends AbstractJobExecutor {
 
 	/**
 	 * Instantiates a new job executor.
-	 *
+	 * 
 	 * @param job the job
+	 * @param propertiesHolder the properties holder
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
 	 */
-	protected JobExecutor(final Job job, final JobStatusListener jobStatusListener,
-			final StatusChangeListener statusChangeListener) {
-		super(jobStatusListener, statusChangeListener);
+	protected JobExecutor(final Job job, final PropertiesHolder propertiesHolder,
+			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
+		super(propertiesHolder, jobStatusListener, statusChangeListener);
 
 		Preconditions.checkNotNull(job, "Job may not be null");
 
@@ -63,7 +65,6 @@ public final class JobExecutor extends AbstractJobExecutor {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.executors.ExecutorIF#execute()
 	 */
 	@Override
@@ -91,7 +92,7 @@ public final class JobExecutor extends AbstractJobExecutor {
 						throw new RuntimeException("Job is being stopped"); // TODO Use appropriate exception
 					}
 
-					TaskExecutorFactory.create(task, getStatusChangeListener()).execute();
+					TaskExecutorFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
 
 					getJobStatusListener().jobTaskCompleted();
 				}

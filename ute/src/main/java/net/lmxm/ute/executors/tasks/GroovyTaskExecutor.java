@@ -21,6 +21,7 @@ package net.lmxm.ute.executors.tasks;
 import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.executors.AbstractTaskExecutor;
 import net.lmxm.ute.listeners.StatusChangeListener;
@@ -40,6 +41,8 @@ public final class GroovyTaskExecutor extends AbstractTaskExecutor {
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(GroovyTaskExecutor.class);
 
+	private final PropertiesHolder propertiesHolder;
+
 	/** The task. */
 	private final GroovyTask task;
 
@@ -47,13 +50,17 @@ public final class GroovyTaskExecutor extends AbstractTaskExecutor {
 	 * Instantiates a new groovy task executor.
 	 * 
 	 * @param task the task
+	 * @param propertiesHolder the properties holder
 	 * @param statusChangeListener the status change listener
 	 */
-	public GroovyTaskExecutor(final GroovyTask task, final StatusChangeListener statusChangeListener) {
+	public GroovyTaskExecutor(final GroovyTask task, final PropertiesHolder propertiesHolder,
+			final StatusChangeListener statusChangeListener) {
 		super(statusChangeListener);
 
 		Preconditions.checkNotNull(task, "Task may not be null");
+		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 
+		this.propertiesHolder = propertiesHolder;
 		this.task = task;
 	}
 
@@ -70,7 +77,8 @@ public final class GroovyTaskExecutor extends AbstractTaskExecutor {
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
 
-		GroovyUtils.getInstance().executeScript(task.getScript(), path, files, getStatusChangeListener());
+		GroovyUtils.getInstance().executeScript(task.getScript(), path, files, propertiesHolder,
+				getStatusChangeListener());
 
 		LOGGER.debug("{} returning", prefix);
 	}

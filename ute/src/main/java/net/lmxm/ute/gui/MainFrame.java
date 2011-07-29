@@ -373,7 +373,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 					progressBar.setValue(0);
 					progressBar.setMaximum(job.getTasks().size());
 
-					jobWorker = new ExecuteJobWorker(job, getJobStatusListener(), getStatusChangeListener());
+					jobWorker = new ExecuteJobWorker(job, configuration, getJobStatusListener(),
+							getStatusChangeListener());
 					jobWorker.execute();
 				}
 			}

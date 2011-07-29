@@ -91,7 +91,7 @@ public final class ConsoleApplication {
 
 			final Job jobInterpolated = ConfigurationUtils.interpolateJobValues(job, configuration);
 
-			JobExecutorFactory.create(jobInterpolated, new ConsoleJobStatusListener(),
+			JobExecutorFactory.create(jobInterpolated, configuration, new ConsoleJobStatusListener(),
 					new ConsoleStatusChangeListener()).execute();
 		}
 

@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.utils;
 
+import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.utils.testimpl.TestStatusChangeListener;
 
 import org.junit.Test;
@@ -33,6 +35,9 @@ public class GroovyUtilsTest {
 	/** The Constant HELLO_WORLD. */
 	private static final String HELLO_WORLD = "println 'Hello World!'";
 
+	/** The Constant PROPERTIES_HOLDER. */
+	private static final PropertiesHolder PROPERTIES_HOLDER = new Configuration();
+
 	/** The Constant STATUS_CHANGE_LISTENER. */
 	private static final TestStatusChangeListener STATUS_CHANGE_LISTENER = new TestStatusChangeListener();
 
@@ -44,7 +49,7 @@ public class GroovyUtilsTest {
 	 */
 	@Test
 	public void testExecuteScript() {
-		GROOVY_UTILS.executeScript(HELLO_WORLD, TMP_DIR, null, STATUS_CHANGE_LISTENER);
+		GROOVY_UTILS.executeScript(HELLO_WORLD, TMP_DIR, null, PROPERTIES_HOLDER, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -52,7 +57,7 @@ public class GroovyUtilsTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testExecuteScriptCompilationFailure() {
-		GROOVY_UTILS.executeScript("this will not compile", TMP_DIR, null, STATUS_CHANGE_LISTENER);
+		GROOVY_UTILS.executeScript("this will not compile", TMP_DIR, null, PROPERTIES_HOLDER, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -60,7 +65,8 @@ public class GroovyUtilsTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testExecuteScriptExecutionFailure() {
-		GROOVY_UTILS.executeScript("throw new IllegalArgumentException()", TMP_DIR, null, STATUS_CHANGE_LISTENER);
+		GROOVY_UTILS.executeScript("throw new IllegalArgumentException()", TMP_DIR, null, PROPERTIES_HOLDER,
+				STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -68,6 +74,6 @@ public class GroovyUtilsTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testExecuteScriptNullChangeListener() {
-		GROOVY_UTILS.executeScript(HELLO_WORLD, TMP_DIR, null, null);
+		GROOVY_UTILS.executeScript(HELLO_WORLD, TMP_DIR, null, PROPERTIES_HOLDER, null);
 	}
 }

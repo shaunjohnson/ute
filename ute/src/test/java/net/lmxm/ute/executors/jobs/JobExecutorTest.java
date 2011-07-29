@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.TestJobStatusListener;
 import net.lmxm.ute.TestStatusChangeListener;
+import net.lmxm.ute.beans.Configuration;
 
 import org.junit.Test;
 
@@ -36,7 +37,8 @@ public class JobExecutorTest {
 	 */
 	@Test
 	public void testExecute() {
-		new JobExecutor(new TestJob(), new TestJobStatusListener(), new TestStatusChangeListener()).execute();
+		new JobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener())
+				.execute();
 	}
 
 	/**
@@ -44,18 +46,27 @@ public class JobExecutorTest {
 	 */
 	@Test
 	public void testJobExecutor() {
-		// Null job, job listener and status listener
+		// Null job, properties holder, job listener and status listener
 		try {
-			new JobExecutor(null, null, null);
+			new JobExecutor(null, null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Null job listener and status listener
+		// Null properties holder, job listener and status listener
 		try {
-			new JobExecutor(new TestJob(), null, null);
+			new JobExecutor(new TestJob(), null, null, null);
+			fail();
+		}
+		catch (final NullPointerException e) {
+			assertNotNull(e.getMessage());
+		}
+
+		// Null properties holder, job listener and status listener
+		try {
+			new JobExecutor(new TestJob(), new Configuration(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -64,7 +75,7 @@ public class JobExecutorTest {
 
 		// Null status listener
 		try {
-			new JobExecutor(new TestJob(), new TestJobStatusListener(), null);
+			new JobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -73,14 +84,14 @@ public class JobExecutorTest {
 
 		// Null job
 		try {
-			new JobExecutor(null, new TestJobStatusListener(), new TestStatusChangeListener());
+			new JobExecutor(null, new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Non-null job and listener
-		new JobExecutor(new TestJob(), new TestJobStatusListener(), new TestStatusChangeListener());
+		// Non-null job, properties holder and listener
+		new JobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
 	}
 }
