@@ -51,6 +51,7 @@
 			<xs:element name="file-system-target" type="file-system-target-type"/>
 			<xs:element name="files" type="files-type" minOccurs="0"/>
 		</xs:sequence>
+		<xs:attribute name="stopOnError" type="xs:boolean" use="optional" default="false"/>
 	</xs:complexType>
 	<xs:complexType name="file-system-location-type">
 		<xs:attribute name="id" type="xs:NCName" use="required"/>

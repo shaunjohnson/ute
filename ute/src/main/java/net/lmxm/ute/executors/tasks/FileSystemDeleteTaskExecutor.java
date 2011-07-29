@@ -18,14 +18,14 @@
  */
 package net.lmxm.ute.executors.tasks;
 
+import java.util.List;
+
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.executors.AbstractTaskExecutor;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
-
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +45,7 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 
 	/**
 	 * Instantiates a new file system delete task executor.
-	 *
+	 * 
 	 * @param task the task
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
@@ -60,7 +60,6 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.executors.ExecutorIF#execute()
 	 */
 	@Override
@@ -72,7 +71,7 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
 
-		FileSystemUtils.getInstance().deleteFiles(path, files, getStatusChangeListener());
+		FileSystemUtils.getInstance().deleteFiles(path, files, task.getStopOnError(), getStatusChangeListener());
 
 		LOGGER.debug("{} returning", prefix);
 	}

@@ -19,6 +19,8 @@
 package net.lmxm.ute.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,9 +154,10 @@ public final class FileSystemUtils {
 	 * 
 	 * @param path the path
 	 * @param files the files
+	 * @param stopOnError the stop on error
 	 * @param statusChangeListener the status change listener
 	 */
-	public void deleteFiles(final String path, final List<FileReference> files,
+	public void deleteFiles(final String path, final List<FileReference> files, final boolean stopOnError,
 			final StatusChangeListener statusChangeListener) {
 		final String prefix = "execute() :";
 
@@ -162,6 +165,7 @@ public final class FileSystemUtils {
 			LOGGER.debug("{} entered", prefix);
 			LOGGER.debug("{} path={}", prefix, path);
 			LOGGER.debug("{} files={}", prefix, files);
+			LOGGER.debug("{} stopOnError={}", prefix, stopOnError);
 			LOGGER.debug("{} statusChangeListener={}", prefix, statusChangeListener);
 		}
 
@@ -184,10 +188,10 @@ public final class FileSystemUtils {
 		if (pathFile.isFile()) {
 			LOGGER.debug("{} deleting file {}", prefix, pathFile.getName());
 
-			FileUtils.deleteQuietly(pathFile);
-
-			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
-					"Deleting file \"" + pathFile + "\""));
+			if (forceDelete(pathFile, stopOnError, statusChangeListener)) {
+				statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
+						"Deleted file \"" + pathFile + "\""));
+			}
 		}
 		else if (pathFile.isDirectory()) {
 			LOGGER.debug("{} path is a directory", prefix);
@@ -195,10 +199,10 @@ public final class FileSystemUtils {
 			if (CollectionUtils.isEmpty(files)) {
 				LOGGER.debug("{} deleting directory {}", prefix, pathFile.getName());
 
-				FileUtils.deleteQuietly(pathFile);
-
-				statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
-						"Deleting directory \"" + pathFile + "\""));
+				if (forceDelete(pathFile, stopOnError, statusChangeListener)) {
+					statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
+							"Deleted directory \"" + pathFile + "\""));
+				}
 			}
 			else {
 				LOGGER.debug("{} deleting {} files in a directory", prefix, prefix);
@@ -208,10 +212,10 @@ public final class FileSystemUtils {
 
 					LOGGER.debug("{} deleting file {}", prefix, fileName);
 
-					FileUtils.deleteQuietly(new File(pathFile, fileName));
-
-					statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
-							"Deleting file \"" + fileName + "\""));
+					if (forceDelete(new File(pathFile, fileName), stopOnError, statusChangeListener)) {
+						statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
+								"Deleted file \"" + fileName + "\""));
+					}
 				}
 			}
 		}
@@ -244,5 +248,58 @@ public final class FileSystemUtils {
 		LOGGER.debug("{} returning {}", prefix, exists);
 
 		return exists;
+	}
+
+	/**
+	 * Force delete.
+	 * 
+	 * @param pathFile the path file
+	 * @param statusChangeListener the status change listener
+	 */
+	private boolean forceDelete(final File pathFile, final boolean stopOnError,
+			final StatusChangeListener statusChangeListener) {
+		final String prefix = "forceDelete() :";
+
+		boolean successful = false;
+
+		try {
+			FileUtils.forceDelete(pathFile);
+
+			successful = true;
+		}
+		catch (final FileNotFoundException e) {
+			if (stopOnError) {
+				LOGGER.error(prefix + " file not found " + pathFile.getName(), e);
+
+				statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR,
+						"Error deleting file, file not found \"" + pathFile + "\""));
+
+				throw new RuntimeException();
+			}
+			else {
+				LOGGER.debug("{} ignoring error deleting file", prefix);
+
+				statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
+						"Error deleting file, file not found \"" + pathFile + "\""));
+			}
+		}
+		catch (final IOException e) {
+			if (stopOnError) {
+				LOGGER.error(prefix + " error deleting file " + pathFile.getName(), e);
+
+				statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR,
+						"Error deleting file \"" + pathFile + "\""));
+
+				throw new RuntimeException();
+			}
+			else {
+				LOGGER.debug("{} ignoring error deleting file", prefix);
+
+				statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
+						"Error deleting file \"" + pathFile + "\""));
+			}
+		}
+
+		return successful;
 	}
 }

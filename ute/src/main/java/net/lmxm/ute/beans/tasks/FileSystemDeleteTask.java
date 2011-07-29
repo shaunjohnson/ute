@@ -28,6 +28,9 @@ public final class FileSystemDeleteTask extends AbstractFilesTask {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2208341570043553314L;
 
+	/** The stop on error. */
+	private boolean stopOnError;
+
 	/** The target. */
 	private FileSystemTarget target;
 
@@ -39,12 +42,30 @@ public final class FileSystemDeleteTask extends AbstractFilesTask {
 	}
 
 	/**
+	 * Gets the stop on error.
+	 * 
+	 * @return the stop on error
+	 */
+	public boolean getStopOnError() {
+		return stopOnError;
+	}
+
+	/**
 	 * Gets the target.
 	 * 
 	 * @return the target
 	 */
 	public FileSystemTarget getTarget() {
 		return target;
+	}
+
+	/**
+	 * Sets the stop on error.
+	 * 
+	 * @param stopOnError the new stop on error
+	 */
+	public void setStopOnError(final boolean stopOnError) {
+		this.stopOnError = stopOnError;
 	}
 
 	/**

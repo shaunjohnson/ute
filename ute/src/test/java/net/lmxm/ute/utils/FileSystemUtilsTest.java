@@ -45,6 +45,8 @@ public class FileSystemUtilsTest {
 	/** The Constant STATUS_CHANGE_LISTENER. */
 	private static final TestStatusChangeListener STATUS_CHANGE_LISTENER = new TestStatusChangeListener();
 
+	private static final boolean STOP_ON_ERROR = false;
+
 	/** The Constant TMP_DIR. */
 	private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
 
@@ -167,7 +169,7 @@ public class FileSystemUtilsTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteFilesBlankPath() {
-		FILE_SYSTEM_UTILS.deleteFiles("    ", null, STATUS_CHANGE_LISTENER);
+		FILE_SYSTEM_UTILS.deleteFiles("    ", null, STOP_ON_ERROR, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -193,7 +195,7 @@ public class FileSystemUtilsTest {
 		final List<FileReference> files = new ArrayList<FileReference>();
 		files.add(fileReference);
 
-		FILE_SYSTEM_UTILS.deleteFiles(directory.getAbsolutePath(), files, STATUS_CHANGE_LISTENER);
+		FILE_SYSTEM_UTILS.deleteFiles(directory.getAbsolutePath(), files, STOP_ON_ERROR, STATUS_CHANGE_LISTENER);
 
 		assertFalse(file.exists());
 	}
@@ -209,7 +211,7 @@ public class FileSystemUtilsTest {
 
 		assertFalse(file.exists());
 
-		FILE_SYSTEM_UTILS.deleteFiles(file.getAbsolutePath(), null, STATUS_CHANGE_LISTENER);
+		FILE_SYSTEM_UTILS.deleteFiles(file.getAbsolutePath(), null, STOP_ON_ERROR, STATUS_CHANGE_LISTENER);
 
 		assertFalse(file.exists());
 	}
@@ -219,7 +221,7 @@ public class FileSystemUtilsTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testDeleteFilesNullChangeListener() {
-		FILE_SYSTEM_UTILS.deleteFiles(TMP_DIR, null, null);
+		FILE_SYSTEM_UTILS.deleteFiles(TMP_DIR, null, STOP_ON_ERROR, null);
 	}
 
 	/**
@@ -227,7 +229,7 @@ public class FileSystemUtilsTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteFilesNullPath() {
-		FILE_SYSTEM_UTILS.deleteFiles(null, null, STATUS_CHANGE_LISTENER);
+		FILE_SYSTEM_UTILS.deleteFiles(null, null, STOP_ON_ERROR, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -243,7 +245,7 @@ public class FileSystemUtilsTest {
 
 		assertTrue(directory.exists());
 
-		FILE_SYSTEM_UTILS.deleteFiles(directory.getAbsolutePath(), null, STATUS_CHANGE_LISTENER);
+		FILE_SYSTEM_UTILS.deleteFiles(directory.getAbsolutePath(), null, STOP_ON_ERROR, STATUS_CHANGE_LISTENER);
 
 		assertFalse(directory.exists());
 	}
@@ -261,7 +263,7 @@ public class FileSystemUtilsTest {
 
 		assertTrue(file.exists());
 
-		FILE_SYSTEM_UTILS.deleteFiles(file.getAbsolutePath(), null, STATUS_CHANGE_LISTENER);
+		FILE_SYSTEM_UTILS.deleteFiles(file.getAbsolutePath(), null, STOP_ON_ERROR, STATUS_CHANGE_LISTENER);
 
 		assertFalse(file.exists());
 	}

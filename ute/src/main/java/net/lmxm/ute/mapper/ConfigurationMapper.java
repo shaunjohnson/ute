@@ -213,6 +213,7 @@ public final class ConfigurationMapper {
 
 		final FileSystemDeleteTask task = new FileSystemDeleteTask();
 
+		task.setStopOnError(taskType.getStopOnError());
 		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
 
 		parseFiles(task, taskType.getFiles());
