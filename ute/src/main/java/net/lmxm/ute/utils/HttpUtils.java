@@ -34,6 +34,7 @@ import net.lmxm.ute.listeners.StatusChangeListener;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -119,6 +120,16 @@ public class HttpUtils {
 			final DefaultHttpClient httpClient = new DefaultHttpClient();
 			final HttpGet httpGet = new HttpGet(sourceUrl);
 			final HttpResponse response = httpClient.execute(httpGet);
+			final int statusCode = response.getStatusLine().getStatusCode();
+
+			if (statusCode != HttpStatus.SC_OK) {
+				LOGGER.debug("HTTP status code {} returned", statusCode);
+
+				statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR,
+						"Unable to download " + sourceUrl + ". HTTP status code = " + statusCode));
+
+				throw new RuntimeException(); // TODO Use appropriate exception
+			}
 
 			final HttpEntity entity = response.getEntity();
 
