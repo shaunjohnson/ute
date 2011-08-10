@@ -86,6 +86,7 @@
 	<xs:complexType name="http-source-type">
 		<xs:sequence>
 			<xs:element name="relative-path" type="xs:string" minOccurs="0"/>
+			<xs:element name="queryParams" type="queryParams" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="location-id" type="xs:NCName" use="required"/>
 	</xs:complexType>
@@ -131,6 +132,17 @@
 	<xs:complexType name="properties-type">
 		<xs:sequence>
 			<xs:element name="property" type="property-type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="queryParam">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="value" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="queryParams">
+		<xs:sequence>
+			<xs:element name="queryParam" type="queryParam" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="subversion-repository-source-type">

@@ -18,14 +18,15 @@
  */
 package net.lmxm.ute.executors.tasks;
 
+import java.util.List;
+import java.util.Map;
+
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.executors.AbstractTaskExecutor;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.HttpUtils;
-
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public final class HttpDownloadTaskExecutor extends AbstractTaskExecutor {
 
 	/**
 	 * Instantiates a new http download task executor.
-	 *
+	 * 
 	 * @param task the task
 	 * @param statusChangeListener the status change listener
 	 */
@@ -59,7 +60,6 @@ public final class HttpDownloadTaskExecutor extends AbstractTaskExecutor {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.executors.ExecutorIF#execute()
 	 */
 	@Override
@@ -69,10 +69,11 @@ public final class HttpDownloadTaskExecutor extends AbstractTaskExecutor {
 		LOGGER.debug("{} entered", prefix);
 
 		final String url = HttpUtils.getFullUrl(task.getSource());
+		final Map<String, String> queryParams = task.getSource().getQueryParams();
 		final String destinationPath = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
 
-		HttpUtils.getInstance().downloadFiles(url, destinationPath, files, getStatusChangeListener());
+		HttpUtils.getInstance().downloadFiles(url, queryParams, destinationPath, files, getStatusChangeListener());
 
 		LOGGER.debug("{} returning", prefix);
 	}

@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.beans.sources;
 
+import java.util.Map;
+
 import net.lmxm.ute.beans.locations.HttpLocation;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -33,9 +35,12 @@ public class HttpSource extends AbstractSource {
 	/** The location. */
 	private HttpLocation location;
 
+	/** The query params. */
+	private Map<String, String> queryParams;
+
 	/**
 	 * Gets the location.
-	 *
+	 * 
 	 * @return the location
 	 */
 	public HttpLocation getLocation() {
@@ -43,15 +48,34 @@ public class HttpSource extends AbstractSource {
 	}
 
 	/**
+	 * Gets the query params.
+	 * 
+	 * @return the query params
+	 */
+	public Map<String, String> getQueryParams() {
+		return queryParams;
+	}
+
+	/**
 	 * Sets the location.
-	 *
+	 * 
 	 * @param location the new location
 	 */
 	public void setLocation(final HttpLocation location) {
 		this.location = location;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Sets the query params.
+	 * 
+	 * @param queryParams the query params
+	 */
+	public void setQueryParams(final Map<String, String> queryParams) {
+		this.queryParams = queryParams;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

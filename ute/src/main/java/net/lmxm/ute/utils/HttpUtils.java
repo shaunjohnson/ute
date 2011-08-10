@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.HttpLocation;
@@ -38,6 +39,8 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,14 +103,29 @@ public class HttpUtils {
 	}
 
 	/**
+	 * Builds the query params.
+	 * 
+	 * @param queryParams the query params
+	 * @return the http params
+	 */
+	private HttpParams buildQueryParams(final Map<String, String> queryParams) {
+		final HttpParams params = new BasicHttpParams();
+
+		// params.setParameter(arg0, arg1)
+
+		return params;
+	}
+
+	/**
 	 * Download file.
 	 * 
 	 * @param sourceUrl the source url
+	 * @param queryParams the query params
 	 * @param destinationFilePath the destination file path
 	 * @param statusChangeListener the status change listener
 	 */
-	private void downloadFile(final String sourceUrl, final String destinationFilePath,
-			final StatusChangeListener statusChangeListener) {
+	private void downloadFile(final String sourceUrl, final Map<String, String> queryParams,
+			final String destinationFilePath, final StatusChangeListener statusChangeListener) {
 		final String prefix = "execute() :";
 
 		if (LOGGER.isDebugEnabled()) {
@@ -119,6 +137,7 @@ public class HttpUtils {
 		try {
 			final DefaultHttpClient httpClient = new DefaultHttpClient();
 			final HttpGet httpGet = new HttpGet(sourceUrl);
+			httpGet.setParams(buildQueryParams(queryParams));
 			final HttpResponse response = httpClient.execute(httpGet);
 			final int statusCode = response.getStatusLine().getStatusCode();
 
@@ -187,12 +206,13 @@ public class HttpUtils {
 	 * Download files.
 	 * 
 	 * @param url the url
+	 * @param queryParams the query params
 	 * @param destinationPath the destination path
 	 * @param files the files
 	 * @param statusChangeListener the status change listener
 	 */
-	public void downloadFiles(final String url, final String destinationPath, final List<FileReference> files,
-			final StatusChangeListener statusChangeListener) {
+	public void downloadFiles(final String url, final Map<String, String> queryParams, final String destinationPath,
+			final List<FileReference> files, final StatusChangeListener statusChangeListener) {
 		final String prefix = "downloadFiles() :";
 
 		LOGGER.debug("{} entered", prefix);
@@ -223,7 +243,7 @@ public class HttpUtils {
 			final String targetFileName = StringUtils.isBlank(targetName) ? name : targetName;
 			final String destinationFilePath = PathUtils.buildFullPath(destinationPath, targetFileName);
 
-			downloadFile(sourceUrl, destinationFilePath, statusChangeListener);
+			downloadFile(sourceUrl, queryParams, destinationFilePath, statusChangeListener);
 		}
 
 		LOGGER.debug("{} leaving", prefix);

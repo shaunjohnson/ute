@@ -21,7 +21,9 @@ package net.lmxm.ute.mapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
@@ -58,6 +60,7 @@ import noNamespace.JobType;
 import noNamespace.LocationsType;
 import noNamespace.PreferenceType;
 import noNamespace.PropertyType;
+import noNamespace.QueryParam;
 import noNamespace.SubversionExportTaskType;
 import noNamespace.SubversionRepositorySourceType;
 import noNamespace.SubversionRespositoryLocationType;
@@ -398,6 +401,30 @@ public final class ConfigurationMapper {
 	}
 
 	/**
+	 * Parses the http query params.
+	 * 
+	 * @param sourceType the source type
+	 * @param source the source
+	 */
+	private void parseHttpQueryParams(final HttpSourceType sourceType, final HttpSource source) {
+		final String prefix = "parseHttpQueryParams() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final Map<String, String> queryParams = new HashMap<String, String>();
+
+		if (sourceType.isSetQueryParams()) {
+			for (final QueryParam queryParam : sourceType.getQueryParams().getQueryParamArray()) {
+				queryParams.put(queryParam.getName(), queryParam.getValue());
+			}
+		}
+
+		source.setQueryParams(queryParams);
+
+		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
 	 * Parses the http source.
 	 * 
 	 * @param sourceType the source type
@@ -414,6 +441,8 @@ public final class ConfigurationMapper {
 
 		source.setLocation(location);
 		source.setRelativePath(sourceType.getRelativePath());
+
+		parseHttpQueryParams(sourceType, source);
 
 		LOGGER.debug("{} returning {}", prefix, source);
 

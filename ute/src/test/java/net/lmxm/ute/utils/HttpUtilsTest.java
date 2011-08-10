@@ -23,7 +23,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.HttpLocation;
@@ -49,6 +51,8 @@ public class HttpUtilsTest {
 	/** The Constant FULL_URL. */
 	private static final String FULL_URL = "http://google.com/mail";
 
+	private static final Map<String, String> QUERY_PARAMS = new HashMap<String, String>();
+
 	/** The Constant RELATIVE_PATH. */
 	private static final String RELATIVE_PATH = "mail";
 
@@ -67,7 +71,8 @@ public class HttpUtilsTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDownloadFilesEmptyFiles() {
-		HttpUtils.getInstance().downloadFiles(URL, EXISTING_DIRECTORY, EMPTY_FILE_LIST, STATUS_CHANGE_LISTENER);
+		HttpUtils.getInstance().downloadFiles(URL, QUERY_PARAMS, EXISTING_DIRECTORY, EMPTY_FILE_LIST,
+				STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -75,7 +80,7 @@ public class HttpUtilsTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDownloadFilesNullDestinationPath() {
-		HttpUtils.getInstance().downloadFiles(URL, null, FILE_LIST, STATUS_CHANGE_LISTENER);
+		HttpUtils.getInstance().downloadFiles(URL, QUERY_PARAMS, null, FILE_LIST, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -83,7 +88,7 @@ public class HttpUtilsTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDownloadFilesNullFiles() {
-		HttpUtils.getInstance().downloadFiles(URL, EXISTING_DIRECTORY, null, STATUS_CHANGE_LISTENER);
+		HttpUtils.getInstance().downloadFiles(URL, QUERY_PARAMS, EXISTING_DIRECTORY, null, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -91,7 +96,7 @@ public class HttpUtilsTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testDownloadFilesNullStatusChangeListener() {
-		HttpUtils.getInstance().downloadFiles(URL, EXISTING_DIRECTORY, FILE_LIST, null);
+		HttpUtils.getInstance().downloadFiles(URL, QUERY_PARAMS, EXISTING_DIRECTORY, FILE_LIST, null);
 	}
 
 	/**
@@ -99,7 +104,8 @@ public class HttpUtilsTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDownloadFilesNullUrl() {
-		HttpUtils.getInstance().downloadFiles(null, EXISTING_DIRECTORY, FILE_LIST, STATUS_CHANGE_LISTENER);
+		HttpUtils.getInstance()
+				.downloadFiles(null, QUERY_PARAMS, EXISTING_DIRECTORY, FILE_LIST, STATUS_CHANGE_LISTENER);
 	}
 
 	/**

@@ -297,6 +297,38 @@ public final class ConfigurationUtils {
 	}
 
 	/**
+	 * Interpolate http query params.
+	 * 
+	 * @param source the source
+	 * @param propertyNames the property names
+	 * @param propertyValues the property values
+	 */
+	private static void interpolateHttpQueryParams(final HttpSource source, final String[] propertyNames,
+			final String[] propertyValues) {
+		final String prefix = "interpolateHttpQueryParams() :";
+
+		LOGGER.debug("{} entered, source={}", prefix, source);
+
+		if (source == null) {
+			LOGGER.debug("{} skipping, source is null", prefix);
+		}
+		else {
+			final Map<String, String> queryParams = new HashMap<String, String>();
+
+			for (final Entry<String, String> queryParam : source.getQueryParams().entrySet()) {
+				final String name = interpolateProperties(queryParam.getKey(), propertyNames, propertyValues);
+				final String value = interpolateProperties(queryParam.getValue(), propertyNames, propertyValues);
+
+				queryParams.put(name, value);
+			}
+
+			source.setQueryParams(queryParams);
+		}
+
+		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
 	 * Interpolate http source.
 	 * 
 	 * @param source the source
@@ -323,6 +355,8 @@ public final class ConfigurationUtils {
 			}
 
 			source.setRelativePath(interpolateProperties(source.getRelativePath(), propertyNames, propertyValues));
+
+			interpolateHttpQueryParams(source, propertyNames, propertyValues);
 		}
 
 		LOGGER.debug("{} leaving", prefix);
