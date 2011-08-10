@@ -180,6 +180,7 @@
 			</xs:choice>
 		</xs:sequence>
 		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="enabled" type="xs:boolean" use="optional" default="true"/>
 	</xs:complexType>
 	<xs:complexType name="tasks-type">
 		<xs:sequence>

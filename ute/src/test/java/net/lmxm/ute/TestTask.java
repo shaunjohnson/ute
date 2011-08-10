@@ -32,7 +32,8 @@ public class TestTask extends IdentifiableDomainBean implements Task {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5529817339153354600L;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.DescribableBean#getDescription()
 	 */
 	@Override
@@ -40,11 +41,30 @@ public class TestTask extends IdentifiableDomainBean implements Task {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#getEnabled()
+	 */
+	@Override
+	public boolean getEnabled() {
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.DescribableBean#setDescription(java.lang.String)
 	 */
 	@Override
 	public void setDescription(final String description) {
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#setEnabled(boolean)
+	 */
+	@Override
+	public void setEnabled(final boolean enabled) {
 
 	}
 }

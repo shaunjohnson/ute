@@ -31,6 +31,9 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	/** The description. */
 	private String description;
 
+	/** The enabled. */
+	private boolean enabled;
+
 	/**
 	 * Instantiates a new abstract task.
 	 */
@@ -38,21 +41,39 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 		super();
 	}
 
-	/**
-	 * Gets the description.
-	 * 
-	 * @return the description
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#getDescription()
 	 */
+	@Override
 	public final String getDescription() {
 		return description;
 	}
 
-	/**
-	 * Sets the description.
-	 * 
-	 * @param description the new description
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#getEnabled()
 	 */
+	@Override
+	public final boolean getEnabled() {
+		return enabled;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#setDescription(java.lang.String)
+	 */
+	@Override
 	public final void setDescription(final String description) {
 		this.description = description;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#setEnabled(boolean)
+	 */
+	@Override
+	public final void setEnabled(final boolean enabled) {
+		this.enabled = enabled;
 	}
 }

@@ -779,6 +779,7 @@ public final class ConfigurationMapper {
 		}
 
 		task.setDescription(taskType.getDescription());
+		task.setEnabled(taskType.getEnabled());
 		task.setId(taskType.getId());
 
 		LOGGER.debug("{} returning {}", prefix, task);

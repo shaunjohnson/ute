@@ -18,15 +18,28 @@
  */
 package net.lmxm.ute.beans.tasks;
 
+import java.io.Serializable;
+
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.DomainBean;
 import net.lmxm.ute.beans.IdentifiableBean;
-
-import java.io.Serializable;
 
 /**
  * The Interface Task.
  */
 public interface Task extends DescribableBean, DomainBean, IdentifiableBean, Serializable {
 
+	/**
+	 * Gets the enabled.
+	 * 
+	 * @return the enabled
+	 */
+	boolean getEnabled();
+
+	/**
+	 * Sets the enabled.
+	 * 
+	 * @param enabled the enabled
+	 */
+	void setEnabled(boolean enabled);
 }
