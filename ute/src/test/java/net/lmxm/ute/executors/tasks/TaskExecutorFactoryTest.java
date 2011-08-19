@@ -25,6 +25,9 @@ import net.lmxm.ute.TestStatusChangeListener;
 import net.lmxm.ute.TestTask;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.FindReplaceTask;
+import net.lmxm.ute.beans.tasks.GroovyTask;
+import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.executors.Executor;
@@ -92,6 +95,27 @@ public class TaskExecutorFactoryTest {
 
 		assertNotNull(fileSystemDeleteTaskExecutor);
 		assertTrue(fileSystemDeleteTaskExecutor instanceof FileSystemDeleteTaskExecutor);
+
+		// Test find replace task
+		final Executor findReplaceTaskExecutor = TaskExecutorFactory.create(new FindReplaceTask(), new Configuration(),
+				new TestStatusChangeListener());
+
+		assertNotNull(findReplaceTaskExecutor);
+		assertTrue(findReplaceTaskExecutor instanceof FindReplaceTaskExecutor);
+
+		// Test groovy task
+		final Executor groovyTaskExecutor = TaskExecutorFactory.create(new GroovyTask(), new Configuration(),
+				new TestStatusChangeListener());
+
+		assertNotNull(groovyTaskExecutor);
+		assertTrue(groovyTaskExecutor instanceof GroovyTaskExecutor);
+
+		// Test HTTP download task
+		final Executor httpDownloadTaskExecutor = TaskExecutorFactory.create(new HttpDownloadTask(),
+				new Configuration(), new TestStatusChangeListener());
+
+		assertNotNull(httpDownloadTaskExecutor);
+		assertTrue(httpDownloadTaskExecutor instanceof HttpDownloadTaskExecutor);
 
 		// Test Subversion export task
 		final Executor subversionExportTaskExecutor = TaskExecutorFactory.create(new SubversionExportTask(),

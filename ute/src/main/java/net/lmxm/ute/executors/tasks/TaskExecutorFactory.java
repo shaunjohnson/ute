@@ -67,12 +67,7 @@ public final class TaskExecutorFactory implements ExecutorFactory {
 
 		Executor executor;
 
-		if (task instanceof GroovyTask) {
-			LOGGER.debug("{} task is GroovyTask", prefix);
-
-			executor = new GroovyTaskExecutor((GroovyTask) task, propertiesHolder, statusChangeListener);
-		}
-		else if (task instanceof FileSystemDeleteTask) {
+		if (task instanceof FileSystemDeleteTask) {
 			LOGGER.debug("{} task is FileSystemDeleteTask", prefix);
 
 			executor = new FileSystemDeleteTaskExecutor((FileSystemDeleteTask) task, statusChangeListener);
@@ -81,6 +76,11 @@ public final class TaskExecutorFactory implements ExecutorFactory {
 			LOGGER.debug("{} task is FindReplaceTask", prefix);
 
 			executor = new FindReplaceTaskExecutor((FindReplaceTask) task, statusChangeListener);
+		}
+		else if (task instanceof GroovyTask) {
+			LOGGER.debug("{} task is GroovyTask", prefix);
+
+			executor = new GroovyTaskExecutor((GroovyTask) task, propertiesHolder, statusChangeListener);
 		}
 		else if (task instanceof HttpDownloadTask) {
 			LOGGER.debug("{} task is HttpDownloadTask", prefix);
