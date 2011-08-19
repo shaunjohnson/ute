@@ -19,10 +19,12 @@
 package net.lmxm.ute.utils.testimpl;
 
 import net.lmxm.ute.utils.AbstractPreferences;
+import org.junit.Ignore;
 
 /**
  * The Class TestPreferences.
  */
+@Ignore
 public class TestPreferences extends AbstractPreferences {
 
 	/**
