@@ -26,8 +26,6 @@ import java.util.List;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.executors.AbstractTaskExecutor;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 
@@ -92,8 +90,7 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 		if (!pathFile.exists()) {
 			LOGGER.debug("{} path does not exist, returning", prefix);
 
-			getStatusChangeListener().statusChange(
-					new StatusChangeEvent(this, StatusChangeEventType.INFO, "Path \"" + pathFile + "\" do not exist"));
+			fireInfoStatusChange("Path \"" + pathFile + "\" do not exist");
 
 			return;
 		}
@@ -102,8 +99,7 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 			LOGGER.debug("{} deleting file {}", prefix, pathFile.getName());
 
 			if (forceDelete(pathFile, stopOnError)) {
-				getStatusChangeListener().statusChange(
-						new StatusChangeEvent(this, StatusChangeEventType.INFO, "Deleted file \"" + pathFile + "\""));
+				fireInfoStatusChange("Deleted file \"" + pathFile + "\"");
 			}
 		}
 		else if (pathFile.isDirectory()) {
@@ -113,9 +109,7 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 				LOGGER.debug("{} deleting directory {}", prefix, pathFile.getName());
 
 				if (forceDelete(pathFile, stopOnError)) {
-					getStatusChangeListener().statusChange(
-							new StatusChangeEvent(this, StatusChangeEventType.INFO, "Deleted directory \"" + pathFile
-									+ "\""));
+					fireInfoStatusChange("Deleted directory \"" + pathFile + "\"");
 				}
 			}
 			else {
@@ -127,9 +121,7 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 					LOGGER.debug("{} deleting file {}", prefix, fileName);
 
 					if (forceDelete(new File(pathFile, fileName), stopOnError)) {
-						getStatusChangeListener().statusChange(
-								new StatusChangeEvent(this, StatusChangeEventType.INFO, "Deleted file \"" + fileName
-										+ "\""));
+						fireInfoStatusChange("Deleted file \"" + fileName + "\"");
 					}
 				}
 			}
@@ -179,36 +171,28 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 			if (stopOnError) {
 				LOGGER.error(prefix + " file not found " + pathFile.getName(), e);
 
-				getStatusChangeListener().statusChange(
-						new StatusChangeEvent(this, StatusChangeEventType.ERROR,
-								"Error deleting file, file not found \"" + pathFile + "\""));
+				fireErrorStatusChange("Error deleting file, file not found \"" + pathFile + "\"");
 
 				throw new RuntimeException();
 			}
 			else {
 				LOGGER.debug("{} ignoring error deleting file", prefix);
 
-				getStatusChangeListener().statusChange(
-						new StatusChangeEvent(this, StatusChangeEventType.INFO,
-								"Error deleting file, file not found \"" + pathFile + "\""));
+				fireInfoStatusChange("Error deleting file, file not found \"" + pathFile + "\"");
 			}
 		}
 		catch (final IOException e) {
 			if (stopOnError) {
 				LOGGER.error(prefix + " error deleting file " + pathFile.getName(), e);
 
-				getStatusChangeListener().statusChange(
-						new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Error deleting file \"" + pathFile
-								+ "\""));
+				fireErrorStatusChange("Error deleting file \"" + pathFile + "\"");
 
 				throw new RuntimeException();
 			}
 			else {
 				LOGGER.debug("{} ignoring error deleting file", prefix);
 
-				getStatusChangeListener().statusChange(
-						new StatusChangeEvent(this, StatusChangeEventType.INFO, "Error deleting file \"" + pathFile
-								+ "\""));
+				fireInfoStatusChange("Error deleting file \"" + pathFile + "\"");
 			}
 		}
 

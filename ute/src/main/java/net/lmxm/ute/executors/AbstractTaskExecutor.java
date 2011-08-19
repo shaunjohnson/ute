@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.executors;
 
+import net.lmxm.ute.listeners.StatusChangeEvent;
+import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
 import com.google.common.base.Preconditions;
@@ -32,13 +34,49 @@ public abstract class AbstractTaskExecutor implements Executor {
 
 	/**
 	 * Instantiates a new abstract task executor.
-	 *
+	 * 
 	 * @param statusChangeListener the status change listener
 	 */
 	public AbstractTaskExecutor(final StatusChangeListener statusChangeListener) {
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
 		this.statusChangeListener = statusChangeListener;
+	}
+
+	/**
+	 * Fire error status change.
+	 * 
+	 * @param message the message
+	 */
+	protected final void fireErrorStatusChange(final String message) {
+		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR, message));
+	}
+
+	/**
+	 * Fire fatal status change.
+	 * 
+	 * @param message the message
+	 */
+	protected final void fireFatalStatusChange(final String message) {
+		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.FATAL, message));
+	}
+
+	/**
+	 * Fire important status change.
+	 * 
+	 * @param message the message
+	 */
+	protected final void fireImportantStatusChange(final String message) {
+		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.IMPORTANT, message));
+	}
+
+	/**
+	 * Fire info status change.
+	 * 
+	 * @param message the message
+	 */
+	protected final void fireInfoStatusChange(final String message) {
+		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO, message));
 	}
 
 	/**
