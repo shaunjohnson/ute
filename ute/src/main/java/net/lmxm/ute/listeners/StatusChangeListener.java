@@ -36,5 +36,5 @@ public interface StatusChangeListener extends EventListener {
 	 * 
 	 * @param changeEvent the change event
 	 */
-	void statusChange(StatusChangeEvent changeEvent);
+	void statusChange(final StatusChangeEvent changeEvent);
 }

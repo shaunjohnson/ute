@@ -48,7 +48,6 @@ public final class StatusChangeEvent extends EventObject {
 	public StatusChangeEvent(final Object source, final StatusChangeEventType eventType, final String message) {
 		super(source);
 
-		Preconditions.checkNotNull(source, "Source may not be null");
 		Preconditions.checkNotNull(eventType, "Event type may not be null");
 		Preconditions.checkNotNull(message, "Message may not be null");
 		Preconditions.checkArgument(StringUtils.isNotBlank(message), "Message may not be blank");
