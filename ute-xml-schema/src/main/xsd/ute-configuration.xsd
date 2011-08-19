@@ -39,6 +39,20 @@
 			<xs:field xpath="@location-id"/>
 		</xs:keyref>
 	</xs:element>
+	<xs:simpleType name="scope-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="line"/>
+			<xs:enumeration value="file"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="find-replace-task-type">
+		<xs:sequence>
+			<xs:element name="file-system-target" type="file-system-target-type"/>
+			<xs:element name="files" type="files-type" minOccurs="1"/>
+			<xs:element name="patterns" type="patterns-type"/>
+		</xs:sequence>
+		<xs:attribute name="scope" type="scope-type" use="optional" default="line"/>
+	</xs:complexType>
 	<xs:complexType name="groovy-task-type">
 		<xs:sequence>
 			<xs:element name="file-system-target" type="file-system-target-type"/>
@@ -70,6 +84,17 @@
 	<xs:complexType name="files-type">
 		<xs:sequence>
 			<xs:element name="file" type="file-type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pattern-type">
+		<xs:sequence>
+			<xs:element name="find" type="xs:string"/>
+			<xs:element name="replace" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patterns-type">
+		<xs:sequence>
+			<xs:element name="pattern" type="pattern-type" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="http-download-task-type">
@@ -174,6 +199,7 @@
 			<xs:choice>
 				<xs:element name="groovy-task" type="groovy-task-type"/>
 				<xs:element name="file-system-delete-task" type="file-system-delete-task-type"/>
+				<xs:element name="find-replace-task" type="find-replace-task-type"/>
 				<xs:element name="http-download-task" type="http-download-task-type"/>
 				<xs:element name="subversion-export-task" type="subversion-export-task-type"/>
 				<xs:element name="subversion-update-task" type="subversion-update-task-type"/>

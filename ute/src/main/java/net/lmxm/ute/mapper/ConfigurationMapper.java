@@ -27,6 +27,7 @@ import java.util.Map;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.BasicJob;
@@ -40,11 +41,13 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.AbstractFilesTask;
 import net.lmxm.ute.beans.tasks.AbstractTask;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.utils.ConfigurationUtils;
 import noNamespace.FileSystemDeleteTaskType;
@@ -52,15 +55,19 @@ import noNamespace.FileSystemLocationType;
 import noNamespace.FileSystemTargetType;
 import noNamespace.FileType;
 import noNamespace.FilesType;
+import noNamespace.FindReplaceTaskType;
 import noNamespace.GroovyTaskType;
 import noNamespace.HttpDownloadTaskType;
 import noNamespace.HttpLocationType;
 import noNamespace.HttpSourceType;
 import noNamespace.JobType;
 import noNamespace.LocationsType;
+import noNamespace.PatternType;
+import noNamespace.PatternsType;
 import noNamespace.PreferenceType;
 import noNamespace.PropertyType;
 import noNamespace.QueryParam;
+import noNamespace.ScopeType;
 import noNamespace.SubversionExportTaskType;
 import noNamespace.SubversionRepositorySourceType;
 import noNamespace.SubversionRespositoryLocationType;
@@ -303,6 +310,31 @@ public final class ConfigurationMapper {
 	}
 
 	/**
+	 * Parses the find replace task.
+	 * 
+	 * @param taskType the task type
+	 * @param configuration the configuration
+	 * @return the abstract task
+	 */
+	private AbstractTask parseFindReplaceTask(final FindReplaceTaskType taskType, final Configuration configuration) {
+		final String prefix = "parseFindReplaceTask() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final FindReplaceTask task = new FindReplaceTask();
+
+		task.setScope(parseScope(taskType.getScope()));
+		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
+
+		parseFiles(task, taskType.getFiles());
+		parsePatterns(task, taskType.getPatterns());
+
+		LOGGER.debug("{} returning {}", prefix, task);
+
+		return task;
+	}
+
+	/**
 	 * Parses the groovy task.
 	 * 
 	 * @param taskType the task type
@@ -525,6 +557,62 @@ public final class ConfigurationMapper {
 	}
 
 	/**
+	 * Parses the pattern.
+	 * 
+	 * @param patternType the pattern type
+	 * @return the find replace pattern
+	 */
+	private FindReplacePattern parsePattern(final PatternType patternType) {
+		final String prefix = "parsePattern() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final FindReplacePattern pattern = new FindReplacePattern();
+
+		pattern.setFind(patternType.getFind());
+		pattern.setReplace(patternType.getReplace());
+
+		LOGGER.debug("{} returning {}", prefix, pattern);
+
+		return pattern;
+	}
+
+	/**
+	 * Parses the patterns.
+	 * 
+	 * @param task the task
+	 * @param patternsType the patterns type
+	 */
+	private void parsePatterns(final FindReplaceTask task, final PatternsType patternsType) {
+		final String prefix = "parsePatterns() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		if (patternsType == null) {
+			LOGGER.debug("{} patternsType is null, exiting", prefix);
+
+			return;
+		}
+
+		final List<FindReplacePattern> patterns = task.getPatterns();
+		final PatternType[] patternTypeArray = patternsType.getPatternArray();
+
+		if (ArrayUtils.isEmpty(patternTypeArray)) {
+			LOGGER.debug("{} fileArray is empty is null, exiting", prefix);
+
+			return;
+		}
+
+		LOGGER.debug("{} parsing {} pattern types", prefix, patternTypeArray.length);
+
+		for (final PatternType patternType : patternTypeArray) {
+			patterns.add(parsePattern(patternType));
+		}
+
+		LOGGER.debug("{} exiting", prefix);
+	}
+
+	/**
 	 * Parses the preference.
 	 * 
 	 * @param preferenceType the preference type
@@ -612,6 +700,28 @@ public final class ConfigurationMapper {
 		LOGGER.debug("{} returning {}", prefix, property);
 
 		return property;
+	}
+
+	/**
+	 * Parses the scope.
+	 * 
+	 * @param scopeType the scope type
+	 * @return the scope
+	 */
+	private Scope parseScope(final ScopeType.Enum scopeType) {
+		final Scope scope;
+
+		if (scopeType == ScopeType.FILE) {
+			scope = Scope.FILE;
+		}
+		else if (scopeType == ScopeType.LINE) {
+			scope = Scope.LINE;
+		}
+		else {
+			scope = Scope.LINE;
+		}
+
+		return scope;
 	}
 
 	/**
@@ -761,6 +871,9 @@ public final class ConfigurationMapper {
 
 		if (taskType.isSetFileSystemDeleteTask()) {
 			task = parseFileSystemDeleteTask(taskType.getFileSystemDeleteTask(), configuration);
+		}
+		else if (taskType.isSetFindReplaceTask()) {
+			task = parseFindReplaceTask(taskType.getFindReplaceTask(), configuration);
 		}
 		else if (taskType.isSetGroovyTask()) {
 			task = parseGroovyTask(taskType.getGroovyTask(), configuration);
