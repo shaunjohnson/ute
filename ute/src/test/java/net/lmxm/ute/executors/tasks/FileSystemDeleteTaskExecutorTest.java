@@ -20,6 +20,7 @@ package net.lmxm.ute.executors.tasks;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,38 +71,39 @@ public class FileSystemDeleteTaskExecutorTest {
 
 	/**
 	 * Test delete files directory contents.
-	 * 
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
-	public void testDeleteFilesDirectoryContents() throws IOException {
-		final File directory = new File(TMP_DIR, "TESTDIRECTORY");
-		directory.deleteOnExit();
-		directory.mkdir();
+	public void testDeleteFilesDirectoryContents() {
+		try {
+			final File directory = new File(TMP_DIR, "TESTDIRECTORY");
+			directory.deleteOnExit();
+			directory.mkdir();
 
-		final File file = new File(directory, "UTE.TEST");
-		file.deleteOnExit();
-		FileUtils.touch(file);
+			final File file = new File(directory, "UTE.TEST");
+			file.deleteOnExit();
+			FileUtils.touch(file);
 
-		assertTrue(file.exists());
+			assertTrue(file.exists());
 
-		final FileReference fileReference = new FileReference();
-		fileReference.setName("UTE.TEST");
+			final FileReference fileReference = new FileReference();
+			fileReference.setName("UTE.TEST");
 
-		final List<FileReference> files = new ArrayList<FileReference>();
-		files.add(fileReference);
+			final List<FileReference> files = new ArrayList<FileReference>();
+			files.add(fileReference);
 
-		executor.deleteFiles(directory.getAbsolutePath(), files, STOP_ON_ERROR);
+			executor.deleteFiles(directory.getAbsolutePath(), files, STOP_ON_ERROR);
 
-		assertFalse(file.exists());
+			assertFalse(file.exists());
+		}
+		catch (final IOException e) {
+			fail();
+		}
 	}
 
 	/**
 	 * Test delete files file does not exist.
-	 * 
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public void testDeleteFilesFileDoesNotExist() throws IOException {
+	public void testDeleteFilesFileDoesNotExist() {
 		final File file = new File(TMP_DIR, "TESTFILE.TEST");
 		file.deleteOnExit();
 
@@ -122,11 +124,9 @@ public class FileSystemDeleteTaskExecutorTest {
 
 	/**
 	 * Test delete files single directory.
-	 * 
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
-	public void testDeleteFilesSingleDirectory() throws IOException {
+	public void testDeleteFilesSingleDirectory() {
 		final File directory = new File(TMP_DIR, "TESTDIRECTORY");
 		directory.deleteOnExit();
 		directory.mkdir();
@@ -140,19 +140,22 @@ public class FileSystemDeleteTaskExecutorTest {
 
 	/**
 	 * Test delete files single file.
-	 * 
-	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
-	public void testDeleteFilesSingleFile() throws IOException {
-		final File file = File.createTempFile("UTE", ".TEST");
-		file.deleteOnExit();
-		FileUtils.touch(file);
+	public void testDeleteFilesSingleFile() {
+		try {
+			final File file = File.createTempFile("UTE", ".TEST");
+			file.deleteOnExit();
+			FileUtils.touch(file);
 
-		assertTrue(file.exists());
+			assertTrue(file.exists());
 
-		executor.deleteFiles(file.getAbsolutePath(), null, STOP_ON_ERROR);
+			executor.deleteFiles(file.getAbsolutePath(), null, STOP_ON_ERROR);
 
-		assertFalse(file.exists());
+			assertFalse(file.exists());
+		}
+		catch (final IOException e) {
+			fail();
+		}
 	}
 }
