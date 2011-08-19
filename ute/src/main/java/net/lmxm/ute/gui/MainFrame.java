@@ -83,6 +83,7 @@ import net.lmxm.ute.gui.editors.HttpDownloadTaskEditorPanel;
 import net.lmxm.ute.gui.editors.HttpLocationEditorPanel;
 import net.lmxm.ute.gui.editors.JobEditorPanel;
 import net.lmxm.ute.gui.editors.PreferenceEditorPanel;
+import net.lmxm.ute.gui.editors.PropertiesEditorPanel;
 import net.lmxm.ute.gui.editors.PropertyEditorPanel;
 import net.lmxm.ute.gui.editors.SubversionExportTaskEditorPanel;
 import net.lmxm.ute.gui.editors.SubversionRepositoryLocationEditorPanel;
@@ -100,6 +101,7 @@ import net.lmxm.ute.gui.menus.PropertyPopupMenu;
 import net.lmxm.ute.gui.menus.SubversionRepositoryLocationPopupMenu;
 import net.lmxm.ute.gui.menus.SubversionRepositoryLocationsRootPopupMenu;
 import net.lmxm.ute.gui.menus.TaskPopupMenu;
+import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.renderers.JobDetailsTreeCellRenderer;
 import net.lmxm.ute.gui.utils.DialogUtil;
 import net.lmxm.ute.gui.utils.GuiUtils;
@@ -149,6 +151,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	/** The add property button. */
 	private JButton addPropertyButton = null;
 
+	/** The application preferences. */
 	private final ApplicationPreferences applicationPreferences = new ApplicationPreferences();
 
 	/** The bottom panel. */
@@ -282,6 +285,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The preferences root popup menu. */
 	private PreferencesRootPopupMenu preferencesRootPopupMenu = null;
+
+	/** The properties editor panel. */
+	private PropertiesEditorPanel propertiesEditorPanel = null;
 
 	/** The properties root popup menu. */
 	private PropertiesRootPopupMenu propertiesRootPopupMenu = null;
@@ -1196,6 +1202,19 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
+	 * Gets the properties editor panel.
+	 * 
+	 * @return the properties editor panel
+	 */
+	private JPanel getPropertiesEditorPanel() {
+		if (propertiesEditorPanel == null) {
+			propertiesEditorPanel = new PropertiesEditorPanel(configuration);
+		}
+
+		return propertiesEditorPanel;
+	}
+
+	/**
 	 * Gets the properties root popup menu.
 	 * 
 	 * @return the properties root popup menu
@@ -1540,7 +1559,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		getSubversionUpdateTaskEditorPanel(null);
 		getFileSystemLocationEditorPanel(null);
 		getSubversionRepositoryLocationEditorPanel(null);
+		getPreferenceEditorPanel(null);
 		getPropertyEditorPanel(null);
+		getPropertiesEditorPanel();
 
 		pack();
 
@@ -1826,6 +1847,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		else if (userObject instanceof Preference) {
 			editorPane = getPreferenceEditorPanel((Preference) userObject);
 		}
+		else if (userObject instanceof PropertiesRootTreeNode) {
+			editorPane = getPropertiesEditorPanel();
+		}
 		else if (userObject instanceof Property) {
 			editorPane = getPropertyEditorPanel((Property) userObject);
 		}
@@ -1837,6 +1861,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 		else if (userObject instanceof SubversionUpdateTask) {
 			editorPane = getSubversionUpdateTaskEditorPanel((SubversionUpdateTask) userObject);
+		}
+		else {
+			// TODO
 		}
 
 		getJobDetailsEditorScrollPane().setViewportView(editorPane);
