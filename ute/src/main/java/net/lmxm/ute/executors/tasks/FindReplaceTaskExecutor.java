@@ -21,23 +21,36 @@ package net.lmxm.ute.executors.tasks;
 import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
+import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.executors.AbstractTaskExecutor;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
+import net.lmxm.ute.utils.FindReplaceUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
 
+/**
+ * The Class FindReplaceTaskExecutor.
+ */
 public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FindReplaceTaskExecutor.class);
 
+	/** The task. */
 	private final FindReplaceTask task;
 
+	/**
+	 * Instantiates a new find replace task executor.
+	 * 
+	 * @param task the task
+	 * @param statusChangeListener the status change listener
+	 */
 	public FindReplaceTaskExecutor(final FindReplaceTask task, final StatusChangeListener statusChangeListener) {
 		super(statusChangeListener);
 
@@ -58,8 +71,10 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
+		final List<FindReplacePattern> patterns = task.getPatterns();
+		final Scope scope = task.getScope();
 
-		// FileSystemUtils.getInstance().deleteFiles(path, files, task.getStopOnError(), getStatusChangeListener());
+		FindReplaceUtils.getInstance().findReplaceInFiles(path, files, patterns, scope, getStatusChangeListener());
 
 		LOGGER.debug("{} returning", prefix);
 	}

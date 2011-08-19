@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
@@ -38,6 +39,7 @@ import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
@@ -388,6 +390,12 @@ public final class ConfigurationUtils {
 
 				interpolateFileSystemTarget(fileSystemDeleteTask.getTarget(), propertyNames, propertyValues);
 			}
+			else if (task instanceof FindReplaceTask) {
+				final FindReplaceTask findReplaceTask = (FindReplaceTask) task;
+
+				interpolateFileSystemTarget(findReplaceTask.getTarget(), propertyNames, propertyValues);
+				interpolatePatterns(findReplaceTask.getPatterns(), propertyNames, propertyValues);
+			}
 			else if (task instanceof GroovyTask) {
 				final GroovyTask groovyTask = (GroovyTask) task;
 
@@ -422,6 +430,32 @@ public final class ConfigurationUtils {
 		LOGGER.debug("{} returning {}", prefix, job);
 
 		return job;
+	}
+
+	/**
+	 * Interpolate patterns.
+	 * 
+	 * @param patterns the patterns
+	 * @param propertyNames the property names
+	 * @param propertyValues the property values
+	 */
+	private static void interpolatePatterns(final List<FindReplacePattern> patterns, final String[] propertyNames,
+			final String[] propertyValues) {
+		final String prefix = "interpolatePatterns() :";
+
+		LOGGER.debug("{} entered, patterns={}", prefix, patterns);
+
+		Preconditions.checkNotNull(patterns, "Patterns may not be null");
+
+		for (final FindReplacePattern pattern : patterns) {
+			final String find = pattern.getFind();
+			final String replace = pattern.getReplace();
+
+			pattern.setFind(interpolateProperties(find, propertyNames, propertyValues));
+			pattern.setReplace(interpolateProperties(replace, propertyNames, propertyValues));
+		}
+
+		LOGGER.debug("{} leaving", prefix);
 	}
 
 	/**

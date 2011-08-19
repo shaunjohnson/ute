@@ -20,6 +20,7 @@ package net.lmxm.ute.executors.tasks;
 
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
@@ -75,6 +76,11 @@ public final class TaskExecutorFactory implements ExecutorFactory {
 			LOGGER.debug("{} task is FileSystemDeleteTask", prefix);
 
 			executor = new FileSystemDeleteTaskExecutor((FileSystemDeleteTask) task, statusChangeListener);
+		}
+		else if (task instanceof FindReplaceTask) {
+			LOGGER.debug("{} task is FindReplaceTask", prefix);
+
+			executor = new FindReplaceTaskExecutor((FindReplaceTask) task, statusChangeListener);
 		}
 		else if (task instanceof HttpDownloadTask) {
 			LOGGER.debug("{} task is HttpDownloadTask", prefix);

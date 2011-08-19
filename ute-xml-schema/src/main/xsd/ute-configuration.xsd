@@ -48,7 +48,7 @@
 	<xs:complexType name="find-replace-task-type">
 		<xs:sequence>
 			<xs:element name="file-system-target" type="file-system-target-type"/>
-			<xs:element name="files" type="files-type" minOccurs="1"/>
+			<xs:element name="files" type="files-type" minOccurs="0"/>
 			<xs:element name="patterns" type="patterns-type"/>
 		</xs:sequence>
 		<xs:attribute name="scope" type="scope-type" use="optional" default="line"/>
