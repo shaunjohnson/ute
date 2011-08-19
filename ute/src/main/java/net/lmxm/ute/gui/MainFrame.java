@@ -1611,6 +1611,15 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskSkipped()
+	 */
+	@Override
+	public void jobTaskSkipped() {
+		getJobProgressBar().setValue(getJobProgressBar().getValue() + 1);
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
 	@Override

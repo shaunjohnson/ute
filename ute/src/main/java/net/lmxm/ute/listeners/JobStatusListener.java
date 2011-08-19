@@ -19,14 +19,12 @@
 package net.lmxm.ute.listeners;
 
 /**
- * The listener interface for receiving jobStatus events.
- * The class that is interested in processing a jobStatus
- * event implements this interface, and the object created
- * with that class is registered with a component using the
+ * The listener interface for receiving jobStatus events. The class that is interested in processing a jobStatus event
+ * implements this interface, and the object created with that class is registered with a component using the
  * component's <code>addJobStatusListener<code> method. When
  * the jobStatus event occurs, that object's appropriate
  * method is invoked.
- *
+ * 
  * @see JobStatusEvent
  */
 public interface JobStatusListener {
@@ -50,4 +48,9 @@ public interface JobStatusListener {
 	 * Job task completed.
 	 */
 	void jobTaskCompleted();
+
+	/**
+	 * Job task skipped.
+	 */
+	void jobTaskSkipped();
 }

@@ -92,9 +92,20 @@ public final class JobExecutor extends AbstractJobExecutor {
 						throw new RuntimeException("Job is being stopped"); // TODO Use appropriate exception
 					}
 
-					TaskExecutorFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
+					if (task.getEnabled()) {
+						TaskExecutorFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
 
-					getJobStatusListener().jobTaskCompleted();
+						getJobStatusListener().jobTaskCompleted();
+					}
+					else {
+						LOGGER.debug("{} Task \"{}\" is disabled and will be skipped", prefix, task);
+
+						getStatusChangeListener().statusChange(
+								new StatusChangeEvent(this, StatusChangeEventType.INFO, "Skipping disabled task \""
+										+ task.getId() + "\""));
+
+						getJobStatusListener().jobTaskSkipped();
+					}
 				}
 			}
 

@@ -23,20 +23,19 @@ import net.lmxm.ute.listeners.JobStatusListener;
 import org.junit.Ignore;
 
 /**
- * The listener interface for receiving testJobStatus events.
- * The class that is interested in processing a testJobStatus
- * event implements this interface, and the object created
- * with that class is registered with a component using the
+ * The listener interface for receiving testJobStatus events. The class that is interested in processing a testJobStatus
+ * event implements this interface, and the object created with that class is registered with a component using the
  * component's <code>addTestJobStatusListener<code> method. When
  * the testJobStatus event occurs, that object's appropriate
  * method is invoked.
- *
+ * 
  * @see TestJobStatusEvent
  */
 @Ignore
 public final class TestJobStatusListener implements JobStatusListener {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobAborted()
 	 */
 	@Override
@@ -44,7 +43,8 @@ public final class TestJobStatusListener implements JobStatusListener {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobCompleted()
 	 */
 	@Override
@@ -52,7 +52,8 @@ public final class TestJobStatusListener implements JobStatusListener {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStopped()
 	 */
 	@Override
@@ -60,11 +61,21 @@ public final class TestJobStatusListener implements JobStatusListener {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskCompleted()
 	 */
 	@Override
 	public void jobTaskCompleted() {
-		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskSkipped()
+	 */
+	@Override
+	public void jobTaskSkipped() {
+
 	}
 }
