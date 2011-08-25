@@ -2,6 +2,7 @@ package net.lmxm.ute.utils.testimpl;
 
 import net.lmxm.ute.listeners.StatusChangeEvent;
 import net.lmxm.ute.listeners.StatusChangeListener;
+import org.junit.Ignore;
 
 /**
  * The listener interface for receiving myStatusChange events. The class that is interested in processing a
@@ -10,8 +11,9 @@ import net.lmxm.ute.listeners.StatusChangeListener;
  * the myStatusChange event occurs, that object's appropriate
  * method is invoked.
  * 
- * @see MyStatusChangeEvent
+ * @see StatusChangeEvent
  */
+@Ignore
 public class TestStatusChangeListener implements StatusChangeListener {
 
 	/*
