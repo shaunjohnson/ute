@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.FindReplacePattern;
+import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.executors.AbstractTaskExecutor;
@@ -85,15 +86,17 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 	 * @param findReplacePatterns the find replace patterns
 	 * @return the map
 	 */
-	protected SortedMap<Pattern, String> convertFindReplacePatternsToRegexPatterns(
+	protected SortedMap<PatternWrapper, String> convertFindReplacePatternsToRegexPatterns(
 			final List<FindReplacePattern> findReplacePatterns) {
-		final SortedMap<Pattern, String> patterns = new TreeMap<Pattern, String>();
+		Preconditions.checkNotNull(findReplacePatterns, "Find replace patterns list may not be null");
+
+		final SortedMap<PatternWrapper, String> patterns = new TreeMap<PatternWrapper, String>();
 
 		for (final FindReplacePattern findReplacePattern : findReplacePatterns) {
 			final Pattern regexPattern = Pattern.compile(findReplacePattern.getFind());
 			final String replacement = StringUtils.trimToEmpty(findReplacePattern.getReplace());
 
-			patterns.put(regexPattern, replacement);
+			patterns.put(new PatternWrapper(regexPattern), replacement);
 		}
 
 		return patterns;
@@ -126,7 +129,8 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 	 * @param patterns the patterns
 	 * @param scope the scope
 	 */
-	protected void findReplaceContent(final File file, final SortedMap<Pattern, String> patterns, final Scope scope) {
+	protected void findReplaceContent(final File file, final SortedMap<PatternWrapper, String> patterns,
+			final Scope scope) {
 		final String prefix = "findReplaceContent() :";
 
 		LOGGER.debug("{} entered, scope={}", prefix, scope);
@@ -152,7 +156,7 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 	 * @param file the file
 	 * @param patterns the patterns
 	 */
-	protected void findReplaceFileContent(final File file, final SortedMap<Pattern, String> patterns) {
+	protected void findReplaceFileContent(final File file, final SortedMap<PatternWrapper, String> patterns) {
 		final String prefix = "findReplaceFileContent() :";
 
 		LOGGER.debug("{} entered, file={}", prefix, file);
@@ -160,8 +164,8 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 		try {
 			String fileContents = FileUtils.fileRead(file);
 
-			for (final Entry<Pattern, String> entry : patterns.entrySet()) {
-				fileContents = applyPattern(fileContents, entry.getKey(), entry.getValue());
+			for (final Entry<PatternWrapper, String> entry : patterns.entrySet()) {
+				fileContents = applyPattern(fileContents, entry.getKey().getPattern(), entry.getValue());
 			}
 
 			FileUtils.fileWrite(file, fileContents);
@@ -181,7 +185,7 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 	 * @param file the file
 	 * @param patterns the patterns
 	 */
-	protected void findReplaceFileLineContent(final File file, final SortedMap<Pattern, String> patterns) {
+	protected void findReplaceFileLineContent(final File file, final SortedMap<PatternWrapper, String> patterns) {
 		final String prefix = "findReplaceFileContent() :";
 
 		LOGGER.debug("{} entered, file={}", prefix, file);
@@ -193,8 +197,8 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 			for (int i = 0; i < fileLines.length; i++) {
 				final String fileLine = fileLines[i];
 
-				for (final Entry<Pattern, String> entry : patterns.entrySet()) {
-					fileLines[i] = applyPattern(fileLine, entry.getKey(), entry.getValue());
+				for (final Entry<PatternWrapper, String> entry : patterns.entrySet()) {
+					fileLines[i] = applyPattern(fileLine, entry.getKey().getPattern(), entry.getValue());
 				}
 			}
 
@@ -224,7 +228,7 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 		LOGGER.debug("{} entered, path={}", prefix, path);
 
 		final List<File> files = FileSystemUtils.convertToFileObjects(path, fileReferences);
-		final SortedMap<Pattern, String> patterns = convertFindReplacePatternsToRegexPatterns(findReplacePatterns);
+		final SortedMap<PatternWrapper, String> patterns = convertFindReplacePatternsToRegexPatterns(findReplacePatterns);
 
 		for (final File file : files) {
 			if (file.isDirectory()) {
