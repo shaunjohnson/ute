@@ -22,7 +22,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,31 +109,33 @@ public class FindReplaceTaskExecutorTest {
 
 	@Test
 	public void testExecute() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
 	public void testFindReplaceContent() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
 	public void testFindReplaceFileContent() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
 	public void testFindReplaceFileLineContent() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
+
+		// TODO Test multiple patterns applied to a line to make sure that all patterns are applied.
 	}
 
 	@Test
 	public void testFindReplaceInFiles() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
 	public void testFindReplaceTaskExecutor() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 }

@@ -186,7 +186,7 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 	 * @param patterns the patterns
 	 */
 	protected void findReplaceFileLineContent(final File file, final SortedMap<PatternWrapper, String> patterns) {
-		final String prefix = "findReplaceFileContent() :";
+		final String prefix = "findReplaceFileLineContent() :";
 
 		LOGGER.debug("{} entered, file={}", prefix, file);
 
@@ -195,11 +195,13 @@ public final class FindReplaceTaskExecutor extends AbstractTaskExecutor {
 			final String[] fileLines = fileContents.split("(\r\n)|(\n\r)|(\r)|(\n)");
 
 			for (int i = 0; i < fileLines.length; i++) {
-				final String fileLine = fileLines[i];
+				String fileLine = fileLines[i];
 
 				for (final Entry<PatternWrapper, String> entry : patterns.entrySet()) {
-					fileLines[i] = applyPattern(fileLine, entry.getKey().getPattern(), entry.getValue());
+					fileLine = applyPattern(fileLine, entry.getKey().getPattern(), entry.getValue());
 				}
+
+				fileLines[i] = fileLine;
 			}
 
 			FileUtils.fileWrite(file, StringUtils.join(fileLines, System.getProperty("line.separator")));
