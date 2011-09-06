@@ -25,7 +25,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
 import java.util.regex.Pattern;
 
 import net.lmxm.ute.beans.FindReplacePattern;
@@ -59,9 +58,8 @@ public class FindReplaceTaskExecutorTest {
 	public void testApplyPattern() {
 		final Pattern pattern = Pattern.compile("^test$");
 
-		assertEquals("foo", executor.applyPattern("foo", pattern, "bar"));
-		assertEquals("bar", executor.applyPattern("test", pattern, "bar"));
-		assertEquals("", executor.applyPattern("test", pattern, ""));
+		assertEquals("foo", executor.applyPattern("foo", new PatternWrapper(pattern, "bar")));
+		assertEquals("bar", executor.applyPattern("test", new PatternWrapper(pattern, "bar")));
 	}
 
 	/**
@@ -71,22 +69,22 @@ public class FindReplaceTaskExecutorTest {
 	public void testConvertFindReplacePatternsToRegexPatterns() {
 		final List<FindReplacePattern> patternList = new ArrayList<FindReplacePattern>();
 
-		SortedMap<PatternWrapper, String> sortedMap = executor.convertFindReplacePatternsToRegexPatterns(patternList);
+		List<PatternWrapper> patterns = executor.convertFindReplacePatternsToRegexPatterns(patternList);
 
-		assertNotNull(sortedMap);
-		assertTrue(sortedMap.size() == 0);
+		assertNotNull(patterns);
+		assertTrue(patterns.size() == 0);
 
 		final FindReplacePattern findReplacePattern = new FindReplacePattern();
 		findReplacePattern.setFind("^foo$");
 		findReplacePattern.setReplace("bar");
 
 		patternList.add(findReplacePattern);
-		sortedMap = executor.convertFindReplacePatternsToRegexPatterns(patternList);
+		patterns = executor.convertFindReplacePatternsToRegexPatterns(patternList);
 
-		assertNotNull(sortedMap);
-		assertTrue(sortedMap.size() == 1);
+		assertNotNull(patterns);
+		assertTrue(patterns.size() == 1);
 
-		final PatternWrapper patternWrapper = sortedMap.firstKey();
+		final PatternWrapper patternWrapper = patterns.get(0);
 		assertNotNull(patternWrapper);
 
 		final Pattern pattern = patternWrapper.getPattern();
@@ -94,7 +92,7 @@ public class FindReplaceTaskExecutorTest {
 		assertFalse(pattern.matcher(" foo ").matches());
 		assertFalse(pattern.matcher("Foo").matches());
 
-		final String replacement = sortedMap.get(patternWrapper);
+		final String replacement = patternWrapper.getReplacement();
 		assertNotNull(replacement);
 		assertEquals("bar", replacement);
 	}

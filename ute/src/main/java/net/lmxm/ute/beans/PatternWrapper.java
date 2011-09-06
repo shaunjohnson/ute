@@ -20,6 +20,8 @@ package net.lmxm.ute.beans;
 
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.google.common.base.Preconditions;
 
 /**
@@ -30,17 +32,24 @@ public class PatternWrapper implements Comparable<PatternWrapper> {
 	/** The pattern. */
 	private final Pattern pattern;
 
+	/** The replacement. */
+	private final String replacement;
+
 	/**
 	 * Instantiates a new pattern wrapper.
 	 * 
 	 * @param pattern the pattern
+	 * @param replacement the replacement
 	 */
-	public PatternWrapper(final Pattern pattern) {
+	public PatternWrapper(final Pattern pattern, final String replacement) {
 		super();
 
 		Preconditions.checkNotNull(pattern, "Pattern may not be null");
+		Preconditions.checkNotNull(replacement, "Pattern may not be null");
+		Preconditions.checkArgument(StringUtils.isNotBlank(replacement), "Pattern may not be blank");
 
 		this.pattern = pattern;
+		this.replacement = replacement;
 	}
 
 	/*
@@ -76,7 +85,16 @@ public class PatternWrapper implements Comparable<PatternWrapper> {
 				return false;
 			}
 		}
-		else if (!pattern.pattern().equals(other.pattern.pattern())) {
+		else if (!pattern.equals(other.pattern)) {
+			return false;
+		}
+
+		if (replacement == null) {
+			if (other.replacement != null) {
+				return false;
+			}
+		}
+		else if (!replacement.equals(other.replacement)) {
 			return false;
 		}
 
@@ -92,6 +110,15 @@ public class PatternWrapper implements Comparable<PatternWrapper> {
 		return pattern;
 	}
 
+	/**
+	 * Gets the replacement.
+	 * 
+	 * @return the replacement
+	 */
+	public String getReplacement() {
+		return replacement;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -100,8 +127,8 @@ public class PatternWrapper implements Comparable<PatternWrapper> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (pattern == null ? 0 : pattern.pattern().hashCode());
+		result = prime * result + (pattern == null ? 0 : pattern.hashCode());
+		result = prime * result + (replacement == null ? 0 : replacement.hashCode());
 		return result;
 	}
-
 }
