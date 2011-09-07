@@ -77,6 +77,7 @@ import noNamespace.UteConfigurationDocument;
 import noNamespace.UteConfigurationType;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -164,8 +165,8 @@ public final class ConfigurationMapper {
 
 		final FileReference file = new FileReference();
 
-		file.setName(fileType.getName());
-		file.setTargetName(fileType.getTargetName());
+		file.setName(StringUtils.trim(fileType.getName()));
+		file.setTargetName(StringUtils.trim(fileType.getTargetName()));
 
 		LOGGER.debug("{} returning {}", prefix, file);
 
@@ -396,7 +397,7 @@ public final class ConfigurationMapper {
 
 		final HttpLocation httpLocation = new HttpLocation();
 		final String id = httpLocationType.getId();
-		final String url = httpLocationType.getUrl();
+		final String url = StringUtils.trim(httpLocationType.getUrl());
 
 		httpLocation.setId(id);
 		httpLocation.setUrl(url);
