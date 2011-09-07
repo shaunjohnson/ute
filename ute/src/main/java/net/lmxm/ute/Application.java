@@ -18,16 +18,11 @@
  */
 package net.lmxm.ute;
 
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-
 import net.lmxm.ute.console.ConsoleApplication;
-import net.lmxm.ute.gui.MainFrame;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.jgoodies.looks.Options;
 
 /**
  * The Class Application.
@@ -61,18 +56,21 @@ public final class Application {
 
 		LOGGER.debug("{} entered", prefix);
 
-		try {
-			UIManager.setLookAndFeel(Options.getCrossPlatformLookAndFeelClassName());
-		}
-		catch (final Exception e) {
-			LOGGER.error("Error setting native LAF", e);
-		}
-
-		final JFrame main = new MainFrame();
-
-		main.setVisible(true);
+		final GuiApplication guiApplication = new GuiApplication();
+		guiApplication.execute();
 
 		LOGGER.debug("{} exiting", prefix);
+	}
+
+	/**
+	 * Checks if is headless.
+	 * 
+	 * @return true, if is headless
+	 */
+	private static boolean isHeadless() {
+		final String headless = StringUtils.trimToEmpty(System.getProperty("java.awt.headless"));
+
+		return headless.equals("true");
 	}
 
 	/**
@@ -86,7 +84,7 @@ public final class Application {
 
 		LOGGER.info("{} Application started", prefix);
 
-		if (args.length == 0) {
+		if (shouldExecuteGui(args)) {
 			executeGui();
 		}
 		else {
@@ -94,5 +92,20 @@ public final class Application {
 		}
 
 		LOGGER.info("{} Application ended", prefix);
+	}
+
+	/**
+	 * Should execute gui.
+	 * 
+	 * @param args the args
+	 * @return true, if successful
+	 */
+	private static boolean shouldExecuteGui(final String[] args) {
+		if (isHeadless() || args.length > 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 }
