@@ -18,9 +18,10 @@
  */
 package net.lmxm.ute;
 
+import java.awt.GraphicsEnvironment;
+
 import net.lmxm.ute.console.ConsoleApplication;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,17 +64,6 @@ public final class Application {
 	}
 
 	/**
-	 * Checks if is headless.
-	 * 
-	 * @return true, if is headless
-	 */
-	private static boolean isHeadless() {
-		final String headless = StringUtils.trimToEmpty(System.getProperty("java.awt.headless"));
-
-		return headless.equals("true");
-	}
-
-	/**
 	 * The main method.
 	 * 
 	 * @param args the arguments
@@ -101,7 +91,7 @@ public final class Application {
 	 * @return true, if successful
 	 */
 	private static boolean shouldExecuteGui(final String[] args) {
-		if (isHeadless() || args.length > 0) {
+		if (GraphicsEnvironment.isHeadless() || args.length > 0) {
 			return false;
 		}
 		else {
