@@ -98,8 +98,10 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 		if (pathFile.isFile()) {
 			LOGGER.debug("{} deleting file {}", prefix, pathFile.getName());
 
+			fireInfoStatusChange("Deleting file \"" + pathFile + "\"");
+
 			if (forceDelete(pathFile, stopOnError)) {
-				fireInfoStatusChange("Deleted file \"" + pathFile + "\"");
+				fireInfoStatusChange("Finished deleting file \"" + pathFile + "\"");
 			}
 		}
 		else if (pathFile.isDirectory()) {
@@ -108,8 +110,10 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 			if (CollectionUtils.isEmpty(files)) {
 				LOGGER.debug("{} deleting directory {}", prefix, pathFile.getName());
 
+				fireInfoStatusChange("Deleting directory \"" + pathFile + "\"");
+
 				if (forceDelete(pathFile, stopOnError)) {
-					fireInfoStatusChange("Deleted directory \"" + pathFile + "\"");
+					fireInfoStatusChange("Finished deleting directory \"" + pathFile + "\"");
 				}
 			}
 			else {
@@ -120,8 +124,10 @@ public final class FileSystemDeleteTaskExecutor extends AbstractTaskExecutor {
 
 					LOGGER.debug("{} deleting file {}", prefix, fileName);
 
+					fireInfoStatusChange("Deleting file \"" + pathFile + "\"");
+
 					if (forceDelete(new File(pathFile, fileName), stopOnError)) {
-						fireInfoStatusChange("Deleted file \"" + fileName + "\"");
+						fireInfoStatusChange("Finished deleting \"" + fileName + "\"");
 					}
 				}
 			}
