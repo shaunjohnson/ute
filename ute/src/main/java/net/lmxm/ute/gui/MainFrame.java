@@ -1672,7 +1672,11 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * Load user preferences.
 	 */
 	private void loadUserPreferences() {
-		setSize(userPreferences.getWindowSize());
+		final Dimension windowSize = userPreferences.getWindowSize();
+
+		if (windowSize != null) {
+			setSize(windowSize);
+		}
 
 		final Point location = userPreferences.getWindowLocation();
 

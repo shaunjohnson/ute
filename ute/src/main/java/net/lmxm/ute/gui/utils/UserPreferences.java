@@ -100,7 +100,10 @@ public final class UserPreferences extends AbstractPreferences {
 	public Dimension getWindowSize() {
 		final Dimension dimension = getDimension(WINDOW_SIZE);
 
-		if (dimension.getHeight() == 0 || dimension.getWidth() == 0) {
+		if (dimension == null) {
+			return null;
+		}
+		else if (dimension.getHeight() == 0 || dimension.getWidth() == 0) {
 			return new Dimension(GuiContants.DEFAULT_WINDOW_WIDTH, GuiContants.DEFAULT_WINDOW_HEIGHT);
 		}
 		else {
