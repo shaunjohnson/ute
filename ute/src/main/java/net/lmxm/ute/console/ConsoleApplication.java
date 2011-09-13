@@ -20,6 +20,7 @@ package net.lmxm.ute.console;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.lmxm.ute.beans.Configuration;
@@ -104,19 +105,31 @@ public final class ConsoleApplication {
 	 * @return the console arguments
 	 */
 	private ConsoleArguments getConsoleArguments() {
+		final String prefix = "getConsoleArguments() :";
+
+		LOGGER.debug("{} entered", prefix);
+
 		final ConsoleArguments consoleArguments = new ConsoleArguments();
 		final JCommander jCommander = new JCommander(consoleArguments);
 
 		jCommander.setProgramName(ResourcesUtils.getApplicationName());
 
 		try {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("{} parsing args={}", prefix, Arrays.toString(args));
+			}
+
 			jCommander.parse(args);
 		}
 		catch (final RuntimeException e) {
+			LOGGER.error(prefix + " error occurred parsing arguments");
+
 			System.out.println(e.getMessage() + "\n");
 			jCommander.usage();
 			System.exit(-1);
 		}
+
+		LOGGER.debug("{} returning", prefix);
 
 		return consoleArguments;
 	}
