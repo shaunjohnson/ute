@@ -22,6 +22,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -53,6 +54,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1317100477637996007L;
+
+	/** The enabled checkbox. */
+	private JCheckBox enabledCheckbox = null;
 
 	/** The files pane. */
 	private JPanel filesPane = null;
@@ -143,6 +147,8 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 		contentPanel.add(new JLabel("Description:"), "top");
 		contentPanel.add(getDescriptionPane());
+		contentPanel.add(new JLabel("Enabled:"));
+		contentPanel.add(getEnabledCheckbox());
 	}
 
 	/**
@@ -157,6 +163,19 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		tableModel.addColumn("Target File Name");
 
 		return tableModel;
+	}
+
+	/**
+	 * Gets the enabled checkbox.
+	 * 
+	 * @return the enabled checkbox
+	 */
+	protected final JCheckBox getEnabledCheckbox() {
+		if (enabledCheckbox == null) {
+			enabledCheckbox = new JCheckBox();
+		}
+
+		return enabledCheckbox;
 	}
 
 	/**
@@ -341,9 +360,11 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 		if (task == null) {
 			getDescriptionTextArea().setText("");
+			getEnabledCheckbox().setSelected(false);
 		}
 		else {
 			getDescriptionTextArea().setText(task.getDescription());
+			getEnabledCheckbox().setSelected(task.getEnabled());
 		}
 
 		LOGGER.debug("{} leaving", prefix);
