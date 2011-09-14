@@ -152,7 +152,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private JButton addPropertyButton = null;
 
 	/** The application preferences. */
-	private final ApplicationPreferences applicationPreferences = new ApplicationPreferences();
+	private ApplicationPreferences applicationPreferences = null;
 
 	/** The bottom panel. */
 	private JPanel bottomPanel = null;
@@ -346,8 +346,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		initialize();
-
-		validatePreferencesAreSet();
 	}
 
 	/*
@@ -1521,7 +1519,10 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			LOGGER.debug("{} loading file {}", prefix, filePath);
 
 			try {
-				configuration = ConfigurationMapper.getInstance().parse(new File(filePath));
+				final File configurationFile = new File(filePath);
+				configuration = ConfigurationMapper.getInstance().parse(configurationFile);
+
+				loadAndValidatePreferences(configurationFile);
 			}
 			catch (final Exception e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -1669,6 +1670,16 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
+	 * Load and validate preferences.
+	 * 
+	 * @param configurationFile the configuration file
+	 */
+	private void loadAndValidatePreferences(final File configurationFile) {
+		applicationPreferences = new ApplicationPreferences(configurationFile);
+		validatePreferencesAreSet();
+	}
+
+	/**
 	 * Load user preferences.
 	 */
 	private void loadUserPreferences() {
@@ -1709,6 +1720,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 			try {
 				configuration = ConfigurationMapper.getInstance().parse(file);
+
+				loadAndValidatePreferences(file);
 
 				userPreferences.setLastFileEditedPath(file.getAbsolutePath());
 

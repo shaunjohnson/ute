@@ -48,18 +48,20 @@ public final class ApplicationPreferences {
 
 	/**
 	 * Instantiates a new application preferences.
+	 * 
+	 * @param configurationFile the configuration file
 	 */
-	public ApplicationPreferences() {
+	public ApplicationPreferences(final File configurationFile) {
 		final String prefix = "ApplicationPreferences() :";
 
-		LOGGER.debug("{} entered", prefix);
+		LOGGER.debug("{} entered. configurationFile={}", prefix, configurationFile);
 
 		XMLConfiguration xmlConfiguration = null;
 
 		try {
 			xmlConfiguration = new XMLConfiguration();
 
-			final File preferencesFile = new File(xmlConfiguration.getBasePath(), PREFERENCES_FILE_NAME);
+			final File preferencesFile = new File(configurationFile.getParent(), PREFERENCES_FILE_NAME);
 
 			if (!preferencesFile.exists()) {
 				LOGGER.debug("{} preferences file does not exist, creating a new file", prefix);
