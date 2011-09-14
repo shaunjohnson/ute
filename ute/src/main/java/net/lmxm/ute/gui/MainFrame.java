@@ -529,6 +529,15 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
+	 * Gets the current directory.
+	 * 
+	 * @return the current directory
+	 */
+	private String getCurrentDirectory() {
+		return configuration == null ? null : configuration.getAbsolutePath();
+	}
+
+	/**
 	 * Gets the edits the menu.
 	 * 
 	 * @return the edits the menu
@@ -1707,7 +1716,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private void openFile() {
 		final String prefix = "openFile() :";
 
-		final JFileChooser fcOpen = new JFileChooser();
+		final JFileChooser fcOpen = new JFileChooser(getCurrentDirectory());
 
 		fcOpen.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
