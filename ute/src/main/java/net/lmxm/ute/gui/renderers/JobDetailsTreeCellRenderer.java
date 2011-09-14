@@ -37,6 +37,7 @@ import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
@@ -109,6 +110,12 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 
 			setIcon(ImageUtil.DRIVE_ICON);
 			setText(fileSystemLocation.getId());
+		}
+		else if (userObject instanceof FindReplaceTask) {
+			final FindReplaceTask findReplaceTask = (FindReplaceTask) userObject;
+
+			setIcon(ImageUtil.FIND_REPLACE_ICON);
+			setText(findReplaceTask.getId());
 		}
 		else if (userObject instanceof GroovyTask) {
 			final GroovyTask groovyTask = (GroovyTask) userObject;

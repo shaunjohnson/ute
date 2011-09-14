@@ -70,6 +70,7 @@ import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
@@ -78,6 +79,7 @@ import net.lmxm.ute.gui.dialogs.AboutDialog;
 import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.editors.FileSystemDeleteTaskEditorPanel;
 import net.lmxm.ute.gui.editors.FileSystemLocationEditorPanel;
+import net.lmxm.ute.gui.editors.FindReplaceTaskEditorPanel;
 import net.lmxm.ute.gui.editors.GroovyTaskEditorPanel;
 import net.lmxm.ute.gui.editors.HttpDownloadTaskEditorPanel;
 import net.lmxm.ute.gui.editors.HttpLocationEditorPanel;
@@ -195,6 +197,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The file tool bar. */
 	private JToolBar fileToolBar = null;
+
+	/** The find replace task editor panel. */
+	private FindReplaceTaskEditorPanel findReplaceTaskEditorPanel = null;
 
 	/** The groovy task editor panel. */
 	private GroovyTaskEditorPanel groovyTaskEditorPanel = null;
@@ -732,6 +737,22 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			fileToolBar.add(getExitButton());
 		}
 		return fileToolBar;
+	}
+
+	/**
+	 * Gets the find replace editor panel.
+	 * 
+	 * @param findReplaceTask the find replace task
+	 * @return the find replace editor panel
+	 */
+	private FindReplaceTaskEditorPanel getFindReplaceTaskEditorPanel(final FindReplaceTask findReplaceTask) {
+		if (findReplaceTaskEditorPanel == null) {
+			findReplaceTaskEditorPanel = new FindReplaceTaskEditorPanel(configuration);
+		}
+
+		findReplaceTaskEditorPanel.loadData(findReplaceTask);
+
+		return findReplaceTaskEditorPanel;
 	}
 
 	/**
@@ -1860,6 +1881,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 		else if (userObject instanceof FileSystemLocation) {
 			editorPane = getFileSystemLocationEditorPanel((FileSystemLocation) userObject);
+		}
+		else if (userObject instanceof FindReplaceTask) {
+			editorPane = getFindReplaceTaskEditorPanel((FindReplaceTask) userObject);
 		}
 		else if (userObject instanceof GroovyTask) {
 			editorPane = getGroovyTaskEditorPanel((GroovyTask) userObject);

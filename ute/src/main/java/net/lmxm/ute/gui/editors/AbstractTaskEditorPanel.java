@@ -156,7 +156,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	 * 
 	 * @return the default table model
 	 */
-	protected final DefaultTableModel createEmptyFilesTableModel() {
+	protected DefaultTableModel createEmptyFilesTableModel() {
 		final DefaultTableModel tableModel = new DefaultTableModel();
 
 		tableModel.addColumn("File Name/Pattern");

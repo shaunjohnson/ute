@@ -71,6 +71,9 @@ public final class ImageUtil {
 	/** The Constant EXPORT_ICON. */
 	public static final Icon EXPORT_ICON;
 
+	/** The Constant FIND_REPLACE_ICON. */
+	public static final ImageIcon FIND_REPLACE_ICON;
+
 	/** The Constant FOLDER_IMPORT_ICON. */
 	public static final Icon FOLDER_IMPORT_ICON;
 
@@ -127,6 +130,7 @@ public final class ImageUtil {
 		EXECUTE_JOB_ICON = new ImageIcon(thisClass.getResource("/images/lightning.png"));
 		EXIT_ICON = new ImageIcon(thisClass.getResource("/images/door-open-out.png"));
 		EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
+		FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
 		FOLDER_IMPORT_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
 		GROOVY_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
 		JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-task.png"));
