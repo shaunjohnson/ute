@@ -65,16 +65,12 @@ import javax.swing.tree.TreeSelectionModel;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.jobs.BasicJob;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.beans.tasks.SubversionExportTask;
-import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
+import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.gui.dialogs.AboutDialog;
 import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.editors.FileSystemDeleteTaskEditorPanel;
@@ -364,28 +360,45 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		if (actionCommand.equals(ActionConstants.ADD_JOB)) {
 			// TODO Implement add job action
 		}
-		else if (actionCommand.equals(ActionConstants.EXECUTE_JOB)) {
+		else if (actionCommand.equals(ActionConstants.EXECUTE)) {
 			synchronized (jobWorkerMutex) {
 				if (jobWorker != null) {
 					return;
 				}
 
 				final Object userObject = getSelectedTreeObject();
+                if (userObject == null) {
+                    return;
+                }
 
-				if (userObject != null && userObject instanceof Job) {
-					final Job job = ConfigurationUtils.interpolateJobValues((Job) userObject, configuration);
+                Job job = null;
 
-					getStopJobButton().setEnabled(true);
+				if (userObject instanceof Job) {
+					job = (Job) userObject;
+				}
+                else if (userObject instanceof Task) {
+                    Task task = (Task)userObject;
+
+                    job = new BasicJob();
+                    job.setId(task.getId());
+                    job.setDescription(task.getDescription());
+                    job.getTasks().add(task);
+                }
+
+                if (job != null) {
+                    getStopJobButton().setEnabled(true);
 
 					final JProgressBar progressBar = getJobProgressBar();
 					progressBar.setVisible(true);
 					progressBar.setValue(0);
 					progressBar.setMaximum(job.getTasks().size());
 
+                    job = ConfigurationUtils.interpolateJobValues(job, configuration);
+
 					jobWorker = new ExecuteJobWorker(job, configuration, getJobStatusListener(),
 							getStatusChangeListener());
 					jobWorker.execute();
-				}
+                }
 			}
 		}
 	}
@@ -592,12 +605,12 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		if (executeJobButton == null) {
 			executeJobButton = new JButton();
 			executeJobButton.setText("Execute");
-			executeJobButton.setIcon(ImageUtil.EXECUTE_JOB_ICON);
+			executeJobButton.setIcon(ImageUtil.EXECUTE_ICON);
 			executeJobButton.setToolTipText("Execute selected job");
 			executeJobButton.setEnabled(false);
 
 			executeJobButton.addActionListener(this);
-			executeJobButton.setActionCommand(ActionConstants.EXECUTE_JOB);
+			executeJobButton.setActionCommand(ActionConstants.EXECUTE);
 		}
 
 		return executeJobButton;

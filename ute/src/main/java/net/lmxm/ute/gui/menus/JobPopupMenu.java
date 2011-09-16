@@ -101,9 +101,9 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 		if (executeJobMenuItem == null) {
 			executeJobMenuItem = new JMenuItem();
 			executeJobMenuItem.setText("Execute Job");
-			executeJobMenuItem.setIcon(ImageUtil.EXECUTE_JOB_ICON);
+			executeJobMenuItem.setIcon(ImageUtil.EXECUTE_ICON);
 			executeJobMenuItem.addActionListener(getActionListener());
-			executeJobMenuItem.setActionCommand(ActionConstants.EXECUTE_JOB);
+			executeJobMenuItem.setActionCommand(ActionConstants.EXECUTE);
 		}
 		return executeJobMenuItem;
 	}

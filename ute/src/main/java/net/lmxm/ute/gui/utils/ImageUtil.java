@@ -62,8 +62,8 @@ public final class ImageUtil {
 	/** The Constant EDIT_PREFERENCES_ICON. */
 	public static final Icon EDIT_PREFERENCES_ICON;
 
-	/** The Constant EXECUTE_JOB_ICON. */
-	public static final Icon EXECUTE_JOB_ICON;
+	/** The Constant EXECUTE_ICON. */
+	public static final Icon EXECUTE_ICON;
 
 	/** The Constant EXIT_ICON. */
 	public static final Icon EXIT_ICON;
@@ -124,13 +124,11 @@ public final class ImageUtil {
 		ADD_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/plus.png"));
 		CHECKOUT_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
 		CLEAR_ICON = new ImageIcon(thisClass.getResource("/images/eraser.png"));
-		DELETE_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
 		DRIVE_ICON = new ImageIcon(thisClass.getResource("/images/drive.png"));
 		EDIT_PREFERENCES_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
-		EXECUTE_JOB_ICON = new ImageIcon(thisClass.getResource("/images/lightning.png"));
+		EXECUTE_ICON = new ImageIcon(thisClass.getResource("/images/lightning.png"));
 		EXIT_ICON = new ImageIcon(thisClass.getResource("/images/door-open-out.png"));
 		EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
-		FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
 		FOLDER_IMPORT_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
 		GROOVY_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
 		JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-task.png"));
@@ -143,5 +141,9 @@ public final class ImageUtil {
 		SAVE_FILE_ICON = new ImageIcon(thisClass.getResource("/images/disk-black.png"));
 		STOP_JOB_ICON = new ImageIcon(thisClass.getResource("/images/slash.png"));
 		SUBVERSION_ICON = new ImageIcon(thisClass.getResource("/images/subversion.png"));
+
+        // Load task icons
+        DELETE_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
+        FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
 	}
 }

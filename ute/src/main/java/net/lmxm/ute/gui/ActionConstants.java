@@ -56,8 +56,8 @@ public final class ActionConstants {
 	/** The Constant DELETE_SUBVERSION_REPOSITORY_LOCATION. */
 	public static final String DELETE_SUBVERSION_REPOSITORY_LOCATION = "DELETE_SUBVERSION_REPOSITORY_LOCATION";
 
-	/** The Constant EXECUTE_JOB. */
-	public static final String EXECUTE_JOB = "EXECUTE_JOB";
+	/** The Constant EXECUTE. */
+	public static final String EXECUTE = "EXECUTE";
 
 	/**
 	 * Instantiates a new action constants.

@@ -18,7 +18,9 @@
  */
 package net.lmxm.ute.gui.menus;
 
+import net.lmxm.ute.gui.ActionConstants;
 import net.lmxm.ute.gui.MainFrame;
+import net.lmxm.ute.gui.utils.ImageUtil;
 
 import java.awt.event.ActionListener;
 
@@ -41,6 +43,9 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 	/** The delete task menu item. */
 	private JMenuItem deleteTaskMenuItem = null;
 
+	/** The execute task menu item. */
+	private JMenuItem executeTaskMenuItem = null;
+
 	/**
 	 * Instantiates a new task popup menu.
 	 *
@@ -50,6 +55,7 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 	public TaskPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
 		super(mainFrame, actionListener);
 
+        add(getExecuteTaskMenuItem());
 		add(getAddTaskBeforeMenuItem());
 		add(getAddTaskAfterMenuItem());
 		add(getDeleteTaskMenuItem());
@@ -103,5 +109,21 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 			deleteTaskMenuItem.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return deleteTaskMenuItem;
+	}
+
+    /**
+	 * This method initializes executeTaskMenuItem.
+	 *
+	 * @return javax.swing.JMenuItem
+	 */
+	private JMenuItem getExecuteTaskMenuItem() {
+		if (executeTaskMenuItem == null) {
+			executeTaskMenuItem = new JMenuItem();
+			executeTaskMenuItem.setText("Execute Task");
+			executeTaskMenuItem.setIcon(ImageUtil.EXECUTE_ICON);
+			executeTaskMenuItem.addActionListener(getActionListener());
+			executeTaskMenuItem.setActionCommand(ActionConstants.EXECUTE);
+		}
+		return executeTaskMenuItem;
 	}
 }
