@@ -19,11 +19,26 @@
 package net.lmxm.ute.beans.jobs;
 
 
+import net.lmxm.ute.beans.tasks.Task;
+
 /**
- * The Class Basic Job.
+ * The Class Single Task Job.
  */
-public final class BasicJob extends AbstractJob {
+public final class SingleTaskJob extends AbstractJob {
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 7969957264452664969L;
+    private static final long serialVersionUID = -1760138183959898349L;
+
+    /**
+     * Creates a single task job.
+     *
+     * @param task Single Task object
+     */
+    public SingleTaskJob(Task task) {
+        super();
+
+        setId(task.getId());
+        setDescription(task.getDescription());
+        getTasks().add(task);
+    }
 }

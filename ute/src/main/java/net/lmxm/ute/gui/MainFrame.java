@@ -67,6 +67,7 @@ import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.BasicJob;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
@@ -377,12 +378,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 					job = (Job) userObject;
 				}
                 else if (userObject instanceof Task) {
-                    Task task = (Task)userObject;
-
-                    job = new BasicJob();
-                    job.setId(task.getId());
-                    job.setDescription(task.getDescription());
-                    job.getTasks().add(task);
+                    job = new SingleTaskJob((Task)userObject);
                 }
 
                 if (job != null) {

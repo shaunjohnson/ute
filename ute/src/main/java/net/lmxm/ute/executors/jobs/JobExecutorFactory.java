@@ -63,7 +63,7 @@ public final class JobExecutorFactory implements ExecutorFactory {
 		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
-		final Executor executor = new JobExecutor(job, propertiesHolder, jobStatusListener, statusChangeListener);
+		final Executor executor = new BasicJobExecutor(job, propertiesHolder, jobStatusListener, statusChangeListener);
 
 		LOGGER.debug("{} returning {}", prefix, executor);
 

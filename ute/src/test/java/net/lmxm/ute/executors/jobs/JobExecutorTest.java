@@ -37,7 +37,7 @@ public class JobExecutorTest {
 	 */
 	@Test
 	public void testExecute() {
-		new JobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener())
+		new BasicJobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener())
 				.execute();
 	}
 
@@ -48,7 +48,7 @@ public class JobExecutorTest {
 	public void testJobExecutor() {
 		// Null job, properties holder, job listener and status listener
 		try {
-			new JobExecutor(null, null, null, null);
+			new BasicJobExecutor(null, null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -57,7 +57,7 @@ public class JobExecutorTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			new JobExecutor(new TestJob(), null, null, null);
+			new BasicJobExecutor(new TestJob(), null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -66,7 +66,7 @@ public class JobExecutorTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			new JobExecutor(new TestJob(), new Configuration(), null, null);
+			new BasicJobExecutor(new TestJob(), new Configuration(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -75,7 +75,7 @@ public class JobExecutorTest {
 
 		// Null status listener
 		try {
-			new JobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), null);
+			new BasicJobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -84,7 +84,7 @@ public class JobExecutorTest {
 
 		// Null job
 		try {
-			new JobExecutor(null, new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
+			new BasicJobExecutor(null, new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -92,6 +92,6 @@ public class JobExecutorTest {
 		}
 
 		// Non-null job, properties holder and listener
-		new JobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
+		new BasicJobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
 	}
 }

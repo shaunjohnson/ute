@@ -36,12 +36,12 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 
 /**
- * The Class JobExecutor.
+ * The Class BasicJobExecutor.
  */
-public final class JobExecutor extends AbstractJobExecutor {
+public final class BasicJobExecutor extends AbstractJobExecutor {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(JobExecutor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BasicJobExecutor.class);
 
 	/** The job. */
 	private final Job job;
@@ -54,7 +54,7 @@ public final class JobExecutor extends AbstractJobExecutor {
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
 	 */
-	protected JobExecutor(final Job job, final PropertiesHolder propertiesHolder,
+	protected BasicJobExecutor(final Job job, final PropertiesHolder propertiesHolder,
 			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
 		super(propertiesHolder, jobStatusListener, statusChangeListener);
 
