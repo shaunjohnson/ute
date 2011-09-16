@@ -18,8 +18,7 @@
  */
 package net.lmxm.ute.gui.renderers;
 
-import java.awt.Component;
-import java.awt.Font;
+import java.awt.*;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -102,7 +101,7 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		else if (userObject instanceof FileSystemDeleteTask) {
 			final FileSystemDeleteTask fileSystemDeleteTask = (FileSystemDeleteTask) userObject;
 
-			setIcon(ImageUtil.DELETE_ICON);
+			setIcon(fileSystemDeleteTask.getEnabled() ? ImageUtil.DELETE_ICON : ImageUtil.DELETE_DISABLED_ICON);
 			setText(fileSystemDeleteTask.getId());
 		}
 		else if (userObject instanceof FileSystemLocation) {
@@ -114,19 +113,19 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		else if (userObject instanceof FindReplaceTask) {
 			final FindReplaceTask findReplaceTask = (FindReplaceTask) userObject;
 
-			setIcon(ImageUtil.FIND_REPLACE_ICON);
+			setIcon(findReplaceTask.getEnabled() ? ImageUtil.FIND_REPLACE_ICON : ImageUtil.FIND_REPLACE_DISABLED_ICON);
 			setText(findReplaceTask.getId());
 		}
 		else if (userObject instanceof GroovyTask) {
 			final GroovyTask groovyTask = (GroovyTask) userObject;
 
-			setIcon(ImageUtil.GROOVY_ICON);
+			setIcon(groovyTask.getEnabled() ? ImageUtil.GROOVY_ICON : ImageUtil.GROOVY_DISABLED_ICON);
 			setText(groovyTask.getId());
 		}
 		else if (userObject instanceof HttpDownloadTask) {
 			final HttpDownloadTask httpDownloadTask = (HttpDownloadTask) userObject;
 
-			setIcon(ImageUtil.FOLDER_IMPORT_ICON);
+			setIcon(httpDownloadTask.getEnabled() ? ImageUtil.FOLDER_IMPORT_ICON : ImageUtil.FOLDER_IMPORT_DISABLED_ICON);
 			setText(httpDownloadTask.getId());
 		}
 		else if (userObject instanceof HttpLocation) {
@@ -150,7 +149,7 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		else if (userObject instanceof SubversionExportTask) {
 			final SubversionExportTask subversionExportTask = (SubversionExportTask) userObject;
 
-			setIcon(ImageUtil.EXPORT_ICON);
+			setIcon(subversionExportTask.getEnabled() ? ImageUtil.EXPORT_ICON : ImageUtil.EXPORT_DISABLED_ICON);
 			setText(subversionExportTask.getId());
 		}
 		else if (userObject instanceof SubversionRepositoryLocation) {
@@ -162,7 +161,7 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		else if (userObject instanceof SubversionUpdateTask) {
 			final SubversionUpdateTask subversionUpdateTask = (SubversionUpdateTask) userObject;
 
-			setIcon(ImageUtil.CHECKOUT_ICON);
+			setIcon(subversionUpdateTask.getEnabled() ? ImageUtil.CHECKOUT_ICON : ImageUtil.CHECKOUT_DISABLED_ICON);
 			setText(subversionUpdateTask.getId());
 		}
 		else if (userObject instanceof RootTreeNode) {
@@ -176,6 +175,8 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		}
 
 		setFont(font);
+
+        final Color foregroundColor = isDisabledTask(userObject) ? Color.GRAY : tree.getForeground();
 
 		// Set tree cell tooltip text
 		if (userObject instanceof DescribableBean) {
@@ -192,17 +193,17 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		}
 		else if (isSelected && !hasFocus) {
 			setBackground(tree.getBackground());
-			setForeground(tree.getForeground());
+			setForeground(foregroundColor);
 			setBorder(new LineBorder(render.getBackgroundSelectionColor()));
 		}
 		else if (!isSelected && hasFocus) {
 			setBackground(tree.getBackground());
-			setForeground(tree.getForeground());
+			setForeground(foregroundColor);
 			setBorder(new LineBorder(render.getBackgroundSelectionColor()));
 		}
 		else {
 			setBackground(tree.getBackground());
-			setForeground(tree.getForeground());
+			setForeground(foregroundColor);
 			setBorder(new LineBorder(tree.getBackground()));
 		}
 
@@ -211,4 +212,19 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 
 		return this;
 	}
+
+    /**
+     * Determines if the user object is a task and is disabled.
+     *
+     * @param userObject User object to test
+     * @return True if the user object is a disabled task
+     */
+    private boolean isDisabledTask(Object userObject) {
+        if (userObject instanceof Task) {
+            return !((Task)userObject).getEnabled();
+        }
+        else {
+            return false;
+        }
+    }
 }

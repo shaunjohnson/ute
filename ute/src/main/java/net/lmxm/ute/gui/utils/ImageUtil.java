@@ -20,9 +20,10 @@ package net.lmxm.ute.gui.utils;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageProducer;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 /**
  * The Class ImageUtil.
@@ -47,17 +48,23 @@ public final class ImageUtil {
 	/** The Constant APPLICATION_ICON_IMAGE. */
 	public static final Image APPLICATION_ICON_IMAGE;
 
+    /** The Constant CHECKOUT_DISABLED_ICON. */
+	public static final Icon CHECKOUT_DISABLED_ICON;
+
 	/** The Constant CHECKOUT_ICON. */
 	public static final Icon CHECKOUT_ICON;
 
 	/** The Constant CLEAR_ICON. */
 	public static final Icon CLEAR_ICON;
 
-	/** The Constant DELETE_ICON. */
-	public static final ImageIcon DELETE_ICON;
+	/** The Constant DELETE_DISABLED_ICON. */
+	public static final Icon DELETE_DISABLED_ICON;
+
+    /** The Constant DELETE_ICON. */
+	public static final Icon DELETE_ICON;
 
 	/** The Constant DRIVE_ICON. */
-	public static final ImageIcon DRIVE_ICON;
+	public static final Icon DRIVE_ICON;
 
 	/** The Constant EDIT_PREFERENCES_ICON. */
 	public static final Icon EDIT_PREFERENCES_ICON;
@@ -68,20 +75,32 @@ public final class ImageUtil {
 	/** The Constant EXIT_ICON. */
 	public static final Icon EXIT_ICON;
 
+    /** The Constant EXPORT_DISABLED_ICON. */
+	public static final Icon EXPORT_DISABLED_ICON;
+
 	/** The Constant EXPORT_ICON. */
 	public static final Icon EXPORT_ICON;
 
+    /** The Constant FIND_REPLACE_DISABLED_ICON. */
+	public static final Icon FIND_REPLACE_DISABLED_ICON;
+
 	/** The Constant FIND_REPLACE_ICON. */
-	public static final ImageIcon FIND_REPLACE_ICON;
+	public static final Icon FIND_REPLACE_ICON;
+
+    /** The Constant FOLDER_IMPORT_DISABLED_ICON. */
+	public static final Icon FOLDER_IMPORT_DISABLED_ICON;
 
 	/** The Constant FOLDER_IMPORT_ICON. */
 	public static final Icon FOLDER_IMPORT_ICON;
 
+    /** The Constant GROOVY_DISABLED_ICON. */
+	public static final Icon GROOVY_DISABLED_ICON;
+
 	/** The Constant GROOVY_ICON. */
-	public static final ImageIcon GROOVY_ICON;
+	public static final Icon GROOVY_ICON;
 
 	/** The Constant JOB_ICON. */
-	public static final ImageIcon JOB_ICON;
+	public static final Icon JOB_ICON;
 
 	/** The Constant NETWORK_HUB_ICON. */
 	public static final Icon NETWORK_HUB_ICON;
@@ -93,10 +112,10 @@ public final class ImageUtil {
 	public static final Icon OPEN_FILE_ICON;
 
 	/** The Constant PREFERENCE_ICON. */
-	public static final ImageIcon PREFERENCE_ICON;
+	public static final Icon PREFERENCE_ICON;
 
 	/** The Constant PROPERTY_ICON. */
-	public static final ImageIcon PROPERTY_ICON;
+	public static final Icon PROPERTY_ICON;
 
 	/** The Constant SAVE_FILE_AS_ICON. */
 	public static final Icon SAVE_FILE_AS_ICON;
@@ -108,7 +127,7 @@ public final class ImageUtil {
 	public static final Icon STOP_JOB_ICON;
 
 	/** The Constant SUBVERSION_ICON. */
-	public static final ImageIcon SUBVERSION_ICON;
+	public static final Icon SUBVERSION_ICON;
 
 	static {
 		final Class<ImageUtil> thisClass = ImageUtil.class;
@@ -122,15 +141,11 @@ public final class ImageUtil {
 		ADD_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/drive--plus.png"));
 		ADD_PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/plus.png"));
 		ADD_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/plus.png"));
-		CHECKOUT_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
 		CLEAR_ICON = new ImageIcon(thisClass.getResource("/images/eraser.png"));
 		DRIVE_ICON = new ImageIcon(thisClass.getResource("/images/drive.png"));
 		EDIT_PREFERENCES_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
 		EXECUTE_ICON = new ImageIcon(thisClass.getResource("/images/lightning.png"));
 		EXIT_ICON = new ImageIcon(thisClass.getResource("/images/door-open-out.png"));
-		EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
-		FOLDER_IMPORT_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
-		GROOVY_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
 		JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-task.png"));
 		NETWORK_HUB_ICON = new ImageIcon(thisClass.getResource("/images/network-hub.png"));
 		NEW_FILE_ICON = new ImageIcon(thisClass.getResource("/images/document.png"));
@@ -143,7 +158,34 @@ public final class ImageUtil {
 		SUBVERSION_ICON = new ImageIcon(thisClass.getResource("/images/subversion.png"));
 
         // Load task icons
+        CHECKOUT_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
         DELETE_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
+        EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
         FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
+        FOLDER_IMPORT_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
+        GROOVY_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
+
+        // Create disabled task icons
+        CHECKOUT_DISABLED_ICON = createDisabledImage((ImageIcon)CHECKOUT_ICON);
+        DELETE_DISABLED_ICON = createDisabledImage((ImageIcon)DELETE_ICON);
+        EXPORT_DISABLED_ICON = createDisabledImage((ImageIcon)EXPORT_ICON);
+        FIND_REPLACE_DISABLED_ICON = createDisabledImage((ImageIcon)FIND_REPLACE_ICON);
+        FOLDER_IMPORT_DISABLED_ICON = createDisabledImage((ImageIcon)FOLDER_IMPORT_ICON);
+        GROOVY_DISABLED_ICON = createDisabledImage((ImageIcon)GROOVY_ICON);
 	}
+
+    /**
+     * Creates a new grayed image based on the image passed in.
+     *
+     * @param imageIcon Image icon to gray out
+     * @return New grayed out image
+     */
+    private static ImageIcon createDisabledImage(ImageIcon imageIcon) {
+        final GrayFilter filter = new GrayFilter (true, 50);
+        final ImageProducer imageSource = imageIcon.getImage().getSource();
+        final ImageProducer imageProducer = new FilteredImageSource(imageSource, filter);
+        final Image grayImage = Toolkit.getDefaultToolkit().createImage(imageProducer);
+
+        return new ImageIcon(grayImage);
+    }
 }
