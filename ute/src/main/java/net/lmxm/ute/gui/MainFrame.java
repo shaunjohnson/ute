@@ -65,13 +65,18 @@ import javax.swing.tree.TreeSelectionModel;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
-import net.lmxm.ute.beans.jobs.BasicJob;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.tasks.*;
+import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.FindReplaceTask;
+import net.lmxm.ute.beans.tasks.GroovyTask;
+import net.lmxm.ute.beans.tasks.HttpDownloadTask;
+import net.lmxm.ute.beans.tasks.SubversionExportTask;
+import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
+import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.dialogs.AboutDialog;
 import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.editors.FileSystemDeleteTaskEditorPanel;
@@ -368,33 +373,33 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 				}
 
 				final Object userObject = getSelectedTreeObject();
-                if (userObject == null) {
-                    return;
-                }
+				if (userObject == null) {
+					return;
+				}
 
-                Job job = null;
+				Job job = null;
 
 				if (userObject instanceof Job) {
 					job = (Job) userObject;
 				}
-                else if (userObject instanceof Task) {
-                    job = new SingleTaskJob((Task)userObject);
-                }
+				else if (userObject instanceof Task) {
+					job = new SingleTaskJob((Task) userObject);
+				}
 
-                if (job != null) {
-                    getStopJobButton().setEnabled(true);
+				if (job != null) {
+					getStopJobButton().setEnabled(true);
 
 					final JProgressBar progressBar = getJobProgressBar();
 					progressBar.setVisible(true);
 					progressBar.setValue(0);
 					progressBar.setMaximum(job.getTasks().size());
 
-                    job = ConfigurationUtils.interpolateJobValues(job, configuration);
+					job = ConfigurationUtils.interpolateJobValues(job, configuration);
 
 					jobWorker = new ExecuteJobWorker(job, configuration, getJobStatusListener(),
 							getStatusChangeListener());
 					jobWorker.execute();
-                }
+				}
 			}
 		}
 	}
