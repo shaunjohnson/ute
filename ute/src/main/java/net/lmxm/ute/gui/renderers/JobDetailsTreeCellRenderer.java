@@ -18,11 +18,16 @@
  */
 package net.lmxm.ute.gui.renderers;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JTree;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -48,13 +53,28 @@ import net.lmxm.ute.gui.utils.ImageUtil;
 /**
  * The Class JobDetailsTreeCellRenderer.
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCellRenderer {
+
+	/** The bold font. */
+	private static final Font boldFont;
+
+	/** The Constant disabledFont. */
+	private static final Font disabledFont;
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3104743001619688388L;
 
-	/** The bold font. */
-	private final Font boldFont;
+	static {
+		// Setup fonts
+		boldFont = new Font(Font.DIALOG, Font.BOLD, 14);
+
+		final Font defaultFont = UIManager.getDefaults().getFont("Tree.font");
+
+		final Map attributes = defaultFont.getAttributes();
+		attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+		disabledFont = new Font(attributes);
+	}
 
 	/**
 	 * Copy of default tree cell renderer. Used for reference.
@@ -67,7 +87,6 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 	public JobDetailsTreeCellRenderer() {
 		super();
 
-		boldFont = new Font(Font.DIALOG, Font.BOLD, 14);
 		render = new DefaultTreeCellRenderer();
 	}
 
@@ -87,7 +106,8 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 	public Component getTreeCellRendererComponent(final JTree tree, final Object value, final boolean isSelected,
 			final boolean expanded, final boolean leaf, final int row, final boolean hasFocus) {
 		final Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
-		Font font = tree.getFont();
+		setFont(tree.getFont());
+		Color foregroundColor = tree.getForeground();
 
 		// Set tree cell icon and text
 		if (userObject instanceof Job) {
@@ -125,7 +145,8 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		else if (userObject instanceof HttpDownloadTask) {
 			final HttpDownloadTask httpDownloadTask = (HttpDownloadTask) userObject;
 
-			setIcon(httpDownloadTask.getEnabled() ? ImageUtil.FOLDER_IMPORT_ICON : ImageUtil.FOLDER_IMPORT_DISABLED_ICON);
+			setIcon(httpDownloadTask.getEnabled() ? ImageUtil.FOLDER_IMPORT_ICON
+					: ImageUtil.FOLDER_IMPORT_DISABLED_ICON);
 			setText(httpDownloadTask.getId());
 		}
 		else if (userObject instanceof HttpLocation) {
@@ -165,7 +186,7 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 			setText(subversionUpdateTask.getId());
 		}
 		else if (userObject instanceof RootTreeNode) {
-			font = boldFont;
+			setFont(boldFont);
 			setIcon(null);
 			setText(value.toString());
 		}
@@ -174,9 +195,11 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 			setText(value.toString());
 		}
 
-		setFont(font);
-
-        final Color foregroundColor = isDisabledTask(userObject) ? Color.GRAY : tree.getForeground();
+		// Apply disabled task styles
+		if (isDisabledTask(userObject)) {
+			foregroundColor = Color.LIGHT_GRAY;
+			setFont(disabledFont);
+		}
 
 		// Set tree cell tooltip text
 		if (userObject instanceof DescribableBean) {
@@ -213,18 +236,18 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		return this;
 	}
 
-    /**
-     * Determines if the user object is a task and is disabled.
-     *
-     * @param userObject User object to test
-     * @return True if the user object is a disabled task
-     */
-    private boolean isDisabledTask(Object userObject) {
-        if (userObject instanceof Task) {
-            return !((Task)userObject).getEnabled();
-        }
-        else {
-            return false;
-        }
-    }
+	/**
+	 * Determines if the user object is a task and is disabled.
+	 * 
+	 * @param userObject User object to test
+	 * @return True if the user object is a disabled task
+	 */
+	private boolean isDisabledTask(final Object userObject) {
+		if (userObject instanceof Task) {
+			return !((Task) userObject).getEnabled();
+		}
+		else {
+			return false;
+		}
+	}
 }

@@ -23,7 +23,9 @@ import java.awt.Toolkit;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageProducer;
 
-import javax.swing.*;
+import javax.swing.GrayFilter;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  * The Class ImageUtil.
@@ -48,7 +50,7 @@ public final class ImageUtil {
 	/** The Constant APPLICATION_ICON_IMAGE. */
 	public static final Image APPLICATION_ICON_IMAGE;
 
-    /** The Constant CHECKOUT_DISABLED_ICON. */
+	/** The Constant CHECKOUT_DISABLED_ICON. */
 	public static final Icon CHECKOUT_DISABLED_ICON;
 
 	/** The Constant CHECKOUT_ICON. */
@@ -60,7 +62,7 @@ public final class ImageUtil {
 	/** The Constant DELETE_DISABLED_ICON. */
 	public static final Icon DELETE_DISABLED_ICON;
 
-    /** The Constant DELETE_ICON. */
+	/** The Constant DELETE_ICON. */
 	public static final Icon DELETE_ICON;
 
 	/** The Constant DRIVE_ICON. */
@@ -75,25 +77,25 @@ public final class ImageUtil {
 	/** The Constant EXIT_ICON. */
 	public static final Icon EXIT_ICON;
 
-    /** The Constant EXPORT_DISABLED_ICON. */
+	/** The Constant EXPORT_DISABLED_ICON. */
 	public static final Icon EXPORT_DISABLED_ICON;
 
 	/** The Constant EXPORT_ICON. */
 	public static final Icon EXPORT_ICON;
 
-    /** The Constant FIND_REPLACE_DISABLED_ICON. */
+	/** The Constant FIND_REPLACE_DISABLED_ICON. */
 	public static final Icon FIND_REPLACE_DISABLED_ICON;
 
 	/** The Constant FIND_REPLACE_ICON. */
 	public static final Icon FIND_REPLACE_ICON;
 
-    /** The Constant FOLDER_IMPORT_DISABLED_ICON. */
+	/** The Constant FOLDER_IMPORT_DISABLED_ICON. */
 	public static final Icon FOLDER_IMPORT_DISABLED_ICON;
 
 	/** The Constant FOLDER_IMPORT_ICON. */
 	public static final Icon FOLDER_IMPORT_ICON;
 
-    /** The Constant GROOVY_DISABLED_ICON. */
+	/** The Constant GROOVY_DISABLED_ICON. */
 	public static final Icon GROOVY_DISABLED_ICON;
 
 	/** The Constant GROOVY_ICON. */
@@ -157,35 +159,35 @@ public final class ImageUtil {
 		STOP_JOB_ICON = new ImageIcon(thisClass.getResource("/images/slash.png"));
 		SUBVERSION_ICON = new ImageIcon(thisClass.getResource("/images/subversion.png"));
 
-        // Load task icons
-        CHECKOUT_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
-        DELETE_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
-        EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
-        FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
-        FOLDER_IMPORT_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
-        GROOVY_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
+		// Load task icons
+		CHECKOUT_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
+		DELETE_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
+		EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
+		FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
+		FOLDER_IMPORT_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
+		GROOVY_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
 
-        // Create disabled task icons
-        CHECKOUT_DISABLED_ICON = createDisabledImage((ImageIcon)CHECKOUT_ICON);
-        DELETE_DISABLED_ICON = createDisabledImage((ImageIcon)DELETE_ICON);
-        EXPORT_DISABLED_ICON = createDisabledImage((ImageIcon)EXPORT_ICON);
-        FIND_REPLACE_DISABLED_ICON = createDisabledImage((ImageIcon)FIND_REPLACE_ICON);
-        FOLDER_IMPORT_DISABLED_ICON = createDisabledImage((ImageIcon)FOLDER_IMPORT_ICON);
-        GROOVY_DISABLED_ICON = createDisabledImage((ImageIcon)GROOVY_ICON);
+		// Create disabled task icons
+		CHECKOUT_DISABLED_ICON = createDisabledImage((ImageIcon) CHECKOUT_ICON);
+		DELETE_DISABLED_ICON = createDisabledImage((ImageIcon) DELETE_ICON);
+		EXPORT_DISABLED_ICON = createDisabledImage((ImageIcon) EXPORT_ICON);
+		FIND_REPLACE_DISABLED_ICON = createDisabledImage((ImageIcon) FIND_REPLACE_ICON);
+		FOLDER_IMPORT_DISABLED_ICON = createDisabledImage((ImageIcon) FOLDER_IMPORT_ICON);
+		GROOVY_DISABLED_ICON = createDisabledImage((ImageIcon) GROOVY_ICON);
 	}
 
-    /**
-     * Creates a new grayed image based on the image passed in.
-     *
-     * @param imageIcon Image icon to gray out
-     * @return New grayed out image
-     */
-    private static ImageIcon createDisabledImage(ImageIcon imageIcon) {
-        final GrayFilter filter = new GrayFilter (true, 50);
-        final ImageProducer imageSource = imageIcon.getImage().getSource();
-        final ImageProducer imageProducer = new FilteredImageSource(imageSource, filter);
-        final Image grayImage = Toolkit.getDefaultToolkit().createImage(imageProducer);
+	/**
+	 * Creates a new grayed image based on the image passed in.
+	 * 
+	 * @param imageIcon Image icon to gray out
+	 * @return New grayed out image
+	 */
+	private static ImageIcon createDisabledImage(final ImageIcon imageIcon) {
+		final GrayFilter filter = new GrayFilter(true, 75);
+		final ImageProducer imageSource = imageIcon.getImage().getSource();
+		final ImageProducer imageProducer = new FilteredImageSource(imageSource, filter);
+		final Image grayImage = Toolkit.getDefaultToolkit().createImage(imageProducer);
 
-        return new ImageIcon(grayImage);
-    }
+		return new ImageIcon(grayImage);
+	}
 }
