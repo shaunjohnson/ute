@@ -39,7 +39,7 @@ public class FindReplaceTaskExecuterTest {
 
 	private static final TestStatusChangeListener STATUS_CHANGE_LISTENER = new TestStatusChangeListener();
 
-	private FindReplaceTaskExecuter executor = null;
+	private FindReplaceTaskExecuter executer = null;
 
 	/**
 	 * Setup.
@@ -48,7 +48,7 @@ public class FindReplaceTaskExecuterTest {
 	public void setup() {
 		final FindReplaceTask task = new FindReplaceTask();
 
-		executor = new FindReplaceTaskExecuter(task, STATUS_CHANGE_LISTENER);
+		executer = new FindReplaceTaskExecuter(task, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -58,8 +58,8 @@ public class FindReplaceTaskExecuterTest {
 	public void testApplyPattern() {
 		final Pattern pattern = Pattern.compile("^test$");
 
-		assertEquals("foo", executor.applyPattern("foo", new PatternWrapper(pattern, "bar")));
-		assertEquals("bar", executor.applyPattern("test", new PatternWrapper(pattern, "bar")));
+		assertEquals("foo", executer.applyPattern("foo", new PatternWrapper(pattern, "bar")));
+		assertEquals("bar", executer.applyPattern("test", new PatternWrapper(pattern, "bar")));
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class FindReplaceTaskExecuterTest {
 	public void testConvertFindReplacePatternsToRegexPatterns() {
 		final List<FindReplacePattern> patternList = new ArrayList<FindReplacePattern>();
 
-		List<PatternWrapper> patterns = executor.convertFindReplacePatternsToRegexPatterns(patternList);
+		List<PatternWrapper> patterns = executer.convertFindReplacePatternsToRegexPatterns(patternList);
 
 		assertNotNull(patterns);
 		assertTrue(patterns.size() == 0);
@@ -79,7 +79,7 @@ public class FindReplaceTaskExecuterTest {
 		findReplacePattern.setReplace("bar");
 
 		patternList.add(findReplacePattern);
-		patterns = executor.convertFindReplacePatternsToRegexPatterns(patternList);
+		patterns = executer.convertFindReplacePatternsToRegexPatterns(patternList);
 
 		assertNotNull(patterns);
 		assertTrue(patterns.size() == 1);
@@ -102,7 +102,7 @@ public class FindReplaceTaskExecuterTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testConvertFindReplacePatternsToRegexPatternsNullList() {
-		executor.convertFindReplacePatternsToRegexPatterns(null);
+		executer.convertFindReplacePatternsToRegexPatterns(null);
 	}
 
 	@Test

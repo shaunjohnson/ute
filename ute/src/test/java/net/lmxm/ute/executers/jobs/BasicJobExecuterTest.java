@@ -42,7 +42,7 @@ public class BasicJobExecuterTest {
 	}
 
 	/**
-	 * Test job executor.
+	 * Test job executer.
 	 */
 	@Test
 	public void testJobExecuter() {

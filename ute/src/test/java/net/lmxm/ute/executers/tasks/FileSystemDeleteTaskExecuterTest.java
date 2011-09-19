@@ -48,8 +48,8 @@ public class FileSystemDeleteTaskExecuterTest {
 	/** The Constant TMP_DIR. */
 	private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
 
-	/** The executor. */
-	private FileSystemDeleteTaskExecuter executor = null;
+	/** The executer. */
+	private FileSystemDeleteTaskExecuter executer = null;
 
 	/**
 	 * Setup.
@@ -58,7 +58,7 @@ public class FileSystemDeleteTaskExecuterTest {
 	public void setup() {
 		final FileSystemDeleteTask task = new FileSystemDeleteTask();
 
-		executor = new FileSystemDeleteTaskExecuter(task, STATUS_CHANGE_LISTENER);
+		executer = new FileSystemDeleteTaskExecuter(task, STATUS_CHANGE_LISTENER);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class FileSystemDeleteTaskExecuterTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteFilesBlankPath() {
-		executor.deleteFiles("    ", null, STOP_ON_ERROR);
+		executer.deleteFiles("    ", null, STOP_ON_ERROR);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class FileSystemDeleteTaskExecuterTest {
 			final List<FileReference> files = new ArrayList<FileReference>();
 			files.add(fileReference);
 
-			executor.deleteFiles(directory.getAbsolutePath(), files, STOP_ON_ERROR);
+			executer.deleteFiles(directory.getAbsolutePath(), files, STOP_ON_ERROR);
 
 			assertFalse(file.exists());
 		}
@@ -109,7 +109,7 @@ public class FileSystemDeleteTaskExecuterTest {
 
 		assertFalse(file.exists());
 
-		executor.deleteFiles(file.getAbsolutePath(), null, STOP_ON_ERROR);
+		executer.deleteFiles(file.getAbsolutePath(), null, STOP_ON_ERROR);
 
 		assertFalse(file.exists());
 	}
@@ -119,7 +119,7 @@ public class FileSystemDeleteTaskExecuterTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteFilesNullPath() {
-		executor.deleteFiles(null, null, STOP_ON_ERROR);
+		executer.deleteFiles(null, null, STOP_ON_ERROR);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class FileSystemDeleteTaskExecuterTest {
 
 		assertTrue(directory.exists());
 
-		executor.deleteFiles(directory.getAbsolutePath(), null, STOP_ON_ERROR);
+		executer.deleteFiles(directory.getAbsolutePath(), null, STOP_ON_ERROR);
 
 		assertFalse(directory.exists());
 	}
@@ -150,7 +150,7 @@ public class FileSystemDeleteTaskExecuterTest {
 
 			assertTrue(file.exists());
 
-			executor.deleteFiles(file.getAbsolutePath(), null, STOP_ON_ERROR);
+			executer.deleteFiles(file.getAbsolutePath(), null, STOP_ON_ERROR);
 
 			assertFalse(file.exists());
 		}

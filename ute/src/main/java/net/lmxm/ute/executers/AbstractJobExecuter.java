@@ -45,7 +45,7 @@ public abstract class AbstractJobExecuter implements Executer {
 	private final StatusChangeListener statusChangeListener;
 
 	/**
-	 * Instantiates a new abstract job executor.
+	 * Instantiates a new abstract job executer.
 	 * 
 	 * @param job the job
 	 * @param propertiesHolder the properties holder

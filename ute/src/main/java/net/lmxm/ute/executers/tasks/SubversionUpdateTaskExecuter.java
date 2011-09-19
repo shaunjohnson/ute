@@ -41,7 +41,7 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 	private final SubversionUpdateTask task;
 
 	/**
-	 * Instantiates a new subversion update task executor.
+	 * Instantiates a new subversion update task executer.
 	 *
 	 * @param task the task
 	 * @param statusChangeListener the status change listener

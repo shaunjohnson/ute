@@ -41,7 +41,7 @@ public final class BasicJobExecuter extends AbstractJobExecuter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BasicJobExecuter.class);
 
 	/**
-	 * Instantiates a new basic job executor.
+	 * Instantiates a new basic job executer.
 	 * 
 	 * @param job the job
 	 * @param propertiesHolder the properties holder

@@ -53,7 +53,7 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 	private final FindReplaceTask task;
 
 	/**
-	 * Instantiates a new find replace task executor.
+	 * Instantiates a new find replace task executer.
 	 * 
 	 * @param task the task
 	 * @param statusChangeListener the status change listener

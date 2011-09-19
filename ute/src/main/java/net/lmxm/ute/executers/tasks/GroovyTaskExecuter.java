@@ -47,7 +47,7 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
 	private final GroovyTask task;
 
 	/**
-	 * Instantiates a new groovy task executor.
+	 * Instantiates a new groovy task executer.
 	 * 
 	 * @param task the task
 	 * @param propertiesHolder the properties holder

@@ -45,7 +45,7 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 	private final SubversionExportTask task;
 
 	/**
-	 * Instantiates a new subversion export task executor.
+	 * Instantiates a new subversion export task executer.
 	 *
 	 * @param task the task
 	 * @param statusChangeListener the status change listener

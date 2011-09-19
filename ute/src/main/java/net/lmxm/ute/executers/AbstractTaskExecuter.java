@@ -33,7 +33,7 @@ public abstract class AbstractTaskExecuter implements Executer {
 	private final StatusChangeListener statusChangeListener;
 
 	/**
-	 * Instantiates a new abstract task executor.
+	 * Instantiates a new abstract task executer.
 	 * 
 	 * @param statusChangeListener the status change listener
 	 */

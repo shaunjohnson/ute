@@ -47,7 +47,7 @@ public final class JobExecuterFactory implements ExecuterFactory {
 	 * @param propertiesHolder the properties holder
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
-	 * @return the executor if
+	 * @return the executer if
 	 */
 	public static Executer create(final Job job, final PropertiesHolder propertiesHolder,
 			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
@@ -65,25 +65,25 @@ public final class JobExecuterFactory implements ExecuterFactory {
 		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
-		Executer executor = null;
+		Executer executer = null;
 
 		if (job instanceof BasicJob) {
-			executor = new BasicJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
+			executer = new BasicJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
 		}
 		else if (job instanceof SingleTaskJob) {
-			executor = new SingleTaskJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
+			executer = new SingleTaskJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
 		}
 		else {
 			throw new IllegalArgumentException("Unsupported job type");
 		}
 
-		LOGGER.debug("{} returning {}", prefix, executor);
+		LOGGER.debug("{} returning {}", prefix, executer);
 
-		return executor;
+		return executer;
 	}
 
 	/**
-	 * Instantiates a new job executor factory.
+	 * Instantiates a new job executer factory.
 	 */
 	private JobExecuterFactory() {
 		throw new AssertionError();

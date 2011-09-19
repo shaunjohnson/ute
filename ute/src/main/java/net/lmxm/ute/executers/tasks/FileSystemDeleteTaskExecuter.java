@@ -49,7 +49,7 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
 	private final FileSystemDeleteTask task;
 
 	/**
-	 * Instantiates a new file system delete task executor.
+	 * Instantiates a new file system delete task executer.
 	 * 
 	 * @param task the task
 	 * @param jobStatusListener the job status listener

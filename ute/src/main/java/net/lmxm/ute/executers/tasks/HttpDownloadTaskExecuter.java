@@ -45,7 +45,7 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 	private final HttpDownloadTask task;
 
 	/**
-	 * Instantiates a new http download task executor.
+	 * Instantiates a new http download task executer.
 	 * 
 	 * @param task the task
 	 * @param statusChangeListener the status change listener

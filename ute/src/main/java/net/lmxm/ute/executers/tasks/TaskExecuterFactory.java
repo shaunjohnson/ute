@@ -49,7 +49,7 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 	 * @param task the task
 	 * @param propertiesHolder the properties holder
 	 * @param statusChangeListener the status change listener
-	 * @return the executor if
+	 * @return the executer if
 	 */
 	public static Executer create(final Task task, final PropertiesHolder propertiesHolder,
 			final StatusChangeListener statusChangeListener) {
@@ -65,37 +65,37 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
-		Executer executor;
+		Executer executer;
 
 		if (task instanceof FileSystemDeleteTask) {
 			LOGGER.debug("{} task is FileSystemDeleteTask", prefix);
 
-			executor = new FileSystemDeleteTaskExecuter((FileSystemDeleteTask) task, statusChangeListener);
+			executer = new FileSystemDeleteTaskExecuter((FileSystemDeleteTask) task, statusChangeListener);
 		}
 		else if (task instanceof FindReplaceTask) {
 			LOGGER.debug("{} task is FindReplaceTask", prefix);
 
-			executor = new FindReplaceTaskExecuter((FindReplaceTask) task, statusChangeListener);
+			executer = new FindReplaceTaskExecuter((FindReplaceTask) task, statusChangeListener);
 		}
 		else if (task instanceof GroovyTask) {
 			LOGGER.debug("{} task is GroovyTask", prefix);
 
-			executor = new GroovyTaskExecuter((GroovyTask) task, propertiesHolder, statusChangeListener);
+			executer = new GroovyTaskExecuter((GroovyTask) task, propertiesHolder, statusChangeListener);
 		}
 		else if (task instanceof HttpDownloadTask) {
 			LOGGER.debug("{} task is HttpDownloadTask", prefix);
 
-			executor = new HttpDownloadTaskExecuter((HttpDownloadTask) task, statusChangeListener);
+			executer = new HttpDownloadTaskExecuter((HttpDownloadTask) task, statusChangeListener);
 		}
 		else if (task instanceof SubversionExportTask) {
 			LOGGER.debug("{} task is SubversionExportTask", prefix);
 
-			executor = new SubversionExportTaskExecuter((SubversionExportTask) task, statusChangeListener);
+			executer = new SubversionExportTaskExecuter((SubversionExportTask) task, statusChangeListener);
 		}
 		else if (task instanceof SubversionUpdateTask) {
 			LOGGER.debug("{} task is SubversionUpdateTask", prefix);
 
-			executor = new SubversionUpdateTaskExecuter((SubversionUpdateTask) task, statusChangeListener);
+			executer = new SubversionUpdateTaskExecuter((SubversionUpdateTask) task, statusChangeListener);
 		}
 		else {
 			LOGGER.error("{} unsupported task type {}", prefix, task);
@@ -103,13 +103,13 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 			throw new IllegalArgumentException("Unsupported task type");
 		}
 
-		LOGGER.debug("{} returning {}", prefix, executor);
+		LOGGER.debug("{} returning {}", prefix, executer);
 
-		return executor;
+		return executer;
 	}
 
 	/**
-	 * Instantiates a new task executor factory.
+	 * Instantiates a new task executer factory.
 	 */
 	private TaskExecuterFactory() {
 		throw new AssertionError();

@@ -39,7 +39,7 @@ public final class SingleTaskJobExecuter extends AbstractJobExecuter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SingleTaskJobExecuter.class);
 
 	/**
-	 * Instantiates a new single task job executor.
+	 * Instantiates a new single task job executer.
 	 * 
 	 * @param job the job
 	 * @param propertiesHolder the properties holder
