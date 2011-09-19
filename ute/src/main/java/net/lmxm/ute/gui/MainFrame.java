@@ -1080,7 +1080,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 			mainTree.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mouseClicked(final MouseEvent mouseEvent) {
+				public void mousePressed(final MouseEvent mouseEvent) {
 					treeSelectionChanged();
 				}
 			});
