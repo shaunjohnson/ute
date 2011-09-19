@@ -20,9 +20,12 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -31,6 +34,7 @@ import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
+import net.lmxm.ute.enums.Scope;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +50,12 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5004821032399609379L;
 
+	/** The file scope radio button. */
+	private JRadioButton fileScopeRadioButton;
+
+	/** The line scope radio button. */
+	private JRadioButton lineScopeRadioButton;
+
 	/** The patterns pane. */
 	private JPanel patternsPane = null;
 
@@ -54,6 +64,9 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/** The patterns table. */
 	private JTable patternsTable = null;
+
+	/** The scope pane. */
+	private JPanel scopePane = null;
 
 	/**
 	 * Instantiates a new find replace task editor panel.
@@ -66,6 +79,12 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		addTaskCommonFields();
 		addFileSystemTargetFields();
 		addFilesFields();
+
+		final JPanel contentPanel = getContentPanel();
+
+		contentPanel.add(new JLabel("Scope:"));
+		contentPanel.add(getScopePane());
+
 		addPatternsFields();
 	}
 
@@ -91,6 +110,32 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		tableModel.addColumn("Replacement");
 
 		return tableModel;
+	}
+
+	/**
+	 * Gets the file scope radio button.
+	 * 
+	 * @return the file scope radio button
+	 */
+	private JRadioButton getFileScopeRadioButton() {
+		if (fileScopeRadioButton == null) {
+			fileScopeRadioButton = new JRadioButton(Scope.FILE.toString());
+		}
+
+		return fileScopeRadioButton;
+	}
+
+	/**
+	 * Gets the line scope radio button.
+	 * 
+	 * @return the line scope radio button
+	 */
+	private JRadioButton getLineScopeRadioButton() {
+		if (lineScopeRadioButton == null) {
+			lineScopeRadioButton = new JRadioButton(Scope.LINE.toString());
+		}
+
+		return lineScopeRadioButton;
 	}
 
 	/**
@@ -138,6 +183,26 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	}
 
 	/**
+	 * Gets the scope pane.
+	 * 
+	 * @return the scope pane
+	 */
+	private final JPanel getScopePane() {
+		if (scopePane == null) {
+			scopePane = new JPanel();
+			scopePane.setLayout(new FlowLayout(FlowLayout.LEFT));
+			scopePane.add(getLineScopeRadioButton());
+			scopePane.add(getFileScopeRadioButton());
+
+			final ButtonGroup group = new ButtonGroup();
+			group.add(getLineScopeRadioButton());
+			group.add(getFileScopeRadioButton());
+		}
+
+		return scopePane;
+	}
+
+	/**
 	 * Load data.
 	 * 
 	 * @param findReplaceTask the find replace task
@@ -153,6 +218,18 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		loadFileSystemTargetFieldData(target);
 		loadFilesFieldData(findReplaceTask);
 		loadPatternsFieldData(findReplaceTask);
+
+		if (findReplaceTask == null) {
+			getLineScopeRadioButton().setSelected(true);
+		}
+		else {
+			if (findReplaceTask.getScope() == Scope.LINE) {
+				getLineScopeRadioButton().setSelected(true);
+			}
+			else {
+				getFileScopeRadioButton().setSelected(true);
+			}
+		}
 
 		LOGGER.debug("{} leaving", prefix);
 	}

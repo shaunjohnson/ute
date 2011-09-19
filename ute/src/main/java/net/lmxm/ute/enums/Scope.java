@@ -24,8 +24,29 @@ package net.lmxm.ute.enums;
 public enum Scope {
 
 	/** The FILE. */
-	FILE,
+	FILE("File"),
 
 	/** The LINE. */
-	LINE
+	LINE("Line");
+
+	/** The name. */
+	private final String name;
+
+	/**
+	 * Instantiates a new scope.
+	 * 
+	 * @param name the name
+	 */
+	Scope(final String name) {
+		this.name = name;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Enum#toString()
+	 */
+	@Override
+	public String toString() {
+		return name;
+	}
 }
