@@ -1782,6 +1782,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 				refreshJobsTree();
 				updateTitle();
+				getJobDetailsEditorScrollPane().setViewportView(null);
 			}
 			catch (final Exception e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
