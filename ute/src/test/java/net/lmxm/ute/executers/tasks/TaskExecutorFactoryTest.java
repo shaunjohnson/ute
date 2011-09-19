@@ -1,20 +1,20 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executor.
+ * This file is part of Universal Task Executer.
  * 
- * Universal Task Executor is free software: you can redistribute it and/or modify
+ * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executor is distributed in the hope that it will be useful, but
+ * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.executors.tasks;
 
@@ -30,14 +30,14 @@ import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.executors.Executor;
+import net.lmxm.ute.executors.Executer;
 
 import org.junit.Test;
 
 /**
- * The Class TaskExecutorFactoryTest.
+ * The Class TaskExecuterFactoryTest.
  */
-public class TaskExecutorFactoryTest {
+public class TaskExecuterFactoryTest {
 
 	/**
 	 * Test create.
@@ -46,7 +46,7 @@ public class TaskExecutorFactoryTest {
 	public void testCreate() {
 		// Null task, properties holder and listener
 		try {
-			TaskExecutorFactory.create(null, null, null);
+			TaskExecuterFactory.create(null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -55,7 +55,7 @@ public class TaskExecutorFactoryTest {
 
 		// Null properties holder and listener
 		try {
-			TaskExecutorFactory.create(new TestTask(), null, null);
+			TaskExecuterFactory.create(new TestTask(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -64,7 +64,7 @@ public class TaskExecutorFactoryTest {
 
 		// Null listener
 		try {
-			TaskExecutorFactory.create(new TestTask(), new Configuration(), null);
+			TaskExecuterFactory.create(new TestTask(), new Configuration(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -73,7 +73,7 @@ public class TaskExecutorFactoryTest {
 
 		// Null task
 		try {
-			TaskExecutorFactory.create(null, new Configuration(), new TestStatusChangeListener());
+			TaskExecuterFactory.create(null, new Configuration(), new TestStatusChangeListener());
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -82,7 +82,7 @@ public class TaskExecutorFactoryTest {
 
 		// Unsupported task type
 		try {
-			TaskExecutorFactory.create(new TestTask(), new Configuration(), new TestStatusChangeListener());
+			TaskExecuterFactory.create(new TestTask(), new Configuration(), new TestStatusChangeListener());
 			fail();
 		}
 		catch (final IllegalArgumentException e) {
@@ -90,45 +90,45 @@ public class TaskExecutorFactoryTest {
 		}
 
 		// Test file system delete task
-		final Executor fileSystemDeleteTaskExecutor = TaskExecutorFactory.create(new FileSystemDeleteTask(),
+		final Executer fileSystemDeleteTaskExecuter = TaskExecuterFactory.create(new FileSystemDeleteTask(),
 				new Configuration(), new TestStatusChangeListener());
 
-		assertNotNull(fileSystemDeleteTaskExecutor);
-		assertTrue(fileSystemDeleteTaskExecutor instanceof FileSystemDeleteTaskExecutor);
+		assertNotNull(fileSystemDeleteTaskExecuter);
+		assertTrue(fileSystemDeleteTaskExecuter instanceof FileSystemDeleteTaskExecuter);
 
 		// Test find replace task
-		final Executor findReplaceTaskExecutor = TaskExecutorFactory.create(new FindReplaceTask(), new Configuration(),
+		final Executer findReplaceTaskExecuter = TaskExecuterFactory.create(new FindReplaceTask(), new Configuration(),
 				new TestStatusChangeListener());
 
-		assertNotNull(findReplaceTaskExecutor);
-		assertTrue(findReplaceTaskExecutor instanceof FindReplaceTaskExecutor);
+		assertNotNull(findReplaceTaskExecuter);
+		assertTrue(findReplaceTaskExecuter instanceof FindReplaceTaskExecuter);
 
 		// Test groovy task
-		final Executor groovyTaskExecutor = TaskExecutorFactory.create(new GroovyTask(), new Configuration(),
+		final Executer groovyTaskExecuter = TaskExecuterFactory.create(new GroovyTask(), new Configuration(),
 				new TestStatusChangeListener());
 
-		assertNotNull(groovyTaskExecutor);
-		assertTrue(groovyTaskExecutor instanceof GroovyTaskExecutor);
+		assertNotNull(groovyTaskExecuter);
+		assertTrue(groovyTaskExecuter instanceof GroovyTaskExecuter);
 
 		// Test HTTP download task
-		final Executor httpDownloadTaskExecutor = TaskExecutorFactory.create(new HttpDownloadTask(),
+		final Executer httpDownloadTaskExecuter = TaskExecuterFactory.create(new HttpDownloadTask(),
 				new Configuration(), new TestStatusChangeListener());
 
-		assertNotNull(httpDownloadTaskExecutor);
-		assertTrue(httpDownloadTaskExecutor instanceof HttpDownloadTaskExecutor);
+		assertNotNull(httpDownloadTaskExecuter);
+		assertTrue(httpDownloadTaskExecuter instanceof HttpDownloadTaskExecuter);
 
 		// Test Subversion export task
-		final Executor subversionExportTaskExecutor = TaskExecutorFactory.create(new SubversionExportTask(),
+		final Executer subversionExportTaskExecuter = TaskExecuterFactory.create(new SubversionExportTask(),
 				new Configuration(), new TestStatusChangeListener());
 
-		assertNotNull(subversionExportTaskExecutor);
-		assertTrue(subversionExportTaskExecutor instanceof SubversionExportTaskExecutor);
+		assertNotNull(subversionExportTaskExecuter);
+		assertTrue(subversionExportTaskExecuter instanceof SubversionExportTaskExecuter);
 
 		// Test Subversion update task
-		final Executor subversionUpdateTaskExecutor = TaskExecutorFactory.create(new SubversionUpdateTask(),
+		final Executer subversionUpdateTaskExecuter = TaskExecuterFactory.create(new SubversionUpdateTask(),
 				new Configuration(), new TestStatusChangeListener());
 
-		assertNotNull(subversionUpdateTaskExecutor);
-		assertTrue(subversionUpdateTaskExecutor instanceof SubversionUpdateTaskExecutor);
+		assertNotNull(subversionUpdateTaskExecuter);
+		assertTrue(subversionUpdateTaskExecuter instanceof SubversionUpdateTaskExecuter);
 	}
 }

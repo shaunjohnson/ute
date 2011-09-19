@@ -1,20 +1,20 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executor.
+ * This file is part of Universal Task Executer.
  * 
- * Universal Task Executor is free software: you can redistribute it and/or modify
+ * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executor is distributed in the hope that it will be useful, but
+ * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.executors.jobs;
 
@@ -22,8 +22,8 @@ import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.executors.AbstractJobExecutor;
-import net.lmxm.ute.executors.tasks.TaskExecutorFactory;
+import net.lmxm.ute.executors.AbstractJobExecuter;
+import net.lmxm.ute.executors.tasks.TaskExecuterFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
@@ -31,12 +31,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class SingleTaskJobExecutor.
+ * The Class SingleTaskJobExecuter.
  */
-public final class SingleTaskJobExecutor extends AbstractJobExecutor {
+public final class SingleTaskJobExecuter extends AbstractJobExecuter {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SingleTaskJobExecutor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SingleTaskJobExecuter.class);
 
 	/**
 	 * Instantiates a new single task job executor.
@@ -46,14 +46,14 @@ public final class SingleTaskJobExecutor extends AbstractJobExecutor {
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
 	 */
-	protected SingleTaskJobExecutor(final Job job, final PropertiesHolder propertiesHolder,
+	protected SingleTaskJobExecuter(final Job job, final PropertiesHolder propertiesHolder,
 			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
 		super(job, propertiesHolder, jobStatusListener, statusChangeListener);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.executors.ExecutorIF#execute()
+	 * @see net.lmxm.ute.executors.ExecuterIF#execute()
 	 */
 	@Override
 	public void execute() {
@@ -71,7 +71,7 @@ public final class SingleTaskJobExecutor extends AbstractJobExecutor {
 			LOGGER.debug("{} executing task={}", prefix, task);
 
 			if (task.getEnabled()) {
-				TaskExecutorFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
+				TaskExecuterFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
 
 				getJobStatusListener().jobTaskCompleted();
 			}

@@ -1,45 +1,54 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executor.
+ * This file is part of Universal Task Executer.
  * 
- * Universal Task Executor is free software: you can redistribute it and/or modify
+ * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executor is distributed in the hope that it will be useful, but
+ * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.executors.jobs;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-import net.lmxm.ute.TestJob;
 import net.lmxm.ute.TestJobStatusListener;
 import net.lmxm.ute.TestStatusChangeListener;
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.jobs.BasicJob;
 
 import org.junit.Test;
 
 /**
- * The Class JobExecutorFactoryTest.
+ * The Class JobExecuterTest.
  */
-public class JobExecutorFactoryTest {
+public class BasicJobExecuterTest {
 
 	/**
-	 * Test create.
+	 * Test execute.
 	 */
 	@Test
-	public void testCreate() {
+	public void testExecute() {
+		new BasicJobExecuter(new BasicJob(), new Configuration(), new TestJobStatusListener(),
+				new TestStatusChangeListener()).execute();
+	}
+
+	/**
+	 * Test job executor.
+	 */
+	@Test
+	public void testJobExecuter() {
 		// Null job, properties holder, job listener and status listener
 		try {
-			JobExecutorFactory.create(null, null, null, null);
+			new BasicJobExecuter(null, null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -48,16 +57,16 @@ public class JobExecutorFactoryTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			JobExecutorFactory.create(new TestJob(), null, null, null);
+			new BasicJobExecuter(new BasicJob(), null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Null job listener and status listener
+		// Null properties holder, job listener and status listener
 		try {
-			JobExecutorFactory.create(new TestJob(), new Configuration(), null, null);
+			new BasicJobExecuter(new BasicJob(), new Configuration(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -66,7 +75,7 @@ public class JobExecutorFactoryTest {
 
 		// Null status listener
 		try {
-			JobExecutorFactory.create(new TestJob(), new Configuration(), new TestJobStatusListener(), null);
+			new BasicJobExecuter(new BasicJob(), new Configuration(), new TestJobStatusListener(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -75,22 +84,15 @@ public class JobExecutorFactoryTest {
 
 		// Null job
 		try {
-			JobExecutorFactory.create(null, new Configuration(), new TestJobStatusListener(),
-					new TestStatusChangeListener());
+			new BasicJobExecuter(null, new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Non-null job, properties holder, job listener and status listener
-		try {
-			JobExecutorFactory.create(new TestJob(), new Configuration(), new TestJobStatusListener(),
-					new TestStatusChangeListener());
-			fail();
-		}
-		catch (final IllegalArgumentException e) {
-			assertNotNull(e);
-		}
+		// Non-null job, properties holder and listener
+		new BasicJobExecuter(new BasicJob(), new Configuration(), new TestJobStatusListener(),
+				new TestStatusChangeListener());
 	}
 }

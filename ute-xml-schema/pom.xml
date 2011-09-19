@@ -8,8 +8,8 @@
 		<artifactId>ute-parent</artifactId>
 		<version>0.2.0-SNAPSHOT</version>
 	</parent>
-	<name>Universal Task Executor Config XML Schema</name>
-	<description>Universal Task Executor Config XML Schema</description>
+	<name>Universal Task Executer Config XML Schema</name>
+	<description>Universal Task Executer Config XML Schema</description>
 	<inceptionYear>2011</inceptionYear>
 	<developers>
 		<developer>

@@ -1,26 +1,26 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executor.
+ * This file is part of Universal Task Executer.
  * 
- * Universal Task Executor is free software: you can redistribute it and/or modify
+ * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executor is distributed in the hope that it will be useful, but
+ * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.subversion.utils;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
-import net.lmxm.ute.executors.tasks.SubversionExportTaskExecutor;
+import net.lmxm.ute.executors.tasks.SubversionExportTaskExecuter;
 import net.lmxm.ute.utils.PathUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,7 +35,7 @@ import com.google.common.base.Preconditions;
 public final class SubversionRepositoryLocationUtils {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionExportTaskExecutor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionExportTaskExecuter.class);
 
 	/**
 	 * Gets the full url.

@@ -1,25 +1,25 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executor.
+ * This file is part of Universal Task Executer.
  * 
- * Universal Task Executor is free software: you can redistribute it and/or modify
+ * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executor is distributed in the hope that it will be useful, but
+ * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.executors.tasks;
 
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.executors.AbstractTaskExecutor;
+import net.lmxm.ute.executors.AbstractTaskExecuter;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.subversion.utils.WorkingCopyUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
@@ -30,12 +30,12 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 
 /**
- * The Class SubversionUpdateTaskExecutor.
+ * The Class SubversionUpdateTaskExecuter.
  */
-public final class SubversionUpdateTaskExecutor extends AbstractTaskExecutor {
+public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionUpdateTaskExecutor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionUpdateTaskExecuter.class);
 
 	/** The task. */
 	private final SubversionUpdateTask task;
@@ -46,7 +46,7 @@ public final class SubversionUpdateTaskExecutor extends AbstractTaskExecutor {
 	 * @param task the task
 	 * @param statusChangeListener the status change listener
 	 */
-	public SubversionUpdateTaskExecutor(final SubversionUpdateTask task, final StatusChangeListener statusChangeListener) {
+	public SubversionUpdateTaskExecuter(final SubversionUpdateTask task, final StatusChangeListener statusChangeListener) {
 		super(statusChangeListener);
 
 		Preconditions.checkNotNull(task, "Task may not be null");
@@ -57,7 +57,7 @@ public final class SubversionUpdateTaskExecutor extends AbstractTaskExecutor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.lmxm.ute.executors.ExecutorIF#execute()
+	 * @see net.lmxm.ute.executors.ExecuterIF#execute()
 	 */
 	@Override
 	public void execute() {

@@ -1,20 +1,20 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executor.
+ * This file is part of Universal Task Executer.
  * 
- * Universal Task Executor is free software: you can redistribute it and/or modify
+ * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executor is distributed in the hope that it will be useful, but
+ * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.executors.jobs;
 
@@ -22,8 +22,8 @@ import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.BasicJob;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
-import net.lmxm.ute.executors.Executor;
-import net.lmxm.ute.executors.ExecutorFactory;
+import net.lmxm.ute.executors.Executer;
+import net.lmxm.ute.executors.ExecuterFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
@@ -33,12 +33,12 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 
 /**
- * A factory for creating JobExecutor objects.
+ * A factory for creating JobExecuter objects.
  */
-public final class JobExecutorFactory implements ExecutorFactory {
+public final class JobExecuterFactory implements ExecuterFactory {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(JobExecutorFactory.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JobExecuterFactory.class);
 
 	/**
 	 * Creates the.
@@ -49,7 +49,7 @@ public final class JobExecutorFactory implements ExecutorFactory {
 	 * @param statusChangeListener the status change listener
 	 * @return the executor if
 	 */
-	public static Executor create(final Job job, final PropertiesHolder propertiesHolder,
+	public static Executer create(final Job job, final PropertiesHolder propertiesHolder,
 			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
 		final String prefix = "create(Job,PropertiesHolder,JobStatusListenerStatusChangeListener) :";
 
@@ -65,13 +65,13 @@ public final class JobExecutorFactory implements ExecutorFactory {
 		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
-		Executor executor = null;
+		Executer executor = null;
 
 		if (job instanceof BasicJob) {
-			executor = new BasicJobExecutor(job, propertiesHolder, jobStatusListener, statusChangeListener);
+			executor = new BasicJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
 		}
 		else if (job instanceof SingleTaskJob) {
-			executor = new SingleTaskJobExecutor(job, propertiesHolder, jobStatusListener, statusChangeListener);
+			executor = new SingleTaskJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
 		}
 		else {
 			throw new IllegalArgumentException("Unsupported job type");
@@ -85,7 +85,7 @@ public final class JobExecutorFactory implements ExecutorFactory {
 	/**
 	 * Instantiates a new job executor factory.
 	 */
-	private JobExecutorFactory() {
+	private JobExecuterFactory() {
 		throw new AssertionError();
 	}
 }

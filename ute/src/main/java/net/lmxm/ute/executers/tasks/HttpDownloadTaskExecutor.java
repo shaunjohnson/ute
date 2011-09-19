@@ -1,32 +1,32 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executor.
+ * This file is part of Universal Task Executer.
  * 
- * Universal Task Executor is free software: you can redistribute it and/or modify
+ * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executor is distributed in the hope that it will be useful, but
+ * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.executors.tasks;
 
 import java.util.List;
+import java.util.Map;
 
 import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.PropertiesHolder;
-import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.executors.AbstractTaskExecutor;
+import net.lmxm.ute.beans.tasks.HttpDownloadTask;
+import net.lmxm.ute.executors.AbstractTaskExecuter;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
-import net.lmxm.ute.utils.GroovyUtils;
+import net.lmxm.ute.utils.HttpUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,39 +34,33 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 
 /**
- * The Class GroovyTaskExecutor.
+ * The Class HttpDownloadTaskExecuter.
  */
-public final class GroovyTaskExecutor extends AbstractTaskExecutor {
+public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(GroovyTaskExecutor.class);
-
-	private final PropertiesHolder propertiesHolder;
+	private static final Logger LOGGER = LoggerFactory.getLogger(HttpDownloadTaskExecuter.class);
 
 	/** The task. */
-	private final GroovyTask task;
+	private final HttpDownloadTask task;
 
 	/**
-	 * Instantiates a new groovy task executor.
+	 * Instantiates a new http download task executor.
 	 * 
 	 * @param task the task
-	 * @param propertiesHolder the properties holder
 	 * @param statusChangeListener the status change listener
 	 */
-	public GroovyTaskExecutor(final GroovyTask task, final PropertiesHolder propertiesHolder,
-			final StatusChangeListener statusChangeListener) {
+	public HttpDownloadTaskExecuter(final HttpDownloadTask task, final StatusChangeListener statusChangeListener) {
 		super(statusChangeListener);
 
 		Preconditions.checkNotNull(task, "Task may not be null");
-		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 
-		this.propertiesHolder = propertiesHolder;
 		this.task = task;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.executors.ExecutorIF#execute()
+	 * @see net.lmxm.ute.executors.ExecuterIF#execute()
 	 */
 	@Override
 	public void execute() {
@@ -74,11 +68,12 @@ public final class GroovyTaskExecutor extends AbstractTaskExecutor {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
+		final String url = HttpUtils.getFullUrl(task.getSource());
+		final Map<String, String> queryParams = task.getSource().getQueryParams();
+		final String destinationPath = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
 
-		GroovyUtils.getInstance().executeScript(task.getScript(), path, files, propertiesHolder,
-				getStatusChangeListener());
+		HttpUtils.getInstance().downloadFiles(url, queryParams, destinationPath, files, getStatusChangeListener());
 
 		LOGGER.debug("{} returning", prefix);
 	}

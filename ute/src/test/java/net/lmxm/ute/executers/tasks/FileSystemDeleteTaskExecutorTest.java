@@ -1,20 +1,20 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executor.
+ * This file is part of Universal Task Executer.
  * 
- * Universal Task Executor is free software: you can redistribute it and/or modify
+ * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executor is distributed in the hope that it will be useful, but
+ * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.executors.tasks;
 
@@ -36,9 +36,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The Class FileSystemDeleteTaskExecutorTest.
+ * The Class FileSystemDeleteTaskExecuterTest.
  */
-public class FileSystemDeleteTaskExecutorTest {
+public class FileSystemDeleteTaskExecuterTest {
 	/** The Constant STATUS_CHANGE_LISTENER. */
 	private static final TestStatusChangeListener STATUS_CHANGE_LISTENER = new TestStatusChangeListener();
 
@@ -49,7 +49,7 @@ public class FileSystemDeleteTaskExecutorTest {
 	private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
 
 	/** The executor. */
-	private FileSystemDeleteTaskExecutor executor = null;
+	private FileSystemDeleteTaskExecuter executor = null;
 
 	/**
 	 * Setup.
@@ -58,7 +58,7 @@ public class FileSystemDeleteTaskExecutorTest {
 	public void setup() {
 		final FileSystemDeleteTask task = new FileSystemDeleteTask();
 
-		executor = new FileSystemDeleteTaskExecutor(task, STATUS_CHANGE_LISTENER);
+		executor = new FileSystemDeleteTaskExecuter(task, STATUS_CHANGE_LISTENER);
 	}
 
 	/**

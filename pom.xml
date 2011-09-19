@@ -8,8 +8,8 @@
 		<module>ute</module>
 		<module>ute-xml-schema</module>
 	</modules>
-	<name>Universal Task Executor Parent</name>
-	<description>Universal Task Executor</description>
+	<name>Universal Task Executer Parent</name>
+	<description>Universal Task Executer</description>
 	<url>http://lmxm.net/ute</url>
 	<inceptionYear>2011</inceptionYear>
 	<issueManagement>
