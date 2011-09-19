@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.beans;
 
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 /**
  * The Class FindReplacePattern.
  */
@@ -48,6 +51,21 @@ public class FindReplacePattern implements DomainBean {
 	 */
 	public String getReplace() {
 		return replace;
+	}
+
+	/**
+	 * Checks if is valid.
+	 * 
+	 * @return true, if is valid
+	 */
+	public boolean isValid() {
+		try {
+			Pattern.compile(find);
+			return true;
+		}
+		catch (final PatternSyntaxException e) {
+			return false;
+		}
 	}
 
 	/**

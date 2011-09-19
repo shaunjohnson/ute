@@ -573,6 +573,10 @@ public final class ConfigurationMapper {
 		pattern.setFind(patternType.getFind());
 		pattern.setReplace(patternType.getReplace());
 
+		if (!pattern.isValid()) {
+			throw new ConfigurationException("The find pattern \"" + patternType.getFind() + "\" is not valid");
+		}
+
 		LOGGER.debug("{} returning {}", prefix, pattern);
 
 		return pattern;
