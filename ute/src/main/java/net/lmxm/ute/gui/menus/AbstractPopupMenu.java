@@ -18,12 +18,12 @@
  */
 package net.lmxm.ute.gui.menus;
 
-import net.lmxm.ute.gui.MainFrame;
-
 import java.awt.Component;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPopupMenu;
+
+import net.lmxm.ute.gui.MainFrame;
 
 import com.google.common.base.Preconditions;
 
@@ -43,7 +43,7 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 
 	/**
 	 * Instantiates a new abstract popup menu.
-	 *
+	 * 
 	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
@@ -59,12 +59,14 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 
 	/**
 	 * Enable disable menu items.
+	 * 
+	 * @param object the object
 	 */
-	public abstract void enableDisableMenuItems();
+	public abstract void enableDisableMenuItems(Object object);
 
 	/**
 	 * Gets the action listener.
-	 *
+	 * 
 	 * @return the action listener
 	 */
 	protected final ActionListener getActionListener() {
@@ -73,20 +75,19 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 
 	/**
 	 * Gets the main frame.
-	 *
+	 * 
 	 * @return the main frame
 	 */
 	protected final MainFrame getMainFrame() {
 		return mainFrame;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see javax.swing.JPopupMenu#show(java.awt.Component, int, int)
 	 */
 	@Override
 	public final void show(final Component invoker, final int x, final int y) {
-		enableDisableMenuItems();
-
 		super.show(invoker, x, y);
 	}
 }

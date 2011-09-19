@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.gui.menus;
 
-import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
-import net.lmxm.ute.gui.utils.ImageUtil;
-
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
+
+import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.gui.MainFrame;
+import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
  * The Class JobPopupMenu.
@@ -45,7 +45,7 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 
 	/**
 	 * Instantiates a new job popup menu.
-	 *
+	 * 
 	 * @param actionListener the action listener
 	 */
 	public JobPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
@@ -56,17 +56,18 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 		add(getDeleteJobMenuItem());
 	}
 
-	/* (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems()
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
 	 */
 	@Override
-	public void enableDisableMenuItems() {
+	public void enableDisableMenuItems(final Object object) {
 		getExecuteJobMenuItem().setEnabled(getMainFrame().isExecuteJobEnabled());
 	}
 
 	/**
 	 * This method initializes addTaskMenuItem.
-	 *
+	 * 
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getAddTaskMenuItem() {
@@ -80,7 +81,7 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 
 	/**
 	 * This method initializes deleteJobMenuItem.
-	 *
+	 * 
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getDeleteJobMenuItem() {
@@ -94,7 +95,7 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 
 	/**
 	 * This method initializes executeJobMenuItem.
-	 *
+	 * 
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getExecuteJobMenuItem() {

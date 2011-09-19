@@ -18,12 +18,12 @@
  */
 package net.lmxm.ute.gui.menus;
 
-import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
-
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
+
+import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.gui.MainFrame;
 
 /**
  * The Class FileSystemLocationsRootPopupMenu.
@@ -38,7 +38,7 @@ public final class FileSystemLocationsRootPopupMenu extends AbstractPopupMenu {
 
 	/**
 	 * Instantiates a new file system locations root popup menu.
-	 *
+	 * 
 	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
@@ -48,17 +48,18 @@ public final class FileSystemLocationsRootPopupMenu extends AbstractPopupMenu {
 		add(getAddFileSystemLocationMenuItem());
 	}
 
-	/* (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems()
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
 	 */
 	@Override
-	public void enableDisableMenuItems() {
+	public void enableDisableMenuItems(final Object object) {
 
 	}
 
 	/**
 	 * Gets the adds the file system location menu item.
-	 *
+	 * 
 	 * @return the adds the file system location menu item
 	 */
 	private JMenuItem getAddFileSystemLocationMenuItem() {

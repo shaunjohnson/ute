@@ -18,13 +18,14 @@
  */
 package net.lmxm.ute.gui.menus;
 
-import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
-import net.lmxm.ute.gui.utils.ImageUtil;
-
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
+
+import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.gui.MainFrame;
+import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
  * The Class TaskPopupMenu.
@@ -48,30 +49,38 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 
 	/**
 	 * Instantiates a new task popup menu.
-	 *
+	 * 
 	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
 	public TaskPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
 		super(mainFrame, actionListener);
 
-        add(getExecuteTaskMenuItem());
+		add(getExecuteTaskMenuItem());
 		add(getAddTaskBeforeMenuItem());
 		add(getAddTaskAfterMenuItem());
 		add(getDeleteTaskMenuItem());
 	}
 
-	/* (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems()
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
 	 */
 	@Override
-	public void enableDisableMenuItems() {
+	public void enableDisableMenuItems(final Object object) {
+		if (object == null) {
+			getExecuteTaskMenuItem().setEnabled(false);
+		}
+		else {
+			final Task task = (Task) object;
 
+			getExecuteTaskMenuItem().setEnabled(task.getEnabled());
+		}
 	}
 
 	/**
 	 * Gets the adds the task after menu item.
-	 *
+	 * 
 	 * @return the adds the task after menu item
 	 */
 	private JMenuItem getAddTaskAfterMenuItem() {
@@ -85,7 +94,7 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 
 	/**
 	 * Gets the adds the task before menu item.
-	 *
+	 * 
 	 * @return the adds the task before menu item
 	 */
 	private JMenuItem getAddTaskBeforeMenuItem() {
@@ -99,7 +108,7 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 
 	/**
 	 * Gets the delete task menu item.
-	 *
+	 * 
 	 * @return the delete task menu item
 	 */
 	private JMenuItem getDeleteTaskMenuItem() {
@@ -111,9 +120,9 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 		return deleteTaskMenuItem;
 	}
 
-    /**
+	/**
 	 * This method initializes executeTaskMenuItem.
-	 *
+	 * 
 	 * @return javax.swing.JMenuItem
 	 */
 	private JMenuItem getExecuteTaskMenuItem() {

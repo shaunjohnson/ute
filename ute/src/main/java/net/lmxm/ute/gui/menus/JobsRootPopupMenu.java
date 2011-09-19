@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.gui.menus;
 
-import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
-import net.lmxm.ute.gui.utils.ImageUtil;
-
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
+
+import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.gui.MainFrame;
+import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
  * The Class JobsRootPopupMenu.
@@ -39,7 +39,7 @@ public final class JobsRootPopupMenu extends AbstractPopupMenu {
 
 	/**
 	 * Instantiates a new job popup menu.
-	 *
+	 * 
 	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
@@ -49,17 +49,18 @@ public final class JobsRootPopupMenu extends AbstractPopupMenu {
 		add(getAddJobMenuItem());
 	}
 
-	/* (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems()
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
 	 */
 	@Override
-	public void enableDisableMenuItems() {
+	public void enableDisableMenuItems(final Object object) {
 
 	}
 
 	/**
 	 * Gets the adds the job menu item.
-	 *
+	 * 
 	 * @return the adds the job menu item
 	 */
 	private JMenuItem getAddJobMenuItem() {

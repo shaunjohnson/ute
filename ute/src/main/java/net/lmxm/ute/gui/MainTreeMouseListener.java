@@ -30,6 +30,8 @@ import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.gui.menus.JobPopupMenu;
+import net.lmxm.ute.gui.menus.TaskPopupMenu;
 import net.lmxm.ute.gui.nodes.FileSystemLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.HttpLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.JobsRootTreeNode;
@@ -95,9 +97,11 @@ public final class MainTreeMouseListener extends MouseAdapter {
 				}
 				else if (object instanceof Job) {
 					popupMenu = mainFrame.getJobPopupMenu();
+					((JobPopupMenu) popupMenu).enableDisableMenuItems((Job) object);
 				}
 				else if (object instanceof Task) {
 					popupMenu = mainFrame.getTaskPopupMenu();
+					((TaskPopupMenu) popupMenu).enableDisableMenuItems(object);
 				}
 				else if (object instanceof FileSystemLocationsRootTreeNode) {
 					popupMenu = mainFrame.getFileSystemLocationsRootPopupMenu();

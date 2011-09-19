@@ -54,10 +54,10 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems()
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
 	 */
 	@Override
-	public void enableDisableMenuItems() {
+	public void enableDisableMenuItems(final Object object) {
 
 	}
 
