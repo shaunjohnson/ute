@@ -18,6 +18,10 @@
  */
 package net.lmxm.ute.gui.editors;
 
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
@@ -36,22 +40,44 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2318061314941784888L;
 
+	/** The skip on error checkbox. */
+	private JCheckBox skipOnErrorCheckbox = null;
+
 	/**
 	 * Instantiates a new job editor panel.
-	 *
+	 * 
 	 * @param configuration the configuration
 	 */
 	public FileSystemDeleteTaskEditorPanel(final Configuration configuration) {
 		super(configuration, "File System Delete Task");
 
 		addTaskCommonFields();
+
+		final JPanel contentPanel = getContentPanel();
+
+		contentPanel.add(new JLabel("Skip on Error:"));
+		contentPanel.add(getSkipOnErrorCheckbox());
+
 		addFileSystemTargetFields();
 		addFilesFields();
 	}
 
 	/**
+	 * Gets the skip on error checkbox.
+	 * 
+	 * @return the skip on error checkbox
+	 */
+	protected final JCheckBox getSkipOnErrorCheckbox() {
+		if (skipOnErrorCheckbox == null) {
+			skipOnErrorCheckbox = new JCheckBox();
+		}
+
+		return skipOnErrorCheckbox;
+	}
+
+	/**
 	 * Load data.
-	 *
+	 * 
 	 * @param fileSystemDeleteTask the file system delete task
 	 */
 	public void loadData(final FileSystemDeleteTask fileSystemDeleteTask) {
@@ -64,6 +90,13 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		loadTaskCommonFieldData(fileSystemDeleteTask);
 		loadFileSystemTargetFieldData(target);
 		loadFilesFieldData(fileSystemDeleteTask);
+
+		if (fileSystemDeleteTask == null) {
+			getSkipOnErrorCheckbox().setSelected(false);
+		}
+		else {
+			getSkipOnErrorCheckbox().setSelected(fileSystemDeleteTask.getStopOnError());
+		}
 
 		LOGGER.debug("{} leaving", prefix);
 	}
