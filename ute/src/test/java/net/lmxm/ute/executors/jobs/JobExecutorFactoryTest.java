@@ -84,7 +84,13 @@ public class JobExecutorFactoryTest {
 		}
 
 		// Non-null job, properties holder, job listener and status listener
-		JobExecutorFactory.create(new TestJob(), new Configuration(), new TestJobStatusListener(),
-				new TestStatusChangeListener());
+		try {
+			JobExecutorFactory.create(new TestJob(), new Configuration(), new TestJobStatusListener(),
+					new TestStatusChangeListener());
+			fail();
+		}
+		catch (final IllegalArgumentException e) {
+			assertNotNull(e);
+		}
 	}
 }

@@ -18,11 +18,9 @@
  */
 package net.lmxm.ute.executors.jobs;
 
-import java.util.List;
-
 import net.lmxm.ute.beans.PropertiesHolder;
-import net.lmxm.ute.beans.jobs.BasicJob;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executors.AbstractJobExecutor;
 import net.lmxm.ute.executors.tasks.TaskExecutorFactory;
@@ -33,22 +31,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class BasicJobExecutor.
+ * The Class SingleTaskJobExecutor.
  */
-public final class BasicJobExecutor extends AbstractJobExecutor {
+public final class SingleTaskJobExecutor extends AbstractJobExecutor {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(BasicJobExecutor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SingleTaskJobExecutor.class);
 
 	/**
-	 * Instantiates a new basic job executor.
+	 * Instantiates a new single task job executor.
 	 * 
 	 * @param job the job
 	 * @param propertiesHolder the properties holder
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
 	 */
-	protected BasicJobExecutor(final Job job, final PropertiesHolder propertiesHolder,
+	protected SingleTaskJobExecutor(final Job job, final PropertiesHolder propertiesHolder,
 			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
 		super(job, propertiesHolder, jobStatusListener, statusChangeListener);
 	}
@@ -63,48 +61,35 @@ public final class BasicJobExecutor extends AbstractJobExecutor {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final BasicJob job = (BasicJob) getJob();
+		final SingleTaskJob job = (SingleTaskJob) getJob();
 
 		try {
-			fireHeadingStatusChange("Started Job (" + job.getId() + ")");
+			fireHeadingStatusChange("Started Task (" + job.getId() + ")");
 
-			final List<Task> tasks = job.getTasks();
+			final Task task = job.getTask();
 
-			if (tasks == null) {
-				LOGGER.debug("{} there are no tasks to execute", prefix);
+			LOGGER.debug("{} executing task={}", prefix, task);
+
+			if (task.getEnabled()) {
+				TaskExecutorFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
+
+				getJobStatusListener().jobTaskCompleted();
 			}
 			else {
-				LOGGER.debug("{} executing {} tasks", prefix, tasks.size());
+				LOGGER.debug("{} Task \"{}\" is disabled and will be skipped", prefix, task);
 
-				for (final Task task : job.getTasks()) {
-					if (Thread.currentThread().isInterrupted()) {
-						LOGGER.debug("{} thread was interrupted, stopping job execution", prefix);
+				fireInfoStatusChange("Skipping disabled task \"" + task.getId() + "\"");
 
-						throw new RuntimeException("Job is being stopped"); // TODO Use appropriate exception
-					}
-
-					if (task.getEnabled()) {
-						TaskExecutorFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
-
-						getJobStatusListener().jobTaskCompleted();
-					}
-					else {
-						LOGGER.debug("{} Task \"{}\" is disabled and will be skipped", prefix, task);
-
-						fireInfoStatusChange("Skipping disabled task \"" + task.getId() + "\"");
-
-						getJobStatusListener().jobTaskSkipped();
-					}
-				}
+				getJobStatusListener().jobTaskSkipped();
 			}
 
-			fireHeadingStatusChange("Finished Job (" + job.getId() + ")");
+			fireHeadingStatusChange("Finished Task (" + job.getId() + ")");
 			getJobStatusListener().jobCompleted();
 		}
 		catch (final Exception e) {
 			LOGGER.debug("Exception caught executing job", e);
 
-			fireHeadingStatusChange("Job Aborted (" + job.getId() + ")");
+			fireHeadingStatusChange("Task Aborted (" + job.getId() + ")");
 			getJobStatusListener().jobAborted();
 		}
 

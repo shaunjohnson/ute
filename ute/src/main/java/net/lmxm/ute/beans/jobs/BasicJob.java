@@ -18,6 +18,10 @@
  */
 package net.lmxm.ute.beans.jobs;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.lmxm.ute.beans.tasks.Task;
 
 /**
  * The Class Basic Job.
@@ -26,4 +30,34 @@ public final class BasicJob extends AbstractJob {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7969957264452664969L;
+
+	/** The tasks. */
+	private List<Task> tasks;
+
+	/**
+	 * Instantiates a new basic job.
+	 */
+	public BasicJob() {
+		super();
+
+		tasks = new ArrayList<Task>();
+	}
+
+	/**
+	 * Gets the tasks.
+	 * 
+	 * @return the tasks
+	 */
+	public final List<Task> getTasks() {
+		return tasks;
+	}
+
+	/**
+	 * Sets the tasks.
+	 * 
+	 * @param tasks the new tasks
+	 */
+	public final void setTasks(final List<Task> tasks) {
+		this.tasks = tasks;
+	}
 }

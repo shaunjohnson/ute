@@ -19,10 +19,6 @@
 package net.lmxm.ute.beans.jobs;
 
 import net.lmxm.ute.beans.IdentifiableDomainBean;
-import net.lmxm.ute.beans.tasks.Task;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Class AbstractJob.
@@ -35,16 +31,11 @@ public abstract class AbstractJob extends IdentifiableDomainBean implements Job 
 	/** The description. */
 	private String description;
 
-	/** The tasks. */
-	private List<Task> tasks;
-
 	/**
 	 * Instantiates a new job.
 	 */
 	public AbstractJob() {
 		super();
-
-		tasks = new ArrayList<Task>();
 	}
 
 	/**
@@ -58,16 +49,6 @@ public abstract class AbstractJob extends IdentifiableDomainBean implements Job 
 	}
 
 	/**
-	 * Gets the tasks.
-	 * 
-	 * @return the tasks
-	 */
-	@Override
-	public final List<Task> getTasks() {
-		return tasks;
-	}
-
-	/**
 	 * Sets the description.
 	 * 
 	 * @param description the new description
@@ -75,14 +56,5 @@ public abstract class AbstractJob extends IdentifiableDomainBean implements Job 
 	@Override
 	public final void setDescription(final String description) {
 		this.description = description;
-	}
-
-	/**
-	 * Sets the tasks.
-	 * 
-	 * @param tasks the new tasks
-	 */
-	public final void setTasks(final List<Task> tasks) {
-		this.tasks = tasks;
 	}
 }

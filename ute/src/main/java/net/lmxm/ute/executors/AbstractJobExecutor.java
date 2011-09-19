@@ -19,7 +19,10 @@
 package net.lmxm.ute.executors;
 
 import net.lmxm.ute.beans.PropertiesHolder;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.listeners.JobStatusListener;
+import net.lmxm.ute.listeners.StatusChangeEvent;
+import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
 import com.google.common.base.Preconditions;
@@ -28,6 +31,9 @@ import com.google.common.base.Preconditions;
  * The Class AbstractJobExecutor.
  */
 public abstract class AbstractJobExecutor implements Executor {
+
+	/** The job. */
+	private final Job job;
 
 	/** The job status listener. */
 	private final JobStatusListener jobStatusListener;
@@ -41,19 +47,76 @@ public abstract class AbstractJobExecutor implements Executor {
 	/**
 	 * Instantiates a new abstract job executor.
 	 * 
+	 * @param job the job
 	 * @param propertiesHolder the properties holder
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
 	 */
-	public AbstractJobExecutor(final PropertiesHolder propertiesHolder, final JobStatusListener jobStatusListener,
-			final StatusChangeListener statusChangeListener) {
+	public AbstractJobExecutor(final Job job, final PropertiesHolder propertiesHolder,
+			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
+		Preconditions.checkNotNull(job, "Job may not be null");
 		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
+		this.job = job;
 		this.propertiesHolder = propertiesHolder;
 		this.jobStatusListener = jobStatusListener;
 		this.statusChangeListener = statusChangeListener;
+	}
+
+	/**
+	 * Fire error status change.
+	 * 
+	 * @param message the message
+	 */
+	protected final void fireErrorStatusChange(final String message) {
+		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR, message));
+	}
+
+	/**
+	 * Fire fatal status change.
+	 * 
+	 * @param message the message
+	 */
+	protected final void fireFatalStatusChange(final String message) {
+		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.FATAL, message));
+	}
+
+	/**
+	 * Fire heading status change.
+	 * 
+	 * @param message the message
+	 */
+	protected final void fireHeadingStatusChange(final String message) {
+		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.HEADING, message));
+	}
+
+	/**
+	 * Fire important status change.
+	 * 
+	 * @param message the message
+	 */
+	protected final void fireImportantStatusChange(final String message) {
+		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.IMPORTANT, message));
+	}
+
+	/**
+	 * Fire info status change.
+	 * 
+	 * @param message the message
+	 */
+	protected final void fireInfoStatusChange(final String message) {
+		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO, message));
+	}
+
+	/**
+	 * Gets the job.
+	 * 
+	 * @return the job
+	 */
+	protected Job getJob() {
+		return job;
 	}
 
 	/**

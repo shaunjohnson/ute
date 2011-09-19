@@ -19,7 +19,9 @@
 package net.lmxm.ute.executors.jobs;
 
 import net.lmxm.ute.beans.PropertiesHolder;
+import net.lmxm.ute.beans.jobs.BasicJob;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.executors.Executor;
 import net.lmxm.ute.executors.ExecutorFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
@@ -63,7 +65,17 @@ public final class JobExecutorFactory implements ExecutorFactory {
 		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
 		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
-		final Executor executor = new BasicJobExecutor(job, propertiesHolder, jobStatusListener, statusChangeListener);
+		Executor executor = null;
+
+		if (job instanceof BasicJob) {
+			executor = new BasicJobExecutor(job, propertiesHolder, jobStatusListener, statusChangeListener);
+		}
+		else if (job instanceof SingleTaskJob) {
+			executor = new SingleTaskJobExecutor(job, propertiesHolder, jobStatusListener, statusChangeListener);
+		}
+		else {
+			throw new IllegalArgumentException("Unsupported job type");
+		}
 
 		LOGGER.debug("{} returning {}", prefix, executor);
 

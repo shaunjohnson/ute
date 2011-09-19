@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.beans.jobs;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import net.lmxm.ute.beans.tasks.Task;
 
@@ -27,18 +30,47 @@ import net.lmxm.ute.beans.tasks.Task;
 public final class SingleTaskJob extends AbstractJob {
 
 	/** The Constant serialVersionUID. */
-    private static final long serialVersionUID = -1760138183959898349L;
+	private static final long serialVersionUID = -1760138183959898349L;
 
-    /**
-     * Creates a single task job.
-     *
-     * @param task Single Task object
-     */
-    public SingleTaskJob(Task task) {
-        super();
+	/** The task. */
+	private final Task task;
 
-        setId(task.getId());
-        setDescription(task.getDescription());
-        getTasks().add(task);
-    }
+	/** The tasks. */
+	private final List<Task> tasks;
+
+	/**
+	 * Creates a single task job.
+	 * 
+	 * @param task Single Task object
+	 */
+	public SingleTaskJob(final Task task) {
+		super();
+
+		setId(task.getId());
+		setDescription(task.getDescription());
+
+		this.task = task;
+
+		final List<Task> tasks = new ArrayList<Task>(1);
+		tasks.add(task);
+		this.tasks = Collections.unmodifiableList(tasks);
+	}
+
+	/**
+	 * Gets the task.
+	 * 
+	 * @return the task
+	 */
+	public Task getTask() {
+		return task;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.jobs.Job#getTasks()
+	 */
+	@Override
+	public List<Task> getTasks() {
+		return tasks;
+	}
 }

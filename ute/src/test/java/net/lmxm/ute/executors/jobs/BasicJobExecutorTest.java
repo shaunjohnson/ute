@@ -20,25 +20,25 @@ package net.lmxm.ute.executors.jobs;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-import net.lmxm.ute.TestJob;
 import net.lmxm.ute.TestJobStatusListener;
 import net.lmxm.ute.TestStatusChangeListener;
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.jobs.BasicJob;
 
 import org.junit.Test;
 
 /**
  * The Class JobExecutorTest.
  */
-public class JobExecutorTest {
+public class BasicJobExecutorTest {
 
 	/**
 	 * Test execute.
 	 */
 	@Test
 	public void testExecute() {
-		new BasicJobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener())
-				.execute();
+		new BasicJobExecutor(new BasicJob(), new Configuration(), new TestJobStatusListener(),
+				new TestStatusChangeListener()).execute();
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class JobExecutorTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			new BasicJobExecutor(new TestJob(), null, null, null);
+			new BasicJobExecutor(new BasicJob(), null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -66,7 +66,7 @@ public class JobExecutorTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			new BasicJobExecutor(new TestJob(), new Configuration(), null, null);
+			new BasicJobExecutor(new BasicJob(), new Configuration(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -75,7 +75,7 @@ public class JobExecutorTest {
 
 		// Null status listener
 		try {
-			new BasicJobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), null);
+			new BasicJobExecutor(new BasicJob(), new Configuration(), new TestJobStatusListener(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -92,6 +92,7 @@ public class JobExecutorTest {
 		}
 
 		// Non-null job, properties holder and listener
-		new BasicJobExecutor(new TestJob(), new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
+		new BasicJobExecutor(new BasicJob(), new Configuration(), new TestJobStatusListener(),
+				new TestStatusChangeListener());
 	}
 }
