@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.executors.tasks;
+package net.lmxm.ute.executers.tasks;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -30,7 +30,7 @@ import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.executors.Executer;
+import net.lmxm.ute.executers.Executer;
 
 import org.junit.Test;
 

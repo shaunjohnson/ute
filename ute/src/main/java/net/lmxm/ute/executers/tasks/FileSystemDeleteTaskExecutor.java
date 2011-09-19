@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.executors.tasks;
+package net.lmxm.ute.executers.tasks;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +25,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.executors.AbstractTaskExecuter;
+import net.lmxm.ute.executers.AbstractTaskExecuter;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 
@@ -141,7 +141,7 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.executors.ExecuterIF#execute()
+	 * @see net.lmxm.ute.executers.ExecuterIF#execute()
 	 */
 	@Override
 	public void execute() {

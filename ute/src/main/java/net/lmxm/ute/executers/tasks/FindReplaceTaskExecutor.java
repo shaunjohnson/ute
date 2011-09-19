@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.executors.tasks;
+package net.lmxm.ute.executers.tasks;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +29,7 @@ import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
-import net.lmxm.ute.executors.AbstractTaskExecuter;
+import net.lmxm.ute.executers.AbstractTaskExecuter;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
@@ -102,7 +102,7 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.executors.ExecuterIF#execute()
+	 * @see net.lmxm.ute.executers.ExecuterIF#execute()
 	 */
 	@Override
 	public void execute() {

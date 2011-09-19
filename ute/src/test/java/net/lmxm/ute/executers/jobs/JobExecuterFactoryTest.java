@@ -16,39 +16,30 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.executors.jobs;
+package net.lmxm.ute.executers.jobs;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import net.lmxm.ute.TestJob;
 import net.lmxm.ute.TestJobStatusListener;
 import net.lmxm.ute.TestStatusChangeListener;
 import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.jobs.BasicJob;
 
 import org.junit.Test;
 
 /**
- * The Class JobExecuterTest.
+ * The Class JobExecuterFactoryTest.
  */
-public class BasicJobExecuterTest {
+public class JobExecuterFactoryTest {
 
 	/**
-	 * Test execute.
+	 * Test create.
 	 */
 	@Test
-	public void testExecute() {
-		new BasicJobExecuter(new BasicJob(), new Configuration(), new TestJobStatusListener(),
-				new TestStatusChangeListener()).execute();
-	}
-
-	/**
-	 * Test job executor.
-	 */
-	@Test
-	public void testJobExecuter() {
+	public void testCreate() {
 		// Null job, properties holder, job listener and status listener
 		try {
-			new BasicJobExecuter(null, null, null, null);
+			JobExecuterFactory.create(null, null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -57,16 +48,16 @@ public class BasicJobExecuterTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			new BasicJobExecuter(new BasicJob(), null, null, null);
+			JobExecuterFactory.create(new TestJob(), null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Null properties holder, job listener and status listener
+		// Null job listener and status listener
 		try {
-			new BasicJobExecuter(new BasicJob(), new Configuration(), null, null);
+			JobExecuterFactory.create(new TestJob(), new Configuration(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -75,7 +66,7 @@ public class BasicJobExecuterTest {
 
 		// Null status listener
 		try {
-			new BasicJobExecuter(new BasicJob(), new Configuration(), new TestJobStatusListener(), null);
+			JobExecuterFactory.create(new TestJob(), new Configuration(), new TestJobStatusListener(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -84,15 +75,22 @@ public class BasicJobExecuterTest {
 
 		// Null job
 		try {
-			new BasicJobExecuter(null, new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
+			JobExecuterFactory.create(null, new Configuration(), new TestJobStatusListener(),
+					new TestStatusChangeListener());
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Non-null job, properties holder and listener
-		new BasicJobExecuter(new BasicJob(), new Configuration(), new TestJobStatusListener(),
-				new TestStatusChangeListener());
+		// Non-null job, properties holder, job listener and status listener
+		try {
+			JobExecuterFactory.create(new TestJob(), new Configuration(), new TestJobStatusListener(),
+					new TestStatusChangeListener());
+			fail();
+		}
+		catch (final IllegalArgumentException e) {
+			assertNotNull(e);
+		}
 	}
 }

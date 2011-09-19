@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.executors.jobs;
+package net.lmxm.ute.executers.jobs;
 
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.executors.AbstractJobExecuter;
-import net.lmxm.ute.executors.tasks.TaskExecuterFactory;
+import net.lmxm.ute.executers.AbstractJobExecuter;
+import net.lmxm.ute.executers.tasks.TaskExecuterFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
@@ -53,7 +53,7 @@ public final class SingleTaskJobExecuter extends AbstractJobExecuter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.executors.ExecuterIF#execute()
+	 * @see net.lmxm.ute.executers.ExecuterIF#execute()
 	 */
 	@Override
 	public void execute() {

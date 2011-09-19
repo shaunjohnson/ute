@@ -25,7 +25,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.executors.jobs.JobExecuterFactory;
+import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.mapper.ConfigurationMapper;
 import net.lmxm.ute.utils.ConfigurationUtils;
 import net.lmxm.ute.utils.ResourcesUtils;

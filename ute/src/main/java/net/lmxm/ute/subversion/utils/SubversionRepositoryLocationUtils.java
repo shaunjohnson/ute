@@ -20,7 +20,7 @@ package net.lmxm.ute.subversion.utils;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
-import net.lmxm.ute.executors.tasks.SubversionExportTaskExecuter;
+import net.lmxm.ute.executers.tasks.SubversionExportTaskExecuter;
 import net.lmxm.ute.utils.PathUtils;
 
 import org.apache.commons.lang.StringUtils;

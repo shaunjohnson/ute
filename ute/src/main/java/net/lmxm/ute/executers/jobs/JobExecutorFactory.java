@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.executors.jobs;
+package net.lmxm.ute.executers.jobs;
 
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.BasicJob;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
-import net.lmxm.ute.executors.Executer;
-import net.lmxm.ute.executors.ExecuterFactory;
+import net.lmxm.ute.executers.Executer;
+import net.lmxm.ute.executers.ExecuterFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
