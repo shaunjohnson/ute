@@ -553,7 +553,19 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @return the current directory
 	 */
 	private String getCurrentDirectory() {
-		return configuration == null ? null : configuration.getAbsolutePath();
+		try {
+			final String configurationPath = configuration.getAbsolutePath();
+
+			if (configurationPath == null) {
+				return new File(".").getCanonicalPath();
+			}
+			else {
+				return configurationPath;
+			}
+		}
+		catch (final IOException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -1578,7 +1590,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			LOGGER.debug("{} starting with an empty configruation", prefix);
 
 			configuration = new Configuration();
-			configuration.setAbsolutePath("new");
 
 			// Clear out invalid entry in user preferences
 			userPreferences.removeLastFileEditedPath();
