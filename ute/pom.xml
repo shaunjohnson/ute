@@ -2,11 +2,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.lmxm.ute</groupId>
 	<artifactId>ute</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.2.0</version>
 	<parent>
 		<groupId>net.lmxm.ute</groupId>
 		<artifactId>ute-parent</artifactId>
-		<version>0.2.0-SNAPSHOT</version>
+		<version>0.2.0</version>
 	</parent>
 	<name>Universal Task Executer</name>
 	<description>Universal Task Executer</description>
