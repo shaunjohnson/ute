@@ -40,8 +40,8 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2318061314941784888L;
 
-	/** The skip on error checkbox. */
-	private JCheckBox skipOnErrorCheckbox = null;
+	/** The stop on error checkbox. */
+	private JCheckBox stopOnErrorCheckbox = null;
 
 	/**
 	 * Instantiates a new job editor panel.
@@ -55,24 +55,24 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Skip on Error:"));
-		contentPanel.add(getSkipOnErrorCheckbox());
+		contentPanel.add(new JLabel("Stop on Error:"));
+		contentPanel.add(getStopOnErrorCheckbox());
 
 		addFileSystemTargetFields();
 		addFilesFields();
 	}
 
 	/**
-	 * Gets the skip on error checkbox.
+	 * Gets the stop on error checkbox.
 	 * 
-	 * @return the skip on error checkbox
+	 * @return the stop on error checkbox
 	 */
-	protected final JCheckBox getSkipOnErrorCheckbox() {
-		if (skipOnErrorCheckbox == null) {
-			skipOnErrorCheckbox = new JCheckBox();
+	protected final JCheckBox getStopOnErrorCheckbox() {
+		if (stopOnErrorCheckbox == null) {
+			stopOnErrorCheckbox = new JCheckBox();
 		}
 
-		return skipOnErrorCheckbox;
+		return stopOnErrorCheckbox;
 	}
 
 	/**
@@ -92,10 +92,10 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		loadFilesFieldData(fileSystemDeleteTask);
 
 		if (fileSystemDeleteTask == null) {
-			getSkipOnErrorCheckbox().setSelected(false);
+			getStopOnErrorCheckbox().setSelected(false);
 		}
 		else {
-			getSkipOnErrorCheckbox().setSelected(fileSystemDeleteTask.getStopOnError());
+			getStopOnErrorCheckbox().setSelected(fileSystemDeleteTask.getStopOnError());
 		}
 
 		LOGGER.debug("{} leaving", prefix);
