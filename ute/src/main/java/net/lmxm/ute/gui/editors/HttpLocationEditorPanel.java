@@ -18,14 +18,13 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.locations.HttpLocation;
-
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import net.lmxm.ute.beans.locations.HttpLocation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,11 +45,9 @@ public final class HttpLocationEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Instantiates a new http location editor panel.
-	 *
-	 * @param configuration the configuration
 	 */
-	public HttpLocationEditorPanel(final Configuration configuration) {
-		super(configuration, "HTTP Location");
+	public HttpLocationEditorPanel() {
+		super("HTTP Location");
 
 		addIdCommonFields();
 
@@ -62,20 +59,20 @@ public final class HttpLocationEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Gets the url text field.
-	 *
+	 * 
 	 * @return the url text field
 	 */
 	private JTextField getUrlTextField() {
 		if (urlTextField == null) {
 			urlTextField = new JTextField();
-			urlTextField.setMinimumSize(new Dimension(400, (int)urlTextField.getSize().getHeight()));
+			urlTextField.setMinimumSize(new Dimension(400, (int) urlTextField.getSize().getHeight()));
 		}
 		return urlTextField;
 	}
 
 	/**
 	 * Load data.
-	 *
+	 * 
 	 * @param httpLocation the http location
 	 */
 	public void loadData(final HttpLocation httpLocation) {

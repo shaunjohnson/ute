@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
@@ -39,11 +38,9 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 
 	/**
 	 * Instantiates a new job editor panel.
-	 *
-	 * @param configuration the configuration
 	 */
-	public SubversionExportTaskEditorPanel(final Configuration configuration) {
-		super(configuration, "Subversion Export Task");
+	public SubversionExportTaskEditorPanel() {
+		super("Subversion Export Task");
 
 		addTaskCommonFields();
 		addSubversionRepositorySourceFields();
@@ -53,7 +50,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 
 	/**
 	 * Load data.
-	 *
+	 * 
 	 * @param subversionExportTask the subversion export task
 	 */
 	public void loadData(final SubversionExportTask subversionExportTask) {

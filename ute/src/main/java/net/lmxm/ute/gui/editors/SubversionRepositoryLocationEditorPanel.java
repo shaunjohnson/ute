@@ -18,14 +18,13 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,11 +45,9 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractIdEdi
 
 	/**
 	 * Instantiates a new subversion repository location editor panel.
-	 *
-	 * @param configuration the configuration
 	 */
-	public SubversionRepositoryLocationEditorPanel(final Configuration configuration) {
-		super(configuration, "Subversion Repository Location");
+	public SubversionRepositoryLocationEditorPanel() {
+		super("Subversion Repository Location");
 
 		addIdCommonFields();
 
@@ -62,20 +59,20 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractIdEdi
 
 	/**
 	 * Gets the url text field.
-	 *
+	 * 
 	 * @return the url text field
 	 */
 	private JTextField getUrlTextField() {
 		if (urlTextField == null) {
 			urlTextField = new JTextField();
-			urlTextField.setMinimumSize(new Dimension(400, (int)urlTextField.getSize().getHeight()));
+			urlTextField.setMinimumSize(new Dimension(400, (int) urlTextField.getSize().getHeight()));
 		}
 		return urlTextField;
 	}
 
 	/**
 	 * Load data.
-	 *
+	 * 
 	 * @param subversionRepositoryLocation the subversion repository location
 	 */
 	public void loadData(final SubversionRepositoryLocation subversionRepositoryLocation) {

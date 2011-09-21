@@ -18,11 +18,10 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.IdentifiableBean;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import net.lmxm.ute.beans.IdentifiableBean;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,12 +39,11 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 
 	/**
 	 * Instantiates a new abstract id editor panel.
-	 *
-	 * @param configuration the configuration
+	 * 
 	 * @param titleText the title text
 	 */
-	public AbstractIdEditorPanel(final Configuration configuration, final String titleText) {
-		super(configuration, titleText);
+	public AbstractIdEditorPanel(final String titleText) {
+		super(titleText);
 	}
 
 	/**
@@ -60,7 +58,7 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 
 	/**
 	 * Load id common field data.
-	 *
+	 * 
 	 * @param identifiableBean the identifiable bean
 	 */
 	protected final void loadIdCommonFieldData(final IdentifiableBean identifiableBean) {

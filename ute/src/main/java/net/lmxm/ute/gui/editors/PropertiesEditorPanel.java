@@ -22,7 +22,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
@@ -38,11 +37,9 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 
 	/**
 	 * Instantiates a new properties editor panel.
-	 * 
-	 * @param configuration the configuration
 	 */
-	public PropertiesEditorPanel(final Configuration configuration) {
-		super(configuration, "Properties");
+	public PropertiesEditorPanel() {
+		super("Properties");
 
 		final JPanel contentPanel = getContentPanel();
 

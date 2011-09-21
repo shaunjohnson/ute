@@ -30,7 +30,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
@@ -79,11 +78,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	/**
 	 * Instantiates a new abstract task editor panel.
 	 * 
-	 * @param configuration the configuration
 	 * @param titleText the title text
 	 */
-	public AbstractTaskEditorPanel(final Configuration configuration, final String titleText) {
-		super(configuration, titleText);
+	public AbstractTaskEditorPanel(final String titleText) {
+		super(titleText);
 
 		monospaceFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 	}

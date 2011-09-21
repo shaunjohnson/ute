@@ -21,7 +21,10 @@ package net.lmxm.ute.gui.editors;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.List;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,6 +33,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.miginfocom.swing.MigLayout;
 
 import org.slf4j.Logger;
@@ -45,9 +49,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2931881275263682418L;
-
-	/** The configuration. */
-	private final Configuration configuration;
 
 	/** The content panel. */
 	private final JPanel contentPanel;
@@ -73,13 +74,10 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/**
 	 * Instantiates a new abstract editor panel.
 	 * 
-	 * @param configuration the configuration
 	 * @param titleText the title text
 	 */
-	public AbstractEditorPanel(final Configuration configuration, final String titleText) {
+	public AbstractEditorPanel(final String titleText) {
 		super();
-
-		this.configuration = configuration;
 
 		// Setup title panel
 		final JPanel titlePanel = new JPanel(new MigLayout("wrap 1", "[center]"));
@@ -95,6 +93,21 @@ public abstract class AbstractEditorPanel extends JPanel {
 		setLayout(new BorderLayout());
 		add(titlePanel, BorderLayout.NORTH);
 		add(contentPanel, BorderLayout.CENTER);
+	}
+
+	/**
+	 * Creates the default combo box model.
+	 * 
+	 * @param list the list
+	 * @return the combo box model
+	 */
+	private ComboBoxModel createDefaultComboBoxModel(final List<? extends IdentifiableDomainBean> list) {
+		if (list == null) {
+			return new DefaultComboBoxModel();
+		}
+		else {
+			return new DefaultComboBoxModel(list.toArray());
+		}
 	}
 
 	/**
@@ -142,7 +155,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 */
 	protected final JComboBox getFileSystemLocationTargetComboBox() {
 		if (fileSystemLocationTargetComboBox == null) {
-			fileSystemLocationTargetComboBox = new JComboBox(configuration.getFileSystemLocations().toArray());
+			fileSystemLocationTargetComboBox = new JComboBox();
 		}
 
 		return fileSystemLocationTargetComboBox;
@@ -155,7 +168,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 */
 	protected final JComboBox getHttpLocationSourceComboBox() {
 		if (httpLocationTargetComboBox == null) {
-			httpLocationTargetComboBox = new JComboBox(configuration.getHttpLocations().toArray());
+			httpLocationTargetComboBox = new JComboBox();
 		}
 
 		return httpLocationTargetComboBox;
@@ -182,11 +195,23 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 */
 	protected final JComboBox getSubversionRepositoryLocationSourceComboBox() {
 		if (subversionRepositoryLocationTargetComboBox == null) {
-			subversionRepositoryLocationTargetComboBox = new JComboBox(configuration.getSubversionRepositoryLocations()
-					.toArray());
+			subversionRepositoryLocationTargetComboBox = new JComboBox();
 		}
 
 		return subversionRepositoryLocationTargetComboBox;
+	}
+
+	/**
+	 * Initialize.
+	 * 
+	 * @param configuration the configuration
+	 */
+	public final void initialize(final Configuration configuration) {
+		getFileSystemLocationTargetComboBox().setModel(
+				createDefaultComboBoxModel(configuration.getFileSystemLocations()));
+		getHttpLocationSourceComboBox().setModel(createDefaultComboBoxModel(configuration.getHttpLocations()));
+		getSubversionRepositoryLocationSourceComboBox().setModel(
+				createDefaultComboBoxModel(configuration.getSubversionRepositoryLocations()));
 	}
 
 	/**

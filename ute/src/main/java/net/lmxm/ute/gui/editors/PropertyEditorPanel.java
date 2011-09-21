@@ -18,14 +18,13 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.Property;
-
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import net.lmxm.ute.beans.Property;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,11 +45,9 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Instantiates a new property editor.
-	 *
-	 * @param configuration the configuration
 	 */
-	public PropertyEditorPanel(final Configuration configuration) {
-		super(configuration, "Property");
+	public PropertyEditorPanel() {
+		super("Property");
 
 		addIdCommonFields();
 
@@ -62,21 +59,21 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Gets the property value text field.
-	 *
+	 * 
 	 * @return the property value text field
 	 */
 	private JTextField getPropertyValueTextField() {
 		if (propertyValueTextField == null) {
 			propertyValueTextField = new JTextField();
 			propertyValueTextField
-					.setMinimumSize(new Dimension(400, (int)propertyValueTextField.getSize().getHeight()));
+					.setMinimumSize(new Dimension(400, (int) propertyValueTextField.getSize().getHeight()));
 		}
 		return propertyValueTextField;
 	}
 
 	/**
 	 * Load data.
-	 *
+	 * 
 	 * @param property the property
 	 */
 	public void loadData(final Property property) {

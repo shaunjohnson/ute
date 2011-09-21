@@ -18,14 +18,13 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.locations.FileSystemLocation;
-
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import net.lmxm.ute.beans.locations.FileSystemLocation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,11 +45,9 @@ public final class FileSystemLocationEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Instantiates a new file system location editor panel.
-	 *
-	 * @param configuration the configuration
 	 */
-	public FileSystemLocationEditorPanel(final Configuration configuration) {
-		super(configuration, "File System Location");
+	public FileSystemLocationEditorPanel() {
+		super("File System Location");
 
 		addIdCommonFields();
 
@@ -62,20 +59,20 @@ public final class FileSystemLocationEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Gets the path text field.
-	 *
+	 * 
 	 * @return the path text field
 	 */
 	private JTextField getPathTextField() {
 		if (pathTextField == null) {
 			pathTextField = new JTextField();
-			pathTextField.setMinimumSize(new Dimension(400, (int)pathTextField.getSize().getHeight()));
+			pathTextField.setMinimumSize(new Dimension(400, (int) pathTextField.getSize().getHeight()));
 		}
 		return pathTextField;
 	}
 
 	/**
 	 * Load data.
-	 *
+	 * 
 	 * @param fileSystemLocation the property
 	 */
 	public void loadData(final FileSystemLocation fileSystemLocation) {

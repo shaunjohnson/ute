@@ -23,7 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 
@@ -49,11 +48,9 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Instantiates a new groovy task editor panel.
-	 * 
-	 * @param configuration the configuration
 	 */
-	public GroovyTaskEditorPanel(final Configuration configuration) {
-		super(configuration, "Groovy Task");
+	public GroovyTaskEditorPanel() {
+		super("Groovy Task");
 
 		addTaskCommonFields();
 		addFileSystemTargetFields();

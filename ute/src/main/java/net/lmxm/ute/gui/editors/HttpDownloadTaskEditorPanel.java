@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
@@ -39,11 +38,9 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Instantiates a new http download task editor panel.
-	 *
-	 * @param configuration the configuration
 	 */
-	public HttpDownloadTaskEditorPanel(final Configuration configuration) {
-		super(configuration, "HTTP Download Task");
+	public HttpDownloadTaskEditorPanel() {
+		super("HTTP Download Task");
 
 		addTaskCommonFields();
 		addHttpSourceFields();
@@ -53,7 +50,7 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Load data.
-	 *
+	 * 
 	 * @param httpDownloadTask the http download task
 	 */
 	public void loadData(final HttpDownloadTask httpDownloadTask) {

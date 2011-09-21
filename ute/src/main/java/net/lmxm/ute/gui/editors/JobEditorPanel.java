@@ -18,11 +18,10 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.jobs.Job;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import net.lmxm.ute.beans.jobs.Job;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +39,9 @@ public final class JobEditorPanel extends AbstractEditorPanel {
 
 	/**
 	 * Instantiates a new job editor panel.
-	 *
-	 * @param configuration the configuration
 	 */
-	public JobEditorPanel(final Configuration configuration) {
-		super(configuration, "Job");
+	public JobEditorPanel() {
+		super("Job");
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -57,7 +54,7 @@ public final class JobEditorPanel extends AbstractEditorPanel {
 
 	/**
 	 * Load data.
-	 *
+	 * 
 	 * @param job the job
 	 */
 	public void loadData(final Job job) {

@@ -79,6 +79,7 @@ import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.dialogs.AboutDialog;
 import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
+import net.lmxm.ute.gui.editors.AbstractEditorPanel;
 import net.lmxm.ute.gui.editors.FileSystemDeleteTaskEditorPanel;
 import net.lmxm.ute.gui.editors.FileSystemLocationEditorPanel;
 import net.lmxm.ute.gui.editors.FindReplaceTaskEditorPanel;
@@ -696,9 +697,10 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param fileSystemDeleteTask the file system delete task
 	 * @return the file system delete task editor panel
 	 */
-	private Component getFileSystemDeleteTaskEditorPanel(final FileSystemDeleteTask fileSystemDeleteTask) {
+	private FileSystemDeleteTaskEditorPanel getFileSystemDeleteTaskEditorPanel(
+			final FileSystemDeleteTask fileSystemDeleteTask) {
 		if (fileSystemDeleteTaskEditorPanel == null) {
-			fileSystemDeleteTaskEditorPanel = new FileSystemDeleteTaskEditorPanel(configuration);
+			fileSystemDeleteTaskEditorPanel = new FileSystemDeleteTaskEditorPanel();
 		}
 
 		fileSystemDeleteTaskEditorPanel.loadData(fileSystemDeleteTask);
@@ -712,9 +714,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param fileSystemLocation the file system location
 	 * @return the file system location editor panel
 	 */
-	private JPanel getFileSystemLocationEditorPanel(final FileSystemLocation fileSystemLocation) {
+	private FileSystemLocationEditorPanel getFileSystemLocationEditorPanel(final FileSystemLocation fileSystemLocation) {
 		if (fileSystemLocationEditorPanel == null) {
-			fileSystemLocationEditorPanel = new FileSystemLocationEditorPanel(configuration);
+			fileSystemLocationEditorPanel = new FileSystemLocationEditorPanel();
 		}
 
 		fileSystemLocationEditorPanel.loadData(fileSystemLocation);
@@ -773,7 +775,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 */
 	private FindReplaceTaskEditorPanel getFindReplaceTaskEditorPanel(final FindReplaceTask findReplaceTask) {
 		if (findReplaceTaskEditorPanel == null) {
-			findReplaceTaskEditorPanel = new FindReplaceTaskEditorPanel(configuration);
+			findReplaceTaskEditorPanel = new FindReplaceTaskEditorPanel();
 		}
 
 		findReplaceTaskEditorPanel.loadData(findReplaceTask);
@@ -789,7 +791,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 */
 	private GroovyTaskEditorPanel getGroovyTaskEditorPanel(final GroovyTask groovyTask) {
 		if (groovyTaskEditorPanel == null) {
-			groovyTaskEditorPanel = new GroovyTaskEditorPanel(configuration);
+			groovyTaskEditorPanel = new GroovyTaskEditorPanel();
 		}
 
 		groovyTaskEditorPanel.loadData(groovyTask);
@@ -817,9 +819,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param httpDownloadTask the http download task
 	 * @return the http download task editor panel
 	 */
-	private JPanel getHttpDownloadTaskEditorPanel(final HttpDownloadTask httpDownloadTask) {
+	private HttpDownloadTaskEditorPanel getHttpDownloadTaskEditorPanel(final HttpDownloadTask httpDownloadTask) {
 		if (httpDownloadTaskEditorPanel == null) {
-			httpDownloadTaskEditorPanel = new HttpDownloadTaskEditorPanel(configuration);
+			httpDownloadTaskEditorPanel = new HttpDownloadTaskEditorPanel();
 		}
 
 		httpDownloadTaskEditorPanel.loadData(httpDownloadTask);
@@ -833,9 +835,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param httpLocation the http location
 	 * @return the http location editor panel
 	 */
-	private JPanel getHttpLocationEditorPanel(final HttpLocation httpLocation) {
+	private HttpLocationEditorPanel getHttpLocationEditorPanel(final HttpLocation httpLocation) {
 		if (httpLocationEditorPanel == null) {
-			httpLocationEditorPanel = new HttpLocationEditorPanel(configuration);
+			httpLocationEditorPanel = new HttpLocationEditorPanel();
 		}
 
 		httpLocationEditorPanel.loadData(httpLocation);
@@ -912,9 +914,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param job the job
 	 * @return the job editor panel
 	 */
-	private JPanel getJobEditorPanel(final Job job) {
+	private JobEditorPanel getJobEditorPanel(final Job job) {
 		if (jobEditorPanel == null) {
-			jobEditorPanel = new JobEditorPanel(configuration);
+			jobEditorPanel = new JobEditorPanel();
 		}
 
 		jobEditorPanel.loadData(job);
@@ -1219,9 +1221,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param preference the preference
 	 * @return the preference editor panel
 	 */
-	private JPanel getPreferenceEditorPanel(final Preference preference) {
+	private PreferenceEditorPanel getPreferenceEditorPanel(final Preference preference) {
 		if (preferenceEditorPanel == null) {
-			preferenceEditorPanel = new PreferenceEditorPanel(configuration);
+			preferenceEditorPanel = new PreferenceEditorPanel();
 		}
 
 		preferenceEditorPanel.loadData(preference);
@@ -1260,9 +1262,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * 
 	 * @return the properties editor panel
 	 */
-	private JPanel getPropertiesEditorPanel() {
+	private PropertiesEditorPanel getPropertiesEditorPanel() {
 		if (propertiesEditorPanel == null) {
-			propertiesEditorPanel = new PropertiesEditorPanel(configuration);
+			propertiesEditorPanel = new PropertiesEditorPanel();
 		}
 
 		return propertiesEditorPanel;
@@ -1287,9 +1289,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param property the property
 	 * @return the property editor panel
 	 */
-	private JPanel getPropertyEditorPanel(final Property property) {
+	private PropertyEditorPanel getPropertyEditorPanel(final Property property) {
 		if (propertyEditorPanel == null) {
-			propertyEditorPanel = new PropertyEditorPanel(configuration);
+			propertyEditorPanel = new PropertyEditorPanel();
 		}
 
 		propertyEditorPanel.loadData(property);
@@ -1460,9 +1462,10 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param subversionExportTask the subversion export task
 	 * @return the subversion export task editor panel
 	 */
-	private Component getSubversionExportTaskEditorPanel(final SubversionExportTask subversionExportTask) {
+	private SubversionExportTaskEditorPanel getSubversionExportTaskEditorPanel(
+			final SubversionExportTask subversionExportTask) {
 		if (subversionExportTaskEditorPanel == null) {
-			subversionExportTaskEditorPanel = new SubversionExportTaskEditorPanel(configuration);
+			subversionExportTaskEditorPanel = new SubversionExportTaskEditorPanel();
 		}
 
 		subversionExportTaskEditorPanel.loadData(subversionExportTask);
@@ -1476,10 +1479,10 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param subversionRepositoryLocation the subversion repository location
 	 * @return the subversion repository location editor panel
 	 */
-	private JPanel getSubversionRepositoryLocationEditorPanel(
+	private SubversionRepositoryLocationEditorPanel getSubversionRepositoryLocationEditorPanel(
 			final SubversionRepositoryLocation subversionRepositoryLocation) {
 		if (subversionRepositoryLocationEditorPanel == null) {
-			subversionRepositoryLocationEditorPanel = new SubversionRepositoryLocationEditorPanel(configuration);
+			subversionRepositoryLocationEditorPanel = new SubversionRepositoryLocationEditorPanel();
 		}
 
 		subversionRepositoryLocationEditorPanel.loadData(subversionRepositoryLocation);
@@ -1519,9 +1522,10 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * @param subversionUpdateTask the subversion update task
 	 * @return the subversion update task editor panel
 	 */
-	private Component getSubversionUpdateTaskEditorPanel(final SubversionUpdateTask subversionUpdateTask) {
+	private SubversionUpdateTaskEditorPanel getSubversionUpdateTaskEditorPanel(
+			final SubversionUpdateTask subversionUpdateTask) {
 		if (subversionUpdateTaskEditorPanel == null) {
-			subversionUpdateTaskEditorPanel = new SubversionUpdateTaskEditorPanel(configuration);
+			subversionUpdateTaskEditorPanel = new SubversionUpdateTaskEditorPanel();
 		}
 
 		subversionUpdateTaskEditorPanel.loadData(subversionUpdateTask);
@@ -1897,7 +1901,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 
 		// Load appropriate editor
-		Component editorPane = null;
+		AbstractEditorPanel editorPane = null;
 
 		if (isJob) {
 			editorPane = getJobEditorPanel((Job) userObject);
@@ -1941,6 +1945,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		else {
 			// TODO
 		}
+
+		editorPane.initialize(configuration);
 
 		getJobDetailsEditorScrollPane().setViewportView(editorPane);
 	}

@@ -30,7 +30,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
@@ -70,11 +69,9 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Instantiates a new find replace task editor panel.
-	 * 
-	 * @param configuration the configuration
 	 */
-	public FindReplaceTaskEditorPanel(final Configuration configuration) {
-		super(configuration, "Find and Replace Task");
+	public FindReplaceTaskEditorPanel() {
+		super("Find and Replace Task");
 
 		addTaskCommonFields();
 		addFileSystemTargetFields();

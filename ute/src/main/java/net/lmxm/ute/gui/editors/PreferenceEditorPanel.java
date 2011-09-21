@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
 
 import org.slf4j.Logger;
@@ -37,11 +36,9 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Instantiates a new preference editor panel.
-	 * 
-	 * @param configuration the configuration
 	 */
-	public PreferenceEditorPanel(final Configuration configuration) {
-		super(configuration, "Preference");
+	public PreferenceEditorPanel() {
+		super("Preference");
 
 		addIdCommonFields();
 	}

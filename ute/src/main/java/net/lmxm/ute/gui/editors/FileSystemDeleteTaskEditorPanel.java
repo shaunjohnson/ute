@@ -22,7 +22,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 
@@ -45,11 +44,9 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 
 	/**
 	 * Instantiates a new job editor panel.
-	 * 
-	 * @param configuration the configuration
 	 */
-	public FileSystemDeleteTaskEditorPanel(final Configuration configuration) {
-		super(configuration, "File System Delete Task");
+	public FileSystemDeleteTaskEditorPanel() {
+		super("File System Delete Task");
 
 		addTaskCommonFields();
 
