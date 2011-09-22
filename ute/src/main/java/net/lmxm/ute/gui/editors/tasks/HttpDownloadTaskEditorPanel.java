@@ -16,34 +16,34 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.editors;
+package net.lmxm.ute.gui.editors.tasks;
 
-import net.lmxm.ute.beans.sources.SubversionRepositorySource;
+import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
-import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
+import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class SubversionUpdateTaskEditorPanel.
+ * The Class HttpDownloadTaskEditorPanel.
  */
-public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPanel {
+public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionUpdateTaskEditorPanel.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HttpDownloadTaskEditorPanel.class);
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 12035329665657526L;
+	private static final long serialVersionUID = 7076073228977636114L;
 
 	/**
-	 * Instantiates a new job editor panel.
+	 * Instantiates a new http download task editor panel.
 	 */
-	public SubversionUpdateTaskEditorPanel() {
-		super("Subversion Update Task");
+	public HttpDownloadTaskEditorPanel() {
+		super("HTTP Download Task");
 
 		addTaskCommonFields();
-		addSubversionRepositorySourceFields();
+		addHttpSourceFields();
 		addFileSystemTargetFields();
 		addFilesFields();
 	}
@@ -51,21 +51,20 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 	/**
 	 * Load data.
 	 * 
-	 * @param subversionUpdateTask the subversion update task
+	 * @param httpDownloadTask the http download task
 	 */
-	public void loadData(final SubversionUpdateTask subversionUpdateTask) {
+	public void loadData(final HttpDownloadTask httpDownloadTask) {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, subversionUpdateTask={}", prefix, subversionUpdateTask);
+		LOGGER.debug("{} entered, httpDownloadTask={}", prefix, httpDownloadTask);
 
-		final SubversionRepositorySource source = subversionUpdateTask == null ? null : subversionUpdateTask
-				.getSource();
-		final FileSystemTarget target = subversionUpdateTask == null ? null : subversionUpdateTask.getTarget();
+		final HttpSource source = httpDownloadTask == null ? null : httpDownloadTask.getSource();
+		final FileSystemTarget target = httpDownloadTask == null ? null : httpDownloadTask.getTarget();
 
-		loadTaskCommonFieldData(subversionUpdateTask);
-		loadSubversionRepositorySourceFieldData(source);
+		loadTaskCommonFieldData(httpDownloadTask);
+		loadHttpSourceFieldData(source);
 		loadFileSystemTargetFieldData(target);
-		loadFilesFieldData(subversionUpdateTask);
+		loadFilesFieldData(httpDownloadTask);
 
 		LOGGER.debug("{} leaving", prefix);
 	}

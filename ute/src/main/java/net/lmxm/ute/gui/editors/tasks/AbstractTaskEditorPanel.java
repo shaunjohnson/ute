@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.editors;
+package net.lmxm.ute.gui.editors.tasks;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -39,6 +39,7 @@ import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.AbstractFilesTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
