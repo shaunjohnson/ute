@@ -53,6 +53,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Position;
 import javax.swing.text.html.HTMLDocument;
@@ -140,6 +141,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2194241637714084500L;
+
+	/** The Constant TOOLBAR_BORDER. */
+	private static final EmptyBorder TOOLBAR_BORDER = new EmptyBorder(0, 0, 0, 10);
 
 	/** The about menu item. */
 	private JMenuItem aboutMenuItem = null;
@@ -758,6 +762,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private JToolBar getFileToolBar() {
 		if (fileToolBar == null) {
 			fileToolBar = new JToolBar();
+
+			fileToolBar.setBorder(TOOLBAR_BORDER);
+
 			fileToolBar.add(getNewFileButton());
 			fileToolBar.add(getOpenFileButton());
 			fileToolBar.add(getSaveButton());
@@ -1046,7 +1053,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private JToolBar getMainToolBar() {
 		if (mainToolBar == null) {
 			mainToolBar = new JToolBar();
-			mainToolBar.setFloatable(true);
+
+			mainToolBar.setBorder(TOOLBAR_BORDER);
+
 			mainToolBar.add(getExecuteJobButton());
 			mainToolBar.add(getAddJobButton());
 			mainToolBar.add(getAddLocationButton());
@@ -1553,14 +1562,11 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 */
 	private JPanel getToolbarPanel() {
 		if (toolbarPanel == null) {
-			final FlowLayout flowLayout = new FlowLayout();
-			flowLayout.setAlignment(FlowLayout.LEFT);
-			flowLayout.setVgap(0);
-			flowLayout.setHgap(0);
 			toolbarPanel = new JPanel();
-			toolbarPanel.setLayout(flowLayout);
+			toolbarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			toolbarPanel.add(getFileToolBar(), null);
 			toolbarPanel.add(getMainToolBar(), null);
+			toolbarPanel.setBorder(new EmptyBorder(0, 0, 5, 0));
 		}
 		return toolbarPanel;
 	}
