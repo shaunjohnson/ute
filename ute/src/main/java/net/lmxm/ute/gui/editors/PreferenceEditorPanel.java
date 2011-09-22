@@ -18,7 +18,10 @@
  */
 package net.lmxm.ute.gui.editors;
 
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.Preference;
 
@@ -36,6 +39,8 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2888672591061035475L;
 
+	private JTextField preferenceValueTextField = null;
+
 	/**
 	 * Instantiates a new preference editor panel.
 	 */
@@ -45,7 +50,21 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 		final JPanel contentPanel = getContentPanel();
 
 		addSeparator(contentPanel, "Preference");
+
 		addIdCommonFields();
+
+		addLabel(contentPanel, "Current Value");
+		contentPanel.add(getPreferenceValueTextField());
+	}
+
+	private JTextField getPreferenceValueTextField() {
+		if (preferenceValueTextField == null) {
+			preferenceValueTextField = new JTextField();
+			preferenceValueTextField.setEditable(false);
+			preferenceValueTextField.setMinimumSize(new Dimension(400, (int) preferenceValueTextField.getSize()
+					.getHeight()));
+		}
+		return preferenceValueTextField;
 	}
 
 	/**
@@ -59,6 +78,14 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 		LOGGER.debug("{} entered, preference={}", prefix, preference);
 
 		loadIdCommonFieldData(preference);
+
+		if (preference == null) {
+			getPreferenceValueTextField().setText("");
+		}
+		else {
+
+			getPreferenceValueTextField().setText(preference.getValue());
+		}
 
 		LOGGER.debug("{} leaving", prefix);
 	}
