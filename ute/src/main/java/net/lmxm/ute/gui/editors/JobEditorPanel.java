@@ -44,6 +44,8 @@ public final class JobEditorPanel extends AbstractEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
+		addSeparator(contentPanel, "Job");
+
 		addLabel(contentPanel, "ID");
 		contentPanel.add(getIdTextField());
 

@@ -24,7 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
-import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class FileSystemLocationEditorPanel.
  */
-public final class FileSystemLocationEditorPanel extends AbstractIdEditorPanel {
+public final class FileSystemLocationEditorPanel extends AbstractLocationEditorPanel {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemLocationEditorPanel.class);
@@ -51,7 +50,7 @@ public final class FileSystemLocationEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addIdCommonFields();
+		addLocationCommonFields();
 
 		addLabel(contentPanel, "Path");
 		contentPanel.add(getPathTextField());

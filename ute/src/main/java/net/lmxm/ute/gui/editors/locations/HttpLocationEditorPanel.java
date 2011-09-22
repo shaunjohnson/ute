@@ -24,7 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.HttpLocation;
-import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class HttpLocationEditorPanel.
  */
-public final class HttpLocationEditorPanel extends AbstractIdEditorPanel {
+public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpLocationEditorPanel.class);
@@ -51,7 +50,7 @@ public final class HttpLocationEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addIdCommonFields();
+		addLocationCommonFields();
 
 		addLabel(contentPanel, "URL");
 		contentPanel.add(getUrlTextField());

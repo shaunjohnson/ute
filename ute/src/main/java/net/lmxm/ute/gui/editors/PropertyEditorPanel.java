@@ -50,6 +50,8 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
+		addSeparator(contentPanel, "Property");
+
 		addIdCommonFields();
 
 		addLabel(contentPanel, "Value");

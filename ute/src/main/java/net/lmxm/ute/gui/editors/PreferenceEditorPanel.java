@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors;
 
+import javax.swing.JPanel;
+
 import net.lmxm.ute.beans.Preference;
 
 import org.slf4j.Logger;
@@ -40,6 +42,9 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 	public PreferenceEditorPanel() {
 		super("Preference");
 
+		final JPanel contentPanel = getContentPanel();
+
+		addSeparator(contentPanel, "Preference");
 		addIdCommonFields();
 	}
 
