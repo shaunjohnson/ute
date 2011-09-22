@@ -53,7 +53,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.Border;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Position;
 import javax.swing.text.html.HTMLDocument;
@@ -143,7 +143,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private static final long serialVersionUID = 2194241637714084500L;
 
 	/** The Constant TOOLBAR_BORDER. */
-	private static final EmptyBorder TOOLBAR_BORDER = new EmptyBorder(0, 0, 0, 10);
+	private static final Border TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 0, 0, 10);
 
 	/** The about menu item. */
 	private JMenuItem aboutMenuItem = null;
@@ -528,6 +528,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			bottomPanel.setLayout(new BorderLayout());
 			bottomPanel.add(getOutputScrollPane(), BorderLayout.CENTER);
 			bottomPanel.add(getOutputButtonToolBar(), BorderLayout.NORTH);
+			bottomPanel.setBorder(BorderFactory.createEmptyBorder());
 		}
 		return bottomPanel;
 	}
@@ -1190,6 +1191,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private JToolBar getOutputButtonToolBar() {
 		if (outputButtonToolBar == null) {
 			outputButtonToolBar = new JToolBar();
+
+			outputButtonToolBar.setBorder(TOOLBAR_BORDER);
+
 			outputButtonToolBar.add(getStopJobButton());
 			outputButtonToolBar.add(getClearOutputButton());
 			outputButtonToolBar.add(getJobProgressBar());
@@ -1218,7 +1222,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 */
 	private JScrollPane getOutputScrollPane() {
 		if (outputScrollPane == null) {
-			outputScrollPane = new JScrollPane();
+			outputScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			outputScrollPane.setViewportView(getOutputEditorPane());
 		}
 		return outputScrollPane;
@@ -1566,7 +1571,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			toolbarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			toolbarPanel.add(getFileToolBar(), null);
 			toolbarPanel.add(getMainToolBar(), null);
-			toolbarPanel.setBorder(new EmptyBorder(0, 0, 5, 0));
+			toolbarPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
 		}
 		return toolbarPanel;
 	}
@@ -1952,7 +1957,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			// TODO
 		}
 
-		editorPane.initialize(configuration);
+		if (editorPane != null) {
+			editorPane.initialize(configuration);
+		}
 
 		getJobDetailsEditorScrollPane().setViewportView(editorPane);
 	}
