@@ -53,7 +53,7 @@ public final class HttpLocationEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("URL:"));
+		contentPanel.add(new JLabel("URL"));
 		contentPanel.add(getUrlTextField());
 	}
 

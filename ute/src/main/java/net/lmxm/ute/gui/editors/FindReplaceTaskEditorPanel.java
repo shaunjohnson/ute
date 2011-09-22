@@ -79,7 +79,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Scope:"));
+		contentPanel.add(new JLabel("Scope"));
 		contentPanel.add(getScopePane());
 
 		addPatternsFields();
@@ -91,7 +91,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	protected final void addPatternsFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Patterns:"), "top");
+		contentPanel.add(new JLabel("Patterns"), "top");
 		contentPanel.add(getPatternsPane());
 	}
 

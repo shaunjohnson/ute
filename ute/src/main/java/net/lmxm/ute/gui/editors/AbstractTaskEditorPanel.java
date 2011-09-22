@@ -92,7 +92,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addFilesFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Files:"), "top");
+		contentPanel.add(new JLabel("Files"), "top");
 		contentPanel.add(getFilesPane());
 	}
 
@@ -102,10 +102,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addFileSystemTargetFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Target:"));
+		contentPanel.add(new JLabel("Target"));
 		contentPanel.add(getFileSystemLocationTargetComboBox());
 
-		contentPanel.add(new JLabel("Target Relative Path:"));
+		contentPanel.add(new JLabel("Target Relative Path"));
 		contentPanel.add(getTargetRelativePathTextField());
 	}
 
@@ -115,10 +115,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addHttpSourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Source:"));
+		contentPanel.add(new JLabel("Source"));
 		contentPanel.add(getHttpLocationSourceComboBox());
 
-		contentPanel.add(new JLabel("Source Relative Path:"));
+		contentPanel.add(new JLabel("Source Relative Path"));
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 
@@ -128,10 +128,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addSubversionRepositorySourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Source:"));
+		contentPanel.add(new JLabel("Source"));
 		contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
 
-		contentPanel.add(new JLabel("Source Relative Path:"));
+		contentPanel.add(new JLabel("Source Relative Path"));
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 
@@ -143,9 +143,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Description:"), "top");
+		contentPanel.add(new JLabel("Description"), "top");
 		contentPanel.add(getDescriptionPane());
-		contentPanel.add(new JLabel("Enabled:"));
+		contentPanel.add(new JLabel("Enabled"));
 		contentPanel.add(getEnabledCheckbox());
 	}
 

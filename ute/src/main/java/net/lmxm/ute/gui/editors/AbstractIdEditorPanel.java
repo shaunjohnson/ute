@@ -52,7 +52,7 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	protected final void addIdCommonFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("ID:"));
+		contentPanel.add(new JLabel("ID"));
 		contentPanel.add(getIdTextField());
 	}
 

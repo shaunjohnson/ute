@@ -53,7 +53,7 @@ public final class FileSystemLocationEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Path:"));
+		contentPanel.add(new JLabel("Path"));
 		contentPanel.add(getPathTextField());
 	}
 

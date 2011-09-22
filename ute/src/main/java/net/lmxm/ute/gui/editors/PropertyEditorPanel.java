@@ -53,7 +53,7 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Value:"));
+		contentPanel.add(new JLabel("Value"));
 		contentPanel.add(getPropertyValueTextField());
 	}
 

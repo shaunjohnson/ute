@@ -43,7 +43,7 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Add New Property:"));
+		contentPanel.add(new JLabel("Add New Property"));
 		contentPanel.add(getAddPropertyButton());
 	}
 
