@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
@@ -29,8 +30,10 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
@@ -44,11 +47,21 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractEditorPanel extends JPanel {
 
+	/** The Constant BOLD_FONT. */
+	private static final Font BOLD_FONT;
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEditorPanel.class);
 
+	/** The Constant SEPARATOR_LABEL_COLOR. */
+	private static final Color SEPARATOR_LABEL_COLOR = new Color(0, 70, 213);
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2931881275263682418L;
+
+	static {
+		BOLD_FONT = new Font(Font.DIALOG, Font.BOLD, 12);
+	}
 
 	/** The content panel. */
 	private final JPanel contentPanel;
@@ -96,6 +109,21 @@ public abstract class AbstractEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Adds the separator.
+	 * 
+	 * @param panel the panel
+	 * @param text the text
+	 */
+	protected final void addSeparator(final JPanel panel, final String text) {
+		final JLabel label = createLabel(text);
+		label.setFont(BOLD_FONT);
+		label.setForeground(SEPARATOR_LABEL_COLOR);
+
+		panel.add(label, "gapbottom 1, span, split 2, aligny center");
+		panel.add(new JSeparator(), "gapleft rel, growx");
+	}
+
+	/**
 	 * Creates the default combo box model.
 	 * 
 	 * @param list the list
@@ -108,6 +136,27 @@ public abstract class AbstractEditorPanel extends JPanel {
 		else {
 			return new DefaultComboBoxModel(list.toArray());
 		}
+	}
+
+	/**
+	 * Creates the label.
+	 * 
+	 * @param text the text
+	 * @return the j label
+	 */
+	protected final JLabel createLabel(final String text) {
+		return createLabel(text, SwingConstants.LEADING);
+	}
+
+	/**
+	 * Creates the label.
+	 * 
+	 * @param text the text
+	 * @param align the align
+	 * @return the j label
+	 */
+	protected final JLabel createLabel(final String text, final int align) {
+		return new JLabel(text, align);
 	}
 
 	/**

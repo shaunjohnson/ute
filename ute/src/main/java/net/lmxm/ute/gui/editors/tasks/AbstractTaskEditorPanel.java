@@ -140,10 +140,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	 * Adds the task common fields.
 	 */
 	protected final void addTaskCommonFields() {
-		addIdCommonFields();
-
 		final JPanel contentPanel = getContentPanel();
 
+		addSeparator(contentPanel, "Task");
+		addIdCommonFields();
 		contentPanel.add(new JLabel("Description"), "top");
 		contentPanel.add(getDescriptionPane());
 		contentPanel.add(new JLabel("Enabled"));

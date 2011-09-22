@@ -52,12 +52,15 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	public GroovyTaskEditorPanel() {
 		super("Groovy Task");
 
+		final JPanel contentPanel = getContentPanel();
+
 		addTaskCommonFields();
+
+		addSeparator(contentPanel, "Target");
 		addFileSystemTargetFields();
 		addFilesFields();
 
-		final JPanel contentPanel = getContentPanel();
-
+		addSeparator(contentPanel, "Groovy Script");
 		contentPanel.add(new JLabel("Script"));
 		contentPanel.add(getScriptPane());
 	}

@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
+import javax.swing.JPanel;
+
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
@@ -42,8 +44,14 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	public SubversionExportTaskEditorPanel() {
 		super("Subversion Export Task");
 
+		final JPanel contentPanel = getContentPanel();
+
 		addTaskCommonFields();
+
+		addSeparator(contentPanel, "Source");
 		addSubversionRepositorySourceFields();
+
+		addSeparator(contentPanel, "Target");
 		addFileSystemTargetFields();
 		addFilesFields();
 	}

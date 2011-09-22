@@ -73,12 +73,15 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	public FindReplaceTaskEditorPanel() {
 		super("Find and Replace Task");
 
+		final JPanel contentPanel = getContentPanel();
+
 		addTaskCommonFields();
+
+		addSeparator(contentPanel, "Target");
 		addFileSystemTargetFields();
 		addFilesFields();
 
-		final JPanel contentPanel = getContentPanel();
-
+		addSeparator(contentPanel, "Find and Replace");
 		contentPanel.add(new JLabel("Scope"));
 		contentPanel.add(getScopePane());
 

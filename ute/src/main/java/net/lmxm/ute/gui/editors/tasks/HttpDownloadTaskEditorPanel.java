@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
+import javax.swing.JPanel;
+
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
@@ -42,8 +44,14 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 	public HttpDownloadTaskEditorPanel() {
 		super("HTTP Download Task");
 
+		final JPanel contentPanel = getContentPanel();
+
 		addTaskCommonFields();
+
+		addSeparator(contentPanel, "Source");
 		addHttpSourceFields();
+
+		addSeparator(contentPanel, "Target");
 		addFileSystemTargetFields();
 		addFilesFields();
 	}
