@@ -20,7 +20,6 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -50,11 +49,11 @@ public final class FileSystemLocationEditorPanel extends AbstractIdEditorPanel {
 	public FileSystemLocationEditorPanel() {
 		super("File System Location");
 
-		addIdCommonFields();
-
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Path"));
+		addIdCommonFields();
+
+		addLabel(contentPanel, "Path");
 		contentPanel.add(getPathTextField());
 	}
 

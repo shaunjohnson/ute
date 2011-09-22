@@ -19,7 +19,6 @@
 package net.lmxm.ute.gui.editors;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.lmxm.ute.gui.utils.ImageUtil;
@@ -43,7 +42,7 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Add New Property"));
+		addLabel(contentPanel, "Add New Property");
 		contentPanel.add(getAddPropertyButton());
 	}
 

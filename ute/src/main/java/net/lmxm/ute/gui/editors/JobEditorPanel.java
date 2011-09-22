@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.jobs.Job;
@@ -45,10 +44,10 @@ public final class JobEditorPanel extends AbstractEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("ID"));
+		addLabel(contentPanel, "ID");
 		contentPanel.add(getIdTextField());
 
-		contentPanel.add(new JLabel("Description"), "top");
+		addLabel(contentPanel, "Description", "top");
 		contentPanel.add(getDescriptionPane());
 	}
 

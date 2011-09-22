@@ -23,7 +23,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -93,7 +92,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addFilesFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Files"), "top");
+		addLabel(contentPanel, "Files", "top");
 		contentPanel.add(getFilesPane());
 	}
 
@@ -103,10 +102,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addFileSystemTargetFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Target"));
+		addLabel(contentPanel, "Target");
 		contentPanel.add(getFileSystemLocationTargetComboBox());
 
-		contentPanel.add(new JLabel("Target Relative Path"));
+		addLabel(contentPanel, "Target Relative Path");
 		contentPanel.add(getTargetRelativePathTextField());
 	}
 
@@ -116,10 +115,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addHttpSourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Source"));
+		addLabel(contentPanel, "Source");
 		contentPanel.add(getHttpLocationSourceComboBox());
 
-		contentPanel.add(new JLabel("Source Relative Path"));
+		addLabel(contentPanel, "Source Relative Path");
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 
@@ -129,10 +128,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addSubversionRepositorySourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Source"));
+		addLabel(contentPanel, "Source");
 		contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
 
-		contentPanel.add(new JLabel("Source Relative Path"));
+		addLabel(contentPanel, "Source Relative Path");
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 
@@ -144,9 +143,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 		addSeparator(contentPanel, "Task");
 		addIdCommonFields();
-		contentPanel.add(new JLabel("Description"), "top");
+
+		addLabel(contentPanel, "Description", "top");
 		contentPanel.add(getDescriptionPane());
-		contentPanel.add(new JLabel("Enabled"));
+		addLabel(contentPanel, "Enabled");
 		contentPanel.add(getEnabledCheckbox());
 	}
 

@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -61,7 +60,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 		addFilesFields();
 
 		addSeparator(contentPanel, "Groovy Script");
-		contentPanel.add(new JLabel("Script"));
+		addLabel(contentPanel, "Script");
 		contentPanel.add(getScriptPane());
 	}
 

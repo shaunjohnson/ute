@@ -20,7 +20,6 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -49,11 +48,11 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 	public PropertyEditorPanel() {
 		super("Property");
 
-		addIdCommonFields();
-
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Value"));
+		addIdCommonFields();
+
+		addLabel(contentPanel, "Value");
 		contentPanel.add(getPropertyValueTextField());
 	}
 

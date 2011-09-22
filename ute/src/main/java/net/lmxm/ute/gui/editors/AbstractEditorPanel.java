@@ -109,6 +109,20 @@ public abstract class AbstractEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Adds the label.
+	 * 
+	 * @param panel the panel
+	 * @param text the text
+	 */
+	protected final void addLabel(final JPanel panel, final String text) {
+		panel.add(createLabel(text));
+	}
+
+	protected final void addLabel(final JPanel panel, final String text, final Object constraints) {
+		panel.add(createLabel(text), constraints);
+	}
+
+	/**
 	 * Adds the separator.
 	 * 
 	 * @param panel the panel

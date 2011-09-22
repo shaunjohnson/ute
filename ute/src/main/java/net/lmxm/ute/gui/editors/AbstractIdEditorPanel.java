@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.IdentifiableBean;
@@ -52,7 +51,7 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	protected final void addIdCommonFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("ID"));
+		addLabel(contentPanel, "ID");
 		contentPanel.add(getIdTextField());
 	}
 

@@ -23,7 +23,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -82,7 +81,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		addFilesFields();
 
 		addSeparator(contentPanel, "Find and Replace");
-		contentPanel.add(new JLabel("Scope"));
+		addLabel(contentPanel, "Scope");
 		contentPanel.add(getScopePane());
 
 		addPatternsFields();
@@ -94,7 +93,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	protected final void addPatternsFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("Patterns"), "top");
+		addLabel(contentPanel, "Patterns", "top");
 		contentPanel.add(getPatternsPane());
 	}
 

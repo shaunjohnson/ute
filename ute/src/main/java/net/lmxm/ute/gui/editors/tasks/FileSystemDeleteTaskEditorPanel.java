@@ -19,7 +19,6 @@
 package net.lmxm.ute.gui.editors.tasks;
 
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.targets.FileSystemTarget;
@@ -52,7 +51,7 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 
 		addTaskCommonFields();
 
-		contentPanel.add(new JLabel("Stop on Error"));
+		addLabel(contentPanel, "Stop on Error");
 		contentPanel.add(getStopOnErrorCheckbox());
 
 		addSeparator(contentPanel, "Target");

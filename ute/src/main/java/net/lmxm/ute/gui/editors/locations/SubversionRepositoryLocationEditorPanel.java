@@ -20,7 +20,6 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -50,11 +49,11 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractIdEdi
 	public SubversionRepositoryLocationEditorPanel() {
 		super("Subversion Repository Location");
 
-		addIdCommonFields();
-
 		final JPanel contentPanel = getContentPanel();
 
-		contentPanel.add(new JLabel("URL:"));
+		addIdCommonFields();
+
+		addLabel(contentPanel, "URL");
 		contentPanel.add(getUrlTextField());
 	}
 
