@@ -117,7 +117,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param text the text
 	 */
 	protected final void addCheckbox(final JPanel panel, final JCheckBox checkBox, final String text) {
-		final JPanel subPanel = new JPanel(new MigLayout(null, "[left]"));
+		final JPanel subPanel = new JPanel(new MigLayout("ins 0", "[left]"));
 		subPanel.add(checkBox);
 		subPanel.add(createLabel(text));
 
