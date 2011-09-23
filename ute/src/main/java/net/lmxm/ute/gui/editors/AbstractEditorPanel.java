@@ -146,7 +146,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 		label.setForeground(SEPARATOR_LABEL_COLOR);
 
 		panel.add(label, "gapy 10, span, split 2, aligny center");
-		panel.add(new JSeparator(), "gapleft rel, gapy 10, growx");
+		panel.add(new JSeparator(), "gapleft rel, gapy 14, growx");
 	}
 
 	/**
