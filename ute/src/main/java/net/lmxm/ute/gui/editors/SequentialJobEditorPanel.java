@@ -26,21 +26,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class JobEditorPanel.
+ * The Class SequentialJobEditorPanel.
  */
-public final class JobEditorPanel extends AbstractEditorPanel {
+public final class SequentialJobEditorPanel extends AbstractEditorPanel {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(JobEditorPanel.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SequentialJobEditorPanel.class);
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -254745593912919513L;
 
 	/**
-	 * Instantiates a new job editor panel.
+	 * Instantiates a new sequential job editor panel.
 	 */
-	public JobEditorPanel() {
-		super("Job");
+	public SequentialJobEditorPanel() {
+		super("Sequential Job");
 
 		final JPanel contentPanel = getContentPanel();
 

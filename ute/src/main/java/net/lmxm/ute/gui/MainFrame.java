@@ -66,6 +66,7 @@ import javax.swing.tree.TreeSelectionModel;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -81,10 +82,10 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.dialogs.AboutDialog;
 import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
-import net.lmxm.ute.gui.editors.JobEditorPanel;
 import net.lmxm.ute.gui.editors.PreferenceEditorPanel;
 import net.lmxm.ute.gui.editors.PropertiesEditorPanel;
 import net.lmxm.ute.gui.editors.PropertyEditorPanel;
+import net.lmxm.ute.gui.editors.SequentialJobEditorPanel;
 import net.lmxm.ute.gui.editors.locations.FileSystemLocationEditorPanel;
 import net.lmxm.ute.gui.editors.locations.HttpLocationEditorPanel;
 import net.lmxm.ute.gui.editors.locations.SubversionRepositoryLocationEditorPanel;
@@ -232,9 +233,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	/** The job details editor scroll pane. */
 	private JScrollPane jobDetailsEditorScrollPane = null;
 
-	/** The job editor panel. */
-	private JobEditorPanel jobEditorPanel = null;
-
 	/** The job popup menu. */
 	private JobPopupMenu jobPopupMenu = null;
 
@@ -321,6 +319,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The save menu item. */
 	private JMenuItem saveMenuItem = null;
+
+	/** The sequential job editor panel. */
+	private SequentialJobEditorPanel sequentialJobEditorPanel = null;
 
 	/** The stop job button. */
 	private JButton stopJobButton = null;
@@ -917,22 +918,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
-	 * Gets the job editor panel.
-	 * 
-	 * @param job the job
-	 * @return the job editor panel
-	 */
-	private JobEditorPanel getJobEditorPanel(final Job job) {
-		if (jobEditorPanel == null) {
-			jobEditorPanel = new JobEditorPanel();
-		}
-
-		jobEditorPanel.loadData(job);
-
-		return jobEditorPanel;
-	}
-
-	/**
 	 * Gets the job popup menu.
 	 * 
 	 * @return the job popup menu
@@ -1433,6 +1418,22 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
+	 * Gets the sequential job editor panel.
+	 * 
+	 * @param job the job
+	 * @return the sequential job editor panel
+	 */
+	private SequentialJobEditorPanel getSequentialJobEditorPanel(final Job job) {
+		if (sequentialJobEditorPanel == null) {
+			sequentialJobEditorPanel = new SequentialJobEditorPanel();
+		}
+
+		sequentialJobEditorPanel.loadData(job);
+
+		return sequentialJobEditorPanel;
+	}
+
+	/**
 	 * Gets the status change listener.
 	 * 
 	 * @return the status change listener
@@ -1622,7 +1623,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		addKeyListener(this);
 
 		// Preload editors
-		getJobEditorPanel(null);
+		getSequentialJobEditorPanel(null);
 		getFileSystemDeleteTaskEditorPanel(null);
 		getHttpDownloadTaskEditorPanel(null);
 		getHttpLocationEditorPanel(null);
@@ -1914,8 +1915,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		// Load appropriate editor
 		AbstractEditorPanel editorPane = null;
 
-		if (isJob) {
-			editorPane = getJobEditorPanel((Job) userObject);
+		if (userObject instanceof SequentialJob) {
+			editorPane = getSequentialJobEditorPanel((Job) userObject);
 		}
 		else if (userObject instanceof FileSystemDeleteTask) {
 			editorPane = getFileSystemDeleteTaskEditorPanel((FileSystemDeleteTask) userObject);

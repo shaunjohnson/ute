@@ -21,7 +21,7 @@ package net.lmxm.ute.executers.jobs;
 import java.util.List;
 
 import net.lmxm.ute.beans.PropertiesHolder;
-import net.lmxm.ute.beans.jobs.BasicJob;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executers.AbstractJobExecuter;
@@ -63,7 +63,7 @@ public final class BasicJobExecuter extends AbstractJobExecuter {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final BasicJob job = (BasicJob) getJob();
+		final SequentialJob job = (SequentialJob) getJob();
 
 		try {
 			fireHeadingStatusChange("Started Job (" + job.getId() + ")");

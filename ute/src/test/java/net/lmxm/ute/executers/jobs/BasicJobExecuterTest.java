@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 import net.lmxm.ute.TestJobStatusListener;
 import net.lmxm.ute.TestStatusChangeListener;
 import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.jobs.BasicJob;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 
 import org.junit.Test;
 
@@ -37,7 +37,7 @@ public class BasicJobExecuterTest {
 	 */
 	@Test
 	public void testExecute() {
-		new BasicJobExecuter(new BasicJob(), new Configuration(), new TestJobStatusListener(),
+		new BasicJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(),
 				new TestStatusChangeListener()).execute();
 	}
 
@@ -57,7 +57,7 @@ public class BasicJobExecuterTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			new BasicJobExecuter(new BasicJob(), null, null, null);
+			new BasicJobExecuter(new SequentialJob(), null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -66,7 +66,7 @@ public class BasicJobExecuterTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			new BasicJobExecuter(new BasicJob(), new Configuration(), null, null);
+			new BasicJobExecuter(new SequentialJob(), new Configuration(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -75,7 +75,7 @@ public class BasicJobExecuterTest {
 
 		// Null status listener
 		try {
-			new BasicJobExecuter(new BasicJob(), new Configuration(), new TestJobStatusListener(), null);
+			new BasicJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -92,7 +92,7 @@ public class BasicJobExecuterTest {
 		}
 
 		// Non-null job, properties holder and listener
-		new BasicJobExecuter(new BasicJob(), new Configuration(), new TestJobStatusListener(),
+		new BasicJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(),
 				new TestStatusChangeListener());
 	}
 }

@@ -30,7 +30,7 @@ import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
-import net.lmxm.ute.beans.jobs.BasicJob;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
@@ -490,12 +490,12 @@ public final class ConfigurationMapper {
 	 * 
 	 * @return the job
 	 */
-	private BasicJob parseJob(final JobType jobType, final Configuration configuration) {
+	private SequentialJob parseJob(final JobType jobType, final Configuration configuration) {
 		final String prefix = "parseJob() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final BasicJob job = new BasicJob();
+		final SequentialJob job = new SequentialJob();
 
 		job.setDescription(jobType.getDescription());
 		job.setId(jobType.getId());

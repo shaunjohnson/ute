@@ -102,7 +102,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addFileSystemTargetFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Target");
+		addLabel(contentPanel, "Location");
 		contentPanel.add(getFileSystemLocationTargetComboBox());
 
 		addLabel(contentPanel, "Path");
@@ -115,7 +115,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addHttpSourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Source");
+		addLabel(contentPanel, "Server");
 		contentPanel.add(getHttpLocationSourceComboBox());
 
 		addLabel(contentPanel, "Path");
@@ -128,7 +128,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addSubversionRepositorySourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Source");
+		addLabel(contentPanel, "Server");
 		contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
 
 		addLabel(contentPanel, "Path");

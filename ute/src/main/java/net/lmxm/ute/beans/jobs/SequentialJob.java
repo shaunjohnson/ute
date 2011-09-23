@@ -24,9 +24,9 @@ import java.util.List;
 import net.lmxm.ute.beans.tasks.Task;
 
 /**
- * The Class Basic Job.
+ * The Class SequentialJob.
  */
-public final class BasicJob extends AbstractJob {
+public final class SequentialJob extends AbstractJob {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7969957264452664969L;
@@ -35,9 +35,9 @@ public final class BasicJob extends AbstractJob {
 	private List<Task> tasks;
 
 	/**
-	 * Instantiates a new basic job.
+	 * Instantiates a new sequential job.
 	 */
-	public BasicJob() {
+	public SequentialJob() {
 		super();
 
 		tasks = new ArrayList<Task>();
@@ -48,6 +48,7 @@ public final class BasicJob extends AbstractJob {
 	 * 
 	 * @return the tasks
 	 */
+	@Override
 	public final List<Task> getTasks() {
 		return tasks;
 	}

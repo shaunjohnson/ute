@@ -19,7 +19,7 @@
 package net.lmxm.ute.executers.jobs;
 
 import net.lmxm.ute.beans.PropertiesHolder;
-import net.lmxm.ute.beans.jobs.BasicJob;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.executers.Executer;
@@ -67,7 +67,7 @@ public final class JobExecuterFactory implements ExecuterFactory {
 
 		Executer executer = null;
 
-		if (job instanceof BasicJob) {
+		if (job instanceof SequentialJob) {
 			executer = new BasicJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
 		}
 		else if (job instanceof SingleTaskJob) {
