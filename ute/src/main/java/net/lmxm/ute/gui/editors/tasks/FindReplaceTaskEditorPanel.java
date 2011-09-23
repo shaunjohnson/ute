@@ -93,7 +93,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	protected final void addPatternsFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Patterns", "top");
+		addLabel(contentPanel, "Patterns");
 		contentPanel.add(getPatternsPane());
 	}
 

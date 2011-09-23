@@ -50,9 +50,7 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		final JPanel contentPanel = getContentPanel();
 
 		addTaskCommonFields();
-
-		addLabel(contentPanel, "Stop on Error");
-		contentPanel.add(getStopOnErrorCheckbox());
+		addCheckbox(contentPanel, getStopOnErrorCheckbox(), "Stop on Error");
 
 		addSeparator(contentPanel, "Target");
 		addFileSystemTargetFields();

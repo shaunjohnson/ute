@@ -92,7 +92,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addFilesFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Files", "top");
+		addLabel(contentPanel, "Files");
 		contentPanel.add(getFilesPane());
 	}
 
@@ -105,7 +105,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		addLabel(contentPanel, "Target");
 		contentPanel.add(getFileSystemLocationTargetComboBox());
 
-		addLabel(contentPanel, "Target Relative Path");
+		addLabel(contentPanel, "Path");
 		contentPanel.add(getTargetRelativePathTextField());
 	}
 
@@ -118,7 +118,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		addLabel(contentPanel, "Source");
 		contentPanel.add(getHttpLocationSourceComboBox());
 
-		addLabel(contentPanel, "Source Relative Path");
+		addLabel(contentPanel, "Path");
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 
@@ -131,7 +131,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		addLabel(contentPanel, "Source");
 		contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
 
-		addLabel(contentPanel, "Source Relative Path");
+		addLabel(contentPanel, "Path");
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 
@@ -144,10 +144,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		addSeparator(contentPanel, "Task");
 		addIdCommonFields();
 
-		addLabel(contentPanel, "Description", "top");
+		addLabel(contentPanel, "Description");
 		contentPanel.add(getDescriptionPane());
-		addLabel(contentPanel, "Enabled");
-		contentPanel.add(getEnabledCheckbox());
+
+		addCheckbox(contentPanel, getEnabledCheckbox(), "Enabled");
 	}
 
 	/**

@@ -49,7 +49,7 @@ public final class JobEditorPanel extends AbstractEditorPanel {
 		addLabel(contentPanel, "ID");
 		contentPanel.add(getIdTextField());
 
-		addLabel(contentPanel, "Description", "top");
+		addLabel(contentPanel, "Description");
 		contentPanel.add(getDescriptionPane());
 	}
 

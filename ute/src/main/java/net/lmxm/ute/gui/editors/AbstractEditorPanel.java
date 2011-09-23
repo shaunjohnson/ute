@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -109,17 +110,28 @@ public abstract class AbstractEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Adds the checkbox.
+	 * 
+	 * @param panel the panel
+	 * @param checkBox the check box
+	 * @param text the text
+	 */
+	protected final void addCheckbox(final JPanel panel, final JCheckBox checkBox, final String text) {
+		final JPanel subPanel = new JPanel(new MigLayout(null, "[left]"));
+		subPanel.add(checkBox);
+		subPanel.add(createLabel(text));
+
+		panel.add(subPanel, "skip 1");
+	}
+
+	/**
 	 * Adds the label.
 	 * 
 	 * @param panel the panel
 	 * @param text the text
 	 */
 	protected final void addLabel(final JPanel panel, final String text) {
-		panel.add(createLabel(text));
-	}
-
-	protected final void addLabel(final JPanel panel, final String text, final Object constraints) {
-		panel.add(createLabel(text), constraints);
+		panel.add(createLabel(text), "gapleft 20, top");
 	}
 
 	/**
@@ -133,8 +145,8 @@ public abstract class AbstractEditorPanel extends JPanel {
 		label.setFont(BOLD_FONT);
 		label.setForeground(SEPARATOR_LABEL_COLOR);
 
-		panel.add(label, "gapbottom 1, span, split 2, aligny center");
-		panel.add(new JSeparator(), "gapleft rel, growx");
+		panel.add(label, "gapy 10, span, split 2, aligny center");
+		panel.add(new JSeparator(), "gapleft rel, gapy 10, growx");
 	}
 
 	/**
