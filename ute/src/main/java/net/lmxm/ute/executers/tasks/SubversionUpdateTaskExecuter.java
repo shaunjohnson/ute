@@ -21,7 +21,7 @@ package net.lmxm.ute.executers.tasks;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.executers.AbstractTaskExecuter;
 import net.lmxm.ute.listeners.StatusChangeListener;
-import net.lmxm.ute.subversion.utils.WorkingCopyUtils;
+import net.lmxm.ute.subversion.utils.SubversionWorkingCopyUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 
 import org.slf4j.Logger;
@@ -67,7 +67,7 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 
-		WorkingCopyUtils.getInstance().updateWorkingCopy(path, getStatusChangeListener());
+		SubversionWorkingCopyUtils.getInstance().updateWorkingCopy(path, getStatusChangeListener());
 
 		LOGGER.debug("{} returning", prefix);
 	}

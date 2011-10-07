@@ -18,11 +18,11 @@
  */
 package net.lmxm.ute.subversion.utils;
 
+import java.io.File;
+
 import net.lmxm.ute.listeners.StatusChangeEvent;
 import net.lmxm.ute.listeners.StatusChangeEventType;
 import net.lmxm.ute.listeners.StatusChangeListener;
-
-import java.io.File;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -38,22 +38,22 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 import com.google.common.base.Preconditions;
 
 /**
- * The Class WorkingCopyUtils.
+ * The Class SubversionWorkingCopyUtils.
  */
-public final class WorkingCopyUtils extends AbstractSubversionUtils {
+public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 
 	/** The Constant INSTANCE. */
-	private static final WorkingCopyUtils INSTANCE = new WorkingCopyUtils();
+	private static final SubversionWorkingCopyUtils INSTANCE = new SubversionWorkingCopyUtils();
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(WorkingCopyUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionWorkingCopyUtils.class);
 
 	/**
-	 * Gets the single instance of WorkingCopyUtils.
+	 * Gets the single instance of SubversionWorkingCopyUtils.
 	 * 
-	 * @return single instance of WorkingCopyUtils
+	 * @return single instance of SubversionWorkingCopyUtils
 	 */
-	public static WorkingCopyUtils getInstance() {
+	public static SubversionWorkingCopyUtils getInstance() {
 		return INSTANCE;
 	}
 
@@ -90,7 +90,7 @@ public final class WorkingCopyUtils extends AbstractSubversionUtils {
 	/**
 	 * Instantiates a new working copy utils.
 	 */
-	private WorkingCopyUtils() {
+	private SubversionWorkingCopyUtils() {
 		super();
 	}
 
