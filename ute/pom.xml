@@ -209,7 +209,7 @@
 		<dependency>
 			<groupId>net.lmxm.ute</groupId>
 			<artifactId>ute-config-xml-schema</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
