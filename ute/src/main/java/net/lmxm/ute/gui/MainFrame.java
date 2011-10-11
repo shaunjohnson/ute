@@ -38,7 +38,6 @@ import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -54,10 +53,7 @@ import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.Position;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -66,8 +62,8 @@ import javax.swing.tree.TreeSelectionModel;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
-import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
@@ -116,9 +112,6 @@ import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
 import net.lmxm.ute.listeners.JobStatusListener;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
-import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.mapper.ConfigurationMapper;
 import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.ConfigurationUtils;
@@ -131,8 +124,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class MainFrame.
  */
-public final class MainFrame extends JFrame implements ActionListener, KeyListener, JobStatusListener,
-		StatusChangeListener {
+public final class MainFrame extends JFrame implements ActionListener, KeyListener, JobStatusListener {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MainFrame.class);
@@ -281,9 +273,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	/** The output button tool bar. */
 	private JToolBar outputButtonToolBar = null;
 
-	/** The output editor pane. */
-	private JEditorPane outputEditorPane = null;
-
 	/** The output scroll pane. */
 	private JScrollPane outputScrollPane = null;
 
@@ -322,6 +311,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The sequential job editor panel. */
 	private SequentialJobEditorPanel sequentialJobEditorPanel = null;
+
+	/** The status output pane. */
+	private StatusOutputPane statusOutputPane = null;
 
 	/** The stop job button. */
 	private JButton stopJobButton = null;
@@ -402,8 +394,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 					job = ConfigurationUtils.interpolateJobValues(job, configuration);
 
-					jobWorker = new ExecuteJobWorker(job, configuration, getJobStatusListener(),
-							getStatusChangeListener());
+					jobWorker = new ExecuteJobWorker(job, configuration, getJobStatusListener(), getStatusOutputPane());
 					jobWorker.execute();
 				}
 			}
@@ -414,7 +405,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * Clear status area.
 	 */
 	private void clearStatusArea() {
-		getOutputEditorPane().setText("");
+		getStatusOutputPane().setText("");
 	}
 
 	/*
@@ -1187,20 +1178,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
-	 * Gets the output editor pane.
-	 * 
-	 * @return the output editor pane
-	 */
-	private JEditorPane getOutputEditorPane() {
-		if (outputEditorPane == null) {
-			outputEditorPane = new JEditorPane();
-			outputEditorPane.setContentType("text/html");
-			outputEditorPane.setEditable(false);
-		}
-		return outputEditorPane;
-	}
-
-	/**
 	 * Gets the output scroll pane.
 	 * 
 	 * @return the output scroll pane
@@ -1209,7 +1186,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		if (outputScrollPane == null) {
 			outputScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			outputScrollPane.setViewportView(getOutputEditorPane());
+			outputScrollPane.setViewportView(getStatusOutputPane());
 		}
 		return outputScrollPane;
 	}
@@ -1434,12 +1411,15 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
-	 * Gets the status change listener.
+	 * Gets the status output pane.
 	 * 
-	 * @return the status change listener
+	 * @return the status output pane
 	 */
-	private StatusChangeListener getStatusChangeListener() {
-		return this;
+	private StatusOutputPane getStatusOutputPane() {
+		if (statusOutputPane == null) {
+			statusOutputPane = new StatusOutputPane();
+		}
+		return statusOutputPane;
 	}
 
 	/**
@@ -1840,61 +1820,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		if (newTreePath != null) {
 			mainTree.setSelectionPath(newTreePath);
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.StatusChangeListener#statusChange(net.lmxm.ute.listeners .StatusChangeEvent)
-	 */
-	@Override
-	public void statusChange(final StatusChangeEvent changeEvent) {
-		final StatusChangeEventType eventType = changeEvent.getEventType();
-		final JEditorPane localStatusEditorPane = getOutputEditorPane();
-		final HTMLEditorKit ek = (HTMLEditorKit) localStatusEditorPane.getEditorKit();
-		final HTMLDocument doc = (HTMLDocument) localStatusEditorPane.getDocument();
-
-		try {
-			final StringBuilder builder = new StringBuilder();
-
-			if (eventType == StatusChangeEventType.ERROR) {
-				builder.append("<div style='color: red;'>");
-				builder.append(changeEvent.getMessage());
-				builder.append("</div>");
-			}
-			else if (eventType == StatusChangeEventType.FATAL) {
-				builder.append("<div style='font-weight: bold;'>");
-				builder.append(changeEvent.getMessage());
-				builder.append("</div>");
-			}
-			else if (eventType == StatusChangeEventType.HEADING) {
-				builder.append("<h2>");
-				builder.append(changeEvent.getMessage());
-				builder.append("</h2>");
-			}
-			else if (eventType == StatusChangeEventType.IMPORTANT) {
-				builder.append("<div style='font-weight: bold;'>");
-				builder.append(changeEvent.getMessage());
-				builder.append("</div>");
-			}
-			else if (eventType == StatusChangeEventType.INFO) {
-				builder.append("<div>");
-				builder.append(changeEvent.getMessage());
-				builder.append("</div>");
-			}
-			else {
-				// TODO Handle unsupported StatusChangeEventType
-			}
-
-			ek.insertHTML(doc, doc.getLength(), builder.toString(), 1, 0, null);
-		}
-		catch (final BadLocationException e) {
-			e.printStackTrace();
-		}
-		catch (final IOException e) {
-			e.printStackTrace();
-		}
-
-		localStatusEditorPane.setCaretPosition(doc.getLength());
 	}
 
 	/**
