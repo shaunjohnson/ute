@@ -18,14 +18,20 @@
  */
 package net.lmxm.ute.subversion.utils;
 
+import org.tmatesoft.svn.core.auth.BasicAuthenticationManager;
+import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
 import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
+import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 /**
  * The Class AbstractSubversionUtils.
  */
 public abstract class AbstractSubversionUtils {
+
+	/** The authentication manager. */
+	private final ISVNAuthenticationManager authenticationManager;
 
 	/**
 	 * Instantiates a new abstract subversion utils.
@@ -33,6 +39,36 @@ public abstract class AbstractSubversionUtils {
 	public AbstractSubversionUtils() {
 		super();
 
+		initialize();
+		authenticationManager = SVNWCUtil.createDefaultAuthenticationManager();
+	}
+
+	/**
+	 * Instantiates a new abstract subversion utils.
+	 * 
+	 * @param username the username
+	 * @param password the password
+	 */
+	public AbstractSubversionUtils(final String username, final String password) {
+		super();
+
+		initialize();
+		authenticationManager = new BasicAuthenticationManager(username, password);
+	}
+
+	/**
+	 * Gets the authentication manager.
+	 * 
+	 * @return the authentication manager
+	 */
+	protected final ISVNAuthenticationManager getAuthenticationManager() {
+		return authenticationManager;
+	}
+
+	/**
+	 * Instantiates a new abstract subversion utils.
+	 */
+	private void initialize() {
 		// For using over http:// and https://
 		DAVRepositoryFactory.setup();
 

@@ -42,7 +42,7 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 
 	/**
 	 * Instantiates a new subversion update task executer.
-	 *
+	 * 
 	 * @param task the task
 	 * @param statusChangeListener the status change listener
 	 */
@@ -56,7 +56,6 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.executers.ExecuterIF#execute()
 	 */
 	@Override
@@ -67,7 +66,7 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 
-		SubversionWorkingCopyUtils.getInstance().updateWorkingCopy(path, getStatusChangeListener());
+		new SubversionWorkingCopyUtils().updateWorkingCopy(path, getStatusChangeListener());
 
 		LOGGER.debug("{} returning", prefix);
 	}

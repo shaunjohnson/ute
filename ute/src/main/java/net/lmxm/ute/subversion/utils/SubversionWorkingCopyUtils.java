@@ -42,20 +42,8 @@ import com.google.common.base.Preconditions;
  */
 public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 
-	/** The Constant INSTANCE. */
-	private static final SubversionWorkingCopyUtils INSTANCE = new SubversionWorkingCopyUtils();
-
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionWorkingCopyUtils.class);
-
-	/**
-	 * Gets the single instance of SubversionWorkingCopyUtils.
-	 * 
-	 * @return single instance of SubversionWorkingCopyUtils
-	 */
-	public static SubversionWorkingCopyUtils getInstance() {
-		return INSTANCE;
-	}
 
 	/**
 	 * Checks if is working copy.
@@ -88,16 +76,26 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 	}
 
 	/**
-	 * Instantiates a new working copy utils.
+	 * Instantiates a new subversion working copy utils.
 	 */
-	private SubversionWorkingCopyUtils() {
+	public SubversionWorkingCopyUtils() {
 		super();
+	}
+
+	/**
+	 * Instantiates a new subversion working copy utils.
+	 * 
+	 * @param username the username
+	 * @param password the password
+	 */
+	public SubversionWorkingCopyUtils(final String username, final String password) {
+		super(username, password);
 	}
 
 	/**
 	 * Update working copy.
 	 * 
-	 * @param pathname the pathname
+	 * @param path the path
 	 * @param statusChangeListener the status change listener
 	 */
 	public void updateWorkingCopy(final String path, final StatusChangeListener statusChangeListener) {
@@ -120,7 +118,7 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 			final DefaultSVNOptions options = SVNWCUtil.createDefaultOptions(true);
 			final SVNClientManager clientManager = SVNClientManager.newInstance(options);
 
-			clientManager.setAuthenticationManager(SVNWCUtil.createDefaultAuthenticationManager());
+			clientManager.setAuthenticationManager(getAuthenticationManager());
 
 			final SVNUpdateClient updateClient = clientManager.getUpdateClient();
 
