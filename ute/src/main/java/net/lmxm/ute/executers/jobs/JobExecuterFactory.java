@@ -68,7 +68,7 @@ public final class JobExecuterFactory implements ExecuterFactory {
 		Executer executer = null;
 
 		if (job instanceof SequentialJob) {
-			executer = new BasicJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
+			executer = new SequentialJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
 		}
 		else if (job instanceof SingleTaskJob) {
 			executer = new SingleTaskJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);

@@ -87,6 +87,8 @@ public class StatusOutputPane extends JTextPane implements StatusChangeListener 
 		final Style headingStyle = styleContext.addStyle(HEADING, defaultStyle);
 		StyleConstants.setBold(headingStyle, true);
 		StyleConstants.setFontSize(headingStyle, 16);
+		StyleConstants.setSpaceAbove(headingStyle, 20);
+		StyleConstants.setSpaceBelow(headingStyle, 10);
 
 		final Style importantStyle = styleContext.addStyle(IMPORTANT, defaultStyle);
 		StyleConstants.setBold(importantStyle, true);

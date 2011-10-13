@@ -21,8 +21,8 @@ package net.lmxm.ute.executers.jobs;
 import java.util.List;
 
 import net.lmxm.ute.beans.PropertiesHolder;
-import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executers.AbstractJobExecuter;
 import net.lmxm.ute.executers.tasks.TaskExecuterFactory;
@@ -33,22 +33,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class BasicJobExecuter.
+ * The Class SequentialJobExecuter.
  */
-public final class BasicJobExecuter extends AbstractJobExecuter {
+public final class SequentialJobExecuter extends AbstractJobExecuter {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(BasicJobExecuter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SequentialJobExecuter.class);
 
 	/**
-	 * Instantiates a new basic job executer.
+	 * Instantiates a new sequential job executer.
 	 * 
 	 * @param job the job
 	 * @param propertiesHolder the properties holder
 	 * @param jobStatusListener the job status listener
 	 * @param statusChangeListener the status change listener
 	 */
-	protected BasicJobExecuter(final Job job, final PropertiesHolder propertiesHolder,
+	protected SequentialJobExecuter(final Job job, final PropertiesHolder propertiesHolder,
 			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
 		super(job, propertiesHolder, jobStatusListener, statusChangeListener);
 	}

@@ -28,16 +28,16 @@ import net.lmxm.ute.beans.jobs.SequentialJob;
 import org.junit.Test;
 
 /**
- * The Class JobExecuterTest.
+ * The Class SequentialJobExecuterTest.
  */
-public class BasicJobExecuterTest {
+public class SequentialJobExecuterTest {
 
 	/**
 	 * Test execute.
 	 */
 	@Test
 	public void testExecute() {
-		new BasicJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(),
+		new SequentialJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(),
 				new TestStatusChangeListener()).execute();
 	}
 
@@ -48,7 +48,7 @@ public class BasicJobExecuterTest {
 	public void testJobExecuter() {
 		// Null job, properties holder, job listener and status listener
 		try {
-			new BasicJobExecuter(null, null, null, null);
+			new SequentialJobExecuter(null, null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -57,7 +57,7 @@ public class BasicJobExecuterTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			new BasicJobExecuter(new SequentialJob(), null, null, null);
+			new SequentialJobExecuter(new SequentialJob(), null, null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -66,7 +66,7 @@ public class BasicJobExecuterTest {
 
 		// Null properties holder, job listener and status listener
 		try {
-			new BasicJobExecuter(new SequentialJob(), new Configuration(), null, null);
+			new SequentialJobExecuter(new SequentialJob(), new Configuration(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -75,7 +75,7 @@ public class BasicJobExecuterTest {
 
 		// Null status listener
 		try {
-			new BasicJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(), null);
+			new SequentialJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -84,7 +84,8 @@ public class BasicJobExecuterTest {
 
 		// Null job
 		try {
-			new BasicJobExecuter(null, new Configuration(), new TestJobStatusListener(), new TestStatusChangeListener());
+			new SequentialJobExecuter(null, new Configuration(), new TestJobStatusListener(),
+					new TestStatusChangeListener());
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -92,7 +93,7 @@ public class BasicJobExecuterTest {
 		}
 
 		// Non-null job, properties holder and listener
-		new BasicJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(),
+		new SequentialJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(),
 				new TestStatusChangeListener());
 	}
 }
