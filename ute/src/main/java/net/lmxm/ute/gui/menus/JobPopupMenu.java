@@ -62,7 +62,7 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
-		getExecuteJobMenuItem().setEnabled(getMainFrame().isExecuteJobEnabled());
+
 	}
 
 	/**

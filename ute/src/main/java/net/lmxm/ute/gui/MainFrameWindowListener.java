@@ -39,6 +39,7 @@ public final class MainFrameWindowListener extends WindowAdapter {
 	/** The main frame. */
 	private final MainFrame mainFrame;
 
+	/** The user preferences. */
 	private final UserPreferences userPreferences = new UserPreferences();
 
 	/**

@@ -45,13 +45,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.text.Position;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -111,7 +110,6 @@ import net.lmxm.ute.gui.utils.GuiUtils;
 import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
-import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.mapper.ConfigurationMapper;
 import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.ConfigurationUtils;
@@ -124,7 +122,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class MainFrame.
  */
-public final class MainFrame extends JFrame implements ActionListener, KeyListener, JobStatusListener {
+public final class MainFrame extends JFrame implements ActionListener, KeyListener {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MainFrame.class);
@@ -157,10 +155,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private ApplicationPreferences applicationPreferences = null;
 
 	/** The bottom panel. */
-	private JPanel bottomPanel = null;
-
-	/** The clear output button. */
-	private JButton clearOutputButton = null;
+	private JTabbedPane bottomPanel = null;
 
 	/** The configuration. */
 	private Configuration configuration; // @jve:decl-index=0:
@@ -228,9 +223,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	/** The job popup menu. */
 	private JobPopupMenu jobPopupMenu = null;
 
-	/** The job progress bar. */
-	private JProgressBar jobProgressBar = null;
-
 	/** The jobs root popup menu. */
 	private JobsRootPopupMenu jobsRootPopupMenu = null;
 
@@ -239,12 +231,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The jobs tree scroll pane. */
 	private JScrollPane jobsTreeScrollPane = null;
-
-	/** The job worker. */
-	private ExecuteJobWorker jobWorker = null;
-
-	/** The job worker mutex. */
-	private final Object jobWorkerMutex = new Object();
 
 	/** The main menu bar. */
 	private JMenuBar mainMenuBar = null;
@@ -269,12 +255,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The open file menu item. */
 	private JMenuItem openFileMenuItem = null;
-
-	/** The output button tool bar. */
-	private JToolBar outputButtonToolBar = null;
-
-	/** The output scroll pane. */
-	private JScrollPane outputScrollPane = null;
 
 	/** The preference editor panel. */
 	private PreferenceEditorPanel preferenceEditorPanel = null;
@@ -311,12 +291,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The sequential job editor panel. */
 	private SequentialJobEditorPanel sequentialJobEditorPanel = null;
-
-	/** The status output pane. */
-	private StatusOutputPane statusOutputPane = null;
-
-	/** The stop job button. */
-	private JButton stopJobButton = null;
 
 	/** The subversion export task editor panel. */
 	private SubversionExportTaskEditorPanel subversionExportTaskEditorPanel = null;
@@ -365,47 +339,37 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			// TODO Implement add job action
 		}
 		else if (actionCommand.equals(ActionConstants.EXECUTE)) {
-			synchronized (jobWorkerMutex) {
-				if (jobWorker != null) {
-					return;
-				}
+			final Object userObject = getSelectedTreeObject();
+			if (userObject == null) {
+				return;
+			}
 
-				final Object userObject = getSelectedTreeObject();
-				if (userObject == null) {
-					return;
-				}
+			Job job = null;
 
-				Job job = null;
+			if (userObject instanceof Job) {
+				job = (Job) userObject;
+			}
+			else if (userObject instanceof Task) {
+				job = new SingleTaskJob((Task) userObject);
+			}
 
-				if (userObject instanceof Job) {
-					job = (Job) userObject;
-				}
-				else if (userObject instanceof Task) {
-					job = new SingleTaskJob((Task) userObject);
-				}
+			if (job != null) {
+				job = ConfigurationUtils.interpolateJobValues(job, configuration);
 
-				if (job != null) {
-					getStopJobButton().setEnabled(true);
+				final StatusOutputPanel statusOutputPanel = new StatusOutputPanel(job);
 
-					final JProgressBar progressBar = getJobProgressBar();
-					progressBar.setVisible(true);
-					progressBar.setValue(0);
-					progressBar.setMaximum(job.getTasks().size());
+				final ExecuteJobWorker jobWorker = new ExecuteJobWorker(job, configuration,
+						statusOutputPanel.getJobStatusListener(), statusOutputPanel.getStatusChangeListener());
 
-					job = ConfigurationUtils.interpolateJobValues(job, configuration);
+				statusOutputPanel.setJobWorker(jobWorker);
 
-					jobWorker = new ExecuteJobWorker(job, configuration, getJobStatusListener(), getStatusOutputPane());
-					jobWorker.execute();
-				}
+				final JTabbedPane tabbedPane = getBottomPanel();
+				tabbedPane.insertTab(job.getId(), null, statusOutputPanel, null, 0);
+				tabbedPane.setSelectedIndex(0);
+
+				jobWorker.execute();
 			}
 		}
-	}
-
-	/**
-	 * Clear status area.
-	 */
-	private void clearStatusArea() {
-		getStatusOutputPane().setText("");
 	}
 
 	/*
@@ -514,35 +478,11 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * 
 	 * @return the bottom panel
 	 */
-	private JPanel getBottomPanel() {
+	private JTabbedPane getBottomPanel() {
 		if (bottomPanel == null) {
-			bottomPanel = new JPanel();
-			bottomPanel.setLayout(new BorderLayout());
-			bottomPanel.add(getOutputScrollPane(), BorderLayout.CENTER);
-			bottomPanel.add(getOutputButtonToolBar(), BorderLayout.NORTH);
-			bottomPanel.setBorder(BorderFactory.createEmptyBorder());
+			bottomPanel = new JTabbedPane(JTabbedPane.TOP);
 		}
 		return bottomPanel;
-	}
-
-	/**
-	 * Gets the clear output button.
-	 * 
-	 * @return the clear output button
-	 */
-	private JButton getClearOutputButton() {
-		if (clearOutputButton == null) {
-			clearOutputButton = new JButton();
-			clearOutputButton.setIcon(ImageUtil.CLEAR_ICON);
-			clearOutputButton.setText("Clear");
-			clearOutputButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					clearStatusArea();
-				}
-			});
-		}
-		return clearOutputButton;
 	}
 
 	/**
@@ -922,23 +862,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
-	 * Gets the job progress bar.
-	 * 
-	 * @return the job progress bar
-	 */
-	private JProgressBar getJobProgressBar() {
-		if (jobProgressBar == null) {
-			jobProgressBar = new JProgressBar(SwingConstants.HORIZONTAL);
-			jobProgressBar.setMinimum(0);
-			jobProgressBar.setMaximum(100);
-			jobProgressBar.setValue(0);
-			jobProgressBar.setVisible(false);
-		}
-
-		return jobProgressBar;
-	}
-
-	/**
 	 * Gets the jobs root popup menu.
 	 * 
 	 * @return the jobs root popup menu
@@ -965,15 +888,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			jobsSplitPane.setRightComponent(getJobDetailsEditorScrollPane());
 		}
 		return jobsSplitPane;
-	}
-
-	/**
-	 * Gets the job status listener.
-	 * 
-	 * @return the job status listener
-	 */
-	private JobStatusListener getJobStatusListener() {
-		return this;
 	}
 
 	/**
@@ -1157,38 +1071,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			});
 		}
 		return openFileMenuItem;
-	}
-
-	/**
-	 * Gets the output button tool bar.
-	 * 
-	 * @return the output button tool bar
-	 */
-	private JToolBar getOutputButtonToolBar() {
-		if (outputButtonToolBar == null) {
-			outputButtonToolBar = new JToolBar();
-
-			outputButtonToolBar.setBorder(TOOLBAR_BORDER);
-
-			outputButtonToolBar.add(getStopJobButton());
-			outputButtonToolBar.add(getClearOutputButton());
-			outputButtonToolBar.add(getJobProgressBar());
-		}
-		return outputButtonToolBar;
-	}
-
-	/**
-	 * Gets the output scroll pane.
-	 * 
-	 * @return the output scroll pane
-	 */
-	private JScrollPane getOutputScrollPane() {
-		if (outputScrollPane == null) {
-			outputScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			outputScrollPane.setViewportView(getStatusOutputPane());
-		}
-		return outputScrollPane;
 	}
 
 	/**
@@ -1411,47 +1293,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
-	 * Gets the status output pane.
-	 * 
-	 * @return the status output pane
-	 */
-	private StatusOutputPane getStatusOutputPane() {
-		if (statusOutputPane == null) {
-			statusOutputPane = new StatusOutputPane();
-		}
-		return statusOutputPane;
-	}
-
-	/**
-	 * Gets the stop job button.
-	 * 
-	 * @return the stop job button
-	 */
-	private JButton getStopJobButton() {
-		if (stopJobButton == null) {
-			stopJobButton = new JButton();
-			stopJobButton.setEnabled(false);
-			stopJobButton.setText("Stop");
-			stopJobButton.setIcon(ImageUtil.STOP_JOB_ICON);
-			stopJobButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					synchronized (jobWorkerMutex) {
-						if (jobWorker != null) {
-							final String prefix = "getStopJobButton().actionPerformed() :";
-
-							LOGGER.debug("{} Sending cancel to job worker thread", prefix);
-
-							jobWorker.cancel(true);
-						}
-					}
-				}
-			});
-		}
-		return stopJobButton;
-	}
-
-	/**
 	 * Gets the subversion export task editor panel.
 	 * 
 	 * @param subversionExportTask the subversion export task
@@ -1623,74 +1464,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		LOGGER.debug("{} leaving", prefix);
 	}
 
-	/**
-	 * Checks if is execute job enabled.
-	 * 
-	 * @return true, if is execute job enabled
-	 */
-	public boolean isExecuteJobEnabled() {
-		synchronized (jobWorkerMutex) {
-			return jobWorker == null;
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobAborted()
-	 */
-	@Override
-	public void jobAborted() {
-		synchronized (jobWorkerMutex) {
-			jobWorker = null;
-			getStopJobButton().setEnabled(false);
-			getJobProgressBar().setVisible(false);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobCompleted()
-	 */
-	@Override
-	public void jobCompleted() {
-		synchronized (jobWorkerMutex) {
-			jobWorker = null;
-			getStopJobButton().setEnabled(false);
-			getJobProgressBar().setVisible(false);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStopped()
-	 */
-	@Override
-	public void jobStopped() {
-		synchronized (jobWorkerMutex) {
-			jobWorker = null;
-			getStopJobButton().setEnabled(false);
-			getJobProgressBar().setVisible(false);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskCompleted()
-	 */
-	@Override
-	public void jobTaskCompleted() {
-		getJobProgressBar().setValue(getJobProgressBar().getValue() + 1);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskSkipped()
-	 */
-	@Override
-	public void jobTaskSkipped() {
-		getJobProgressBar().setValue(getJobProgressBar().getValue() + 1);
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
@@ -1830,12 +1603,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		final boolean isJob = userObject instanceof Job;
 
 		// Enable appropriate buttons
-		if (isJob) {
-			getExecuteJobButton().setEnabled(isExecuteJobEnabled());
-		}
-		else {
-			getExecuteJobButton().setEnabled(false);
-		}
+		getExecuteJobButton().setEnabled(isJob);
 
 		// Load appropriate editor
 		AbstractEditorPanel editorPane = null;
