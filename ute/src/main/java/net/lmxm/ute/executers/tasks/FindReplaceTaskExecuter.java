@@ -29,7 +29,6 @@ import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
-import net.lmxm.ute.executers.AbstractTaskExecuter;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;

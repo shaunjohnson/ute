@@ -23,7 +23,6 @@ import java.util.Map;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.executers.AbstractTaskExecuter;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.HttpUtils;

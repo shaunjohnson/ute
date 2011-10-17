@@ -23,7 +23,6 @@ import java.util.List;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.executers.AbstractTaskExecuter;
 import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.GroovyUtils;
