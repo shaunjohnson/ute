@@ -93,6 +93,7 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	/** The output button tool bar. */
 	private JToolBar outputButtonToolBar = null;
 
+	/** The output pane. */
 	private JTextPane outputPane = null;
 
 	/** The output scroll pane. */
@@ -219,6 +220,8 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 
 	/**
 	 * Instantiates a new status output pane.
+	 * 
+	 * @return the output pane
 	 */
 	public JTextPane getOutputPane() {
 		if (outputPane == null) {
@@ -308,6 +311,15 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStarted()
+	 */
+	@Override
+	public void jobStarted() {
+
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStopped()
 	 */
 	@Override
@@ -335,6 +347,15 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	@Override
 	public void jobTaskSkipped() {
 		getJobProgressBar().setValue(getJobProgressBar().getValue() + 1);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskStarted()
+	 */
+	@Override
+	public void jobTaskStarted() {
+
 	}
 
 	/**

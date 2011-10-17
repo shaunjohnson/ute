@@ -40,6 +40,11 @@ public interface JobStatusListener {
 	void jobCompleted();
 
 	/**
+	 * Job started.
+	 */
+	void jobStarted();
+
+	/**
 	 * Job stopped.
 	 */
 	void jobStopped();
@@ -53,4 +58,9 @@ public interface JobStatusListener {
 	 * Job task skipped.
 	 */
 	void jobTaskSkipped();
+
+	/**
+	 * Job task started.
+	 */
+	void jobTaskStarted();
 }

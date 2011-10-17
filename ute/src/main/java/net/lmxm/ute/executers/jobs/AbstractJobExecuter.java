@@ -122,15 +122,6 @@ public abstract class AbstractJobExecuter implements Executer {
 	}
 
 	/**
-	 * Gets the job status listener.
-	 * 
-	 * @return the job status listener
-	 */
-	protected final JobStatusListener getJobStatusListener() {
-		return jobStatusListener;
-	}
-
-	/**
 	 * Gets the properties holder.
 	 * 
 	 * @return the properties holder
@@ -169,6 +160,7 @@ public abstract class AbstractJobExecuter implements Executer {
 	 */
 	protected final void jobStarted() {
 		fireHeadingStatusChange("Started Job (" + job.getId() + ")");
+		jobStatusListener.jobStarted();
 	}
 
 	/**
@@ -177,7 +169,7 @@ public abstract class AbstractJobExecuter implements Executer {
 	 * @param task the task
 	 */
 	protected final void taskCompleted(final Task task) {
-		getJobStatusListener().jobTaskCompleted();
+		jobStatusListener.jobTaskCompleted();
 	}
 
 	/**
@@ -187,6 +179,15 @@ public abstract class AbstractJobExecuter implements Executer {
 	 */
 	protected final void taskSkipped(final Task task) {
 		fireInfoStatusChange("Skipping disabled task \"" + task.getId() + "\"");
-		getJobStatusListener().jobTaskSkipped();
+		jobStatusListener.jobTaskSkipped();
+	}
+
+	/**
+	 * Task started.
+	 * 
+	 * @param task the task
+	 */
+	protected final void taskStarted(final Task task) {
+		jobStatusListener.jobTaskStarted();
 	}
 }

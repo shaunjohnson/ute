@@ -51,6 +51,15 @@ public final class ConsoleJobStatusListener implements JobStatusListener {
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStarted()
+	 */
+	@Override
+	public void jobStarted() {
+
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStopped()
 	 */
 	@Override
@@ -73,6 +82,15 @@ public final class ConsoleJobStatusListener implements JobStatusListener {
 	 */
 	@Override
 	public void jobTaskSkipped() {
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskStarted()
+	 */
+	@Override
+	public void jobTaskStarted() {
 
 	}
 }

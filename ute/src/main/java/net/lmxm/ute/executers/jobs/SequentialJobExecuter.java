@@ -82,6 +82,7 @@ public final class SequentialJobExecuter extends AbstractJobExecuter {
 					}
 
 					if (task.getEnabled()) {
+						taskStarted(task);
 						TaskExecuterFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
 						taskCompleted(task);
 					}

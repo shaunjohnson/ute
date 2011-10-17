@@ -70,6 +70,7 @@ public final class SingleTaskJobExecuter extends AbstractJobExecuter {
 			LOGGER.debug("{} executing task={}", prefix, task);
 
 			if (task.getEnabled()) {
+				taskStarted(task);
 				TaskExecuterFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
 				taskCompleted(task);
 			}
