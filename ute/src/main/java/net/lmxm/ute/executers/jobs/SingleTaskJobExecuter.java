@@ -22,7 +22,6 @@ import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.executers.AbstractJobExecuter;
 import net.lmxm.ute.executers.tasks.TaskExecuterFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeListener;
@@ -64,7 +63,7 @@ public final class SingleTaskJobExecuter extends AbstractJobExecuter {
 		final SingleTaskJob job = (SingleTaskJob) getJob();
 
 		try {
-			fireHeadingStatusChange("Started Task (" + job.getId() + ")");
+			jobStarted();
 
 			final Task task = job.getTask();
 
@@ -72,25 +71,18 @@ public final class SingleTaskJobExecuter extends AbstractJobExecuter {
 
 			if (task.getEnabled()) {
 				TaskExecuterFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
-
-				getJobStatusListener().jobTaskCompleted();
+				taskCompleted(task);
 			}
 			else {
 				LOGGER.debug("{} Task \"{}\" is disabled and will be skipped", prefix, task);
-
-				fireInfoStatusChange("Skipping disabled task \"" + task.getId() + "\"");
-
-				getJobStatusListener().jobTaskSkipped();
+				taskSkipped(task);
 			}
 
-			fireHeadingStatusChange("Finished Task (" + job.getId() + ")");
-			getJobStatusListener().jobCompleted();
+			jobCompleted();
 		}
 		catch (final Exception e) {
 			LOGGER.debug("Exception caught executing job", e);
-
-			fireHeadingStatusChange("Task Aborted (" + job.getId() + ")");
-			getJobStatusListener().jobAborted();
+			jobAborted();
 		}
 
 		LOGGER.debug("{} returning", prefix);

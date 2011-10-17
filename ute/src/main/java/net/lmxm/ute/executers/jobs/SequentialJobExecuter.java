@@ -24,7 +24,6 @@ import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.executers.AbstractJobExecuter;
 import net.lmxm.ute.executers.tasks.TaskExecuterFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeListener;
@@ -66,7 +65,7 @@ public final class SequentialJobExecuter extends AbstractJobExecuter {
 		final SequentialJob job = (SequentialJob) getJob();
 
 		try {
-			fireHeadingStatusChange("Started Job (" + job.getId() + ")");
+			jobStarted();
 
 			final List<Task> tasks = job.getTasks();
 
@@ -79,33 +78,25 @@ public final class SequentialJobExecuter extends AbstractJobExecuter {
 				for (final Task task : job.getTasks()) {
 					if (Thread.currentThread().isInterrupted()) {
 						LOGGER.debug("{} thread was interrupted, stopping job execution", prefix);
-
 						throw new RuntimeException("Job is being stopped"); // TODO Use appropriate exception
 					}
 
 					if (task.getEnabled()) {
 						TaskExecuterFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
-
-						getJobStatusListener().jobTaskCompleted();
+						taskCompleted(task);
 					}
 					else {
 						LOGGER.debug("{} Task \"{}\" is disabled and will be skipped", prefix, task);
-
-						fireInfoStatusChange("Skipping disabled task \"" + task.getId() + "\"");
-
-						getJobStatusListener().jobTaskSkipped();
+						taskSkipped(task);
 					}
 				}
 			}
 
-			fireHeadingStatusChange("Finished Job (" + job.getId() + ")");
-			getJobStatusListener().jobCompleted();
+			jobCompleted();
 		}
 		catch (final Exception e) {
 			LOGGER.debug("Exception caught executing job", e);
-
-			fireHeadingStatusChange("Job Aborted (" + job.getId() + ")");
-			getJobStatusListener().jobAborted();
+			jobAborted();
 		}
 
 		LOGGER.debug("{} returning", prefix);

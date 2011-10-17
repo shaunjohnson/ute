@@ -16,10 +16,12 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.executers;
+package net.lmxm.ute.executers.jobs;
 
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.executers.Executer;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeEvent;
 import net.lmxm.ute.listeners.StatusChangeEventType;
@@ -144,5 +146,47 @@ public abstract class AbstractJobExecuter implements Executer {
 	 */
 	protected final StatusChangeListener getStatusChangeListener() {
 		return statusChangeListener;
+	}
+
+	/**
+	 * Job aborted.
+	 */
+	protected final void jobAborted() {
+		fireHeadingStatusChange("Job Aborted (" + job.getId() + ")");
+		jobStatusListener.jobAborted();
+	}
+
+	/**
+	 * Job completed.
+	 */
+	protected final void jobCompleted() {
+		fireHeadingStatusChange("Finished Job (" + job.getId() + ")");
+		jobStatusListener.jobCompleted();
+	}
+
+	/**
+	 * Job started.
+	 */
+	protected final void jobStarted() {
+		fireHeadingStatusChange("Started Job (" + job.getId() + ")");
+	}
+
+	/**
+	 * Task completed.
+	 * 
+	 * @param task the task
+	 */
+	protected final void taskCompleted(final Task task) {
+		getJobStatusListener().jobTaskCompleted();
+	}
+
+	/**
+	 * Task skipped.
+	 * 
+	 * @param task the task
+	 */
+	protected final void taskSkipped(final Task task) {
+		fireInfoStatusChange("Skipping disabled task \"" + task.getId() + "\"");
+		getJobStatusListener().jobTaskSkipped();
 	}
 }
