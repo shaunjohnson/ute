@@ -18,15 +18,23 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.PropertiesHolder;
+import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
-import net.lmxm.ute.utils.GroovyUtils;
+import net.lmxm.ute.utils.FileSystemUtils;
 
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +48,7 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(GroovyTaskExecuter.class);
 
+	/** The properties holder. */
 	private final PropertiesHolder propertiesHolder;
 
 	/** The task. */
@@ -50,17 +59,48 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
 	 * 
 	 * @param task the task
 	 * @param propertiesHolder the properties holder
-	 * @param statusChangeListener the status change listener
 	 */
 	public GroovyTaskExecuter(final GroovyTask task, final PropertiesHolder propertiesHolder,
-			final StatusChangeListener statusChangeListener) {
-		super(statusChangeListener);
+			final StatusChangeHelper statusChangeHelper) {
+		super(statusChangeHelper);
 
 		Preconditions.checkNotNull(task, "Task may not be null");
 		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 
 		this.propertiesHolder = propertiesHolder;
 		this.task = task;
+	}
+
+	/**
+	 * Convert preferences to map.
+	 * 
+	 * @param propertiesHolder the properties holder
+	 * @return the object
+	 */
+	private Map<String, String> convertPreferencesToMap(final PropertiesHolder propertiesHolder) {
+		final Map<String, String> preferences = new HashMap<String, String>();
+
+		for (final Preference preference : propertiesHolder.getPreferences()) {
+			preferences.put(preference.getId(), preference.getValue());
+		}
+
+		return preferences;
+	}
+
+	/**
+	 * Convert properties to map.
+	 * 
+	 * @param propertiesHolder the properties holder
+	 * @return the object
+	 */
+	private Object convertPropertiesToMap(final PropertiesHolder propertiesHolder) {
+		final Map<String, String> properties = new HashMap<String, String>();
+
+		for (final Property property : propertiesHolder.getProperties()) {
+			properties.put(property.getId(), property.getValue());
+		}
+
+		return properties;
 	}
 
 	/*
@@ -76,9 +116,53 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
 
-		GroovyUtils.getInstance().executeScript(task.getScript(), path, files, propertiesHolder,
-				getStatusChangeListener());
+		executeScript(task.getScript(), path, files, propertiesHolder);
 
 		LOGGER.debug("{} returning", prefix);
+	}
+
+	/**
+	 * Execute script.
+	 * 
+	 * @param script the script
+	 * @param path the path
+	 * @param files the files
+	 * @param propertiesHolder the properties holder
+	 */
+	protected void executeScript(final String script, final String path, final List<FileReference> files,
+			final PropertiesHolder propertiesHolder) {
+		final String prefix = "executeScript() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final Binding binding = new Binding();
+		binding.setVariable("path", path);
+		binding.setVariable("files", FileSystemUtils.convertToFileObjects(path, files));
+		binding.setVariable("properties", convertPropertiesToMap(propertiesHolder));
+		binding.setVariable("preferences", convertPreferencesToMap(propertiesHolder));
+
+		getStatusChangeHelper().info(this, "Starting execution of script");
+
+		try {
+			final Object returnValue = new GroovyShell(binding).evaluate(script);
+
+			getStatusChangeHelper().info(this, "Script execution completed; Script returned \"" + returnValue + "\"");
+		}
+		catch (final CompilationFailedException e) {
+			LOGGER.error(prefix + " Script compilation failed", e);
+
+			getStatusChangeHelper().error(this, "Script compilation failed");
+
+			throw new RuntimeException("Script compilation failed");
+		}
+		catch (final Exception e) {
+			LOGGER.error(prefix + " Script execution failed", e);
+
+			getStatusChangeHelper().error(this, "Script execution failed");
+
+			throw new RuntimeException("Script execution failed");
+		}
+
+		LOGGER.debug("{} leaving", prefix);
 	}
 }

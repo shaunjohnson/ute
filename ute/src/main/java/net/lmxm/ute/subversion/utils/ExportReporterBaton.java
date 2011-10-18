@@ -18,9 +18,7 @@
  */
 package net.lmxm.ute.subversion.utils;
 
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,25 +38,24 @@ public final class ExportReporterBaton implements ISVNReporterBaton {
 	/** The export revision. */
 	private final long revision;
 
-	/** The status change listener. */
-	private final StatusChangeListener statusChangeListener;
+	/** The status change helper. */
+	private final StatusChangeHelper statusChangeHelper;
 
 	/**
 	 * Instantiates a new export reporter baton.
-	 *
+	 * 
 	 * @param revision the revision
-	 * @param statusChangeListener the status change listener
+	 * @param statusChangeHelper the status change helper
 	 */
-	public ExportReporterBaton(final long revision, final StatusChangeListener statusChangeListener) {
+	public ExportReporterBaton(final long revision, final StatusChangeHelper statusChangeHelper) {
 		super();
 
 		this.revision = revision;
-		this.statusChangeListener = statusChangeListener;
+		this.statusChangeHelper = statusChangeHelper;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNReporterBaton#report(org.tmatesoft. svn.core.io.ISVNReporter)
 	 */
 	@Override
@@ -69,10 +66,8 @@ public final class ExportReporterBaton implements ISVNReporterBaton {
 
 		try {
 			/*
-			 * Here empty working copy is reported.
-			 * 
-			 * ISVNReporter includes methods that allows to report mixed-rev working copy and even let server know
-			 * that some files or directories are locally missing or locked.
+			 * Here empty working copy is reported. ISVNReporter includes methods that allows to report mixed-rev
+			 * working copy and even let server know that some files or directories are locally missing or locked.
 			 */
 			reporter.setPath("", null, revision, SVNDepth.INFINITY, true);
 
@@ -84,8 +79,7 @@ public final class ExportReporterBaton implements ISVNReporterBaton {
 
 			reporter.abortReport();
 
-			statusChangeListener
-					.statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Report failed"));
+			statusChangeHelper.error(this, "Report failed");
 		}
 
 		LOGGER.debug("{} leaving", prefix);

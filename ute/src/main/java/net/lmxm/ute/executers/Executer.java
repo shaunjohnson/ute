@@ -18,10 +18,19 @@
  */
 package net.lmxm.ute.executers;
 
+import net.lmxm.ute.listeners.StatusChangeListener;
+
 /**
  * The Interface Executer.
  */
 public interface Executer {
+
+	/**
+	 * Adds the status change listener.
+	 * 
+	 * @param statusChangeListener the status change listener
+	 */
+	void addStatusChangeListener(StatusChangeListener statusChangeListener);
 
 	/**
 	 * Execute.

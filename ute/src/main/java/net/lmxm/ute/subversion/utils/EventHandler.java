@@ -18,9 +18,7 @@
  */
 package net.lmxm.ute.subversion.utils;
 
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,28 +37,22 @@ public final class EventHandler implements ISVNEventHandler {
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(EventHandler.class);
 
-	/** The listener. */
-	private final StatusChangeListener listener;
-
-	/** The source. */
-	private final Object source;
+	/** The status change helper. */
+	private final StatusChangeHelper statusChangeHelper;
 
 	/**
 	 * Instantiates a new event handler.
 	 * 
-	 * @param source the source
 	 * @param listener the listener
 	 */
-	public EventHandler(final Object source, final StatusChangeListener listener) {
+	public EventHandler(final StatusChangeHelper statusChangeHelper) {
 		super();
 
-		this.source = source;
-		this.listener = listener;
+		this.statusChangeHelper = statusChangeHelper;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.ISVNCanceller#checkCancelled()
 	 */
 	@Override
@@ -68,19 +60,8 @@ public final class EventHandler implements ISVNEventHandler {
 
 	}
 
-	/**
-	 * Fire event.
-	 *
-	 * @param eventType the event type
-	 * @param message the message
-	 */
-	private void fireEvent(final StatusChangeEventType eventType, final String message) {
-		listener.statusChange(new StatusChangeEvent(source, eventType, message));
-	}
-
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.wc.ISVNEventHandler#handleEvent(org.tmatesoft.svn.core.wc.SVNEvent, double)
 	 */
 	@Override
@@ -100,33 +81,32 @@ public final class EventHandler implements ISVNEventHandler {
 			handlePathChange(event, "D");
 		}
 		else if (action == SVNEventAction.UPDATE_NONE) {
-			fireEvent(StatusChangeEventType.INFO, "-     " + event.getFile());
+			statusChangeHelper.info(this, "-     " + event.getFile());
 		}
 		else if (action == SVNEventAction.UPDATE_UPDATE) {
 			handleUpdateEvent(event);
 		}
 		else if (action == SVNEventAction.UPDATE_EXTERNAL) {
-			fireEvent(StatusChangeEventType.INFO, "Fetching external item into '" + event.getFile().getAbsolutePath()
-					+ "'");
-			fireEvent(StatusChangeEventType.INFO, "External at revision " + event.getRevision());
+			statusChangeHelper.info(this, "Fetching external item into '" + event.getFile().getAbsolutePath() + "'");
+			statusChangeHelper.info(this, "External at revision " + event.getRevision());
 		}
 		else if (action == SVNEventAction.UPDATE_COMPLETED) {
-			fireEvent(StatusChangeEventType.INFO, "At revision " + event.getRevision());
+			statusChangeHelper.info(this, "At revision " + event.getRevision());
 		}
 		else if (action == SVNEventAction.ADD) {
-			fireEvent(StatusChangeEventType.INFO, "A     " + event.getFile());
+			statusChangeHelper.info(this, "A     " + event.getFile());
 		}
 		else if (action == SVNEventAction.DELETE) {
-			fireEvent(StatusChangeEventType.INFO, "D     " + event.getFile());
+			statusChangeHelper.info(this, "D     " + event.getFile());
 		}
 		else if (action == SVNEventAction.LOCKED) {
-			fireEvent(StatusChangeEventType.INFO, "L     " + event.getFile());
+			statusChangeHelper.info(this, "L     " + event.getFile());
 		}
 		else if (action == SVNEventAction.LOCK_FAILED) {
-			fireEvent(StatusChangeEventType.ERROR, "failed to lock    " + event.getFile());
+			statusChangeHelper.error(this, "failed to lock    " + event.getFile());
 		}
 		else if (action == SVNEventAction.FAILED_EXTERNAL) {
-			fireEvent(StatusChangeEventType.ERROR, "failed to get external    " + event.getFile());
+			statusChangeHelper.error(this, "failed to get external    " + event.getFile());
 		}
 		else {
 			LOGGER.error("{} unsupported action {}", prefix, action);
@@ -137,7 +117,7 @@ public final class EventHandler implements ISVNEventHandler {
 
 	/**
 	 * Handle path change.
-	 *
+	 * 
 	 * @param event the event
 	 * @param pathChangeType the path change type
 	 */
@@ -170,15 +150,14 @@ public final class EventHandler implements ISVNEventHandler {
 			lockLabel = "B";
 		}
 
-		fireEvent(StatusChangeEventType.INFO,
-				pathChangeType + propertiesChangeType + lockLabel + "       " + event.getFile());
+		statusChangeHelper.info(this, pathChangeType + propertiesChangeType + lockLabel + "       " + event.getFile());
 
 		LOGGER.debug("{} leaving", prefix);
 	}
 
 	/**
 	 * Handle update event.
-	 *
+	 * 
 	 * @param event the event
 	 */
 	private void handleUpdateEvent(final SVNEvent event) {

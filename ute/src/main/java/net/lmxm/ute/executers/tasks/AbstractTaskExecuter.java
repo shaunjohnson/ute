@@ -18,74 +18,20 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import net.lmxm.ute.executers.Executer;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
-import net.lmxm.ute.listeners.StatusChangeListener;
-
-import com.google.common.base.Preconditions;
+import net.lmxm.ute.executers.AbstractExecuter;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 
 /**
  * The Class AbstractTaskExecuter.
  */
-public abstract class AbstractTaskExecuter implements Executer {
-
-	/** The status change listener. */
-	private final StatusChangeListener statusChangeListener;
+public abstract class AbstractTaskExecuter extends AbstractExecuter {
 
 	/**
 	 * Instantiates a new abstract task executer.
 	 * 
-	 * @param statusChangeListener the status change listener
+	 * @param statusChangeHelper the status change helper
 	 */
-	public AbstractTaskExecuter(final StatusChangeListener statusChangeListener) {
-		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
-
-		this.statusChangeListener = statusChangeListener;
-	}
-
-	/**
-	 * Fire error status change.
-	 * 
-	 * @param message the message
-	 */
-	protected final void fireErrorStatusChange(final String message) {
-		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR, message));
-	}
-
-	/**
-	 * Fire fatal status change.
-	 * 
-	 * @param message the message
-	 */
-	protected final void fireFatalStatusChange(final String message) {
-		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.FATAL, message));
-	}
-
-	/**
-	 * Fire important status change.
-	 * 
-	 * @param message the message
-	 */
-	protected final void fireImportantStatusChange(final String message) {
-		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.IMPORTANT, message));
-	}
-
-	/**
-	 * Fire info status change.
-	 * 
-	 * @param message the message
-	 */
-	protected final void fireInfoStatusChange(final String message) {
-		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO, message));
-	}
-
-	/**
-	 * Gets the status change listener.
-	 * 
-	 * @return the status change listener
-	 */
-	protected final StatusChangeListener getStatusChangeListener() {
-		return statusChangeListener;
+	public AbstractTaskExecuter(final StatusChangeHelper statusChangeHelper) {
+		super(statusChangeHelper);
 	}
 }

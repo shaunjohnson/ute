@@ -25,9 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -54,9 +52,11 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 
 	/**
 	 * Instantiates a new subversion repository utils.
+	 * 
+	 * @param statusChangeHelper the status change helper
 	 */
-	public SubversionRepositoryUtils() {
-		super();
+	public SubversionRepositoryUtils(final StatusChangeHelper statusChangeHelper) {
+		super(statusChangeHelper);
 	}
 
 	/**
@@ -64,9 +64,11 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 	 * 
 	 * @param username the username
 	 * @param password the password
+	 * @param statusChangeHelper the status change helper
 	 */
-	public SubversionRepositoryUtils(final String username, final String password) {
-		super(username, password);
+	public SubversionRepositoryUtils(final String username, final String password,
+			final StatusChangeHelper statusChangeHelper) {
+		super(username, password, statusChangeHelper);
 	}
 
 	/**
@@ -75,10 +77,8 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 	 * @param urlString the url
 	 * @param destinationPath the path
 	 * @param files the files
-	 * @param statusChangeListener the status change listener
 	 */
-	public void exportFiles(final String urlString, final String destinationPath, final List<FileReference> files,
-			final StatusChangeListener statusChangeListener) {
+	public void exportFiles(final String urlString, final String destinationPath, final List<FileReference> files) {
 		final String prefix = "exportFiles() :";
 
 		if (LOGGER.isDebugEnabled()) {
@@ -92,11 +92,10 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 		Preconditions.checkNotNull(destinationPath, "Destination path must not be null");
 
 		try {
-			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.IMPORTANT,
-					"Starting file export"));
+			getStatusChangeHelper().important(this, "Starting file export");
 
-			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
-					"Exporting files from \"" + urlString + "\" to \"" + destinationPath + "\""));
+			getStatusChangeHelper().info(this,
+					"Exporting files from \"" + urlString + "\" to \"" + destinationPath + "\"");
 
 			final SVNURL url = SVNURL.parseURIEncoded(urlString);
 			final File exportDirectory = new File(destinationPath);
@@ -140,9 +139,9 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 			if (CollectionUtils.isEmpty(files)) {
 				LOGGER.debug("{} files list is empty, exporting entire directory", prefix);
 
-				final ISVNReporterBaton reporterBaton = new ExportReporterBaton(latestRevision, statusChangeListener);
+				final ISVNReporterBaton reporterBaton = new ExportReporterBaton(latestRevision, getStatusChangeHelper());
 				final SubversionExportEditor exportEditor = new SubversionExportEditor(exportDirectory,
-						statusChangeListener);
+						getStatusChangeHelper());
 
 				repository.update(latestRevision, null, true, reporterBaton, exportEditor);
 			}
@@ -171,8 +170,7 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 						repository.getFile(fileName, latestRevision, null, contents);
 						contents.close();
 
-						statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO,
-								"Added file \"" + fileName + "\""));
+						getStatusChangeHelper().info(this, "Added file \"" + fileName + "\"");
 					}
 					catch (final FileNotFoundException e) {
 						LOGGER.error("FileNotFoundException caught exporting a file", e);
@@ -199,15 +197,11 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 
 			LOGGER.debug("{} finished exporting files", prefix);
 
-			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.IMPORTANT,
-					"Finished exporting files. revision=" + latestRevision));
+			getStatusChangeHelper().important(this, "Finished exporting files. revision=" + latestRevision);
 		}
 		catch (final SVNException e) {
 			LOGGER.error("SVNException caught exporting a file", e);
-
-			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR,
-					"Error occurred exporting files"));
-
+			getStatusChangeHelper().error(this, "Error occurred exporting files");
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 	}

@@ -19,13 +19,10 @@
 package net.lmxm.ute.executers.jobs;
 
 import net.lmxm.ute.beans.PropertiesHolder;
-import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
-import net.lmxm.ute.executers.Executer;
 import net.lmxm.ute.executers.ExecuterFactory;
-import net.lmxm.ute.listeners.JobStatusListener;
-import net.lmxm.ute.listeners.StatusChangeListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,33 +42,26 @@ public final class JobExecuterFactory implements ExecuterFactory {
 	 * 
 	 * @param job the job
 	 * @param propertiesHolder the properties holder
-	 * @param jobStatusListener the job status listener
-	 * @param statusChangeListener the status change listener
 	 * @return the executer if
 	 */
-	public static Executer create(final Job job, final PropertiesHolder propertiesHolder,
-			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
-		final String prefix = "create(Job,PropertiesHolder,JobStatusListenerStatusChangeListener) :";
+	public static JobExecuter create(final Job job, final PropertiesHolder propertiesHolder) {
+		final String prefix = "create() :";
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("{} entered", prefix);
 			LOGGER.debug("{} job={}", prefix, job);
-			LOGGER.debug("{} jobStatusListener={}", prefix, jobStatusListener);
-			LOGGER.debug("{} statusChangeListener={}", prefix, statusChangeListener);
 		}
 
 		Preconditions.checkNotNull(job, "Job may not be null");
 		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
-		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
-		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
-		Executer executer = null;
+		JobExecuter executer = null;
 
 		if (job instanceof SequentialJob) {
-			executer = new SequentialJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
+			executer = new SequentialJobExecuter(job, propertiesHolder);
 		}
 		else if (job instanceof SingleTaskJob) {
-			executer = new SingleTaskJobExecuter(job, propertiesHolder, jobStatusListener, statusChangeListener);
+			executer = new SingleTaskJobExecuter(job, propertiesHolder);
 		}
 		else {
 			throw new IllegalArgumentException("Unsupported job type");

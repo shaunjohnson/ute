@@ -20,9 +20,7 @@ package net.lmxm.ute.subversion.utils;
 
 import java.io.File;
 
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -77,9 +75,11 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 
 	/**
 	 * Instantiates a new subversion working copy utils.
+	 * 
+	 * @param statusChangeHelper the status change helper
 	 */
-	public SubversionWorkingCopyUtils() {
-		super();
+	public SubversionWorkingCopyUtils(final StatusChangeHelper statusChangeHelper) {
+		super(statusChangeHelper);
 	}
 
 	/**
@@ -87,18 +87,19 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 	 * 
 	 * @param username the username
 	 * @param password the password
+	 * @param statusChangeHelper the status change helper
 	 */
-	public SubversionWorkingCopyUtils(final String username, final String password) {
-		super(username, password);
+	public SubversionWorkingCopyUtils(final String username, final String password,
+			final StatusChangeHelper statusChangeHelper) {
+		super(username, password, statusChangeHelper);
 	}
 
 	/**
 	 * Update working copy.
 	 * 
 	 * @param path the path
-	 * @param statusChangeListener the status change listener
 	 */
-	public void updateWorkingCopy(final String path, final StatusChangeListener statusChangeListener) {
+	public void updateWorkingCopy(final String path) {
 		final String prefix = "updateWorkingCopy() :";
 
 		LOGGER.debug("{} entered, path={}", prefix, path);
@@ -107,13 +108,11 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 
 		Preconditions.checkNotNull(pathTrimmed, "Path must not be blank");
 		Preconditions.checkState(isWorkingCopy(pathTrimmed), "Path must be a working copy root");
-		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
 		try {
 			LOGGER.debug("{} start updating working copy", prefix);
 
-			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.IMPORTANT,
-					"Started updating working copy (" + pathTrimmed + ")"));
+			getStatusChangeHelper().important(this, "Started updating working copy (" + pathTrimmed + ")");
 
 			final DefaultSVNOptions options = SVNWCUtil.createDefaultOptions(true);
 			final SVNClientManager clientManager = SVNClientManager.newInstance(options);
@@ -122,21 +121,17 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 
 			final SVNUpdateClient updateClient = clientManager.getUpdateClient();
 
-			updateClient.setEventHandler(new EventHandler(this, statusChangeListener));
+			updateClient.setEventHandler(new EventHandler(getStatusChangeHelper()));
 
 			updateClient.doUpdate(new File(pathTrimmed), SVNRevision.HEAD, SVNDepth.INFINITY, true, false);
 
-			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.IMPORTANT,
-					"Finishing updating working copy (" + pathTrimmed + ")"));
+			getStatusChangeHelper().important(this, "Finishing updating working copy (" + pathTrimmed + ")");
 
 			LOGGER.debug("{} finished updating working copy", prefix);
 		}
 		catch (final SVNException e) {
 			LOGGER.error("SVNException caught while updating working copy", e);
-
-			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR,
-					"Error occurred updating working copy (" + pathTrimmed + ")"));
-
+			getStatusChangeHelper().error(this, "Error occurred updating working copy (" + pathTrimmed + ")");
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 

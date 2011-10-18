@@ -30,15 +30,20 @@ import java.util.regex.Pattern;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.utils.testimpl.TestStatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class FindReplaceTaskExecuterTest.
+ */
 public class FindReplaceTaskExecuterTest {
 
-	private static final TestStatusChangeListener STATUS_CHANGE_LISTENER = new TestStatusChangeListener();
+	/** The Constant STATUS_CHANGE_HELPER. */
+	private static final StatusChangeHelper STATUS_CHANGE_HELPER = new StatusChangeHelper();
 
+	/** The executer. */
 	private FindReplaceTaskExecuter executer = null;
 
 	/**
@@ -48,7 +53,7 @@ public class FindReplaceTaskExecuterTest {
 	public void setup() {
 		final FindReplaceTask task = new FindReplaceTask();
 
-		executer = new FindReplaceTaskExecuter(task, STATUS_CHANGE_LISTENER);
+		executer = new FindReplaceTaskExecuter(task, STATUS_CHANGE_HELPER);
 	}
 
 	/**
@@ -105,21 +110,33 @@ public class FindReplaceTaskExecuterTest {
 		executer.convertFindReplacePatternsToRegexPatterns(null);
 	}
 
+	/**
+	 * Test execute.
+	 */
 	@Test
 	public void testExecute() {
 		// fail("Not yet implemented");
 	}
 
+	/**
+	 * Test find replace content.
+	 */
 	@Test
 	public void testFindReplaceContent() {
 		// fail("Not yet implemented");
 	}
 
+	/**
+	 * Test find replace file content.
+	 */
 	@Test
 	public void testFindReplaceFileContent() {
 		// fail("Not yet implemented");
 	}
 
+	/**
+	 * Test find replace file line content.
+	 */
 	@Test
 	public void testFindReplaceFileLineContent() {
 		// fail("Not yet implemented");
@@ -127,11 +144,17 @@ public class FindReplaceTaskExecuterTest {
 		// TODO Test multiple patterns applied to a line to make sure that all patterns are applied.
 	}
 
+	/**
+	 * Test find replace in files.
+	 */
 	@Test
 	public void testFindReplaceInFiles() {
 		// fail("Not yet implemented");
 	}
 
+	/**
+	 * Test find replace task executer.
+	 */
 	@Test
 	public void testFindReplaceTaskExecuter() {
 		// fail("Not yet implemented");

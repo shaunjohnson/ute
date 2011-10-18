@@ -25,8 +25,6 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executers.tasks.TaskExecuterFactory;
-import net.lmxm.ute.listeners.JobStatusListener;
-import net.lmxm.ute.listeners.StatusChangeListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,12 +42,9 @@ public final class SequentialJobExecuter extends AbstractJobExecuter {
 	 * 
 	 * @param job the job
 	 * @param propertiesHolder the properties holder
-	 * @param jobStatusListener the job status listener
-	 * @param statusChangeListener the status change listener
 	 */
-	protected SequentialJobExecuter(final Job job, final PropertiesHolder propertiesHolder,
-			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
-		super(job, propertiesHolder, jobStatusListener, statusChangeListener);
+	protected SequentialJobExecuter(final Job job, final PropertiesHolder propertiesHolder) {
+		super(job, propertiesHolder);
 	}
 
 	/*
@@ -83,7 +78,7 @@ public final class SequentialJobExecuter extends AbstractJobExecuter {
 
 					if (task.getEnabled()) {
 						taskStarted(task);
-						TaskExecuterFactory.create(task, getPropertiesHolder(), getStatusChangeListener()).execute();
+						TaskExecuterFactory.create(task, getPropertiesHolder(), getStatusChangeHelper()).execute();
 						taskCompleted(task);
 					}
 					else {

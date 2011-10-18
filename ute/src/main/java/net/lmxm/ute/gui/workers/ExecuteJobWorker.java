@@ -22,6 +22,7 @@ import javax.swing.SwingWorker;
 
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeEvent;
@@ -86,7 +87,10 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 
 		LOGGER.debug("{} entered", prefix);
 
-		JobExecuterFactory.create(job, propertiesHolder, jobStatusListener, statusChangeListener).execute();
+		final JobExecuter jobExecuter = JobExecuterFactory.create(job, propertiesHolder);
+		jobExecuter.addJobStatusListener(jobStatusListener);
+		jobExecuter.addStatusChangeListener(statusChangeListener);
+		jobExecuter.execute();
 
 		LOGGER.debug("{} leaving", prefix);
 

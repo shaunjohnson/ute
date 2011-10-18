@@ -28,7 +28,7 @@ import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executers.Executer;
 import net.lmxm.ute.executers.ExecuterFactory;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,54 +48,53 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 	 * 
 	 * @param task the task
 	 * @param propertiesHolder the properties holder
-	 * @param statusChangeListener the status change listener
 	 * @return the executer if
 	 */
 	public static Executer create(final Task task, final PropertiesHolder propertiesHolder,
-			final StatusChangeListener statusChangeListener) {
-		final String prefix = "create(Task,StatusChangeListener) :";
+			final StatusChangeHelper statusChangeHelper) {
+		final String prefix = "create(Task,StatusChangeHelper) :";
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("{} entered", prefix);
 			LOGGER.debug("{} task={}", prefix, task);
-			LOGGER.debug("{} statusChangeListener={}", prefix, statusChangeListener);
+			LOGGER.debug("{} statusChangeHelper={}", prefix, statusChangeHelper);
 		}
 
 		Preconditions.checkNotNull(task, "Task may not be null");
 		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
-		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
+		Preconditions.checkNotNull(statusChangeHelper, "StatusChangeHelper may not be null");
 
 		Executer executer;
 
 		if (task instanceof FileSystemDeleteTask) {
 			LOGGER.debug("{} task is FileSystemDeleteTask", prefix);
 
-			executer = new FileSystemDeleteTaskExecuter((FileSystemDeleteTask) task, statusChangeListener);
+			executer = new FileSystemDeleteTaskExecuter((FileSystemDeleteTask) task, statusChangeHelper);
 		}
 		else if (task instanceof FindReplaceTask) {
 			LOGGER.debug("{} task is FindReplaceTask", prefix);
 
-			executer = new FindReplaceTaskExecuter((FindReplaceTask) task, statusChangeListener);
+			executer = new FindReplaceTaskExecuter((FindReplaceTask) task, statusChangeHelper);
 		}
 		else if (task instanceof GroovyTask) {
 			LOGGER.debug("{} task is GroovyTask", prefix);
 
-			executer = new GroovyTaskExecuter((GroovyTask) task, propertiesHolder, statusChangeListener);
+			executer = new GroovyTaskExecuter((GroovyTask) task, propertiesHolder, statusChangeHelper);
 		}
 		else if (task instanceof HttpDownloadTask) {
 			LOGGER.debug("{} task is HttpDownloadTask", prefix);
 
-			executer = new HttpDownloadTaskExecuter((HttpDownloadTask) task, statusChangeListener);
+			executer = new HttpDownloadTaskExecuter((HttpDownloadTask) task, statusChangeHelper);
 		}
 		else if (task instanceof SubversionExportTask) {
 			LOGGER.debug("{} task is SubversionExportTask", prefix);
 
-			executer = new SubversionExportTaskExecuter((SubversionExportTask) task, statusChangeListener);
+			executer = new SubversionExportTaskExecuter((SubversionExportTask) task, statusChangeHelper);
 		}
 		else if (task instanceof SubversionUpdateTask) {
 			LOGGER.debug("{} task is SubversionUpdateTask", prefix);
 
-			executer = new SubversionUpdateTaskExecuter((SubversionUpdateTask) task, statusChangeListener);
+			executer = new SubversionUpdateTaskExecuter((SubversionUpdateTask) task, statusChangeHelper);
 		}
 		else {
 			LOGGER.error("{} unsupported task type {}", prefix, task);

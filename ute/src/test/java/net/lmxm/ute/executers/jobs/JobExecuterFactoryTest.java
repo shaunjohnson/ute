@@ -21,8 +21,6 @@ package net.lmxm.ute.executers.jobs;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import net.lmxm.ute.TestJob;
-import net.lmxm.ute.TestJobStatusListener;
-import net.lmxm.ute.TestStatusChangeListener;
 import net.lmxm.ute.beans.Configuration;
 
 import org.junit.Test;
@@ -37,36 +35,18 @@ public class JobExecuterFactoryTest {
 	 */
 	@Test
 	public void testCreate() {
-		// Null job, properties holder, job listener and status listener
+		// Null job and properties holder
 		try {
-			JobExecuterFactory.create(null, null, null, null);
+			JobExecuterFactory.create(null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Null properties holder, job listener and status listener
+		// Null properties holder
 		try {
-			JobExecuterFactory.create(new TestJob(), null, null, null);
-			fail();
-		}
-		catch (final NullPointerException e) {
-			assertNotNull(e.getMessage());
-		}
-
-		// Null job listener and status listener
-		try {
-			JobExecuterFactory.create(new TestJob(), new Configuration(), null, null);
-			fail();
-		}
-		catch (final NullPointerException e) {
-			assertNotNull(e.getMessage());
-		}
-
-		// Null status listener
-		try {
-			JobExecuterFactory.create(new TestJob(), new Configuration(), new TestJobStatusListener(), null);
+			JobExecuterFactory.create(new TestJob(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -75,18 +55,16 @@ public class JobExecuterFactoryTest {
 
 		// Null job
 		try {
-			JobExecuterFactory.create(null, new Configuration(), new TestJobStatusListener(),
-					new TestStatusChangeListener());
+			JobExecuterFactory.create(null, new Configuration());
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Non-null job, properties holder, job listener and status listener
+		// Non-null job and properties holder
 		try {
-			JobExecuterFactory.create(new TestJob(), new Configuration(), new TestJobStatusListener(),
-					new TestStatusChangeListener());
+			JobExecuterFactory.create(new TestJob(), new Configuration());
 			fail();
 		}
 		catch (final IllegalArgumentException e) {

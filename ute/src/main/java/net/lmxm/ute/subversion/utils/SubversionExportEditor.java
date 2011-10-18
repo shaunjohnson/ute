@@ -18,13 +18,11 @@
  */
 package net.lmxm.ute.subversion.utils;
 
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
-import net.lmxm.ute.listeners.StatusChangeListener;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -52,26 +50,25 @@ public class SubversionExportEditor implements ISVNEditor {
 	/** the local directory where the node tree is to be exported into. */
 	private final File root;
 
-	/** The status change listener. */
-	private final StatusChangeListener statusChangeListener;
+	/** The status change helper. */
+	private final StatusChangeHelper statusChangeHelper;
 
 	/**
 	 * Instantiates a new subversion export editor.
-	 *
+	 * 
 	 * @param root the root
-	 * @param statusChangeListener the status change listener
+	 * @param statusChangeHelper the status change helper
 	 */
-	public SubversionExportEditor(final File root, final StatusChangeListener statusChangeListener) {
+	public SubversionExportEditor(final File root, final StatusChangeHelper statusChangeHelper) {
 		super();
 
 		this.root = root;
 		this.deltaProcessor = new SVNDeltaProcessor();
-		this.statusChangeListener = statusChangeListener;
+		this.statusChangeHelper = statusChangeHelper;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNEditor#abortEdit()
 	 */
 	@Override
@@ -81,7 +78,6 @@ public class SubversionExportEditor implements ISVNEditor {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNEditor#absentDir(java.lang.String)
 	 */
 	@Override
@@ -91,7 +87,6 @@ public class SubversionExportEditor implements ISVNEditor {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNEditor#absentFile(java.lang.String)
 	 */
 	@Override
@@ -102,8 +97,7 @@ public class SubversionExportEditor implements ISVNEditor {
 	/**
 	 * Called when a new directory has to be added.
 	 * 
-	 * For each 'addDir' call server will call 'closeDir' method after all children of the added directory are
-	 * added.
+	 * For each 'addDir' call server will call 'closeDir' method after all children of the added directory are added.
 	 * 
 	 * This implementation creates corresponding directory below root directory.
 	 * 
@@ -137,8 +131,7 @@ public class SubversionExportEditor implements ISVNEditor {
 			}
 		}
 
-		statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO, "Added directory \""
-				+ path + "\""));
+		statusChangeHelper.info(this, "Added directory \"" + path + "\"");
 
 		LOGGER.debug("{} leaving", prefix);
 	}
@@ -148,8 +141,8 @@ public class SubversionExportEditor implements ISVNEditor {
 	 * 
 	 * For each 'addFile' call server will call 'closeFile' method after sending file properties and contents.
 	 * 
-	 * This implementation creates empty file below root directory, file contents will be updated later, and for
-	 * empty files may not be sent at all.
+	 * This implementation creates empty file below root directory, file contents will be updated later, and for empty
+	 * files may not be sent at all.
 	 * 
 	 * @param path the path
 	 * @param copyFromPath the copy from path
@@ -195,19 +188,16 @@ public class SubversionExportEditor implements ISVNEditor {
 	}
 
 	/*
-	 * Instructs to change opened or added directory property.
-	 * 
-	 * This method is called to update properties set by the user as well as those created automatically, like
-	 * "svn:committed-rev". See SVNProperty class for default property names.
-	 * 
-	 * When property has to be deleted value will be 'null'.
+	 * Instructs to change opened or added directory property. This method is called to update properties set by the
+	 * user as well as those created automatically, like "svn:committed-rev". See SVNProperty class for default property
+	 * names. When property has to be deleted value will be 'null'.
 	 */
 
 	/**
-	 * Called before sending 'delta' for a file. Delta may include instructions on how to create a file or how to
-	 * modify existing file. In this example delta will always contain instructions on how to create a new file and
-	 * so we set up deltaProcessor with 'null' base file and target file to which we would like to store the result
-	 * of delta application.
+	 * Called before sending 'delta' for a file. Delta may include instructions on how to create a file or how to modify
+	 * existing file. In this example delta will always contain instructions on how to create a new file and so we set
+	 * up deltaProcessor with 'null' base file and target file to which we would like to store the result of delta
+	 * application.
 	 * 
 	 * @param path the path
 	 * @param baseChecksum the base checksum
@@ -216,12 +206,11 @@ public class SubversionExportEditor implements ISVNEditor {
 	 */
 	@Override
 	public void applyTextDelta(final String path, final String baseChecksum) throws SVNException {
-		deltaProcessor.applyTextDelta((File)null, new File(root, path), false);
+		deltaProcessor.applyTextDelta((File) null, new File(root, path), false);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNEditor#changeDirProperty(java.lang. String,
 	 * org.tmatesoft.svn.core.SVNPropertyValue)
 	 */
@@ -248,8 +237,8 @@ public class SubversionExportEditor implements ISVNEditor {
 	}
 
 	/**
-	 * Called when all child files and directories are processed. This call always matches addDir, openDir or
-	 * openRoot call.
+	 * Called when all child files and directories are processed. This call always matches addDir, openDir or openRoot
+	 * call.
 	 * 
 	 * @throws SVNException the SVN exception
 	 */
@@ -280,8 +269,7 @@ public class SubversionExportEditor implements ISVNEditor {
 	 */
 	@Override
 	public void closeFile(final String path, final String textChecksum) throws SVNException {
-		statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO, "Added file \""
-				+ path + "\""));
+		statusChangeHelper.info(this, "Added file \"" + path + "\"");
 	}
 
 	/**
@@ -298,15 +286,13 @@ public class SubversionExportEditor implements ISVNEditor {
 	}
 
 	/*
-	 * Called when there is an existing directory that has to be 'opened' either to modify this directory properties
-	 * or to process other files and directories inside this directory.
-	 * 
-	 * In case of export this method will never be called because we reported that our 'working copy' is empty and
-	 * so server knows that there are no 'existing' directories.
+	 * Called when there is an existing directory that has to be 'opened' either to modify this directory properties or
+	 * to process other files and directories inside this directory. In case of export this method will never be called
+	 * because we reported that our 'working copy' is empty and so server knows that there are no 'existing'
+	 * directories.
 	 */
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNEditor#openDir(java.lang.String, long)
 	 */
 	@Override
@@ -315,14 +301,12 @@ public class SubversionExportEditor implements ISVNEditor {
 	}
 
 	/*
-	 * Called when there is an existing files that has to be 'opened' either to modify file contents or properties.
-	 * 
-	 * In case of export this method will never be called because we reported that our 'working copy' is empty and
-	 * so server knows that there are no 'existing' files.
+	 * Called when there is an existing files that has to be 'opened' either to modify file contents or properties. In
+	 * case of export this method will never be called because we reported that our 'working copy' is empty and so
+	 * server knows that there are no 'existing' files.
 	 */
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNEditor#openFile(java.lang.String, long)
 	 */
 	@Override
@@ -335,7 +319,6 @@ public class SubversionExportEditor implements ISVNEditor {
 	 */
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNEditor#openRoot(long)
 	 */
 	@Override
@@ -348,7 +331,6 @@ public class SubversionExportEditor implements ISVNEditor {
 	 */
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNEditor#targetRevision(long)
 	 */
 	@Override
@@ -362,7 +344,6 @@ public class SubversionExportEditor implements ISVNEditor {
 	 */
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNDeltaConsumer#textDeltaChunk(java.lang .String,
 	 * org.tmatesoft.svn.core.io.diff.SVNDiffWindow)
 	 */
@@ -376,7 +357,6 @@ public class SubversionExportEditor implements ISVNEditor {
 	 */
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.tmatesoft.svn.core.io.ISVNDeltaConsumer#textDeltaEnd(java.lang .String)
 	 */
 	@Override

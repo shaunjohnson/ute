@@ -25,6 +25,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.mapper.ConfigurationMapper;
 import net.lmxm.ute.utils.ConfigurationUtils;
@@ -92,8 +93,10 @@ public final class ConsoleApplication {
 
 			final Job jobInterpolated = ConfigurationUtils.interpolateJobValues(job, configuration);
 
-			JobExecuterFactory.create(jobInterpolated, configuration, new ConsoleJobStatusListener(),
-					new ConsoleStatusChangeListener()).execute();
+			final JobExecuter jobExecuter = JobExecuterFactory.create(jobInterpolated, configuration);
+			jobExecuter.addJobStatusListener(new ConsoleJobStatusListener());
+			jobExecuter.addStatusChangeListener(new ConsoleStatusChangeListener());
+			jobExecuter.execute();
 		}
 
 		LOGGER.debug("{} leaving", prefix);

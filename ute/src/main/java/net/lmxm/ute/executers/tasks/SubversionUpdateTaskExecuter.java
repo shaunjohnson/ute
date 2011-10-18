@@ -19,7 +19,7 @@
 package net.lmxm.ute.executers.tasks;
 
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.subversion.utils.SubversionWorkingCopyUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 
@@ -43,10 +43,9 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 	 * Instantiates a new subversion update task executer.
 	 * 
 	 * @param task the task
-	 * @param statusChangeListener the status change listener
 	 */
-	public SubversionUpdateTaskExecuter(final SubversionUpdateTask task, final StatusChangeListener statusChangeListener) {
-		super(statusChangeListener);
+	public SubversionUpdateTaskExecuter(final SubversionUpdateTask task, final StatusChangeHelper statusChangeHelper) {
+		super(statusChangeHelper);
 
 		Preconditions.checkNotNull(task, "Task may not be null");
 
@@ -65,7 +64,9 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 
-		new SubversionWorkingCopyUtils().updateWorkingCopy(path, getStatusChangeListener());
+		final SubversionWorkingCopyUtils subversionWorkingCopyUtils = new SubversionWorkingCopyUtils(
+				getStatusChangeHelper());
+		subversionWorkingCopyUtils.updateWorkingCopy(path);
 
 		LOGGER.debug("{} returning", prefix);
 	}

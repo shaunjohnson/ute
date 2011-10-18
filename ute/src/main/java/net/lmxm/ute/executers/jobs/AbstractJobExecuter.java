@@ -18,98 +18,52 @@
  */
 package net.lmxm.ute.executers.jobs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.executers.Executer;
+import net.lmxm.ute.executers.AbstractExecuter;
 import net.lmxm.ute.listeners.JobStatusListener;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
-import net.lmxm.ute.listeners.StatusChangeListener;
 
 import com.google.common.base.Preconditions;
 
 /**
  * The Class AbstractJobExecuter.
  */
-public abstract class AbstractJobExecuter implements Executer {
+public abstract class AbstractJobExecuter extends AbstractExecuter implements JobExecuter {
 
 	/** The job. */
 	private final Job job;
 
 	/** The job status listener. */
-	private final JobStatusListener jobStatusListener;
+	private final List<JobStatusListener> jobStatusListeners = new ArrayList<JobStatusListener>();
 
 	/** The properties holder. */
 	private final PropertiesHolder propertiesHolder;
-
-	/** The status change listener. */
-	private final StatusChangeListener statusChangeListener;
 
 	/**
 	 * Instantiates a new abstract job executer.
 	 * 
 	 * @param job the job
 	 * @param propertiesHolder the properties holder
-	 * @param jobStatusListener the job status listener
-	 * @param statusChangeListener the status change listener
 	 */
-	public AbstractJobExecuter(final Job job, final PropertiesHolder propertiesHolder,
-			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
+	public AbstractJobExecuter(final Job job, final PropertiesHolder propertiesHolder) {
 		Preconditions.checkNotNull(job, "Job may not be null");
 		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
-		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
-		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
 		this.job = job;
 		this.propertiesHolder = propertiesHolder;
-		this.jobStatusListener = jobStatusListener;
-		this.statusChangeListener = statusChangeListener;
 	}
 
-	/**
-	 * Fire error status change.
-	 * 
-	 * @param message the message
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.executers.jobs.JobExecuter#addJobStatusListener(net.lmxm.ute.listeners.JobStatusListener)
 	 */
-	protected final void fireErrorStatusChange(final String message) {
-		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.ERROR, message));
-	}
-
-	/**
-	 * Fire fatal status change.
-	 * 
-	 * @param message the message
-	 */
-	protected final void fireFatalStatusChange(final String message) {
-		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.FATAL, message));
-	}
-
-	/**
-	 * Fire heading status change.
-	 * 
-	 * @param message the message
-	 */
-	protected final void fireHeadingStatusChange(final String message) {
-		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.HEADING, message));
-	}
-
-	/**
-	 * Fire important status change.
-	 * 
-	 * @param message the message
-	 */
-	protected final void fireImportantStatusChange(final String message) {
-		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.IMPORTANT, message));
-	}
-
-	/**
-	 * Fire info status change.
-	 * 
-	 * @param message the message
-	 */
-	protected final void fireInfoStatusChange(final String message) {
-		getStatusChangeListener().statusChange(new StatusChangeEvent(this, StatusChangeEventType.INFO, message));
+	@Override
+	public final void addJobStatusListener(final JobStatusListener jobStatusListener) {
+		jobStatusListeners.add(jobStatusListener);
 	}
 
 	/**
@@ -131,36 +85,36 @@ public abstract class AbstractJobExecuter implements Executer {
 	}
 
 	/**
-	 * Gets the status change listener.
-	 * 
-	 * @return the status change listener
-	 */
-	protected final StatusChangeListener getStatusChangeListener() {
-		return statusChangeListener;
-	}
-
-	/**
 	 * Job aborted.
 	 */
 	protected final void jobAborted() {
-		fireHeadingStatusChange("Job Aborted (" + job.getId() + ")");
-		jobStatusListener.jobAborted();
+		getStatusChangeHelper().heading(this, "Job Aborted (" + job.getId() + ")");
+
+		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
+			jobStatusListener.jobAborted();
+		}
 	}
 
 	/**
 	 * Job completed.
 	 */
 	protected final void jobCompleted() {
-		fireHeadingStatusChange("Finished Job (" + job.getId() + ")");
-		jobStatusListener.jobCompleted();
+		getStatusChangeHelper().heading(this, "Finished Job (" + job.getId() + ")");
+
+		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
+			jobStatusListener.jobCompleted();
+		}
 	}
 
 	/**
 	 * Job started.
 	 */
 	protected final void jobStarted() {
-		fireHeadingStatusChange("Started Job (" + job.getId() + ")");
-		jobStatusListener.jobStarted();
+		getStatusChangeHelper().heading(this, "Started Job (" + job.getId() + ")");
+
+		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
+			jobStatusListener.jobStarted();
+		}
 	}
 
 	/**
@@ -169,7 +123,9 @@ public abstract class AbstractJobExecuter implements Executer {
 	 * @param task the task
 	 */
 	protected final void taskCompleted(final Task task) {
-		jobStatusListener.jobTaskCompleted();
+		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
+			jobStatusListener.jobTaskCompleted();
+		}
 	}
 
 	/**
@@ -178,8 +134,11 @@ public abstract class AbstractJobExecuter implements Executer {
 	 * @param task the task
 	 */
 	protected final void taskSkipped(final Task task) {
-		fireInfoStatusChange("Skipping disabled task \"" + task.getId() + "\"");
-		jobStatusListener.jobTaskSkipped();
+		getStatusChangeHelper().info(this, "Skipping disabled task \"" + task.getId() + "\"");
+
+		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
+			jobStatusListener.jobTaskSkipped();
+		}
 	}
 
 	/**
@@ -188,6 +147,8 @@ public abstract class AbstractJobExecuter implements Executer {
 	 * @param task the task
 	 */
 	protected final void taskStarted(final Task task) {
-		jobStatusListener.jobTaskStarted();
+		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
+			jobStatusListener.jobTaskStarted();
+		}
 	}
 }

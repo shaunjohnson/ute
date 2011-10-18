@@ -20,8 +20,6 @@ package net.lmxm.ute.executers.jobs;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-import net.lmxm.ute.TestJobStatusListener;
-import net.lmxm.ute.TestStatusChangeListener;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 
@@ -37,8 +35,7 @@ public class SequentialJobExecuterTest {
 	 */
 	@Test
 	public void testExecute() {
-		new SequentialJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(),
-				new TestStatusChangeListener()).execute();
+		new SequentialJobExecuter(new SequentialJob(), new Configuration()).execute();
 	}
 
 	/**
@@ -46,36 +43,18 @@ public class SequentialJobExecuterTest {
 	 */
 	@Test
 	public void testJobExecuter() {
-		// Null job, properties holder, job listener and status listener
+		// Null job and properties holder
 		try {
-			new SequentialJobExecuter(null, null, null, null);
+			new SequentialJobExecuter(null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Null properties holder, job listener and status listener
+		// Null properties holder
 		try {
-			new SequentialJobExecuter(new SequentialJob(), null, null, null);
-			fail();
-		}
-		catch (final NullPointerException e) {
-			assertNotNull(e.getMessage());
-		}
-
-		// Null properties holder, job listener and status listener
-		try {
-			new SequentialJobExecuter(new SequentialJob(), new Configuration(), null, null);
-			fail();
-		}
-		catch (final NullPointerException e) {
-			assertNotNull(e.getMessage());
-		}
-
-		// Null status listener
-		try {
-			new SequentialJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(), null);
+			new SequentialJobExecuter(new SequentialJob(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -84,16 +63,14 @@ public class SequentialJobExecuterTest {
 
 		// Null job
 		try {
-			new SequentialJobExecuter(null, new Configuration(), new TestJobStatusListener(),
-					new TestStatusChangeListener());
+			new SequentialJobExecuter(null, new Configuration());
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Non-null job, properties holder and listener
-		new SequentialJobExecuter(new SequentialJob(), new Configuration(), new TestJobStatusListener(),
-				new TestStatusChangeListener());
+		// Non-null job and properties holder
+		new SequentialJobExecuter(new SequentialJob(), new Configuration());
 	}
 }

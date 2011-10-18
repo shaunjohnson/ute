@@ -22,7 +22,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryLocationUtils;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
@@ -47,10 +47,9 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 	 * Instantiates a new subversion export task executer.
 	 * 
 	 * @param task the task
-	 * @param statusChangeListener the status change listener
 	 */
-	public SubversionExportTaskExecuter(final SubversionExportTask task, final StatusChangeListener statusChangeListener) {
-		super(statusChangeListener);
+	public SubversionExportTaskExecuter(final SubversionExportTask task, final StatusChangeHelper statusChangeHelper) {
+		super(statusChangeHelper);
 
 		Preconditions.checkNotNull(task, "Task may not be null");
 
@@ -71,7 +70,9 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
 
-		new SubversionRepositoryUtils().exportFiles(url, path, files, getStatusChangeListener());
+		final SubversionRepositoryUtils subversionRepositoryUtils = new SubversionRepositoryUtils(
+				getStatusChangeHelper());
+		subversionRepositoryUtils.exportFiles(url, path, files);
 
 		LOGGER.debug("{} returning", prefix);
 	}

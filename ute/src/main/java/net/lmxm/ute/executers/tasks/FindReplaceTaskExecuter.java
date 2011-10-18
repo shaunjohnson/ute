@@ -29,7 +29,7 @@ import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 
@@ -55,10 +55,9 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 	 * Instantiates a new find replace task executer.
 	 * 
 	 * @param task the task
-	 * @param statusChangeListener the status change listener
 	 */
-	public FindReplaceTaskExecuter(final FindReplaceTask task, final StatusChangeListener statusChangeListener) {
-		super(statusChangeListener);
+	public FindReplaceTaskExecuter(final FindReplaceTask task, final StatusChangeHelper statusChangeHelper) {
+		super(statusChangeHelper);
 
 		Preconditions.checkNotNull(task, "Task may not be null");
 
@@ -232,14 +231,15 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 			if (file.isDirectory()) {
 				LOGGER.debug("{} The file at {} is a directory, not a file; skipping", prefix, file);
 
-				fireErrorStatusChange("The file at " + file.getAbsolutePath() + " is a directory, not a file; skipping");
+				getStatusChangeHelper().error(this,
+						"The file at " + file.getAbsolutePath() + " is a directory, not a file; skipping");
 
 				continue;
 			}
 			else {
 				findReplaceContent(file, patterns, scope);
 
-				fireInfoStatusChange("Find and replace executed on file " + file.getAbsolutePath());
+				getStatusChangeHelper().info(this, "Find and replace executed on file " + file.getAbsolutePath());
 			}
 		}
 

@@ -21,16 +21,8 @@ package net.lmxm.ute.utils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
-import net.lmxm.ute.utils.testimpl.TestStatusChangeListener;
 
 import org.junit.Test;
 
@@ -39,74 +31,14 @@ import org.junit.Test;
  */
 public class HttpUtilsTest {
 
-	/** The Constant EMPTY_FILE_LIST. */
-	private static final List<FileReference> EMPTY_FILE_LIST = new ArrayList<FileReference>();
-
-	/** The Constant EXISTING_DIRECTORY. */
-	private static final String EXISTING_DIRECTORY = System.getProperty("java.io.tmpdir");
-
-	/** The Constant FILE_LIST. */
-	private static final List<FileReference> FILE_LIST = new ArrayList<FileReference>(1);
-
 	/** The Constant FULL_URL. */
 	private static final String FULL_URL = "http://google.com/mail";
-
-	private static final Map<String, String> QUERY_PARAMS = new HashMap<String, String>();
 
 	/** The Constant RELATIVE_PATH. */
 	private static final String RELATIVE_PATH = "mail";
 
-	/** The Constant STATUS_CHANGE_LISTENER. */
-	private static final TestStatusChangeListener STATUS_CHANGE_LISTENER = new TestStatusChangeListener();
-
 	/** The Constant URL. */
 	private static final String URL = "http://google.com";
-
-	static {
-		FILE_LIST.add(new FileReference());
-	}
-
-	/**
-	 * Test download files empty files.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testDownloadFilesEmptyFiles() {
-		HttpUtils.getInstance().downloadFiles(URL, QUERY_PARAMS, EXISTING_DIRECTORY, EMPTY_FILE_LIST,
-				STATUS_CHANGE_LISTENER);
-	}
-
-	/**
-	 * Test download files null destination path.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testDownloadFilesNullDestinationPath() {
-		HttpUtils.getInstance().downloadFiles(URL, QUERY_PARAMS, null, FILE_LIST, STATUS_CHANGE_LISTENER);
-	}
-
-	/**
-	 * Test download files null files.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testDownloadFilesNullFiles() {
-		HttpUtils.getInstance().downloadFiles(URL, QUERY_PARAMS, EXISTING_DIRECTORY, null, STATUS_CHANGE_LISTENER);
-	}
-
-	/**
-	 * Test download files null status change listener.
-	 */
-	@Test(expected = NullPointerException.class)
-	public void testDownloadFilesNullStatusChangeListener() {
-		HttpUtils.getInstance().downloadFiles(URL, QUERY_PARAMS, EXISTING_DIRECTORY, FILE_LIST, null);
-	}
-
-	/**
-	 * Test download files null url.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testDownloadFilesNullUrl() {
-		HttpUtils.getInstance()
-				.downloadFiles(null, QUERY_PARAMS, EXISTING_DIRECTORY, FILE_LIST, STATUS_CHANGE_LISTENER);
-	}
 
 	/**
 	 * Test get full url.

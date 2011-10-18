@@ -1,36 +1,34 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executer.
+ * This file is part of Universal Task Executor.
  * 
- * Universal Task Executer is free software: you can redistribute it and/or modify
+ * Universal Task Executor is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executer is distributed in the hope that it will be useful, but
+ * Universal Task Executor is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.utils;
+package net.lmxm.ute.executers.tasks;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.PropertiesHolder;
-import net.lmxm.ute.utils.testimpl.TestStatusChangeListener;
+import net.lmxm.ute.beans.tasks.GroovyTask;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.junit.Test;
 
 /**
- * The Class GroovyUtilsTest.
+ * The Class GroovyTaskExecuterTest.
  */
-public class GroovyUtilsTest {
-
-	/** The Constant GROOVY_UTILS. */
-	private static final GroovyUtils GROOVY_UTILS = GroovyUtils.getInstance();
+public class GroovyTaskExecuterTest {
 
 	/** The Constant HELLO_WORLD. */
 	private static final String HELLO_WORLD = "println 'Hello World!'";
@@ -38,8 +36,12 @@ public class GroovyUtilsTest {
 	/** The Constant PROPERTIES_HOLDER. */
 	private static final PropertiesHolder PROPERTIES_HOLDER = new Configuration();
 
-	/** The Constant STATUS_CHANGE_LISTENER. */
-	private static final TestStatusChangeListener STATUS_CHANGE_LISTENER = new TestStatusChangeListener();
+	/** The Constant STATUS_CHANGE_HELPER. */
+	private static final StatusChangeHelper STATUS_CHANGE_HELPER = new StatusChangeHelper();
+
+	/** The Constant EXECUTER. */
+	private static final GroovyTaskExecuter TEST_EXECUTER = new GroovyTaskExecuter(new GroovyTask(),
+			new Configuration(), STATUS_CHANGE_HELPER);
 
 	/** The Constant TMP_DIR. */
 	private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
@@ -49,7 +51,7 @@ public class GroovyUtilsTest {
 	 */
 	@Test
 	public void testExecuteScript() {
-		GROOVY_UTILS.executeScript(HELLO_WORLD, TMP_DIR, null, PROPERTIES_HOLDER, STATUS_CHANGE_LISTENER);
+		TEST_EXECUTER.executeScript(HELLO_WORLD, TMP_DIR, null, PROPERTIES_HOLDER);
 	}
 
 	/**
@@ -57,7 +59,7 @@ public class GroovyUtilsTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testExecuteScriptCompilationFailure() {
-		GROOVY_UTILS.executeScript("this will not compile", TMP_DIR, null, PROPERTIES_HOLDER, STATUS_CHANGE_LISTENER);
+		TEST_EXECUTER.executeScript("this will not compile", TMP_DIR, null, PROPERTIES_HOLDER);
 	}
 
 	/**
@@ -65,15 +67,6 @@ public class GroovyUtilsTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testExecuteScriptExecutionFailure() {
-		GROOVY_UTILS.executeScript("throw new IllegalArgumentException()", TMP_DIR, null, PROPERTIES_HOLDER,
-				STATUS_CHANGE_LISTENER);
-	}
-
-	/**
-	 * Test execute script null change listener.
-	 */
-	@Test(expected = NullPointerException.class)
-	public void testExecuteScriptNullChangeListener() {
-		GROOVY_UTILS.executeScript(HELLO_WORLD, TMP_DIR, null, PROPERTIES_HOLDER, null);
+		TEST_EXECUTER.executeScript("throw new IllegalArgumentException()", TMP_DIR, null, PROPERTIES_HOLDER);
 	}
 }
