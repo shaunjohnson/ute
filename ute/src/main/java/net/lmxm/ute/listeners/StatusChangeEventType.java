@@ -22,19 +22,50 @@ package net.lmxm.ute.listeners;
  * The Enum StatusChangeEventType.
  */
 public enum StatusChangeEventType {
-
 	/** The ERROR. */
-	ERROR,
+	ERROR(StatusChangeEventTypeCategory.ERROR),
 
 	/** The FATAL. */
-	FATAL,
+	FATAL(StatusChangeEventTypeCategory.ERROR),
 
 	/** The HEADING. */
-	HEADING,
+	HEADING(StatusChangeEventTypeCategory.INFO),
 
 	/** The IMPORTANT. */
-	IMPORTANT,
+	IMPORTANT(StatusChangeEventTypeCategory.INFO),
 
 	/** The INFO. */
-	INFO;
+	INFO(StatusChangeEventTypeCategory.INFO);
+
+	/**
+	 * The Enum StatusChangeEventTypeCategory.
+	 */
+	private enum StatusChangeEventTypeCategory {
+		/** The ERROR. */
+		ERROR,
+
+		/** The INFO. */
+		INFO;
+	}
+
+	/** The category. */
+	private StatusChangeEventTypeCategory category;
+
+	/**
+	 * Instantiates a new status change event type.
+	 * 
+	 * @param category the category
+	 */
+	StatusChangeEventType(final StatusChangeEventTypeCategory category) {
+		this.category = category;
+	}
+
+	/**
+	 * Checks if is error type.
+	 * 
+	 * @return true, if is error type
+	 */
+	public boolean isErrorType() {
+		return category == StatusChangeEventTypeCategory.ERROR;
+	}
 }
