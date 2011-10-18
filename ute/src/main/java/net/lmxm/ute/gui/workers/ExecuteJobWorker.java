@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.gui.workers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.SwingWorker;
 
 import net.lmxm.ute.beans.PropertiesHolder;
@@ -25,8 +28,7 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeEventType;
+import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.listeners.StatusChangeListener;
 
 import org.slf4j.Logger;
@@ -45,35 +47,48 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 	/** The job. */
 	private final Job job;
 
-	/** The job status listener. */
-	private final JobStatusListener jobStatusListener;
+	/** The job executer. */
+	private final JobExecuter jobExecuter;
 
-	/** The properties holder. */
-	private final PropertiesHolder propertiesHolder;
+	/** The job status listeners. */
+	private final List<JobStatusListener> jobStatusListeners = new ArrayList<JobStatusListener>();
 
-	/** The status change listener. */
-	private final StatusChangeListener statusChangeListener;
+	/** The status change helper. */
+	private final StatusChangeHelper statusChangeHelper = new StatusChangeHelper();
 
 	/**
 	 * Instantiates a new execute job worker.
 	 * 
 	 * @param job the job
 	 * @param propertiesHolder the properties holder
-	 * @param jobStatusListener the job status listener
-	 * @param statusChangeListener the status change listener
 	 */
-	public ExecuteJobWorker(final Job job, final PropertiesHolder propertiesHolder,
-			final JobStatusListener jobStatusListener, final StatusChangeListener statusChangeListener) {
+	public ExecuteJobWorker(final Job job, final PropertiesHolder propertiesHolder) {
 		super();
 
 		Preconditions.checkNotNull(job, "Job may not be null");
-		Preconditions.checkNotNull(jobStatusListener, "JobStatusListener may not be null");
-		Preconditions.checkNotNull(statusChangeListener, "StatusChangeListener may not be null");
 
 		this.job = job;
-		this.propertiesHolder = propertiesHolder;
-		this.jobStatusListener = jobStatusListener;
-		this.statusChangeListener = statusChangeListener;
+		this.jobExecuter = JobExecuterFactory.create(job, propertiesHolder);
+	}
+
+	/**
+	 * Adds the job status listener.
+	 * 
+	 * @param jobStatusListener the job status listener
+	 */
+	public void addJobStatusListener(final JobStatusListener jobStatusListener) {
+		jobExecuter.addJobStatusListener(jobStatusListener);
+		jobStatusListeners.add(jobStatusListener);
+	}
+
+	/**
+	 * Adds the status change listener.
+	 * 
+	 * @param statusChangeListener the status change listener
+	 */
+	public void addStatusChangeListener(final StatusChangeListener statusChangeListener) {
+		jobExecuter.addStatusChangeListener(statusChangeListener);
+		statusChangeHelper.addStatusChangeListener(statusChangeListener);
 	}
 
 	/**
@@ -87,9 +102,6 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final JobExecuter jobExecuter = JobExecuterFactory.create(job, propertiesHolder);
-		jobExecuter.addJobStatusListener(jobStatusListener);
-		jobExecuter.addStatusChangeListener(statusChangeListener);
 		jobExecuter.execute();
 
 		LOGGER.debug("{} leaving", prefix);
@@ -108,15 +120,15 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 		LOGGER.debug("{} entered", prefix);
 
 		if (isCancelled()) {
-			statusChangeListener.statusChange(new StatusChangeEvent(this, StatusChangeEventType.HEADING,
-					"Job Stopped (" + job.getId() + ")"));
+			statusChangeHelper.heading(this, "Job Stopped (" + job.getId() + ")");
 		}
 
-		jobStatusListener.jobStopped();
+		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
+			jobStatusListener.jobStopped();
+		}
 
 		LOGGER.debug("{} leaving", prefix);
 
 		super.done();
 	}
-
 }

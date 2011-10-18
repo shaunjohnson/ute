@@ -28,7 +28,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
@@ -313,9 +312,6 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 			// Update GUI
 			getStopJobButton().setEnabled(false);
 			getJobProgressBar().setVisible(false);
-
-			final JTabbedPane tabbedPane = (JTabbedPane) getParent();
-			tabbedPane.setIconAt(tabbedPane.indexOfComponent(this), null);
 		}
 	}
 
@@ -382,11 +378,6 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	@Override
 	public void statusChange(final StatusChangeEvent statusChangeEvent) {
 		final String styleName;
-
-		if (statusChangeEvent.getEventType().isErrorType()) {
-			final JTabbedPane tabbedPane = (JTabbedPane) getParent();
-			tabbedPane.setForegroundAt(tabbedPane.indexOfComponent(this), Color.RED);
-		}
 
 		switch (statusChangeEvent.getEventType()) {
 			case ERROR:
