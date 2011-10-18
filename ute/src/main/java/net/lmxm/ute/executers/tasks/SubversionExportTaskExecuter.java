@@ -21,6 +21,8 @@ package net.lmxm.ute.executers.tasks;
 import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryLocationUtils;
@@ -66,11 +68,16 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final String url = SubversionRepositoryLocationUtils.getFullUrl(task.getSource());
+		final SubversionRepositorySource source = task.getSource();
+		final String url = SubversionRepositoryLocationUtils.getFullUrl(source);
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
 
-		final SubversionRepositoryUtils subversionRepositoryUtils = new SubversionRepositoryUtils(
+		final SubversionRepositoryLocation location = source.getLocation();
+		final String username = location.getUsername();
+		final String password = location.getPassword();
+
+		final SubversionRepositoryUtils subversionRepositoryUtils = new SubversionRepositoryUtils(username, password,
 				getStatusChangeHelper());
 		subversionRepositoryUtils.exportFiles(url, path, files);
 

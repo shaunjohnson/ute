@@ -20,6 +20,7 @@ package net.lmxm.ute.subversion.utils;
 
 import net.lmxm.ute.listeners.StatusChangeHelper;
 
+import org.apache.commons.lang.StringUtils;
 import org.tmatesoft.svn.core.auth.BasicAuthenticationManager;
 import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
 import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
@@ -35,33 +36,29 @@ public abstract class AbstractSubversionUtils {
 	/** The authentication manager. */
 	private final ISVNAuthenticationManager authenticationManager;
 
+	/** The status change helper. */
 	private final StatusChangeHelper statusChangeHelper;
-
-	/**
-	 * Instantiates a new abstract subversion utils.
-	 * 
-	 * @param statusChangeHelper the status change helper
-	 */
-	public AbstractSubversionUtils(final StatusChangeHelper statusChangeHelper) {
-		super();
-
-		initialize();
-		authenticationManager = SVNWCUtil.createDefaultAuthenticationManager();
-		this.statusChangeHelper = statusChangeHelper;
-	}
 
 	/**
 	 * Instantiates a new abstract subversion utils.
 	 * 
 	 * @param username the username
 	 * @param password the password
+	 * @param statusChangeHelper the status change helper
 	 */
 	public AbstractSubversionUtils(final String username, final String password,
 			final StatusChangeHelper statusChangeHelper) {
 		super();
 
 		initialize();
-		authenticationManager = new BasicAuthenticationManager(username, password);
+
+		if (StringUtils.isBlank(username) && StringUtils.isBlank(password)) {
+			authenticationManager = SVNWCUtil.createDefaultAuthenticationManager();
+		}
+		else {
+			authenticationManager = new BasicAuthenticationManager(username, password);
+		}
+
 		this.statusChangeHelper = statusChangeHelper;
 	}
 

@@ -76,15 +76,6 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 	/**
 	 * Instantiates a new subversion working copy utils.
 	 * 
-	 * @param statusChangeHelper the status change helper
-	 */
-	public SubversionWorkingCopyUtils(final StatusChangeHelper statusChangeHelper) {
-		super(statusChangeHelper);
-	}
-
-	/**
-	 * Instantiates a new subversion working copy utils.
-	 * 
 	 * @param username the username
 	 * @param password the password
 	 * @param statusChangeHelper the status change helper

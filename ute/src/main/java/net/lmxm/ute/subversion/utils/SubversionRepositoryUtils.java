@@ -53,15 +53,6 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 	/**
 	 * Instantiates a new subversion repository utils.
 	 * 
-	 * @param statusChangeHelper the status change helper
-	 */
-	public SubversionRepositoryUtils(final StatusChangeHelper statusChangeHelper) {
-		super(statusChangeHelper);
-	}
-
-	/**
-	 * Instantiates a new subversion repository utils.
-	 * 
 	 * @param username the username
 	 * @param password the password
 	 * @param statusChangeHelper the status change helper

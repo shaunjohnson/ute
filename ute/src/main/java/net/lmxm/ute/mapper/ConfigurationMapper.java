@@ -30,8 +30,8 @@ import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
-import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
@@ -771,9 +771,13 @@ public final class ConfigurationMapper {
 		final SubversionRepositoryLocation subversionRepositoryLocation = new SubversionRepositoryLocation();
 		final String id = subversionRepositoryLocationType.getId();
 		final String url = subversionRepositoryLocationType.getUrl();
+		final String username = subversionRepositoryLocationType.getUsername();
+		final String password = subversionRepositoryLocationType.getPassword();
 
 		subversionRepositoryLocation.setId(id);
 		subversionRepositoryLocation.setUrl(url);
+		subversionRepositoryLocation.setUsername(username);
+		subversionRepositoryLocation.setPassword(password);
 
 		LOGGER.debug("{} returning {}", prefix, subversionRepositoryLocation);
 

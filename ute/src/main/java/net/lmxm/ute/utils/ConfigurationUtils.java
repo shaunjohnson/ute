@@ -499,6 +499,8 @@ public final class ConfigurationUtils {
 			}
 			else {
 				location.setUrl(interpolateProperties(location.getUrl(), propertyNames, propertyValues));
+				location.setUsername(interpolateProperties(location.getUsername(), propertyNames, propertyValues));
+				location.setPassword(interpolateProperties(location.getPassword(), propertyNames, propertyValues));
 			}
 
 			source.setRelativePath(interpolateProperties(source.getRelativePath(), propertyNames, propertyValues));

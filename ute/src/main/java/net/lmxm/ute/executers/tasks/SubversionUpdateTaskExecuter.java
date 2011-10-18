@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.subversion.utils.SubversionWorkingCopyUtils;
@@ -64,8 +65,12 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 
-		final SubversionWorkingCopyUtils subversionWorkingCopyUtils = new SubversionWorkingCopyUtils(
-				getStatusChangeHelper());
+		final SubversionRepositoryLocation location = task.getSource().getLocation();
+		final String username = location.getUsername();
+		final String password = location.getPassword();
+
+		final SubversionWorkingCopyUtils subversionWorkingCopyUtils = new SubversionWorkingCopyUtils(username,
+				password, getStatusChangeHelper());
 		subversionWorkingCopyUtils.updateWorkingCopy(path);
 
 		LOGGER.debug("{} returning", prefix);
