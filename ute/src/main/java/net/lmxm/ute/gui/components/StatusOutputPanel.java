@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui;
+package net.lmxm.ute.gui.components;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

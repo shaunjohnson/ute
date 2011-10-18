@@ -74,6 +74,7 @@ import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.dialogs.AboutDialog;
 import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
@@ -364,7 +365,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 				statusOutputPanel.setJobWorker(jobWorker);
 
 				final JTabbedPane tabbedPane = getBottomPanel();
-				tabbedPane.insertTab(job.getId(), null, statusOutputPanel, null, 0);
+				tabbedPane.insertTab(job.getId(), ImageUtil.LOADER_ICON, statusOutputPanel, null, 0);
 				tabbedPane.setSelectedIndex(0);
 
 				jobWorker.execute();
