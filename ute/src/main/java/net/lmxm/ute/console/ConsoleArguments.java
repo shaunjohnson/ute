@@ -19,14 +19,12 @@
 package net.lmxm.ute.console;
 
 import java.io.File;
-import java.util.List;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
-import com.beust.jcommander.internal.Lists;
 
 /**
  * The Class ConsoleArguments.
@@ -38,7 +36,6 @@ public final class ConsoleArguments {
 	 * The Class InputFileValidator.
 	 */
 	public static class InputFileValidator implements IParameterValidator {
-
 		/*
 		 * (non-Javadoc)
 		 * @see com.beust.jcommander.IParameterValidator#validate(java.lang.String, java.lang.String)
@@ -55,9 +52,13 @@ public final class ConsoleArguments {
 	@Parameter(names = { "-i", "--input-file" }, descriptionKey = "parameter.inputFileDescription", required = true, converter = FileConverter.class, validateWith = InputFileValidator.class)
 	private File inputFile;
 
-	/** The job ids. */
-	@Parameter(names = { "-j", "--job-ids" }, descriptionKey = "parameter.jobIdsDescription")
-	private final List<String> jobIds = Lists.newArrayList();
+	/** The job id. */
+	@Parameter(names = { "-j", "--job-id" }, descriptionKey = "parameter.jobIdDescription", required = true)
+	private final String jobId = null;
+
+	/** The task id. */
+	@Parameter(names = { "-t", "--task-id" }, descriptionKey = "parameter.taskIdDescription")
+	private final String taskId = null;
 
 	/**
 	 * Gets the input file.
@@ -69,11 +70,20 @@ public final class ConsoleArguments {
 	}
 
 	/**
-	 * Gets the job ids.
+	 * Gets the job id.
 	 * 
-	 * @return the job ids
+	 * @return the job id
 	 */
-	public List<String> getJobIds() {
-		return jobIds;
+	public String getJobId() {
+		return jobId;
+	}
+
+	/**
+	 * Gets the task id.
+	 * 
+	 * @return the task id
+	 */
+	public String getTaskId() {
+		return taskId;
 	}
 }

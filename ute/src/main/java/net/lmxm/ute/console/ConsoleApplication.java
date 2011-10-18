@@ -25,6 +25,8 @@ import java.util.List;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SingleTaskJob;
+import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.mapper.ConfigurationMapper;
@@ -151,17 +153,34 @@ public final class ConsoleApplication {
 
 		final List<Job> jobs = new ArrayList<Job>();
 
-		// Load jobs, validating that the job ids are valid
-		for (final String jobId : consoleArguments.getJobIds()) {
-			final Job job = ConfigurationUtils.getJob(configuration, jobId);
+		final String jobId = consoleArguments.getJobId();
+		final String taskId = consoleArguments.getTaskId();
 
-			if (job == null) {
-				LOGGER.error("{} job with id \"{}\" does not exist", prefix, jobId);
+		final Job job = ConfigurationUtils.getJob(configuration, jobId);
+		if (job == null) {
+			LOGGER.error("{} job with id \"{}\" does not exist", prefix, jobId);
+			throw new RuntimeException("Job with id \"" + jobId + "\" does not exist");
+		}
 
-				throw new RuntimeException("Job with id \"" + jobId + "\" does not exist");
+		if (consoleArguments.getTaskId() == null) {
+			jobs.add(job);
+		}
+		else {
+			SingleTaskJob singleTaskJob = null;
+
+			for (final Task task : job.getTasks()) {
+				if (task.getId().equals(taskId)) {
+					singleTaskJob = new SingleTaskJob(task);
+					break;
+				}
 			}
 
-			jobs.add(job);
+			if (singleTaskJob == null) {
+				LOGGER.error("{} task with id \"{}\" does not exist", prefix, taskId);
+				throw new RuntimeException("Task with id \"" + taskId + "\" does not exist");
+			}
+
+			jobs.add(singleTaskJob);
 		}
 
 		LOGGER.debug("{} returning", prefix);
