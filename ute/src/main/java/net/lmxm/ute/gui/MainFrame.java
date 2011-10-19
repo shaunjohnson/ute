@@ -329,6 +329,61 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		initialize();
 	}
 
+	/**
+	 * Action add property.
+	 */
+	private void actionAddProperty() {
+		final Property property = new Property();
+		configuration.getProperties().add(property);
+
+		final TreePath treePath = GuiUtils.addPropertyToTreeModel(mainTree, property);
+		if (treePath != null) {
+			mainTree.setSelectionPath(treePath);
+			mainTree.scrollPathToVisible(treePath);
+		}
+	}
+
+	/**
+	 * Action execute.
+	 */
+	private void actionExecute() {
+		final Object userObject = getSelectedTreeObject();
+		if (userObject == null) {
+			return;
+		}
+
+		Job job = null;
+
+		if (userObject instanceof Job) {
+			job = (Job) userObject;
+		}
+		else if (userObject instanceof Task) {
+			job = new SingleTaskJob((Task) userObject);
+		}
+
+		if (job != null) {
+			job = ConfigurationUtils.interpolateJobValues(job, configuration);
+
+			final JTabbedPane tabbedPane = getBottomPanel();
+			final StatusOutputPanel statusOutputPanel = new StatusOutputPanel(job);
+			final StatusOutputTab statusOutputTab = new StatusOutputTab(tabbedPane, job.getId());
+
+			final ExecuteJobWorker jobWorker = new ExecuteJobWorker(job, configuration);
+			jobWorker.addJobStatusListener(statusOutputPanel);
+			jobWorker.addJobStatusListener(statusOutputTab);
+			jobWorker.addStatusChangeListener(statusOutputPanel);
+			jobWorker.addStatusChangeListener(statusOutputTab);
+
+			statusOutputPanel.setJobWorker(jobWorker);
+
+			tabbedPane.insertTab(job.getId(), null, statusOutputPanel, null, 0);
+			tabbedPane.setSelectedIndex(0);
+			tabbedPane.setTabComponentAt(0, statusOutputTab);
+
+			jobWorker.execute();
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -340,42 +395,11 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		if (actionCommand.equals(ActionConstants.ADD_JOB)) {
 			// TODO Implement add job action
 		}
+		else if (actionCommand.equals(ActionConstants.ADD_PROPERTY)) {
+			actionAddProperty();
+		}
 		else if (actionCommand.equals(ActionConstants.EXECUTE)) {
-			final Object userObject = getSelectedTreeObject();
-			if (userObject == null) {
-				return;
-			}
-
-			Job job = null;
-
-			if (userObject instanceof Job) {
-				job = (Job) userObject;
-			}
-			else if (userObject instanceof Task) {
-				job = new SingleTaskJob((Task) userObject);
-			}
-
-			if (job != null) {
-				job = ConfigurationUtils.interpolateJobValues(job, configuration);
-
-				final JTabbedPane tabbedPane = getBottomPanel();
-				final StatusOutputPanel statusOutputPanel = new StatusOutputPanel(job);
-				final StatusOutputTab statusOutputTab = new StatusOutputTab(tabbedPane, job.getId());
-
-				final ExecuteJobWorker jobWorker = new ExecuteJobWorker(job, configuration);
-				jobWorker.addJobStatusListener(statusOutputPanel);
-				jobWorker.addJobStatusListener(statusOutputTab);
-				jobWorker.addStatusChangeListener(statusOutputPanel);
-				jobWorker.addStatusChangeListener(statusOutputTab);
-
-				statusOutputPanel.setJobWorker(jobWorker);
-
-				tabbedPane.insertTab(job.getId(), null, statusOutputPanel, null, 0);
-				tabbedPane.setSelectedIndex(0);
-				tabbedPane.setTabComponentAt(0, statusOutputTab);
-
-				jobWorker.execute();
-			}
+			actionExecute();
 		}
 	}
 
@@ -475,7 +499,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			addPropertyButton.setIcon(ImageUtil.ADD_PROPERTY_ICON);
 			addPropertyButton.setToolTipText("Add new property");
 			addPropertyButton.setText("Add Property");
-			addPropertyButton.setEnabled(false); // TODO disabled since it is not implemented
+
+			addPropertyButton.addActionListener(this);
+			addPropertyButton.setActionCommand(ActionConstants.ADD_PROPERTY);
 		}
 		return addPropertyButton;
 	}

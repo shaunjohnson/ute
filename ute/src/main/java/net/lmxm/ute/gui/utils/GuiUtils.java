@@ -21,11 +21,16 @@ package net.lmxm.ute.gui.utils;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Enumeration;
 import java.util.List;
 
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
@@ -35,6 +40,9 @@ import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.gui.matchers.TreeNodeMatcher;
+import net.lmxm.ute.gui.matchers.UserObjectClassEqualsMatcher;
+import net.lmxm.ute.gui.matchers.UserObjectEqualsMatcher;
 import net.lmxm.ute.gui.nodes.FileSystemLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.HttpLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.JobsRootTreeNode;
@@ -201,6 +209,28 @@ public final class GuiUtils {
 	}
 
 	/**
+	 * Adds the property to tree model.
+	 * 
+	 * @param tree the tree
+	 * @param treeModel the tree model
+	 * @param property the property
+	 */
+	public static TreePath addPropertyToTreeModel(final JTree tree, final Property property) {
+		final DefaultTreeModel treeModel = (DefaultTreeModel) tree.getModel();
+		final TreePath treePath = findPathToNode(tree, new UserObjectClassEqualsMatcher(PropertiesRootTreeNode.class));
+
+		if (treePath == null) {
+			throw new RuntimeException("Unable to find Properties node"); // TODO use appropriate exception
+		}
+
+		final MutableTreeNode propertiesNode = (MutableTreeNode) treePath.getLastPathComponent();
+		final MutableTreeNode propertyNode = new DefaultMutableTreeNode(property);
+		treeModel.insertNodeInto(propertyNode, propertiesNode, 0);
+
+		return findPathToNode(tree, new UserObjectEqualsMatcher(property));
+	}
+
+	/**
 	 * Adds the subversion repository locations to tree model.
 	 * 
 	 * @param rootNode the root node
@@ -248,6 +278,39 @@ public final class GuiUtils {
 		component.setLocation(x, y);
 
 		LOGGER.debug("{} leaving", prefix);
+	}
+
+	public static TreePath findPathToNode(final JTree tree, final TreeNodeMatcher matcher) {
+		final TreeNode root = (TreeNode) tree.getModel().getRoot();
+
+		return findPathToNode(root, matcher);
+	}
+
+	public static TreePath findPathToNode(final TreeNode treeNode, final TreeNodeMatcher matcher) {
+		return findPathToNode(new TreePath(treeNode), matcher);
+	}
+
+	public static TreePath findPathToNode(final TreePath treePath, final TreeNodeMatcher matcher) {
+		final TreeNode treeNode = (TreeNode) treePath.getLastPathComponent();
+
+		if (matcher.matches(treeNode)) {
+			return treePath;
+		}
+
+		if (treeNode.getChildCount() >= 0) {
+			for (final Enumeration child = treeNode.children(); child.hasMoreElements();) {
+				final TreeNode childTreeNode = (TreeNode) child.nextElement();
+				final TreePath childPath = treePath.pathByAddingChild(childTreeNode);
+				final TreePath result = findPathToNode(childPath, matcher);
+
+				if (result != null) {
+					return result;
+				}
+			}
+		}
+
+		// No match at this branch
+		return null;
 	}
 
 	/**
