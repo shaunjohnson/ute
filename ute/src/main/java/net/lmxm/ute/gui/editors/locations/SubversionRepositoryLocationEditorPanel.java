@@ -39,8 +39,14 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8782148253716749536L;
 
+	/** The password text field. */
+	private JTextField passwordTextField = null;
+
 	/** The url text field. */
 	private JTextField urlTextField = null;
+
+	/** The username text field. */
+	private JTextField usernameTextField = null;
 
 	/**
 	 * Instantiates a new subversion repository location editor panel.
@@ -54,6 +60,25 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 
 		addLabel(contentPanel, "URL");
 		contentPanel.add(getUrlTextField());
+
+		addLabel(contentPanel, "Username");
+		contentPanel.add(getUsernameTextField());
+
+		addLabel(contentPanel, "Password");
+		contentPanel.add(getPasswordTextField());
+	}
+
+	/**
+	 * Gets the password text field.
+	 * 
+	 * @return the password text field
+	 */
+	private JTextField getPasswordTextField() {
+		if (passwordTextField == null) {
+			passwordTextField = new JTextField();
+			passwordTextField.setMinimumSize(new Dimension(400, (int) passwordTextField.getSize().getHeight()));
+		}
+		return passwordTextField;
 	}
 
 	/**
@@ -70,6 +95,19 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 	}
 
 	/**
+	 * Gets the username text field.
+	 * 
+	 * @return the username text field
+	 */
+	private JTextField getUsernameTextField() {
+		if (usernameTextField == null) {
+			usernameTextField = new JTextField();
+			usernameTextField.setMinimumSize(new Dimension(400, (int) usernameTextField.getSize().getHeight()));
+		}
+		return usernameTextField;
+	}
+
+	/**
 	 * Load data.
 	 * 
 	 * @param subversionRepositoryLocation the subversion repository location
@@ -83,9 +121,13 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 
 		if (subversionRepositoryLocation == null) {
 			getUrlTextField().setText("");
+			getUsernameTextField().setText("");
+			getPasswordTextField().setText("");
 		}
 		else {
 			getUrlTextField().setText(subversionRepositoryLocation.getUrl());
+			getUsernameTextField().setText(subversionRepositoryLocation.getUsername());
+			getPasswordTextField().setText(subversionRepositoryLocation.getPassword());
 		}
 
 		LOGGER.debug("{} leaving", prefix);
