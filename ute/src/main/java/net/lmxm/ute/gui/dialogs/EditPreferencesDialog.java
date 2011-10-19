@@ -57,8 +57,10 @@ public class EditPreferencesDialog extends JDialog {
 	/** The main layout panel. */
 	private JPanel mainLayoutPanel = null;
 
+	/** The preferences scroll pane. */
 	private JScrollPane preferencesScrollPane = null;
 
+	/** The preferences table. */
 	private JTable preferencesTable = null;
 
 	/** The save button. */
@@ -79,6 +81,11 @@ public class EditPreferencesDialog extends JDialog {
 		initialize();
 	}
 
+	/**
+	 * Creates the empty preferences table model.
+	 * 
+	 * @return the default table model
+	 */
 	protected final DefaultTableModel createEmptyPreferencesTableModel() {
 		final DefaultTableModel tableModel = new DefaultTableModel();
 
@@ -137,6 +144,11 @@ public class EditPreferencesDialog extends JDialog {
 		return mainLayoutPanel;
 	}
 
+	/**
+	 * Gets the preferences scroll pane.
+	 * 
+	 * @return the preferences scroll pane
+	 */
 	protected final JScrollPane getPreferencesScrollPane() {
 		if (preferencesScrollPane == null) {
 			preferencesScrollPane = new JScrollPane(getPreferencesTable());
@@ -146,6 +158,11 @@ public class EditPreferencesDialog extends JDialog {
 		return preferencesScrollPane;
 	}
 
+	/**
+	 * Gets the preferences table.
+	 * 
+	 * @return the preferences table
+	 */
 	protected final JTable getPreferencesTable() {
 		if (preferencesTable == null) {
 			preferencesTable = new JTable(createEmptyPreferencesTableModel());
@@ -214,6 +231,11 @@ public class EditPreferencesDialog extends JDialog {
 		getCancelButton().requestFocus();
 	}
 
+	/**
+	 * Load preferences data.
+	 * 
+	 * @param configuration the configuration
+	 */
 	public void loadPreferencesData(final Configuration configuration) {
 		final DefaultTableModel tableModel = createEmptyPreferencesTableModel();
 
