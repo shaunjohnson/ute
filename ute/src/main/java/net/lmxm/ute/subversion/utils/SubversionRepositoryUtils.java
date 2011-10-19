@@ -31,6 +31,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tmatesoft.svn.core.SVNAuthenticationException;
 import org.tmatesoft.svn.core.SVNErrorCode;
 import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
@@ -189,6 +190,11 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 			LOGGER.debug("{} finished exporting files", prefix);
 
 			getStatusChangeHelper().important(this, "Finished exporting files. revision=" + latestRevision);
+		}
+		catch (final SVNAuthenticationException e) {
+			LOGGER.error("SVNAuthenticationException caught exporting a file", e);
+			getStatusChangeHelper().error(this, "Subversion authentication failed");
+			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 		catch (final SVNException e) {
 			LOGGER.error("SVNException caught exporting a file", e);

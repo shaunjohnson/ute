@@ -25,6 +25,7 @@ import net.lmxm.ute.listeners.StatusChangeHelper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tmatesoft.svn.core.SVNAuthenticationException;
 import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.internal.wc.DefaultSVNOptions;
@@ -119,6 +120,11 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 			getStatusChangeHelper().important(this, "Finishing updating working copy (" + pathTrimmed + ")");
 
 			LOGGER.debug("{} finished updating working copy", prefix);
+		}
+		catch (final SVNAuthenticationException e) {
+			LOGGER.error("SVNAuthenticationException caught exporting a file", e);
+			getStatusChangeHelper().error(this, "Subversion authentication failed");
+			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 		catch (final SVNException e) {
 			LOGGER.error("SVNException caught while updating working copy", e);
