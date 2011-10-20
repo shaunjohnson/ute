@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
 
 /**
  * The Class SubversionRepositoryLocationsRootPopupMenu.
@@ -39,11 +38,10 @@ public final class SubversionRepositoryLocationsRootPopupMenu extends AbstractPo
 	/**
 	 * Instantiates a new subversion repository locations root popup menu.
 	 * 
-	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
-	public SubversionRepositoryLocationsRootPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
-		super(mainFrame, actionListener);
+	public SubversionRepositoryLocationsRootPopupMenu(final ActionListener actionListener) {
+		super(actionListener);
 
 		add(getAddSubversionRepositoryLocationMenuItem());
 	}

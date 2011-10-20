@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
 
 /**
  * The Class PreferencePopupMenu.
@@ -42,11 +41,10 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 	/**
 	 * Instantiates a new preference popup menu.
 	 * 
-	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
-	public PreferencePopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
-		super(mainFrame, actionListener);
+	public PreferencePopupMenu(final ActionListener actionListener) {
+		super(actionListener);
 
 		add(getAddPreferenceMenuItem());
 		add(getDeletePreferenceMenuItem());

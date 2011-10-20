@@ -24,7 +24,6 @@ import javax.swing.JMenuItem;
 
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
 import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
@@ -50,11 +49,10 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 	/**
 	 * Instantiates a new task popup menu.
 	 * 
-	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
-	public TaskPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
-		super(mainFrame, actionListener);
+	public TaskPopupMenu(final ActionListener actionListener) {
+		super(actionListener);
 
 		add(getExecuteTaskMenuItem());
 		add(getAddTaskBeforeMenuItem());

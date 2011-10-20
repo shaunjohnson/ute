@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
 
 /**
  * The Class FileSystemLocationsRootPopupMenu.
@@ -39,11 +38,10 @@ public final class FileSystemLocationsRootPopupMenu extends AbstractPopupMenu {
 	/**
 	 * Instantiates a new file system locations root popup menu.
 	 * 
-	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
-	public FileSystemLocationsRootPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
-		super(mainFrame, actionListener);
+	public FileSystemLocationsRootPopupMenu(final ActionListener actionListener) {
+		super(actionListener);
 
 		add(getAddFileSystemLocationMenuItem());
 	}

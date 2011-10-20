@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
 import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
@@ -48,8 +47,8 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public JobPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
-		super(mainFrame, actionListener);
+	public JobPopupMenu(final ActionListener actionListener) {
+		super(actionListener);
 
 		add(getExecuteJobMenuItem());
 		add(getAddTaskMenuItem());

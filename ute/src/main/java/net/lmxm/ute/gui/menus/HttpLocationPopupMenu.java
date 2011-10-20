@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
 
 /**
  * The Class HttpLocationPopupMenu.
@@ -42,11 +41,10 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 	/**
 	 * Instantiates a new http location popup menu.
 	 * 
-	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
-	public HttpLocationPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
-		super(mainFrame, actionListener);
+	public HttpLocationPopupMenu(final ActionListener actionListener) {
+		super(actionListener);
 
 		add(getAddHttpLocationMenuItem());
 		add(getDeleteHttpLocationMenuItem());

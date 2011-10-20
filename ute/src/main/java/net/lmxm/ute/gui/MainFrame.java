@@ -451,7 +451,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected FileSystemLocationPopupMenu getFileSystemLocationPopupMenu() {
 		if (fileSystemLocationPopupMenu == null) {
-			fileSystemLocationPopupMenu = new FileSystemLocationPopupMenu(this, this);
+			fileSystemLocationPopupMenu = new FileSystemLocationPopupMenu(this);
 		}
 
 		return fileSystemLocationPopupMenu;
@@ -464,7 +464,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected FileSystemLocationsRootPopupMenu getFileSystemLocationsRootPopupMenu() {
 		if (fileSystemLocationsRootPopupMenu == null) {
-			fileSystemLocationsRootPopupMenu = new FileSystemLocationsRootPopupMenu(this, this);
+			fileSystemLocationsRootPopupMenu = new FileSystemLocationsRootPopupMenu(this);
 		}
 
 		return fileSystemLocationsRootPopupMenu;
@@ -553,7 +553,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected HttpLocationPopupMenu getHttpLocationPopupMenu() {
 		if (httpLocationPopupMenu == null) {
-			httpLocationPopupMenu = new HttpLocationPopupMenu(this, this);
+			httpLocationPopupMenu = new HttpLocationPopupMenu(this);
 		}
 
 		return httpLocationPopupMenu;
@@ -566,7 +566,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected HttpLocationsRootPopupMenu getHttpLocationsRootPopupMenu() {
 		if (httpLocationsRootPopupMenu == null) {
-			httpLocationsRootPopupMenu = new HttpLocationsRootPopupMenu(this, this);
+			httpLocationsRootPopupMenu = new HttpLocationsRootPopupMenu(this);
 		}
 
 		return httpLocationsRootPopupMenu;
@@ -616,7 +616,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected JobPopupMenu getJobPopupMenu() {
 		if (jobPopupMenu == null) {
-			jobPopupMenu = new JobPopupMenu(this, this);
+			jobPopupMenu = new JobPopupMenu(this);
 		}
 
 		return jobPopupMenu;
@@ -629,7 +629,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected JobsRootPopupMenu getJobsRootPopupMenu() {
 		if (jobsRootPopupMenu == null) {
-			jobsRootPopupMenu = new JobsRootPopupMenu(this, this);
+			jobsRootPopupMenu = new JobsRootPopupMenu(this);
 		}
 
 		return jobsRootPopupMenu;
@@ -766,7 +766,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected PreferencePopupMenu getPreferencePopupMenu() {
 		if (preferencePopupMenu == null) {
-			preferencePopupMenu = new PreferencePopupMenu(this, this);
+			preferencePopupMenu = new PreferencePopupMenu(this);
 		}
 
 		return preferencePopupMenu;
@@ -779,7 +779,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected PreferencesRootPopupMenu getPreferencesRootPopupMenu() {
 		if (preferencesRootPopupMenu == null) {
-			preferencesRootPopupMenu = new PreferencesRootPopupMenu(this, this);
+			preferencesRootPopupMenu = new PreferencesRootPopupMenu(this);
 		}
 
 		return preferencesRootPopupMenu;
@@ -805,7 +805,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected PropertiesRootPopupMenu getPropertiesRootPopupMenu() {
 		if (propertiesRootPopupMenu == null) {
-			propertiesRootPopupMenu = new PropertiesRootPopupMenu(this, this);
+			propertiesRootPopupMenu = new PropertiesRootPopupMenu(this);
 		}
 
 		return propertiesRootPopupMenu;
@@ -834,7 +834,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected PropertyPopupMenu getPropertyPopupMenu() {
 		if (propertyPopupMenu == null) {
-			propertyPopupMenu = new PropertyPopupMenu(this, this);
+			propertyPopupMenu = new PropertyPopupMenu(this);
 		}
 
 		return propertyPopupMenu;
@@ -918,7 +918,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected SubversionRepositoryLocationPopupMenu getSubversionRepositoryLocationPopupMenu() {
 		if (subversionRepositoryLocationPopupMenu == null) {
-			subversionRepositoryLocationPopupMenu = new SubversionRepositoryLocationPopupMenu(this, this);
+			subversionRepositoryLocationPopupMenu = new SubversionRepositoryLocationPopupMenu(this);
 		}
 
 		return subversionRepositoryLocationPopupMenu;
@@ -931,7 +931,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected SubversionRepositoryLocationsRootPopupMenu getSubversionRepositoryLocationsRootPopupMenu() {
 		if (subversionRepositoryLocationsRootPopupMenu == null) {
-			subversionRepositoryLocationsRootPopupMenu = new SubversionRepositoryLocationsRootPopupMenu(this, this);
+			subversionRepositoryLocationsRootPopupMenu = new SubversionRepositoryLocationsRootPopupMenu(this);
 		}
 
 		return subversionRepositoryLocationsRootPopupMenu;
@@ -961,7 +961,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected TaskPopupMenu getTaskPopupMenu() {
 		if (taskPopupMenu == null) {
-			taskPopupMenu = new TaskPopupMenu(this, this);
+			taskPopupMenu = new TaskPopupMenu(this);
 		}
 
 		return taskPopupMenu;

@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.MainFrame;
 import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
@@ -44,11 +43,10 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	/**
 	 * Instantiates a new property popup menu.
 	 * 
-	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
-	public PropertyPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
-		super(mainFrame, actionListener);
+	public PropertyPopupMenu(final ActionListener actionListener) {
+		super(actionListener);
 
 		add(getAddPropertyMenuItem());
 		add(getDeletePropertyMenuItem());

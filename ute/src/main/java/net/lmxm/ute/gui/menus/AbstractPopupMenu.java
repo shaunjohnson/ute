@@ -23,8 +23,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPopupMenu;
 
-import net.lmxm.ute.gui.MainFrame;
-
 import com.google.common.base.Preconditions;
 
 /**
@@ -38,23 +36,17 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 	/** The action listener. */
 	private final ActionListener actionListener;
 
-	/** The main frame. */
-	private final MainFrame mainFrame;
-
 	/**
 	 * Instantiates a new abstract popup menu.
 	 * 
-	 * @param mainFrame the main frame
 	 * @param actionListener the action listener
 	 */
-	public AbstractPopupMenu(final MainFrame mainFrame, final ActionListener actionListener) {
+	public AbstractPopupMenu(final ActionListener actionListener) {
 		super();
 
-		Preconditions.checkNotNull(mainFrame, "Main frame may not be null");
 		Preconditions.checkNotNull(actionListener, "Action listener may not be null");
 
 		this.actionListener = actionListener;
-		this.mainFrame = mainFrame;
 	}
 
 	/**
@@ -71,15 +63,6 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 	 */
 	protected final ActionListener getActionListener() {
 		return actionListener;
-	}
-
-	/**
-	 * Gets the main frame.
-	 * 
-	 * @return the main frame
-	 */
-	protected final MainFrame getMainFrame() {
-		return mainFrame;
 	}
 
 	/*
