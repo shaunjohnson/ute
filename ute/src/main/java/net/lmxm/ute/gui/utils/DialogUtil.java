@@ -24,14 +24,13 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 /**
- * Parent class to all dialogs. Provides common functions useful in all
- * dialogs.
+ * Parent class to all dialogs. Provides common functions useful in all dialogs.
  */
 public final class DialogUtil {
 
 	/**
 	 * Center the specified component on the screen.
-	 *
+	 * 
 	 * @param component Component to be centered.
 	 * @return the component
 	 */
@@ -49,7 +48,7 @@ public final class DialogUtil {
 
 	/**
 	 * Center the specified component on the parent.
-	 *
+	 * 
 	 * @param parent Parent component
 	 * @param child Child component
 	 * @return the component

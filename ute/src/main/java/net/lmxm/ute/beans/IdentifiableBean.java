@@ -25,14 +25,14 @@ public interface IdentifiableBean extends Comparable<IdentifiableBean> {
 
 	/**
 	 * Gets the id.
-	 *
+	 * 
 	 * @return the id
 	 */
 	String getId();
 
 	/**
 	 * Sets the id.
-	 *
+	 * 
 	 * @param id the new id
 	 */
 	void setId(String id);

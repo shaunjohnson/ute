@@ -74,7 +74,7 @@ public class EditPreferencesDialog extends JDialog {
 
 	/**
 	 * Instantiates a new edits the preferences dialog.
-	 *
+	 * 
 	 * @param configuration the configuration
 	 */
 	public EditPreferencesDialog(final Configuration configuration) {

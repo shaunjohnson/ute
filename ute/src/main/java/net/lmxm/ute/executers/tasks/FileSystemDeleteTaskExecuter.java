@@ -51,7 +51,7 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
 	 * Instantiates a new file system delete task executer.
 	 * 
 	 * @param task the task
-	 * @param jobStatusListener the job status listener
+	 * @param statusChangeHelper the status change helper
 	 */
 	public FileSystemDeleteTaskExecuter(final FileSystemDeleteTask task, final StatusChangeHelper statusChangeHelper) {
 		super(statusChangeHelper);
@@ -67,7 +67,6 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
 	 * @param path the path
 	 * @param files the files
 	 * @param stopOnError the stop on error
-	 * @param statusChangeListener the status change listener
 	 */
 	protected void deleteFiles(final String path, final List<FileReference> files, final boolean stopOnError) {
 		final String prefix = "execute() :";
@@ -160,6 +159,8 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
 	 * Force delete.
 	 * 
 	 * @param pathFile the path file
+	 * @param stopOnError the stop on error
+	 * @return true, if successful
 	 */
 	protected boolean forceDelete(final File pathFile, final boolean stopOnError) {
 		final String prefix = "forceDelete() :";

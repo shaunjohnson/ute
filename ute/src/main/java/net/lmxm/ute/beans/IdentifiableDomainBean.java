@@ -33,12 +33,17 @@ public abstract class IdentifiableDomainBean implements DomainBean, Identifiable
 	/** The id. */
 	private String id;
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
 	@Override
 	public int compareTo(final IdentifiableBean identifiableBean) {
 		return new CompareToBuilder().append(this.id, identifiableBean.getId()).toComparison();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -55,7 +60,7 @@ public abstract class IdentifiableDomainBean implements DomainBean, Identifiable
 			return false;
 		}
 
-		final IdentifiableDomainBean rhs = (IdentifiableDomainBean)obj;
+		final IdentifiableDomainBean rhs = (IdentifiableDomainBean) obj;
 
 		return new EqualsBuilder().appendSuper(super.equals(obj)).append(id, rhs.getId()).isEquals();
 	}
@@ -70,7 +75,8 @@ public abstract class IdentifiableDomainBean implements DomainBean, Identifiable
 		return id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -88,7 +94,8 @@ public abstract class IdentifiableDomainBean implements DomainBean, Identifiable
 		this.id = id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

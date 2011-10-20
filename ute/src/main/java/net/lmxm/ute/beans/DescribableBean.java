@@ -24,14 +24,14 @@ package net.lmxm.ute.beans;
 public interface DescribableBean {
 	/**
 	 * Gets the description.
-	 *
+	 * 
 	 * @return the description
 	 */
 	String getDescription();
 
 	/**
 	 * Sets the description.
-	 *
+	 * 
 	 * @param description the new description
 	 */
 	void setDescription(String description);

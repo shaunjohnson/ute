@@ -35,7 +35,8 @@ public final class FileReference implements DomainBean {
 	/** The target name. */
 	private String targetName;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -52,7 +53,7 @@ public final class FileReference implements DomainBean {
 			return false;
 		}
 
-		final FileReference rhs = (FileReference)obj;
+		final FileReference rhs = (FileReference) obj;
 
 		return new EqualsBuilder().appendSuper(super.equals(obj)).append(name, rhs.getName())
 				.append(targetName, rhs.getTargetName()).isEquals();
@@ -76,7 +77,8 @@ public final class FileReference implements DomainBean {
 		return targetName;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override

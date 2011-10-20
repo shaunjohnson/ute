@@ -24,10 +24,10 @@ import net.lmxm.ute.beans.Configuration;
  * The Interface ConfigurationHolder.
  */
 public interface ConfigurationHolder {
-	
+
 	/**
 	 * Gets the configuration.
-	 *
+	 * 
 	 * @return the configuration
 	 */
 	Configuration getConfiguration();

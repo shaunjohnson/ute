@@ -25,7 +25,7 @@ public final class PropertiesRootTreeNode extends AbstractRootTreeNode {
 
 	/**
 	 * Instantiates a new properties root tree node.
-	 *
+	 * 
 	 * @param id the id
 	 */
 	public PropertiesRootTreeNode(final String id) {

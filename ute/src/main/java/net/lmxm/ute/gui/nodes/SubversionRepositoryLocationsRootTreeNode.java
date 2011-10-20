@@ -25,7 +25,7 @@ public final class SubversionRepositoryLocationsRootTreeNode extends AbstractRoo
 
 	/**
 	 * Instantiates a new subversion repository locations root tree node.
-	 *
+	 * 
 	 * @param id the id
 	 */
 	public SubversionRepositoryLocationsRootTreeNode(final String id) {

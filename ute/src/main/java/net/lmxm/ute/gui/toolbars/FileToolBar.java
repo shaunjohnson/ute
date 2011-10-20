@@ -41,7 +41,7 @@ public class FileToolBar extends AbstractToolBar {
 
 	/** The exit button. */
 	private JButton exitButton = null;
-	
+
 	/** The new file button. */
 	private JButton newFileButton = null;
 
@@ -56,7 +56,7 @@ public class FileToolBar extends AbstractToolBar {
 
 	/**
 	 * Instantiates a new file tool bar.
-	 *
+	 * 
 	 * @param actionListener the action listener
 	 */
 	public FileToolBar(ActionListener actionListener) {
@@ -70,7 +70,7 @@ public class FileToolBar extends AbstractToolBar {
 		add(getSaveAsButton());
 		add(getExitButton());
 	}
-	
+
 	/**
 	 * Gets the exit button.
 	 * 
@@ -78,17 +78,19 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getExitButton() {
 		if (exitButton == null) {
-			exitButton = new JButton() {{
-				setIcon(ImageUtil.EXIT_ICON);
-				setText("Exit");
+			exitButton = new JButton() {
+				{
+					setIcon(ImageUtil.EXIT_ICON);
+					setText("Exit");
 
-				addActionListener(getActionListener());
-				setActionCommand(EXIT);
-			}};
+					addActionListener(getActionListener());
+					setActionCommand(EXIT);
+				}
+			};
 		}
 		return exitButton;
 	}
-	
+
 	/**
 	 * Gets the new file button.
 	 * 
@@ -96,18 +98,19 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getNewFileButton() {
 		if (newFileButton == null) {
-			newFileButton = new JButton() {{
-				setText("New");
-				setIcon(ImageUtil.NEW_FILE_ICON);
-				setEnabled(false); // TODO disabled since it is not implemented
+			newFileButton = new JButton() {
+				{
+					setText("New");
+					setIcon(ImageUtil.NEW_FILE_ICON);
+					setEnabled(false); // TODO disabled since it is not implemented
 
-				addActionListener(getActionListener());
-				setActionCommand(NEW_FILE);
-			}};
+					addActionListener(getActionListener());
+					setActionCommand(NEW_FILE);
+				}
+			};
 		}
 		return newFileButton;
 	}
-	
 
 	/**
 	 * Gets the open file button.
@@ -116,13 +119,15 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getOpenFileButton() {
 		if (openFileButton == null) {
-			openFileButton = new JButton() {{
-				setText("Open");
-				setIcon(ImageUtil.OPEN_FILE_ICON);
-				
-				addActionListener(getActionListener());
-				setActionCommand(OPEN_FILE);
-			}};
+			openFileButton = new JButton() {
+				{
+					setText("Open");
+					setIcon(ImageUtil.OPEN_FILE_ICON);
+
+					addActionListener(getActionListener());
+					setActionCommand(OPEN_FILE);
+				}
+			};
 		}
 		return openFileButton;
 	}
@@ -134,14 +139,16 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getSaveButton() {
 		if (saveButton == null) {
-			saveButton = new JButton() {{
-				setText("Save");
-				setIcon(ImageUtil.SAVE_FILE_ICON);
-				setEnabled(false); // TODO disabled since it is not implemented
-				
-				addActionListener(getActionListener());
-				setActionCommand(SAVE_FILE);
-			}};
+			saveButton = new JButton() {
+				{
+					setText("Save");
+					setIcon(ImageUtil.SAVE_FILE_ICON);
+					setEnabled(false); // TODO disabled since it is not implemented
+
+					addActionListener(getActionListener());
+					setActionCommand(SAVE_FILE);
+				}
+			};
 		}
 		return saveButton;
 	}
@@ -153,14 +160,16 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getSaveAsButton() {
 		if (saveAsButton == null) {
-			saveAsButton = new JButton() {{
-				setText("Save As");
-				setIcon(ImageUtil.SAVE_FILE_AS_ICON);
-				setEnabled(false); // TODO disabled since it is not implemented
-				
-				addActionListener(getActionListener());
-				setActionCommand(SAVE_FILE_AS);
-			}};
+			saveAsButton = new JButton() {
+				{
+					setText("Save As");
+					setIcon(ImageUtil.SAVE_FILE_AS_ICON);
+					setEnabled(false); // TODO disabled since it is not implemented
+
+					addActionListener(getActionListener());
+					setActionCommand(SAVE_FILE_AS);
+				}
+			};
 		}
 		return saveAsButton;
 	}

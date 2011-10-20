@@ -111,7 +111,8 @@ import org.slf4j.LoggerFactory;
  * The Class MainFrame.
  */
 @SuppressWarnings("serial")
-public final class MainFrame extends JFrame implements ConfigurationHolder, ActionListener, KeyListener, TreeSelectionListener {
+public final class MainFrame extends JFrame implements ConfigurationHolder, ActionListener, KeyListener,
+		TreeSelectionListener {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MainFrame.class);
@@ -303,9 +304,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (actionCommand.equals(SAVE_FILE_AS)) {
 			// TODO
-		}		
+		}
 	}
-	
+
 	/**
 	 * Action delete property.
 	 */
@@ -321,7 +322,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException("Clone not supported");
 	}
-	
+
 	/**
 	 * Gets the bottom panel.
 	 * 
@@ -501,7 +502,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		return jobDetailsEditorScrollPane;
 	}
 
-
 	/**
 	 * Gets the jobs split pane.
 	 * 
@@ -569,7 +569,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private JToolBar getMainToolBar() {
 		if (mainToolBar == null) {
 			mainToolBar = new MainToolBar(this);
-			
+
 			getMainTree().addTreeSelectionListener(mainToolBar);
 		}
 		return mainToolBar;
@@ -738,7 +738,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			}
 			catch (final Exception e) {
 				LOGGER.debug("initialize() : Error occurred loading configuration file", e);
-				
+
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
 				configuration = new Configuration();
@@ -945,7 +945,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 	/**
 	 * Gets the configuration.
-	 *
+	 * 
 	 * @return the configuration
 	 */
 	@Override
@@ -1007,6 +1007,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			editorPane.initialize(configuration);
 		}
 
-		getJobDetailsEditorScrollPane().setViewportView(editorPane);		
+		getJobDetailsEditorScrollPane().setViewportView(editorPane);
 	}
 }

@@ -66,15 +66,12 @@ import org.slf4j.LoggerFactory;
  */
 public class MainTree extends JTree {
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(MainTree.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MainTree.class);
 
 	/**
-	 * The listener interface for receiving mainTreeMouse events. The class that
-	 * is interested in processing a mainTreeMouse event implements this
-	 * interface, and the object created with that class is registered with a
-	 * component using the component's
-	 * <code>addMainTreeMouseListener<code> method. When
+	 * The listener interface for receiving mainTreeMouse events. The class that is interested in processing a
+	 * mainTreeMouse event implements this interface, and the object created with that class is registered with a
+	 * component using the component's <code>addMainTreeMouseListener<code> method. When
 	 * the mainTreeMouse event occurs, that object's appropriate
 	 * method is invoked.
 	 * 
@@ -85,8 +82,7 @@ public class MainTree extends JTree {
 		/**
 		 * Handle popup trigger.
 		 * 
-		 * @param mouseEvent
-		 *            the mouse event
+		 * @param mouseEvent the mouse event
 		 */
 		public void handlePopupTrigger(final MouseEvent mouseEvent) {
 			final String prefix = "mouseClicked() :";
@@ -107,50 +103,62 @@ public class MainTree extends JTree {
 					// Find popup menu appropriate to the item selected
 					if (object instanceof JobsRootTreeNode) {
 						popupMenu = getJobsRootPopupMenu();
-					} else if (object instanceof Job) {
+					}
+					else if (object instanceof Job) {
 						popupMenu = getJobPopupMenu();
-						((JobPopupMenu) popupMenu)
-								.enableDisableMenuItems((Job) object);
-					} else if (object instanceof Task) {
+						((JobPopupMenu) popupMenu).enableDisableMenuItems((Job) object);
+					}
+					else if (object instanceof Task) {
 						popupMenu = getTaskPopupMenu();
-						((TaskPopupMenu) popupMenu)
-								.enableDisableMenuItems(object);
-					} else if (object instanceof FileSystemLocationsRootTreeNode) {
+						((TaskPopupMenu) popupMenu).enableDisableMenuItems(object);
+					}
+					else if (object instanceof FileSystemLocationsRootTreeNode) {
 						popupMenu = getFileSystemLocationsRootPopupMenu();
-					} else if (object instanceof FileSystemLocation) {
+					}
+					else if (object instanceof FileSystemLocation) {
 						popupMenu = getFileSystemLocationPopupMenu();
-					} else if (object instanceof HttpLocationsRootTreeNode) {
+					}
+					else if (object instanceof HttpLocationsRootTreeNode) {
 						popupMenu = getHttpLocationsRootPopupMenu();
-					} else if (object instanceof HttpLocation) {
+					}
+					else if (object instanceof HttpLocation) {
 						popupMenu = getHttpLocationPopupMenu();
-					} else if (object instanceof SubversionRepositoryLocationsRootTreeNode) {
+					}
+					else if (object instanceof SubversionRepositoryLocationsRootTreeNode) {
 						popupMenu = getSubversionRepositoryLocationsRootPopupMenu();
-					} else if (object instanceof SubversionRepositoryLocation) {
+					}
+					else if (object instanceof SubversionRepositoryLocation) {
 						popupMenu = getSubversionRepositoryLocationPopupMenu();
-					} else if (object instanceof PreferencesRootTreeNode) {
+					}
+					else if (object instanceof PreferencesRootTreeNode) {
 						popupMenu = getPreferencesRootPopupMenu();
-					} else if (object instanceof Preference) {
+					}
+					else if (object instanceof Preference) {
 						popupMenu = getPreferencePopupMenu();
-					} else if (object instanceof PropertiesRootTreeNode) {
+					}
+					else if (object instanceof PropertiesRootTreeNode) {
 						popupMenu = getPropertiesRootPopupMenu();
-					} else if (object instanceof Property) {
+					}
+					else if (object instanceof Property) {
 						popupMenu = getPropertyPopupMenu();
-					} else {
-						LOGGER.debug(
-								"{} unsupported object; no popup will be displayed",
-								prefix);
+					}
+					else {
+						LOGGER.debug("{} unsupported object; no popup will be displayed", prefix);
 					}
 
 					// Display the popup menu if a match was found
 					if (popupMenu != null) {
 						popupMenu.show(mouseEvent.getComponent(), x, y);
-					} else {
+					}
+					else {
 						LOGGER.debug("{} no matching popup found", prefix);
 					}
-				} else {
+				}
+				else {
 					LOGGER.debug("{} no object selected", prefix);
 				}
-			} else {
+			}
+			else {
 				LOGGER.debug("{} not a popup trigger", prefix);
 			}
 
@@ -159,9 +167,7 @@ public class MainTree extends JTree {
 
 		/*
 		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+		 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
 		 */
 		@Override
 		public void mouseClicked(final MouseEvent mouseEvent) {
@@ -170,9 +176,7 @@ public class MainTree extends JTree {
 
 		/*
 		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+		 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
 		 */
 		@Override
 		public void mousePressed(final MouseEvent mouseEvent) {
@@ -181,9 +185,7 @@ public class MainTree extends JTree {
 
 		/*
 		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
+		 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
 		 */
 		@Override
 		public void mouseReleased(final MouseEvent mouseEvent) {
@@ -239,14 +241,13 @@ public class MainTree extends JTree {
 	/**
 	 * Instantiates a new main tree.
 	 * 
-	 * @param actionListener
-	 *            the action listener
+	 * @param actionListener the action listener
 	 */
 	public MainTree(ActionListener actionListener) {
 		super();
 
 		this.actionListener = actionListener;
-		
+
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		setCellRenderer(new JobDetailsTreeCellRenderer());
 		setExpandsSelectedPaths(true);
@@ -254,21 +255,21 @@ public class MainTree extends JTree {
 		setAutoscrolls(true);
 		setShowsRootHandles(true);
 
-//		addKeyListener(new KeyAdapter() {
-//			@Override
-//			public void keyReleased(final KeyEvent e) {
-//				treeSelectionChanged();
-//			}
-//		});
+		// addKeyListener(new KeyAdapter() {
+		// @Override
+		// public void keyReleased(final KeyEvent e) {
+		// treeSelectionChanged();
+		// }
+		// });
 
 		addMouseListener(new MainTreeMouseListener());
 
-//		addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mousePressed(final MouseEvent mouseEvent) {
-//				treeSelectionChanged();
-//			}
-//		});
+		// addMouseListener(new MouseAdapter() {
+		// @Override
+		// public void mousePressed(final MouseEvent mouseEvent) {
+		// treeSelectionChanged();
+		// }
+		// });
 	}
 
 	/**
@@ -287,8 +288,7 @@ public class MainTree extends JTree {
 	 */
 	protected FileSystemLocationPopupMenu getFileSystemLocationPopupMenu() {
 		if (fileSystemLocationPopupMenu == null) {
-			fileSystemLocationPopupMenu = new FileSystemLocationPopupMenu(
-					getActionListener());
+			fileSystemLocationPopupMenu = new FileSystemLocationPopupMenu(getActionListener());
 		}
 
 		return fileSystemLocationPopupMenu;
@@ -301,8 +301,7 @@ public class MainTree extends JTree {
 	 */
 	protected FileSystemLocationsRootPopupMenu getFileSystemLocationsRootPopupMenu() {
 		if (fileSystemLocationsRootPopupMenu == null) {
-			fileSystemLocationsRootPopupMenu = new FileSystemLocationsRootPopupMenu(
-					getActionListener());
+			fileSystemLocationsRootPopupMenu = new FileSystemLocationsRootPopupMenu(getActionListener());
 		}
 
 		return fileSystemLocationsRootPopupMenu;
@@ -315,8 +314,7 @@ public class MainTree extends JTree {
 	 */
 	protected HttpLocationPopupMenu getHttpLocationPopupMenu() {
 		if (httpLocationPopupMenu == null) {
-			httpLocationPopupMenu = new HttpLocationPopupMenu(
-					getActionListener());
+			httpLocationPopupMenu = new HttpLocationPopupMenu(getActionListener());
 		}
 
 		return httpLocationPopupMenu;
@@ -329,8 +327,7 @@ public class MainTree extends JTree {
 	 */
 	protected HttpLocationsRootPopupMenu getHttpLocationsRootPopupMenu() {
 		if (httpLocationsRootPopupMenu == null) {
-			httpLocationsRootPopupMenu = new HttpLocationsRootPopupMenu(
-					getActionListener());
+			httpLocationsRootPopupMenu = new HttpLocationsRootPopupMenu(getActionListener());
 		}
 
 		return httpLocationsRootPopupMenu;
@@ -382,8 +379,7 @@ public class MainTree extends JTree {
 	 */
 	protected PreferencesRootPopupMenu getPreferencesRootPopupMenu() {
 		if (preferencesRootPopupMenu == null) {
-			preferencesRootPopupMenu = new PreferencesRootPopupMenu(
-					getActionListener());
+			preferencesRootPopupMenu = new PreferencesRootPopupMenu(getActionListener());
 		}
 
 		return preferencesRootPopupMenu;
@@ -396,8 +392,7 @@ public class MainTree extends JTree {
 	 */
 	protected PropertiesRootPopupMenu getPropertiesRootPopupMenu() {
 		if (propertiesRootPopupMenu == null) {
-			propertiesRootPopupMenu = new PropertiesRootPopupMenu(
-					getActionListener());
+			propertiesRootPopupMenu = new PropertiesRootPopupMenu(getActionListener());
 		}
 
 		return propertiesRootPopupMenu;
@@ -423,8 +418,7 @@ public class MainTree extends JTree {
 	 */
 	protected SubversionRepositoryLocationPopupMenu getSubversionRepositoryLocationPopupMenu() {
 		if (subversionRepositoryLocationPopupMenu == null) {
-			subversionRepositoryLocationPopupMenu = new SubversionRepositoryLocationPopupMenu(
-					getActionListener());
+			subversionRepositoryLocationPopupMenu = new SubversionRepositoryLocationPopupMenu(getActionListener());
 		}
 
 		return subversionRepositoryLocationPopupMenu;
@@ -456,7 +450,7 @@ public class MainTree extends JTree {
 
 		return taskPopupMenu;
 	}
-	
+
 	/**
 	 * Gets the selected tree object.
 	 * 
@@ -477,7 +471,7 @@ public class MainTree extends JTree {
 
 		return node.getUserObject();
 	}
-	
+
 	/**
 	 * Select tree object at location.
 	 * 

@@ -59,6 +59,7 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
 	 * 
 	 * @param task the task
 	 * @param propertiesHolder the properties holder
+	 * @param statusChangeHelper the status change helper
 	 */
 	public GroovyTaskExecuter(final GroovyTask task, final PropertiesHolder propertiesHolder,
 			final StatusChangeHelper statusChangeHelper) {

@@ -57,21 +57,21 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 
 	/**
 	 * Instantiates a new main tool bar.
-	 *
+	 * 
 	 * @param actionListener the action listener
 	 */
 	public MainToolBar(ActionListener actionListener) {
 		super(actionListener);
-		
+
 		setBorder(TOOLBAR_BORDER);
 
 		add(getExecuteJobButton());
 		add(getAddJobButton());
 		add(getAddLocationButton());
 		add(getAddPropertyButton());
-		add(getAddPreferenceButton());		
+		add(getAddPreferenceButton());
 	}
-	
+
 	/** The execute job button. */
 	private JButton executeJobButton = null;
 
@@ -82,20 +82,22 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getExecuteJobButton() {
 		if (executeJobButton == null) {
-			executeJobButton = new JButton() {{
-				setText("Execute");
-				setIcon(ImageUtil.EXECUTE_ICON);
-				setToolTipText("Execute selected job");
-				setEnabled(false);
-	
-				addActionListener(getActionListener());
-				setActionCommand(EXECUTE);
-			}};
+			executeJobButton = new JButton() {
+				{
+					setText("Execute");
+					setIcon(ImageUtil.EXECUTE_ICON);
+					setToolTipText("Execute selected job");
+					setEnabled(false);
+
+					addActionListener(getActionListener());
+					setActionCommand(EXECUTE);
+				}
+			};
 		}
 
 		return executeJobButton;
 	}
-	
+
 	/**
 	 * Gets the adds the job button.
 	 * 
@@ -103,15 +105,17 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddJobButton() {
 		if (addJobButton == null) {
-			addJobButton = new JButton() {{
-				setText("Add Job");
-				setIcon(ImageUtil.ADD_JOB_ICON);
-				setToolTipText("Add a new job");
-				setEnabled(false); // TODO disabled since it is not implemented
-	
-				addActionListener(getActionListener());
-				setActionCommand(ADD_JOB);
-			}};
+			addJobButton = new JButton() {
+				{
+					setText("Add Job");
+					setIcon(ImageUtil.ADD_JOB_ICON);
+					setToolTipText("Add a new job");
+					setEnabled(false); // TODO disabled since it is not implemented
+
+					addActionListener(getActionListener());
+					setActionCommand(ADD_JOB);
+				}
+			};
 		}
 		return addJobButton;
 	}
@@ -123,15 +127,17 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddLocationButton() {
 		if (addLocationButton == null) {
-			addLocationButton = new JButton() {{
-				setText("Add Location");
-				setIcon(ImageUtil.ADD_LOCATION_ICON);
-				setToolTipText("Add new location");
-				setEnabled(false); // TODO disabled since it is not implemented
-				
-				addActionListener(getActionListener());
-				setActionCommand(ADD_LOCATION);
-			}};
+			addLocationButton = new JButton() {
+				{
+					setText("Add Location");
+					setIcon(ImageUtil.ADD_LOCATION_ICON);
+					setToolTipText("Add new location");
+					setEnabled(false); // TODO disabled since it is not implemented
+
+					addActionListener(getActionListener());
+					setActionCommand(ADD_LOCATION);
+				}
+			};
 		}
 		return addLocationButton;
 	}
@@ -143,15 +149,17 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddPreferenceButton() {
 		if (addPreferenceButton == null) {
-			addPreferenceButton = new JButton() {{
-				setIcon(ImageUtil.ADD_PREFERENCE_ICON);
-				setToolTipText("Add new preference");
-				setText("Add Preference");
-				setEnabled(false); // TODO disabled since it is not implemented
-				
-				addActionListener(getActionListener());
-				setActionCommand(ADD_PREFERENCE);
-			}};
+			addPreferenceButton = new JButton() {
+				{
+					setIcon(ImageUtil.ADD_PREFERENCE_ICON);
+					setToolTipText("Add new preference");
+					setText("Add Preference");
+					setEnabled(false); // TODO disabled since it is not implemented
+
+					addActionListener(getActionListener());
+					setActionCommand(ADD_PREFERENCE);
+				}
+			};
 		}
 		return addPreferenceButton;
 	}
@@ -163,24 +171,29 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddPropertyButton() {
 		if (addPropertyButton == null) {
-			addPropertyButton = new JButton() {{
-				setIcon(ImageUtil.ADD_PROPERTY_ICON);
-				setToolTipText("Add new property");
-				setText("Add Property");
-				
-				addActionListener(getActionListener());
-				setActionCommand(ADD_PROPERTY);
-			}};
+			addPropertyButton = new JButton() {
+				{
+					setIcon(ImageUtil.ADD_PROPERTY_ICON);
+					setToolTipText("Add new property");
+					setText("Add Property");
+
+					addActionListener(getActionListener());
+					setActionCommand(ADD_PROPERTY);
+				}
+			};
 		}
 		return addPropertyButton;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
 	 */
 	@Override
 	public void valueChanged(TreeSelectionEvent treeSelectionEvent) {
-		DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode)treeSelectionEvent.getNewLeadSelectionPath().getLastPathComponent();
-		
-		getExecuteJobButton().setEnabled (treeNode.getUserObject() instanceof Job);
-	}}
+		DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) treeSelectionEvent.getNewLeadSelectionPath()
+				.getLastPathComponent();
+
+		getExecuteJobButton().setEnabled(treeNode.getUserObject() instanceof Job);
+	}
+}

@@ -64,14 +64,16 @@ public final class PropertiesRootPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddPropertyMenuItem() {
 		if (addPropertyMenuItem == null) {
-			addPropertyMenuItem = new JMenuItem() {{
-				setIcon(ImageUtil.ADD_PROPERTY_ICON);
-				setText("Add Property");
-				setToolTipText("Add new property");
-				
-				addActionListener(getActionListener());
-				setActionCommand(ActionConstants.ADD_PROPERTY);
-			}};
+			addPropertyMenuItem = new JMenuItem() {
+				{
+					setIcon(ImageUtil.ADD_PROPERTY_ICON);
+					setText("Add Property");
+					setToolTipText("Add new property");
+
+					addActionListener(getActionListener());
+					setActionCommand(ActionConstants.ADD_PROPERTY);
+				}
+			};
 		}
 		return addPropertyMenuItem;
 	}

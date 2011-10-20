@@ -68,12 +68,14 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddPropertyMenuItem() {
 		if (addPropertyMenuItem == null) {
-			addPropertyMenuItem = new JMenuItem() {{
-				setIcon(ImageUtil.ADD_PROPERTY_ICON);
-				setText("Add Property");
-				addActionListener(getActionListener());
-				setActionCommand(ActionConstants.ADD_PROPERTY);
-			}};
+			addPropertyMenuItem = new JMenuItem() {
+				{
+					setIcon(ImageUtil.ADD_PROPERTY_ICON);
+					setText("Add Property");
+					addActionListener(getActionListener());
+					setActionCommand(ActionConstants.ADD_PROPERTY);
+				}
+			};
 		}
 		return addPropertyMenuItem;
 	}
@@ -85,11 +87,13 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getDeletePropertyMenuItem() {
 		if (deletePropertyMenuItem == null) {
-			deletePropertyMenuItem = new JMenuItem() {{
-				setText("Delete Property");
-				addActionListener(getActionListener());
-				setActionCommand(ActionConstants.DELETE_PROPERTY);
-			}};
+			deletePropertyMenuItem = new JMenuItem() {
+				{
+					setText("Delete Property");
+					addActionListener(getActionListener());
+					setActionCommand(ActionConstants.DELETE_PROPERTY);
+				}
+			};
 		}
 		return deletePropertyMenuItem;
 	}

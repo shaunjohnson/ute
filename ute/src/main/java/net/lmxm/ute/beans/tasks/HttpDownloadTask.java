@@ -37,7 +37,7 @@ public class HttpDownloadTask extends AbstractFilesTask {
 
 	/**
 	 * Gets the source.
-	 *
+	 * 
 	 * @return the source
 	 */
 	public HttpSource getSource() {
@@ -46,7 +46,7 @@ public class HttpDownloadTask extends AbstractFilesTask {
 
 	/**
 	 * Gets the target.
-	 *
+	 * 
 	 * @return the target
 	 */
 	public FileSystemTarget getTarget() {
@@ -55,7 +55,7 @@ public class HttpDownloadTask extends AbstractFilesTask {
 
 	/**
 	 * Sets the source.
-	 *
+	 * 
 	 * @param source the new source
 	 */
 	public void setSource(final HttpSource source) {
@@ -64,7 +64,7 @@ public class HttpDownloadTask extends AbstractFilesTask {
 
 	/**
 	 * Sets the target.
-	 *
+	 * 
 	 * @param target the new target
 	 */
 	public void setTarget(final FileSystemTarget target) {

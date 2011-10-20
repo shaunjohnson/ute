@@ -62,7 +62,7 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 	 * Instantiates a new http download task executer.
 	 * 
 	 * @param task the task
-	 * @param statusChangeListener the status change listener
+	 * @param statusChangeHelper the status change helper
 	 */
 	public HttpDownloadTaskExecuter(final HttpDownloadTask task, final StatusChangeHelper statusChangeHelper) {
 		super(statusChangeHelper);

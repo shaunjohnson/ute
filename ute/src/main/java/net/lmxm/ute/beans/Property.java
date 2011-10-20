@@ -32,7 +32,8 @@ public final class Property extends IdentifiableDomainBean {
 	/** The value. */
 	private String value;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -49,7 +50,7 @@ public final class Property extends IdentifiableDomainBean {
 			return false;
 		}
 
-		final Property rhs = (Property)obj;
+		final Property rhs = (Property) obj;
 
 		return new EqualsBuilder().appendSuper(super.equals(obj)).append(getId(), rhs.getId())
 				.append(value, rhs.getValue()).isEquals();
@@ -64,7 +65,8 @@ public final class Property extends IdentifiableDomainBean {
 		return value;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override

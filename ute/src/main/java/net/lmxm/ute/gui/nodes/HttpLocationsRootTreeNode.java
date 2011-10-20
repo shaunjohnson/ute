@@ -25,7 +25,7 @@ public final class HttpLocationsRootTreeNode extends AbstractRootTreeNode {
 
 	/**
 	 * Instantiates a new http locations root tree node.
-	 *
+	 * 
 	 * @param id the id
 	 */
 	public HttpLocationsRootTreeNode(final String id) {

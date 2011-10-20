@@ -43,7 +43,7 @@ public final class EventHandler implements ISVNEventHandler {
 	/**
 	 * Instantiates a new event handler.
 	 * 
-	 * @param listener the listener
+	 * @param statusChangeHelper the status change helper
 	 */
 	public EventHandler(final StatusChangeHelper statusChangeHelper) {
 		super();

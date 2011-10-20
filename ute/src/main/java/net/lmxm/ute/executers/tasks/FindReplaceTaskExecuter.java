@@ -55,6 +55,7 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 	 * Instantiates a new find replace task executer.
 	 * 
 	 * @param task the task
+	 * @param statusChangeHelper the status change helper
 	 */
 	public FindReplaceTaskExecuter(final FindReplaceTask task, final StatusChangeHelper statusChangeHelper) {
 		super(statusChangeHelper);
@@ -69,7 +70,6 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 	 * 
 	 * @param text the text
 	 * @param pattern the pattern
-	 * @param replacement the replacement
 	 * @return the string
 	 */
 	protected String applyPattern(final String text, final PatternWrapper pattern) {

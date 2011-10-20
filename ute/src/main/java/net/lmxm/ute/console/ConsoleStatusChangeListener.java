@@ -28,14 +28,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The listener interface for receiving consoleStatusChange events.
- * The class that is interested in processing a consoleStatusChange
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addConsoleStatusChangeListener<code> method. When
+ * The listener interface for receiving consoleStatusChange events. The class that is interested in processing a
+ * consoleStatusChange event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addConsoleStatusChangeListener<code> method. When
  * the consoleStatusChange event occurs, that object's appropriate
  * method is invoked.
- *
+ * 
  * @see ConsoleStatusChangeEvent
  */
 public final class ConsoleStatusChangeListener implements StatusChangeListener {
@@ -49,8 +47,8 @@ public final class ConsoleStatusChangeListener implements StatusChangeListener {
 	/** The Constant stdout. */
 	private static final PrintStream stdout = System.out;
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.StatusChangeListener#statusChange(net.lmxm.ute.listeners.StatusChangeEvent)
 	 */
 	@Override

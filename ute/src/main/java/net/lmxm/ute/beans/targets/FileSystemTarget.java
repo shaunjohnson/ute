@@ -51,7 +51,8 @@ public final class FileSystemTarget extends AbstractTarget {
 		this.location = location;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

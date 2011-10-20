@@ -28,7 +28,7 @@ public abstract class AbstractRootTreeNode implements RootTreeNode {
 
 	/**
 	 * Instantiates a new abstract root tree node.
-	 *
+	 * 
 	 * @param id the id
 	 */
 	public AbstractRootTreeNode(final String id) {
@@ -37,7 +37,8 @@ public abstract class AbstractRootTreeNode implements RootTreeNode {
 		this.id = id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

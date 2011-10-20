@@ -35,7 +35,7 @@ public final class ConfigurationException extends RuntimeException {
 
 	/**
 	 * Instantiates a new configuration exception.
-	 *
+	 * 
 	 * @param message the message
 	 */
 	public ConfigurationException(final String message) {
@@ -44,7 +44,7 @@ public final class ConfigurationException extends RuntimeException {
 
 	/**
 	 * Instantiates a new configuration exception.
-	 *
+	 * 
 	 * @param message the message
 	 * @param cause the cause
 	 */
@@ -54,7 +54,7 @@ public final class ConfigurationException extends RuntimeException {
 
 	/**
 	 * Instantiates a new configuration exception.
-	 *
+	 * 
 	 * @param cause the cause
 	 */
 	public ConfigurationException(final Throwable cause) {

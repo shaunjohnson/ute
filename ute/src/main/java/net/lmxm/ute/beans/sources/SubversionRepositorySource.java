@@ -51,7 +51,8 @@ public final class SubversionRepositorySource extends AbstractSource {
 		this.location = location;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

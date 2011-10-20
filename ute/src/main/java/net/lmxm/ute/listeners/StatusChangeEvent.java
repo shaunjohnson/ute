@@ -42,8 +42,8 @@ public final class StatusChangeEvent extends EventObject {
 	 * Instantiates a new status change event.
 	 * 
 	 * @param source the source
-	 * @param message the message
 	 * @param eventType the event type
+	 * @param message the message
 	 */
 	public StatusChangeEvent(final Object source, final StatusChangeEventType eventType, final String message) {
 		super(source);

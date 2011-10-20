@@ -42,7 +42,7 @@ public final class JobsRootPopupMenu extends AbstractPopupMenu {
 	 * @param actionListener the action listener
 	 */
 	public JobsRootPopupMenu(final ActionListener actionListener) {
-		super( actionListener);
+		super(actionListener);
 
 		add(getAddJobMenuItem());
 	}

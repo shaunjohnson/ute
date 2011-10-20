@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.beans.locations;
 
-
 /**
  * The Class HttpLocation.
  */

@@ -39,6 +39,7 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2888672591061035475L;
 
+	/** The preference value text field. */
 	private JTextField preferenceValueTextField = null;
 
 	/**
@@ -57,6 +58,11 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 		contentPanel.add(getPreferenceValueTextField());
 	}
 
+	/**
+	 * Gets the preference value text field.
+	 * 
+	 * @return the preference value text field
+	 */
 	private JTextField getPreferenceValueTextField() {
 		if (preferenceValueTextField == null) {
 			preferenceValueTextField = new JTextField();

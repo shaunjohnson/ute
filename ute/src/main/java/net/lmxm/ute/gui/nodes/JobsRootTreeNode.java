@@ -25,6 +25,8 @@ public final class JobsRootTreeNode extends AbstractRootTreeNode {
 
 	/**
 	 * Instantiates a new jobs root tree node.
+	 * 
+	 * @param id the id
 	 */
 	public JobsRootTreeNode(final String id) {
 		super(id);

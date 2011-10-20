@@ -83,10 +83,11 @@ public class MainMenuBar extends JMenuBar {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
-	
+
 	/**
 	 * Instantiates a new main menu bar.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
 	public MainMenuBar(ConfigurationHolder configurationHolder, ActionListener actionListener) {
@@ -106,20 +107,22 @@ public class MainMenuBar extends JMenuBar {
 	 * @return the about menu item
 	 */
 	private JMenuItem getAboutMenuItem() {
-		if (aboutMenuItem == null) {			
-			aboutMenuItem = new JMenuItem() {{
-				setText("About");
-				setIcon(ImageUtil.ABOUT_ICON);
-			
-				addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(final ActionEvent actionEvent) {
-						final JDialog dialog = new AboutDialog();
-						DialogUtil.center(dialog);
-						dialog.setVisible(true);
-					}
-				});
-			}};
+		if (aboutMenuItem == null) {
+			aboutMenuItem = new JMenuItem() {
+				{
+					setText("About");
+					setIcon(ImageUtil.ABOUT_ICON);
+
+					addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent actionEvent) {
+							final JDialog dialog = new AboutDialog();
+							DialogUtil.center(dialog);
+							dialog.setVisible(true);
+						}
+					});
+				}
+			};
 		}
 		return aboutMenuItem;
 	}
@@ -140,11 +143,13 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenu getEditMenu() {
 		if (editMenu == null) {
-			editMenu = new JMenu() {{
-				setText("Edit");
-				
-				add(getEditPreferencesMenuItem());
-			}};
+			editMenu = new JMenu() {
+				{
+					setText("Edit");
+
+					add(getEditPreferencesMenuItem());
+				}
+			};
 		}
 		return editMenu;
 	}
@@ -155,20 +160,23 @@ public class MainMenuBar extends JMenuBar {
 	 * @return the edits the preferences menu item
 	 */
 	private JMenuItem getEditPreferencesMenuItem() {
-		if (editPreferencesMenuItem == null) {			
-			editPreferencesMenuItem = new JMenuItem() {{
-				setText("Edit Preferences");
-				setIcon(ImageUtil.EDIT_PREFERENCES_ICON);
+		if (editPreferencesMenuItem == null) {
+			editPreferencesMenuItem = new JMenuItem() {
+				{
+					setText("Edit Preferences");
+					setIcon(ImageUtil.EDIT_PREFERENCES_ICON);
 
-				addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(final ActionEvent actionEvent) {
-						final EditPreferencesDialog dialog = new EditPreferencesDialog(configurationHolder.getConfiguration());
-						DialogUtil.center(dialog);
-						dialog.setVisible(true);
-					}
-				});
-			}};
+					addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent actionEvent) {
+							final EditPreferencesDialog dialog = new EditPreferencesDialog(
+									configurationHolder.getConfiguration());
+							DialogUtil.center(dialog);
+							dialog.setVisible(true);
+						}
+					});
+				}
+			};
 		}
 		return editPreferencesMenuItem;
 	}
@@ -180,13 +188,15 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getExitMenuItem() {
 		if (exitMenuItem == null) {
-			exitMenuItem = new JMenuItem() {{
-				setText("Exit");
-				setIcon(ImageUtil.EXIT_ICON);
+			exitMenuItem = new JMenuItem() {
+				{
+					setText("Exit");
+					setIcon(ImageUtil.EXIT_ICON);
 
-				addActionListener(getActionListener());
-				setActionCommand(EXIT);
-			}};
+					addActionListener(getActionListener());
+					setActionCommand(EXIT);
+				}
+			};
 		}
 		return exitMenuItem;
 	}
@@ -198,16 +208,18 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenu getFileMenu() {
 		if (fileMenu == null) {
-			fileMenu = new JMenu() {{
-				setText("File");
-				
-				add(getNewFileMenuItem());
-				add(getOpenFileMenuItem());
-				add(getSaveMenuItem());
-				add(getSaveAsMenuItem());
-				add(new JSeparator());
-				add(getExitMenuItem());
-			}};
+			fileMenu = new JMenu() {
+				{
+					setText("File");
+
+					add(getNewFileMenuItem());
+					add(getOpenFileMenuItem());
+					add(getSaveMenuItem());
+					add(getSaveAsMenuItem());
+					add(new JSeparator());
+					add(getExitMenuItem());
+				}
+			};
 		}
 		return fileMenu;
 	}
@@ -219,10 +231,12 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	public JMenu getHelpMenu() {
 		if (helpMenu == null) {
-			helpMenu = new JMenu() {{
-				setText("Help");
-				add(getAboutMenuItem());
-			}};
+			helpMenu = new JMenu() {
+				{
+					setText("Help");
+					add(getAboutMenuItem());
+				}
+			};
 		}
 		return helpMenu;
 	}
@@ -234,14 +248,16 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getNewFileMenuItem() {
 		if (newFileMenuItem == null) {
-			newFileMenuItem = new JMenuItem() {{
-				setText("New");
-				setIcon(ImageUtil.NEW_FILE_ICON);
-				setEnabled(false); // TODO disabled since it is not implemented
-				
-				addActionListener(getActionListener());
-				setActionCommand(NEW_FILE);
-			}};
+			newFileMenuItem = new JMenuItem() {
+				{
+					setText("New");
+					setIcon(ImageUtil.NEW_FILE_ICON);
+					setEnabled(false); // TODO disabled since it is not implemented
+
+					addActionListener(getActionListener());
+					setActionCommand(NEW_FILE);
+				}
+			};
 		}
 		return newFileMenuItem;
 	}
@@ -253,13 +269,15 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getOpenFileMenuItem() {
 		if (openFileMenuItem == null) {
-			openFileMenuItem = new JMenuItem() {{
-				setText("Open...");
-				setIcon(ImageUtil.OPEN_FILE_ICON);
-				
-				addActionListener(getActionListener());
-				setActionCommand(OPEN_FILE);
-			}};
+			openFileMenuItem = new JMenuItem() {
+				{
+					setText("Open...");
+					setIcon(ImageUtil.OPEN_FILE_ICON);
+
+					addActionListener(getActionListener());
+					setActionCommand(OPEN_FILE);
+				}
+			};
 		}
 		return openFileMenuItem;
 	}
@@ -271,14 +289,16 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getSaveAsMenuItem() {
 		if (saveAsMenuItem == null) {
-			saveAsMenuItem = new JMenuItem() {{
-				setText("Save as...");
-				setIcon(ImageUtil.SAVE_FILE_AS_ICON);
-				setEnabled(false); // TODO disabled since it is not implemented
-				
-				addActionListener(getActionListener());
-				setActionCommand(SAVE_FILE_AS);
-			}};
+			saveAsMenuItem = new JMenuItem() {
+				{
+					setText("Save as...");
+					setIcon(ImageUtil.SAVE_FILE_AS_ICON);
+					setEnabled(false); // TODO disabled since it is not implemented
+
+					addActionListener(getActionListener());
+					setActionCommand(SAVE_FILE_AS);
+				}
+			};
 		}
 		return saveAsMenuItem;
 	}
@@ -290,14 +310,16 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getSaveMenuItem() {
 		if (saveMenuItem == null) {
-			saveMenuItem = new JMenuItem() {{
-				setText("Save");
-				setIcon(ImageUtil.SAVE_FILE_ICON);
-				setEnabled(false); // TODO disabled since it is not implemented
-				
-				addActionListener(getActionListener());
-				setActionCommand(SAVE_FILE);
-			}};
+			saveMenuItem = new JMenuItem() {
+				{
+					setText("Save");
+					setIcon(ImageUtil.SAVE_FILE_ICON);
+					setEnabled(false); // TODO disabled since it is not implemented
+
+					addActionListener(getActionListener());
+					setActionCommand(SAVE_FILE);
+				}
+			};
 		}
 		return saveMenuItem;
 	}
