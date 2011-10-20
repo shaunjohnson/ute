@@ -261,7 +261,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 			statusOutputPanel.setJobWorker(jobWorker);
 
-			tabbedPane.insertTab(job.getId(), null, statusOutputPanel, null, 0);
+			tabbedPane.insertTab("", null, statusOutputPanel, null, 0);
 			tabbedPane.setSelectedIndex(0);
 			tabbedPane.setTabComponentAt(0, statusOutputTab);
 
