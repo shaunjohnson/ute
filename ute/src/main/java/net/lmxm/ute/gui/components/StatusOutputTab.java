@@ -48,6 +48,7 @@ import com.google.common.base.Preconditions;
 /**
  * The Class StatusOutputTab.
  */
+@SuppressWarnings("serial")
 public class StatusOutputTab extends JPanel implements JobStatusListener, StatusChangeListener {
 
 	/**
@@ -197,9 +198,12 @@ public class StatusOutputTab extends JPanel implements JobStatusListener, Status
 	 */
 	private JButton getCloseButton() {
 		if (closeButton == null) {
-			closeButton = new CloseTabButton();
-			closeButton.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
-			closeButton.setVisible(false);
+			closeButton = new CloseTabButton() {
+				{
+					setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+					setVisible(false);
+				}
+			};
 		}
 
 		return closeButton;
@@ -212,8 +216,11 @@ public class StatusOutputTab extends JPanel implements JobStatusListener, Status
 	 */
 	private JLabel getLoaderIcon() {
 		if (loaderIcon == null) {
-			loaderIcon = new JLabel(ImageUtil.LOADER_ICON);
-			loaderIcon.setVisible(false);
+			loaderIcon = new JLabel(ImageUtil.LOADER_ICON) {
+				{
+					setVisible(false);
+				}
+			};
 		}
 
 		return loaderIcon;
@@ -226,8 +233,11 @@ public class StatusOutputTab extends JPanel implements JobStatusListener, Status
 	 */
 	private JLabel getTitleLabel() {
 		if (titleLabel == null) {
-			titleLabel = new JLabel(titleText);
-			titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+			titleLabel = new JLabel(titleText) {
+				{
+					setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+				}
+			};
 		}
 
 		return titleLabel;

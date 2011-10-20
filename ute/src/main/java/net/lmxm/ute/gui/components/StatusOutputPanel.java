@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class StatusOutputPanel.
  */
+@SuppressWarnings("serial")
 public class StatusOutputPanel extends JPanel implements JobStatusListener, StatusChangeListener {
 
 	/** The Constant ERROR. */
@@ -164,15 +165,19 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	 */
 	private JButton getClearOutputButton() {
 		if (clearOutputButton == null) {
-			clearOutputButton = new JButton();
-			clearOutputButton.setIcon(ImageUtil.CLEAR_ICON);
-			clearOutputButton.setText("Clear");
-			clearOutputButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					getOutputPane().setText("");
+			clearOutputButton = new JButton() {
+				{
+					setIcon(ImageUtil.CLEAR_ICON);
+					setText("Clear");
+
+					addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent e) {
+							getOutputPane().setText("");
+						}
+					});
 				}
-			});
+			};
 		}
 		return clearOutputButton;
 	}
@@ -184,8 +189,11 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	 */
 	private JProgressBar getJobProgressBar() {
 		if (jobProgressBar == null) {
-			jobProgressBar = new JProgressBar(SwingConstants.HORIZONTAL);
-			jobProgressBar.setVisible(false);
+			jobProgressBar = new JProgressBar(SwingConstants.HORIZONTAL) {
+				{
+					setVisible(false);
+				}
+			};
 		}
 
 		return jobProgressBar;
@@ -207,13 +215,15 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	 */
 	private JToolBar getOutputButtonToolBar() {
 		if (outputButtonToolBar == null) {
-			outputButtonToolBar = new JToolBar();
+			outputButtonToolBar = new JToolBar() {
+				{
+					setBorder(TOOLBAR_BORDER);
 
-			outputButtonToolBar.setBorder(TOOLBAR_BORDER);
-
-			outputButtonToolBar.add(getStopJobButton());
-			outputButtonToolBar.add(getClearOutputButton());
-			outputButtonToolBar.add(getJobProgressBar());
+					add(getStopJobButton());
+					add(getClearOutputButton());
+					add(getJobProgressBar());
+				}
+			};
 		}
 		return outputButtonToolBar;
 	}
@@ -225,8 +235,11 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	 */
 	public JTextPane getOutputPane() {
 		if (outputPane == null) {
-			outputPane = new JTextPane(new DefaultStyledDocument(styleContext));
-			outputPane.setEditable(false);
+			outputPane = new JTextPane(new DefaultStyledDocument(styleContext)) {
+				{
+					setEditable(false);
+				}
+			};
 		}
 
 		return outputPane;
@@ -239,9 +252,13 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	 */
 	private JScrollPane getOutputScrollPane() {
 		if (outputScrollPane == null) {
-			outputScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			outputScrollPane.setViewportView(getOutputPane());
+			outputScrollPane = new JScrollPane() {
+				{
+					setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+					setViewportView(getOutputPane());
+					setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				}
+			};
 		}
 		return outputScrollPane;
 	}
@@ -262,23 +279,27 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	 */
 	private JButton getStopJobButton() {
 		if (stopJobButton == null) {
-			stopJobButton = new JButton();
-			stopJobButton.setText("Stop");
-			stopJobButton.setIcon(ImageUtil.STOP_JOB_ICON);
-			stopJobButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					synchronized (jobWorkerMutex) {
-						if (jobWorker != null) {
-							final String prefix = "getStopJobButton().actionPerformed() :";
+			stopJobButton = new JButton() {
+				{
+					setText("Stop");
+					setIcon(ImageUtil.STOP_JOB_ICON);
 
-							LOGGER.debug("{} Sending cancel to job worker thread", prefix);
+					addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent e) {
+							synchronized (jobWorkerMutex) {
+								if (jobWorker != null) {
+									final String prefix = "getStopJobButton().actionPerformed() :";
 
-							jobWorker.cancel(true);
+									LOGGER.debug("{} Sending cancel to job worker thread", prefix);
+
+									jobWorker.cancel(true);
+								}
+							}
 						}
-					}
+					});
 				}
-			});
+			};
 		}
 		return stopJobButton;
 	}

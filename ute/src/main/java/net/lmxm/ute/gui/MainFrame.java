@@ -35,8 +35,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
@@ -111,8 +109,7 @@ import org.slf4j.LoggerFactory;
  * The Class MainFrame.
  */
 @SuppressWarnings("serial")
-public final class MainFrame extends JFrame implements ConfigurationHolder, ActionListener, KeyListener,
-		TreeSelectionListener {
+public final class MainFrame extends JFrame implements ConfigurationHolder, ActionListener, TreeSelectionListener {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MainFrame.class);
@@ -277,6 +274,52 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 	}
 
+	/**
+	 * Action exit.
+	 */
+	private void actionExit() {
+		final WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
+	}
+
+	/**
+	 * Action open file.
+	 */
+	private void actionOpenFile() {
+		final String prefix = "actionOpenFile() :";
+
+		final JFileChooser fcOpen = new JFileChooser(getCurrentDirectory());
+
+		fcOpen.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+		final int returnVal = fcOpen.showOpenDialog(this);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			final File file = fcOpen.getSelectedFile();
+
+			LOGGER.debug("{} opening file {}", prefix, file.getName());
+
+			try {
+				configuration = ConfigurationMapper.getInstance().parse(file);
+
+				loadAndValidatePreferences(file);
+
+				userPreferences.setLastFileEditedPath(file.getAbsolutePath());
+
+				refreshJobsTree();
+				updateTitle();
+				getJobDetailsEditorScrollPane().setViewportView(null);
+			}
+			catch (final Exception e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		else {
+			LOGGER.debug("{} cancelled by user", prefix);
+		}
+
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -295,7 +338,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			actionDeleteProperty();
 		}
 		else if (actionCommand.equals(EXIT)) {
-			pullThePlug();
+			actionExit();
 		}
 		else if (actionCommand.equals(EXECUTE)) {
 			actionExecute();
@@ -304,7 +347,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			// TODO
 		}
 		else if (actionCommand.equals(OPEN_FILE)) {
-			openFile();
+			actionOpenFile();
 		}
 		else if (actionCommand.equals(SAVE_FILE)) {
 			// TODO
@@ -488,11 +531,13 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		if (jContentPane == null) {
 			LOGGER.debug("{} Creating component", prefix);
 
-			jContentPane = new JPanel(new BorderLayout());
-			jContentPane.setBorder(BorderFactory.createEmptyBorder(PADDING_SIZE, PADDING_SIZE, PADDING_SIZE,
-					PADDING_SIZE));
-			jContentPane.add(getToolbarPanel(), BorderLayout.NORTH);
-			jContentPane.add(getMainSplitPane(), BorderLayout.CENTER);
+			jContentPane = new JPanel(new BorderLayout()) {
+				{
+					setBorder(BorderFactory.createEmptyBorder(PADDING_SIZE, PADDING_SIZE, PADDING_SIZE, PADDING_SIZE));
+					add(getToolbarPanel(), BorderLayout.NORTH);
+					add(getMainSplitPane(), BorderLayout.CENTER);
+				}
+			};
 		}
 
 		LOGGER.debug("{} leaving", prefix);
@@ -519,11 +564,14 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected JSplitPane getJobsSplitPane() {
 		if (jobsSplitPane == null) {
-			jobsSplitPane = new JSplitPane();
-			jobsSplitPane.setDividerLocation(GuiContants.DEFAULT_JOBS_SPLIT_PANE_DIVIDER_LOCATION);
-			jobsSplitPane.setOneTouchExpandable(true);
-			jobsSplitPane.setLeftComponent(getJobsTreeScrollPane());
-			jobsSplitPane.setRightComponent(getJobDetailsEditorScrollPane());
+			jobsSplitPane = new JSplitPane() {
+				{
+					setDividerLocation(GuiContants.DEFAULT_JOBS_SPLIT_PANE_DIVIDER_LOCATION);
+					setOneTouchExpandable(true);
+					setLeftComponent(getJobsTreeScrollPane());
+					setRightComponent(getJobDetailsEditorScrollPane());
+				}
+			};
 		}
 		return jobsSplitPane;
 	}
@@ -535,8 +583,11 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private JScrollPane getJobsTreeScrollPane() {
 		if (jobsTreeScrollPane == null) {
-			jobsTreeScrollPane = new JScrollPane();
-			jobsTreeScrollPane.setViewportView(getMainTree());
+			jobsTreeScrollPane = new JScrollPane() {
+				{
+					setViewportView(getMainTree());
+				}
+			};
 		}
 
 		return jobsTreeScrollPane;
@@ -561,12 +612,15 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	protected JSplitPane getMainSplitPane() {
 		if (mainSplitPane == null) {
-			mainSplitPane = new JSplitPane();
-			mainSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-			mainSplitPane.setDividerLocation(GuiContants.DEFAULT_MAIN_SPLIT_PANE_DIVIDER_LOCATION);
-			mainSplitPane.setOneTouchExpandable(true);
-			mainSplitPane.setBottomComponent(getBottomPanel());
-			mainSplitPane.setTopComponent(getJobsSplitPane());
+			mainSplitPane = new JSplitPane() {
+				{
+					setOrientation(JSplitPane.VERTICAL_SPLIT);
+					setDividerLocation(GuiContants.DEFAULT_MAIN_SPLIT_PANE_DIVIDER_LOCATION);
+					setOneTouchExpandable(true);
+					setBottomComponent(getBottomPanel());
+					setTopComponent(getJobsSplitPane());
+				}
+			};
 		}
 		return mainSplitPane;
 	}
@@ -718,11 +772,15 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private JPanel getToolbarPanel() {
 		if (toolbarPanel == null) {
-			toolbarPanel = new JPanel();
-			toolbarPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-			toolbarPanel.add(getFileToolBar(), null);
-			toolbarPanel.add(getMainToolBar(), null);
-			toolbarPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+			toolbarPanel = new JPanel() {
+				{
+					setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+					setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+					add(getFileToolBar(), null);
+					add(getMainToolBar(), null);
+				}
+			};
 		}
 		return toolbarPanel;
 	}
@@ -772,7 +830,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		setIconImage(ImageUtil.APPLICATION_ICON_IMAGE);
 		setMinimumSize(new Dimension(600, 500));
 		setContentPane(getJContentPane());
-		addKeyListener(this);
 
 		// Preload editors
 		getSequentialJobEditorPanel(null);
@@ -793,35 +850,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		loadUserPreferences();
 
 		LOGGER.debug("{} leaving", prefix);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
-	 */
-	@Override
-	public void keyPressed(final KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			pullThePlug();
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
-	 */
-	@Override
-	public void keyReleased(final KeyEvent e) {
-		// Do nothing
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-	 */
-	@Override
-	public void keyTyped(final KeyEvent e) {
-		// Do nothing
 	}
 
 	/**
@@ -854,52 +882,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 		getMainSplitPane().setDividerLocation(userPreferences.getMainSplitPaneDividerLocation());
 		getJobsSplitPane().setDividerLocation(userPreferences.getJobsSplitPaneDividerLocation());
-	}
-
-	/**
-	 * Open file.
-	 */
-	private void openFile() {
-		final String prefix = "openFile() :";
-
-		final JFileChooser fcOpen = new JFileChooser(getCurrentDirectory());
-
-		fcOpen.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-		final int returnVal = fcOpen.showOpenDialog(this);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			final File file = fcOpen.getSelectedFile();
-
-			LOGGER.debug("{} opening file {}", prefix, file.getName());
-
-			try {
-				configuration = ConfigurationMapper.getInstance().parse(file);
-
-				loadAndValidatePreferences(file);
-
-				userPreferences.setLastFileEditedPath(file.getAbsolutePath());
-
-				refreshJobsTree();
-				updateTitle();
-				getJobDetailsEditorScrollPane().setViewportView(null);
-			}
-			catch (final Exception e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		else {
-			LOGGER.debug("{} cancelled by user", prefix);
-		}
-
-	}
-
-	/**
-	 * Pull the plug.
-	 */
-	private void pullThePlug() {
-		final WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
 	}
 
 	/**

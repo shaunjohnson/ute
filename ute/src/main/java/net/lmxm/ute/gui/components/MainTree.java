@@ -19,8 +19,6 @@
 package net.lmxm.ute.gui.components;
 
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -65,9 +63,6 @@ import org.slf4j.LoggerFactory;
  * The Class MainTree.
  */
 public class MainTree extends JTree {
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(MainTree.class);
-
 	/**
 	 * The listener interface for receiving mainTreeMouse events. The class that is interested in processing a
 	 * mainTreeMouse event implements this interface, and the object created with that class is registered with a
@@ -106,7 +101,7 @@ public class MainTree extends JTree {
 					}
 					else if (object instanceof Job) {
 						popupMenu = getJobPopupMenu();
-						((JobPopupMenu) popupMenu).enableDisableMenuItems((Job) object);
+						((JobPopupMenu) popupMenu).enableDisableMenuItems(object);
 					}
 					else if (object instanceof Task) {
 						popupMenu = getTaskPopupMenu();
@@ -193,6 +188,9 @@ public class MainTree extends JTree {
 		}
 	}
 
+	/** The Constant LOGGER. */
+	private static final Logger LOGGER = LoggerFactory.getLogger(MainTree.class);
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8466615023209238787L;
 
@@ -243,7 +241,7 @@ public class MainTree extends JTree {
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public MainTree(ActionListener actionListener) {
+	public MainTree(final ActionListener actionListener) {
 		super();
 
 		this.actionListener = actionListener;
@@ -412,6 +410,27 @@ public class MainTree extends JTree {
 	}
 
 	/**
+	 * Gets the selected tree object.
+	 * 
+	 * @return the selected tree object
+	 */
+	public Object getSelectedTreeObject() {
+		final TreePath treePath = getSelectionPath();
+
+		if (treePath == null) {
+			return null;
+		}
+
+		final DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
+
+		if (node == null) {
+			return null;
+		}
+
+		return node.getUserObject();
+	}
+
+	/**
 	 * Gets the subversion repository location popup menu.
 	 * 
 	 * @return the subversion repository location popup menu
@@ -449,27 +468,6 @@ public class MainTree extends JTree {
 		}
 
 		return taskPopupMenu;
-	}
-
-	/**
-	 * Gets the selected tree object.
-	 * 
-	 * @return the selected tree object
-	 */
-	public Object getSelectedTreeObject() {
-		final TreePath treePath = getSelectionPath();
-
-		if (treePath == null) {
-			return null;
-		}
-
-		final DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
-
-		if (node == null) {
-			return null;
-		}
-
-		return node.getUserObject();
 	}
 
 	/**
