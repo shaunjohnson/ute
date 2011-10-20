@@ -107,6 +107,8 @@ import net.lmxm.ute.gui.menus.SubversionRepositoryLocationsRootPopupMenu;
 import net.lmxm.ute.gui.menus.TaskPopupMenu;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.renderers.JobDetailsTreeCellRenderer;
+import net.lmxm.ute.gui.toolbars.FileToolBar;
+import net.lmxm.ute.gui.toolbars.MainToolBar;
 import net.lmxm.ute.gui.utils.DialogUtil;
 import net.lmxm.ute.gui.utils.GuiUtils;
 import net.lmxm.ute.gui.utils.ImageUtil;
@@ -117,6 +119,7 @@ import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.ConfigurationUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 import net.lmxm.ute.utils.ResourcesUtils;
+import static net.lmxm.ute.gui.ActionConstants.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,23 +139,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2194241637714084500L;
 
-	/** The Constant TOOLBAR_BORDER. */
-	private static final Border TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 0, 0, 10);
-
 	/** The about menu item. */
 	private JMenuItem aboutMenuItem = null;
-
-	/** The add job button. */
-	private JButton addJobButton = null;
-
-	/** The add location button. */
-	private JButton addLocationButton = null;
-
-	/** The add preference button. */
-	private JButton addPreferenceButton = null;
-
-	/** The add property button. */
-	private JButton addPropertyButton = null;
 
 	/** The application preferences. */
 	private ApplicationPreferences applicationPreferences = null;
@@ -168,12 +156,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The edit preferences menu item. */
 	private JMenuItem editPreferencesMenuItem = null;
-
-	/** The execute job button. */
-	private JButton executeJobButton = null;
-
-	/** The exit button. */
-	private JButton exitButton = null;
 
 	/** The exit menu item. */
 	private JMenuItem exitMenuItem = null;
@@ -194,7 +176,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private FileSystemLocationsRootPopupMenu fileSystemLocationsRootPopupMenu = null;
 
 	/** The file tool bar. */
-	private JToolBar fileToolBar = null;
+	private FileToolBar fileToolBar = null;
 
 	/** The find replace task editor panel. */
 	private FindReplaceTaskEditorPanel findReplaceTaskEditorPanel = null;
@@ -242,19 +224,13 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private JSplitPane mainSplitPane = null;
 
 	/** The main tool bar. */
-	private JToolBar mainToolBar = null;
+	private MainToolBar mainToolBar = null;
 
 	/** The main tree. */
 	private JTree mainTree = null;
 
-	/** The new file button. */
-	private JButton newFileButton = null;
-
 	/** The new file menu item. */
 	private JMenuItem newFileMenuItem = null;
-
-	/** The open file button. */
-	private JButton openFileButton = null;
 
 	/** The open file menu item. */
 	private JMenuItem openFileMenuItem = null;
@@ -280,14 +256,8 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	/** The property popup menu. */
 	private PropertyPopupMenu propertyPopupMenu = null;
 
-	/** The save as button. */
-	private JButton saveAsButton = null;
-
 	/** The save as menu item. */
 	private JMenuItem saveAsMenuItem = null;
-
-	/** The save button. */
-	private JButton saveButton = null;
 
 	/** The save menu item. */
 	private JMenuItem saveMenuItem = null;
@@ -393,18 +363,33 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	public void actionPerformed(final ActionEvent actionEvent) {
 		final String actionCommand = actionEvent.getActionCommand();
 
-		if (actionCommand.equals(ActionConstants.ADD_JOB)) {
+		if (actionCommand.equals(ADD_JOB)) {
 			// TODO Implement add job action
 		}
-		else if (actionCommand.equals(ActionConstants.ADD_PROPERTY)) {
+		else if (actionCommand.equals(ADD_PROPERTY)) {
 			actionAddProperty();
 		}
-		else if (actionCommand.equals(ActionConstants.DELETE_PROPERTY)) {
+		else if (actionCommand.equals(DELETE_PROPERTY)) {
 			actionDeleteProperty();
 		}
-		else if (actionCommand.equals(ActionConstants.EXECUTE)) {
+		else if (actionCommand.equals(EXIT)) {
+			pullThePlug();
+		}
+		else if (actionCommand.equals(EXECUTE)) {
 			actionExecute();
 		}
+		else if (actionCommand.equals(NEW_FILE)) {
+			// TODO
+		}
+		else if (actionCommand.equals(OPEN_FILE)) {
+			openFile();
+		}
+		else if (actionCommand.equals(SAVE_FILE)) {
+			// TODO
+		}
+		else if (actionCommand.equals(SAVE_FILE_AS)) {
+			// TODO
+		}		
 	}
 	
 	/**
@@ -445,81 +430,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			});
 		}
 		return aboutMenuItem;
-	}
-
-	/**
-	 * Gets the adds the job button.
-	 * 
-	 * @return the adds the job button
-	 */
-	private JButton getAddJobButton() {
-		if (addJobButton == null) {
-			addJobButton = new JButton();
-			addJobButton.setText("Add Job");
-			addJobButton.setIcon(ImageUtil.ADD_JOB_ICON);
-			addJobButton.setToolTipText("Add a new job");
-			addJobButton.setMnemonic(KeyEvent.VK_UNDEFINED);
-			addJobButton.setEnabled(false); // TODO disabled since it is not implemented
-
-			addJobButton.addActionListener(this);
-			addJobButton.setActionCommand(ActionConstants.ADD_JOB);
-		}
-		return addJobButton;
-	}
-
-	/**
-	 * Gets the adds the location button.
-	 * 
-	 * @return the adds the location button
-	 */
-	private JButton getAddLocationButton() {
-		if (addLocationButton == null) {
-			addLocationButton = new JButton();
-			addLocationButton.setText("Add Location");
-			addLocationButton.setIcon(ImageUtil.ADD_LOCATION_ICON);
-			addLocationButton.setToolTipText("Add new location");
-			addLocationButton.setEnabled(false); // TODO disabled since it is not implemented
-		}
-		return addLocationButton;
-	}
-
-	/**
-	 * Gets the adds the preference button.
-	 * 
-	 * @return the adds the preference button
-	 */
-	private JButton getAddPreferenceButton() {
-		if (addPreferenceButton == null) {
-			addPreferenceButton = new JButton();
-			addPreferenceButton.setIcon(ImageUtil.ADD_PREFERENCE_ICON);
-			addPreferenceButton.setToolTipText("Add new preference");
-			addPreferenceButton.setText("Add Preference");
-			addPreferenceButton.setEnabled(false); // TODO disabled since it is not implemented
-		}
-		return addPreferenceButton;
-	}
-
-	/**
-	 * Gets the adds the property button.
-	 * 
-	 * @return the adds the property button
-	 */
-	private JButton getAddPropertyButton() {
-		if (addPropertyButton == null) {
-			addPropertyButton = new JButton() {{
-				setIcon(ImageUtil.ADD_PROPERTY_ICON);
-				setToolTipText("Add new property");
-				setText("Add Property");
-				
-				addActionListener(getActionListener());
-				setActionCommand(ActionConstants.ADD_PROPERTY);
-			}};
-		}
-		return addPropertyButton;
-	}
-
-	private ActionListener getActionListener() {
-		return this;
 	}
 	
 	/**
@@ -594,47 +504,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			});
 		}
 		return editPreferencesMenuItem;
-	}
-
-	/**
-	 * Gets the execute job button.
-	 * 
-	 * @return the execute job button
-	 */
-	private JButton getExecuteJobButton() {
-		if (executeJobButton == null) {
-			executeJobButton = new JButton();
-			executeJobButton.setText("Execute");
-			executeJobButton.setIcon(ImageUtil.EXECUTE_ICON);
-			executeJobButton.setToolTipText("Execute selected job");
-			executeJobButton.setEnabled(false);
-
-			executeJobButton.addActionListener(this);
-			executeJobButton.setActionCommand(ActionConstants.EXECUTE);
-		}
-
-		return executeJobButton;
-	}
-
-	/**
-	 * Gets the exit button.
-	 * 
-	 * @return the exit button
-	 */
-	private JButton getExitButton() {
-		if (exitButton == null) {
-			exitButton = new JButton();
-			exitButton.setIcon(ImageUtil.EXIT_ICON);
-			exitButton.setText("Exit");
-
-			exitButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					pullThePlug();
-				}
-			});
-		}
-		return exitButton;
 	}
 
 	/**
@@ -743,15 +612,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 */
 	private JToolBar getFileToolBar() {
 		if (fileToolBar == null) {
-			fileToolBar = new JToolBar();
-
-			fileToolBar.setBorder(TOOLBAR_BORDER);
-
-			fileToolBar.add(getNewFileButton());
-			fileToolBar.add(getOpenFileButton());
-			fileToolBar.add(getSaveButton());
-			fileToolBar.add(getSaveAsButton());
-			fileToolBar.add(getExitButton());
+			fileToolBar = new FileToolBar(this);
 		}
 		return fileToolBar;
 	}
@@ -992,15 +853,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 */
 	private JToolBar getMainToolBar() {
 		if (mainToolBar == null) {
-			mainToolBar = new JToolBar();
-
-			mainToolBar.setBorder(TOOLBAR_BORDER);
-
-			mainToolBar.add(getExecuteJobButton());
-			mainToolBar.add(getAddJobButton());
-			mainToolBar.add(getAddLocationButton());
-			mainToolBar.add(getAddPropertyButton());
-			mainToolBar.add(getAddPreferenceButton());
+			mainToolBar = new MainToolBar(this);
+			
+			getMainTree().addTreeSelectionListener(mainToolBar);
 		}
 		return mainToolBar;
 	}
@@ -1041,27 +896,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
-	 * Gets the new file button.
-	 * 
-	 * @return the new file button
-	 */
-	private JButton getNewFileButton() {
-		if (newFileButton == null) {
-			newFileButton = new JButton();
-			newFileButton.setText("New");
-			newFileButton.setIcon(ImageUtil.NEW_FILE_ICON);
-			newFileButton.setEnabled(false); // TODO disabled since it is not implemented
-			newFileButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					// TODO Implement new file button action
-				}
-			});
-		}
-		return newFileButton;
-	}
-
-	/**
 	 * Gets the new file menu item.
 	 * 
 	 * @return the new file menu item
@@ -1082,25 +916,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		return newFileMenuItem;
 	}
 
-	/**
-	 * Gets the open file button.
-	 * 
-	 * @return the open file button
-	 */
-	private JButton getOpenFileButton() {
-		if (openFileButton == null) {
-			openFileButton = new JButton();
-			openFileButton.setText("Open");
-			openFileButton.setIcon(ImageUtil.OPEN_FILE_ICON);
-			openFileButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					openFile();
-				}
-			});
-		}
-		return openFileButton;
-	}
 
 	/**
 	 * Gets the open file menu item.
@@ -1220,27 +1035,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	}
 
 	/**
-	 * Gets the save as button.
-	 * 
-	 * @return the save as button
-	 */
-	private JButton getSaveAsButton() {
-		if (saveAsButton == null) {
-			saveAsButton = new JButton();
-			saveAsButton.setText("Save As");
-			saveAsButton.setIcon(ImageUtil.SAVE_FILE_AS_ICON);
-			saveAsButton.setEnabled(false); // TODO disabled since it is not implemented
-			saveAsButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					// TODO Implement save as button action
-				}
-			});
-		}
-		return saveAsButton;
-	}
-
-	/**
 	 * Gets the save as menu item.
 	 * 
 	 * @return the save as menu item
@@ -1260,27 +1054,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 			});
 		}
 		return saveAsMenuItem;
-	}
-
-	/**
-	 * Gets the save button.
-	 * 
-	 * @return the save button
-	 */
-	private JButton getSaveButton() {
-		if (saveButton == null) {
-			saveButton = new JButton();
-			saveButton.setText("Save");
-			saveButton.setIcon(ImageUtil.SAVE_FILE_ICON);
-			saveButton.setEnabled(false); // TODO disabled since it is not implemented
-			saveButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					// TODO Implement save button action
-				}
-			});
-		}
-		return saveButton;
 	}
 
 	/**
@@ -1649,10 +1422,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 */
 	private void treeSelectionChanged() {
 		final Object userObject = getSelectedTreeObject();
-		final boolean isJob = userObject instanceof Job;
-
-		// Enable appropriate buttons
-		getExecuteJobButton().setEnabled(isJob);
 
 		// Load appropriate editor
 		AbstractEditorPanel editorPane = null;
