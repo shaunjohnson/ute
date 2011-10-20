@@ -74,11 +74,14 @@ public class EditPreferencesDialog extends JDialog {
 
 	/**
 	 * Instantiates a new edits the preferences dialog.
+	 *
+	 * @param configuration the configuration
 	 */
-	public EditPreferencesDialog() {
+	public EditPreferencesDialog(final Configuration configuration) {
 		super();
 
 		initialize();
+		loadPreferencesData(configuration);
 	}
 
 	/**
@@ -236,7 +239,7 @@ public class EditPreferencesDialog extends JDialog {
 	 * 
 	 * @param configuration the configuration
 	 */
-	public void loadPreferencesData(final Configuration configuration) {
+	private void loadPreferencesData(final Configuration configuration) {
 		final DefaultTableModel tableModel = createEmptyPreferencesTableModel();
 
 		final List<Preference> preferences = configuration.getPreferences();

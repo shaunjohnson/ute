@@ -18,8 +18,17 @@
  */
 package net.lmxm.ute.gui;
 
+import static net.lmxm.ute.gui.ActionConstants.ADD_JOB;
+import static net.lmxm.ute.gui.ActionConstants.ADD_PROPERTY;
+import static net.lmxm.ute.gui.ActionConstants.DELETE_PROPERTY;
+import static net.lmxm.ute.gui.ActionConstants.EXECUTE;
+import static net.lmxm.ute.gui.ActionConstants.EXIT;
+import static net.lmxm.ute.gui.ActionConstants.NEW_FILE;
+import static net.lmxm.ute.gui.ActionConstants.OPEN_FILE;
+import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE;
+import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE_AS;
+
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
@@ -36,28 +45,22 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
-import javax.swing.border.Border;
 import javax.swing.text.Position;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
@@ -76,8 +79,6 @@ import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.components.StatusOutputTab;
-import net.lmxm.ute.gui.dialogs.AboutDialog;
-import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
 import net.lmxm.ute.gui.editors.PreferenceEditorPanel;
 import net.lmxm.ute.gui.editors.PropertiesEditorPanel;
@@ -98,6 +99,7 @@ import net.lmxm.ute.gui.menus.HttpLocationPopupMenu;
 import net.lmxm.ute.gui.menus.HttpLocationsRootPopupMenu;
 import net.lmxm.ute.gui.menus.JobPopupMenu;
 import net.lmxm.ute.gui.menus.JobsRootPopupMenu;
+import net.lmxm.ute.gui.menus.MainMenuBar;
 import net.lmxm.ute.gui.menus.PreferencePopupMenu;
 import net.lmxm.ute.gui.menus.PreferencesRootPopupMenu;
 import net.lmxm.ute.gui.menus.PropertiesRootPopupMenu;
@@ -109,7 +111,6 @@ import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.renderers.JobDetailsTreeCellRenderer;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
 import net.lmxm.ute.gui.toolbars.MainToolBar;
-import net.lmxm.ute.gui.utils.DialogUtil;
 import net.lmxm.ute.gui.utils.GuiUtils;
 import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
@@ -119,7 +120,6 @@ import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.ConfigurationUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 import net.lmxm.ute.utils.ResourcesUtils;
-import static net.lmxm.ute.gui.ActionConstants.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +128,7 @@ import org.slf4j.LoggerFactory;
  * The Class MainFrame.
  */
 @SuppressWarnings("serial")
-public final class MainFrame extends JFrame implements ActionListener, KeyListener {
+public final class MainFrame extends JFrame implements ConfigurationHolder, ActionListener, KeyListener {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MainFrame.class);
@@ -139,9 +139,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2194241637714084500L;
 
-	/** The about menu item. */
-	private JMenuItem aboutMenuItem = null;
-
 	/** The application preferences. */
 	private ApplicationPreferences applicationPreferences = null;
 
@@ -149,19 +146,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private JTabbedPane bottomPanel = null;
 
 	/** The configuration. */
-	private Configuration configuration; // @jve:decl-index=0:
-
-	/** The edit menu. */
-	private JMenu editMenu = null;
-
-	/** The edit preferences menu item. */
-	private JMenuItem editPreferencesMenuItem = null;
-
-	/** The exit menu item. */
-	private JMenuItem exitMenuItem = null;
-
-	/** The file menu. */
-	private JMenu fileMenu = null;
+	private Configuration configuration;
 
 	/** The file system delete task editor panel. */
 	private FileSystemDeleteTaskEditorPanel fileSystemDeleteTaskEditorPanel = null;
@@ -183,9 +168,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The groovy task editor panel. */
 	private GroovyTaskEditorPanel groovyTaskEditorPanel = null;
-
-	/** The help menu. */
-	private JMenu helpMenu = null;
 
 	/** The http download task editor panel. */
 	private HttpDownloadTaskEditorPanel httpDownloadTaskEditorPanel = null;
@@ -218,7 +200,7 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	private JScrollPane jobsTreeScrollPane = null;
 
 	/** The main menu bar. */
-	private JMenuBar mainMenuBar = null;
+	private MainMenuBar mainMenuBar = null;
 
 	/** The main split pane. */
 	private JSplitPane mainSplitPane = null;
@@ -228,12 +210,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The main tree. */
 	private JTree mainTree = null;
-
-	/** The new file menu item. */
-	private JMenuItem newFileMenuItem = null;
-
-	/** The open file menu item. */
-	private JMenuItem openFileMenuItem = null;
 
 	/** The preference editor panel. */
 	private PreferenceEditorPanel preferenceEditorPanel = null;
@@ -255,12 +231,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 
 	/** The property popup menu. */
 	private PropertyPopupMenu propertyPopupMenu = null;
-
-	/** The save as menu item. */
-	private JMenuItem saveAsMenuItem = null;
-
-	/** The save menu item. */
-	private JMenuItem saveMenuItem = null;
 
 	/** The sequential job editor panel. */
 	private SequentialJobEditorPanel sequentialJobEditorPanel = null;
@@ -407,30 +377,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException("Clone not supported");
 	}
-
-	/**
-	 * Gets the about menu item.
-	 * 
-	 * @return the about menu item
-	 */
-	private JMenuItem getAboutMenuItem() {
-		if (aboutMenuItem == null) {
-			aboutMenuItem = new JMenuItem();
-			aboutMenuItem.setText("About");
-			aboutMenuItem.setIcon(ImageUtil.ABOUT_ICON);
-
-			final Component parent = this;
-			aboutMenuItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					final JDialog dialog = new AboutDialog();
-					DialogUtil.center(parent, dialog);
-					dialog.setVisible(true);
-				}
-			});
-		}
-		return aboutMenuItem;
-	}
 	
 	/**
 	 * Gets the bottom panel.
@@ -463,87 +409,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		catch (final IOException e) {
 			return null;
 		}
-	}
-
-	/**
-	 * Gets the edits the menu.
-	 * 
-	 * @return the edits the menu
-	 */
-	private JMenu getEditMenu() {
-		if (editMenu == null) {
-			editMenu = new JMenu();
-			editMenu.setText("Edit");
-			editMenu.add(getEditPreferencesMenuItem());
-		}
-		return editMenu;
-	}
-
-	/**
-	 * Gets the edits the preferences menu item.
-	 * 
-	 * @return the edits the preferences menu item
-	 */
-	private JMenuItem getEditPreferencesMenuItem() {
-		if (editPreferencesMenuItem == null) {
-			editPreferencesMenuItem = new JMenuItem();
-			editPreferencesMenuItem.setText("Edit Preferences");
-			editPreferencesMenuItem.setIcon(ImageUtil.EDIT_PREFERENCES_ICON);
-
-			final Component parent = this;
-			editPreferencesMenuItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					final EditPreferencesDialog dialog = new EditPreferencesDialog();
-
-					dialog.loadPreferencesData(configuration);
-
-					DialogUtil.center(parent, dialog);
-					dialog.setVisible(true);
-				}
-			});
-		}
-		return editPreferencesMenuItem;
-	}
-
-	/**
-	 * Gets the exit menu item.
-	 * 
-	 * @return the exit menu item
-	 */
-	private JMenuItem getExitMenuItem() {
-		if (exitMenuItem == null) {
-			exitMenuItem = new JMenuItem();
-			exitMenuItem.setText("Exit");
-			exitMenuItem.setIcon(ImageUtil.EXIT_ICON);
-
-			exitMenuItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					pullThePlug();
-				}
-			});
-		}
-		return exitMenuItem;
-	}
-
-	/**
-	 * Gets the file menu.
-	 * 
-	 * @return the file menu
-	 */
-	private JMenu getFileMenu() {
-		if (fileMenu == null) {
-			fileMenu = new JMenu();
-			fileMenu.setText("File");
-			fileMenu.add(getNewFileMenuItem());
-			fileMenu.add(getOpenFileMenuItem());
-			fileMenu.add(getSaveMenuItem());
-			fileMenu.add(getSaveAsMenuItem());
-			fileMenu.add(new JSeparator());
-			fileMenu.add(getExitMenuItem());
-		}
-		return fileMenu;
 	}
 
 	/**
@@ -647,20 +512,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		groovyTaskEditorPanel.loadData(groovyTask);
 
 		return groovyTaskEditorPanel;
-	}
-
-	/**
-	 * Gets the help menu.
-	 * 
-	 * @return the help menu
-	 */
-	private JMenu getHelpMenu() {
-		if (helpMenu == null) {
-			helpMenu = new JMenu();
-			helpMenu.setText("Help");
-			helpMenu.add(getAboutMenuItem());
-		}
-		return helpMenu;
 	}
 
 	/**
@@ -819,12 +670,9 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 * 
 	 * @return the main menu bar
 	 */
-	private JMenuBar getMainMenuBar() {
+	private MainMenuBar getMainMenuBar() {
 		if (mainMenuBar == null) {
-			mainMenuBar = new JMenuBar();
-			mainMenuBar.add(getFileMenu());
-			mainMenuBar.add(getEditMenu());
-			mainMenuBar.add(getHelpMenu());
+			mainMenuBar = new MainMenuBar(this, this);
 		}
 		return mainMenuBar;
 	}
@@ -893,48 +741,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 
 		return mainTree;
-	}
-
-	/**
-	 * Gets the new file menu item.
-	 * 
-	 * @return the new file menu item
-	 */
-	private JMenuItem getNewFileMenuItem() {
-		if (newFileMenuItem == null) {
-			newFileMenuItem = new JMenuItem();
-			newFileMenuItem.setText("New");
-			newFileMenuItem.setIcon(ImageUtil.NEW_FILE_ICON);
-			newFileMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			newFileMenuItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					// TODO Implement new file menu item action
-				}
-			});
-		}
-		return newFileMenuItem;
-	}
-
-
-	/**
-	 * Gets the open file menu item.
-	 * 
-	 * @return the open file menu item
-	 */
-	private JMenuItem getOpenFileMenuItem() {
-		if (openFileMenuItem == null) {
-			openFileMenuItem = new JMenuItem();
-			openFileMenuItem.setText("Open...");
-			openFileMenuItem.setIcon(ImageUtil.OPEN_FILE_ICON);
-			openFileMenuItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					openFile();
-				}
-			});
-		}
-		return openFileMenuItem;
 	}
 
 	/**
@@ -1032,49 +838,6 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 
 		return propertyPopupMenu;
-	}
-
-	/**
-	 * Gets the save as menu item.
-	 * 
-	 * @return the save as menu item
-	 */
-	private JMenuItem getSaveAsMenuItem() {
-		if (saveAsMenuItem == null) {
-			saveAsMenuItem = new JMenuItem();
-			saveAsMenuItem.setIcon(ImageUtil.SAVE_FILE_AS_ICON);
-			saveAsMenuItem.setActionCommand("SAVE_FILE_AS");
-			saveAsMenuItem.setText("Save as...");
-			saveAsMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			saveAsMenuItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					// TODO Implement save as menu item action
-				}
-			});
-		}
-		return saveAsMenuItem;
-	}
-
-	/**
-	 * Gets the save menu item.
-	 * 
-	 * @return the save menu item
-	 */
-	private JMenuItem getSaveMenuItem() {
-		if (saveMenuItem == null) {
-			saveMenuItem = new JMenuItem();
-			saveMenuItem.setText("Save");
-			saveMenuItem.setIcon(ImageUtil.SAVE_FILE_ICON);
-			saveMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			saveMenuItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent e) {
-					// TODO Implement save menu item action
-				}
-			});
-		}
-		return saveMenuItem;
 	}
 
 	/**
@@ -1515,5 +1278,15 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		}
 
 		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
+	 * Gets the configuration.
+	 *
+	 * @return the configuration
+	 */
+	@Override
+	public Configuration getConfiguration() {
+		return configuration;
 	}
 }
