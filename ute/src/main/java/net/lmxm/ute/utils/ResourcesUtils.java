@@ -34,11 +34,14 @@ public final class ResourcesUtils {
 	/** The Constant applicationVersion. */
 	private static final String applicationVersion;
 
+	/** The Constant bundle. */
+	private static final ResourceBundle bundle;
+
 	/**
 	 * Instantiates a new resources utils.
 	 */
 	static {
-		final ResourceBundle bundle = ResourceBundle.getBundle("resources");
+		bundle = ResourceBundle.getBundle("resources");
 
 		applicationName = bundle.getString("application.name");
 		applicationVersion = bundle.getString("application.version");
@@ -70,6 +73,16 @@ public final class ResourcesUtils {
 	 */
 	public static String getApplicationVersion() {
 		return applicationVersion;
+	}
+
+	/**
+	 * Gets the string.
+	 * 
+	 * @param key the key
+	 * @return the string
+	 */
+	public static String getString(final String key) {
+		return bundle.getString(key);
 	}
 
 	/**
