@@ -212,8 +212,8 @@ public final class GuiUtils {
 	 * Adds the property to tree model.
 	 * 
 	 * @param tree the tree
-	 * @param treeModel the tree model
 	 * @param property the property
+	 * @return the tree path
 	 */
 	public static TreePath addPropertyToTreeModel(final JTree tree, final Property property) {
 		final DefaultTreeModel treeModel = (DefaultTreeModel) tree.getModel();
@@ -280,16 +280,37 @@ public final class GuiUtils {
 		LOGGER.debug("{} leaving", prefix);
 	}
 
+	/**
+	 * Find path to node.
+	 * 
+	 * @param tree the tree
+	 * @param matcher the matcher
+	 * @return the tree path
+	 */
 	public static TreePath findPathToNode(final JTree tree, final TreeNodeMatcher matcher) {
 		final TreeNode root = (TreeNode) tree.getModel().getRoot();
 
 		return findPathToNode(root, matcher);
 	}
 
+	/**
+	 * Find path to node.
+	 * 
+	 * @param treeNode the tree node
+	 * @param matcher the matcher
+	 * @return the tree path
+	 */
 	public static TreePath findPathToNode(final TreeNode treeNode, final TreeNodeMatcher matcher) {
 		return findPathToNode(new TreePath(treeNode), matcher);
 	}
 
+	/**
+	 * Find path to node.
+	 * 
+	 * @param treePath the tree path
+	 * @param matcher the matcher
+	 * @return the tree path
+	 */
 	public static TreePath findPathToNode(final TreePath treePath, final TreeNodeMatcher matcher) {
 		final TreeNode treeNode = (TreeNode) treePath.getLastPathComponent();
 

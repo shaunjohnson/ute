@@ -230,6 +230,13 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action delete property.
+	 */
+	private void actionDeleteProperty() {
+		// TODO
+	}
+
+	/**
 	 * Action execute.
 	 */
 	private void actionExecute() {
@@ -307,13 +314,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 	}
 
-	/**
-	 * Action delete property.
-	 */
-	private void actionDeleteProperty() {
-		// TODO
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()
@@ -333,6 +333,16 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			bottomPanel = new JTabbedPane(JTabbedPane.TOP);
 		}
 		return bottomPanel;
+	}
+
+	/**
+	 * Gets the configuration.
+	 * 
+	 * @return the configuration
+	 */
+	@Override
+	public Configuration getConfiguration() {
+		return configuration;
 	}
 
 	/**
@@ -943,18 +953,12 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		LOGGER.debug("{} leaving", prefix);
 	}
 
-	/**
-	 * Gets the configuration.
-	 * 
-	 * @return the configuration
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
 	 */
 	@Override
-	public Configuration getConfiguration() {
-		return configuration;
-	}
-
-	@Override
-	public void valueChanged(TreeSelectionEvent e) {
+	public void valueChanged(final TreeSelectionEvent e) {
 		final Object userObject = getMainTree().getSelectedTreeObject();
 
 		// Load appropriate editor
