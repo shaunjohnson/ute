@@ -24,10 +24,12 @@ import javax.swing.JMenuItem;
 
 import net.lmxm.ute.gui.ActionConstants;
 import net.lmxm.ute.gui.MainFrame;
+import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
  * The Class PropertiesRootPopupMenu.
  */
+@SuppressWarnings("serial")
 public final class PropertiesRootPopupMenu extends AbstractPopupMenu {
 
 	/** The Constant serialVersionUID. */
@@ -64,11 +66,14 @@ public final class PropertiesRootPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddPropertyMenuItem() {
 		if (addPropertyMenuItem == null) {
-			addPropertyMenuItem = new JMenuItem();
-			addPropertyMenuItem.setText("Add Property");
-			addPropertyMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			addPropertyMenuItem.addActionListener(getActionListener());
-			addPropertyMenuItem.setActionCommand(ActionConstants.ADD_PROPERTY);
+			addPropertyMenuItem = new JMenuItem() {{
+				setIcon(ImageUtil.ADD_PROPERTY_ICON);
+				setText("Add Property");
+				setToolTipText("Add new property");
+				
+				addActionListener(getActionListener());
+				setActionCommand(ActionConstants.ADD_PROPERTY);
+			}};
 		}
 		return addPropertyMenuItem;
 	}

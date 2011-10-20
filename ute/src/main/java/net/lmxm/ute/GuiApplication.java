@@ -45,7 +45,7 @@ public class GuiApplication {
 		LOGGER.debug("{} entered", prefix);
 
 		try {
-			UIManager.setLookAndFeel(Options.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(Options.getCrossPlatformLookAndFeelClassName());
 		}
 		catch (final Exception e) {
 			LOGGER.error("Error setting native LAF", e);

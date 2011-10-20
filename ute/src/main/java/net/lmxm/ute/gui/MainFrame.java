@@ -124,6 +124,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class MainFrame.
  */
+@SuppressWarnings("serial")
 public final class MainFrame extends JFrame implements ActionListener, KeyListener {
 
 	/** The Constant LOGGER. */
@@ -398,9 +399,19 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 		else if (actionCommand.equals(ActionConstants.ADD_PROPERTY)) {
 			actionAddProperty();
 		}
+		else if (actionCommand.equals(ActionConstants.DELETE_PROPERTY)) {
+			actionDeleteProperty();
+		}
 		else if (actionCommand.equals(ActionConstants.EXECUTE)) {
 			actionExecute();
 		}
+	}
+	
+	/**
+	 * Action delete property.
+	 */
+	private void actionDeleteProperty() {
+		// TODO
 	}
 
 	/*
@@ -495,17 +506,22 @@ public final class MainFrame extends JFrame implements ActionListener, KeyListen
 	 */
 	private JButton getAddPropertyButton() {
 		if (addPropertyButton == null) {
-			addPropertyButton = new JButton();
-			addPropertyButton.setIcon(ImageUtil.ADD_PROPERTY_ICON);
-			addPropertyButton.setToolTipText("Add new property");
-			addPropertyButton.setText("Add Property");
-
-			addPropertyButton.addActionListener(this);
-			addPropertyButton.setActionCommand(ActionConstants.ADD_PROPERTY);
+			addPropertyButton = new JButton() {{
+				setIcon(ImageUtil.ADD_PROPERTY_ICON);
+				setToolTipText("Add new property");
+				setText("Add Property");
+				
+				addActionListener(getActionListener());
+				setActionCommand(ActionConstants.ADD_PROPERTY);
+			}};
 		}
 		return addPropertyButton;
 	}
 
+	private ActionListener getActionListener() {
+		return this;
+	}
+	
 	/**
 	 * Gets the bottom panel.
 	 * 

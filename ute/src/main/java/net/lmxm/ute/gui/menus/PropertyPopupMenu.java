@@ -24,10 +24,12 @@ import javax.swing.JMenuItem;
 
 import net.lmxm.ute.gui.ActionConstants;
 import net.lmxm.ute.gui.MainFrame;
+import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
  * The Class PropertyPopupMenu.
  */
+@SuppressWarnings("serial")
 public final class PropertyPopupMenu extends AbstractPopupMenu {
 
 	/** The Constant serialVersionUID. */
@@ -68,11 +70,12 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddPropertyMenuItem() {
 		if (addPropertyMenuItem == null) {
-			addPropertyMenuItem = new JMenuItem();
-			addPropertyMenuItem.setText("Add Property");
-			addPropertyMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			addPropertyMenuItem.addActionListener(getActionListener());
-			addPropertyMenuItem.setActionCommand(ActionConstants.ADD_PROPERTY);
+			addPropertyMenuItem = new JMenuItem() {{
+				setIcon(ImageUtil.ADD_PROPERTY_ICON);
+				setText("Add Property");
+				addActionListener(getActionListener());
+				setActionCommand(ActionConstants.ADD_PROPERTY);
+			}};
 		}
 		return addPropertyMenuItem;
 	}
@@ -84,11 +87,11 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getDeletePropertyMenuItem() {
 		if (deletePropertyMenuItem == null) {
-			deletePropertyMenuItem = new JMenuItem();
-			deletePropertyMenuItem.setText("Delete Property");
-			deletePropertyMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			deletePropertyMenuItem.addActionListener(getActionListener());
-			deletePropertyMenuItem.setActionCommand(ActionConstants.DELETE_PROPERTY);
+			deletePropertyMenuItem = new JMenuItem() {{
+				setText("Delete Property");
+				addActionListener(getActionListener());
+				setActionCommand(ActionConstants.DELETE_PROPERTY);
+			}};
 		}
 		return deletePropertyMenuItem;
 	}
