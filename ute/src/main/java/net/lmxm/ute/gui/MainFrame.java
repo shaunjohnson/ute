@@ -35,11 +35,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
@@ -53,12 +50,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
-import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.Position;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
 
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
@@ -77,6 +73,7 @@ import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.gui.components.MainTree;
 import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.components.StatusOutputTab;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
@@ -93,22 +90,8 @@ import net.lmxm.ute.gui.editors.tasks.GroovyTaskEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.HttpDownloadTaskEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.SubversionExportTaskEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.SubversionUpdateTaskEditorPanel;
-import net.lmxm.ute.gui.menus.FileSystemLocationPopupMenu;
-import net.lmxm.ute.gui.menus.FileSystemLocationsRootPopupMenu;
-import net.lmxm.ute.gui.menus.HttpLocationPopupMenu;
-import net.lmxm.ute.gui.menus.HttpLocationsRootPopupMenu;
-import net.lmxm.ute.gui.menus.JobPopupMenu;
-import net.lmxm.ute.gui.menus.JobsRootPopupMenu;
 import net.lmxm.ute.gui.menus.MainMenuBar;
-import net.lmxm.ute.gui.menus.PreferencePopupMenu;
-import net.lmxm.ute.gui.menus.PreferencesRootPopupMenu;
-import net.lmxm.ute.gui.menus.PropertiesRootPopupMenu;
-import net.lmxm.ute.gui.menus.PropertyPopupMenu;
-import net.lmxm.ute.gui.menus.SubversionRepositoryLocationPopupMenu;
-import net.lmxm.ute.gui.menus.SubversionRepositoryLocationsRootPopupMenu;
-import net.lmxm.ute.gui.menus.TaskPopupMenu;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
-import net.lmxm.ute.gui.renderers.JobDetailsTreeCellRenderer;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
 import net.lmxm.ute.gui.toolbars.MainToolBar;
 import net.lmxm.ute.gui.utils.GuiUtils;
@@ -128,7 +111,7 @@ import org.slf4j.LoggerFactory;
  * The Class MainFrame.
  */
 @SuppressWarnings("serial")
-public final class MainFrame extends JFrame implements ConfigurationHolder, ActionListener, KeyListener {
+public final class MainFrame extends JFrame implements ConfigurationHolder, ActionListener, KeyListener, TreeSelectionListener {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MainFrame.class);
@@ -154,12 +137,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/** The file system location editor panel. */
 	private FileSystemLocationEditorPanel fileSystemLocationEditorPanel = null;
 
-	/** The file system location popup menu. */
-	private FileSystemLocationPopupMenu fileSystemLocationPopupMenu = null;
-
-	/** The file system locations root popup menu. */
-	private FileSystemLocationsRootPopupMenu fileSystemLocationsRootPopupMenu = null;
-
 	/** The file tool bar. */
 	private FileToolBar fileToolBar = null;
 
@@ -175,23 +152,11 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/** The http location editor panel. */
 	private HttpLocationEditorPanel httpLocationEditorPanel = null;
 
-	/** The http location popup menu. */
-	private HttpLocationPopupMenu httpLocationPopupMenu = null;
-
-	/** The http locations root popup menu. */
-	private HttpLocationsRootPopupMenu httpLocationsRootPopupMenu = null;
-
 	/** The j content pane. */
 	private JPanel jContentPane = null;
 
 	/** The job details editor scroll pane. */
 	private JScrollPane jobDetailsEditorScrollPane = null;
-
-	/** The job popup menu. */
-	private JobPopupMenu jobPopupMenu = null;
-
-	/** The jobs root popup menu. */
-	private JobsRootPopupMenu jobsRootPopupMenu = null;
 
 	/** The jobs split pane. */
 	private JSplitPane jobsSplitPane = null;
@@ -209,28 +174,16 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private MainToolBar mainToolBar = null;
 
 	/** The main tree. */
-	private JTree mainTree = null;
+	private MainTree mainTree = null;
 
 	/** The preference editor panel. */
 	private PreferenceEditorPanel preferenceEditorPanel = null;
 
-	/** The preference popup menu. */
-	private PreferencePopupMenu preferencePopupMenu = null;
-
-	/** The preferences root popup menu. */
-	private PreferencesRootPopupMenu preferencesRootPopupMenu = null;
-
 	/** The properties editor panel. */
 	private PropertiesEditorPanel propertiesEditorPanel = null;
 
-	/** The properties root popup menu. */
-	private PropertiesRootPopupMenu propertiesRootPopupMenu = null;
-
 	/** The property editor panel. */
 	private PropertyEditorPanel propertyEditorPanel = null;
-
-	/** The property popup menu. */
-	private PropertyPopupMenu propertyPopupMenu = null;
 
 	/** The sequential job editor panel. */
 	private SequentialJobEditorPanel sequentialJobEditorPanel = null;
@@ -241,17 +194,8 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/** The subversion repository location editor panel. */
 	private SubversionRepositoryLocationEditorPanel subversionRepositoryLocationEditorPanel = null;
 
-	/** The subversion repository location popup menu. */
-	private SubversionRepositoryLocationPopupMenu subversionRepositoryLocationPopupMenu = null;
-
-	/** The subversion repository locations root popup menu. */
-	private SubversionRepositoryLocationsRootPopupMenu subversionRepositoryLocationsRootPopupMenu = null;
-
 	/** The subversion update task editor panel. */
 	private SubversionUpdateTaskEditorPanel subversionUpdateTaskEditorPanel = null;
-
-	/** The task popup menu. */
-	private TaskPopupMenu taskPopupMenu = null;
 
 	/** The toolbar panel. */
 	private JPanel toolbarPanel = null;
@@ -288,7 +232,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * Action execute.
 	 */
 	private void actionExecute() {
-		final Object userObject = getSelectedTreeObject();
+		final Object userObject = getMainTree().getSelectedTreeObject();
 		if (userObject == null) {
 			return;
 		}
@@ -445,32 +389,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
-	 * Gets the file system location popup menu.
-	 * 
-	 * @return the file system location popup menu
-	 */
-	protected FileSystemLocationPopupMenu getFileSystemLocationPopupMenu() {
-		if (fileSystemLocationPopupMenu == null) {
-			fileSystemLocationPopupMenu = new FileSystemLocationPopupMenu(this);
-		}
-
-		return fileSystemLocationPopupMenu;
-	}
-
-	/**
-	 * Gets the file system locations root popup menu.
-	 * 
-	 * @return the file system locations root popup menu
-	 */
-	protected FileSystemLocationsRootPopupMenu getFileSystemLocationsRootPopupMenu() {
-		if (fileSystemLocationsRootPopupMenu == null) {
-			fileSystemLocationsRootPopupMenu = new FileSystemLocationsRootPopupMenu(this);
-		}
-
-		return fileSystemLocationsRootPopupMenu;
-	}
-
-	/**
 	 * Gets the file tool bar.
 	 * 
 	 * @return the file tool bar
@@ -547,32 +465,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
-	 * Gets the http location popup menu.
-	 * 
-	 * @return the http location popup menu
-	 */
-	protected HttpLocationPopupMenu getHttpLocationPopupMenu() {
-		if (httpLocationPopupMenu == null) {
-			httpLocationPopupMenu = new HttpLocationPopupMenu(this);
-		}
-
-		return httpLocationPopupMenu;
-	}
-
-	/**
-	 * Gets the http locations root popup menu.
-	 * 
-	 * @return the http locations root popup menu
-	 */
-	protected HttpLocationsRootPopupMenu getHttpLocationsRootPopupMenu() {
-		if (httpLocationsRootPopupMenu == null) {
-			httpLocationsRootPopupMenu = new HttpLocationsRootPopupMenu(this);
-		}
-
-		return httpLocationsRootPopupMenu;
-	}
-
-	/**
 	 * Gets the j content pane.
 	 * 
 	 * @return the j content pane
@@ -609,31 +501,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		return jobDetailsEditorScrollPane;
 	}
 
-	/**
-	 * Gets the job popup menu.
-	 * 
-	 * @return the job popup menu
-	 */
-	protected JobPopupMenu getJobPopupMenu() {
-		if (jobPopupMenu == null) {
-			jobPopupMenu = new JobPopupMenu(this);
-		}
-
-		return jobPopupMenu;
-	}
-
-	/**
-	 * Gets the jobs root popup menu.
-	 * 
-	 * @return the jobs root popup menu
-	 */
-	protected JobsRootPopupMenu getJobsRootPopupMenu() {
-		if (jobsRootPopupMenu == null) {
-			jobsRootPopupMenu = new JobsRootPopupMenu(this);
-		}
-
-		return jobsRootPopupMenu;
-	}
 
 	/**
 	 * Gets the jobs split pane.
@@ -713,31 +580,10 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * 
 	 * @return the main tree
 	 */
-	private JTree getMainTree() {
+	private MainTree getMainTree() {
 		if (mainTree == null) {
-			mainTree = new JTree();
-			mainTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-			mainTree.setCellRenderer(new JobDetailsTreeCellRenderer());
-			mainTree.setExpandsSelectedPaths(true);
-			mainTree.setRootVisible(false);
-			mainTree.setAutoscrolls(true);
-			mainTree.setShowsRootHandles(true);
-
-			mainTree.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyReleased(final KeyEvent e) {
-					treeSelectionChanged();
-				}
-			});
-
-			mainTree.addMouseListener(new MainTreeMouseListener(this));
-
-			mainTree.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(final MouseEvent mouseEvent) {
-					treeSelectionChanged();
-				}
-			});
+			mainTree = new MainTree(this);
+			mainTree.addTreeSelectionListener(this);
 		}
 
 		return mainTree;
@@ -760,32 +606,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
-	 * Gets the preference popup menu.
-	 * 
-	 * @return the preference popup menu
-	 */
-	protected PreferencePopupMenu getPreferencePopupMenu() {
-		if (preferencePopupMenu == null) {
-			preferencePopupMenu = new PreferencePopupMenu(this);
-		}
-
-		return preferencePopupMenu;
-	}
-
-	/**
-	 * Gets the preferences root popup menu.
-	 * 
-	 * @return the preferences root popup menu
-	 */
-	protected PreferencesRootPopupMenu getPreferencesRootPopupMenu() {
-		if (preferencesRootPopupMenu == null) {
-			preferencesRootPopupMenu = new PreferencesRootPopupMenu(this);
-		}
-
-		return preferencesRootPopupMenu;
-	}
-
-	/**
 	 * Gets the properties editor panel.
 	 * 
 	 * @return the properties editor panel
@@ -796,19 +616,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 
 		return propertiesEditorPanel;
-	}
-
-	/**
-	 * Gets the properties root popup menu.
-	 * 
-	 * @return the properties root popup menu
-	 */
-	protected PropertiesRootPopupMenu getPropertiesRootPopupMenu() {
-		if (propertiesRootPopupMenu == null) {
-			propertiesRootPopupMenu = new PropertiesRootPopupMenu(this);
-		}
-
-		return propertiesRootPopupMenu;
 	}
 
 	/**
@@ -825,40 +632,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		propertyEditorPanel.loadData(property);
 
 		return propertyEditorPanel;
-	}
-
-	/**
-	 * Gets the property popup menu.
-	 * 
-	 * @return the property popup menu
-	 */
-	protected PropertyPopupMenu getPropertyPopupMenu() {
-		if (propertyPopupMenu == null) {
-			propertyPopupMenu = new PropertyPopupMenu(this);
-		}
-
-		return propertyPopupMenu;
-	}
-
-	/**
-	 * Gets the selected tree object.
-	 * 
-	 * @return the selected tree object
-	 */
-	protected Object getSelectedTreeObject() {
-		final TreePath treePath = mainTree.getSelectionPath();
-
-		if (treePath == null) {
-			return null;
-		}
-
-		final DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
-
-		if (node == null) {
-			return null;
-		}
-
-		return node.getUserObject();
 	}
 
 	/**
@@ -912,32 +685,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
-	 * Gets the subversion repository location popup menu.
-	 * 
-	 * @return the subversion repository location popup menu
-	 */
-	protected SubversionRepositoryLocationPopupMenu getSubversionRepositoryLocationPopupMenu() {
-		if (subversionRepositoryLocationPopupMenu == null) {
-			subversionRepositoryLocationPopupMenu = new SubversionRepositoryLocationPopupMenu(this);
-		}
-
-		return subversionRepositoryLocationPopupMenu;
-	}
-
-	/**
-	 * Gets the subversion repository locations root popup menu.
-	 * 
-	 * @return the subversion repository locations root popup menu
-	 */
-	protected SubversionRepositoryLocationsRootPopupMenu getSubversionRepositoryLocationsRootPopupMenu() {
-		if (subversionRepositoryLocationsRootPopupMenu == null) {
-			subversionRepositoryLocationsRootPopupMenu = new SubversionRepositoryLocationsRootPopupMenu(this);
-		}
-
-		return subversionRepositoryLocationsRootPopupMenu;
-	}
-
-	/**
 	 * Gets the subversion update task editor panel.
 	 * 
 	 * @param subversionUpdateTask the subversion update task
@@ -952,19 +699,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		subversionUpdateTaskEditorPanel.loadData(subversionUpdateTask);
 
 		return subversionUpdateTaskEditorPanel;
-	}
-
-	/**
-	 * Gets the task popup menu.
-	 * 
-	 * @return the task popup menu
-	 */
-	protected TaskPopupMenu getTaskPopupMenu() {
-		if (taskPopupMenu == null) {
-			taskPopupMenu = new TaskPopupMenu(this);
-		}
-
-		return taskPopupMenu;
 	}
 
 	/**
@@ -1003,6 +737,8 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 				loadAndValidatePreferences(configurationFile);
 			}
 			catch (final Exception e) {
+				LOGGER.debug("initialize() : Error occurred loading configuration file", e);
+				
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
 				configuration = new Configuration();
@@ -1167,24 +903,59 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
-	 * Select tree object at location.
-	 * 
-	 * @param x the x
-	 * @param y the y
+	 * Update title.
 	 */
-	protected void selectTreeObjectAtLocation(final int x, final int y) {
-		final TreePath newTreePath = mainTree.getPathForLocation(x, y);
+	private void updateTitle() {
+		final StringBuilder builder = new StringBuilder();
 
-		if (newTreePath != null) {
-			mainTree.setSelectionPath(newTreePath);
+		builder.append(ResourcesUtils.getApplicationName());
+		builder.append(" ");
+		builder.append(ResourcesUtils.getApplicationVersion());
+
+		if (configuration != null) {
+			builder.append(" - ");
+			builder.append(configuration.getAbsolutePath());
 		}
+
+		setTitle(builder.toString());
 	}
 
 	/**
-	 * Tree selection changed.
+	 * Validate preferences are set.
 	 */
-	private void treeSelectionChanged() {
-		final Object userObject = getSelectedTreeObject();
+	private void validatePreferencesAreSet() {
+		final String prefix = "validatePreferencesAreSet() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		applicationPreferences.loadPreferenceValues(configuration.getPreferences());
+
+		if (applicationPreferences.hasAllPreferences(configuration.getPreferences())) {
+			LOGGER.debug("{} all preferences have values", prefix);
+		}
+		else {
+			LOGGER.debug("{} at least one preference does not have a value", prefix);
+
+			JOptionPane.showMessageDialog(this, "Preferences must be assigned values before continuing", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
+	 * Gets the configuration.
+	 *
+	 * @return the configuration
+	 */
+	@Override
+	public Configuration getConfiguration() {
+		return configuration;
+	}
+
+	@Override
+	public void valueChanged(TreeSelectionEvent e) {
+		final Object userObject = getMainTree().getSelectedTreeObject();
 
 		// Load appropriate editor
 		AbstractEditorPanel editorPane = null;
@@ -1236,57 +1007,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			editorPane.initialize(configuration);
 		}
 
-		getJobDetailsEditorScrollPane().setViewportView(editorPane);
-	}
-
-	/**
-	 * Update title.
-	 */
-	private void updateTitle() {
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append(ResourcesUtils.getApplicationName());
-		builder.append(" ");
-		builder.append(ResourcesUtils.getApplicationVersion());
-
-		if (configuration != null) {
-			builder.append(" - ");
-			builder.append(configuration.getAbsolutePath());
-		}
-
-		setTitle(builder.toString());
-	}
-
-	/**
-	 * Validate preferences are set.
-	 */
-	private void validatePreferencesAreSet() {
-		final String prefix = "validatePreferencesAreSet() :";
-
-		LOGGER.debug("{} entered", prefix);
-
-		applicationPreferences.loadPreferenceValues(configuration.getPreferences());
-
-		if (applicationPreferences.hasAllPreferences(configuration.getPreferences())) {
-			LOGGER.debug("{} all preferences have values", prefix);
-		}
-		else {
-			LOGGER.debug("{} at least one preference does not have a value", prefix);
-
-			JOptionPane.showMessageDialog(this, "Preferences must be assigned values before continuing", "Error",
-					JOptionPane.ERROR_MESSAGE);
-		}
-
-		LOGGER.debug("{} leaving", prefix);
-	}
-
-	/**
-	 * Gets the configuration.
-	 *
-	 * @return the configuration
-	 */
-	@Override
-	public Configuration getConfiguration() {
-		return configuration;
+		getJobDetailsEditorScrollPane().setViewportView(editorPane);		
 	}
 }
