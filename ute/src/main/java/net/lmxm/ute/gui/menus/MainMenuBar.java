@@ -18,12 +18,6 @@
  */
 package net.lmxm.ute.gui.menus;
 
-import static net.lmxm.ute.gui.ActionConstants.EXIT;
-import static net.lmxm.ute.gui.ActionConstants.NEW_FILE;
-import static net.lmxm.ute.gui.ActionConstants.OPEN_FILE;
-import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE;
-import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE_AS;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,15 +28,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
 import net.lmxm.ute.ConfigurationHolder;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenu;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 import net.lmxm.ute.gui.dialogs.AboutDialog;
 import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.utils.DialogUtil;
-import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
  * The Class MainMenuBar.
  */
-@SuppressWarnings("serial")
 public class MainMenuBar extends JMenuBar {
 
 	/** The Constant serialVersionUID. */
@@ -53,6 +48,9 @@ public class MainMenuBar extends JMenuBar {
 
 	/** The action listener. */
 	private final ActionListener actionListener;
+
+	/** The configuration holder. */
+	private final ConfigurationHolder configurationHolder;
 
 	/** The edit menu. */
 	private JMenu editMenu = null;
@@ -81,16 +79,13 @@ public class MainMenuBar extends JMenuBar {
 	/** The save menu item. */
 	private JMenuItem saveMenuItem = null;
 
-	/** The configuration holder. */
-	private final ConfigurationHolder configurationHolder;
-
 	/**
 	 * Instantiates a new main menu bar.
 	 * 
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public MainMenuBar(ConfigurationHolder configurationHolder, ActionListener actionListener) {
+	public MainMenuBar(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
 		super();
 
 		this.configurationHolder = configurationHolder;
@@ -108,21 +103,14 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getAboutMenuItem() {
 		if (aboutMenuItem == null) {
-			aboutMenuItem = new JMenuItem() {
-				{
-					setText("About");
-					setIcon(ImageUtil.ABOUT_ICON);
-
-					addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(final ActionEvent actionEvent) {
-							final JDialog dialog = new AboutDialog();
-							DialogUtil.center(dialog);
-							dialog.setVisible(true);
-						}
-					});
+			aboutMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ABOUT, new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent actionEvent) {
+					final JDialog dialog = new AboutDialog();
+					DialogUtil.center(dialog);
+					dialog.setVisible(true);
 				}
-			};
+			});
 		}
 		return aboutMenuItem;
 	}
@@ -143,13 +131,8 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenu getEditMenu() {
 		if (editMenu == null) {
-			editMenu = new JMenu() {
-				{
-					setText("Edit");
-
-					add(getEditPreferencesMenuItem());
-				}
-			};
+			editMenu = GuiComponentFactory.createMenu(GuiComponentMenu.EDIT);
+			editMenu.add(getEditPreferencesMenuItem());
 		}
 		return editMenu;
 	}
@@ -161,22 +144,16 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getEditPreferencesMenuItem() {
 		if (editPreferencesMenuItem == null) {
-			editPreferencesMenuItem = new JMenuItem() {
-				{
-					setText("Edit Preferences");
-					setIcon(ImageUtil.EDIT_PREFERENCES_ICON);
-
-					addActionListener(new ActionListener() {
+			editPreferencesMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.EDIT_PREFERENCES,
+					new ActionListener() {
 						@Override
 						public void actionPerformed(final ActionEvent actionEvent) {
-							final EditPreferencesDialog dialog = new EditPreferencesDialog(
-									configurationHolder.getConfiguration());
+							final EditPreferencesDialog dialog = new EditPreferencesDialog(configurationHolder
+									.getConfiguration());
 							DialogUtil.center(dialog);
 							dialog.setVisible(true);
 						}
 					});
-				}
-			};
 		}
 		return editPreferencesMenuItem;
 	}
@@ -188,15 +165,7 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getExitMenuItem() {
 		if (exitMenuItem == null) {
-			exitMenuItem = new JMenuItem() {
-				{
-					setText("Exit");
-					setIcon(ImageUtil.EXIT_ICON);
-
-					addActionListener(getActionListener());
-					setActionCommand(EXIT);
-				}
-			};
+			exitMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.EXIT, getActionListener());
 		}
 		return exitMenuItem;
 	}
@@ -208,18 +177,13 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenu getFileMenu() {
 		if (fileMenu == null) {
-			fileMenu = new JMenu() {
-				{
-					setText("File");
-
-					add(getNewFileMenuItem());
-					add(getOpenFileMenuItem());
-					add(getSaveMenuItem());
-					add(getSaveAsMenuItem());
-					add(new JSeparator());
-					add(getExitMenuItem());
-				}
-			};
+			fileMenu = GuiComponentFactory.createMenu(GuiComponentMenu.FILE);
+			fileMenu.add(getNewFileMenuItem());
+			fileMenu.add(getOpenFileMenuItem());
+			fileMenu.add(getSaveMenuItem());
+			fileMenu.add(getSaveAsMenuItem());
+			fileMenu.add(new JSeparator());
+			fileMenu.add(getExitMenuItem());
 		}
 		return fileMenu;
 	}
@@ -229,14 +193,11 @@ public class MainMenuBar extends JMenuBar {
 	 * 
 	 * @return the help menu
 	 */
+	@Override
 	public JMenu getHelpMenu() {
 		if (helpMenu == null) {
-			helpMenu = new JMenu() {
-				{
-					setText("Help");
-					add(getAboutMenuItem());
-				}
-			};
+			helpMenu = GuiComponentFactory.createMenu(GuiComponentMenu.HELP);
+			helpMenu.add(getAboutMenuItem());
 		}
 		return helpMenu;
 	}
@@ -248,16 +209,8 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getNewFileMenuItem() {
 		if (newFileMenuItem == null) {
-			newFileMenuItem = new JMenuItem() {
-				{
-					setText("New");
-					setIcon(ImageUtil.NEW_FILE_ICON);
-					setEnabled(false); // TODO disabled since it is not implemented
-
-					addActionListener(getActionListener());
-					setActionCommand(NEW_FILE);
-				}
-			};
+			newFileMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.NEW_FILE, getActionListener());
+			newFileMenuItem.setEnabled(false);
 		}
 		return newFileMenuItem;
 	}
@@ -269,15 +222,7 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getOpenFileMenuItem() {
 		if (openFileMenuItem == null) {
-			openFileMenuItem = new JMenuItem() {
-				{
-					setText("Open...");
-					setIcon(ImageUtil.OPEN_FILE_ICON);
-
-					addActionListener(getActionListener());
-					setActionCommand(OPEN_FILE);
-				}
-			};
+			openFileMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.OPEN_FILE, getActionListener());
 		}
 		return openFileMenuItem;
 	}
@@ -289,16 +234,8 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getSaveAsMenuItem() {
 		if (saveAsMenuItem == null) {
-			saveAsMenuItem = new JMenuItem() {
-				{
-					setText("Save as...");
-					setIcon(ImageUtil.SAVE_FILE_AS_ICON);
-					setEnabled(false); // TODO disabled since it is not implemented
-
-					addActionListener(getActionListener());
-					setActionCommand(SAVE_FILE_AS);
-				}
-			};
+			saveAsMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.SAVE_FILE_AS, getActionListener());
+			saveAsMenuItem.setEnabled(false);
 		}
 		return saveAsMenuItem;
 	}
@@ -310,16 +247,8 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getSaveMenuItem() {
 		if (saveMenuItem == null) {
-			saveMenuItem = new JMenuItem() {
-				{
-					setText("Save");
-					setIcon(ImageUtil.SAVE_FILE_ICON);
-					setEnabled(false); // TODO disabled since it is not implemented
-
-					addActionListener(getActionListener());
-					setActionCommand(SAVE_FILE);
-				}
-			};
+			saveMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.SAVE_FILE_AS, getActionListener());
+			saveMenuItem.setEnabled(false);
 		}
 		return saveMenuItem;
 	}

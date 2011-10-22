@@ -23,5 +23,11 @@ package net.lmxm.ute.gui.components;
  */
 public enum GuiComponentCategory {
 	/** The BUTTON. */
-	BUTTON
+	BUTTON,
+
+	/** The MENU. */
+	MENU,
+
+	/** The MENU_ITEM. */
+	MENU_ITEM
 }
