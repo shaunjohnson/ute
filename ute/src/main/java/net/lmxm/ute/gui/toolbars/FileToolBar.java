@@ -25,8 +25,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import net.lmxm.ute.gui.GuiComponentFactory;
-import net.lmxm.ute.gui.GuiComponentType;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentType;
 import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
