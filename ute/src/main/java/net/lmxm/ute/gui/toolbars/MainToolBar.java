@@ -18,12 +18,6 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
-import static net.lmxm.ute.gui.ActionConstants.ADD_JOB;
-import static net.lmxm.ute.gui.ActionConstants.ADD_LOCATION;
-import static net.lmxm.ute.gui.ActionConstants.ADD_PREFERENCE;
-import static net.lmxm.ute.gui.ActionConstants.ADD_PROPERTY;
-import static net.lmxm.ute.gui.ActionConstants.EXECUTE;
-
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -32,12 +26,12 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.gui.utils.ImageUtil;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentType;
 
 /**
  * The Class MainToolBar.
  */
-@SuppressWarnings("serial")
 public class MainToolBar extends AbstractToolBar implements TreeSelectionListener {
 
 	/** The Constant serialVersionUID. */
@@ -82,19 +76,9 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getExecuteJobButton() {
 		if (executeJobButton == null) {
-			executeJobButton = new JButton() {
-				{
-					setText("Execute");
-					setIcon(ImageUtil.EXECUTE_ICON);
-					setToolTipText("Execute selected job");
-					setEnabled(false);
-
-					addActionListener(getActionListener());
-					setActionCommand(EXECUTE);
-				}
-			};
+			executeJobButton = GuiComponentFactory.createButton(GuiComponentType.EXECUTE_JOB_BUTTON, getActionListener());
+			executeJobButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
-
 		return executeJobButton;
 	}
 
@@ -105,17 +89,8 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddJobButton() {
 		if (addJobButton == null) {
-			addJobButton = new JButton() {
-				{
-					setText("Add Job");
-					setIcon(ImageUtil.ADD_JOB_ICON);
-					setToolTipText("Add a new job");
-					setEnabled(false); // TODO disabled since it is not implemented
-
-					addActionListener(getActionListener());
-					setActionCommand(ADD_JOB);
-				}
-			};
+			addJobButton = GuiComponentFactory.createButton(GuiComponentType.ADD_JOB_BUTTON, getActionListener());
+			addJobButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return addJobButton;
 	}
@@ -127,17 +102,8 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddLocationButton() {
 		if (addLocationButton == null) {
-			addLocationButton = new JButton() {
-				{
-					setText("Add Location");
-					setIcon(ImageUtil.ADD_LOCATION_ICON);
-					setToolTipText("Add new location");
-					setEnabled(false); // TODO disabled since it is not implemented
-
-					addActionListener(getActionListener());
-					setActionCommand(ADD_LOCATION);
-				}
-			};
+			addLocationButton = GuiComponentFactory.createButton(GuiComponentType.ADD_LOCATION_BUTTON, getActionListener());
+			addLocationButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return addLocationButton;
 	}
@@ -149,17 +115,8 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddPreferenceButton() {
 		if (addPreferenceButton == null) {
-			addPreferenceButton = new JButton() {
-				{
-					setIcon(ImageUtil.ADD_PREFERENCE_ICON);
-					setToolTipText("Add new preference");
-					setText("Add Preference");
-					setEnabled(false); // TODO disabled since it is not implemented
-
-					addActionListener(getActionListener());
-					setActionCommand(ADD_PREFERENCE);
-				}
-			};
+			addPreferenceButton = GuiComponentFactory.createButton(GuiComponentType.ADD_PREFERENCE_BUTTON, getActionListener());
+			addPreferenceButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return addPreferenceButton;
 	}
@@ -171,16 +128,7 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddPropertyButton() {
 		if (addPropertyButton == null) {
-			addPropertyButton = new JButton() {
-				{
-					setIcon(ImageUtil.ADD_PROPERTY_ICON);
-					setToolTipText("Add new property");
-					setText("Add Property");
-
-					addActionListener(getActionListener());
-					setActionCommand(ADD_PROPERTY);
-				}
-			};
+			addPropertyButton = GuiComponentFactory.createButton(GuiComponentType.ADD_PROPERTY_BUTTON, getActionListener());
 		}
 		return addPropertyButton;
 	}

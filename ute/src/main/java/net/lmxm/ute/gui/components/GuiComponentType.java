@@ -28,14 +28,38 @@ import net.lmxm.ute.gui.utils.ImageUtil;
  */
 public enum GuiComponentType {
 
+	/** The ADD_JOB_BUTTON. */
+	ADD_JOB_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
+	
+	/** The ADD_LOCATION_BUTTON. */
+	ADD_LOCATION_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_LOCATION),
+	
+	/** The ADD_PREFERENCE_BUTTON. */
+	ADD_PREFERENCE_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.ADD_PREFERENCE_ICON, ActionConstants.ADD_PREFERENCE),
+	
+	/** The ADD_PROPERTY_BUTTON. */
+	ADD_PROPERTY_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.ADD_PROPERTY_ICON, ActionConstants.ADD_PROPERTY),
+	
+	/** The EXECUTE_JOB_BUTTON. */
+	EXECUTE_JOB_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
+	
 	/** The EXIT_BUTTON. */
 	EXIT_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.EXIT_ICON, ActionConstants.EXIT),
+	
+	/** The CLOSE_DIALOG_BUTTON button. */
+	CLOSE_DIALOG_BUTTON(GuiComponentCategory.BUTTON, null, null),
 
 	/** The NEW_FILE_BUTTON. */
 	NEW_FILE_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.NEW_FILE_ICON, ActionConstants.NEW_FILE),
 
 	/** The OPEN_FILE_BUTTON. */
-	OPEN_FILE_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.OPEN_FILE_ICON, ActionConstants.OPEN_FILE);
+	OPEN_FILE_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.OPEN_FILE_ICON, ActionConstants.OPEN_FILE),
+	
+	/** The SAVE_FILE_AS_BUTTON. */
+	SAVE_FILE_AS_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.SAVE_FILE_AS_ICON, ActionConstants.SAVE_FILE_AS),
+	
+	/** The SAVE_FILE_BUTTON. */
+	SAVE_FILE_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.SAVE_FILE_ICON, ActionConstants.SAVE_FILE);
 
 	/**
 	 * The Enum GuiComponentCategory.

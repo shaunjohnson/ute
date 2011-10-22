@@ -34,6 +34,8 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentType;
 import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.utils.ResourcesUtils;
 
@@ -108,9 +110,7 @@ public class AboutDialog extends JDialog {
 	 */
 	private JButton getCloseButton() {
 		if (closeButton == null) {
-			closeButton = new JButton();
-			closeButton.setText("Close");
-			closeButton.addActionListener(new ActionListener() {
+			closeButton = GuiComponentFactory.createButton(GuiComponentType.CLOSE_DIALOG_BUTTON, new ActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent e) {
 					dispose();

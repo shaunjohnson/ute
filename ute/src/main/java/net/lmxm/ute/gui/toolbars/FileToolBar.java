@@ -18,21 +18,16 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
-import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE;
-import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE_AS;
-
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentType;
-import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
  * The Class FileToolBar.
  */
-@SuppressWarnings("serial")
 public class FileToolBar extends AbstractToolBar {
 
 	/** The Constant serialVersionUID. */
@@ -114,16 +109,8 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getSaveAsButton() {
 		if (saveAsButton == null) {
-			saveAsButton = new JButton() {
-				{
-					setText("Save As");
-					setIcon(ImageUtil.SAVE_FILE_AS_ICON);
-					setEnabled(false); // TODO disabled since it is not implemented
-
-					addActionListener(getActionListener());
-					setActionCommand(SAVE_FILE_AS);
-				}
-			};
+			saveAsButton = GuiComponentFactory.createButton(GuiComponentType.SAVE_FILE_AS_BUTTON, getActionListener());
+			saveAsButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return saveAsButton;
 	}
@@ -135,16 +122,8 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getSaveButton() {
 		if (saveButton == null) {
-			saveButton = new JButton() {
-				{
-					setText("Save");
-					setIcon(ImageUtil.SAVE_FILE_ICON);
-					setEnabled(false); // TODO disabled since it is not implemented
-
-					addActionListener(getActionListener());
-					setActionCommand(SAVE_FILE);
-				}
-			};
+			saveButton = GuiComponentFactory.createButton(GuiComponentType.SAVE_FILE_BUTTON, getActionListener());
+			saveButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return saveButton;
 	}
