@@ -44,7 +44,7 @@ public class GuiComponentFactory {
 	 * @param guiComponentType the gui component type
 	 * @return the string
 	 */
-	private static String buildResourcePrefix(final GuiComponentType guiComponentType) {
+	private static String buildResourcePrefix(final GuiComponentButton guiComponentType) {
 		final StringBuilder builder = new StringBuilder();
 		builder.append(guiComponentType.getGuiComponentCategory().name());
 		builder.append(".");
@@ -61,7 +61,7 @@ public class GuiComponentFactory {
 	 * @param actionListener the action listener
 	 * @return the j button
 	 */
-	public static JButton createButton(final GuiComponentType guiComponentType, final ActionListener actionListener) {
+	public static JButton createButton(final GuiComponentButton guiComponentType, final ActionListener actionListener) {
 		final JButton button = new JButton();
 
 		setIconAndText(button, guiComponentType);
@@ -94,7 +94,7 @@ public class GuiComponentFactory {
 	 * @param abstractButton the abstract button
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setIconAndText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
+	private static void setIconAndText(final AbstractButton abstractButton, final GuiComponentButton guiComponentType) {
 		final String resourcePrefix = buildResourcePrefix(guiComponentType);
 
 		final String text = ResourcesUtils.getString(resourcePrefix + TEXT_SUFFIX);

@@ -18,31 +18,10 @@
  */
 package net.lmxm.ute.gui.components;
 
-import javax.swing.Icon;
-
 /**
- * The Interface GuiComponent.
+ * The Enum GuiComponentCategory.
  */
-public interface GuiComponent {
-
-	/**
-	 * Gets the action command.
-	 * 
-	 * @return the action command
-	 */
-	String getActionCommand();
-
-	/**
-	 * Gets the gui component category.
-	 * 
-	 * @return the gui component category
-	 */
-	GuiComponentCategory getGuiComponentCategory();
-
-	/**
-	 * Gets the icon.
-	 * 
-	 * @return the icon
-	 */
-	Icon getIcon();
+public enum GuiComponentCategory {
+	/** The BUTTON. */
+	BUTTON
 }

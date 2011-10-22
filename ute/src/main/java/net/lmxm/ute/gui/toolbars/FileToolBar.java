@@ -23,7 +23,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.components.GuiComponentType;
+import net.lmxm.ute.gui.components.GuiComponentButton;
 
 /**
  * The Class FileToolBar.
@@ -72,7 +72,7 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getExitButton() {
 		if (exitButton == null) {
-			exitButton = GuiComponentFactory.createButton(GuiComponentType.EXIT_BUTTON, getActionListener());
+			exitButton = GuiComponentFactory.createButton(GuiComponentButton.EXIT_BUTTON, getActionListener());
 		}
 		return exitButton;
 	}
@@ -84,7 +84,7 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getNewFileButton() {
 		if (newFileButton == null) {
-			newFileButton = GuiComponentFactory.createButton(GuiComponentType.NEW_FILE_BUTTON, getActionListener());
+			newFileButton = GuiComponentFactory.createButton(GuiComponentButton.NEW_FILE_BUTTON, getActionListener());
 			newFileButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return newFileButton;
@@ -97,7 +97,7 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getOpenFileButton() {
 		if (openFileButton == null) {
-			openFileButton = GuiComponentFactory.createButton(GuiComponentType.OPEN_FILE_BUTTON, getActionListener());
+			openFileButton = GuiComponentFactory.createButton(GuiComponentButton.OPEN_FILE_BUTTON, getActionListener());
 		}
 		return openFileButton;
 	}
@@ -109,7 +109,7 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getSaveAsButton() {
 		if (saveAsButton == null) {
-			saveAsButton = GuiComponentFactory.createButton(GuiComponentType.SAVE_FILE_AS_BUTTON, getActionListener());
+			saveAsButton = GuiComponentFactory.createButton(GuiComponentButton.SAVE_FILE_AS_BUTTON, getActionListener());
 			saveAsButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return saveAsButton;
@@ -122,7 +122,7 @@ public class FileToolBar extends AbstractToolBar {
 	 */
 	private JButton getSaveButton() {
 		if (saveButton == null) {
-			saveButton = GuiComponentFactory.createButton(GuiComponentType.SAVE_FILE_BUTTON, getActionListener());
+			saveButton = GuiComponentFactory.createButton(GuiComponentButton.SAVE_FILE_BUTTON, getActionListener());
 			saveButton.setEnabled(false); // TODO disabled since it is not implemented
 		}
 		return saveButton;

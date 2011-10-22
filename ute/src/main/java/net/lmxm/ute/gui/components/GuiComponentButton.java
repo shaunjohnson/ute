@@ -24,69 +24,56 @@ import net.lmxm.ute.gui.ActionConstants;
 import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
- * The Enum GuiComponentType.
+ * The Enum GuiComponentButton.
  */
-public enum GuiComponentType implements GuiComponent {
+public enum GuiComponentButton implements GuiComponent {
 
 	/** The ADD_JOB_BUTTON. */
-	ADD_JOB_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
+	ADD_JOB_BUTTON(ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
 
 	/** The ADD_LOCATION_BUTTON. */
-	ADD_LOCATION_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_LOCATION),
+	ADD_LOCATION_BUTTON(ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_LOCATION),
 
 	/** The ADD_PREFERENCE_BUTTON. */
-	ADD_PREFERENCE_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.ADD_PREFERENCE_ICON, ActionConstants.ADD_PREFERENCE),
+	ADD_PREFERENCE_BUTTON(ImageUtil.ADD_PREFERENCE_ICON, ActionConstants.ADD_PREFERENCE),
 
 	/** The ADD_PROPERTY_BUTTON. */
-	ADD_PROPERTY_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.ADD_PROPERTY_ICON, ActionConstants.ADD_PROPERTY),
+	ADD_PROPERTY_BUTTON(ImageUtil.ADD_PROPERTY_ICON, ActionConstants.ADD_PROPERTY),
 
 	/** The CLOSE_DIALOG_BUTTON button. */
-	CLOSE_DIALOG_BUTTON(GuiComponentCategory.BUTTON, null, null),
+	CLOSE_DIALOG_BUTTON(null, null),
 
 	/** The EXECUTE_JOB_BUTTON. */
-	EXECUTE_JOB_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
+	EXECUTE_JOB_BUTTON(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
 
 	/** The EXIT_BUTTON. */
-	EXIT_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.EXIT_ICON, ActionConstants.EXIT),
+	EXIT_BUTTON(ImageUtil.EXIT_ICON, ActionConstants.EXIT),
 
 	/** The NEW_FILE_BUTTON. */
-	NEW_FILE_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.NEW_FILE_ICON, ActionConstants.NEW_FILE),
+	NEW_FILE_BUTTON(ImageUtil.NEW_FILE_ICON, ActionConstants.NEW_FILE),
 
 	/** The OPEN_FILE_BUTTON. */
-	OPEN_FILE_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.OPEN_FILE_ICON, ActionConstants.OPEN_FILE),
+	OPEN_FILE_BUTTON(ImageUtil.OPEN_FILE_ICON, ActionConstants.OPEN_FILE),
 
 	/** The SAVE_FILE_AS_BUTTON. */
-	SAVE_FILE_AS_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.SAVE_FILE_AS_ICON, ActionConstants.SAVE_FILE_AS),
+	SAVE_FILE_AS_BUTTON(ImageUtil.SAVE_FILE_AS_ICON, ActionConstants.SAVE_FILE_AS),
 
 	/** The SAVE_FILE_BUTTON. */
-	SAVE_FILE_BUTTON(GuiComponentCategory.BUTTON, ImageUtil.SAVE_FILE_ICON, ActionConstants.SAVE_FILE);
-
-	/**
-	 * The Enum GuiComponentCategory.
-	 */
-	public enum GuiComponentCategory {
-		/** The BUTTON. */
-		BUTTON
-	}
+	SAVE_FILE_BUTTON(ImageUtil.SAVE_FILE_ICON, ActionConstants.SAVE_FILE);
 
 	/** The action command. */
 	private final String actionCommand;
-
-	/** The gui component category. */
-	private final GuiComponentCategory guiComponentCategory;
 
 	/** The icon. */
 	private final Icon icon;
 
 	/**
-	 * Instantiates a new gui component type.
+	 * Instantiates a new gui component button.
 	 * 
-	 * @param guiComponentCategory the gui component category
 	 * @param icon the icon
 	 * @param actionCommand the action command
 	 */
-	GuiComponentType(final GuiComponentCategory guiComponentCategory, final Icon icon, final String actionCommand) {
-		this.guiComponentCategory = guiComponentCategory;
+	GuiComponentButton(final Icon icon, final String actionCommand) {
 		this.icon = icon;
 		this.actionCommand = actionCommand;
 	}
@@ -108,7 +95,7 @@ public enum GuiComponentType implements GuiComponent {
 	 */
 	@Override
 	public GuiComponentCategory getGuiComponentCategory() {
-		return guiComponentCategory;
+		return GuiComponentCategory.BUTTON;
 	}
 
 	/*
