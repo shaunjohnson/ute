@@ -22,13 +22,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.utils.ImageUtil;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
  * The Class PropertyPopupMenu.
  */
-@SuppressWarnings("serial")
 public final class PropertyPopupMenu extends AbstractPopupMenu {
 
 	/** The Constant serialVersionUID. */
@@ -54,7 +53,10 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
+	 * 
+	 * @see
+	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
+	 * lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -68,14 +70,8 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddPropertyMenuItem() {
 		if (addPropertyMenuItem == null) {
-			addPropertyMenuItem = new JMenuItem() {
-				{
-					setIcon(ImageUtil.ADD_PROPERTY_ICON);
-					setText("Add Property");
-					addActionListener(getActionListener());
-					setActionCommand(ActionConstants.ADD_PROPERTY);
-				}
-			};
+			addPropertyMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_PROPERTY,
+					getActionListener());
 		}
 		return addPropertyMenuItem;
 	}
@@ -87,13 +83,8 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getDeletePropertyMenuItem() {
 		if (deletePropertyMenuItem == null) {
-			deletePropertyMenuItem = new JMenuItem() {
-				{
-					setText("Delete Property");
-					addActionListener(getActionListener());
-					setActionCommand(ActionConstants.DELETE_PROPERTY);
-				}
-			};
+			deletePropertyMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.DELETE_PROPERTY,
+					getActionListener());
 		}
 		return deletePropertyMenuItem;
 	}

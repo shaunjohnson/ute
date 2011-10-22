@@ -22,8 +22,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.utils.ImageUtil;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
  * The Class JobPopupMenu.
@@ -57,7 +57,10 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
+	 * 
+	 * @see
+	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
+	 * lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -71,9 +74,8 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddTaskMenuItem() {
 		if (addTaskMenuItem == null) {
-			addTaskMenuItem = new JMenuItem();
-			addTaskMenuItem.setText("Add Task to Job");
-			addTaskMenuItem.setEnabled(false); // TODO disabled since it is not implemented
+			addTaskMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_TASK, getActionListener());
+			addTaskMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return addTaskMenuItem;
 	}
@@ -85,9 +87,9 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getDeleteJobMenuItem() {
 		if (deleteJobMenuItem == null) {
-			deleteJobMenuItem = new JMenuItem();
-			deleteJobMenuItem.setText("Delete Job");
-			deleteJobMenuItem.setEnabled(false); // TODO disabled since it is not implemented
+			deleteJobMenuItem = GuiComponentFactory
+					.createMenuItem(GuiComponentMenuItem.DELETE_JOB, getActionListener());
+			deleteJobMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return deleteJobMenuItem;
 	}
@@ -99,11 +101,8 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getExecuteJobMenuItem() {
 		if (executeJobMenuItem == null) {
-			executeJobMenuItem = new JMenuItem();
-			executeJobMenuItem.setText("Execute Job");
-			executeJobMenuItem.setIcon(ImageUtil.EXECUTE_ICON);
-			executeJobMenuItem.addActionListener(getActionListener());
-			executeJobMenuItem.setActionCommand(ActionConstants.EXECUTE);
+			executeJobMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.EXECUTE_JOB,
+					getActionListener());
 		}
 		return executeJobMenuItem;
 	}

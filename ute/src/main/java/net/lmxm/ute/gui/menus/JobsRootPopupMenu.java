@@ -22,8 +22,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.utils.ImageUtil;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
  * The Class JobsRootPopupMenu.
@@ -49,7 +49,10 @@ public final class JobsRootPopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
+	 * 
+	 * @see
+	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
+	 * lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -63,12 +66,8 @@ public final class JobsRootPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddJobMenuItem() {
 		if (addJobMenuItem == null) {
-			addJobMenuItem = new JMenuItem();
-			addJobMenuItem.setText("Add Job");
-			addJobMenuItem.setIcon(ImageUtil.ADD_JOB_ICON);
-			addJobMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			addJobMenuItem.addActionListener(getActionListener());
-			addJobMenuItem.setActionCommand(ActionConstants.ADD_JOB);
+			addJobMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_JOB, getActionListener());
+			addJobMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return addJobMenuItem;
 	}

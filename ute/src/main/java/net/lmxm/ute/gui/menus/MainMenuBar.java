@@ -247,7 +247,7 @@ public class MainMenuBar extends JMenuBar {
 	 */
 	private JMenuItem getSaveMenuItem() {
 		if (saveMenuItem == null) {
-			saveMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.SAVE_FILE_AS, getActionListener());
+			saveMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.SAVE_FILE, getActionListener());
 			saveMenuItem.setEnabled(false);
 		}
 		return saveMenuItem;

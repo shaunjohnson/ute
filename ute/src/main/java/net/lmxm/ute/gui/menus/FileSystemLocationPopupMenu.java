@@ -22,7 +22,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
  * The Class FileSystemLocationPopupMenu.
@@ -52,7 +53,10 @@ public final class FileSystemLocationPopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
+	 * 
+	 * @see
+	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
+	 * lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -66,11 +70,10 @@ public final class FileSystemLocationPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddFileSystemLocationMenuItem() {
 		if (addFileSystemLocationMenuItem == null) {
-			addFileSystemLocationMenuItem = new JMenuItem();
-			addFileSystemLocationMenuItem.setText("Add File System Location");
-			addFileSystemLocationMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			addFileSystemLocationMenuItem.addActionListener(getActionListener());
-			addFileSystemLocationMenuItem.setActionCommand(ActionConstants.ADD_FILE_SYSTEM_LOCATION);
+			addFileSystemLocationMenuItem = GuiComponentFactory.createMenuItem(
+					GuiComponentMenuItem.ADD_FILE_SYSTEM_LOCATION, getActionListener());
+			addFileSystemLocationMenuItem.setEnabled(false); // TODO not
+																// implemented
 		}
 		return addFileSystemLocationMenuItem;
 	}
@@ -82,11 +85,10 @@ public final class FileSystemLocationPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getDeleteFileSystemLocationMenuItem() {
 		if (deleteFileSystemLocationMenuItem == null) {
-			deleteFileSystemLocationMenuItem = new JMenuItem();
-			deleteFileSystemLocationMenuItem.setText("Delete File System Location");
-			deleteFileSystemLocationMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			deleteFileSystemLocationMenuItem.addActionListener(getActionListener());
-			deleteFileSystemLocationMenuItem.setActionCommand(ActionConstants.DELETE_FILE_SYSTEM_LOCATION);
+			deleteFileSystemLocationMenuItem = GuiComponentFactory.createMenuItem(
+					GuiComponentMenuItem.DELETE_FILE_SYSTEM_LOCATION, getActionListener());
+			deleteFileSystemLocationMenuItem.setEnabled(false); // TODO not
+																// implemented
 		}
 		return deleteFileSystemLocationMenuItem;
 	}

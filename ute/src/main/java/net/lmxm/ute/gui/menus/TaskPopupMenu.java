@@ -23,8 +23,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.utils.ImageUtil;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
  * The Class TaskPopupMenu.
@@ -34,11 +34,8 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4016776722491013039L;
 
-	/** The add task after menu item. */
-	private JMenuItem addTaskAfterMenuItem = null;
-
-	/** The add task before menu item. */
-	private JMenuItem addTaskBeforeMenuItem = null;
+	/** The add task menu item. */
+	private JMenuItem addTaskMenuItem = null;
 
 	/** The delete task menu item. */
 	private JMenuItem deleteTaskMenuItem = null;
@@ -55,14 +52,16 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 		super(actionListener);
 
 		add(getExecuteTaskMenuItem());
-		add(getAddTaskBeforeMenuItem());
-		add(getAddTaskAfterMenuItem());
+		add(getAddTaskMenuItem());
 		add(getDeleteTaskMenuItem());
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
+	 * 
+	 * @see
+	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
+	 * lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -77,31 +76,16 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 	}
 
 	/**
-	 * Gets the adds the task after menu item.
+	 * Gets the adds the task menu item.
 	 * 
-	 * @return the adds the task after menu item
+	 * @return the adds the task menu item
 	 */
-	private JMenuItem getAddTaskAfterMenuItem() {
-		if (addTaskAfterMenuItem == null) {
-			addTaskAfterMenuItem = new JMenuItem();
-			addTaskAfterMenuItem.setText("Add Task After");
-			addTaskAfterMenuItem.setEnabled(false); // TODO disabled since it is not implemented
+	private JMenuItem getAddTaskMenuItem() {
+		if (addTaskMenuItem == null) {
+			addTaskMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_TASK, getActionListener());
+			addTaskMenuItem.setEnabled(false); // TODO not implemented
 		}
-		return addTaskAfterMenuItem;
-	}
-
-	/**
-	 * Gets the adds the task before menu item.
-	 * 
-	 * @return the adds the task before menu item
-	 */
-	private JMenuItem getAddTaskBeforeMenuItem() {
-		if (addTaskBeforeMenuItem == null) {
-			addTaskBeforeMenuItem = new JMenuItem();
-			addTaskBeforeMenuItem.setText("Add Task Before");
-			addTaskBeforeMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-		}
-		return addTaskBeforeMenuItem;
+		return addTaskMenuItem;
 	}
 
 	/**
@@ -111,9 +95,9 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getDeleteTaskMenuItem() {
 		if (deleteTaskMenuItem == null) {
-			deleteTaskMenuItem = new JMenuItem();
-			deleteTaskMenuItem.setText("Delete Task");
-			deleteTaskMenuItem.setEnabled(false); // TODO disabled since it is not implemented
+			deleteTaskMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.DELETE_TASK,
+					getActionListener());
+			deleteTaskMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return deleteTaskMenuItem;
 	}
@@ -125,11 +109,8 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getExecuteTaskMenuItem() {
 		if (executeTaskMenuItem == null) {
-			executeTaskMenuItem = new JMenuItem();
-			executeTaskMenuItem.setText("Execute Task");
-			executeTaskMenuItem.setIcon(ImageUtil.EXECUTE_ICON);
-			executeTaskMenuItem.addActionListener(getActionListener());
-			executeTaskMenuItem.setActionCommand(ActionConstants.EXECUTE);
+			executeTaskMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.EXECUTE_TASK,
+					getActionListener());
 		}
 		return executeTaskMenuItem;
 	}

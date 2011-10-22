@@ -22,7 +22,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
  * The Class SubversionRepositoryLocationsRootPopupMenu.
@@ -48,7 +49,10 @@ public final class SubversionRepositoryLocationsRootPopupMenu extends AbstractPo
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
+	 * 
+	 * @see
+	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
+	 * lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -62,12 +66,11 @@ public final class SubversionRepositoryLocationsRootPopupMenu extends AbstractPo
 	 */
 	private JMenuItem getAddSubversionRepositoryLocationMenuItem() {
 		if (addSubversionRepositoryLocationMenuItem == null) {
-			addSubversionRepositoryLocationMenuItem = new JMenuItem();
-			addSubversionRepositoryLocationMenuItem.setText("Add Subversion Repository Location");
-			addSubversionRepositoryLocationMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			addSubversionRepositoryLocationMenuItem.addActionListener(getActionListener());
-			addSubversionRepositoryLocationMenuItem
-					.setActionCommand(ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION);
+			addSubversionRepositoryLocationMenuItem = GuiComponentFactory.createMenuItem(
+					GuiComponentMenuItem.ADD_SUBVERSION_REPOSITORY_LOCATION, getActionListener());
+			addSubversionRepositoryLocationMenuItem.setEnabled(false); // TODO
+																		// not
+																		// implemented
 		}
 		return addSubversionRepositoryLocationMenuItem;
 	}

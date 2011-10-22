@@ -145,8 +145,14 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	@Override
 	public void valueChanged(final TreeSelectionEvent treeSelectionEvent) {
 		final TreePath treePath = treeSelectionEvent.getNewLeadSelectionPath();
-		final DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) treePath.getLastPathComponent();
 
-		getExecuteJobButton().setEnabled(treeNode.getUserObject() instanceof Job);
+		if (treePath == null) {
+			getExecuteJobButton().setEnabled(false);
+		}
+		else {
+			final DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) treePath.getLastPathComponent();
+
+			getExecuteJobButton().setEnabled(treeNode.getUserObject() instanceof Job);
+		}
 	}
 }

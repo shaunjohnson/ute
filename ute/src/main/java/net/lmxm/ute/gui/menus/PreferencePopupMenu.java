@@ -22,7 +22,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
  * The Class PreferencePopupMenu.
@@ -52,7 +53,10 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
+	 * 
+	 * @see
+	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
+	 * lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -66,11 +70,9 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddPreferenceMenuItem() {
 		if (addPreferenceMenuItem == null) {
-			addPreferenceMenuItem = new JMenuItem();
-			addPreferenceMenuItem.setText("Add Preference");
-			addPreferenceMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			addPreferenceMenuItem.addActionListener(getActionListener());
-			addPreferenceMenuItem.setActionCommand(ActionConstants.ADD_PREFERENCE);
+			addPreferenceMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_PREFERENCE,
+					getActionListener());
+			addPreferenceMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return addPreferenceMenuItem;
 	}
@@ -82,11 +84,9 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getDeletePreferenceMenuItem() {
 		if (deletePreferenceMenuItem == null) {
-			deletePreferenceMenuItem = new JMenuItem();
-			deletePreferenceMenuItem.setText("Delete Preference");
-			deletePreferenceMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			deletePreferenceMenuItem.addActionListener(getActionListener());
-			deletePreferenceMenuItem.setActionCommand(ActionConstants.DELETE_PREFERENCE);
+			deletePreferenceMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.DELETE_PREFERENCE,
+					getActionListener());
+			deletePreferenceMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return deletePreferenceMenuItem;
 	}

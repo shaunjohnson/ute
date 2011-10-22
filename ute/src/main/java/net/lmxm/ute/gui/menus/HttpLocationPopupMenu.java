@@ -22,7 +22,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
  * The Class HttpLocationPopupMenu.
@@ -52,7 +53,10 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.lang.Object)
+	 * 
+	 * @see
+	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
+	 * lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -66,11 +70,9 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getAddHttpLocationMenuItem() {
 		if (addHttpLocationMenuItem == null) {
-			addHttpLocationMenuItem = new JMenuItem();
-			addHttpLocationMenuItem.setText("Add HTTP Location");
-			addHttpLocationMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			addHttpLocationMenuItem.addActionListener(getActionListener());
-			addHttpLocationMenuItem.setActionCommand(ActionConstants.ADD_HTTP_LOCATION);
+			addHttpLocationMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION,
+					getActionListener());
+			addHttpLocationMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return addHttpLocationMenuItem;
 	}
@@ -82,11 +84,10 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getDeleteHttpLocationMenuItem() {
 		if (deleteHttpLocationMenuItem == null) {
-			deleteHttpLocationMenuItem = new JMenuItem();
-			deleteHttpLocationMenuItem.setText("Delete HTTP Location");
-			deleteHttpLocationMenuItem.setEnabled(false); // TODO disabled since it is not implemented
-			deleteHttpLocationMenuItem.addActionListener(getActionListener());
-			deleteHttpLocationMenuItem.setActionCommand(ActionConstants.DELETE_HTTP_LOCATION);
+			deleteHttpLocationMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION,
+					getActionListener());
+			deleteHttpLocationMenuItem.setEnabled(false); // TODO not
+															// implemented
 		}
 		return deleteHttpLocationMenuItem;
 	}
