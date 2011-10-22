@@ -110,7 +110,7 @@ public class AboutDialog extends JDialog {
 	 */
 	private JButton getCloseButton() {
 		if (closeButton == null) {
-			closeButton = GuiComponentFactory.createButton(GuiComponentButton.CLOSE_DIALOG_BUTTON, new ActionListener() {
+			closeButton = GuiComponentFactory.createButton(GuiComponentButton.CLOSE_DIALOG, new ActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent e) {
 					dispose();

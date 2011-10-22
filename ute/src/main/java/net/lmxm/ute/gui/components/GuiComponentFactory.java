@@ -44,7 +44,7 @@ public class GuiComponentFactory {
 	 * @param guiComponentType the gui component type
 	 * @return the string
 	 */
-	private static String buildResourcePrefix(final GuiComponentButton guiComponentType) {
+	private static String buildResourcePrefix(final GuiComponentType guiComponentType) {
 		final StringBuilder builder = new StringBuilder();
 		builder.append(guiComponentType.getGuiComponentCategory().name());
 		builder.append(".");
@@ -57,15 +57,15 @@ public class GuiComponentFactory {
 	/**
 	 * Creates a new GuiComponent object.
 	 * 
-	 * @param guiComponentType the gui component type
+	 * @param guiComponentButton the gui component button
 	 * @param actionListener the action listener
 	 * @return the j button
 	 */
-	public static JButton createButton(final GuiComponentButton guiComponentType, final ActionListener actionListener) {
+	public static JButton createButton(final GuiComponentButton guiComponentButton, final ActionListener actionListener) {
 		final JButton button = new JButton();
 
-		setIconAndText(button, guiComponentType);
-		setActionListener(button, guiComponentType, actionListener);
+		setIconAndText(button, guiComponentButton);
+		setActionListener(button, guiComponentButton, actionListener);
 
 		return button;
 	}
@@ -74,17 +74,16 @@ public class GuiComponentFactory {
 	 * Sets the action listener.
 	 * 
 	 * @param abstractButton the abstract button
-	 * @param guiComponentType the gui component type
 	 * @param actionListener the action listener
 	 */
-	private static void setActionListener(final AbstractButton abstractButton, final GuiComponentType guiComponentType,
-			final ActionListener actionListener) {
+	private static void setActionListener(final AbstractButton abstractButton,
+			final GuiComponentButton guiComponentButton, final ActionListener actionListener) {
 		if (actionListener != null) {
 			abstractButton.addActionListener(actionListener);
 		}
 
-		if (guiComponentType.getActionCommand() != null) {
-			abstractButton.setActionCommand(guiComponentType.getActionCommand());
+		if (guiComponentButton.getActionCommand() != null) {
+			abstractButton.setActionCommand(guiComponentButton.getActionCommand());
 		}
 	}
 
@@ -94,8 +93,8 @@ public class GuiComponentFactory {
 	 * @param abstractButton the abstract button
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setIconAndText(final AbstractButton abstractButton, final GuiComponentButton guiComponentType) {
-		final String resourcePrefix = buildResourcePrefix(guiComponentType);
+	private static void setIconAndText(final AbstractButton abstractButton, final GuiComponentButton guiComponentButton) {
+		final String resourcePrefix = buildResourcePrefix(guiComponentButton);
 
 		final String text = ResourcesUtils.getString(resourcePrefix + TEXT_SUFFIX);
 		if (StringUtils.isNotBlank(text)) {
@@ -107,8 +106,8 @@ public class GuiComponentFactory {
 			abstractButton.setToolTipText(toolTipText);
 		}
 
-		if (guiComponentType.getIcon() != null) {
-			abstractButton.setIcon(guiComponentType.getIcon());
+		if (guiComponentButton.getIcon() != null) {
+			abstractButton.setIcon(guiComponentButton.getIcon());
 		}
 	}
 }

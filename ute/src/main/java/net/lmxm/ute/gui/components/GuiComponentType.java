@@ -45,4 +45,11 @@ public interface GuiComponentType {
 	 * @return the icon
 	 */
 	Icon getIcon();
+
+	/**
+	 * Name.
+	 * 
+	 * @return the string
+	 */
+	String name();
 }

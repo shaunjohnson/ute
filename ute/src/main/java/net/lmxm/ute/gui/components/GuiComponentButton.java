@@ -28,38 +28,38 @@ import net.lmxm.ute.gui.utils.ImageUtil;
  */
 public enum GuiComponentButton implements GuiComponentType {
 
-	/** The ADD_JOB_BUTTON. */
-	ADD_JOB_BUTTON(ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
+	/** The ADD_JOB. */
+	ADD_JOB(ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
 
-	/** The ADD_LOCATION_BUTTON. */
-	ADD_LOCATION_BUTTON(ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_LOCATION),
+	/** The ADD_LOCATION. */
+	ADD_LOCATION(ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_LOCATION),
 
-	/** The ADD_PREFERENCE_BUTTON. */
-	ADD_PREFERENCE_BUTTON(ImageUtil.ADD_PREFERENCE_ICON, ActionConstants.ADD_PREFERENCE),
+	/** The ADD_PREFERENCE. */
+	ADD_PREFERENCE(ImageUtil.ADD_PREFERENCE_ICON, ActionConstants.ADD_PREFERENCE),
 
-	/** The ADD_PROPERTY_BUTTON. */
-	ADD_PROPERTY_BUTTON(ImageUtil.ADD_PROPERTY_ICON, ActionConstants.ADD_PROPERTY),
+	/** The ADD_PROPERTY. */
+	ADD_PROPERTY(ImageUtil.ADD_PROPERTY_ICON, ActionConstants.ADD_PROPERTY),
 
-	/** The CLOSE_DIALOG_BUTTON button. */
-	CLOSE_DIALOG_BUTTON(null, null),
+	/** The CLOSE_DIALOG button. */
+	CLOSE_DIALOG(null, null),
 
-	/** The EXECUTE_JOB_BUTTON. */
-	EXECUTE_JOB_BUTTON(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
+	/** The EXECUTE_JOB. */
+	EXECUTE_JOB(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
 
-	/** The EXIT_BUTTON. */
-	EXIT_BUTTON(ImageUtil.EXIT_ICON, ActionConstants.EXIT),
+	/** The EXIT. */
+	EXIT(ImageUtil.EXIT_ICON, ActionConstants.EXIT),
 
-	/** The NEW_FILE_BUTTON. */
-	NEW_FILE_BUTTON(ImageUtil.NEW_FILE_ICON, ActionConstants.NEW_FILE),
+	/** The NEW_FILE. */
+	NEW_FILE(ImageUtil.NEW_FILE_ICON, ActionConstants.NEW_FILE),
 
-	/** The OPEN_FILE_BUTTON. */
-	OPEN_FILE_BUTTON(ImageUtil.OPEN_FILE_ICON, ActionConstants.OPEN_FILE),
+	/** The OPEN_FILE. */
+	OPEN_FILE(ImageUtil.OPEN_FILE_ICON, ActionConstants.OPEN_FILE),
 
-	/** The SAVE_FILE_AS_BUTTON. */
-	SAVE_FILE_AS_BUTTON(ImageUtil.SAVE_FILE_AS_ICON, ActionConstants.SAVE_FILE_AS),
+	/** The SAVE_FILE. */
+	SAVE_FILE(ImageUtil.SAVE_FILE_ICON, ActionConstants.SAVE_FILE),
 
-	/** The SAVE_FILE_BUTTON. */
-	SAVE_FILE_BUTTON(ImageUtil.SAVE_FILE_ICON, ActionConstants.SAVE_FILE);
+	/** The SAVE_FILE_AS. */
+	SAVE_FILE_AS(ImageUtil.SAVE_FILE_AS_ICON, ActionConstants.SAVE_FILE_AS);
 
 	/** The action command. */
 	private final String actionCommand;
