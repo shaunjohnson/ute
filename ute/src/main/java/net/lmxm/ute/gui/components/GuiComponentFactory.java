@@ -77,7 +77,7 @@ public class GuiComponentFactory {
 	 * @param guiComponentType the gui component type
 	 * @param actionListener the action listener
 	 */
-	private static void setActionListener(final AbstractButton abstractButton, final GuiComponentType guiComponentType,
+	private static void setActionListener(final AbstractButton abstractButton, final GuiComponent guiComponentType,
 			final ActionListener actionListener) {
 		if (actionListener != null) {
 			abstractButton.addActionListener(actionListener);
