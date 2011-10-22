@@ -21,9 +21,9 @@ package net.lmxm.ute.gui.components;
 import javax.swing.Icon;
 
 /**
- * The Interface GuiComponent.
+ * The Interface GuiComponentType.
  */
-public interface GuiComponent {
+public interface GuiComponentType {
 
 	/**
 	 * Gets the action command.

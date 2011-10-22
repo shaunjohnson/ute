@@ -26,7 +26,7 @@ import net.lmxm.ute.gui.utils.ImageUtil;
 /**
  * The Enum GuiComponentButton.
  */
-public enum GuiComponentButton implements GuiComponent {
+public enum GuiComponentButton implements GuiComponentType {
 
 	/** The ADD_JOB_BUTTON. */
 	ADD_JOB_BUTTON(ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
