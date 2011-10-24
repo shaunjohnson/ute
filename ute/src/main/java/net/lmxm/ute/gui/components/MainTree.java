@@ -261,25 +261,16 @@ public class MainTree extends JTree {
 		setAutoscrolls(true);
 		setShowsRootHandles(true);
 
-		// addKeyListener(new KeyAdapter() {
-		// @Override
-		// public void keyReleased(final KeyEvent e) {
-		// treeSelectionChanged();
-		// }
-		// });
-
 		addMouseListener(new MainTreeMouseListener());
-
-		// addMouseListener(new MouseAdapter() {
-		// @Override
-		// public void mousePressed(final MouseEvent mouseEvent) {
-		// treeSelectionChanged();
-		// }
-		// });
 	}
 
-	public TreePath addProperty(final Property property) {
-		return mainTreeModel.addProperty(property);
+	/**
+	 * Adds the property.
+	 * 
+	 * @param property the property
+	 */
+	public void addProperty(final Property property) {
+		showSelectedPath(mainTreeModel.addProperty(property));
 	}
 
 	/**
@@ -506,5 +497,15 @@ public class MainTree extends JTree {
 		if (newTreePath != null) {
 			setSelectionPath(newTreePath);
 		}
+	}
+
+	/**
+	 * Show selected path.
+	 * 
+	 * @param treePath the tree path
+	 */
+	private void showSelectedPath(final TreePath treePath) {
+		setSelectionPath(treePath);
+		scrollPathToVisible(treePath);
 	}
 }

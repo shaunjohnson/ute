@@ -50,7 +50,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.TreePath;
 
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
@@ -216,11 +215,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		final Property property = new Property();
 		configuration.getProperties().add(property);
 
-		final TreePath treePath = mainTree.addProperty(property);
-		if (treePath != null) {
-			mainTree.setSelectionPath(treePath);
-			mainTree.scrollPathToVisible(treePath);
-		}
+		mainTree.addProperty(property);
 	}
 
 	/**
