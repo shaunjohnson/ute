@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.gui.nodes;
 
+import net.lmxm.ute.ConfigurationHolder;
+import net.lmxm.ute.beans.Configuration;
+
 /**
  * The Class FileSystemLocationsRootTreeNode.
  */
@@ -26,9 +29,18 @@ public final class FileSystemLocationsRootTreeNode extends AbstractRootTreeNode 
 	/**
 	 * Instantiates a new file system locations root tree node.
 	 * 
-	 * @param id the id
+	 * @param configurationHolder the configuration holder
 	 */
-	public FileSystemLocationsRootTreeNode(final String id) {
-		super(id);
+	public FileSystemLocationsRootTreeNode(final ConfigurationHolder configurationHolder) {
+		super(configurationHolder);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.nodes.AbstractRootTreeNode#convertToString(net.lmxm.ute.beans.Configuration)
+	 */
+	@Override
+	protected String convertToString(final Configuration configuration) {
+		return "File System Locations (" + configuration.getFileSystemLocations().size() + ")";
 	}
 }

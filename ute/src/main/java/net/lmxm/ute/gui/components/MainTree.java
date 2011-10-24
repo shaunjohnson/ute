@@ -28,6 +28,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
@@ -215,6 +216,9 @@ public class MainTree extends JTree {
 	/** The jobs root popup menu. */
 	private JobsRootPopupMenu jobsRootPopupMenu = null;
 
+	/** The main tree model. */
+	private final MainTreeModel mainTreeModel;
+
 	/** The preference popup menu. */
 	private PreferencePopupMenu preferencePopupMenu = null;
 
@@ -239,12 +243,16 @@ public class MainTree extends JTree {
 	/**
 	 * Instantiates a new main tree.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public MainTree(final ActionListener actionListener) {
+	public MainTree(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
 		super();
 
 		this.actionListener = actionListener;
+
+		mainTreeModel = new MainTreeModel(configurationHolder);
+		setModel(mainTreeModel);
 
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		setCellRenderer(new JobDetailsTreeCellRenderer());
@@ -268,6 +276,10 @@ public class MainTree extends JTree {
 		// treeSelectionChanged();
 		// }
 		// });
+	}
+
+	public TreePath addProperty(final Property property) {
+		return mainTreeModel.addProperty(property);
 	}
 
 	/**
@@ -468,6 +480,18 @@ public class MainTree extends JTree {
 		}
 
 		return taskPopupMenu;
+	}
+
+	/**
+	 * Refresh.
+	 * 
+	 * @return the main tree
+	 */
+	public MainTree refresh() {
+		mainTreeModel.refresh();
+		expandPath(mainTreeModel.getPathToJobs());
+
+		return this;
 	}
 
 	/**

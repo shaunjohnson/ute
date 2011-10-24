@@ -18,31 +18,42 @@
  */
 package net.lmxm.ute.gui.nodes;
 
+import net.lmxm.ute.ConfigurationHolder;
+import net.lmxm.ute.beans.Configuration;
+
 /**
  * The Class AbstractRootTreeNode.
  */
 public abstract class AbstractRootTreeNode implements RootTreeNode {
 
-	/** The id. */
-	private final String id;
+	/** The configuration holder. */
+	private final ConfigurationHolder configurationHolder;
 
 	/**
 	 * Instantiates a new abstract root tree node.
 	 * 
-	 * @param id the id
+	 * @param configurationHolder the configuration holder
 	 */
-	public AbstractRootTreeNode(final String id) {
+	public AbstractRootTreeNode(final ConfigurationHolder configurationHolder) {
 		super();
 
-		this.id = id;
+		this.configurationHolder = configurationHolder;
 	}
+
+	/**
+	 * Convert to string.
+	 * 
+	 * @param configuration the configuration
+	 * @return the string
+	 */
+	protected abstract String convertToString(Configuration configuration);
 
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public final String toString() {
-		return id;
+	public String toString() {
+		return convertToString(configurationHolder.getConfiguration());
 	}
 }

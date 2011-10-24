@@ -50,8 +50,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.text.Position;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import net.lmxm.ute.ConfigurationHolder;
@@ -92,7 +90,6 @@ import net.lmxm.ute.gui.menus.MainMenuBar;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
 import net.lmxm.ute.gui.toolbars.MainToolBar;
-import net.lmxm.ute.gui.utils.GuiUtils;
 import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
@@ -219,7 +216,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		final Property property = new Property();
 		configuration.getProperties().add(property);
 
-		final TreePath treePath = GuiUtils.addPropertyToTreeModel(mainTree, property);
+		final TreePath treePath = mainTree.addProperty(property);
 		if (treePath != null) {
 			mainTree.setSelectionPath(treePath);
 			mainTree.scrollPathToVisible(treePath);
@@ -646,7 +643,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private MainTree getMainTree() {
 		if (mainTree == null) {
-			mainTree = new MainTree(this);
+			mainTree = new MainTree(this, this);
 			mainTree.addTreeSelectionListener(this);
 		}
 
@@ -888,10 +885,12 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * Refresh jobs tree.
 	 */
 	private void refreshJobsTree() {
-		final TreeModel treeModel = GuiUtils.loadJobDetailsTreeModel(configuration);
+		// final TreeModel treeModel = GuiUtils.loadJobDetailsTreeModel(configuration);
+		//
+		// getMainTree().setModel(treeModel);
+		// getMainTree().expandPath(mainTree.getNextMatch("Job", 0, Position.Bias.Forward));
 
-		getMainTree().setModel(treeModel);
-		getMainTree().expandPath(mainTree.getNextMatch("Job", 0, Position.Bias.Forward));
+		getMainTree().refresh();
 	}
 
 	/**

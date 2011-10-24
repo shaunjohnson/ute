@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.gui.nodes;
 
+import net.lmxm.ute.ConfigurationHolder;
+import net.lmxm.ute.beans.Configuration;
+
 /**
  * The Class PropertiesRootTreeNode.
  */
@@ -26,9 +29,18 @@ public final class PropertiesRootTreeNode extends AbstractRootTreeNode {
 	/**
 	 * Instantiates a new properties root tree node.
 	 * 
-	 * @param id the id
+	 * @param configurationHolder the configuration holder
 	 */
-	public PropertiesRootTreeNode(final String id) {
-		super(id);
+	public PropertiesRootTreeNode(final ConfigurationHolder configurationHolder) {
+		super(configurationHolder);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.nodes.AbstractRootTreeNode#convertToString(net.lmxm.ute.beans.Configuration)
+	 */
+	@Override
+	protected String convertToString(final Configuration configuration) {
+		return "Properties (" + configuration.getFileSystemLocations().size() + ")";
 	}
 }
