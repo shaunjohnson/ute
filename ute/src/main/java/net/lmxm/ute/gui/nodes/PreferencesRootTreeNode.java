@@ -18,8 +18,11 @@
  */
 package net.lmxm.ute.gui.nodes;
 
+import java.text.MessageFormat;
+
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.utils.ResourcesUtils;
 
 /**
  * The Class PreferencesRootTreeNode.
@@ -41,6 +44,9 @@ public final class PreferencesRootTreeNode extends AbstractRootTreeNode {
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		return "Preferences (" + configuration.getPreferences().size() + ")";
+		final String pattern = ResourcesUtils.getString("NODE.PREFERENCES");
+		final Object[] arguments = { configuration.getPreferences().size() };
+
+		return MessageFormat.format(pattern, arguments);
 	}
 }
