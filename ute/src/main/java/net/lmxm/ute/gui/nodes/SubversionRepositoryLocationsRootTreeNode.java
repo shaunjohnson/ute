@@ -41,6 +41,6 @@ public final class SubversionRepositoryLocationsRootTreeNode extends AbstractRoo
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		return "Subversion Locations (" + configuration.getFileSystemLocations().size() + ")";
+		return "Subversion Locations (" + configuration.getSubversionRepositoryLocations().size() + ")";
 	}
 }

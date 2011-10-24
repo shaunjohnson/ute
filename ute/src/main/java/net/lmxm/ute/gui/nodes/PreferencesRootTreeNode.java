@@ -41,6 +41,6 @@ public final class PreferencesRootTreeNode extends AbstractRootTreeNode {
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		return "Preferences (" + configuration.getFileSystemLocations().size() + ")";
+		return "Preferences (" + configuration.getPreferences().size() + ")";
 	}
 }

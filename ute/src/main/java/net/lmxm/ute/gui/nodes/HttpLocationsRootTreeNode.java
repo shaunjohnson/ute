@@ -41,6 +41,6 @@ public final class HttpLocationsRootTreeNode extends AbstractRootTreeNode {
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		return "HTTP Locations (" + configuration.getFileSystemLocations().size() + ")";
+		return "HTTP Locations (" + configuration.getHttpLocations().size() + ")";
 	}
 }

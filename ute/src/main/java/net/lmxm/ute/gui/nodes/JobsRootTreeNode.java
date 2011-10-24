@@ -41,6 +41,6 @@ public final class JobsRootTreeNode extends AbstractRootTreeNode {
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		return "Jobs (" + configuration.getFileSystemLocations().size() + ")";
+		return "Jobs (" + configuration.getJobs().size() + ")";
 	}
 }

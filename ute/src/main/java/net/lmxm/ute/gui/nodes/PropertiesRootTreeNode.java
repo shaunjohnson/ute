@@ -41,6 +41,7 @@ public final class PropertiesRootTreeNode extends AbstractRootTreeNode {
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		return "Properties (" + configuration.getFileSystemLocations().size() + ")";
+		System.out.println("Properties (" + configuration.getFileSystemLocations().size() + ")");
+		return "Properties (" + configuration.getProperties().size() + ")";
 	}
 }
