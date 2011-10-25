@@ -18,16 +18,18 @@
  */
 package net.lmxm.ute.enums;
 
+import net.lmxm.ute.utils.ResourcesUtils;
+
 /**
  * The Enum Scope.
  */
 public enum Scope {
 
 	/** The FILE. */
-	FILE("File"),
+	FILE(ResourcesUtils.getString("SCOPE.FILE")),
 
 	/** The LINE. */
-	LINE("Line");
+	LINE(ResourcesUtils.getString("SCOPE.LINE"));
 
 	/** The name. */
 	private final String name;

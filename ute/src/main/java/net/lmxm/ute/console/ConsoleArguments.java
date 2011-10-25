@@ -49,15 +49,15 @@ public final class ConsoleArguments {
 	}
 
 	/** The input file. */
-	@Parameter(names = { "-i", "--input-file" }, descriptionKey = "parameter.inputFileDescription", required = true, converter = FileConverter.class, validateWith = InputFileValidator.class)
+	@Parameter(names = { "-i", "--input-file" }, descriptionKey = "PARAMETER.INPUT_FILE.description", required = true, converter = FileConverter.class, validateWith = InputFileValidator.class)
 	private File inputFile;
 
 	/** The job id. */
-	@Parameter(names = { "-j", "--job-id" }, descriptionKey = "parameter.jobIdDescription", required = true)
+	@Parameter(names = { "-j", "--job-id" }, descriptionKey = "PARAMETER.JOB_ID.description", required = true)
 	private final String jobId = null;
 
 	/** The task id. */
-	@Parameter(names = { "-t", "--task-id" }, descriptionKey = "parameter.taskIdDescription")
+	@Parameter(names = { "-t", "--task-id" }, descriptionKey = "PARAMETER.TASK_ID.description")
 	private final String taskId = null;
 
 	/**
