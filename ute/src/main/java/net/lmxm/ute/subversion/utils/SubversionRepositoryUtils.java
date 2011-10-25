@@ -26,6 +26,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.listeners.StatusChangeMessage;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -84,10 +85,9 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 		Preconditions.checkNotNull(destinationPath, "Destination path must not be null");
 
 		try {
-			getStatusChangeHelper().important(this, "Starting file export");
+			getStatusChangeHelper().important(this, StatusChangeMessage.SUBVERSION_EXPORT_STARTED);
 
-			getStatusChangeHelper().info(this,
-					"Exporting files from \"" + urlString + "\" to \"" + destinationPath + "\"");
+			getStatusChangeHelper().info(this, StatusChangeMessage.SUBVERSION_EXPORT_FILE, urlString, destinationPath);
 
 			final SVNURL url = SVNURL.parseURIEncoded(urlString);
 			final File exportDirectory = new File(destinationPath);
@@ -162,7 +162,7 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 						repository.getFile(fileName, latestRevision, null, contents);
 						contents.close();
 
-						getStatusChangeHelper().info(this, "Added file \"" + fileName + "\"");
+						getStatusChangeHelper().info(this, StatusChangeMessage.SUBVERSION_EXPORT_FILE_ADDED, fileName);
 					}
 					catch (final FileNotFoundException e) {
 						LOGGER.error("FileNotFoundException caught exporting a file", e);
@@ -189,16 +189,16 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 
 			LOGGER.debug("{} finished exporting files", prefix);
 
-			getStatusChangeHelper().important(this, "Finished exporting files. revision=" + latestRevision);
+			getStatusChangeHelper().important(this, StatusChangeMessage.SUBVERSION_EXPORT_FINISHED, latestRevision);
 		}
 		catch (final SVNAuthenticationException e) {
 			LOGGER.error("SVNAuthenticationException caught exporting a file", e);
-			getStatusChangeHelper().error(this, "Subversion authentication failed");
+			getStatusChangeHelper().error(this, StatusChangeMessage.SUBVERSION_AUTHENCITAION_FAILED);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 		catch (final SVNException e) {
 			LOGGER.error("SVNException caught exporting a file", e);
-			getStatusChangeHelper().error(this, "Error occurred exporting files");
+			getStatusChangeHelper().error(this, StatusChangeMessage.SUBVERSION_EXPORT_ERROR);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 	}

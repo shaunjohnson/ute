@@ -31,6 +31,7 @@ import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.listeners.StatusChangeMessage;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 
@@ -142,24 +143,24 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
 		binding.setVariable("properties", convertPropertiesToMap(propertiesHolder));
 		binding.setVariable("preferences", convertPreferencesToMap(propertiesHolder));
 
-		getStatusChangeHelper().info(this, "Starting execution of script");
+		getStatusChangeHelper().info(this, StatusChangeMessage.GROOVY_EXECUTION_STARTED);
 
 		try {
 			final Object returnValue = new GroovyShell(binding).evaluate(script);
 
-			getStatusChangeHelper().info(this, "Script execution completed; Script returned \"" + returnValue + "\"");
+			getStatusChangeHelper().info(this, StatusChangeMessage.GROOVY_EXECUTION_FINISHED, returnValue);
 		}
 		catch (final CompilationFailedException e) {
 			LOGGER.error(prefix + " Script compilation failed", e);
 
-			getStatusChangeHelper().error(this, "Script compilation failed");
+			getStatusChangeHelper().error(this, StatusChangeMessage.GROOVY_COMPILATION_ERROR);
 
 			throw new RuntimeException("Script compilation failed");
 		}
 		catch (final Exception e) {
 			LOGGER.error(prefix + " Script execution failed", e);
 
-			getStatusChangeHelper().error(this, "Script execution failed");
+			getStatusChangeHelper().error(this, StatusChangeMessage.GROOVY_EXECUTION_ERROR);
 
 			throw new RuntimeException("Script execution failed");
 		}

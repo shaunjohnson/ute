@@ -19,6 +19,7 @@
 package net.lmxm.ute.subversion.utils;
 
 import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.listeners.StatusChangeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +80,7 @@ public final class ExportReporterBaton implements ISVNReporterBaton {
 
 			reporter.abortReport();
 
-			statusChangeHelper.error(this, "Report failed");
+			statusChangeHelper.error(this, StatusChangeMessage.SUBVERSION_EXPORT_REPORT_ERROR);
 		}
 
 		LOGGER.debug("{} leaving", prefix);

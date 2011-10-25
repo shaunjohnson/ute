@@ -26,6 +26,7 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executers.AbstractExecuter;
 import net.lmxm.ute.listeners.JobStatusListener;
+import net.lmxm.ute.listeners.StatusChangeMessage;
 
 import com.google.common.base.Preconditions;
 
@@ -88,7 +89,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
 	 * Job aborted.
 	 */
 	protected final void jobAborted() {
-		getStatusChangeHelper().heading(this, "Job Aborted (" + job.getId() + ")");
+		getStatusChangeHelper().heading(this, StatusChangeMessage.JOB_ABORTED, job.getId());
 
 		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
 			jobStatusListener.jobAborted();
@@ -99,7 +100,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
 	 * Job completed.
 	 */
 	protected final void jobCompleted() {
-		getStatusChangeHelper().heading(this, "Finished Job (" + job.getId() + ")");
+		getStatusChangeHelper().heading(this, StatusChangeMessage.JOB_FINISHED, job.getId());
 
 		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
 			jobStatusListener.jobCompleted();
@@ -110,7 +111,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
 	 * Job started.
 	 */
 	protected final void jobStarted() {
-		getStatusChangeHelper().heading(this, "Started Job (" + job.getId() + ")");
+		getStatusChangeHelper().heading(this, StatusChangeMessage.JOB_STARTED, job.getId());
 
 		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
 			jobStatusListener.jobStarted();
@@ -134,7 +135,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
 	 * @param task the task
 	 */
 	protected final void taskSkipped(final Task task) {
-		getStatusChangeHelper().info(this, "Skipping disabled task \"" + task.getId() + "\"");
+		getStatusChangeHelper().info(this, StatusChangeMessage.DISABLED_TASK_SKIPPED, task.getId());
 
 		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
 			jobStatusListener.jobTaskSkipped();

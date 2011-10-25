@@ -21,6 +21,8 @@ package net.lmxm.ute.listeners;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.lmxm.ute.utils.ResourcesUtils;
+
 /**
  * The Class StatusChangeHelper.
  */
@@ -43,7 +45,10 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void error(final Object source, final String message) {
+	public final void error(final Object source, final StatusChangeMessage statusChangeMessage,
+			final Object... arguments) {
+		final String message = formatMessage(statusChangeMessage, arguments);
+
 		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
 			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.ERROR, message));
 		}
@@ -55,10 +60,26 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void fatal(final Object source, final String message) {
+	public final void fatal(final Object source, final StatusChangeMessage statusChangeMessage,
+			final Object... arguments) {
+		final String message = formatMessage(statusChangeMessage, arguments);
+
 		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
 			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.FATAL, message));
 		}
+	}
+
+	/**
+	 * Format message.
+	 * 
+	 * @param statusChangeMessage the status change message
+	 * @param arguments the arguments
+	 * @return the string
+	 */
+	private String formatMessage(final StatusChangeMessage statusChangeMessage, final Object[] arguments) {
+		final String format = ResourcesUtils.getString("STATUS_CHANGE_MESSAGE." + statusChangeMessage.name());
+
+		return String.format(format, arguments);
 	}
 
 	/**
@@ -67,7 +88,10 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void heading(final Object source, final String message) {
+	public final void heading(final Object source, final StatusChangeMessage statusChangeMessage,
+			final Object... arguments) {
+		final String message = formatMessage(statusChangeMessage, arguments);
+
 		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
 			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.HEADING, message));
 		}
@@ -79,7 +103,10 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void important(final Object source, final String message) {
+	public final void important(final Object source, final StatusChangeMessage statusChangeMessage,
+			final Object... arguments) {
+		final String message = formatMessage(statusChangeMessage, arguments);
+
 		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
 			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.IMPORTANT, message));
 		}
@@ -91,7 +118,10 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void info(final Object source, final String message) {
+	public final void info(final Object source, final StatusChangeMessage statusChangeMessage,
+			final Object... arguments) {
+		final String message = formatMessage(statusChangeMessage, arguments);
+
 		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
 			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.INFO, message));
 		}

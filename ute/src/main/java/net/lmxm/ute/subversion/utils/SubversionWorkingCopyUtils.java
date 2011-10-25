@@ -21,6 +21,7 @@ package net.lmxm.ute.subversion.utils;
 import java.io.File;
 
 import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.listeners.StatusChangeMessage;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -104,31 +105,28 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 		try {
 			LOGGER.debug("{} start updating working copy", prefix);
 
-			getStatusChangeHelper().important(this, "Started updating working copy (" + pathTrimmed + ")");
+			getStatusChangeHelper().important(this, StatusChangeMessage.SUBVERSION_UPDATE_STARTED, pathTrimmed);
 
 			final DefaultSVNOptions options = SVNWCUtil.createDefaultOptions(true);
 			final SVNClientManager clientManager = SVNClientManager.newInstance(options);
-
 			clientManager.setAuthenticationManager(getAuthenticationManager());
 
 			final SVNUpdateClient updateClient = clientManager.getUpdateClient();
-
 			updateClient.setEventHandler(new EventHandler(getStatusChangeHelper()));
-
 			updateClient.doUpdate(new File(pathTrimmed), SVNRevision.HEAD, SVNDepth.INFINITY, true, false);
 
-			getStatusChangeHelper().important(this, "Finishing updating working copy (" + pathTrimmed + ")");
+			getStatusChangeHelper().important(this, StatusChangeMessage.SUBVERSION_UPDATE_FINISHED, pathTrimmed);
 
 			LOGGER.debug("{} finished updating working copy", prefix);
 		}
 		catch (final SVNAuthenticationException e) {
 			LOGGER.error("SVNAuthenticationException caught exporting a file", e);
-			getStatusChangeHelper().error(this, "Subversion authentication failed");
+			getStatusChangeHelper().error(this, StatusChangeMessage.SUBVERSION_AUTHENCITAION_FAILED);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 		catch (final SVNException e) {
 			LOGGER.error("SVNException caught while updating working copy", e);
-			getStatusChangeHelper().error(this, "Error occurred updating working copy (" + pathTrimmed + ")");
+			getStatusChangeHelper().error(this, StatusChangeMessage.SUBVERSION_UPDATE_ERROR, pathTrimmed);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 

@@ -30,6 +30,7 @@ import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.listeners.StatusChangeMessage;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 
@@ -228,18 +229,19 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 		final List<PatternWrapper> patterns = convertFindReplacePatternsToRegexPatterns(findReplacePatterns);
 
 		for (final File file : files) {
-			if (file.isDirectory()) {
-				LOGGER.debug("{} The file at {} is a directory, not a file; skipping", prefix, file);
-
-				getStatusChangeHelper().error(this,
-						"The file at " + file.getAbsolutePath() + " is a directory, not a file; skipping");
-
-				continue;
-			}
-			else {
+			if (file.isFile()) {
 				findReplaceContent(file, patterns, scope);
 
-				getStatusChangeHelper().info(this, "Find and replace executed on file " + file.getAbsolutePath());
+				getStatusChangeHelper().info(this, StatusChangeMessage.FIND_REPLACE_EXECUTION_FINISHED,
+						file.getAbsolutePath());
+			}
+			else {
+				LOGGER.debug("{} The file at {} is \not a file; skipping", prefix, file);
+
+				getStatusChangeHelper().error(this, StatusChangeMessage.FIND_REPLACE_NOT_FILE_ERROR,
+						file.getAbsolutePath());
+
+				continue;
 			}
 		}
 

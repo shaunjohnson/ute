@@ -19,6 +19,8 @@
 package net.lmxm.ute.subversion.utils;
 
 import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.listeners.StatusChangeMessage;
+import net.lmxm.ute.utils.ResourcesUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,48 @@ import org.tmatesoft.svn.core.wc.SVNStatusType;
  * The Class EventHandler.
  */
 public final class EventHandler implements ISVNEventHandler {
+
+	/**
+	 * The Enum UpdateChangeType.
+	 */
+	private enum UpdateChangeType {
+
+		/** The ADDED. */
+		ADDED(ResourcesUtils.getString("SUBVERSION.STATUS_ADDED")),
+
+		/** The CONFLICTED. */
+		CONFLICTED(ResourcesUtils.getString("SUBVERSION.STATUS_CONFLICTED")),
+
+		/** The DELETED. */
+		DELETED(ResourcesUtils.getString("SUBVERSION.STATUS_DELETED")),
+
+		/** The MERGED. */
+		MERGED(ResourcesUtils.getString("SUBVERSION.STATUS_MERGED")),
+
+		/** The UPDATED. */
+		UPDATED(ResourcesUtils.getString("SUBVERSION.STATUS_UPDATED"));
+
+		/** The value. */
+		private final String value;
+
+		/**
+		 * Instantiates a new update change type.
+		 * 
+		 * @param value the value
+		 */
+		UpdateChangeType(final String value) {
+			this.value = value;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() {
+			return value;
+		}
+	}
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(EventHandler.class);
@@ -75,38 +119,45 @@ public final class EventHandler implements ISVNEventHandler {
 		LOGGER.debug("{} action={}", prefix, action);
 
 		if (action == SVNEventAction.UPDATE_ADD) {
-			handlePathChange(event, "A");
+			handlePathChange(event, UpdateChangeType.ADDED);
 		}
 		else if (action == SVNEventAction.UPDATE_DELETE) {
-			handlePathChange(event, "D");
+			handlePathChange(event, UpdateChangeType.DELETED);
 		}
 		else if (action == SVNEventAction.UPDATE_NONE) {
-			statusChangeHelper.info(this, "-     " + event.getFile());
+			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_UPDATE_NONE, event.getFile()
+					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.UPDATE_UPDATE) {
 			handleUpdateEvent(event);
 		}
 		else if (action == SVNEventAction.UPDATE_EXTERNAL) {
-			statusChangeHelper.info(this, "Fetching external item into '" + event.getFile().getAbsolutePath() + "'");
-			statusChangeHelper.info(this, "External at revision " + event.getRevision());
+			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_UPDATE_EXTERNAL,
+					event.getRevision(), event.getFile().getAbsolutePath());
 		}
 		else if (action == SVNEventAction.UPDATE_COMPLETED) {
-			statusChangeHelper.info(this, "At revision " + event.getRevision());
+			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_UPDATE_COMPLETED,
+					event.getRevision());
 		}
 		else if (action == SVNEventAction.ADD) {
-			statusChangeHelper.info(this, "A     " + event.getFile());
+			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_ADD, event.getFile()
+					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.DELETE) {
-			statusChangeHelper.info(this, "D     " + event.getFile());
+			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_DELETE, event.getFile()
+					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.LOCKED) {
-			statusChangeHelper.info(this, "L     " + event.getFile());
+			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_LOCKED, event.getFile()
+					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.LOCK_FAILED) {
-			statusChangeHelper.error(this, "failed to lock    " + event.getFile());
+			statusChangeHelper.error(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_LOCK_FAILED, event.getFile()
+					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.FAILED_EXTERNAL) {
-			statusChangeHelper.error(this, "failed to get external    " + event.getFile());
+			statusChangeHelper.error(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_FAILED_EXTERNAL, event.getFile()
+					.getAbsolutePath());
 		}
 		else {
 			LOGGER.error("{} unsupported action {}", prefix, action);
@@ -119,38 +170,33 @@ public final class EventHandler implements ISVNEventHandler {
 	 * Handle path change.
 	 * 
 	 * @param event the event
-	 * @param pathChangeType the path change type
+	 * @param updateChangeType the update change type
 	 */
-	private void handlePathChange(final SVNEvent event, final String pathChangeType) {
+	private void handlePathChange(final SVNEvent event, final UpdateChangeType updateChangeType) {
 		final String prefix = "handlePathChange() :";
 
-		LOGGER.debug("{} entered, event={}, pathChangeType=" + pathChangeType, prefix, event);
+		LOGGER.debug("{} entered, event={}, updateEvent=" + updateChangeType, prefix, event);
 
 		final SVNStatusType propertiesStatus = event.getPropertiesStatus();
 
-		String propertiesChangeType = " ";
+		UpdateChangeType propertiesChangeType = null;
 
 		if (propertiesStatus == SVNStatusType.CHANGED) {
-			propertiesChangeType = "U";
+			propertiesChangeType = UpdateChangeType.UPDATED;
 		}
 		else if (propertiesStatus == SVNStatusType.CONFLICTED) {
-			propertiesChangeType = "C";
+			propertiesChangeType = UpdateChangeType.CONFLICTED;
 		}
 		else if (propertiesStatus == SVNStatusType.MERGED) {
-			propertiesChangeType = "G";
+			propertiesChangeType = UpdateChangeType.MERGED;
 		}
 
-		// Get item's lock status
-		String lockLabel = " ";
-		final SVNStatusType lockType = event.getLockStatus();
+		final String updateChangeString = updateChangeType.toString();
+		final String propertyChangeString = propertiesChangeType == null ? "" : propertiesChangeType.toString();
+		final String lockLabel = isUnlocked(event) ? ResourcesUtils.getString("SUBVERSION.LOCK_STATUS_UNLOCKED") : "";
 
-		if (lockType == SVNStatusType.LOCK_UNLOCKED) {
-			LOGGER.debug("{} item is locked", prefix);
-
-			lockLabel = "B";
-		}
-
-		statusChangeHelper.info(this, pathChangeType + propertiesChangeType + lockLabel + "       " + event.getFile());
+		statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_UPDATE, updateChangeString,
+				propertyChangeString, lockLabel, event.getFile().getAbsolutePath());
 
 		LOGGER.debug("{} leaving", prefix);
 	}
@@ -170,18 +216,28 @@ public final class EventHandler implements ISVNEventHandler {
 		LOGGER.debug("{} contentsStatus={}", prefix, contentsStatus);
 
 		if (contentsStatus == SVNStatusType.CHANGED) {
-			handlePathChange(event, "U");
+			handlePathChange(event, UpdateChangeType.UPDATED);
 		}
 		else if (contentsStatus == SVNStatusType.CONFLICTED) {
-			handlePathChange(event, "C");
+			handlePathChange(event, UpdateChangeType.CONFLICTED);
 		}
 		else if (contentsStatus == SVNStatusType.MERGED) {
-			handlePathChange(event, "G");
+			handlePathChange(event, UpdateChangeType.MERGED);
 		}
 		else {
 			LOGGER.error("{} unsupported contentsStatus {}", prefix, contentsStatus);
 		}
 
 		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
+	 * Checks if is unlocked.
+	 * 
+	 * @param event the event
+	 * @return true, if is unlocked
+	 */
+	private boolean isUnlocked(final SVNEvent event) {
+		return event.getLockStatus() == SVNStatusType.LOCK_UNLOCKED;
 	}
 }
