@@ -20,12 +20,10 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.PropertiesEditorToolBar;
 
 /**
  * The Class PropertiesEditorPanel.
@@ -35,8 +33,8 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2351152862222662562L;
 
-	/** The add property button. */
-	private JButton addPropertyButton;
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new properties editor panel.
@@ -45,22 +43,17 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 	 */
 	public PropertiesEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.PROPERTIES, actionListener);
-
-		final JPanel contentPanel = getContentPanel();
-
-		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
-		contentPanel.add(getAddPropertyButton());
 	}
 
-	/**
-	 * Gets the adds the property button.
-	 * 
-	 * @return the adds the property button
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
 	 */
-	private JButton getAddPropertyButton() {
-		if (addPropertyButton == null) {
-			addPropertyButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_PROPERTY, getActionListener());
+	@Override
+	protected JToolBar getToolBar() {
+		if (toolBar == null) {
+			toolBar = new PropertiesEditorToolBar(getActionListener());
 		}
-		return addPropertyButton;
+		return toolBar;
 	}
 }

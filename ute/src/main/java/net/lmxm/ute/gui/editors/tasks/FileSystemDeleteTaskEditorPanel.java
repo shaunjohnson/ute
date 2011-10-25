@@ -22,10 +22,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.FileSystemDeleteTaskEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +45,9 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 
 	/** The stop on error checkbox. */
 	private JCheckBox stopOnErrorCheckbox = null;
+
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new job editor panel.
@@ -73,6 +78,18 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		}
 
 		return stopOnErrorCheckbox;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
+	 */
+	@Override
+	protected JToolBar getToolBar() {
+		if (toolBar == null) {
+			toolBar = new FileSystemDeleteTaskEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**

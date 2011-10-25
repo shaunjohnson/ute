@@ -46,6 +46,9 @@ public enum GuiComponentButton implements GuiComponentType {
 	/** The EXECUTE_JOB. */
 	EXECUTE_JOB(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
 
+	/** The EXECUTE_TASK. */
+	EXECUTE_TASK(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
+
 	/** The EXIT. */
 	EXIT(ImageUtil.EXIT_ICON, ActionConstants.EXIT),
 
@@ -80,7 +83,6 @@ public enum GuiComponentButton implements GuiComponentType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
 	 */
 	@Override
@@ -90,7 +92,6 @@ public enum GuiComponentButton implements GuiComponentType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
 	 */
 	@Override
@@ -100,7 +101,6 @@ public enum GuiComponentButton implements GuiComponentType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
 	 */
 	@Override

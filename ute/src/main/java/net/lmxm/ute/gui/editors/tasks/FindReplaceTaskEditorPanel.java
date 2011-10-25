@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 
 import net.lmxm.ute.beans.FindReplacePattern;
@@ -35,6 +36,7 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.FindReplaceTaskEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +69,9 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/** The scope pane. */
 	private JPanel scopePane = null;
+
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new find replace task editor panel.
@@ -203,6 +208,18 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		}
 
 		return scopePane;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
+	 */
+	@Override
+	protected JToolBar getToolBar() {
+		if (toolBar == null) {
+			toolBar = new FindReplaceTaskEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**

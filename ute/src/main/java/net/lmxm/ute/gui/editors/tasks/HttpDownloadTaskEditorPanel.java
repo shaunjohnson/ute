@@ -21,11 +21,13 @@ package net.lmxm.ute.gui.editors.tasks;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.HttpDownloadTaskEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +42,9 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7076073228977636114L;
+
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new http download task editor panel.
@@ -59,6 +64,18 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
+	 */
+	@Override
+	protected JToolBar getToolBar() {
+		if (toolBar == null) {
+			toolBar = new HttpDownloadTaskEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**

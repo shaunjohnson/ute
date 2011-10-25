@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -81,6 +82,15 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 			passwordTextField.setMinimumSize(new Dimension(400, (int) passwordTextField.getSize().getHeight()));
 		}
 		return passwordTextField;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
+	 */
+	@Override
+	protected JToolBar getToolBar() {
+		return null;
 	}
 
 	/**

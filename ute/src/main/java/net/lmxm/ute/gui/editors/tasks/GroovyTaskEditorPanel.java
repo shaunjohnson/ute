@@ -22,10 +22,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.GroovyTaskEditorToolBar;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
@@ -49,6 +51,9 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/** The script text area. */
 	private RSyntaxTextArea scriptTextArea = null;
+
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new groovy task editor panel.
@@ -98,6 +103,18 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 			scriptTextArea.setTabSize(4);
 		}
 		return scriptTextArea;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
+	 */
+	@Override
+	protected JToolBar getToolBar() {
+		if (toolBar == null) {
+			toolBar = new GroovyTaskEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**

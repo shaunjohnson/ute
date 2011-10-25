@@ -20,44 +20,44 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JToolBar;
-import javax.swing.border.Border;
+import javax.swing.JButton;
+
+import net.lmxm.ute.gui.components.GuiComponentButton;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
 
 /**
- * The Class AbstractToolBar.
+ * The Class AbstractTaskEditorToolBar.
  */
-public abstract class AbstractToolBar extends JToolBar {
-
-	/** The Constant EDITER_TOOLBAR_BORDER. */
-	protected static final Border EDITER_TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+public abstract class AbstractTaskEditorToolBar extends AbstractToolBar {
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 8062663522559613599L;
+	private static final long serialVersionUID = -5542505715716014617L;
 
-	/** The Constant TOOLBAR_BORDER. */
-	protected static final Border TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 0, 0, 10);
-
-	/** The action listener. */
-	private final ActionListener actionListener;
+	/** The execute task button. */
+	private JButton executeTaskButton = null;
 
 	/**
-	 * Instantiates a new abstract tool bar.
+	 * Instantiates a new properties tool bar.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public AbstractToolBar(final ActionListener actionListener) {
-		super();
+	public AbstractTaskEditorToolBar(final ActionListener actionListener) {
+		super(actionListener);
 
-		this.actionListener = actionListener;
+		setBorder(EDITER_TOOLBAR_BORDER);
+
+		add(getExecuteTaskButton());
 	}
 
 	/**
-	 * Gets the action listener.
+	 * Gets the execute task button.
 	 * 
-	 * @return the action listener
+	 * @return the execute task button
 	 */
-	protected final ActionListener getActionListener() {
-		return actionListener;
+	private JButton getExecuteTaskButton() {
+		if (executeTaskButton == null) {
+			executeTaskButton = GuiComponentFactory.createButton(GuiComponentButton.EXECUTE_TASK, getActionListener());
+		}
+		return executeTaskButton;
 	}
 }

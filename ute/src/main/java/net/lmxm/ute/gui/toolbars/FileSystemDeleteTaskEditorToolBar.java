@@ -20,44 +20,20 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JToolBar;
-import javax.swing.border.Border;
-
 /**
- * The Class AbstractToolBar.
+ * The Class FileSystemDeleteTaskEditorToolBar.
  */
-public abstract class AbstractToolBar extends JToolBar {
-
-	/** The Constant EDITER_TOOLBAR_BORDER. */
-	protected static final Border EDITER_TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+public class FileSystemDeleteTaskEditorToolBar extends AbstractTaskEditorToolBar {
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 8062663522559613599L;
-
-	/** The Constant TOOLBAR_BORDER. */
-	protected static final Border TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 0, 0, 10);
-
-	/** The action listener. */
-	private final ActionListener actionListener;
+	private static final long serialVersionUID = 3117780598467179092L;
 
 	/**
-	 * Instantiates a new abstract tool bar.
+	 * Instantiates a new file system delete task editor tool bar.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public AbstractToolBar(final ActionListener actionListener) {
-		super();
-
-		this.actionListener = actionListener;
-	}
-
-	/**
-	 * Gets the action listener.
-	 * 
-	 * @return the action listener
-	 */
-	protected final ActionListener getActionListener() {
-		return actionListener;
+	public FileSystemDeleteTaskEditorToolBar(final ActionListener actionListener) {
+		super(actionListener);
 	}
 }

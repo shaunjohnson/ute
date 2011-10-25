@@ -21,9 +21,11 @@ package net.lmxm.ute.gui.editors;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.JobEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,9 @@ public final class SequentialJobEditorPanel extends AbstractEditorPanel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -254745593912919513L;
+
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new sequential job editor panel.
@@ -56,6 +61,18 @@ public final class SequentialJobEditorPanel extends AbstractEditorPanel {
 
 		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
 		contentPanel.add(getDescriptionPane());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
+	 */
+	@Override
+	protected JToolBar getToolBar() {
+		if (toolBar == null) {
+			toolBar = new JobEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**

@@ -20,44 +20,44 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JToolBar;
-import javax.swing.border.Border;
+import javax.swing.JButton;
+
+import net.lmxm.ute.gui.components.GuiComponentButton;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
 
 /**
- * The Class AbstractToolBar.
+ * The Class PropertiesEditorToolBar.
  */
-public abstract class AbstractToolBar extends JToolBar {
-
-	/** The Constant EDITER_TOOLBAR_BORDER. */
-	protected static final Border EDITER_TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+public class PropertiesEditorToolBar extends AbstractToolBar {
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 8062663522559613599L;
+	private static final long serialVersionUID = -1153768266558335635L;
 
-	/** The Constant TOOLBAR_BORDER. */
-	protected static final Border TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 0, 0, 10);
-
-	/** The action listener. */
-	private final ActionListener actionListener;
+	/** The add property button. */
+	private JButton addPropertyButton = null;
 
 	/**
-	 * Instantiates a new abstract tool bar.
+	 * Instantiates a new properties editor tool bar.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public AbstractToolBar(final ActionListener actionListener) {
-		super();
+	public PropertiesEditorToolBar(final ActionListener actionListener) {
+		super(actionListener);
 
-		this.actionListener = actionListener;
+		setBorder(EDITER_TOOLBAR_BORDER);
+
+		add(getAddPropertyButton());
 	}
 
 	/**
-	 * Gets the action listener.
+	 * Gets the adds the property button.
 	 * 
-	 * @return the action listener
+	 * @return the adds the property button
 	 */
-	protected final ActionListener getActionListener() {
-		return actionListener;
+	private JButton getAddPropertyButton() {
+		if (addPropertyButton == null) {
+			addPropertyButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_PROPERTY, getActionListener());
+		}
+		return addPropertyButton;
 	}
 }

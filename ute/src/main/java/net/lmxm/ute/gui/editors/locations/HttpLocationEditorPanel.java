@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -58,6 +59,15 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 
 		addLabel(contentPanel, GuiComponentLabel.URL);
 		contentPanel.add(getUrlTextField());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
+	 */
+	@Override
+	protected JToolBar getToolBar() {
+		return null;
 	}
 
 	/**

@@ -35,6 +35,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import net.lmxm.ute.beans.Configuration;
@@ -107,10 +108,13 @@ public abstract class AbstractEditorPanel extends JPanel {
 		this.actionListener = actionListener;
 
 		// Setup title panel
-		final JPanel titlePanel = new JPanel(new MigLayout("wrap 1", "[center]"));
-		final JLabel titleLabel = GuiComponentFactory.createPanelHeaderLabel(guiComponentLabel);
+		final JPanel titlePanel = new JPanel(new MigLayout("wrap 1", "[left]"));
+		titlePanel.add(GuiComponentFactory.createPanelHeaderLabel(guiComponentLabel));
 
-		titlePanel.add(titleLabel);
+		final JToolBar toolBar = getToolBar();
+		if (toolBar != null) {
+			titlePanel.add(toolBar);
+		}
 
 		// Setup content panel
 		contentPanel = new JPanel(new MigLayout("wrap 2", "[right][fill]"));
@@ -286,6 +290,13 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 		return subversionRepositoryLocationTargetComboBox;
 	}
+
+	/**
+	 * Gets the tool bar.
+	 * 
+	 * @return the tool bar
+	 */
+	protected abstract JToolBar getToolBar();
 
 	/**
 	 * Initialize.
