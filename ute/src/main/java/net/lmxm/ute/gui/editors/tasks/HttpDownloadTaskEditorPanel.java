@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,10 +53,10 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
 		addTaskCommonFields();
 
-		addSeparator(contentPanel, "Source");
+		addSeparator(contentPanel, GuiComponentLabel.SOURCE);
 		addHttpSourceFields();
 
-		addSeparator(contentPanel, "Target");
+		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
 	}

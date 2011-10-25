@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 
 import net.lmxm.ute.gui.components.GuiComponentButton;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 /**
  * The Class PropertiesEditorPanel.
@@ -47,7 +48,7 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Add New Property");
+		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
 		contentPanel.add(getAddPropertyButton());
 	}
 

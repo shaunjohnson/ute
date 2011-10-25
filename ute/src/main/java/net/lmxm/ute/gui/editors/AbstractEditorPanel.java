@@ -39,6 +39,8 @@ import javax.swing.SwingConstants;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.miginfocom.swing.MigLayout;
 
 import org.slf4j.Logger;
@@ -95,6 +97,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * Instantiates a new abstract editor panel.
 	 * 
 	 * @param titleText the title text
+	 * @param actionListener the action listener
 	 */
 	public AbstractEditorPanel(final String titleText, final ActionListener actionListener) {
 		super();
@@ -124,12 +127,13 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * 
 	 * @param panel the panel
 	 * @param checkBox the check box
-	 * @param text the text
+	 * @param guiComponentLabel the gui component label
 	 */
-	protected final void addCheckbox(final JPanel panel, final JCheckBox checkBox, final String text) {
+	protected final void addCheckbox(final JPanel panel, final JCheckBox checkBox,
+			final GuiComponentLabel guiComponentLabel) {
 		final JPanel subPanel = new JPanel(new MigLayout("ins 0", "[left]"));
 		subPanel.add(checkBox);
-		subPanel.add(createLabel(text));
+		subPanel.add(createLabel(guiComponentLabel));
 
 		panel.add(subPanel, "skip 1");
 	}
@@ -138,20 +142,20 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * Adds the label.
 	 * 
 	 * @param panel the panel
-	 * @param text the text
+	 * @param guiComponentLabel the gui component label
 	 */
-	protected final void addLabel(final JPanel panel, final String text) {
-		panel.add(createLabel(text), "gapleft 20, top");
+	protected final void addLabel(final JPanel panel, final GuiComponentLabel guiComponentLabel) {
+		panel.add(createLabel(guiComponentLabel), "gapleft 20, top");
 	}
 
 	/**
 	 * Adds the separator.
 	 * 
 	 * @param panel the panel
-	 * @param text the text
+	 * @param guiComponentLabel the gui component label
 	 */
-	protected final void addSeparator(final JPanel panel, final String text) {
-		final JLabel label = createLabel(text);
+	protected final void addSeparator(final JPanel panel, final GuiComponentLabel guiComponentLabel) {
+		final JLabel label = createLabel(guiComponentLabel);
 		label.setFont(BOLD_FONT);
 		label.setForeground(SEPARATOR_LABEL_COLOR);
 
@@ -177,22 +181,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/**
 	 * Creates the label.
 	 * 
-	 * @param text the text
+	 * @param guiComponentLabel the gui component label
 	 * @return the j label
 	 */
-	protected final JLabel createLabel(final String text) {
-		return createLabel(text, SwingConstants.LEADING);
-	}
-
-	/**
-	 * Creates the label.
-	 * 
-	 * @param text the text
-	 * @param align the align
-	 * @return the j label
-	 */
-	protected final JLabel createLabel(final String text, final int align) {
-		return new JLabel(text, align);
+	protected final JLabel createLabel(final GuiComponentLabel guiComponentLabel) {
+		return GuiComponentFactory.createLabel(guiComponentLabel, SwingConstants.LEADING);
 	}
 
 	/**

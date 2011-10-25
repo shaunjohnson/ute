@@ -34,6 +34,7 @@ import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,12 +80,12 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 		addTaskCommonFields();
 
-		addSeparator(contentPanel, "Target");
+		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
 
-		addSeparator(contentPanel, "Find and Replace");
-		addLabel(contentPanel, "Scope");
+		addSeparator(contentPanel, GuiComponentLabel.FIND_AND_REPLACE);
+		addLabel(contentPanel, GuiComponentLabel.SCOPE);
 		contentPanel.add(getScopePane());
 
 		addPatternsFields();
@@ -96,7 +97,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	protected final void addPatternsFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Patterns");
+		addLabel(contentPanel, GuiComponentLabel.PATTERNS);
 		contentPanel.add(getPatternsPane());
 	}
 

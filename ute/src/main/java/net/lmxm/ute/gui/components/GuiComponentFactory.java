@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -70,6 +71,22 @@ public class GuiComponentFactory {
 		setActionListener(button, guiComponentButton, actionListener);
 
 		return button;
+	}
+
+	/**
+	 * Creates a new GuiComponent object.
+	 * 
+	 * @param guiComponentLabel the gui component label
+	 * @param alignment the alignment
+	 * @return the j label
+	 */
+	public static JLabel createLabel(final GuiComponentLabel guiComponentLabel, final int alignment) {
+		final JLabel label = new JLabel();
+
+		setIconAndText(label, guiComponentLabel);
+		label.setHorizontalAlignment(alignment);
+
+		return label;
 	}
 
 	/**
@@ -142,6 +159,30 @@ public class GuiComponentFactory {
 
 		if (guiComponentType.getIcon() != null) {
 			abstractButton.setIcon(guiComponentType.getIcon());
+		}
+	}
+
+	/**
+	 * Sets the icon and text.
+	 * 
+	 * @param label the label
+	 * @param guiComponentType the gui component type
+	 */
+	private static void setIconAndText(final JLabel label, final GuiComponentType guiComponentType) {
+		final String resourcePrefix = buildResourcePrefix(guiComponentType);
+
+		final String text = ResourcesUtils.getString(resourcePrefix + TEXT_SUFFIX);
+		if (StringUtils.isNotBlank(text)) {
+			label.setText(text);
+		}
+
+		final String toolTipText = ResourcesUtils.getString(resourcePrefix + TOOL_TIP_TEXT_SUFFIX);
+		if (StringUtils.isNotBlank(toolTipText)) {
+			label.setToolTipText(toolTipText);
+		}
+
+		if (guiComponentType.getIcon() != null) {
+			label.setIcon(guiComponentType.getIcon());
 		}
 	}
 }

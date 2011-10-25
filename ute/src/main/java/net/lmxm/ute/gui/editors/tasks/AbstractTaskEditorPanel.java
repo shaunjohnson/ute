@@ -39,6 +39,7 @@ import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.AbstractFilesTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
 
 import org.slf4j.Logger;
@@ -94,7 +95,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addFilesFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Files");
+		addLabel(contentPanel, GuiComponentLabel.FILES);
 		contentPanel.add(getFilesPane());
 	}
 
@@ -104,10 +105,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addFileSystemTargetFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Location");
+		addLabel(contentPanel, GuiComponentLabel.LOCATION);
 		contentPanel.add(getFileSystemLocationTargetComboBox());
 
-		addLabel(contentPanel, "Path");
+		addLabel(contentPanel, GuiComponentLabel.PATH);
 		contentPanel.add(getTargetRelativePathTextField());
 	}
 
@@ -117,10 +118,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addHttpSourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Server");
+		addLabel(contentPanel, GuiComponentLabel.SERVER);
 		contentPanel.add(getHttpLocationSourceComboBox());
 
-		addLabel(contentPanel, "Path");
+		addLabel(contentPanel, GuiComponentLabel.PATH);
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 
@@ -130,10 +131,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addSubversionRepositorySourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "Server");
+		addLabel(contentPanel, GuiComponentLabel.SERVER);
 		contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
 
-		addLabel(contentPanel, "Path");
+		addLabel(contentPanel, GuiComponentLabel.PATH);
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 
@@ -143,13 +144,13 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addTaskCommonFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addSeparator(contentPanel, "Task");
+		addSeparator(contentPanel, GuiComponentLabel.TASK);
 		addIdCommonFields();
 
-		addLabel(contentPanel, "Description");
+		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
 		contentPanel.add(getDescriptionPane());
 
-		addCheckbox(contentPanel, getEnabledCheckbox(), "Enabled");
+		addCheckbox(contentPanel, getEnabledCheckbox(), GuiComponentLabel.ENABLED);
 	}
 
 	/**

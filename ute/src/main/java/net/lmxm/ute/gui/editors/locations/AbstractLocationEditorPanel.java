@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
 
 /**
@@ -48,7 +49,7 @@ public abstract class AbstractLocationEditorPanel extends AbstractIdEditorPanel 
 	protected final void addLocationCommonFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addSeparator(contentPanel, "Location");
+		addSeparator(contentPanel, GuiComponentLabel.LOCATION);
 		addIdCommonFields();
 	}
 }

@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,12 +49,12 @@ public final class SequentialJobEditorPanel extends AbstractEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addSeparator(contentPanel, "Job");
+		addSeparator(contentPanel, GuiComponentLabel.JOB);
 
-		addLabel(contentPanel, "ID");
+		addLabel(contentPanel, GuiComponentLabel.ID);
 		contentPanel.add(getIdTextField());
 
-		addLabel(contentPanel, "Description");
+		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
 		contentPanel.add(getDescriptionPane());
 	}
 

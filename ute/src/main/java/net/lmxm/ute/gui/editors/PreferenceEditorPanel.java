@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.Preference;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,11 +54,11 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addSeparator(contentPanel, "Preference");
+		addSeparator(contentPanel, GuiComponentLabel.PREFERENCE);
 
 		addIdCommonFields();
 
-		addLabel(contentPanel, "Current Value");
+		addLabel(contentPanel, GuiComponentLabel.CURRENT_VALUE);
 		contentPanel.add(getPreferenceValueTextField());
 	}
 

@@ -25,6 +25,9 @@ public enum GuiComponentCategory {
 	/** The BUTTON. */
 	BUTTON,
 
+	/** The LABEL. */
+	LABEL,
+
 	/** The MENU. */
 	MENU,
 

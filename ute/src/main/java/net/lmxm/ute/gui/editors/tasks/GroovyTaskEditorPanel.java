@@ -25,6 +25,7 @@ import javax.swing.JScrollPane;
 
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.GroovyTask;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
@@ -61,12 +62,12 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 
 		addTaskCommonFields();
 
-		addSeparator(contentPanel, "Target");
+		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
 
-		addSeparator(contentPanel, "Groovy Script");
-		addLabel(contentPanel, "Script");
+		addSeparator(contentPanel, GuiComponentLabel.GROOVY_SCRIPT);
+		addLabel(contentPanel, GuiComponentLabel.SCRIPT);
 		contentPanel.add(getScriptPane());
 	}
 

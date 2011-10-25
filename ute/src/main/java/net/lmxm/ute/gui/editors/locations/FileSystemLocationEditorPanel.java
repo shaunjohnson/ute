@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +56,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 		addLocationCommonFields();
 
-		addLabel(contentPanel, "Path");
+		addLabel(contentPanel, GuiComponentLabel.PATH);
 		contentPanel.add(getPathTextField());
 	}
 

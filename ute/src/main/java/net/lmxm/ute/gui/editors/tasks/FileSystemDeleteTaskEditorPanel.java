@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,9 +55,9 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		final JPanel contentPanel = getContentPanel();
 
 		addTaskCommonFields();
-		addCheckbox(contentPanel, getStopOnErrorCheckbox(), "Stop on Error");
+		addCheckbox(contentPanel, getStopOnErrorCheckbox(), GuiComponentLabel.STOP_ON_ERROR);
 
-		addSeparator(contentPanel, "Target");
+		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
 	}

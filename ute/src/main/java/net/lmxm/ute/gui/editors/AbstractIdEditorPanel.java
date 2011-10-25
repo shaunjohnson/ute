@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +54,7 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	protected final void addIdCommonFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, "ID");
+		addLabel(contentPanel, GuiComponentLabel.ID);
 		contentPanel.add(getIdTextField());
 	}
 

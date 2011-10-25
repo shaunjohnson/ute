@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
+import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,10 +53,10 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 
 		addTaskCommonFields();
 
-		addSeparator(contentPanel, "Source");
+		addSeparator(contentPanel, GuiComponentLabel.SOURCE);
 		addSubversionRepositorySourceFields();
 
-		addSeparator(contentPanel, "Target");
+		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
 	}
