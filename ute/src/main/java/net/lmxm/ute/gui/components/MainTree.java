@@ -283,6 +283,15 @@ public class MainTree extends JTree {
 	}
 
 	/**
+	 * Adds the subversion repository location.
+	 * 
+	 * @param subversionRepositoryLocation the subversion repository location
+	 */
+	public void addSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
+		showSelectedPath(mainTreeModel.addSubversionRepositoryLocation(subversionRepositoryLocation));
+	}
+
+	/**
 	 * Delete preference.
 	 * 
 	 * @param preference the preference
@@ -298,6 +307,15 @@ public class MainTree extends JTree {
 	 */
 	public void deleteProperty(final Property property) {
 		mainTreeModel.deleteProperty(property);
+	}
+
+	/**
+	 * Delete subversion repository location.
+	 * 
+	 * @param subversionRepositoryLocation the subversion repository location
+	 */
+	public void deleteSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
+		mainTreeModel.deleteSubversionRepositoryLocation(subversionRepositoryLocation);
 	}
 
 	/**

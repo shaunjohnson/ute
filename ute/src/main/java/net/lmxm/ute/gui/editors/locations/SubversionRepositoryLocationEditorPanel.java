@@ -27,6 +27,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.SubversionRepositoryLocationEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,9 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 	/** The password text field. */
 	private JTextField passwordTextField = null;
 
+	/** The tool bar. */
+	private JToolBar toolBar;
+
 	/** The url text field. */
 	private JTextField urlTextField = null;
 
@@ -53,6 +57,8 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 
 	/**
 	 * Instantiates a new subversion repository location editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
 	public SubversionRepositoryLocationEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATION, actionListener);
@@ -90,7 +96,10 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		return null;
+		if (toolBar == null) {
+			toolBar = new SubversionRepositoryLocationEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**

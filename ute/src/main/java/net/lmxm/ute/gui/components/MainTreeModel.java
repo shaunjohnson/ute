@@ -78,7 +78,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	private final DefaultMutableTreeNode rootNode;
 
 	/** The subversion locations node. */
-	private final DefaultMutableTreeNode subversionLocationsNode;
+	private final DefaultMutableTreeNode subversionRepositoryLocationsNode;
 
 	/**
 	 * Instantiates a new main tree model.
@@ -101,9 +101,9 @@ public class MainTreeModel extends DefaultTreeModel {
 		httpLocationsNode = new DefaultMutableTreeNode(new HttpLocationsRootTreeNode(configurationHolder));
 		rootNode.add(httpLocationsNode);
 
-		subversionLocationsNode = new DefaultMutableTreeNode(new SubversionRepositoryLocationsRootTreeNode(
+		subversionRepositoryLocationsNode = new DefaultMutableTreeNode(new SubversionRepositoryLocationsRootTreeNode(
 				configurationHolder));
-		rootNode.add(subversionLocationsNode);
+		rootNode.add(subversionRepositoryLocationsNode);
 
 		propertiesNode = new DefaultMutableTreeNode(new PropertiesRootTreeNode(configurationHolder));
 		rootNode.add(propertiesNode);
@@ -141,6 +141,21 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Adds the subversion repository location.
+	 * 
+	 * @param subversionRepositoryLocation the subversion repository location
+	 * @return the tree path
+	 */
+	public TreePath addSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
+		final DefaultMutableTreeNode subversionRepositoryLocationNode = new DefaultMutableTreeNode(
+				subversionRepositoryLocation);
+
+		insertNodeInto(subversionRepositoryLocationNode, subversionRepositoryLocationsNode, 0);
+
+		return getPathToSubversionRepositoryLocations().pathByAddingChild(subversionRepositoryLocationNode);
+	}
+
+	/**
 	 * Delete preference.
 	 * 
 	 * @param preference the preference
@@ -172,6 +187,23 @@ public class MainTreeModel extends DefaultTreeModel {
 		removeNodeFromParent(propertyNode);
 
 		return getPathToProperties();
+	}
+
+	/**
+	 * Delete subversion repository location.
+	 * 
+	 * @param subversionRepositoryLocation the subversion repository location
+	 * @return the tree path
+	 */
+	public TreePath deleteSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
+		final MutableTreeNode subversionRepositoryLocationNode = findSubversionRepositoryLocationNode(subversionRepositoryLocation);
+		if (subversionRepositoryLocationNode == null) {
+			throw new RuntimeException("SubversionRepositoryLocation node does not exist"); // TODO Use proper exception
+		}
+
+		removeNodeFromParent(subversionRepositoryLocationNode);
+
+		return getPathToSubversionRepositoryLocations();
 	}
 
 	/**
@@ -217,6 +249,17 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Find subversion repository location node.
+	 * 
+	 * @param subversionRepositoryLocation the subversion repository location
+	 * @return the mutable tree node
+	 */
+	private MutableTreeNode findSubversionRepositoryLocationNode(
+			final SubversionRepositoryLocation subversionRepositoryLocation) {
+		return findChildNodeByUserObject(subversionRepositoryLocationsNode, subversionRepositoryLocation);
+	}
+
+	/**
 	 * Gets the configuration.
 	 * 
 	 * @return the configuration
@@ -250,6 +293,15 @@ public class MainTreeModel extends DefaultTreeModel {
 	 */
 	public TreePath getPathToProperties() {
 		return new TreePath(rootNode).pathByAddingChild(propertiesNode);
+	}
+
+	/**
+	 * Gets the path to subversion repository locations.
+	 * 
+	 * @return the path to subversion repository locations
+	 */
+	public TreePath getPathToSubversionRepositoryLocations() {
+		return new TreePath(rootNode).pathByAddingChild(subversionRepositoryLocationsNode);
 	}
 
 	/**
@@ -360,7 +412,7 @@ public class MainTreeModel extends DefaultTreeModel {
 		LOGGER.debug("{} entered, loading {} locations", prefix, subversionRepositoryLocations.size());
 
 		for (final SubversionRepositoryLocation subversionLocation : subversionRepositoryLocations) {
-			subversionLocationsNode.add(new DefaultMutableTreeNode(subversionLocation));
+			subversionRepositoryLocationsNode.add(new DefaultMutableTreeNode(subversionLocation));
 		}
 
 		LOGGER.debug("{} leaving");
@@ -389,7 +441,7 @@ public class MainTreeModel extends DefaultTreeModel {
 		jobsNode.removeAllChildren();
 		fileSystemLocationsNode.removeAllChildren();
 		httpLocationsNode.removeAllChildren();
-		subversionLocationsNode.removeAllChildren();
+		subversionRepositoryLocationsNode.removeAllChildren();
 		propertiesNode.removeAllChildren();
 		preferencesNode.removeAllChildren();
 	}

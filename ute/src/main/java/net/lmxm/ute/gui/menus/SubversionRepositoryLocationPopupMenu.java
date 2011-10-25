@@ -53,10 +53,7 @@ public final class SubversionRepositoryLocationPopupMenu extends AbstractPopupMe
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
-	 * lang.Object)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -72,9 +69,6 @@ public final class SubversionRepositoryLocationPopupMenu extends AbstractPopupMe
 		if (addSubversionRepositoryLocationMenuItem == null) {
 			addSubversionRepositoryLocationMenuItem = GuiComponentFactory.createMenuItem(
 					GuiComponentMenuItem.ADD_SUBVERSION_REPOSITORY_LOCATION, getActionListener());
-			addSubversionRepositoryLocationMenuItem.setEnabled(false); // TODO
-																		// not
-																		// implemented
 		}
 		return addSubversionRepositoryLocationMenuItem;
 	}
@@ -88,9 +82,6 @@ public final class SubversionRepositoryLocationPopupMenu extends AbstractPopupMe
 		if (deleteSubversionRepositoryLocationMenuItem == null) {
 			deleteSubversionRepositoryLocationMenuItem = GuiComponentFactory.createMenuItem(
 					GuiComponentMenuItem.DELETE_SUBVERSION_REPOSITORY_LOCATION, getActionListener());
-			deleteSubversionRepositoryLocationMenuItem.setEnabled(false); // TODO
-																			// not
-																			// implemented
 		}
 		return deleteSubversionRepositoryLocationMenuItem;
 	}

@@ -21,8 +21,10 @@ package net.lmxm.ute.gui;
 import static net.lmxm.ute.gui.ActionConstants.ADD_JOB;
 import static net.lmxm.ute.gui.ActionConstants.ADD_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.ADD_PROPERTY;
+import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PROPERTY;
+import static net.lmxm.ute.gui.ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.EXECUTE;
 import static net.lmxm.ute.gui.ActionConstants.EXIT;
 import static net.lmxm.ute.gui.ActionConstants.NEW_FILE;
@@ -82,6 +84,7 @@ import net.lmxm.ute.gui.editors.SequentialJobEditorPanel;
 import net.lmxm.ute.gui.editors.locations.FileSystemLocationEditorPanel;
 import net.lmxm.ute.gui.editors.locations.HttpLocationEditorPanel;
 import net.lmxm.ute.gui.editors.locations.SubversionRepositoryLocationEditorPanel;
+import net.lmxm.ute.gui.editors.locations.SubversionRepositoryLocationsEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.FileSystemDeleteTaskEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.FindReplaceTaskEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.GroovyTaskEditorPanel;
@@ -91,6 +94,7 @@ import net.lmxm.ute.gui.editors.tasks.SubversionUpdateTaskEditorPanel;
 import net.lmxm.ute.gui.menus.MainMenuBar;
 import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
+import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
 import net.lmxm.ute.gui.toolbars.MainToolBar;
 import net.lmxm.ute.gui.utils.ImageUtil;
@@ -195,6 +199,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/** The subversion repository location editor panel. */
 	private SubversionRepositoryLocationEditorPanel subversionRepositoryLocationEditorPanel = null;
 
+	/** The subversion repository locations editor panel. */
+	private SubversionRepositoryLocationsEditorPanel subversionRepositoryLocationsEditorPanel = null;
+
 	/** The subversion update task editor panel. */
 	private SubversionUpdateTaskEditorPanel subversionUpdateTaskEditorPanel = null;
 
@@ -234,6 +241,15 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action add subversion repository location.
+	 */
+	private void actionAddSubversionRepositoryLocation() {
+		final SubversionRepositoryLocation subversionRepositoryLocation = new SubversionRepositoryLocation();
+		configuration.getSubversionRepositoryLocations().add(subversionRepositoryLocation);
+		mainTree.addSubversionRepositoryLocation(subversionRepositoryLocation);
+	}
+
+	/**
 	 * Action delete preference.
 	 */
 	private void actionDeletePreference() {
@@ -267,6 +283,24 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		final Property property = (Property) userObject;
 		configuration.getProperties().remove(property);
 		mainTree.deleteProperty(property);
+	}
+
+	/**
+	 * Action delete subversion repository location.
+	 */
+	private void actionDeleteSubversionRepositoryLocation() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (userObject == null) {
+			return;
+		}
+
+		if (!(userObject instanceof SubversionRepositoryLocation)) {
+			return;
+		}
+
+		final SubversionRepositoryLocation subversionRepositoryLocation = (SubversionRepositoryLocation) userObject;
+		configuration.getSubversionRepositoryLocations().remove(subversionRepositoryLocation);
+		mainTree.deleteSubversionRepositoryLocation(subversionRepositoryLocation);
 	}
 
 	/**
@@ -373,11 +407,17 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		else if (actionCommand.equals(ADD_PROPERTY)) {
 			actionAddProperty();
 		}
+		else if (actionCommand.equals(ADD_SUBVERSION_REPOSITORY_LOCATION)) {
+			actionAddSubversionRepositoryLocation();
+		}
 		else if (actionCommand.equals(DELETE_PREFERENCE)) {
 			actionDeletePreference();
 		}
 		else if (actionCommand.equals(DELETE_PROPERTY)) {
 			actionDeleteProperty();
+		}
+		else if (actionCommand.equals(DELETE_SUBVERSION_REPOSITORY_LOCATION)) {
+			actionDeleteSubversionRepositoryLocation();
 		}
 		else if (actionCommand.equals(EXIT)) {
 			actionExit();
@@ -804,6 +844,19 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Gets the subversion repository locations editor panel.
+	 * 
+	 * @return the subversion repository locations editor panel
+	 */
+	private SubversionRepositoryLocationsEditorPanel getSubversionRepositoryLocationsEditorPanel() {
+		if (subversionRepositoryLocationsEditorPanel == null) {
+			subversionRepositoryLocationsEditorPanel = new SubversionRepositoryLocationsEditorPanel(this);
+		}
+
+		return subversionRepositoryLocationsEditorPanel;
+	}
+
+	/**
 	 * Gets the subversion update task editor panel.
 	 * 
 	 * @param subversionUpdateTask the subversion update task
@@ -895,6 +948,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		getSubversionUpdateTaskEditorPanel(null);
 		getFileSystemLocationEditorPanel(null);
 		getSubversionRepositoryLocationEditorPanel(null);
+		getSubversionRepositoryLocationsEditorPanel();
 		getPreferenceEditorPanel(null);
 		getPreferencesEditorPanel();
 		getPropertyEditorPanel(null);
@@ -1042,6 +1096,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (userObject instanceof SubversionRepositoryLocation) {
 			editorPane = getSubversionRepositoryLocationEditorPanel((SubversionRepositoryLocation) userObject);
+		}
+		else if (userObject instanceof SubversionRepositoryLocationsRootTreeNode) {
+			editorPane = getSubversionRepositoryLocationsEditorPanel();
 		}
 		else if (userObject instanceof SubversionUpdateTask) {
 			editorPane = getSubversionUpdateTaskEditorPanel((SubversionUpdateTask) userObject);
