@@ -277,6 +277,8 @@ public class MainTreeModel extends DefaultTreeModel {
 		loadSubversionLocations();
 		loadProperties();
 		loadPreferences();
+
+		reload();
 	}
 
 	/**

@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -49,9 +51,11 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Instantiates a new groovy task editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public GroovyTaskEditorPanel() {
-		super("Groovy Task");
+	public GroovyTaskEditorPanel(final ActionListener actionListener) {
+		super("Groovy Task", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

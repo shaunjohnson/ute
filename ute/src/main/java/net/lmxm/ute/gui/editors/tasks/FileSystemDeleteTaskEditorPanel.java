@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
@@ -43,9 +45,11 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 
 	/**
 	 * Instantiates a new job editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public FileSystemDeleteTaskEditorPanel() {
-		super("File System Delete Task");
+	public FileSystemDeleteTaskEditorPanel(final ActionListener actionListener) {
+		super("File System Delete Task", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

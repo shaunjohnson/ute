@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors.tasks;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -68,9 +69,11 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Instantiates a new find replace task editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public FindReplaceTaskEditorPanel() {
-		super("Find and Replace Task");
+	public FindReplaceTaskEditorPanel(final ActionListener actionListener) {
+		super("Find and Replace Task", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

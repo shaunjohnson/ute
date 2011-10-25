@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -44,9 +45,11 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 
 	/**
 	 * Instantiates a new http location editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public HttpLocationEditorPanel() {
-		super("HTTP Location");
+	public HttpLocationEditorPanel(final ActionListener actionListener) {
+		super("HTTP Location", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

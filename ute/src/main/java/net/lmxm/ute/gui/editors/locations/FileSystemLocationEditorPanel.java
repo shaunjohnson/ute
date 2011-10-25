@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -44,9 +45,11 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 	/**
 	 * Instantiates a new file system location editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public FileSystemLocationEditorPanel() {
-		super("File System Location");
+	public FileSystemLocationEditorPanel(final ActionListener actionListener) {
+		super("File System Location", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

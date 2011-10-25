@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
@@ -40,9 +42,11 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 
 	/**
 	 * Instantiates a new job editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public SubversionExportTaskEditorPanel() {
-		super("Subversion Export Task");
+	public SubversionExportTaskEditorPanel(final ActionListener actionListener) {
+		super("Subversion Export Task", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

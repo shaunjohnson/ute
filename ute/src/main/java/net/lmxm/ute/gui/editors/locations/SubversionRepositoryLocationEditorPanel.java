@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -51,8 +52,8 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 	/**
 	 * Instantiates a new subversion repository location editor panel.
 	 */
-	public SubversionRepositoryLocationEditorPanel() {
-		super("Subversion Repository Location");
+	public SubversionRepositoryLocationEditorPanel(final ActionListener actionListener) {
+		super("Subversion Repository Location", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

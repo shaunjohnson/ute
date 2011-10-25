@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors.tasks;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -79,9 +80,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	 * Instantiates a new abstract task editor panel.
 	 * 
 	 * @param titleText the title text
+	 * @param actionListener the action listener
 	 */
-	public AbstractTaskEditorPanel(final String titleText) {
-		super(titleText);
+	public AbstractTaskEditorPanel(final String titleText, final ActionListener actionListener) {
+		super(titleText, actionListener);
 
 		monospaceFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 	}

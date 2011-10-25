@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors;
 
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -44,9 +45,11 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Instantiates a new preference editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public PreferenceEditorPanel() {
-		super("Preference");
+	public PreferenceEditorPanel(final ActionListener actionListener) {
+		super("Preference", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

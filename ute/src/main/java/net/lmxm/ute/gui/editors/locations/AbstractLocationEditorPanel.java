@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors.locations;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 
 import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
@@ -34,9 +36,10 @@ public abstract class AbstractLocationEditorPanel extends AbstractIdEditorPanel 
 	 * Instantiates a new abstract location editor panel.
 	 * 
 	 * @param titleText the title text
+	 * @param actionListener the action listener
 	 */
-	public AbstractLocationEditorPanel(final String titleText) {
-		super(titleText);
+	public AbstractLocationEditorPanel(final String titleText, final ActionListener actionListener) {
+		super(titleText, actionListener);
 	}
 
 	/**

@@ -410,7 +410,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private FileSystemDeleteTaskEditorPanel getFileSystemDeleteTaskEditorPanel(
 			final FileSystemDeleteTask fileSystemDeleteTask) {
 		if (fileSystemDeleteTaskEditorPanel == null) {
-			fileSystemDeleteTaskEditorPanel = new FileSystemDeleteTaskEditorPanel();
+			fileSystemDeleteTaskEditorPanel = new FileSystemDeleteTaskEditorPanel(this);
 		}
 
 		fileSystemDeleteTaskEditorPanel.loadData(fileSystemDeleteTask);
@@ -426,7 +426,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private FileSystemLocationEditorPanel getFileSystemLocationEditorPanel(final FileSystemLocation fileSystemLocation) {
 		if (fileSystemLocationEditorPanel == null) {
-			fileSystemLocationEditorPanel = new FileSystemLocationEditorPanel();
+			fileSystemLocationEditorPanel = new FileSystemLocationEditorPanel(this);
 		}
 
 		fileSystemLocationEditorPanel.loadData(fileSystemLocation);
@@ -454,7 +454,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private FindReplaceTaskEditorPanel getFindReplaceTaskEditorPanel(final FindReplaceTask findReplaceTask) {
 		if (findReplaceTaskEditorPanel == null) {
-			findReplaceTaskEditorPanel = new FindReplaceTaskEditorPanel();
+			findReplaceTaskEditorPanel = new FindReplaceTaskEditorPanel(this);
 		}
 
 		findReplaceTaskEditorPanel.loadData(findReplaceTask);
@@ -470,7 +470,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private GroovyTaskEditorPanel getGroovyTaskEditorPanel(final GroovyTask groovyTask) {
 		if (groovyTaskEditorPanel == null) {
-			groovyTaskEditorPanel = new GroovyTaskEditorPanel();
+			groovyTaskEditorPanel = new GroovyTaskEditorPanel(this);
 		}
 
 		groovyTaskEditorPanel.loadData(groovyTask);
@@ -486,7 +486,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private HttpDownloadTaskEditorPanel getHttpDownloadTaskEditorPanel(final HttpDownloadTask httpDownloadTask) {
 		if (httpDownloadTaskEditorPanel == null) {
-			httpDownloadTaskEditorPanel = new HttpDownloadTaskEditorPanel();
+			httpDownloadTaskEditorPanel = new HttpDownloadTaskEditorPanel(this);
 		}
 
 		httpDownloadTaskEditorPanel.loadData(httpDownloadTask);
@@ -502,7 +502,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private HttpLocationEditorPanel getHttpLocationEditorPanel(final HttpLocation httpLocation) {
 		if (httpLocationEditorPanel == null) {
-			httpLocationEditorPanel = new HttpLocationEditorPanel();
+			httpLocationEditorPanel = new HttpLocationEditorPanel(this);
 		}
 
 		httpLocationEditorPanel.loadData(httpLocation);
@@ -653,7 +653,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private PreferenceEditorPanel getPreferenceEditorPanel(final Preference preference) {
 		if (preferenceEditorPanel == null) {
-			preferenceEditorPanel = new PreferenceEditorPanel();
+			preferenceEditorPanel = new PreferenceEditorPanel(this);
 		}
 
 		preferenceEditorPanel.loadData(preference);
@@ -668,7 +668,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private PropertiesEditorPanel getPropertiesEditorPanel() {
 		if (propertiesEditorPanel == null) {
-			propertiesEditorPanel = new PropertiesEditorPanel();
+			propertiesEditorPanel = new PropertiesEditorPanel(this);
 		}
 
 		return propertiesEditorPanel;
@@ -682,7 +682,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private PropertyEditorPanel getPropertyEditorPanel(final Property property) {
 		if (propertyEditorPanel == null) {
-			propertyEditorPanel = new PropertyEditorPanel();
+			propertyEditorPanel = new PropertyEditorPanel(this);
 		}
 
 		propertyEditorPanel.loadData(property);
@@ -698,7 +698,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private SequentialJobEditorPanel getSequentialJobEditorPanel(final Job job) {
 		if (sequentialJobEditorPanel == null) {
-			sequentialJobEditorPanel = new SequentialJobEditorPanel();
+			sequentialJobEditorPanel = new SequentialJobEditorPanel(this);
 		}
 
 		sequentialJobEditorPanel.loadData(job);
@@ -715,7 +715,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private SubversionExportTaskEditorPanel getSubversionExportTaskEditorPanel(
 			final SubversionExportTask subversionExportTask) {
 		if (subversionExportTaskEditorPanel == null) {
-			subversionExportTaskEditorPanel = new SubversionExportTaskEditorPanel();
+			subversionExportTaskEditorPanel = new SubversionExportTaskEditorPanel(this);
 		}
 
 		subversionExportTaskEditorPanel.loadData(subversionExportTask);
@@ -732,7 +732,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private SubversionRepositoryLocationEditorPanel getSubversionRepositoryLocationEditorPanel(
 			final SubversionRepositoryLocation subversionRepositoryLocation) {
 		if (subversionRepositoryLocationEditorPanel == null) {
-			subversionRepositoryLocationEditorPanel = new SubversionRepositoryLocationEditorPanel();
+			subversionRepositoryLocationEditorPanel = new SubversionRepositoryLocationEditorPanel(this);
 		}
 
 		subversionRepositoryLocationEditorPanel.loadData(subversionRepositoryLocation);
@@ -749,7 +749,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private SubversionUpdateTaskEditorPanel getSubversionUpdateTaskEditorPanel(
 			final SubversionUpdateTask subversionUpdateTask) {
 		if (subversionUpdateTaskEditorPanel == null) {
-			subversionUpdateTaskEditorPanel = new SubversionUpdateTaskEditorPanel();
+			subversionUpdateTaskEditorPanel = new SubversionUpdateTaskEditorPanel(this);
 		}
 
 		subversionUpdateTaskEditorPanel.loadData(subversionUpdateTask);

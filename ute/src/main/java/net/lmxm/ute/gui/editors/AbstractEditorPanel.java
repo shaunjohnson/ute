@@ -22,6 +22,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
@@ -43,6 +44,8 @@ import net.miginfocom.swing.MigLayout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Preconditions;
+
 /**
  * The Class AbstractEditor.
  */
@@ -63,6 +66,9 @@ public abstract class AbstractEditorPanel extends JPanel {
 	static {
 		BOLD_FONT = new Font(Font.DIALOG, Font.BOLD, 12);
 	}
+
+	/** The action listener. */
+	private final ActionListener actionListener;
 
 	/** The content panel. */
 	private final JPanel contentPanel;
@@ -90,8 +96,12 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * 
 	 * @param titleText the title text
 	 */
-	public AbstractEditorPanel(final String titleText) {
+	public AbstractEditorPanel(final String titleText, final ActionListener actionListener) {
 		super();
+
+		Preconditions.checkNotNull(actionListener, "Action listener may not be null");
+
+		this.actionListener = actionListener;
 
 		// Setup title panel
 		final JPanel titlePanel = new JPanel(new MigLayout("wrap 1", "[center]"));
@@ -183,6 +193,15 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 */
 	protected final JLabel createLabel(final String text, final int align) {
 		return new JLabel(text, align);
+	}
+
+	/**
+	 * Gets the action listener.
+	 * 
+	 * @return the action listener
+	 */
+	protected final ActionListener getActionListener() {
+		return actionListener;
 	}
 
 	/**

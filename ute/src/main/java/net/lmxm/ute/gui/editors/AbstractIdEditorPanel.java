@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.IdentifiableBean;
@@ -41,8 +43,8 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	 * 
 	 * @param titleText the title text
 	 */
-	public AbstractIdEditorPanel(final String titleText) {
-		super(titleText);
+	public AbstractIdEditorPanel(final String titleText, final ActionListener actionListener) {
+		super(titleText, actionListener);
 	}
 
 	/**

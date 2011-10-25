@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors;
 
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -44,9 +45,11 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Instantiates a new property editor.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public PropertyEditorPanel() {
-		super("Property");
+	public PropertyEditorPanel(final ActionListener actionListener) {
+		super("Property", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

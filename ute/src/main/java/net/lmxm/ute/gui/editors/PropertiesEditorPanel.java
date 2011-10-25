@@ -18,10 +18,13 @@
  */
 package net.lmxm.ute.gui.editors;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import net.lmxm.ute.gui.utils.ImageUtil;
+import net.lmxm.ute.gui.components.GuiComponentButton;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
 
 /**
  * The Class PropertiesEditorPanel.
@@ -36,9 +39,11 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 
 	/**
 	 * Instantiates a new properties editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public PropertiesEditorPanel() {
-		super("Properties");
+	public PropertiesEditorPanel(final ActionListener actionListener) {
+		super("Properties", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -53,11 +58,7 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 	 */
 	private JButton getAddPropertyButton() {
 		if (addPropertyButton == null) {
-			addPropertyButton = new JButton();
-			addPropertyButton.setIcon(ImageUtil.ADD_PROPERTY_ICON);
-			addPropertyButton.setToolTipText("Add new property");
-			addPropertyButton.setText("Add Property");
-			addPropertyButton.setEnabled(false); // TODO disabled since it is not implemented
+			addPropertyButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_PROPERTY, getActionListener());
 		}
 		return addPropertyButton;
 	}

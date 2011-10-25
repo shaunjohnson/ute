@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.jobs.Job;
@@ -38,9 +40,11 @@ public final class SequentialJobEditorPanel extends AbstractEditorPanel {
 
 	/**
 	 * Instantiates a new sequential job editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public SequentialJobEditorPanel() {
-		super("Sequential Job");
+	public SequentialJobEditorPanel(final ActionListener actionListener) {
+		super("Sequential Job", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

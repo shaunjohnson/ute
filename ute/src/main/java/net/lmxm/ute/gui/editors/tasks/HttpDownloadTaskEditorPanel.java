@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.sources.HttpSource;
@@ -40,9 +42,11 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Instantiates a new http download task editor panel.
+	 * 
+	 * @param actionListener the action listener
 	 */
-	public HttpDownloadTaskEditorPanel() {
-		super("HTTP Download Task");
+	public HttpDownloadTaskEditorPanel(final ActionListener actionListener) {
+		super("HTTP Download Task", actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
