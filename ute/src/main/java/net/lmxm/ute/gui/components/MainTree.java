@@ -274,6 +274,15 @@ public class MainTree extends JTree {
 	}
 
 	/**
+	 * Delete property.
+	 * 
+	 * @param property the property
+	 */
+	public void deleteProperty(final Property property) {
+		mainTreeModel.deleteProperty(property);
+	}
+
+	/**
 	 * Gets the action listener.
 	 * 
 	 * @return the action listener

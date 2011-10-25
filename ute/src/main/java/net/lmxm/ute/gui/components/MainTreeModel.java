@@ -18,10 +18,12 @@
  */
 package net.lmxm.ute.gui.components;
 
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import net.lmxm.ute.ConfigurationHolder;
@@ -122,6 +124,44 @@ public class MainTreeModel extends DefaultTreeModel {
 		insertNodeInto(propertyNode, propertiesNode, 0);
 
 		return getPathToProperties().pathByAddingChild(propertyNode);
+	}
+
+	/**
+	 * Delete property.
+	 * 
+	 * @param property the property
+	 * @return the tree path
+	 */
+	public TreePath deleteProperty(final Property property) {
+		final MutableTreeNode propertyNode = findPropertyNode(property);
+		if (propertyNode == null) {
+			throw new RuntimeException("Property node does not exist"); // TODO Use proper exception
+		}
+
+		removeNodeFromParent(propertyNode);
+
+		return getPathToProperties();
+	}
+
+	/**
+	 * Find property node.
+	 * 
+	 * @param property the property
+	 * @return the mutable tree node
+	 */
+	private MutableTreeNode findPropertyNode(final Property property) {
+		@SuppressWarnings("rawtypes")
+		final Enumeration enumeration = propertiesNode.children();
+
+		while (enumeration.hasMoreElements()) {
+			final DefaultMutableTreeNode child = (DefaultMutableTreeNode) enumeration.nextElement();
+
+			if (child.getUserObject().equals(property)) {
+				return child;
+			}
+		}
+
+		return null;
 	}
 
 	/**

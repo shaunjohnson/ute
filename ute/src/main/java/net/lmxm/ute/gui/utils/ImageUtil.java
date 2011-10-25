@@ -59,11 +59,8 @@ public final class ImageUtil {
 	/** The Constant CLEAR_ICON. */
 	public static final Icon CLEAR_ICON;
 
-	/** The Constant DELETE_DISABLED_ICON. */
-	public static final Icon DELETE_DISABLED_ICON;
-
-	/** The Constant DELETE_ICON. */
-	public static final Icon DELETE_ICON;
+	/** The Constant DELETE_PROPERTY_ICON. */
+	public static final Icon DELETE_PROPERTY_ICON;
 
 	/** The Constant DRIVE_ICON. */
 	public static final Icon DRIVE_ICON;
@@ -82,6 +79,12 @@ public final class ImageUtil {
 
 	/** The Constant EXPORT_ICON. */
 	public static final Icon EXPORT_ICON;
+
+	/** The Constant FILE_SYSTEM_DELETE_TASK_DISABLED_ICON. */
+	public static final Icon FILE_SYSTEM_DELETE_TASK_DISABLED_ICON;
+
+	/** The Constant FILE_SYSTEM_DELETE_TASK_ICON. */
+	public static final Icon FILE_SYSTEM_DELETE_TASK_ICON;
 
 	/** The Constant FIND_REPLACE_DISABLED_ICON. */
 	public static final Icon FIND_REPLACE_DISABLED_ICON;
@@ -147,6 +150,7 @@ public final class ImageUtil {
 		ADD_PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/plus.png"));
 		ADD_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/plus.png"));
 		CLEAR_ICON = new ImageIcon(thisClass.getResource("/images/eraser.png"));
+		DELETE_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/cross.png"));
 		DRIVE_ICON = new ImageIcon(thisClass.getResource("/images/drive.png"));
 		EDIT_PREFERENCES_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
 		EXECUTE_ICON = new ImageIcon(thisClass.getResource("/images/lightning.png"));
@@ -165,7 +169,7 @@ public final class ImageUtil {
 
 		// Load task icons
 		CHECKOUT_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
-		DELETE_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
+		FILE_SYSTEM_DELETE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
 		EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
 		FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
 		FOLDER_IMPORT_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
@@ -173,7 +177,7 @@ public final class ImageUtil {
 
 		// Create disabled task icons
 		CHECKOUT_DISABLED_ICON = createDisabledImage((ImageIcon) CHECKOUT_ICON);
-		DELETE_DISABLED_ICON = createDisabledImage((ImageIcon) DELETE_ICON);
+		FILE_SYSTEM_DELETE_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) FILE_SYSTEM_DELETE_TASK_ICON);
 		EXPORT_DISABLED_ICON = createDisabledImage((ImageIcon) EXPORT_ICON);
 		FIND_REPLACE_DISABLED_ICON = createDisabledImage((ImageIcon) FIND_REPLACE_ICON);
 		FOLDER_IMPORT_DISABLED_ICON = createDisabledImage((ImageIcon) FOLDER_IMPORT_ICON);

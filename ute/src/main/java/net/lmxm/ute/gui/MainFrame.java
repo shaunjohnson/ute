@@ -214,7 +214,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private void actionAddProperty() {
 		final Property property = new Property();
 		configuration.getProperties().add(property);
-
 		mainTree.addProperty(property);
 	}
 
@@ -222,7 +221,18 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * Action delete property.
 	 */
 	private void actionDeleteProperty() {
-		// TODO
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (userObject == null) {
+			return;
+		}
+
+		if (!(userObject instanceof Property)) {
+			return;
+		}
+
+		final Property property = (Property) userObject;
+		configuration.getProperties().remove(property);
+		mainTree.deleteProperty(property);
 	}
 
 	/**
@@ -321,7 +331,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		final String actionCommand = actionEvent.getActionCommand();
 
 		if (actionCommand.equals(ADD_JOB)) {
-			// TODO Implement add job action
+			// TODO
 		}
 		else if (actionCommand.equals(ADD_PROPERTY)) {
 			actionAddProperty();

@@ -121,7 +121,7 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		else if (userObject instanceof FileSystemDeleteTask) {
 			final FileSystemDeleteTask fileSystemDeleteTask = (FileSystemDeleteTask) userObject;
 
-			setIcon(fileSystemDeleteTask.getEnabled() ? ImageUtil.DELETE_ICON : ImageUtil.DELETE_DISABLED_ICON);
+			setIcon(fileSystemDeleteTask.getEnabled() ? ImageUtil.FILE_SYSTEM_DELETE_TASK_ICON : ImageUtil.FILE_SYSTEM_DELETE_TASK_DISABLED_ICON);
 			setText(fileSystemDeleteTask.getId());
 		}
 		else if (userObject instanceof FileSystemLocation) {

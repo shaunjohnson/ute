@@ -27,6 +27,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.PropertyEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,9 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
 	/** The property value text field. */
 	private JTextField propertyValueTextField = null;
+
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new property editor.
@@ -83,7 +87,10 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		return null;
+		if (toolBar == null) {
+			toolBar = new PropertyEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**

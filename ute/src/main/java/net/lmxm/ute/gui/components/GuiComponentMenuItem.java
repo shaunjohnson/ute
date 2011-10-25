@@ -65,7 +65,7 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 	DELETE_PREFERENCE(null, ActionConstants.DELETE_PREFERENCE),
 
 	/** The DELETE_PROPERTY. */
-	DELETE_PROPERTY(null, ActionConstants.DELETE_PROPERTY),
+	DELETE_PROPERTY(ImageUtil.DELETE_PROPERTY_ICON, ActionConstants.DELETE_PROPERTY),
 
 	/** The DELETE_SUBVERSION_REPOSITORY_LOCATION. */
 	DELETE_SUBVERSION_REPOSITORY_LOCATION(null, ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION),
@@ -116,7 +116,6 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
 	 */
 	@Override
@@ -126,9 +125,7 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
 	public GuiComponentCategory getGuiComponentCategory() {
@@ -137,7 +134,6 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
 	@Override
