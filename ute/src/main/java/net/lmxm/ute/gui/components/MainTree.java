@@ -265,12 +265,30 @@ public class MainTree extends JTree {
 	}
 
 	/**
+	 * Adds the preference.
+	 * 
+	 * @param preference the preference
+	 */
+	public void addPreference(final Preference preference) {
+		showSelectedPath(mainTreeModel.addPreference(preference));
+	}
+
+	/**
 	 * Adds the property.
 	 * 
 	 * @param property the property
 	 */
 	public void addProperty(final Property property) {
 		showSelectedPath(mainTreeModel.addProperty(property));
+	}
+
+	/**
+	 * Delete preference.
+	 * 
+	 * @param preference the preference
+	 */
+	public void deletePreference(final Preference preference) {
+		mainTreeModel.deletePreference(preference);
 	}
 
 	/**

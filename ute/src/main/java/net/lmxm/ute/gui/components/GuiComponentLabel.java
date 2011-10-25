@@ -82,6 +82,9 @@ public enum GuiComponentLabel implements GuiComponentType {
 	/** The PREFERENCE. */
 	PREFERENCE,
 
+	/** The PREFERENCES. */
+	PREFERENCES,
+
 	/** The PROPERTIES. */
 	PROPERTIES,
 

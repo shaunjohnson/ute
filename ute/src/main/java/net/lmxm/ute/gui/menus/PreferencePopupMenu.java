@@ -53,10 +53,7 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
-	 * lang.Object)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -72,7 +69,6 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 		if (addPreferenceMenuItem == null) {
 			addPreferenceMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_PREFERENCE,
 					getActionListener());
-			addPreferenceMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return addPreferenceMenuItem;
 	}
@@ -86,7 +82,6 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 		if (deletePreferenceMenuItem == null) {
 			deletePreferenceMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.DELETE_PREFERENCE,
 					getActionListener());
-			deletePreferenceMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return deletePreferenceMenuItem;
 	}

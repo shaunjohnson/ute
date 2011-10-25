@@ -105,7 +105,6 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 		if (addPreferenceButton == null) {
 			addPreferenceButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_PREFERENCE,
 					getActionListener());
-			addPreferenceButton.setEnabled(false); // TODO not implemented
 		}
 		return addPreferenceButton;
 	}
@@ -137,10 +136,7 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event
-	 * .TreeSelectionEvent)
+	 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event .TreeSelectionEvent)
 	 */
 	@Override
 	public void valueChanged(final TreeSelectionEvent treeSelectionEvent) {

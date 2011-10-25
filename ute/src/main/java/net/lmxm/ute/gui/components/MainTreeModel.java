@@ -113,6 +113,20 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Adds the preference.
+	 * 
+	 * @param preference the preference
+	 * @return the tree path
+	 */
+	public TreePath addPreference(final Preference preference) {
+		final DefaultMutableTreeNode preferenceNode = new DefaultMutableTreeNode(preference);
+
+		insertNodeInto(preferenceNode, preferencesNode, 0);
+
+		return getPathToPreferences().pathByAddingChild(preferenceNode);
+	}
+
+	/**
 	 * Adds the property.
 	 * 
 	 * @param property the property
@@ -124,6 +138,23 @@ public class MainTreeModel extends DefaultTreeModel {
 		insertNodeInto(propertyNode, propertiesNode, 0);
 
 		return getPathToProperties().pathByAddingChild(propertyNode);
+	}
+
+	/**
+	 * Delete preference.
+	 * 
+	 * @param preference the preference
+	 * @return the tree path
+	 */
+	public TreePath deletePreference(final Preference preference) {
+		final MutableTreeNode preferenceNode = findPreferenceNode(preference);
+		if (preferenceNode == null) {
+			throw new RuntimeException("Preference node does not exist"); // TODO Use proper exception
+		}
+
+		removeNodeFromParent(preferenceNode);
+
+		return getPathToPreferences();
 	}
 
 	/**
@@ -144,24 +175,45 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Find child node by user object.
+	 * 
+	 * @param treeNode the tree node
+	 * @param userObject the user object
+	 * @return the mutable tree node
+	 */
+	private MutableTreeNode findChildNodeByUserObject(final DefaultMutableTreeNode treeNode, final Object userObject) {
+		@SuppressWarnings("rawtypes")
+		final Enumeration enumeration = treeNode.children();
+
+		while (enumeration.hasMoreElements()) {
+			final DefaultMutableTreeNode child = (DefaultMutableTreeNode) enumeration.nextElement();
+
+			if (child.getUserObject().equals(userObject)) {
+				return child;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Find preference node.
+	 * 
+	 * @param preference the preference
+	 * @return the mutable tree node
+	 */
+	private MutableTreeNode findPreferenceNode(final Preference preference) {
+		return findChildNodeByUserObject(preferencesNode, preference);
+	}
+
+	/**
 	 * Find property node.
 	 * 
 	 * @param property the property
 	 * @return the mutable tree node
 	 */
 	private MutableTreeNode findPropertyNode(final Property property) {
-		@SuppressWarnings("rawtypes")
-		final Enumeration enumeration = propertiesNode.children();
-
-		while (enumeration.hasMoreElements()) {
-			final DefaultMutableTreeNode child = (DefaultMutableTreeNode) enumeration.nextElement();
-
-			if (child.getUserObject().equals(property)) {
-				return child;
-			}
-		}
-
-		return null;
+		return findChildNodeByUserObject(propertiesNode, property);
 	}
 
 	/**
@@ -180,6 +232,15 @@ public class MainTreeModel extends DefaultTreeModel {
 	 */
 	public TreePath getPathToJobs() {
 		return new TreePath(rootNode).pathByAddingChild(jobsNode);
+	}
+
+	/**
+	 * Gets the path to preferences.
+	 * 
+	 * @return the path to preferences
+	 */
+	public TreePath getPathToPreferences() {
+		return new TreePath(rootNode).pathByAddingChild(preferencesNode);
 	}
 
 	/**

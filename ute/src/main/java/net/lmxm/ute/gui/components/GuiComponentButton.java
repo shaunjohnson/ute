@@ -43,6 +43,9 @@ public enum GuiComponentButton implements GuiComponentType {
 	/** The CLOSE_DIALOG button. */
 	CLOSE_DIALOG(null, null),
 
+	/** The DELETE_PREFERENCE. */
+	DELETE_PREFERENCE(ImageUtil.DELETE_PREFERENCE_ICON, ActionConstants.DELETE_PREFERENCE),
+
 	/** The DELETE_PROPERTY. */
 	DELETE_PROPERTY(ImageUtil.DELETE_PROPERTY_ICON, ActionConstants.DELETE_PROPERTY),
 

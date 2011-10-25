@@ -59,6 +59,9 @@ public final class ImageUtil {
 	/** The Constant CLEAR_ICON. */
 	public static final Icon CLEAR_ICON;
 
+	/** The Constant DELETE_PREFERENCE_ICON. */
+	public static final Icon DELETE_PREFERENCE_ICON;
+
 	/** The Constant DELETE_PROPERTY_ICON. */
 	public static final Icon DELETE_PROPERTY_ICON;
 
@@ -150,6 +153,7 @@ public final class ImageUtil {
 		ADD_PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/plus.png"));
 		ADD_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/plus.png"));
 		CLEAR_ICON = new ImageIcon(thisClass.getResource("/images/eraser.png"));
+		DELETE_PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/cross.png"));
 		DELETE_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/cross.png"));
 		DRIVE_ICON = new ImageIcon(thisClass.getResource("/images/drive.png"));
 		EDIT_PREFERENCES_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));

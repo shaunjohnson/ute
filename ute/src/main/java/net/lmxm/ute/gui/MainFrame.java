@@ -19,7 +19,9 @@
 package net.lmxm.ute.gui;
 
 import static net.lmxm.ute.gui.ActionConstants.ADD_JOB;
+import static net.lmxm.ute.gui.ActionConstants.ADD_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.ADD_PROPERTY;
+import static net.lmxm.ute.gui.ActionConstants.DELETE_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PROPERTY;
 import static net.lmxm.ute.gui.ActionConstants.EXECUTE;
 import static net.lmxm.ute.gui.ActionConstants.EXIT;
@@ -73,6 +75,7 @@ import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.components.StatusOutputTab;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
 import net.lmxm.ute.gui.editors.PreferenceEditorPanel;
+import net.lmxm.ute.gui.editors.PreferencesEditorPanel;
 import net.lmxm.ute.gui.editors.PropertiesEditorPanel;
 import net.lmxm.ute.gui.editors.PropertyEditorPanel;
 import net.lmxm.ute.gui.editors.SequentialJobEditorPanel;
@@ -86,6 +89,7 @@ import net.lmxm.ute.gui.editors.tasks.HttpDownloadTaskEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.SubversionExportTaskEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.SubversionUpdateTaskEditorPanel;
 import net.lmxm.ute.gui.menus.MainMenuBar;
+import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
 import net.lmxm.ute.gui.toolbars.MainToolBar;
@@ -173,6 +177,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/** The preference editor panel. */
 	private PreferenceEditorPanel preferenceEditorPanel = null;
 
+	/** The preferences editor panel. */
+	private PreferencesEditorPanel preferencesEditorPanel;
+
 	/** The properties editor panel. */
 	private PropertiesEditorPanel propertiesEditorPanel = null;
 
@@ -209,12 +216,39 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action add preference.
+	 */
+	private void actionAddPreference() {
+		final Preference preference = new Preference();
+		configuration.getPreferences().add(preference);
+		mainTree.addPreference(preference);
+	}
+
+	/**
 	 * Action add property.
 	 */
 	private void actionAddProperty() {
 		final Property property = new Property();
 		configuration.getProperties().add(property);
 		mainTree.addProperty(property);
+	}
+
+	/**
+	 * Action delete preference.
+	 */
+	private void actionDeletePreference() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (userObject == null) {
+			return;
+		}
+
+		if (!(userObject instanceof Preference)) {
+			return;
+		}
+
+		final Preference preference = (Preference) userObject;
+		configuration.getPreferences().remove(preference);
+		mainTree.deletePreference(preference);
 	}
 
 	/**
@@ -333,8 +367,14 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		if (actionCommand.equals(ADD_JOB)) {
 			// TODO
 		}
+		else if (actionCommand.equals(ADD_PREFERENCE)) {
+			actionAddPreference();
+		}
 		else if (actionCommand.equals(ADD_PROPERTY)) {
 			actionAddProperty();
+		}
+		else if (actionCommand.equals(DELETE_PREFERENCE)) {
+			actionDeletePreference();
 		}
 		else if (actionCommand.equals(DELETE_PROPERTY)) {
 			actionDeleteProperty();
@@ -672,6 +712,19 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Gets the preferences editor panel.
+	 * 
+	 * @return the preferences editor panel
+	 */
+	private PreferencesEditorPanel getPreferencesEditorPanel() {
+		if (preferencesEditorPanel == null) {
+			preferencesEditorPanel = new PreferencesEditorPanel(this);
+		}
+
+		return preferencesEditorPanel;
+	}
+
+	/**
 	 * Gets the properties editor panel.
 	 * 
 	 * @return the properties editor panel
@@ -843,6 +896,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		getFileSystemLocationEditorPanel(null);
 		getSubversionRepositoryLocationEditorPanel(null);
 		getPreferenceEditorPanel(null);
+		getPreferencesEditorPanel();
 		getPropertyEditorPanel(null);
 		getPropertiesEditorPanel();
 
@@ -973,6 +1027,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (userObject instanceof Preference) {
 			editorPane = getPreferenceEditorPanel((Preference) userObject);
+		}
+		else if (userObject instanceof PreferencesRootTreeNode) {
+			editorPane = getPreferencesEditorPanel();
 		}
 		else if (userObject instanceof PropertiesRootTreeNode) {
 			editorPane = getPropertiesEditorPanel();

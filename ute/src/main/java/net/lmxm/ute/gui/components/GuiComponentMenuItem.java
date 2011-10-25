@@ -41,7 +41,7 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 	ADD_JOB(ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
 
 	/** The ADD_PREFERENCE. */
-	ADD_PREFERENCE(null, ActionConstants.ADD_PREFERENCE),
+	ADD_PREFERENCE(ImageUtil.ADD_PREFERENCE_ICON, ActionConstants.ADD_PREFERENCE),
 
 	/** The ADD_PROPERTY. */
 	ADD_PROPERTY(ImageUtil.ADD_PROPERTY_ICON, ActionConstants.ADD_PROPERTY),
@@ -62,7 +62,7 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 	DELETE_JOB(null, null),
 
 	/** The DELETE_PREFERENCE. */
-	DELETE_PREFERENCE(null, ActionConstants.DELETE_PREFERENCE),
+	DELETE_PREFERENCE(ImageUtil.DELETE_PREFERENCE_ICON, ActionConstants.DELETE_PREFERENCE),
 
 	/** The DELETE_PROPERTY. */
 	DELETE_PROPERTY(ImageUtil.DELETE_PROPERTY_ICON, ActionConstants.DELETE_PROPERTY),

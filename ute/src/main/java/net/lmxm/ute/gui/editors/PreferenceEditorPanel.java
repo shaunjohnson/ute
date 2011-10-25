@@ -27,6 +27,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.PreferenceEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,9 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 
 	/** The preference value text field. */
 	private JTextField preferenceValueTextField = null;
+
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new preference editor panel.
@@ -84,7 +88,10 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		return null;
+		if (toolBar == null) {
+			toolBar = new PreferenceEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**
