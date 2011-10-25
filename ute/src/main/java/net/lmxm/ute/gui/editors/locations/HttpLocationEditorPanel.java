@@ -50,7 +50,7 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public HttpLocationEditorPanel(final ActionListener actionListener) {
-		super("HTTP Location", actionListener);
+		super(GuiComponentLabel.HTTP_LOCATION, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

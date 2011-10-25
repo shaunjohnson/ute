@@ -34,14 +34,32 @@ public enum GuiComponentLabel implements GuiComponentType {
 	/** The ENABLED. */
 	ENABLED,
 
+	/** The FILE_SYSTEM_DELETE_TASK. */
+	FILE_SYSTEM_DELETE_TASK,
+
+	/** The FILE_SYSTEM_LOCATION. */
+	FILE_SYSTEM_LOCATION,
+
 	/** The FILES. */
 	FILES,
 
 	/** The FIND_AND_REPLACE. */
 	FIND_AND_REPLACE,
 
+	/** The FIND_AND_REPLACE_TASK. */
+	FIND_AND_REPLACE_TASK,
+
 	/** The GROOVY_SCRIPT. */
 	GROOVY_SCRIPT,
+
+	/** The GROOVY_TASK. */
+	GROOVY_TASK,
+
+	/** The HTTP_DOWNLOAD_TASK. */
+	HTTP_DOWNLOAD_TASK,
+
+	/** The HTTP_LOCATION. */
+	HTTP_LOCATION,
 
 	/** The ID. */
 	ID,
@@ -64,6 +82,9 @@ public enum GuiComponentLabel implements GuiComponentType {
 	/** The PREFERENCE. */
 	PREFERENCE,
 
+	/** The PROPERTIES. */
+	PROPERTIES,
+
 	/** The PROPERTY. */
 	PROPERTY,
 
@@ -73,6 +94,9 @@ public enum GuiComponentLabel implements GuiComponentType {
 	/** The SCRIPT. */
 	SCRIPT,
 
+	/** The SEQUENTIAL_JOB. */
+	SEQUENTIAL_JOB,
+
 	/** The SERVER. */
 	SERVER,
 
@@ -81,6 +105,15 @@ public enum GuiComponentLabel implements GuiComponentType {
 
 	/** The STOP_ON_ERROR. */
 	STOP_ON_ERROR,
+
+	/** The SUBVERSION_EXPORT_TASK. */
+	SUBVERSION_EXPORT_TASK,
+
+	/** The SUBVERSION_REPOSITORY_LOCATION. */
+	SUBVERSION_REPOSITORY_LOCATION,
+
+	/** The SUBVERSION_UPDATE_TASK. */
+	SUBVERSION_UPDATE_TASK,
 
 	/** The TARGET. */
 	TARGET,

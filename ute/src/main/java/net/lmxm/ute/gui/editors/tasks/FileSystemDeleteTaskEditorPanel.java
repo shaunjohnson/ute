@@ -50,7 +50,7 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 	 * @param actionListener the action listener
 	 */
 	public FileSystemDeleteTaskEditorPanel(final ActionListener actionListener) {
-		super("File System Delete Task", actionListener);
+		super(GuiComponentLabel.FILE_SYSTEM_DELETE_TASK, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

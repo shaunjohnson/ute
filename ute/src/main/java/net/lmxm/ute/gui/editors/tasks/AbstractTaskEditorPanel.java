@@ -80,11 +80,11 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	/**
 	 * Instantiates a new abstract task editor panel.
 	 * 
-	 * @param titleText the title text
+	 * @param guiComponentLabel the gui component label
 	 * @param actionListener the action listener
 	 */
-	public AbstractTaskEditorPanel(final String titleText, final ActionListener actionListener) {
-		super(titleText, actionListener);
+	public AbstractTaskEditorPanel(final GuiComponentLabel guiComponentLabel, final ActionListener actionListener) {
+		super(guiComponentLabel, actionListener);
 
 		monospaceFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 	}

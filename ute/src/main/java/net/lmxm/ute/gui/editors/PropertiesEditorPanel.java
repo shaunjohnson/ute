@@ -44,7 +44,7 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public PropertiesEditorPanel(final ActionListener actionListener) {
-		super("Properties", actionListener);
+		super(GuiComponentLabel.PROPERTIES, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

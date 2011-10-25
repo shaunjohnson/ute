@@ -50,7 +50,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	 * @param actionListener the action listener
 	 */
 	public FileSystemLocationEditorPanel(final ActionListener actionListener) {
-		super("File System Location", actionListener);
+		super(GuiComponentLabel.FILE_SYSTEM_LOCATION, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

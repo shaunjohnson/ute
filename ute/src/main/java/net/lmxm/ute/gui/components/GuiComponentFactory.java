@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.components;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
@@ -118,6 +119,21 @@ public class GuiComponentFactory {
 		setActionListener(menuItem, guiComponentMenuItem, actionListener);
 
 		return menuItem;
+	}
+
+	/**
+	 * Creates a new GuiComponent object.
+	 * 
+	 * @param guiComponentLabel the gui component label
+	 * @return the j label
+	 */
+	public static JLabel createPanelHeaderLabel(final GuiComponentLabel guiComponentLabel) {
+		final JLabel label = new JLabel();
+
+		setIconAndText(label, guiComponentLabel);
+		label.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+
+		return label;
 	}
 
 	/**

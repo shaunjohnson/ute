@@ -47,7 +47,7 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 	 * @param actionListener the action listener
 	 */
 	public SubversionUpdateTaskEditorPanel(final ActionListener actionListener) {
-		super("Subversion Update Task", actionListener);
+		super(GuiComponentLabel.SUBVERSION_UPDATE_TASK, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

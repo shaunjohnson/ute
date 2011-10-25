@@ -54,7 +54,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 	 * Instantiates a new subversion repository location editor panel.
 	 */
 	public SubversionRepositoryLocationEditorPanel(final ActionListener actionListener) {
-		super("Subversion Repository Location", actionListener);
+		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATION, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

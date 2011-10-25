@@ -42,10 +42,11 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	/**
 	 * Instantiates a new abstract id editor panel.
 	 * 
-	 * @param titleText the title text
+	 * @param guiComponentLabel the gui component label
+	 * @param actionListener the action listener
 	 */
-	public AbstractIdEditorPanel(final String titleText, final ActionListener actionListener) {
-		super(titleText, actionListener);
+	public AbstractIdEditorPanel(final GuiComponentLabel guiComponentLabel, final ActionListener actionListener) {
+		super(guiComponentLabel, actionListener);
 	}
 
 	/**

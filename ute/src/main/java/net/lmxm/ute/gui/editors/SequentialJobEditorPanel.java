@@ -45,7 +45,7 @@ public final class SequentialJobEditorPanel extends AbstractEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public SequentialJobEditorPanel(final ActionListener actionListener) {
-		super("Sequential Job", actionListener);
+		super(GuiComponentLabel.SEQUENTIAL_JOB, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

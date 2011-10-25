@@ -96,10 +96,10 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/**
 	 * Instantiates a new abstract editor panel.
 	 * 
-	 * @param titleText the title text
+	 * @param guiComponentLabel the gui component label
 	 * @param actionListener the action listener
 	 */
-	public AbstractEditorPanel(final String titleText, final ActionListener actionListener) {
+	public AbstractEditorPanel(final GuiComponentLabel guiComponentLabel, final ActionListener actionListener) {
 		super();
 
 		Preconditions.checkNotNull(actionListener, "Action listener may not be null");
@@ -108,8 +108,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 		// Setup title panel
 		final JPanel titlePanel = new JPanel(new MigLayout("wrap 1", "[center]"));
-		final JLabel titleLabel = new JLabel(titleText);
-		titleLabel.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+		final JLabel titleLabel = GuiComponentFactory.createPanelHeaderLabel(guiComponentLabel);
 
 		titlePanel.add(titleLabel);
 

@@ -50,7 +50,7 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public PreferenceEditorPanel(final ActionListener actionListener) {
-		super("Preference", actionListener);
+		super(GuiComponentLabel.PREFERENCE, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

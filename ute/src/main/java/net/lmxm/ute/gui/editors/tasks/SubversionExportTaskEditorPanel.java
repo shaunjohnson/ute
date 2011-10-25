@@ -47,7 +47,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	 * @param actionListener the action listener
 	 */
 	public SubversionExportTaskEditorPanel(final ActionListener actionListener) {
-		super("Subversion Export Task", actionListener);
+		super(GuiComponentLabel.SUBVERSION_EXPORT_TASK, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

@@ -36,11 +36,11 @@ public abstract class AbstractLocationEditorPanel extends AbstractIdEditorPanel 
 	/**
 	 * Instantiates a new abstract location editor panel.
 	 * 
-	 * @param titleText the title text
+	 * @param guiComponentLabel the gui component label
 	 * @param actionListener the action listener
 	 */
-	public AbstractLocationEditorPanel(final String titleText, final ActionListener actionListener) {
-		super(titleText, actionListener);
+	public AbstractLocationEditorPanel(final GuiComponentLabel guiComponentLabel, final ActionListener actionListener) {
+		super(guiComponentLabel, actionListener);
 	}
 
 	/**

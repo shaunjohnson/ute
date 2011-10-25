@@ -50,7 +50,7 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public PropertyEditorPanel(final ActionListener actionListener) {
-		super("Property", actionListener);
+		super(GuiComponentLabel.PROPERTY, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

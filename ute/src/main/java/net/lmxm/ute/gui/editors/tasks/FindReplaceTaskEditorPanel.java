@@ -74,7 +74,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public FindReplaceTaskEditorPanel(final ActionListener actionListener) {
-		super("Find and Replace Task", actionListener);
+		super(GuiComponentLabel.FIND_AND_REPLACE_TASK, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

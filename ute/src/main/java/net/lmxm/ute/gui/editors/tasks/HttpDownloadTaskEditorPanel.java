@@ -47,7 +47,7 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public HttpDownloadTaskEditorPanel(final ActionListener actionListener) {
-		super("HTTP Download Task", actionListener);
+		super(GuiComponentLabel.HTTP_DOWNLOAD_TASK, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 

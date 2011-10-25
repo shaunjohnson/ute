@@ -56,7 +56,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public GroovyTaskEditorPanel(final ActionListener actionListener) {
-		super("Groovy Task", actionListener);
+		super(GuiComponentLabel.GROOVY_TASK, actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
