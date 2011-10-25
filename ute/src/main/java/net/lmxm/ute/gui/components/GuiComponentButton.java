@@ -28,6 +28,12 @@ import net.lmxm.ute.gui.utils.ImageUtil;
  */
 public enum GuiComponentButton implements GuiComponentType {
 
+	/** The ADD_FILE_SYSTEM_LOCATION. */
+	ADD_FILE_SYSTEM_LOCATION(ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_FILE_SYSTEM_LOCATION),
+
+	/** The ADD_HTTP_LOCATION. */
+	ADD_HTTP_LOCATION(ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_HTTP_LOCATION),
+
 	/** The ADD_JOB. */
 	ADD_JOB(ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
 
@@ -45,6 +51,12 @@ public enum GuiComponentButton implements GuiComponentType {
 
 	/** The CLOSE_DIALOG button. */
 	CLOSE_DIALOG(null, null),
+
+	/** The DELETE_FILE_SYSTEM_LOCATION. */
+	DELETE_FILE_SYSTEM_LOCATION(ImageUtil.DELETE_LOCATION_ICON, ActionConstants.DELETE_FILE_SYSTEM_LOCATION),
+
+	/** The DELETE_HTTP_LOCATION. */
+	DELETE_HTTP_LOCATION(ImageUtil.DELETE_LOCATION_ICON, ActionConstants.DELETE_HTTP_LOCATION),
 
 	/** The DELETE_PREFERENCE. */
 	DELETE_PREFERENCE(ImageUtil.DELETE_PREFERENCE_ICON, ActionConstants.DELETE_PREFERENCE),

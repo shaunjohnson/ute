@@ -40,6 +40,9 @@ public enum GuiComponentLabel implements GuiComponentType {
 	/** The FILE_SYSTEM_LOCATION. */
 	FILE_SYSTEM_LOCATION,
 
+	/** The FILE_SYSTEM_LOCATIONS. */
+	FILE_SYSTEM_LOCATIONS,
+
 	/** The FILES. */
 	FILES,
 
@@ -60,6 +63,9 @@ public enum GuiComponentLabel implements GuiComponentType {
 
 	/** The HTTP_LOCATION. */
 	HTTP_LOCATION,
+
+	/** The HTTP_LOCATIONS. */
+	HTTP_LOCATIONS,
 
 	/** The ID. */
 	ID,

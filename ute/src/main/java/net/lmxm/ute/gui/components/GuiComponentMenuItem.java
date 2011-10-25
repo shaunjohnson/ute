@@ -53,7 +53,7 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 	ADD_TASK(null, null),
 
 	/** The DELETE_FILE_SYSTEM_LOCATION. */
-	DELETE_FILE_SYSTEM_LOCATION(null, ActionConstants.DELETE_FILE_SYSTEM_LOCATION),
+	DELETE_FILE_SYSTEM_LOCATION(ImageUtil.DELETE_LOCATION_ICON, ActionConstants.DELETE_FILE_SYSTEM_LOCATION),
 
 	/** The DELETE_HTTP_LOCATION. */
 	DELETE_HTTP_LOCATION(null, ActionConstants.DELETE_HTTP_LOCATION),

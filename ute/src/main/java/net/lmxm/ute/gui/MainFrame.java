@@ -82,7 +82,9 @@ import net.lmxm.ute.gui.editors.PropertiesEditorPanel;
 import net.lmxm.ute.gui.editors.PropertyEditorPanel;
 import net.lmxm.ute.gui.editors.SequentialJobEditorPanel;
 import net.lmxm.ute.gui.editors.locations.FileSystemLocationEditorPanel;
+import net.lmxm.ute.gui.editors.locations.FileSystemLocationsEditorPanel;
 import net.lmxm.ute.gui.editors.locations.HttpLocationEditorPanel;
+import net.lmxm.ute.gui.editors.locations.HttpLocationsEditorPanel;
 import net.lmxm.ute.gui.editors.locations.SubversionRepositoryLocationEditorPanel;
 import net.lmxm.ute.gui.editors.locations.SubversionRepositoryLocationsEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.FileSystemDeleteTaskEditorPanel;
@@ -92,6 +94,8 @@ import net.lmxm.ute.gui.editors.tasks.HttpDownloadTaskEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.SubversionExportTaskEditorPanel;
 import net.lmxm.ute.gui.editors.tasks.SubversionUpdateTaskEditorPanel;
 import net.lmxm.ute.gui.menus.MainMenuBar;
+import net.lmxm.ute.gui.nodes.FileSystemLocationsRootTreeNode;
+import net.lmxm.ute.gui.nodes.HttpLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
@@ -139,6 +143,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/** The file system location editor panel. */
 	private FileSystemLocationEditorPanel fileSystemLocationEditorPanel = null;
 
+	/** The file system locations editor panel. */
+	private FileSystemLocationsEditorPanel fileSystemLocationsEditorPanel = null;
+
 	/** The file tool bar. */
 	private FileToolBar fileToolBar = null;
 
@@ -153,6 +160,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 	/** The http location editor panel. */
 	private HttpLocationEditorPanel httpLocationEditorPanel = null;
+
+	/** The http locations editor panel. */
+	private HttpLocationsEditorPanel httpLocationsEditorPanel = null;
 
 	/** The j content pane. */
 	private JPanel jContentPane = null;
@@ -525,6 +535,19 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Gets the file system locations editor panel.
+	 * 
+	 * @return the file system locations editor panel
+	 */
+	private FileSystemLocationsEditorPanel getFileSystemLocationsEditorPanel() {
+		if (fileSystemLocationsEditorPanel == null) {
+			fileSystemLocationsEditorPanel = new FileSystemLocationsEditorPanel(this);
+		}
+
+		return fileSystemLocationsEditorPanel;
+	}
+
+	/**
 	 * Gets the file tool bar.
 	 * 
 	 * @return the file tool bar
@@ -598,6 +621,19 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		httpLocationEditorPanel.loadData(httpLocation);
 
 		return httpLocationEditorPanel;
+	}
+
+	/**
+	 * Gets the http locations editor panel.
+	 * 
+	 * @return the http locations editor panel
+	 */
+	private HttpLocationsEditorPanel getHttpLocationsEditorPanel() {
+		if (httpLocationsEditorPanel == null) {
+			httpLocationsEditorPanel = new HttpLocationsEditorPanel(this);
+		}
+
+		return httpLocationsEditorPanel;
 	}
 
 	/**
@@ -944,9 +980,11 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		getFileSystemDeleteTaskEditorPanel(null);
 		getHttpDownloadTaskEditorPanel(null);
 		getHttpLocationEditorPanel(null);
+		getHttpLocationsEditorPanel();
 		getSubversionExportTaskEditorPanel(null);
 		getSubversionUpdateTaskEditorPanel(null);
 		getFileSystemLocationEditorPanel(null);
+		getFileSystemLocationsEditorPanel();
 		getSubversionRepositoryLocationEditorPanel(null);
 		getSubversionRepositoryLocationsEditorPanel();
 		getPreferenceEditorPanel(null);
@@ -1067,6 +1105,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		else if (userObject instanceof FileSystemLocation) {
 			editorPane = getFileSystemLocationEditorPanel((FileSystemLocation) userObject);
 		}
+		else if (userObject instanceof FileSystemLocationsRootTreeNode) {
+			editorPane = getFileSystemLocationsEditorPanel();
+		}
 		else if (userObject instanceof FindReplaceTask) {
 			editorPane = getFindReplaceTaskEditorPanel((FindReplaceTask) userObject);
 		}
@@ -1078,6 +1119,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (userObject instanceof HttpLocation) {
 			editorPane = getHttpLocationEditorPanel((HttpLocation) userObject);
+		}
+		else if (userObject instanceof HttpLocationsRootTreeNode) {
+			editorPane = getHttpLocationsEditorPanel();
 		}
 		else if (userObject instanceof Preference) {
 			editorPane = getPreferenceEditorPanel((Preference) userObject);
