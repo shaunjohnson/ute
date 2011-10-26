@@ -21,9 +21,6 @@ package net.lmxm.ute.gui.toolbars;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
@@ -34,21 +31,6 @@ public class FileToolBar extends AbstractToolBar {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1759208575265786781L;
 
-	/** The exit button. */
-	private JButton exitButton = null;
-
-	/** The new file button. */
-	private JButton newFileButton = null;
-
-	/** The open file button. */
-	private JButton openFileButton = null;
-
-	/** The save as button. */
-	private JButton saveAsButton = null;
-
-	/** The save button. */
-	private JButton saveButton = null;
-
 	/**
 	 * Instantiates a new file tool bar.
 	 * 
@@ -57,78 +39,11 @@ public class FileToolBar extends AbstractToolBar {
 	public FileToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getNewFileButton());
-		add(getOpenFileButton());
-		add(getSaveButton());
-		add(getSaveAsButton());
+		addToolbarButton(GuiComponentToolbarButton.NEW_FILE);
+		addToolbarButton(GuiComponentToolbarButton.OPEN_FILE);
+		addToolbarButton(GuiComponentToolbarButton.SAVE_FILE);
+		addToolbarButton(GuiComponentToolbarButton.SAVE_FILE_AS);
 		addSeparator(new Dimension(20, 20));
-		add(getExitButton());
-	}
-
-	/**
-	 * Gets the exit button.
-	 * 
-	 * @return the exit button
-	 */
-	private JButton getExitButton() {
-		if (exitButton == null) {
-			exitButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.EXIT, getActionListener());
-		}
-		return exitButton;
-	}
-
-	/**
-	 * Gets the new file button.
-	 * 
-	 * @return the new file button
-	 */
-	private JButton getNewFileButton() {
-		if (newFileButton == null) {
-			newFileButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.NEW_FILE,
-					getActionListener());
-			newFileButton.setEnabled(false); // TODO disabled since it is not implemented
-		}
-		return newFileButton;
-	}
-
-	/**
-	 * Gets the open file button.
-	 * 
-	 * @return the open file button
-	 */
-	private JButton getOpenFileButton() {
-		if (openFileButton == null) {
-			openFileButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.OPEN_FILE,
-					getActionListener());
-		}
-		return openFileButton;
-	}
-
-	/**
-	 * Gets the save as button.
-	 * 
-	 * @return the save as button
-	 */
-	private JButton getSaveAsButton() {
-		if (saveAsButton == null) {
-			saveAsButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.SAVE_FILE_AS,
-					getActionListener());
-			saveAsButton.setEnabled(false); // TODO disabled since it is not implemented
-		}
-		return saveAsButton;
-	}
-
-	/**
-	 * Gets the save button.
-	 * 
-	 * @return the save button
-	 */
-	private JButton getSaveButton() {
-		if (saveButton == null) {
-			saveButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.SAVE_FILE,
-					getActionListener());
-			saveButton.setEnabled(false); // TODO disabled since it is not implemented
-		}
-		return saveButton;
+		addToolbarButton(GuiComponentToolbarButton.EXIT);
 	}
 }

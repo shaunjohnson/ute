@@ -20,10 +20,7 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class AbstractTaskEditorToolBar.
@@ -33,9 +30,6 @@ public abstract class AbstractTaskEditorToolBar extends AbstractToolBar {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5542505715716014617L;
 
-	/** The execute task button. */
-	private JButton executeTaskButton = null;
-
 	/**
 	 * Instantiates a new properties tool bar.
 	 * 
@@ -44,18 +38,6 @@ public abstract class AbstractTaskEditorToolBar extends AbstractToolBar {
 	public AbstractTaskEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getExecuteTaskButton());
-	}
-
-	/**
-	 * Gets the execute task button.
-	 * 
-	 * @return the execute task button
-	 */
-	private JButton getExecuteTaskButton() {
-		if (executeTaskButton == null) {
-			executeTaskButton = GuiComponentFactory.createButton(GuiComponentButton.EXECUTE_TASK, getActionListener());
-		}
-		return executeTaskButton;
+		addToolbarButton(GuiComponentToolbarButton.EXECUTE_TASK);
 	}
 }

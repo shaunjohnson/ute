@@ -20,32 +20,15 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class MainTreeToolBar.
  */
-public class MainTreeToolBar extends AbstractToolBar implements TreeSelectionListener {
+public class MainTreeToolBar extends AbstractToolBar {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -354062493293031844L;
-
-	/** The add job button. */
-	private JButton addJobButton = null;
-
-	/** The add location button. */
-	private JButton addLocationButton = null;
-
-	/** The add preference button. */
-	private JButton addPreferenceButton = null;
-
-	/** The add property button. */
-	private JButton addPropertyButton = null;
 
 	/**
 	 * Instantiates a new main tree tool bar.
@@ -55,71 +38,9 @@ public class MainTreeToolBar extends AbstractToolBar implements TreeSelectionLis
 	public MainTreeToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddJobButton());
-		add(getAddLocationButton());
-		add(getAddPropertyButton());
-		add(getAddPreferenceButton());
-	}
-
-	/**
-	 * Gets the adds the job button.
-	 * 
-	 * @return the adds the job button
-	 */
-	private JButton getAddJobButton() {
-		if (addJobButton == null) {
-			addJobButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.ADD_JOB,
-					getActionListener());
-		}
-		return addJobButton;
-	}
-
-	/**
-	 * Gets the adds the location button.
-	 * 
-	 * @return the adds the location button
-	 */
-	private JButton getAddLocationButton() {
-		if (addLocationButton == null) {
-			addLocationButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.ADD_LOCATION,
-					getActionListener());
-			addLocationButton.setEnabled(false); // TODO not implemented
-		}
-		return addLocationButton;
-	}
-
-	/**
-	 * Gets the adds the preference button.
-	 * 
-	 * @return the adds the preference button
-	 */
-	private JButton getAddPreferenceButton() {
-		if (addPreferenceButton == null) {
-			addPreferenceButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.ADD_PREFERENCE,
-					getActionListener());
-		}
-		return addPreferenceButton;
-	}
-
-	/**
-	 * Gets the adds the property button.
-	 * 
-	 * @return the adds the property button
-	 */
-	private JButton getAddPropertyButton() {
-		if (addPropertyButton == null) {
-			addPropertyButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.ADD_PROPERTY,
-					getActionListener());
-		}
-		return addPropertyButton;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event .TreeSelectionEvent)
-	 */
-	@Override
-	public void valueChanged(final TreeSelectionEvent treeSelectionEvent) {
-
+		addToolbarButton(GuiComponentToolbarButton.ADD_JOB);
+		addToolbarButton(GuiComponentToolbarButton.ADD_LOCATION);
+		addToolbarButton(GuiComponentToolbarButton.ADD_PROPERTY);
+		addToolbarButton(GuiComponentToolbarButton.ADD_PREFERENCE);
 	}
 }

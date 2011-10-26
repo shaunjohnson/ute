@@ -20,10 +20,7 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class PropertyEditorToolBar.
@@ -33,9 +30,6 @@ public class PropertyEditorToolBar extends AbstractToolBar {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3489509073783668457L;
 
-	/** The delete property button. */
-	private JButton deletePropertyButton = null;
-
 	/**
 	 * Instantiates a new properties editor tool bar.
 	 * 
@@ -44,19 +38,6 @@ public class PropertyEditorToolBar extends AbstractToolBar {
 	public PropertyEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getDeletePropertyButton());
-	}
-
-	/**
-	 * Gets the delete property button.
-	 * 
-	 * @return the delete property button
-	 */
-	private JButton getDeletePropertyButton() {
-		if (deletePropertyButton == null) {
-			deletePropertyButton = GuiComponentFactory.createButton(GuiComponentButton.DELETE_PROPERTY,
-					getActionListener());
-		}
-		return deletePropertyButton;
+		addToolbarButton(GuiComponentToolbarButton.DELETE_PROPERTY);
 	}
 }

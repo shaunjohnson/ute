@@ -20,10 +20,7 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class JobsEditorToolBar.
@@ -33,9 +30,6 @@ public class JobsEditorToolBar extends AbstractToolBar {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2652922370956062365L;
 
-	/** The add job button. */
-	private JButton addJobButton = null;
-
 	/**
 	 * Instantiates a new jobs editor tool bar.
 	 * 
@@ -44,18 +38,6 @@ public class JobsEditorToolBar extends AbstractToolBar {
 	public JobsEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddJobButton());
-	}
-
-	/**
-	 * Gets the adds the job button.
-	 * 
-	 * @return the adds the job button
-	 */
-	private JButton getAddJobButton() {
-		if (addJobButton == null) {
-			addJobButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_JOB, getActionListener());
-		}
-		return addJobButton;
+		addToolbarButton(GuiComponentToolbarButton.ADD_JOB);
 	}
 }

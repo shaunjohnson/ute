@@ -849,8 +849,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private JToolBar getMainTreeToolBar() {
 		if (mainTreeToolBar == null) {
 			mainTreeToolBar = new MainTreeToolBar(this);
-
-			getMainTree().addTreeSelectionListener(mainTreeToolBar);
 		}
 		return mainTreeToolBar;
 	}

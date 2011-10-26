@@ -20,59 +20,13 @@ package net.lmxm.ute.gui.components;
 
 import javax.swing.Icon;
 
-import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.utils.ImageUtil;
-
 /**
  * The Enum GuiComponentButton.
  */
 public enum GuiComponentButton implements GuiComponentType {
 
-	/** The ADD_FILE_SYSTEM_LOCATION. */
-	ADD_FILE_SYSTEM_LOCATION(ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_FILE_SYSTEM_LOCATION),
-
-	/** The ADD_HTTP_LOCATION. */
-	ADD_HTTP_LOCATION(ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_HTTP_LOCATION),
-
-	/** The ADD_JOB. */
-	ADD_JOB(ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
-
-	/** The ADD_PREFERENCE. */
-	ADD_PREFERENCE(ImageUtil.ADD_PREFERENCE_ICON, ActionConstants.ADD_PREFERENCE),
-
-	/** The ADD_PROPERTY. */
-	ADD_PROPERTY(ImageUtil.ADD_PROPERTY_ICON, ActionConstants.ADD_PROPERTY),
-
-	/** The ADD_SUBVERSION_REPOSITORY_LOCATION. */
-	ADD_SUBVERSION_REPOSITORY_LOCATION(ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION),
-
 	/** The CLOSE_DIALOG button. */
-	CLOSE_DIALOG(null, null),
-
-	/** The DELETE_FILE_SYSTEM_LOCATION. */
-	DELETE_FILE_SYSTEM_LOCATION(ImageUtil.DELETE_LOCATION_ICON, ActionConstants.DELETE_FILE_SYSTEM_LOCATION),
-
-	/** The DELETE_HTTP_LOCATION. */
-	DELETE_HTTP_LOCATION(ImageUtil.DELETE_LOCATION_ICON, ActionConstants.DELETE_HTTP_LOCATION),
-
-	/** The DELETE_JOB. */
-	DELETE_JOB(ImageUtil.DELETE_JOB_ICON, ActionConstants.DELETE_JOB),
-
-	/** The DELETE_PREFERENCE. */
-	DELETE_PREFERENCE(ImageUtil.DELETE_PREFERENCE_ICON, ActionConstants.DELETE_PREFERENCE),
-
-	/** The DELETE_PROPERTY. */
-	DELETE_PROPERTY(ImageUtil.DELETE_PROPERTY_ICON, ActionConstants.DELETE_PROPERTY),
-
-	/** The DELETE_SUBVERSION_REPOSITORY_LOCATION. */
-	DELETE_SUBVERSION_REPOSITORY_LOCATION(ImageUtil.DELETE_LOCATION_ICON,
-			ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION),
-
-	/** The EXECUTE_JOB. */
-	EXECUTE_JOB(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
-
-	/** The EXECUTE_TASK. */
-	EXECUTE_TASK(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE);
+	CLOSE_DIALOG(null, null);
 
 	/** The action command. */
 	private final String actionCommand;

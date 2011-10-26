@@ -20,10 +20,7 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class PreferencesEditorToolBar.
@@ -33,9 +30,6 @@ public class PreferencesEditorToolBar extends AbstractToolBar {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1596742516975543683L;
 
-	/** The add preference button. */
-	private JButton addPreferenceButton = null;
-
 	/**
 	 * Instantiates a new preferences editor tool bar.
 	 * 
@@ -44,19 +38,6 @@ public class PreferencesEditorToolBar extends AbstractToolBar {
 	public PreferencesEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddPreferenceButton());
-	}
-
-	/**
-	 * Gets the adds the preference button.
-	 * 
-	 * @return the adds the preference button
-	 */
-	private JButton getAddPreferenceButton() {
-		if (addPreferenceButton == null) {
-			addPreferenceButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_PREFERENCE,
-					getActionListener());
-		}
-		return addPreferenceButton;
+		addToolbarButton(GuiComponentToolbarButton.ADD_PREFERENCE);
 	}
 }

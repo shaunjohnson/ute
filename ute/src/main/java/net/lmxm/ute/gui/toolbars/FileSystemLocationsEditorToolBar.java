@@ -20,10 +20,7 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class FileSystemLocationsEditorToolBar.
@@ -33,9 +30,6 @@ public class FileSystemLocationsEditorToolBar extends AbstractToolBar {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8767030052836785508L;
 
-	/** The add file system location button. */
-	private JButton addFileSystemLocationButton = null;
-
 	/**
 	 * Instantiates a new file system locations editor tool bar.
 	 * 
@@ -44,19 +38,6 @@ public class FileSystemLocationsEditorToolBar extends AbstractToolBar {
 	public FileSystemLocationsEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddFileSystemLocationButton());
-	}
-
-	/**
-	 * Gets the adds the file system location button.
-	 * 
-	 * @return the adds the file system location button
-	 */
-	private JButton getAddFileSystemLocationButton() {
-		if (addFileSystemLocationButton == null) {
-			addFileSystemLocationButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_FILE_SYSTEM_LOCATION,
-					getActionListener());
-		}
-		return addFileSystemLocationButton;
+		addToolbarButton(GuiComponentToolbarButton.ADD_FILE_SYSTEM_LOCATION);
 	}
 }

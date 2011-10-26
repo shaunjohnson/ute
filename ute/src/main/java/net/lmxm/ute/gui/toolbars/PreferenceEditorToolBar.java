@@ -20,10 +20,7 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class PreferenceEditorToolBar.
@@ -33,9 +30,6 @@ public class PreferenceEditorToolBar extends AbstractToolBar {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 924885959488061605L;
 
-	/** The delete preference button. */
-	private JButton deletePreferenceButton = null;
-
 	/**
 	 * Instantiates a new preference editor tool bar.
 	 * 
@@ -44,19 +38,6 @@ public class PreferenceEditorToolBar extends AbstractToolBar {
 	public PreferenceEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getDeletePreferenceButton());
-	}
-
-	/**
-	 * Gets the delete preference button.
-	 * 
-	 * @return the delete preference button
-	 */
-	private JButton getDeletePreferenceButton() {
-		if (deletePreferenceButton == null) {
-			deletePreferenceButton = GuiComponentFactory.createButton(GuiComponentButton.DELETE_PREFERENCE,
-					getActionListener());
-		}
-		return deletePreferenceButton;
+		addToolbarButton(GuiComponentToolbarButton.DELETE_PREFERENCE);
 	}
 }

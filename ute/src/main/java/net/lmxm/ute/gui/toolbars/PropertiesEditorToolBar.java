@@ -20,10 +20,7 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class PropertiesEditorToolBar.
@@ -33,9 +30,6 @@ public class PropertiesEditorToolBar extends AbstractToolBar {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1153768266558335635L;
 
-	/** The add property button. */
-	private JButton addPropertyButton = null;
-
 	/**
 	 * Instantiates a new properties editor tool bar.
 	 * 
@@ -44,18 +38,6 @@ public class PropertiesEditorToolBar extends AbstractToolBar {
 	public PropertiesEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddPropertyButton());
-	}
-
-	/**
-	 * Gets the adds the property button.
-	 * 
-	 * @return the adds the property button
-	 */
-	private JButton getAddPropertyButton() {
-		if (addPropertyButton == null) {
-			addPropertyButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_PROPERTY, getActionListener());
-		}
-		return addPropertyButton;
+		addToolbarButton(GuiComponentToolbarButton.ADD_PROPERTY);
 	}
 }

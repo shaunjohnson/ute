@@ -20,10 +20,7 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class SubversionRepositoryLocationsEditorToolBar.
@@ -33,9 +30,6 @@ public class SubversionRepositoryLocationsEditorToolBar extends AbstractToolBar 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2727238704897494027L;
 
-	/** The add subversion repository location button. */
-	private JButton addSubversionRepositoryLocationButton = null;
-
 	/**
 	 * Instantiates a new subversion repository locations editor tool bar.
 	 * 
@@ -44,19 +38,6 @@ public class SubversionRepositoryLocationsEditorToolBar extends AbstractToolBar 
 	public SubversionRepositoryLocationsEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddSubversionRepositoryLocationButton());
-	}
-
-	/**
-	 * Gets the adds the subversion repository location button.
-	 * 
-	 * @return the adds the subversion repository location button
-	 */
-	private JButton getAddSubversionRepositoryLocationButton() {
-		if (addSubversionRepositoryLocationButton == null) {
-			addSubversionRepositoryLocationButton = GuiComponentFactory.createButton(
-					GuiComponentButton.ADD_SUBVERSION_REPOSITORY_LOCATION, getActionListener());
-		}
-		return addSubversionRepositoryLocationButton;
+		addToolbarButton(GuiComponentToolbarButton.ADD_SUBVERSION_REPOSITORY_LOCATION);
 	}
 }

@@ -20,10 +20,7 @@ package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-
-import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class HttpLocationEditorToolBar.
@@ -33,9 +30,6 @@ public class HttpLocationEditorToolBar extends AbstractToolBar {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7975688924393008182L;
 
-	/** The delete http location button. */
-	private JButton deleteHttpLocationButton = null;
-
 	/**
 	 * Instantiates a new http location editor tool bar.
 	 * 
@@ -44,19 +38,6 @@ public class HttpLocationEditorToolBar extends AbstractToolBar {
 	public HttpLocationEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getHttpLocationButton());
-	}
-
-	/**
-	 * Gets the http location button.
-	 * 
-	 * @return the http location button
-	 */
-	private JButton getHttpLocationButton() {
-		if (deleteHttpLocationButton == null) {
-			deleteHttpLocationButton = GuiComponentFactory.createButton(GuiComponentButton.DELETE_HTTP_LOCATION,
-					getActionListener());
-		}
-		return deleteHttpLocationButton;
+		addToolbarButton(GuiComponentToolbarButton.DELETE_HTTP_LOCATION);
 	}
 }
