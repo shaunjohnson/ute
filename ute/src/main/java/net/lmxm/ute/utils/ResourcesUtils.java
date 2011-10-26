@@ -20,6 +20,8 @@ package net.lmxm.ute.utils;
 
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * The Class ResourcesUtils.
  */
@@ -73,6 +75,18 @@ public final class ResourcesUtils {
 	 */
 	public static String getApplicationVersion() {
 		return applicationVersion;
+	}
+
+	/**
+	 * Gets the character.
+	 * 
+	 * @param key the key
+	 * @return the character
+	 */
+	public static Character getCharacter(final String key) {
+		final String string = getString(key);
+
+		return StringUtils.isBlank(string) ? null : string.charAt(0);
 	}
 
 	/**

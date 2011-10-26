@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.components;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
@@ -26,6 +27,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import net.lmxm.ute.utils.ResourcesUtils;
 
@@ -35,6 +37,9 @@ import org.apache.commons.lang.StringUtils;
  * A factory for creating GuiComponent objects.
  */
 public class GuiComponentFactory {
+
+	/** The Constant ACCELERATOR_SUFFIX. */
+	private static final String ACCELERATOR_SUFFIX = "accelerator";
 
 	/** The Constant TEXT_SUFFIX. */
 	private static final String TEXT_SUFFIX = "text";
@@ -117,6 +122,7 @@ public class GuiComponentFactory {
 
 		setIconAndText(menuItem, guiComponentMenuItem);
 		setActionListener(menuItem, guiComponentMenuItem, actionListener);
+		setAccelerator(menuItem, guiComponentMenuItem);
 
 		return menuItem;
 	}
@@ -168,6 +174,22 @@ public class GuiComponentFactory {
 		setActionListener(button, guiComponentButton, actionListener);
 
 		return button;
+	}
+
+	/**
+	 * Sets the accelerator.
+	 * 
+	 * @param menuItem the menu item
+	 * @param guiComponentType the gui component type
+	 */
+	private static void setAccelerator(final JMenuItem menuItem, final GuiComponentType guiComponentType) {
+		final String resourcePrefix = buildResourcePrefix(guiComponentType);
+
+		final Character accelerator = ResourcesUtils.getCharacter(resourcePrefix + ACCELERATOR_SUFFIX);
+		if (accelerator != null) {
+			menuItem.setAccelerator(KeyStroke.getKeyStroke(accelerator, Toolkit.getDefaultToolkit()
+					.getMenuShortcutKeyMask(), false));
+		}
 	}
 
 	/**
