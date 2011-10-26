@@ -33,6 +33,9 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5949848515922880028L;
 
+	/** The add job menu item. */
+	private JMenuItem addJobMenuItem = null;
+
 	/** The add task menu item. */
 	private JMenuItem addTaskMenuItem = null;
 
@@ -51,20 +54,30 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 		super(actionListener);
 
 		add(getExecuteJobMenuItem());
-		add(getAddTaskMenuItem());
+		add(getAddJobMenuItem());
 		add(getDeleteJobMenuItem());
+		add(getAddTaskMenuItem());
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
-	 * lang.Object)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
 
+	}
+
+	/**
+	 * Gets the adds the job menu item.
+	 * 
+	 * @return the adds the job menu item
+	 */
+	private JMenuItem getAddJobMenuItem() {
+		if (addJobMenuItem == null) {
+			addJobMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_JOB, getActionListener());
+		}
+		return addJobMenuItem;
 	}
 
 	/**
@@ -89,7 +102,6 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 		if (deleteJobMenuItem == null) {
 			deleteJobMenuItem = GuiComponentFactory
 					.createMenuItem(GuiComponentMenuItem.DELETE_JOB, getActionListener());
-			deleteJobMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return deleteJobMenuItem;
 	}

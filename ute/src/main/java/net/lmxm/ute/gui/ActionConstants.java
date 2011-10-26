@@ -32,11 +32,11 @@ public final class ActionConstants {
 	/** The Constant ADD_JOB. */
 	public static final String ADD_JOB = "ADD_JOB";
 
-	/** The Constant ADD_PREFERENCE. */
-	public static final String ADD_PREFERENCE = "ADD_PREFERENCE";
-
 	/** The Constant ADD_LOCATION. */
 	public static final String ADD_LOCATION = "ADD_LOCATION";
+
+	/** The Constant ADD_PREFERENCE. */
+	public static final String ADD_PREFERENCE = "ADD_PREFERENCE";
 
 	/** The Constant ADD_PROPERTY. */
 	public static final String ADD_PROPERTY = "ADD_PROPERTY";
@@ -50,20 +50,11 @@ public final class ActionConstants {
 	/** The Constant DELETE_HTTP_LOCATION. */
 	public static final String DELETE_HTTP_LOCATION = "DELETE_HTTP_LOCATION";
 
+	/** The Constant DELETE_JOB. */
+	public static final String DELETE_JOB = "DELETE_JOB";
+
 	/** The Constant DELETE_PREFERENCE. */
 	public static final String DELETE_PREFERENCE = "DELETE_PREFERENCE";
-
-	/** The Constant NEW_FILE. */
-	public static final String NEW_FILE = "NEW_FILE";
-
-	/** The Constant OPEN_FILE. */
-	public static final String OPEN_FILE = "OPEN_FILE";
-
-	/** The Constant SAVE_FILE. */
-	public static final String SAVE_FILE = "SAVE_FILE";
-
-	/** The Constant SAVE_FILE_AS. */
-	public static final String SAVE_FILE_AS = "SAVE_FILE_AS";
 
 	/** The Constant DELETE_PROPERTY. */
 	public static final String DELETE_PROPERTY = "DELETE_PROPERTY";
@@ -76,6 +67,18 @@ public final class ActionConstants {
 
 	/** The Constant EXIT. */
 	public static final String EXIT = "EXIT";
+
+	/** The Constant NEW_FILE. */
+	public static final String NEW_FILE = "NEW_FILE";
+
+	/** The Constant OPEN_FILE. */
+	public static final String OPEN_FILE = "OPEN_FILE";
+
+	/** The Constant SAVE_FILE. */
+	public static final String SAVE_FILE = "SAVE_FILE";
+
+	/** The Constant SAVE_FILE_AS. */
+	public static final String SAVE_FILE_AS = "SAVE_FILE_AS";
 
 	/**
 	 * Instantiates a new action constants.

@@ -80,6 +80,7 @@ import net.lmxm.ute.gui.components.MainTree;
 import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.components.StatusOutputTab;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
+import net.lmxm.ute.gui.editors.JobsEditorPanel;
 import net.lmxm.ute.gui.editors.PreferenceEditorPanel;
 import net.lmxm.ute.gui.editors.PreferencesEditorPanel;
 import net.lmxm.ute.gui.editors.PropertiesEditorPanel;
@@ -100,6 +101,7 @@ import net.lmxm.ute.gui.editors.tasks.SubversionUpdateTaskEditorPanel;
 import net.lmxm.ute.gui.menus.MainMenuBar;
 import net.lmxm.ute.gui.nodes.FileSystemLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.HttpLocationsRootTreeNode;
+import net.lmxm.ute.gui.nodes.JobsRootTreeNode;
 import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
@@ -173,6 +175,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 	/** The job details editor scroll pane. */
 	private JScrollPane jobDetailsEditorScrollPane = null;
+
+	/** The jobs editor panel. */
+	private JobsEditorPanel jobsEditorPanel = null;
 
 	/** The jobs split pane. */
 	private JSplitPane jobsSplitPane = null;
@@ -726,6 +731,19 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Gets the jobs editor panel.
+	 * 
+	 * @return the jobs editor panel
+	 */
+	private JobsEditorPanel getJobsEditorPanel() {
+		if (jobsEditorPanel == null) {
+			jobsEditorPanel = new JobsEditorPanel(this);
+		}
+
+		return jobsEditorPanel;
+	}
+
+	/**
 	 * Gets the jobs split pane.
 	 * 
 	 * @return the jobs split pane
@@ -1026,6 +1044,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		setContentPane(getJContentPane());
 
 		// Preload editors
+		getJobsEditorPanel();
 		getSequentialJobEditorPanel(null);
 		getFileSystemDeleteTaskEditorPanel(null);
 		getHttpDownloadTaskEditorPanel(null);
@@ -1172,6 +1191,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (userObject instanceof HttpLocationsRootTreeNode) {
 			editorPane = getHttpLocationsEditorPanel();
+		}
+		else if (userObject instanceof JobsRootTreeNode) {
+			editorPane = getJobsEditorPanel();
 		}
 		else if (userObject instanceof Preference) {
 			editorPane = getPreferenceEditorPanel((Preference) userObject);

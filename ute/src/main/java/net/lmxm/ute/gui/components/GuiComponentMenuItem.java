@@ -59,7 +59,7 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 	DELETE_HTTP_LOCATION(null, ActionConstants.DELETE_HTTP_LOCATION),
 
 	/** The DELETE_JOB. */
-	DELETE_JOB(null, null),
+	DELETE_JOB(ImageUtil.DELETE_JOB_ICON, ActionConstants.DELETE_JOB),
 
 	/** The DELETE_PREFERENCE. */
 	DELETE_PREFERENCE(ImageUtil.DELETE_PREFERENCE_ICON, ActionConstants.DELETE_PREFERENCE),

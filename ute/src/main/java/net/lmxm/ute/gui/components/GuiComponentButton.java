@@ -58,6 +58,9 @@ public enum GuiComponentButton implements GuiComponentType {
 	/** The DELETE_HTTP_LOCATION. */
 	DELETE_HTTP_LOCATION(ImageUtil.DELETE_LOCATION_ICON, ActionConstants.DELETE_HTTP_LOCATION),
 
+	/** The DELETE_JOB. */
+	DELETE_JOB(ImageUtil.DELETE_JOB_ICON, ActionConstants.DELETE_JOB),
+
 	/** The DELETE_PREFERENCE. */
 	DELETE_PREFERENCE(ImageUtil.DELETE_PREFERENCE_ICON, ActionConstants.DELETE_PREFERENCE),
 

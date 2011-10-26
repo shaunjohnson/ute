@@ -73,6 +73,9 @@ public enum GuiComponentLabel implements GuiComponentType {
 	/** The JOB. */
 	JOB,
 
+	/** The JOBS. */
+	JOBS,
+
 	/** The LOCATION. */
 	LOCATION,
 

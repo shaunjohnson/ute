@@ -26,54 +26,38 @@ import net.lmxm.ute.gui.components.GuiComponentButton;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 
 /**
- * The Class JobEditorToolBar.
+ * The Class JobsEditorToolBar.
  */
-public class JobEditorToolBar extends AbstractToolBar {
+public class JobsEditorToolBar extends AbstractToolBar {
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 2056761468717025839L;
+	private static final long serialVersionUID = -2652922370956062365L;
 
-	/** The delete job button. */
-	private JButton deleteJobButton = null;
-
-	/** The execute job button. */
-	private JButton executeJobButton = null;
+	/** The add job button. */
+	private JButton addJobButton = null;
 
 	/**
-	 * Instantiates a new properties tool bar.
+	 * Instantiates a new jobs editor tool bar.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public JobEditorToolBar(final ActionListener actionListener) {
+	public JobsEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
 		setBorder(EDITER_TOOLBAR_BORDER);
 
-		add(getExecuteJobButton());
-		add(getJobButton());
+		add(getAddJobButton());
 	}
 
 	/**
-	 * Gets the execute job button.
+	 * Gets the adds the job button.
 	 * 
-	 * @return the execute job button
+	 * @return the adds the job button
 	 */
-	private JButton getExecuteJobButton() {
-		if (executeJobButton == null) {
-			executeJobButton = GuiComponentFactory.createButton(GuiComponentButton.EXECUTE_JOB, getActionListener());
+	private JButton getAddJobButton() {
+		if (addJobButton == null) {
+			addJobButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_JOB, getActionListener());
 		}
-		return executeJobButton;
-	}
-
-	/**
-	 * Gets the job button.
-	 * 
-	 * @return the job button
-	 */
-	private JButton getJobButton() {
-		if (deleteJobButton == null) {
-			deleteJobButton = GuiComponentFactory.createButton(GuiComponentButton.DELETE_JOB, getActionListener());
-		}
-		return deleteJobButton;
+		return addJobButton;
 	}
 }

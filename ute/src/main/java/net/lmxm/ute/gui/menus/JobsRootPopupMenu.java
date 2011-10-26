@@ -49,10 +49,7 @@ public final class JobsRootPopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
-	 * lang.Object)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -67,7 +64,6 @@ public final class JobsRootPopupMenu extends AbstractPopupMenu {
 	private JMenuItem getAddJobMenuItem() {
 		if (addJobMenuItem == null) {
 			addJobMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_JOB, getActionListener());
-			addJobMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return addJobMenuItem;
 	}
