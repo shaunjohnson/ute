@@ -20,9 +20,6 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
@@ -33,12 +30,6 @@ public final class SubversionRepositoryLocationPopupMenu extends AbstractPopupMe
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7874408302989551017L;
 
-	/** The add subversion repository location menu item. */
-	private JMenuItem addSubversionRepositoryLocationMenuItem = null;
-
-	/** The delete subversion repository location menu item. */
-	private JMenuItem deleteSubversionRepositoryLocationMenuItem = null;
-
 	/**
 	 * Instantiates a new subversion repository location popup menu.
 	 * 
@@ -47,42 +38,7 @@ public final class SubversionRepositoryLocationPopupMenu extends AbstractPopupMe
 	public SubversionRepositoryLocationPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddSubversionRepositoryLocationMenuItem());
-		add(getDeleteSubversionRepositoryLocationMenuItem());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
-	 */
-	@Override
-	public void enableDisableMenuItems(final Object object) {
-
-	}
-
-	/**
-	 * Gets the adds the subversion repository location menu item.
-	 * 
-	 * @return the adds the subversion repository location menu item
-	 */
-	private JMenuItem getAddSubversionRepositoryLocationMenuItem() {
-		if (addSubversionRepositoryLocationMenuItem == null) {
-			addSubversionRepositoryLocationMenuItem = GuiComponentFactory.createMenuItem(
-					GuiComponentMenuItem.ADD_SUBVERSION_REPOSITORY_LOCATION, getActionListener());
-		}
-		return addSubversionRepositoryLocationMenuItem;
-	}
-
-	/**
-	 * Gets the delete subversion repository location menu item.
-	 * 
-	 * @return the delete subversion repository location menu item
-	 */
-	private JMenuItem getDeleteSubversionRepositoryLocationMenuItem() {
-		if (deleteSubversionRepositoryLocationMenuItem == null) {
-			deleteSubversionRepositoryLocationMenuItem = GuiComponentFactory.createMenuItem(
-					GuiComponentMenuItem.DELETE_SUBVERSION_REPOSITORY_LOCATION, getActionListener());
-		}
-		return deleteSubversionRepositoryLocationMenuItem;
+		addMenuItem(GuiComponentMenuItem.ADD_SUBVERSION_REPOSITORY_LOCATION);
+		addMenuItem(GuiComponentMenuItem.DELETE_SUBVERSION_REPOSITORY_LOCATION);
 	}
 }

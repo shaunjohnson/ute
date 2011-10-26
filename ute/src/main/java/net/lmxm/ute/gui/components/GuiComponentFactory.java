@@ -154,6 +154,23 @@ public class GuiComponentFactory {
 	}
 
 	/**
+	 * Creates a new GuiComponent object.
+	 * 
+	 * @param guiComponentButton the gui component button
+	 * @param actionListener the action listener
+	 * @return the j button
+	 */
+	public static JButton createToolbarButtonNoText(final GuiComponentToolbarButton guiComponentButton,
+			final ActionListener actionListener) {
+		final JButton button = new JButton();
+
+		setIconNoText(button, guiComponentButton);
+		setActionListener(button, guiComponentButton, actionListener);
+
+		return button;
+	}
+
+	/**
 	 * Sets the action listener.
 	 * 
 	 * @param abstractButton the abstract button
@@ -216,6 +233,25 @@ public class GuiComponentFactory {
 
 		if (guiComponentType.getIcon() != null) {
 			label.setIcon(guiComponentType.getIcon());
+		}
+	}
+
+	/**
+	 * Sets the icon no text.
+	 * 
+	 * @param abstractButton the abstract button
+	 * @param guiComponentType the gui component type
+	 */
+	private static void setIconNoText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
+		final String resourcePrefix = buildResourcePrefix(guiComponentType);
+
+		final String toolTipText = ResourcesUtils.getString(resourcePrefix + TOOL_TIP_TEXT_SUFFIX);
+		if (StringUtils.isNotBlank(toolTipText)) {
+			abstractButton.setToolTipText(toolTipText);
+		}
+
+		if (guiComponentType.getIcon() != null) {
+			abstractButton.setIcon(guiComponentType.getIcon());
 		}
 	}
 }

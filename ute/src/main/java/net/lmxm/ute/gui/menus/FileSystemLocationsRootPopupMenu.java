@@ -20,9 +20,6 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
@@ -33,9 +30,6 @@ public final class FileSystemLocationsRootPopupMenu extends AbstractPopupMenu {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2973143132421185637L;
 
-	/** The add file system location menu item. */
-	private JMenuItem addFileSystemLocationMenuItem = null;
-
 	/**
 	 * Instantiates a new file system locations root popup menu.
 	 * 
@@ -44,28 +38,6 @@ public final class FileSystemLocationsRootPopupMenu extends AbstractPopupMenu {
 	public FileSystemLocationsRootPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddFileSystemLocationMenuItem());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
-	 */
-	@Override
-	public void enableDisableMenuItems(final Object object) {
-
-	}
-
-	/**
-	 * Gets the adds the file system location menu item.
-	 * 
-	 * @return the adds the file system location menu item
-	 */
-	private JMenuItem getAddFileSystemLocationMenuItem() {
-		if (addFileSystemLocationMenuItem == null) {
-			addFileSystemLocationMenuItem = GuiComponentFactory.createMenuItem(
-					GuiComponentMenuItem.ADD_FILE_SYSTEM_LOCATION, getActionListener());
-		}
-		return addFileSystemLocationMenuItem;
+		addMenuItem(GuiComponentMenuItem.ADD_FILE_SYSTEM_LOCATION);
 	}
 }

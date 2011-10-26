@@ -20,9 +20,6 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
@@ -33,12 +30,6 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 753146706825522541L;
 
-	/** The add http location menu item. */
-	private JMenuItem addHttpLocationMenuItem = null;
-
-	/** The delete http location menu item. */
-	private JMenuItem deleteHttpLocationMenuItem = null;
-
 	/**
 	 * Instantiates a new http location popup menu.
 	 * 
@@ -47,42 +38,7 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 	public HttpLocationPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddHttpLocationMenuItem());
-		add(getDeleteHttpLocationMenuItem());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
-	 */
-	@Override
-	public void enableDisableMenuItems(final Object object) {
-
-	}
-
-	/**
-	 * Gets the adds the http location menu item.
-	 * 
-	 * @return the adds the http location menu item
-	 */
-	private JMenuItem getAddHttpLocationMenuItem() {
-		if (addHttpLocationMenuItem == null) {
-			addHttpLocationMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION,
-					getActionListener());
-		}
-		return addHttpLocationMenuItem;
-	}
-
-	/**
-	 * Gets the delete http location menu item.
-	 * 
-	 * @return the delete http location menu item
-	 */
-	private JMenuItem getDeleteHttpLocationMenuItem() {
-		if (deleteHttpLocationMenuItem == null) {
-			deleteHttpLocationMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.DELETE_HTTP_LOCATION,
-					getActionListener());
-		}
-		return deleteHttpLocationMenuItem;
+		addMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION);
+		addMenuItem(GuiComponentMenuItem.DELETE_HTTP_LOCATION);
 	}
 }

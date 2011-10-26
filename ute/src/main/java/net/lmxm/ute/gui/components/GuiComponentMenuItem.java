@@ -29,7 +29,7 @@ import net.lmxm.ute.gui.utils.ImageUtil;
 public enum GuiComponentMenuItem implements GuiComponentType {
 
 	/** The ABOUT. */
-	ABOUT(ImageUtil.ABOUT_ICON, null),
+	ABOUT(ImageUtil.ABOUT_ICON, ActionConstants.ABOUT),
 
 	/** The ADD_FILE_SYSTEM_LOCATION. */
 	ADD_FILE_SYSTEM_LOCATION(ImageUtil.ADD_LOCATION_ICON, ActionConstants.ADD_FILE_SYSTEM_LOCATION),
@@ -75,7 +75,7 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 	DELETE_TASK(null, null),
 
 	/** The EDIT_PREFERENCES. */
-	EDIT_PREFERENCES(ImageUtil.EDIT_PREFERENCES_ICON, null),
+	EDIT_PREFERENCES(ImageUtil.EDIT_PREFERENCES_ICON, ActionConstants.EDIT_PREFERENCES),
 
 	/** The EXECUTE_JOB. */
 	EXECUTE_JOB(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),

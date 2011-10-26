@@ -102,11 +102,9 @@ public class MainTree extends JTree {
 					}
 					else if (object instanceof Job) {
 						popupMenu = getJobPopupMenu();
-						((JobPopupMenu) popupMenu).enableDisableMenuItems(object);
 					}
 					else if (object instanceof Task) {
 						popupMenu = getTaskPopupMenu();
-						((TaskPopupMenu) popupMenu).enableDisableMenuItems(object);
 					}
 					else if (object instanceof FileSystemLocationsRootTreeNode) {
 						popupMenu = getFileSystemLocationsRootPopupMenu();

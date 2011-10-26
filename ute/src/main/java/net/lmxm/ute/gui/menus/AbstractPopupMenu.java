@@ -23,6 +23,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPopupMenu;
 
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+
 import com.google.common.base.Preconditions;
 
 /**
@@ -50,19 +53,12 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 	}
 
 	/**
-	 * Enable disable menu items.
+	 * Adds the menu item.
 	 * 
-	 * @param object the object
+	 * @param guiComponentMenuItem the gui component menu item
 	 */
-	public abstract void enableDisableMenuItems(Object object);
-
-	/**
-	 * Gets the action listener.
-	 * 
-	 * @return the action listener
-	 */
-	protected final ActionListener getActionListener() {
-		return actionListener;
+	protected final void addMenuItem(final GuiComponentMenuItem guiComponentMenuItem) {
+		add(GuiComponentFactory.createMenuItem(guiComponentMenuItem, actionListener));
 	}
 
 	/*

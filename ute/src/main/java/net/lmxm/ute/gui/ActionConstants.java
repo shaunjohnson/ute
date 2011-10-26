@@ -23,6 +23,9 @@ package net.lmxm.ute.gui;
  */
 public final class ActionConstants {
 
+	/** The Constant ABOUT. */
+	public static final String ABOUT = "ABOUT";
+
 	/** The Constant ADD_FILE_SYSTEM_LOCATION. */
 	public static final String ADD_FILE_SYSTEM_LOCATION = "ADD_FILE_SYSTEM_LOCATION";
 
@@ -61,6 +64,9 @@ public final class ActionConstants {
 
 	/** The Constant DELETE_SUBVERSION_REPOSITORY_LOCATION. */
 	public static final String DELETE_SUBVERSION_REPOSITORY_LOCATION = "DELETE_SUBVERSION_REPOSITORY_LOCATION";
+
+	/** The Constant EDIT_PREFERENCES. */
+	public static final String EDIT_PREFERENCES = "EDIT_PREFERENCES";
 
 	/** The Constant EXECUTE. */
 	public static final String EXECUTE = "EXECUTE";

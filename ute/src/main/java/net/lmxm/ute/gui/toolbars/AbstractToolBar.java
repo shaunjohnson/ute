@@ -57,4 +57,13 @@ public abstract class AbstractToolBar extends JToolBar {
 	protected final void addToolbarButton(final GuiComponentToolbarButton guiComponentToolbarButton) {
 		add(GuiComponentFactory.createToolbarButton(guiComponentToolbarButton, actionListener));
 	}
+
+	/**
+	 * Adds the toolbar button no text.
+	 * 
+	 * @param guiComponentToolbarButton the gui component toolbar button
+	 */
+	protected final void addToolbarButtonNoText(final GuiComponentToolbarButton guiComponentToolbarButton) {
+		add(GuiComponentFactory.createToolbarButtonNoText(guiComponentToolbarButton, actionListener));
+	}
 }

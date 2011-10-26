@@ -20,9 +20,6 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
@@ -33,9 +30,6 @@ public final class HttpLocationsRootPopupMenu extends AbstractPopupMenu {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -6616746236959653127L;
 
-	/** The add http location menu item. */
-	private JMenuItem addHttpLocationMenuItem = null;
-
 	/**
 	 * Instantiates a new http locations root popup menu.
 	 * 
@@ -44,28 +38,6 @@ public final class HttpLocationsRootPopupMenu extends AbstractPopupMenu {
 	public HttpLocationsRootPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddHttpLocationMenuItem());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
-	 */
-	@Override
-	public void enableDisableMenuItems(final Object object) {
-
-	}
-
-	/**
-	 * Gets the adds the http location menu item.
-	 * 
-	 * @return the adds the http location menu item
-	 */
-	private JMenuItem getAddHttpLocationMenuItem() {
-		if (addHttpLocationMenuItem == null) {
-			addHttpLocationMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION,
-					getActionListener());
-		}
-		return addHttpLocationMenuItem;
+		addMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION);
 	}
 }

@@ -20,9 +20,6 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
@@ -33,12 +30,6 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 9191881768346122431L;
 
-	/** The add preference menu item. */
-	private JMenuItem addPreferenceMenuItem = null;
-
-	/** The delete preference menu item. */
-	private JMenuItem deletePreferenceMenuItem = null;
-
 	/**
 	 * Instantiates a new preference popup menu.
 	 * 
@@ -47,42 +38,7 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 	public PreferencePopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddPreferenceMenuItem());
-		add(getDeletePreferenceMenuItem());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
-	 */
-	@Override
-	public void enableDisableMenuItems(final Object object) {
-
-	}
-
-	/**
-	 * Gets the adds the preference menu item.
-	 * 
-	 * @return the adds the preference menu item
-	 */
-	private JMenuItem getAddPreferenceMenuItem() {
-		if (addPreferenceMenuItem == null) {
-			addPreferenceMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_PREFERENCE,
-					getActionListener());
-		}
-		return addPreferenceMenuItem;
-	}
-
-	/**
-	 * Gets the delete preference menu item.
-	 * 
-	 * @return the delete preference menu item
-	 */
-	private JMenuItem getDeletePreferenceMenuItem() {
-		if (deletePreferenceMenuItem == null) {
-			deletePreferenceMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.DELETE_PREFERENCE,
-					getActionListener());
-		}
-		return deletePreferenceMenuItem;
+		addMenuItem(GuiComponentMenuItem.ADD_PREFERENCE);
+		addMenuItem(GuiComponentMenuItem.DELETE_PREFERENCE);
 	}
 }

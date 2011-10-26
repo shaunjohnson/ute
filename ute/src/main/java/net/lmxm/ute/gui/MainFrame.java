@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui;
 
+import static net.lmxm.ute.gui.ActionConstants.ABOUT;
 import static net.lmxm.ute.gui.ActionConstants.ADD_FILE_SYSTEM_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.ADD_HTTP_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.ADD_JOB;
@@ -29,6 +30,7 @@ import static net.lmxm.ute.gui.ActionConstants.DELETE_HTTP_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PROPERTY;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.EDIT_PREFERENCES;
 import static net.lmxm.ute.gui.ActionConstants.EXECUTE;
 import static net.lmxm.ute.gui.ActionConstants.EXIT;
 import static net.lmxm.ute.gui.ActionConstants.NEW_FILE;
@@ -47,6 +49,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -78,6 +81,8 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.MainTree;
 import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.components.StatusOutputTab;
+import net.lmxm.ute.gui.dialogs.AboutDialog;
+import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
 import net.lmxm.ute.gui.editors.JobsEditorPanel;
 import net.lmxm.ute.gui.editors.PreferenceEditorPanel;
@@ -106,6 +111,7 @@ import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
 import net.lmxm.ute.gui.toolbars.MainTreeToolBar;
+import net.lmxm.ute.gui.utils.DialogUtil;
 import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
@@ -241,6 +247,15 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action about.
+	 */
+	private void actionAbout() {
+		final JDialog dialog = new AboutDialog();
+		DialogUtil.center(dialog);
+		dialog.setVisible(true);
+	}
+
+	/**
 	 * Action add file system location.
 	 */
 	private void actionAddFileSystemLocation() {
@@ -356,6 +371,15 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action edit preferences.
+	 */
+	private void actionEditPreferences() {
+		final EditPreferencesDialog dialog = new EditPreferencesDialog(getConfiguration());
+		DialogUtil.center(dialog);
+		dialog.setVisible(true);
+	}
+
+	/**
 	 * Action execute.
 	 */
 	private void actionExecute() {
@@ -450,7 +474,10 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	public void actionPerformed(final ActionEvent actionEvent) {
 		final String actionCommand = actionEvent.getActionCommand();
 
-		if (actionCommand.equals(ADD_FILE_SYSTEM_LOCATION)) {
+		if (actionCommand.equals(ABOUT)) {
+			actionAbout();
+		}
+		else if (actionCommand.equals(ADD_FILE_SYSTEM_LOCATION)) {
 			actionAddFileSystemLocation();
 		}
 		else if (actionCommand.equals(ADD_HTTP_LOCATION)) {
@@ -482,6 +509,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (actionCommand.equals(DELETE_SUBVERSION_REPOSITORY_LOCATION)) {
 			actionDeleteSubversionRepositoryLocation();
+		}
+		else if (actionCommand.equals(EDIT_PREFERENCES)) {
+			actionEditPreferences();
 		}
 		else if (actionCommand.equals(EXIT)) {
 			actionExit();
@@ -801,7 +831,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private MainMenuBar getMainMenuBar() {
 		if (mainMenuBar == null) {
-			mainMenuBar = new MainMenuBar(this, this);
+			mainMenuBar = new MainMenuBar(this);
 		}
 		return mainMenuBar;
 	}

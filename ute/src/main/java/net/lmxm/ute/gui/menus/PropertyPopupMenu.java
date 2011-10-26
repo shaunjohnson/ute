@@ -20,9 +20,6 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
@@ -33,12 +30,6 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3214707499737502970L;
 
-	/** The add property menu item. */
-	private JMenuItem addPropertyMenuItem = null;
-
-	/** The delete property menu item. */
-	private JMenuItem deletePropertyMenuItem = null;
-
 	/**
 	 * Instantiates a new property popup menu.
 	 * 
@@ -47,45 +38,7 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	public PropertyPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddPropertyMenuItem());
-		add(getDeletePropertyMenuItem());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
-	 * lang.Object)
-	 */
-	@Override
-	public void enableDisableMenuItems(final Object object) {
-
-	}
-
-	/**
-	 * Gets the adds the property menu item.
-	 * 
-	 * @return the adds the property menu item
-	 */
-	private JMenuItem getAddPropertyMenuItem() {
-		if (addPropertyMenuItem == null) {
-			addPropertyMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_PROPERTY,
-					getActionListener());
-		}
-		return addPropertyMenuItem;
-	}
-
-	/**
-	 * Gets the delete property menu item.
-	 * 
-	 * @return the delete property menu item
-	 */
-	private JMenuItem getDeletePropertyMenuItem() {
-		if (deletePropertyMenuItem == null) {
-			deletePropertyMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.DELETE_PROPERTY,
-					getActionListener());
-		}
-		return deletePropertyMenuItem;
+		addMenuItem(GuiComponentMenuItem.ADD_PROPERTY);
+		addMenuItem(GuiComponentMenuItem.DELETE_PROPERTY);
 	}
 }

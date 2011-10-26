@@ -16,31 +16,45 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.toolbars;
+package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+
+import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
- * The Class MainTreeToolBar.
+ * The Class AbstractMenuBar.
  */
-public class MainTreeToolBar extends AbstractToolBar {
+public abstract class AbstractMenuBar extends JMenuBar {
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -354062493293031844L;
+	private static final long serialVersionUID = 345845895637052235L;
+
+	/** The action listener. */
+	private final ActionListener actionListener;
 
 	/**
-	 * Instantiates a new main tree tool bar.
+	 * Instantiates a new abstract menu bar.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public MainTreeToolBar(final ActionListener actionListener) {
-		super(actionListener);
+	public AbstractMenuBar(final ActionListener actionListener) {
+		super();
 
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_JOB);
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_LOCATION);
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_PROPERTY);
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_PREFERENCE);
+		this.actionListener = actionListener;
+	}
+
+	/**
+	 * Adds the menu item.
+	 * 
+	 * @param menu the menu
+	 * @param guiComponentMenuItem the gui component menu item
+	 */
+	protected final void addMenuItem(final JMenu menu, final GuiComponentMenuItem guiComponentMenuItem) {
+		menu.add(GuiComponentFactory.createMenuItem(guiComponentMenuItem, actionListener));
 	}
 }

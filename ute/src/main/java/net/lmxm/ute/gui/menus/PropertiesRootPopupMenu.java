@@ -20,9 +20,6 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
-import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentMenuItem;
 
 /**
@@ -33,9 +30,6 @@ public final class PropertiesRootPopupMenu extends AbstractPopupMenu {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8494251261195748943L;
 
-	/** The add property menu item. */
-	private JMenuItem addPropertyMenuItem = null;
-
 	/**
 	 * Instantiates a new properties root popup menu.
 	 * 
@@ -44,31 +38,6 @@ public final class PropertiesRootPopupMenu extends AbstractPopupMenu {
 	public PropertiesRootPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		add(getAddPropertyMenuItem());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
-	 * lang.Object)
-	 */
-	@Override
-	public void enableDisableMenuItems(final Object object) {
-
-	}
-
-	/**
-	 * Gets the adds the property menu item.
-	 * 
-	 * @return the adds the property menu item
-	 */
-	private JMenuItem getAddPropertyMenuItem() {
-		if (addPropertyMenuItem == null) {
-			addPropertyMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_PROPERTY,
-					getActionListener());
-		}
-		return addPropertyMenuItem;
+		addMenuItem(GuiComponentMenuItem.ADD_PROPERTY);
 	}
 }
