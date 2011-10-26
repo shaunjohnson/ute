@@ -18,10 +18,14 @@
  */
 package net.lmxm.ute.gui;
 
+import static net.lmxm.ute.gui.ActionConstants.ADD_FILE_SYSTEM_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.ADD_HTTP_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.ADD_JOB;
 import static net.lmxm.ute.gui.ActionConstants.ADD_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.ADD_PROPERTY;
 import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.DELETE_FILE_SYSTEM_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.DELETE_HTTP_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PROPERTY;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION;
@@ -233,6 +237,24 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action add file system location.
+	 */
+	private void actionAddFileSystemLocation() {
+		final FileSystemLocation fileSystemLocation = new FileSystemLocation();
+		configuration.getFileSystemLocations().add(fileSystemLocation);
+		mainTree.addFileSystemLocation(fileSystemLocation);
+	}
+
+	/**
+	 * Action add http location.
+	 */
+	private void actionAddHttpLocation() {
+		final HttpLocation httpLocation = new HttpLocation();
+		configuration.getHttpLocations().add(httpLocation);
+		mainTree.addHttpLocation(httpLocation);
+	}
+
+	/**
 	 * Action add preference.
 	 */
 	private void actionAddPreference() {
@@ -260,14 +282,38 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action delete file system location.
+	 */
+	private void actionDeleteFileSystemLocation() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof FileSystemLocation)) {
+			return;
+		}
+
+		final FileSystemLocation fileSystemLocation = (FileSystemLocation) userObject;
+		configuration.getFileSystemLocations().remove(fileSystemLocation);
+		mainTree.deleteFileSystemLocation(fileSystemLocation);
+	}
+
+	/**
+	 * Action delete http location.
+	 */
+	private void actionDeleteHttpLocation() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof HttpLocation)) {
+			return;
+		}
+
+		final HttpLocation httpLocation = (HttpLocation) userObject;
+		configuration.getHttpLocations().remove(httpLocation);
+		mainTree.deleteHttpLocation(httpLocation);
+	}
+
+	/**
 	 * Action delete preference.
 	 */
 	private void actionDeletePreference() {
 		final Object userObject = getMainTree().getSelectedTreeObject();
-		if (userObject == null) {
-			return;
-		}
-
 		if (!(userObject instanceof Preference)) {
 			return;
 		}
@@ -282,10 +328,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private void actionDeleteProperty() {
 		final Object userObject = getMainTree().getSelectedTreeObject();
-		if (userObject == null) {
-			return;
-		}
-
 		if (!(userObject instanceof Property)) {
 			return;
 		}
@@ -300,10 +342,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private void actionDeleteSubversionRepositoryLocation() {
 		final Object userObject = getMainTree().getSelectedTreeObject();
-		if (userObject == null) {
-			return;
-		}
-
 		if (!(userObject instanceof SubversionRepositoryLocation)) {
 			return;
 		}
@@ -408,7 +446,13 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	public void actionPerformed(final ActionEvent actionEvent) {
 		final String actionCommand = actionEvent.getActionCommand();
 
-		if (actionCommand.equals(ADD_JOB)) {
+		if (actionCommand.equals(ADD_FILE_SYSTEM_LOCATION)) {
+			actionAddFileSystemLocation();
+		}
+		else if (actionCommand.equals(ADD_HTTP_LOCATION)) {
+			actionAddHttpLocation();
+		}
+		else if (actionCommand.equals(ADD_JOB)) {
 			// TODO
 		}
 		else if (actionCommand.equals(ADD_PREFERENCE)) {
@@ -419,6 +463,12 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (actionCommand.equals(ADD_SUBVERSION_REPOSITORY_LOCATION)) {
 			actionAddSubversionRepositoryLocation();
+		}
+		else if (actionCommand.equals(DELETE_FILE_SYSTEM_LOCATION)) {
+			actionDeleteFileSystemLocation();
+		}
+		else if (actionCommand.equals(DELETE_HTTP_LOCATION)) {
+			actionDeleteHttpLocation();
 		}
 		else if (actionCommand.equals(DELETE_PREFERENCE)) {
 			actionDeletePreference();

@@ -27,6 +27,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.FileSystemLocationEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,9 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 	/** The path text field. */
 	private JTextField pathTextField = null;
+
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new file system location editor panel.
@@ -80,7 +84,10 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		return null;
+		if (toolBar == null) {
+			toolBar = new FileSystemLocationEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**

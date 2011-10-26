@@ -113,6 +113,34 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Adds the file system location.
+	 * 
+	 * @param fileSystemLocation the file system location
+	 * @return the tree path
+	 */
+	public TreePath addFileSystemLocation(final FileSystemLocation fileSystemLocation) {
+		final DefaultMutableTreeNode fileSystemLocationNode = new DefaultMutableTreeNode(fileSystemLocation);
+
+		insertNodeInto(fileSystemLocationNode, fileSystemLocationsNode, 0);
+
+		return getPathToFileSystemLocations().pathByAddingChild(fileSystemLocationNode);
+	}
+
+	/**
+	 * Adds the http location.
+	 * 
+	 * @param httpLocation the http location
+	 * @return the tree path
+	 */
+	public TreePath addHttpLocation(final HttpLocation httpLocation) {
+		final DefaultMutableTreeNode httpLocationNode = new DefaultMutableTreeNode(httpLocation);
+
+		insertNodeInto(httpLocationNode, httpLocationsNode, 0);
+
+		return getPathToHttpLocations().pathByAddingChild(httpLocationNode);
+	}
+
+	/**
 	 * Adds the preference.
 	 * 
 	 * @param preference the preference
@@ -153,6 +181,40 @@ public class MainTreeModel extends DefaultTreeModel {
 		insertNodeInto(subversionRepositoryLocationNode, subversionRepositoryLocationsNode, 0);
 
 		return getPathToSubversionRepositoryLocations().pathByAddingChild(subversionRepositoryLocationNode);
+	}
+
+	/**
+	 * Delete file system location.
+	 * 
+	 * @param fileSystemLocation the file system location
+	 * @return the tree path
+	 */
+	public TreePath deleteFileSystemLocation(final FileSystemLocation fileSystemLocation) {
+		final MutableTreeNode fileSystemLocationNode = findFileSystemLocationNode(fileSystemLocation);
+		if (fileSystemLocationNode == null) {
+			throw new RuntimeException("FileSystemLocation node does not exist"); // TODO Use proper exception
+		}
+
+		removeNodeFromParent(fileSystemLocationNode);
+
+		return getPathToFileSystemLocations();
+	}
+
+	/**
+	 * Delete http location.
+	 * 
+	 * @param httpLocation the http location
+	 * @return the tree path
+	 */
+	public TreePath deleteHttpLocation(final HttpLocation httpLocation) {
+		final MutableTreeNode httpLocationNode = findHttpLocationNode(httpLocation);
+		if (httpLocationNode == null) {
+			throw new RuntimeException("HttpLocation node does not exist"); // TODO Use proper exception
+		}
+
+		removeNodeFromParent(httpLocationNode);
+
+		return getPathToHttpLocations();
 	}
 
 	/**
@@ -229,6 +291,26 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Find file system location node.
+	 * 
+	 * @param fileSystemLocation the file system location
+	 * @return the mutable tree node
+	 */
+	private MutableTreeNode findFileSystemLocationNode(final FileSystemLocation fileSystemLocation) {
+		return findChildNodeByUserObject(fileSystemLocationsNode, fileSystemLocation);
+	}
+
+	/**
+	 * Find http location node.
+	 * 
+	 * @param httpLocation the http location
+	 * @return the mutable tree node
+	 */
+	private MutableTreeNode findHttpLocationNode(final HttpLocation httpLocation) {
+		return findChildNodeByUserObject(httpLocationsNode, httpLocation);
+	}
+
+	/**
 	 * Find preference node.
 	 * 
 	 * @param preference the preference
@@ -266,6 +348,24 @@ public class MainTreeModel extends DefaultTreeModel {
 	 */
 	private Configuration getConfiguration() {
 		return configurationHolder.getConfiguration();
+	}
+
+	/**
+	 * Gets the path to file system locations.
+	 * 
+	 * @return the path to file system locations
+	 */
+	public TreePath getPathToFileSystemLocations() {
+		return new TreePath(rootNode).pathByAddingChild(fileSystemLocationsNode);
+	}
+
+	/**
+	 * Gets the path to http locations.
+	 * 
+	 * @return the path to http locations
+	 */
+	public TreePath getPathToHttpLocations() {
+		return new TreePath(rootNode).pathByAddingChild(httpLocationsNode);
 	}
 
 	/**

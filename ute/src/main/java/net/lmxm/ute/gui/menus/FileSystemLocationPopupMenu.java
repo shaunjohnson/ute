@@ -53,10 +53,7 @@ public final class FileSystemLocationPopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
-	 * lang.Object)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -72,8 +69,6 @@ public final class FileSystemLocationPopupMenu extends AbstractPopupMenu {
 		if (addFileSystemLocationMenuItem == null) {
 			addFileSystemLocationMenuItem = GuiComponentFactory.createMenuItem(
 					GuiComponentMenuItem.ADD_FILE_SYSTEM_LOCATION, getActionListener());
-			addFileSystemLocationMenuItem.setEnabled(false); // TODO not
-																// implemented
 		}
 		return addFileSystemLocationMenuItem;
 	}
@@ -87,8 +82,6 @@ public final class FileSystemLocationPopupMenu extends AbstractPopupMenu {
 		if (deleteFileSystemLocationMenuItem == null) {
 			deleteFileSystemLocationMenuItem = GuiComponentFactory.createMenuItem(
 					GuiComponentMenuItem.DELETE_FILE_SYSTEM_LOCATION, getActionListener());
-			deleteFileSystemLocationMenuItem.setEnabled(false); // TODO not
-																// implemented
 		}
 		return deleteFileSystemLocationMenuItem;
 	}

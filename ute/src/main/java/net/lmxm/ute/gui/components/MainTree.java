@@ -265,6 +265,24 @@ public class MainTree extends JTree {
 	}
 
 	/**
+	 * Adds the file system location.
+	 * 
+	 * @param fileSystemLocation the file system location
+	 */
+	public void addFileSystemLocation(final FileSystemLocation fileSystemLocation) {
+		showSelectedPath(mainTreeModel.addFileSystemLocation(fileSystemLocation));
+	}
+
+	/**
+	 * Adds the http location.
+	 * 
+	 * @param httpLocation the http location
+	 */
+	public void addHttpLocation(final HttpLocation httpLocation) {
+		showSelectedPath(mainTreeModel.addHttpLocation(httpLocation));
+	}
+
+	/**
 	 * Adds the preference.
 	 * 
 	 * @param preference the preference
@@ -289,6 +307,24 @@ public class MainTree extends JTree {
 	 */
 	public void addSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
 		showSelectedPath(mainTreeModel.addSubversionRepositoryLocation(subversionRepositoryLocation));
+	}
+
+	/**
+	 * Delete file system location.
+	 * 
+	 * @param fileSystemLocation the file system location
+	 */
+	public void deleteFileSystemLocation(final FileSystemLocation fileSystemLocation) {
+		mainTreeModel.deleteFileSystemLocation(fileSystemLocation);
+	}
+
+	/**
+	 * Delete http location.
+	 * 
+	 * @param httpLocation the http location
+	 */
+	public void deleteHttpLocation(final HttpLocation httpLocation) {
+		mainTreeModel.deleteHttpLocation(httpLocation);
 	}
 
 	/**

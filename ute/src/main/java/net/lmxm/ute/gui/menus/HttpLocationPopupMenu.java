@@ -53,10 +53,7 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java.
-	 * lang.Object)
+	 * @see net.lmxm.ute.gui.menus.AbstractPopupMenu#enableDisableMenuItems(java. lang.Object)
 	 */
 	@Override
 	public void enableDisableMenuItems(final Object object) {
@@ -72,7 +69,6 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 		if (addHttpLocationMenuItem == null) {
 			addHttpLocationMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION,
 					getActionListener());
-			addHttpLocationMenuItem.setEnabled(false); // TODO not implemented
 		}
 		return addHttpLocationMenuItem;
 	}
@@ -86,8 +82,6 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 		if (deleteHttpLocationMenuItem == null) {
 			deleteHttpLocationMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION,
 					getActionListener());
-			deleteHttpLocationMenuItem.setEnabled(false); // TODO not
-															// implemented
 		}
 		return deleteHttpLocationMenuItem;
 	}

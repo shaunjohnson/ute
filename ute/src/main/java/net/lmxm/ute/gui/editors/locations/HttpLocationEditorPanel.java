@@ -27,6 +27,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.toolbars.HttpLocationEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,9 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4152865192476292446L;
+
+	/** The tool bar. */
+	private JToolBar toolBar;
 
 	/** The url text field. */
 	private JTextField urlTextField = null;
@@ -67,7 +71,10 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		return null;
+		if (toolBar == null) {
+			toolBar = new HttpLocationEditorToolBar(getActionListener());
+		}
+		return toolBar;
 	}
 
 	/**
