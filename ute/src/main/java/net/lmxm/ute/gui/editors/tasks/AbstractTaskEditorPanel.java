@@ -144,7 +144,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	protected final void addTaskCommonFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addSeparator(contentPanel, GuiComponentLabel.TASK);
 		addIdCommonFields();
 
 		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);

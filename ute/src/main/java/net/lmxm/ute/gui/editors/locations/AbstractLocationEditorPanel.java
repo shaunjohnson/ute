@@ -20,8 +20,6 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
 
@@ -47,9 +45,6 @@ public abstract class AbstractLocationEditorPanel extends AbstractIdEditorPanel 
 	 * Adds the location common fields.
 	 */
 	protected final void addLocationCommonFields() {
-		final JPanel contentPanel = getContentPanel();
-
-		addSeparator(contentPanel, GuiComponentLabel.LOCATION);
 		addIdCommonFields();
 	}
 }

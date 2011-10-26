@@ -59,8 +59,6 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addSeparator(contentPanel, GuiComponentLabel.PROPERTY);
-
 		addIdCommonFields();
 
 		addLabel(contentPanel, GuiComponentLabel.VALUE);

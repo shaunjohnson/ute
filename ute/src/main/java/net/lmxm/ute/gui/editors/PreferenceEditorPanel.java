@@ -59,8 +59,6 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addSeparator(contentPanel, GuiComponentLabel.PREFERENCE);
-
 		addIdCommonFields();
 
 		addLabel(contentPanel, GuiComponentLabel.CURRENT_VALUE);

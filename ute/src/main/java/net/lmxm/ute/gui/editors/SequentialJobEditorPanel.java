@@ -54,8 +54,6 @@ public final class SequentialJobEditorPanel extends AbstractEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addSeparator(contentPanel, GuiComponentLabel.JOB);
-
 		addLabel(contentPanel, GuiComponentLabel.ID);
 		contentPanel.add(getIdTextField());
 

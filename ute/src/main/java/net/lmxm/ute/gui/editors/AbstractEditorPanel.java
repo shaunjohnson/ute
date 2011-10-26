@@ -108,30 +108,22 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 		this.actionListener = actionListener;
 
-		// Setup title panel
-		// final JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 2));
-		// final JPanel titlePanel = new JPanel(new MigLayout("wrap 1, gap 0", "[fill]"));
-
-		// titlePanel.add(GuiComponentFactory.createPanelHeaderLabel(guiComponentLabel));
-
-		// final JToolBar toolBar = getToolBar();
-		// if (toolBar != null) {
-		// titlePanel.add(toolBar);
-		// }
-
-		// Setup content panel
-		contentPanel = new JPanel(new MigLayout("wrap 2", "[right][fill]"));
-
 		// Setup this panel
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder());
 
+		// Setup the toolbar
 		final JToolBar toolBar = getToolBar();
 		if (toolBar != null) {
 			add(toolBar, BorderLayout.NORTH);
 		}
 
+		// Setup the content main
+		contentPanel = new JPanel(new MigLayout("wrap 2", "[right][fill]"));
 		add(contentPanel, BorderLayout.CENTER);
+
+		// Add initial separator label
+		addSeparator(contentPanel, guiComponentLabel);
 	}
 
 	/**
