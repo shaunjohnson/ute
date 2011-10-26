@@ -18,7 +18,10 @@
  */
 package net.lmxm.ute.gui.components;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -36,6 +39,7 @@ import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.gui.ActionConstants;
 import net.lmxm.ute.gui.menus.FileSystemLocationPopupMenu;
 import net.lmxm.ute.gui.menus.FileSystemLocationsRootPopupMenu;
 import net.lmxm.ute.gui.menus.HttpLocationPopupMenu;
@@ -64,6 +68,70 @@ import org.slf4j.LoggerFactory;
  * The Class MainTree.
  */
 public class MainTree extends JTree {
+
+	/**
+	 * The listener interface for receiving mainTreeKey events. The class that is interested in processing a mainTreeKey
+	 * event implements this interface, and the object created with that class is registered with a component using the
+	 * component's <code>addMainTreeKeyListener<code> method. When
+	 * the mainTreeKey event occurs, that object's appropriate
+	 * method is invoked.
+	 * 
+	 * @see MainTreeKeyEvent
+	 */
+	private class MainTreeKeyListener extends KeyAdapter {
+
+		/**
+		 * Creates the action event.
+		 * 
+		 * @param actionCommand the action command
+		 * @return the action event
+		 */
+		private ActionEvent createActionEvent(final String actionCommand) {
+			return new ActionEvent(this, ActionEvent.ACTION_PERFORMED, actionCommand);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * @see java.awt.event.KeyAdapter#keyPressed(java.awt.event.KeyEvent)
+		 */
+		@Override
+		public void keyPressed(final KeyEvent keyEvent) {
+			if (keyEvent.getKeyCode() == KeyEvent.VK_DELETE) {
+				final Object userObject = getSelectedTreeObject();
+				final ActionEvent actionEvent;
+
+				if (userObject instanceof FileSystemLocation) {
+					actionEvent = createActionEvent(ActionConstants.DELETE_FILE_SYSTEM_LOCATION);
+				}
+				else if (userObject instanceof HttpLocation) {
+					actionEvent = createActionEvent(ActionConstants.DELETE_HTTP_LOCATION);
+				}
+				else if (userObject instanceof Job) {
+					actionEvent = createActionEvent(ActionConstants.DELETE_JOB);
+				}
+				else if (userObject instanceof Preference) {
+					actionEvent = createActionEvent(ActionConstants.DELETE_PREFERENCE);
+				}
+				else if (userObject instanceof Property) {
+					actionEvent = createActionEvent(ActionConstants.DELETE_PROPERTY);
+				}
+				else if (userObject instanceof SubversionRepositoryLocation) {
+					actionEvent = createActionEvent(ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION);
+				}
+				else if (userObject instanceof Task) {
+					actionEvent = createActionEvent(ActionConstants.DELETE_TASK);
+				}
+				else {
+					actionEvent = null;
+				}
+
+				if (actionEvent != null) {
+					actionListener.actionPerformed(actionEvent);
+				}
+			}
+		}
+	}
+
 	/**
 	 * The listener interface for receiving mainTreeMouse events. The class that is interested in processing a
 	 * mainTreeMouse event implements this interface, and the object created with that class is registered with a
@@ -259,6 +327,7 @@ public class MainTree extends JTree {
 		setAutoscrolls(true);
 		setShowsRootHandles(true);
 
+		addKeyListener(new MainTreeKeyListener());
 		addMouseListener(new MainTreeMouseListener());
 	}
 

@@ -65,6 +65,9 @@ public final class ActionConstants {
 	/** The Constant DELETE_SUBVERSION_REPOSITORY_LOCATION. */
 	public static final String DELETE_SUBVERSION_REPOSITORY_LOCATION = "DELETE_SUBVERSION_REPOSITORY_LOCATION";
 
+	/** The Constant DELETE_TASK. */
+	public static final String DELETE_TASK = "DELETE_TASK";
+
 	/** The Constant EDIT_PREFERENCES. */
 	public static final String EDIT_PREFERENCES = "EDIT_PREFERENCES";
 
