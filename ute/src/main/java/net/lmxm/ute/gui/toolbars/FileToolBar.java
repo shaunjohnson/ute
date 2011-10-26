@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -60,6 +61,7 @@ public class FileToolBar extends AbstractToolBar {
 		add(getOpenFileButton());
 		add(getSaveButton());
 		add(getSaveAsButton());
+		addSeparator(new Dimension(20, 20));
 		add(getExitButton());
 	}
 

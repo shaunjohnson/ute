@@ -105,7 +105,7 @@ import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
-import net.lmxm.ute.gui.toolbars.MainToolBar;
+import net.lmxm.ute.gui.toolbars.MainTreeToolBar;
 import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
@@ -181,6 +181,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/** The jobs split pane. */
 	private JSplitPane jobsSplitPane = null;
 
+	/** The jobs tree pane. */
 	private JPanel jobsTreePane = null;
 
 	/** The jobs tree scroll pane. */
@@ -192,11 +193,11 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/** The main split pane. */
 	private JSplitPane mainSplitPane = null;
 
-	/** The main tool bar. */
-	private MainToolBar mainToolBar = null;
-
 	/** The main tree. */
 	private MainTree mainTree = null;
+
+	/** The main tree tool bar. */
+	private MainTreeToolBar mainTreeToolBar = null;
 
 	/** The preference editor panel. */
 	private PreferenceEditorPanel preferenceEditorPanel = null;
@@ -759,11 +760,16 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		return jobsSplitPane;
 	}
 
+	/**
+	 * Gets the jobs tree pane.
+	 * 
+	 * @return the jobs tree pane
+	 */
 	private JPanel getJobsTreePane() {
 		if (jobsTreePane == null) {
 			jobsTreePane = new JPanel(new BorderLayout()) {
 				{
-					add(getMainToolBar(), BorderLayout.NORTH);
+					add(getMainTreeToolBar(), BorderLayout.NORTH);
 					add(getJobsTreeScrollPane(), BorderLayout.CENTER);
 				}
 			};
@@ -822,20 +828,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
-	 * Gets the main tool bar.
-	 * 
-	 * @return the main tool bar
-	 */
-	private JToolBar getMainToolBar() {
-		if (mainToolBar == null) {
-			mainToolBar = new MainToolBar(this);
-
-			getMainTree().addTreeSelectionListener(mainToolBar);
-		}
-		return mainToolBar;
-	}
-
-	/**
 	 * Gets the main tree.
 	 * 
 	 * @return the main tree
@@ -847,6 +839,20 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 
 		return mainTree;
+	}
+
+	/**
+	 * Gets the main tree tool bar.
+	 * 
+	 * @return the main tree tool bar
+	 */
+	private JToolBar getMainTreeToolBar() {
+		if (mainTreeToolBar == null) {
+			mainTreeToolBar = new MainTreeToolBar(this);
+
+			getMainTree().addTreeSelectionListener(mainTreeToolBar);
+		}
+		return mainTreeToolBar;
 	}
 
 	/**

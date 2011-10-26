@@ -28,9 +28,9 @@ import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
- * The Class MainToolBar.
+ * The Class MainTreeToolBar.
  */
-public class MainToolBar extends AbstractToolBar implements TreeSelectionListener {
+public class MainTreeToolBar extends AbstractToolBar implements TreeSelectionListener {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -354062493293031844L;
@@ -48,11 +48,11 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	private JButton addPropertyButton = null;
 
 	/**
-	 * Instantiates a new main tool bar.
+	 * Instantiates a new main tree tool bar.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public MainToolBar(final ActionListener actionListener) {
+	public MainTreeToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
 		add(getAddJobButton());
