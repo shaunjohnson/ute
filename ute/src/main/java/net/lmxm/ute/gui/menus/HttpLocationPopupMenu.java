@@ -80,7 +80,7 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 	 */
 	private JMenuItem getDeleteHttpLocationMenuItem() {
 		if (deleteHttpLocationMenuItem == null) {
-			deleteHttpLocationMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION,
+			deleteHttpLocationMenuItem = GuiComponentFactory.createMenuItem(GuiComponentMenuItem.DELETE_HTTP_LOCATION,
 					getActionListener());
 		}
 		return deleteHttpLocationMenuItem;
