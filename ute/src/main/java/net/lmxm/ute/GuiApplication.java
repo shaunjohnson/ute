@@ -18,15 +18,10 @@
  */
 package net.lmxm.ute;
 
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-
 import net.lmxm.ute.gui.MainFrame;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.jgoodies.looks.Options;
 
 /**
  * The Class GuiApplication.
@@ -44,16 +39,7 @@ public class GuiApplication {
 
 		LOGGER.debug("{} entered", prefix);
 
-		try {
-			UIManager.setLookAndFeel(Options.getCrossPlatformLookAndFeelClassName());
-		}
-		catch (final Exception e) {
-			LOGGER.error("Error setting native LAF", e);
-		}
-
-		final JFrame main = new MainFrame();
-
-		main.setVisible(true);
+		new MainFrame().setVisible(true);
 
 		LOGGER.debug("{} exiting", prefix);
 	}

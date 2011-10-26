@@ -44,8 +44,6 @@ public class FileSystemLocationsEditorToolBar extends AbstractToolBar {
 	public FileSystemLocationsEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		setBorder(EDITER_TOOLBAR_BORDER);
-
 		add(getAddFileSystemLocationButton());
 	}
 

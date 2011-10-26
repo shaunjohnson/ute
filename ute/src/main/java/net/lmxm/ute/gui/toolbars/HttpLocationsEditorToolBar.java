@@ -44,8 +44,6 @@ public class HttpLocationsEditorToolBar extends AbstractToolBar {
 	public HttpLocationsEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		setBorder(EDITER_TOOLBAR_BORDER);
-
 		add(getAddHttpLocationButton());
 	}
 

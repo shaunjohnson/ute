@@ -44,8 +44,6 @@ public class JobsEditorToolBar extends AbstractToolBar {
 	public JobsEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		setBorder(EDITER_TOOLBAR_BORDER);
-
 		add(getAddJobButton());
 	}
 

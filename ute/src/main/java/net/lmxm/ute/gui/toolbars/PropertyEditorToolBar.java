@@ -44,8 +44,6 @@ public class PropertyEditorToolBar extends AbstractToolBar {
 	public PropertyEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		setBorder(EDITER_TOOLBAR_BORDER);
-
 		add(getDeletePropertyButton());
 	}
 

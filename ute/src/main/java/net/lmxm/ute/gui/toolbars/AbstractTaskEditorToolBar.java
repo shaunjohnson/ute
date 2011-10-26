@@ -44,8 +44,6 @@ public abstract class AbstractTaskEditorToolBar extends AbstractToolBar {
 	public AbstractTaskEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		setBorder(EDITER_TOOLBAR_BORDER);
-
 		add(getExecuteTaskButton());
 	}
 

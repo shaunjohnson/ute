@@ -32,5 +32,8 @@ public enum GuiComponentCategory {
 	MENU,
 
 	/** The MENU_ITEM. */
-	MENU_ITEM
+	MENU_ITEM,
+
+	/** The TOOLBAR_BUTTON. */
+	TOOLBAR_BUTTON
 }

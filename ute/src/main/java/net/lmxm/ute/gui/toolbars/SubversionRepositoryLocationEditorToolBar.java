@@ -44,8 +44,6 @@ public class SubversionRepositoryLocationEditorToolBar extends AbstractToolBar {
 	public SubversionRepositoryLocationEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		setBorder(EDITER_TOOLBAR_BORDER);
-
 		add(getSubversionRepositoryLocationButton());
 	}
 

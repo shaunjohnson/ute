@@ -38,7 +38,6 @@ import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE_AS;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -182,6 +181,8 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/** The jobs split pane. */
 	private JSplitPane jobsSplitPane = null;
 
+	private JPanel jobsTreePane = null;
+
 	/** The jobs tree scroll pane. */
 	private JScrollPane jobsTreeScrollPane = null;
 
@@ -223,9 +224,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 	/** The subversion update task editor panel. */
 	private SubversionUpdateTaskEditorPanel subversionUpdateTaskEditorPanel = null;
-
-	/** The toolbar panel. */
-	private JPanel toolbarPanel = null;
 
 	/** The user preferences. */
 	private final UserPreferences userPreferences = new UserPreferences();
@@ -706,8 +704,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 			jContentPane = new JPanel(new BorderLayout()) {
 				{
-					setBorder(BorderFactory.createEmptyBorder(PADDING_SIZE, PADDING_SIZE, PADDING_SIZE, PADDING_SIZE));
-					add(getToolbarPanel(), BorderLayout.NORTH);
+					add(getFileToolBar(), BorderLayout.NORTH);
 					add(getMainSplitPane(), BorderLayout.CENTER);
 				}
 			};
@@ -754,12 +751,24 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 				{
 					setDividerLocation(GuiContants.DEFAULT_JOBS_SPLIT_PANE_DIVIDER_LOCATION);
 					setOneTouchExpandable(true);
-					setLeftComponent(getJobsTreeScrollPane());
+					setLeftComponent(getJobsTreePane());
 					setRightComponent(getJobDetailsEditorScrollPane());
 				}
 			};
 		}
 		return jobsSplitPane;
+	}
+
+	private JPanel getJobsTreePane() {
+		if (jobsTreePane == null) {
+			jobsTreePane = new JPanel(new BorderLayout()) {
+				{
+					add(getMainToolBar(), BorderLayout.NORTH);
+					add(getJobsTreeScrollPane(), BorderLayout.CENTER);
+				}
+			};
+		}
+		return jobsTreePane;
 	}
 
 	/**
@@ -800,6 +809,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		if (mainSplitPane == null) {
 			mainSplitPane = new JSplitPane() {
 				{
+					setBorder(BorderFactory.createEmptyBorder(PADDING_SIZE, PADDING_SIZE, PADDING_SIZE, PADDING_SIZE));
 					setOrientation(JSplitPane.VERTICAL_SPLIT);
 					setDividerLocation(GuiContants.DEFAULT_MAIN_SPLIT_PANE_DIVIDER_LOCATION);
 					setOneTouchExpandable(true);
@@ -975,26 +985,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		subversionUpdateTaskEditorPanel.loadData(subversionUpdateTask);
 
 		return subversionUpdateTaskEditorPanel;
-	}
-
-	/**
-	 * Gets the toolbar panel.
-	 * 
-	 * @return the toolbar panel
-	 */
-	private JPanel getToolbarPanel() {
-		if (toolbarPanel == null) {
-			toolbarPanel = new JPanel() {
-				{
-					setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
-					setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-
-					add(getFileToolBar(), null);
-					add(getMainToolBar(), null);
-				}
-			};
-		}
-		return toolbarPanel;
 	}
 
 	/**

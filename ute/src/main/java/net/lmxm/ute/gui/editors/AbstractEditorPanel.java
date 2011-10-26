@@ -25,6 +25,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -108,20 +109,28 @@ public abstract class AbstractEditorPanel extends JPanel {
 		this.actionListener = actionListener;
 
 		// Setup title panel
-		final JPanel titlePanel = new JPanel(new MigLayout("wrap 1", "[left]"));
-		titlePanel.add(GuiComponentFactory.createPanelHeaderLabel(guiComponentLabel));
+		// final JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 2));
+		// final JPanel titlePanel = new JPanel(new MigLayout("wrap 1, gap 0", "[fill]"));
 
-		final JToolBar toolBar = getToolBar();
-		if (toolBar != null) {
-			titlePanel.add(toolBar);
-		}
+		// titlePanel.add(GuiComponentFactory.createPanelHeaderLabel(guiComponentLabel));
+
+		// final JToolBar toolBar = getToolBar();
+		// if (toolBar != null) {
+		// titlePanel.add(toolBar);
+		// }
 
 		// Setup content panel
 		contentPanel = new JPanel(new MigLayout("wrap 2", "[right][fill]"));
 
 		// Setup this panel
 		setLayout(new BorderLayout());
-		add(titlePanel, BorderLayout.NORTH);
+		setBorder(BorderFactory.createEmptyBorder());
+
+		final JToolBar toolBar = getToolBar();
+		if (toolBar != null) {
+			add(toolBar, BorderLayout.NORTH);
+		}
+
 		add(contentPanel, BorderLayout.CENTER);
 	}
 

@@ -137,6 +137,23 @@ public class GuiComponentFactory {
 	}
 
 	/**
+	 * Creates a new GuiComponent object.
+	 * 
+	 * @param guiComponentButton the gui component button
+	 * @param actionListener the action listener
+	 * @return the j button
+	 */
+	public static JButton createToolbarButton(final GuiComponentToolbarButton guiComponentButton,
+			final ActionListener actionListener) {
+		final JButton button = new JButton();
+
+		setIconAndText(button, guiComponentButton);
+		setActionListener(button, guiComponentButton, actionListener);
+
+		return button;
+	}
+
+	/**
 	 * Sets the action listener.
 	 * 
 	 * @param abstractButton the abstract button

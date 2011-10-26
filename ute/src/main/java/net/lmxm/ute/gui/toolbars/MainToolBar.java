@@ -23,12 +23,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
-import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.gui.components.GuiComponentButton;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 
 /**
  * The Class MainToolBar.
@@ -50,9 +47,6 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	/** The add property button. */
 	private JButton addPropertyButton = null;
 
-	/** The execute job button. */
-	private JButton executeJobButton = null;
-
 	/**
 	 * Instantiates a new main tool bar.
 	 * 
@@ -61,9 +55,6 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	public MainToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		setBorder(TOOLBAR_BORDER);
-
-		add(getExecuteJobButton());
 		add(getAddJobButton());
 		add(getAddLocationButton());
 		add(getAddPropertyButton());
@@ -77,8 +68,8 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddJobButton() {
 		if (addJobButton == null) {
-			addJobButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_JOB, getActionListener());
-			addJobButton.setEnabled(false); // TODO not implemented
+			addJobButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.ADD_JOB,
+					getActionListener());
 		}
 		return addJobButton;
 	}
@@ -90,7 +81,8 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddLocationButton() {
 		if (addLocationButton == null) {
-			addLocationButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_LOCATION, getActionListener());
+			addLocationButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.ADD_LOCATION,
+					getActionListener());
 			addLocationButton.setEnabled(false); // TODO not implemented
 		}
 		return addLocationButton;
@@ -103,7 +95,7 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddPreferenceButton() {
 		if (addPreferenceButton == null) {
-			addPreferenceButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_PREFERENCE,
+			addPreferenceButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.ADD_PREFERENCE,
 					getActionListener());
 		}
 		return addPreferenceButton;
@@ -116,22 +108,10 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	private JButton getAddPropertyButton() {
 		if (addPropertyButton == null) {
-			addPropertyButton = GuiComponentFactory.createButton(GuiComponentButton.ADD_PROPERTY, getActionListener());
+			addPropertyButton = GuiComponentFactory.createToolbarButton(GuiComponentToolbarButton.ADD_PROPERTY,
+					getActionListener());
 		}
 		return addPropertyButton;
-	}
-
-	/**
-	 * Gets the execute job button.
-	 * 
-	 * @return the execute job button
-	 */
-	private JButton getExecuteJobButton() {
-		if (executeJobButton == null) {
-			executeJobButton = GuiComponentFactory.createButton(GuiComponentButton.EXECUTE_JOB, getActionListener());
-			executeJobButton.setEnabled(false); // TODO not implemented
-		}
-		return executeJobButton;
 	}
 
 	/*
@@ -140,15 +120,6 @@ public class MainToolBar extends AbstractToolBar implements TreeSelectionListene
 	 */
 	@Override
 	public void valueChanged(final TreeSelectionEvent treeSelectionEvent) {
-		final TreePath treePath = treeSelectionEvent.getNewLeadSelectionPath();
 
-		if (treePath == null) {
-			getExecuteJobButton().setEnabled(false);
-		}
-		else {
-			final DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) treePath.getLastPathComponent();
-
-			getExecuteJobButton().setEnabled(treeNode.getUserObject() instanceof Job);
-		}
 	}
 }

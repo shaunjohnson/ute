@@ -44,8 +44,6 @@ public class PreferenceEditorToolBar extends AbstractToolBar {
 	public PreferenceEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		setBorder(EDITER_TOOLBAR_BORDER);
-
 		add(getDeletePreferenceButton());
 	}
 

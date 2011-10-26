@@ -44,8 +44,6 @@ public class PropertiesEditorToolBar extends AbstractToolBar {
 	public PropertiesEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		setBorder(EDITER_TOOLBAR_BORDER);
-
 		add(getAddPropertyButton());
 	}
 
