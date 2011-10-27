@@ -62,7 +62,7 @@ import net.lmxm.ute.gui.nodes.JobsRootTreeNode;
 import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
-import net.lmxm.ute.gui.renderers.JobDetailsTreeCellRenderer;
+import net.lmxm.ute.gui.renderers.MainTreeCellRenderer;
 import net.lmxm.ute.listeners.IdChangeEvent;
 import net.lmxm.ute.listeners.IdChangeListener;
 
@@ -326,7 +326,7 @@ public class MainTree extends JTree implements IdChangeListener {
 		setModel(mainTreeModel);
 
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		setCellRenderer(new JobDetailsTreeCellRenderer());
+		setCellRenderer(new MainTreeCellRenderer());
 		setExpandsSelectedPaths(true);
 		setRootVisible(false);
 		setAutoscrolls(true);

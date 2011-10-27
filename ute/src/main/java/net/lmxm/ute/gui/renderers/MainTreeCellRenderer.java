@@ -51,10 +51,10 @@ import net.lmxm.ute.gui.nodes.RootTreeNode;
 import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
- * The Class JobDetailsTreeCellRenderer.
+ * The Class MainTreeCellRenderer.
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCellRenderer {
+public final class MainTreeCellRenderer extends JLabel implements TreeCellRenderer {
 
 	/** The bold font. */
 	private static final Font boldFont;
@@ -84,7 +84,7 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 	/**
 	 * Default constructor.
 	 */
-	public JobDetailsTreeCellRenderer() {
+	public MainTreeCellRenderer() {
 		super();
 
 		render = new DefaultTreeCellRenderer();
