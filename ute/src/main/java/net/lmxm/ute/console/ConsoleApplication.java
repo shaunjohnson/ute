@@ -27,10 +27,10 @@ import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.configuration.ConfigurationReader;
+import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
-import net.lmxm.ute.mapper.ConfigurationReader;
-import net.lmxm.ute.utils.ConfigurationUtils;
 import net.lmxm.ute.utils.ResourcesUtils;
 
 import org.slf4j.Logger;

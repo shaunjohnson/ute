@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.mapper;
+package net.lmxm.ute.configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +49,6 @@ import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.exceptions.ConfigurationException;
-import net.lmxm.ute.utils.ConfigurationUtils;
 import noNamespace.FileSystemDeleteTaskType;
 import noNamespace.FileSystemLocationType;
 import noNamespace.FileSystemTargetType;

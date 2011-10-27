@@ -21,6 +21,8 @@ package net.lmxm.ute.utils;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import net.lmxm.ute.configuration.ConfigurationUtils;
+
 import org.junit.Test;
 
 /**
