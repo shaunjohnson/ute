@@ -90,6 +90,9 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/** The subversion repository location target combo box. */
 	private JComboBox subversionRepositoryLocationTargetComboBox = null;
 
+	/** The user object. */
+	private Object userObject;
+
 	/**
 	 * Instantiates a new abstract editor panel.
 	 * 
@@ -281,6 +284,15 @@ public abstract class AbstractEditorPanel extends JPanel {
 	protected abstract JToolBar getToolBar();
 
 	/**
+	 * Gets the user object.
+	 * 
+	 * @return the user object
+	 */
+	protected final Object getUserObject() {
+		return userObject;
+	}
+
+	/**
 	 * Initialize.
 	 * 
 	 * @param configuration the configuration
@@ -327,5 +339,14 @@ public abstract class AbstractEditorPanel extends JPanel {
 		comboBox.setSelectedIndex(selectedIndex);
 
 		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
+	 * Sets the user object.
+	 * 
+	 * @param userObject the new user object
+	 */
+	protected final void setUserObject(final Object userObject) {
+		this.userObject = userObject;
 	}
 }

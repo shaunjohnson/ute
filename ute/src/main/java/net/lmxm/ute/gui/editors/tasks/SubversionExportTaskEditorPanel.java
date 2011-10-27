@@ -88,11 +88,13 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 
 		LOGGER.debug("{} entered, subversionExportTask={}", prefix, subversionExportTask);
 
+		setUserObject(subversionExportTask);
+
 		final SubversionRepositorySource source = subversionExportTask == null ? null : subversionExportTask
 				.getSource();
 		final FileSystemTarget target = subversionExportTask == null ? null : subversionExportTask.getTarget();
 
-		loadTaskCommonFieldData(subversionExportTask);
+		loadTaskCommonFieldData();
 		loadSubversionRepositorySourceFieldData(source);
 		loadFileSystemTargetFieldData(target);
 		loadFilesFieldData(subversionExportTask);

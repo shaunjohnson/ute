@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans.tasks;
 
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 
@@ -37,9 +38,11 @@ public final class SubversionExportTask extends AbstractFilesTask {
 
 	/**
 	 * Instantiates a new subversion export task.
+	 * 
+	 * @param job the job
 	 */
-	public SubversionExportTask() {
-		super();
+	public SubversionExportTask(final Job job) {
+		super(job);
 	}
 
 	/**

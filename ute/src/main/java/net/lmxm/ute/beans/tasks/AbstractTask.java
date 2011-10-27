@@ -19,6 +19,7 @@
 package net.lmxm.ute.beans.tasks;
 
 import net.lmxm.ute.beans.IdentifiableDomainBean;
+import net.lmxm.ute.beans.jobs.Job;
 
 /**
  * The Class AbstractTask.
@@ -34,11 +35,18 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	/** The enabled. */
 	private boolean enabled;
 
+	/** The job. */
+	private final Job job;
+
 	/**
 	 * Instantiates a new abstract task.
+	 * 
+	 * @param job the job
 	 */
-	public AbstractTask() {
+	public AbstractTask(final Job job) {
 		super();
+
+		this.job = job;
 	}
 
 	/*
@@ -66,6 +74,11 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	@Override
 	public final boolean getEnabled() {
 		return enabled;
+	}
+
+	@Override
+	public Job getJob() {
+		return job;
 	}
 
 	/*

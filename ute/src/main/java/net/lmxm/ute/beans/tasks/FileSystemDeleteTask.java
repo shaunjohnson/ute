@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans.tasks;
 
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 
 /**
@@ -36,9 +37,11 @@ public final class FileSystemDeleteTask extends AbstractFilesTask {
 
 	/**
 	 * Instantiates a new file system delete task.
+	 * 
+	 * @param job the job
 	 */
-	public FileSystemDeleteTask() {
-		super();
+	public FileSystemDeleteTask(final Job job) {
+		super(job);
 	}
 
 	/**

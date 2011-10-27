@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.lmxm.ute.beans.FindReplacePattern;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.enums.Scope;
 
@@ -44,9 +45,11 @@ public final class FindReplaceTask extends AbstractFilesTask {
 
 	/**
 	 * Instantiates a new find replace task.
+	 * 
+	 * @param job the job
 	 */
-	public FindReplaceTask() {
-		super();
+	public FindReplaceTask(final Job job) {
+		super(job);
 
 		patterns = new ArrayList<FindReplacePattern>();
 	}

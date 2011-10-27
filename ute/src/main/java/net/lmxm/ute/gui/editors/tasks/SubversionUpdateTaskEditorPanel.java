@@ -87,11 +87,13 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 
 		LOGGER.debug("{} entered, subversionUpdateTask={}", prefix, subversionUpdateTask);
 
+		setUserObject(subversionUpdateTask);
+
 		final SubversionRepositorySource source = subversionUpdateTask == null ? null : subversionUpdateTask
 				.getSource();
 		final FileSystemTarget target = subversionUpdateTask == null ? null : subversionUpdateTask.getTarget();
 
-		loadTaskCommonFieldData(subversionUpdateTask);
+		loadTaskCommonFieldData();
 		loadSubversionRepositorySourceFieldData(source);
 		loadFileSystemTargetFieldData(target);
 		loadFilesFieldData(subversionUpdateTask);

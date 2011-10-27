@@ -185,17 +185,17 @@ public final class ConfigurationReader {
 	 * Parses the file system delete task.
 	 * 
 	 * @param taskType the task type
+	 * @param job the job
 	 * @param configuration the configuration
-	 * 
 	 * @return the task
 	 */
-	private AbstractTask parseFileSystemDeleteTask(final FileSystemDeleteTaskType taskType,
+	private AbstractTask parseFileSystemDeleteTask(final FileSystemDeleteTaskType taskType, final Job job,
 			final Configuration configuration) {
 		final String prefix = "parseFileSystemDeleteTask() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final FileSystemDeleteTask task = new FileSystemDeleteTask();
+		final FileSystemDeleteTask task = new FileSystemDeleteTask(job);
 
 		task.setStopOnError(taskType.getStopOnError());
 		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
@@ -287,15 +287,17 @@ public final class ConfigurationReader {
 	 * Parses the find replace task.
 	 * 
 	 * @param taskType the task type
+	 * @param job the job
 	 * @param configuration the configuration
 	 * @return the abstract task
 	 */
-	private AbstractTask parseFindReplaceTask(final FindReplaceTaskType taskType, final Configuration configuration) {
+	private AbstractTask parseFindReplaceTask(final FindReplaceTaskType taskType, final Job job,
+			final Configuration configuration) {
 		final String prefix = "parseFindReplaceTask() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final FindReplaceTask task = new FindReplaceTask();
+		final FindReplaceTask task = new FindReplaceTask(job);
 
 		task.setScope(convertScopeTypeToScope(taskType.getScope()));
 		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
@@ -312,15 +314,16 @@ public final class ConfigurationReader {
 	 * Parses the groovy task.
 	 * 
 	 * @param taskType the task type
+	 * @param job the job
 	 * @param configuration the configuration
 	 * @return the abstract task
 	 */
-	private AbstractTask parseGroovyTask(final GroovyTaskType taskType, final Configuration configuration) {
+	private AbstractTask parseGroovyTask(final GroovyTaskType taskType, final Job job, final Configuration configuration) {
 		final String prefix = "parseGroovyTask() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final GroovyTask task = new GroovyTask();
+		final GroovyTask task = new GroovyTask(job);
 
 		task.setScript(taskType.getScript());
 		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
@@ -336,15 +339,17 @@ public final class ConfigurationReader {
 	 * Parses the http download task.
 	 * 
 	 * @param taskType the task type
+	 * @param job the job
 	 * @param configuration the configuration
 	 * @return the abstract task
 	 */
-	private AbstractTask parseHttpDownloadTask(final HttpDownloadTaskType taskType, final Configuration configuration) {
+	private AbstractTask parseHttpDownloadTask(final HttpDownloadTaskType taskType, final Job job,
+			final Configuration configuration) {
 		final String prefix = "parseHttpDownloadTask() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final HttpDownloadTask task = new HttpDownloadTask();
+		final HttpDownloadTask task = new HttpDownloadTask(job);
 
 		task.setSource(parseHttpSource(taskType.getHttpSource(), configuration));
 		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
@@ -478,7 +483,7 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} parsing {} tasks", prefix, tasks.size());
 
 		for (final TaskType taskType : jobType.getTasks().getTaskArray()) {
-			tasks.add(parseTask(taskType, configuration));
+			tasks.add(parseTask(taskType, job, configuration));
 		}
 
 		LOGGER.debug("{} returning {}", prefix, job);
@@ -687,13 +692,13 @@ public final class ConfigurationReader {
 	 * @param configuration the configuration
 	 * @return the task
 	 */
-	private AbstractTask parseSubversionExportTask(final SubversionExportTaskType taskType,
+	private AbstractTask parseSubversionExportTask(final SubversionExportTaskType taskType, final Job job,
 			final Configuration configuration) {
 		final String prefix = "parseSubversionExportTask() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final SubversionExportTask task = new SubversionExportTask();
+		final SubversionExportTask task = new SubversionExportTask(job);
 
 		task.setSource(parseSubversionRepositorySource(taskType.getSubversionRepositorySource(), configuration));
 		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
@@ -794,16 +799,17 @@ public final class ConfigurationReader {
 	 * Parses the subversion export task.
 	 * 
 	 * @param taskType the task type
+	 * @param job the job
 	 * @param configuration the configuration
 	 * @return the task
 	 */
-	private AbstractTask parseSubversionUpdateTask(final SubversionUpdateTaskType taskType,
+	private AbstractTask parseSubversionUpdateTask(final SubversionUpdateTaskType taskType, final Job job,
 			final Configuration configuration) {
 		final String prefix = "parseSubversionUpdateTask() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final SubversionUpdateTask task = new SubversionUpdateTask();
+		final SubversionUpdateTask task = new SubversionUpdateTask(job);
 
 		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
 
@@ -818,11 +824,11 @@ public final class ConfigurationReader {
 	 * Parses the task.
 	 * 
 	 * @param taskType the task type
+	 * @param job the job
 	 * @param configuration the configuration
-	 * 
 	 * @return the task
 	 */
-	private AbstractTask parseTask(final TaskType taskType, final Configuration configuration) {
+	private AbstractTask parseTask(final TaskType taskType, final Job job, final Configuration configuration) {
 		final String prefix = "parseTask() :";
 
 		LOGGER.debug("{} entered", prefix);
@@ -830,22 +836,22 @@ public final class ConfigurationReader {
 		AbstractTask task = null;
 
 		if (taskType.isSetFileSystemDeleteTask()) {
-			task = parseFileSystemDeleteTask(taskType.getFileSystemDeleteTask(), configuration);
+			task = parseFileSystemDeleteTask(taskType.getFileSystemDeleteTask(), job, configuration);
 		}
 		else if (taskType.isSetFindReplaceTask()) {
-			task = parseFindReplaceTask(taskType.getFindReplaceTask(), configuration);
+			task = parseFindReplaceTask(taskType.getFindReplaceTask(), job, configuration);
 		}
 		else if (taskType.isSetGroovyTask()) {
-			task = parseGroovyTask(taskType.getGroovyTask(), configuration);
+			task = parseGroovyTask(taskType.getGroovyTask(), job, configuration);
 		}
 		else if (taskType.isSetHttpDownloadTask()) {
-			task = parseHttpDownloadTask(taskType.getHttpDownloadTask(), configuration);
+			task = parseHttpDownloadTask(taskType.getHttpDownloadTask(), job, configuration);
 		}
 		else if (taskType.isSetSubversionExportTask()) {
-			task = parseSubversionExportTask(taskType.getSubversionExportTask(), configuration);
+			task = parseSubversionExportTask(taskType.getSubversionExportTask(), job, configuration);
 		}
 		else if (taskType.isSetSubversionUpdateTask()) {
-			task = parseSubversionUpdateTask(taskType.getSubversionUpdateTask(), configuration);
+			task = parseSubversionUpdateTask(taskType.getSubversionUpdateTask(), job, configuration);
 		}
 		else {
 			throw new ConfigurationException("Unsupported task type");

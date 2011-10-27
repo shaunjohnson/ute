@@ -100,7 +100,9 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 
 		LOGGER.debug("{} entered, httpLocation={}", prefix, httpLocation);
 
-		loadIdCommonFieldData(httpLocation);
+		setUserObject(httpLocation);
+
+		loadIdCommonFieldData();
 
 		if (httpLocation == null) {
 			getUrlTextField().setText("");

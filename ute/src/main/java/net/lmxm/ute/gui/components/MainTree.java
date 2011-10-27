@@ -707,6 +707,10 @@ public class MainTree extends JTree implements IdChangeListener {
 		return taskPopupMenu;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.listeners.IdChangeListener#idChanged(net.lmxm.ute.listeners.IdChangeEvent)
+	 */
 	@Override
 	public void idChanged(final IdChangeEvent idChangeEvent) {
 		final IdentifiableBean identifiableBean = idChangeEvent.getIdentifiableBean();
@@ -728,6 +732,9 @@ public class MainTree extends JTree implements IdChangeListener {
 		}
 		else if (identifiableBean instanceof SubversionRepositoryLocation) {
 			mainTreeModel.refreshSubversionRepositoryLocation((SubversionRepositoryLocation) identifiableBean);
+		}
+		else if (identifiableBean instanceof Task) {
+			mainTreeModel.refreshTask((Task) identifiableBean);
 		}
 		else {
 			throw new IllegalStateException("Unsupported bean type"); // TODO

@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans.tasks;
 
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 
 /**
@@ -36,9 +37,11 @@ public final class GroovyTask extends AbstractFilesTask {
 
 	/**
 	 * Instantiates a new bean shell task.
+	 * 
+	 * @param job the job
 	 */
-	public GroovyTask() {
-		super();
+	public GroovyTask(final Job job) {
+		super(job);
 	}
 
 	/**

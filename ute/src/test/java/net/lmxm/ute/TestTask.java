@@ -19,6 +19,7 @@
 package net.lmxm.ute;
 
 import net.lmxm.ute.beans.IdentifiableDomainBean;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
 
 import org.junit.Ignore;
@@ -58,6 +59,15 @@ public class TestTask extends IdentifiableDomainBean implements Task {
 	@Override
 	public boolean getEnabled() {
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#getJob()
+	 */
+	@Override
+	public Job getJob() {
+		return null;
 	}
 
 	/*

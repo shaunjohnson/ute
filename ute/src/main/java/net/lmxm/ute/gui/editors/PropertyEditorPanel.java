@@ -101,7 +101,9 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
 		LOGGER.debug("{} entered, property={}", prefix, property);
 
-		loadIdCommonFieldData(property);
+		setUserObject(property);
+
+		loadIdCommonFieldData();
 
 		if (property == null) {
 			getPropertyValueTextField().setText("");

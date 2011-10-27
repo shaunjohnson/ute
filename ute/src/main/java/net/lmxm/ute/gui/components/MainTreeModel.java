@@ -305,9 +305,10 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * 
 	 * @param treeNode the tree node
 	 * @param userObject the user object
-	 * @return the mutable tree node
+	 * @return the default mutable tree node
 	 */
-	private MutableTreeNode findChildNodeByUserObject(final DefaultMutableTreeNode treeNode, final Object userObject) {
+	private DefaultMutableTreeNode findChildNodeByUserObject(final DefaultMutableTreeNode treeNode,
+			final Object userObject) {
 		@SuppressWarnings("rawtypes")
 		final Enumeration enumeration = treeNode.children();
 
@@ -326,9 +327,9 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * Find file system location node.
 	 * 
 	 * @param fileSystemLocation the file system location
-	 * @return the mutable tree node
+	 * @return the default mutable tree node
 	 */
-	private MutableTreeNode findFileSystemLocationNode(final FileSystemLocation fileSystemLocation) {
+	private DefaultMutableTreeNode findFileSystemLocationNode(final FileSystemLocation fileSystemLocation) {
 		return findChildNodeByUserObject(fileSystemLocationsNode, fileSystemLocation);
 	}
 
@@ -336,9 +337,9 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * Find http location node.
 	 * 
 	 * @param httpLocation the http location
-	 * @return the mutable tree node
+	 * @return the default mutable tree node
 	 */
-	private MutableTreeNode findHttpLocationNode(final HttpLocation httpLocation) {
+	private DefaultMutableTreeNode findHttpLocationNode(final HttpLocation httpLocation) {
 		return findChildNodeByUserObject(httpLocationsNode, httpLocation);
 	}
 
@@ -346,9 +347,9 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * Find job node.
 	 * 
 	 * @param job the job
-	 * @return the mutable tree node
+	 * @return the default mutable tree node
 	 */
-	private MutableTreeNode findJobNode(final Job job) {
+	private DefaultMutableTreeNode findJobNode(final Job job) {
 		return findChildNodeByUserObject(jobsNode, job);
 	}
 
@@ -356,9 +357,9 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * Find preference node.
 	 * 
 	 * @param preference the preference
-	 * @return the mutable tree node
+	 * @return the default mutable tree node
 	 */
-	private MutableTreeNode findPreferenceNode(final Preference preference) {
+	private DefaultMutableTreeNode findPreferenceNode(final Preference preference) {
 		return findChildNodeByUserObject(preferencesNode, preference);
 	}
 
@@ -366,9 +367,9 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * Find property node.
 	 * 
 	 * @param property the property
-	 * @return the mutable tree node
+	 * @return the default mutable tree node
 	 */
-	private MutableTreeNode findPropertyNode(final Property property) {
+	private DefaultMutableTreeNode findPropertyNode(final Property property) {
 		return findChildNodeByUserObject(propertiesNode, property);
 	}
 
@@ -376,11 +377,21 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * Find subversion repository location node.
 	 * 
 	 * @param subversionRepositoryLocation the subversion repository location
-	 * @return the mutable tree node
+	 * @return the default mutable tree node
 	 */
-	private MutableTreeNode findSubversionRepositoryLocationNode(
+	private DefaultMutableTreeNode findSubversionRepositoryLocationNode(
 			final SubversionRepositoryLocation subversionRepositoryLocation) {
 		return findChildNodeByUserObject(subversionRepositoryLocationsNode, subversionRepositoryLocation);
+	}
+
+	/**
+	 * Find task node.
+	 * 
+	 * @param task the task
+	 * @return the default mutable tree node
+	 */
+	private DefaultMutableTreeNode findTaskNode(final Task task) {
+		return findChildNodeByUserObject(findJobNode(task.getJob()), task);
 	}
 
 	/**
@@ -628,6 +639,15 @@ public class MainTreeModel extends DefaultTreeModel {
 	 */
 	public void refreshSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
 		nodeChanged(findSubversionRepositoryLocationNode(subversionRepositoryLocation));
+	}
+
+	/**
+	 * Refresh task.
+	 * 
+	 * @param task the task
+	 */
+	public void refreshTask(final Task task) {
+		nodeChanged(findTaskNode(task));
 	}
 
 	/**

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
@@ -51,7 +52,7 @@ public class FindReplaceTaskExecuterTest {
 	 */
 	@Before
 	public void setup() {
-		final FindReplaceTask task = new FindReplaceTask();
+		final FindReplaceTask task = new FindReplaceTask(new TestJob());
 
 		executer = new FindReplaceTaskExecuter(task, STATUS_CHANGE_HELPER);
 	}

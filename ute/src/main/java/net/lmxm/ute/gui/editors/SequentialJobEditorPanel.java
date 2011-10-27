@@ -54,8 +54,7 @@ public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.ID);
-		contentPanel.add(getIdTextField());
+		addIdCommonFields();
 
 		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
 		contentPanel.add(getDescriptionPane());
@@ -83,7 +82,9 @@ public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 
 		LOGGER.debug("{} entered, job={}", prefix, job);
 
-		loadIdCommonFieldData(job);
+		setUserObject(job);
+
+		loadIdCommonFieldData();
 
 		if (job == null) {
 			getDescriptionTextArea().setText("");

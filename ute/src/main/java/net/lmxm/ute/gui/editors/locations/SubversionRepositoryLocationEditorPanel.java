@@ -138,7 +138,9 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 
 		LOGGER.debug("{} entered, subversionRepositoryLocation={}", prefix, subversionRepositoryLocation);
 
-		loadIdCommonFieldData(subversionRepositoryLocation);
+		setUserObject(subversionRepositoryLocation);
+
+		loadIdCommonFieldData();
 
 		if (subversionRepositoryLocation == null) {
 			getUrlTextField().setText("");

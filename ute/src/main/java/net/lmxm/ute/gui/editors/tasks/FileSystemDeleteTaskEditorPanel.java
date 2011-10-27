@@ -102,9 +102,11 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 
 		LOGGER.debug("{} entered, fileSystemDeleteTask={}", prefix, fileSystemDeleteTask);
 
+		setUserObject(fileSystemDeleteTask);
+
 		final FileSystemTarget target = fileSystemDeleteTask == null ? null : fileSystemDeleteTask.getTarget();
 
-		loadTaskCommonFieldData(fileSystemDeleteTask);
+		loadTaskCommonFieldData();
 		loadFileSystemTargetFieldData(target);
 		loadFilesFieldData(fileSystemDeleteTask);
 

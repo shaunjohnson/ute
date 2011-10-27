@@ -668,6 +668,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			final FileSystemDeleteTask fileSystemDeleteTask) {
 		if (fileSystemDeleteTaskEditorPanel == null) {
 			fileSystemDeleteTaskEditorPanel = new FileSystemDeleteTaskEditorPanel(this);
+			fileSystemDeleteTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		fileSystemDeleteTaskEditorPanel.loadData(fileSystemDeleteTask);
@@ -726,6 +727,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private FindReplaceTaskEditorPanel getFindReplaceTaskEditorPanel(final FindReplaceTask findReplaceTask) {
 		if (findReplaceTaskEditorPanel == null) {
 			findReplaceTaskEditorPanel = new FindReplaceTaskEditorPanel(this);
+			findReplaceTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		findReplaceTaskEditorPanel.loadData(findReplaceTask);
@@ -742,6 +744,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private GroovyTaskEditorPanel getGroovyTaskEditorPanel(final GroovyTask groovyTask) {
 		if (groovyTaskEditorPanel == null) {
 			groovyTaskEditorPanel = new GroovyTaskEditorPanel(this);
+			groovyTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		groovyTaskEditorPanel.loadData(groovyTask);
@@ -758,6 +761,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private HttpDownloadTaskEditorPanel getHttpDownloadTaskEditorPanel(final HttpDownloadTask httpDownloadTask) {
 		if (httpDownloadTaskEditorPanel == null) {
 			httpDownloadTaskEditorPanel = new HttpDownloadTaskEditorPanel(this);
+			httpDownloadTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		httpDownloadTaskEditorPanel.loadData(httpDownloadTask);
@@ -1045,6 +1049,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			final SubversionExportTask subversionExportTask) {
 		if (subversionExportTaskEditorPanel == null) {
 			subversionExportTaskEditorPanel = new SubversionExportTaskEditorPanel(this);
+			subversionExportTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		subversionExportTaskEditorPanel.loadData(subversionExportTask);
@@ -1093,6 +1098,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			final SubversionUpdateTask subversionUpdateTask) {
 		if (subversionUpdateTaskEditorPanel == null) {
 			subversionUpdateTaskEditorPanel = new SubversionUpdateTaskEditorPanel(this);
+			subversionUpdateTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		subversionUpdateTaskEditorPanel.loadData(subversionUpdateTask);

@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.tasks.GroovyTask;
@@ -40,7 +41,7 @@ public class GroovyTaskExecuterTest {
 	private static final StatusChangeHelper STATUS_CHANGE_HELPER = new StatusChangeHelper();
 
 	/** The Constant EXECUTER. */
-	private static final GroovyTaskExecuter TEST_EXECUTER = new GroovyTaskExecuter(new GroovyTask(),
+	private static final GroovyTaskExecuter TEST_EXECUTER = new GroovyTaskExecuter(new GroovyTask(new TestJob()),
 			new Configuration(), STATUS_CHANGE_HELPER);
 
 	/** The Constant TMP_DIR. */

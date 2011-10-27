@@ -88,10 +88,12 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
 		LOGGER.debug("{} entered, httpDownloadTask={}", prefix, httpDownloadTask);
 
+		setUserObject(httpDownloadTask);
+
 		final HttpSource source = httpDownloadTask == null ? null : httpDownloadTask.getSource();
 		final FileSystemTarget target = httpDownloadTask == null ? null : httpDownloadTask.getTarget();
 
-		loadTaskCommonFieldData(httpDownloadTask);
+		loadTaskCommonFieldData();
 		loadHttpSourceFieldData(source);
 		loadFileSystemTargetFieldData(target);
 		loadFilesFieldData(httpDownloadTask);

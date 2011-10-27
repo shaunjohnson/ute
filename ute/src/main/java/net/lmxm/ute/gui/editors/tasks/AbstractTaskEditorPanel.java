@@ -349,21 +349,20 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/**
 	 * Load task common field data.
-	 * 
-	 * @param task the task
 	 */
-	protected final void loadTaskCommonFieldData(final Task task) {
-		final String prefix = "loadData(): ";
+	protected final void loadTaskCommonFieldData() {
+		final String prefix = "loadTaskCommonFieldData(): ";
 
-		LOGGER.debug("{} entered, task={}", prefix, task);
+		LOGGER.debug("{} entered", prefix);
 
-		loadIdCommonFieldData(task);
+		loadIdCommonFieldData();
 
-		if (task == null) {
-			getDescriptionTextArea().setText("");
-			getEnabledCheckbox().setSelected(false);
-		}
-		else {
+		getDescriptionTextArea().setText("");
+		getEnabledCheckbox().setSelected(false);
+
+		if (getUserObject() instanceof Task) {
+			final Task task = (Task) getUserObject();
+
 			getDescriptionTextArea().setText(task.getDescription());
 			getEnabledCheckbox().setSelected(task.getEnabled());
 		}

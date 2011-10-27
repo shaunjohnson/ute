@@ -23,6 +23,7 @@ import java.io.Serializable;
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.DomainBean;
 import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.beans.jobs.Job;
 
 /**
  * The Interface Task.
@@ -35,6 +36,13 @@ public interface Task extends DescribableBean, DomainBean, IdentifiableBean, Ser
 	 * @return the enabled
 	 */
 	boolean getEnabled();
+
+	/**
+	 * Gets the job.
+	 * 
+	 * @return the job
+	 */
+	Job getJob();
 
 	/**
 	 * Sets the enabled.

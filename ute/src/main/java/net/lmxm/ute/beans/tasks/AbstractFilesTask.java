@@ -18,10 +18,11 @@
  */
 package net.lmxm.ute.beans.tasks;
 
-import net.lmxm.ute.beans.FileReference;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.jobs.Job;
 
 /**
  * The Class AbstractFilesTask.
@@ -36,9 +37,11 @@ public abstract class AbstractFilesTask extends AbstractTask {
 
 	/**
 	 * Instantiates a new files task.
+	 * 
+	 * @param job the job
 	 */
-	public AbstractFilesTask() {
-		super();
+	public AbstractFilesTask(final Job job) {
+		super(job);
 
 		files = new ArrayList<FileReference>();
 	}

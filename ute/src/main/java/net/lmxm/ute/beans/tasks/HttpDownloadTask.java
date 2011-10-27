@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans.tasks;
 
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 
@@ -34,6 +35,15 @@ public class HttpDownloadTask extends AbstractFilesTask {
 
 	/** The target. */
 	private FileSystemTarget target;
+
+	/**
+	 * Instantiates a new http download task.
+	 * 
+	 * @param job the job
+	 */
+	public HttpDownloadTask(final Job job) {
+		super(job);
+	}
 
 	/**
 	 * Gets the source.

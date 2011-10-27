@@ -127,9 +127,11 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 
 		LOGGER.debug("{} entered, groovyTask={}", prefix, groovyTask);
 
+		setUserObject(groovyTask);
+
 		final FileSystemTarget target = groovyTask == null ? null : groovyTask.getTarget();
 
-		loadTaskCommonFieldData(groovyTask);
+		loadTaskCommonFieldData();
 		loadFileSystemTargetFieldData(target);
 		loadFilesFieldData(groovyTask);
 

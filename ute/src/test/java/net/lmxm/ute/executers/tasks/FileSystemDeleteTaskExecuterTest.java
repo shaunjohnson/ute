@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.listeners.StatusChangeHelper;
@@ -56,7 +57,7 @@ public class FileSystemDeleteTaskExecuterTest {
 	 */
 	@Before
 	public void setup() {
-		final FileSystemDeleteTask task = new FileSystemDeleteTask();
+		final FileSystemDeleteTask task = new FileSystemDeleteTask(new TestJob());
 
 		executer = new FileSystemDeleteTaskExecuter(task, STATUS_CHANGE_HELPER);
 	}

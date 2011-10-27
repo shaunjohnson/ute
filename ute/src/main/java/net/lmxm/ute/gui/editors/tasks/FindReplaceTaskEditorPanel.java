@@ -232,9 +232,11 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 		LOGGER.debug("{} entered, findReplaceTask={}", prefix, findReplaceTask);
 
+		setUserObject(findReplaceTask);
+
 		final FileSystemTarget target = findReplaceTask == null ? null : findReplaceTask.getTarget();
 
-		loadTaskCommonFieldData(findReplaceTask);
+		loadTaskCommonFieldData();
 		loadFileSystemTargetFieldData(target);
 		loadFilesFieldData(findReplaceTask);
 		loadPatternsFieldData(findReplaceTask);

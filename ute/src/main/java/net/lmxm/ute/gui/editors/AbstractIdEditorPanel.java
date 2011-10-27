@@ -52,9 +52,6 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	/** The id change listeners. */
 	private final List<IdChangeListener> idChangeListeners = new ArrayList<IdChangeListener>();
 
-	/** The identifiable bean. */
-	private IdentifiableBean identifiableBean = null;
-
 	/** The id text field. */
 	private JTextField idTextField = null;
 
@@ -105,7 +102,7 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	 * 
 	 * @return the id text field
 	 */
-	protected final JTextField getIdTextField() {
+	private final JTextField getIdTextField() {
 		if (idTextField == null) {
 			idTextField = new JTextField();
 			idTextField.setMinimumSize(new Dimension(400, (int) idTextField.getSize().getHeight()));
@@ -117,19 +114,18 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 				}
 
 				private void idChanged(final DocumentEvent documentEvent) {
-					if (identifiableBean == null) {
-						return;
-					}
+					if (getUserObject() instanceof IdentifiableBean) {
+						try {
+							final Document document = documentEvent.getDocument();
+							final String newId = document.getText(0, document.getLength());
+							final IdentifiableBean identifiableBean = (IdentifiableBean) getUserObject();
+							identifiableBean.setId(newId);
 
-					try {
-						final Document document = documentEvent.getDocument();
-						final String newId = document.getText(0, document.getLength());
-						identifiableBean.setId(newId);
-
-						fireIdChangedEvent(identifiableBean);
-					}
-					catch (final BadLocationException e) {
-						e.printStackTrace(); // TODO Throw appropriate exception
+							fireIdChangedEvent(identifiableBean);
+						}
+						catch (final BadLocationException e) {
+							e.printStackTrace(); // TODO Throw appropriate exception
+						}
 					}
 				}
 
@@ -153,18 +149,18 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	 * 
 	 * @param identifiableBean the identifiable bean
 	 */
-	protected final void loadIdCommonFieldData(final IdentifiableBean identifiableBean) {
+	protected final void loadIdCommonFieldData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, identifiableBean={}", prefix, identifiableBean);
+		LOGGER.debug("{} entered", prefix);
 
-		this.identifiableBean = identifiableBean;
+		if (getUserObject() instanceof IdentifiableBean) {
+			final IdentifiableBean identifiableBean = (IdentifiableBean) getUserObject();
 
-		if (identifiableBean == null) {
-			getIdTextField().setText("");
+			getIdTextField().setText(identifiableBean.getId());
 		}
 		else {
-			getIdTextField().setText(identifiableBean.getId());
+			getIdTextField().setText("");
 		}
 
 		LOGGER.debug("{} leaving", prefix);
