@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
@@ -44,5 +45,8 @@ public class MainTreeToolBar extends AbstractToolBar {
 		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_SUBVERSION_REPOSITORY_LOCATION);
 		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_PROPERTY);
 		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_PREFERENCE);
+		addSeparator(new Dimension(20, 20));
+		addToolbarButtonNoText(GuiComponentToolbarButton.COLLAPSE);
+		addToolbarButtonNoText(GuiComponentToolbarButton.EXPAND);
 	}
 }

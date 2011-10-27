@@ -47,6 +47,9 @@ public enum GuiComponentToolbarButton implements GuiComponentType {
 	ADD_SUBVERSION_REPOSITORY_LOCATION(ImageUtil.ADD_SUBVERSION_REPOSITORY_LOCATION_ICON,
 			ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION),
 
+	/** The COLLAPSE. */
+	COLLAPSE(ImageUtil.COLLAPSE_ICON, ActionConstants.COLLAPSE),
+
 	/** The DELETE_FILE_SYSTEM_LOCATION. */
 	DELETE_FILE_SYSTEM_LOCATION(ImageUtil.DELETE_FILE_SYSTEM_LOCATION_ICON, ActionConstants.DELETE_FILE_SYSTEM_LOCATION),
 
@@ -74,6 +77,9 @@ public enum GuiComponentToolbarButton implements GuiComponentType {
 
 	/** The EXIT. */
 	EXIT(ImageUtil.EXIT_ICON, ActionConstants.EXIT),
+
+	/** The EXPAND. */
+	EXPAND(ImageUtil.EXPAND_ICON, ActionConstants.EXPAND),
 
 	/** The NEW_FILE. */
 	NEW_FILE(ImageUtil.NEW_FILE_ICON, ActionConstants.NEW_FILE),

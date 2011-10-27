@@ -47,6 +47,9 @@ public final class ActionConstants {
 	/** The Constant ADD_SUBVERSION_REPOSITORY_LOCATION. */
 	public static final String ADD_SUBVERSION_REPOSITORY_LOCATION = "ADD_SUBVERSION_REPOSITORY_LOCATION";
 
+	/** The Constant COLLAPSE. */
+	public static final String COLLAPSE = "COLLAPSE";
+
 	/** The Constant DELETE_FILE_SYSTEM_LOCATION. */
 	public static final String DELETE_FILE_SYSTEM_LOCATION = "DELETE_FILE_SYSTEM_LOCATION";
 
@@ -76,6 +79,9 @@ public final class ActionConstants {
 
 	/** The Constant EXIT. */
 	public static final String EXIT = "EXIT";
+
+	/** The Constant EXPAND. */
+	public static final String EXPAND = "EXPAND";
 
 	/** The Constant NEW_FILE. */
 	public static final String NEW_FILE = "NEW_FILE";

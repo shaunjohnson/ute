@@ -35,6 +35,7 @@ public final class ImageUtil {
 	/** The Constant ABOUT_ICON. */
 	public static final ImageIcon ABOUT_ICON;
 
+	/** The Constant ADD_FILE_SYSTEM_LOCATION_ICON. */
 	public static final Icon ADD_FILE_SYSTEM_LOCATION_ICON;
 
 	/** The Constant ADD_HTTP_LOCATION_ICON. */
@@ -49,6 +50,7 @@ public final class ImageUtil {
 	/** The Constant ADD_PROPERTY_ICON. */
 	public static final Icon ADD_PROPERTY_ICON;
 
+	/** The Constant ADD_SUBVERSION_REPOSITORY_LOCATION_ICON. */
 	public static final Icon ADD_SUBVERSION_REPOSITORY_LOCATION_ICON;
 
 	/** The Constant APPLICATION_ICON_IMAGE. */
@@ -63,6 +65,10 @@ public final class ImageUtil {
 	/** The Constant CLEAR_ICON. */
 	public static final Icon CLEAR_ICON;
 
+	/** The Constant COLLAPSE_ICON. */
+	public static final Icon COLLAPSE_ICON;
+
+	/** The Constant DELETE_FILE_SYSTEM_LOCATION_ICON. */
 	public static final Icon DELETE_FILE_SYSTEM_LOCATION_ICON;
 
 	/** The Constant DELETE_HTTP_LOCATION_ICON. */
@@ -77,6 +83,7 @@ public final class ImageUtil {
 	/** The Constant DELETE_PROPERTY_ICON. */
 	public static final Icon DELETE_PROPERTY_ICON;
 
+	/** The Constant DELETE_SUBVERSION_REPOSITORY_LOCATION_ICON. */
 	public static final Icon DELETE_SUBVERSION_REPOSITORY_LOCATION_ICON;
 
 	/** The Constant DRIVE_ICON. */
@@ -90,6 +97,8 @@ public final class ImageUtil {
 
 	/** The Constant EXIT_ICON. */
 	public static final Icon EXIT_ICON;
+
+	public static final Icon EXPAND_ICON;
 
 	/** The Constant EXPORT_DISABLED_ICON. */
 	public static final Icon EXPORT_DISABLED_ICON;
@@ -151,6 +160,7 @@ public final class ImageUtil {
 	/** The Constant STOP_JOB_ICON. */
 	public static final Icon STOP_JOB_ICON;
 
+	/** The Constant SUBVERSION_REPOSITORY_LOCATION_ICON. */
 	public static final Icon SUBVERSION_REPOSITORY_LOCATION_ICON;
 
 	static {
@@ -168,6 +178,7 @@ public final class ImageUtil {
 		ADD_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/property--plus.png"));
 		ADD_SUBVERSION_REPOSITORY_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/subversion--plus.png"));
 		CLEAR_ICON = new ImageIcon(thisClass.getResource("/images/eraser.png"));
+		COLLAPSE_ICON = new ImageIcon(thisClass.getResource("/images/toggle.png"));
 		DELETE_JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-task--minus.png"));
 		DELETE_FILE_SYSTEM_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/drive--minus.png"));
 		DELETE_HTTP_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/network-hub--minus.png"));
@@ -179,6 +190,7 @@ public final class ImageUtil {
 		EDIT_PREFERENCES_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
 		EXECUTE_ICON = new ImageIcon(thisClass.getResource("/images/lightning.png"));
 		EXIT_ICON = new ImageIcon(thisClass.getResource("/images/door-open-out.png"));
+		EXPAND_ICON = new ImageIcon(thisClass.getResource("/images/toggle-expand.png"));
 		JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-task.png"));
 		LOADER_ICON = new ImageIcon(thisClass.getResource("/images/loader.gif"));
 		NETWORK_HUB_ICON = new ImageIcon(thisClass.getResource("/images/network-hub.png"));

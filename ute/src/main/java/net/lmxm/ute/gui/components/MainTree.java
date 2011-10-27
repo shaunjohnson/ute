@@ -24,10 +24,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -377,6 +379,38 @@ public class MainTree extends JTree {
 	}
 
 	/**
+	 * Collapse all.
+	 */
+	public void collapseAll() {
+		final TreePath root = new TreePath(mainTreeModel.getRoot());
+
+		collapseAll(root);
+		expandPath(root);
+	}
+
+	/**
+	 * Collapse all.
+	 * 
+	 * @param parentTreePath the parent tree path
+	 */
+	public void collapseAll(final TreePath parentTreePath) {
+		final TreeNode parentTreeNode = (TreeNode) parentTreePath.getLastPathComponent();
+
+		if (parentTreeNode.getChildCount() >= 0) {
+			for (@SuppressWarnings("rawtypes")
+			final Enumeration enumeration = parentTreeNode.children(); enumeration.hasMoreElements();) {
+				final TreeNode treeNode = (TreeNode) enumeration.nextElement();
+				final TreePath path = parentTreePath.pathByAddingChild(treeNode);
+
+				collapseAll(path);
+			}
+		}
+
+		// Collapse from bottom up
+		collapsePath(parentTreePath);
+	}
+
+	/**
 	 * Delete file system location.
 	 * 
 	 * @param fileSystemLocation the file system location
@@ -419,6 +453,37 @@ public class MainTree extends JTree {
 	 */
 	public void deleteSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
 		mainTreeModel.deleteSubversionRepositoryLocation(subversionRepositoryLocation);
+	}
+
+	/**
+	 * Expand all.
+	 */
+	public void expandAll() {
+		final TreePath root = new TreePath(mainTreeModel.getRoot());
+
+		expandAll(root);
+	}
+
+	/**
+	 * Expand all.
+	 * 
+	 * @param parentTreePath the parent tree path
+	 */
+	public void expandAll(final TreePath parentTreePath) {
+		final TreeNode parentTreeNode = (TreeNode) parentTreePath.getLastPathComponent();
+
+		if (parentTreeNode.getChildCount() >= 0) {
+			for (@SuppressWarnings("rawtypes")
+			final Enumeration enumeration = parentTreeNode.children(); enumeration.hasMoreElements();) {
+				final TreeNode treeNode = (TreeNode) enumeration.nextElement();
+				final TreePath path = parentTreePath.pathByAddingChild(treeNode);
+
+				expandAll(path);
+			}
+		}
+
+		// Expand from bottom up
+		expandPath(parentTreePath);
 	}
 
 	/**

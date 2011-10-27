@@ -25,6 +25,7 @@ import static net.lmxm.ute.gui.ActionConstants.ADD_JOB;
 import static net.lmxm.ute.gui.ActionConstants.ADD_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.ADD_PROPERTY;
 import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.COLLAPSE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_FILE_SYSTEM_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_HTTP_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PREFERENCE;
@@ -33,6 +34,7 @@ import static net.lmxm.ute.gui.ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCA
 import static net.lmxm.ute.gui.ActionConstants.EDIT_PREFERENCES;
 import static net.lmxm.ute.gui.ActionConstants.EXECUTE;
 import static net.lmxm.ute.gui.ActionConstants.EXIT;
+import static net.lmxm.ute.gui.ActionConstants.EXPAND;
 import static net.lmxm.ute.gui.ActionConstants.NEW_FILE;
 import static net.lmxm.ute.gui.ActionConstants.OPEN_FILE;
 import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE;
@@ -301,6 +303,13 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action collapse.
+	 */
+	private void actionCollapse() {
+		getMainTree().collapseAll();
+	}
+
+	/**
 	 * Action delete file system location.
 	 */
 	private void actionDeleteFileSystemLocation() {
@@ -429,6 +438,13 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action expand.
+	 */
+	private void actionExpand() {
+		getMainTree().expandAll();
+	}
+
+	/**
 	 * Action open file.
 	 */
 	private void actionOpenFile() {
@@ -495,6 +511,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		else if (actionCommand.equals(ADD_SUBVERSION_REPOSITORY_LOCATION)) {
 			actionAddSubversionRepositoryLocation();
 		}
+		else if (actionCommand.equals(COLLAPSE)) {
+			actionCollapse();
+		}
 		else if (actionCommand.equals(DELETE_FILE_SYSTEM_LOCATION)) {
 			actionDeleteFileSystemLocation();
 		}
@@ -515,6 +534,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (actionCommand.equals(EXIT)) {
 			actionExit();
+		}
+		else if (actionCommand.equals(EXPAND)) {
+			actionExpand();
 		}
 		else if (actionCommand.equals(EXECUTE)) {
 			actionExecute();
