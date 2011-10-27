@@ -141,6 +141,20 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Adds the job.
+	 * 
+	 * @param job the job
+	 * @return the tree path
+	 */
+	public TreePath addJob(final Job job) {
+		final DefaultMutableTreeNode jobNode = new DefaultMutableTreeNode(job);
+
+		insertNodeInto(jobNode, jobsNode, 0);
+
+		return getPathToJobs().pathByAddingChild(jobNode);
+	}
+
+	/**
 	 * Adds the preference.
 	 * 
 	 * @param preference the preference
@@ -215,6 +229,23 @@ public class MainTreeModel extends DefaultTreeModel {
 		removeNodeFromParent(httpLocationNode);
 
 		return getPathToHttpLocations();
+	}
+
+	/**
+	 * Delete job.
+	 * 
+	 * @param job the job
+	 * @return the tree path
+	 */
+	public TreePath deleteJob(final Job job) {
+		final MutableTreeNode jobNode = findJobNode(job);
+		if (jobNode == null) {
+			throw new RuntimeException("Job node does not exist"); // TODO Use proper exception
+		}
+
+		removeNodeFromParent(jobNode);
+
+		return getPathToJobs();
 	}
 
 	/**
@@ -308,6 +339,16 @@ public class MainTreeModel extends DefaultTreeModel {
 	 */
 	private MutableTreeNode findHttpLocationNode(final HttpLocation httpLocation) {
 		return findChildNodeByUserObject(httpLocationsNode, httpLocation);
+	}
+
+	/**
+	 * Find job node.
+	 * 
+	 * @param job the job
+	 * @return the mutable tree node
+	 */
+	private MutableTreeNode findJobNode(final Job job) {
+		return findChildNodeByUserObject(jobsNode, job);
 	}
 
 	/**

@@ -28,6 +28,7 @@ import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATIO
 import static net.lmxm.ute.gui.ActionConstants.COLLAPSE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_FILE_SYSTEM_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_HTTP_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.DELETE_JOB;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PROPERTY;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION;
@@ -276,6 +277,15 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action add job.
+	 */
+	private void actionAddJob() {
+		final Job job = new SequentialJob();
+		configuration.getJobs().add(job);
+		mainTree.addJob(job);
+	}
+
+	/**
 	 * Action add preference.
 	 */
 	private void actionAddPreference() {
@@ -335,6 +345,20 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		final HttpLocation httpLocation = (HttpLocation) userObject;
 		configuration.getHttpLocations().remove(httpLocation);
 		mainTree.deleteHttpLocation(httpLocation);
+	}
+
+	/**
+	 * Action delete job.
+	 */
+	private void actionDeleteJob() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof Job)) {
+			return;
+		}
+
+		final Job job = (Job) userObject;
+		configuration.getJobs().remove(job);
+		mainTree.deleteJob(job);
 	}
 
 	/**
@@ -509,7 +533,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			actionAddHttpLocation();
 		}
 		else if (actionCommand.equals(ADD_JOB)) {
-			// TODO
+			actionAddJob();
 		}
 		else if (actionCommand.equals(ADD_PREFERENCE)) {
 			actionAddPreference();
@@ -528,6 +552,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (actionCommand.equals(DELETE_HTTP_LOCATION)) {
 			actionDeleteHttpLocation();
+		}
+		else if (actionCommand.equals(DELETE_JOB)) {
+			actionDeleteJob();
 		}
 		else if (actionCommand.equals(DELETE_PREFERENCE)) {
 			actionDeletePreference();

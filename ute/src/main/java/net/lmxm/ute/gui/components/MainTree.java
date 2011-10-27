@@ -352,6 +352,15 @@ public class MainTree extends JTree {
 	}
 
 	/**
+	 * Adds the job.
+	 * 
+	 * @param job the job
+	 */
+	public void addJob(final Job job) {
+		showSelectedPath(mainTreeModel.addJob(job));
+	}
+
+	/**
 	 * Adds the preference.
 	 * 
 	 * @param preference the preference
@@ -426,6 +435,15 @@ public class MainTree extends JTree {
 	 */
 	public void deleteHttpLocation(final HttpLocation httpLocation) {
 		mainTreeModel.deleteHttpLocation(httpLocation);
+	}
+
+	/**
+	 * Delete job.
+	 * 
+	 * @param job the job
+	 */
+	public void deleteJob(final Job job) {
+		mainTreeModel.deleteJob(job);
 	}
 
 	/**
