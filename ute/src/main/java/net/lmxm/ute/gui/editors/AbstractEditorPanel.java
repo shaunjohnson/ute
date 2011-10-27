@@ -20,7 +20,6 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -35,7 +34,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
@@ -88,9 +86,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/** The http location target combo box. */
 	private JComboBox httpLocationTargetComboBox = null;
-
-	/** The id text field. */
-	private JTextField idTextField = null;
 
 	/** The subversion repository location target combo box. */
 	private JComboBox subversionRepositoryLocationTargetComboBox = null;
@@ -263,20 +258,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 		}
 
 		return httpLocationTargetComboBox;
-	}
-
-	/**
-	 * Gets the id text field.
-	 * 
-	 * @return the id text field
-	 */
-	protected final JTextField getIdTextField() {
-		if (idTextField == null) {
-			idTextField = new JTextField();
-			idTextField.setMinimumSize(new Dimension(400, (int) idTextField.getSize().getHeight()));
-		}
-
-		return idTextField;
 	}
 
 	/**

@@ -576,6 +576,60 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Refresh file system location.
+	 * 
+	 * @param fileSystemLocation the file system location
+	 */
+	public void refreshFileSystemLocation(final FileSystemLocation fileSystemLocation) {
+		nodeChanged(findFileSystemLocationNode(fileSystemLocation));
+	}
+
+	/**
+	 * Refresh http location.
+	 * 
+	 * @param httpLocation the http location
+	 */
+	public void refreshHttpLocation(final HttpLocation httpLocation) {
+		nodeChanged(findHttpLocationNode(httpLocation));
+	}
+
+	/**
+	 * Refresh job.
+	 * 
+	 * @param job the job
+	 */
+	public void refreshJob(final Job job) {
+		nodeChanged(findJobNode(job));
+	}
+
+	/**
+	 * Refresh preference.
+	 * 
+	 * @param preference the preference
+	 */
+	public void refreshPreference(final Preference preference) {
+		nodeChanged(findPreferenceNode(preference));
+	}
+
+	/**
+	 * Refresh property.
+	 * 
+	 * @param property the property
+	 */
+	public void refreshProperty(final Property property) {
+		nodeChanged(findPropertyNode(property));
+	}
+
+	/**
+	 * Refresh subversion repository location.
+	 * 
+	 * @param subversionRepositoryLocation the subversion repository location
+	 */
+	public void refreshSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
+		nodeChanged(findSubversionRepositoryLocationNode(subversionRepositoryLocation));
+	}
+
+	/**
 	 * Removes the all children.
 	 */
 	private void removeAllChildren() {

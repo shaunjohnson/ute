@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class SequentialJobEditorPanel.
  */
-public final class SequentialJobEditorPanel extends AbstractEditorPanel {
+public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SequentialJobEditorPanel.class);

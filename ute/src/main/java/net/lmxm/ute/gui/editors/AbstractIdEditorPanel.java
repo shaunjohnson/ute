@@ -18,12 +18,22 @@
  */
 package net.lmxm.ute.gui.editors;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.listeners.IdChangeEvent;
+import net.lmxm.ute.listeners.IdChangeListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +49,15 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7144352139412573257L;
 
+	/** The id change listeners. */
+	private final List<IdChangeListener> idChangeListeners = new ArrayList<IdChangeListener>();
+
+	/** The identifiable bean. */
+	private IdentifiableBean identifiableBean = null;
+
+	/** The id text field. */
+	private JTextField idTextField = null;
+
 	/**
 	 * Instantiates a new abstract id editor panel.
 	 * 
@@ -47,6 +66,15 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	 */
 	public AbstractIdEditorPanel(final GuiComponentLabel guiComponentLabel, final ActionListener actionListener) {
 		super(guiComponentLabel, actionListener);
+	}
+
+	/**
+	 * Adds the id change listener.
+	 * 
+	 * @param idChangeListener the id change listener
+	 */
+	public final void addIdChangeListener(final IdChangeListener idChangeListener) {
+		idChangeListeners.add(idChangeListener);
 	}
 
 	/**
@@ -60,6 +88,63 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	}
 
 	/**
+	 * Fire id changed event.
+	 * 
+	 * @param identifiableBean the identifiable bean
+	 */
+	private void fireIdChangedEvent(final IdentifiableBean identifiableBean) {
+		final IdChangeEvent idChangeEvent = new IdChangeEvent(this, identifiableBean);
+
+		for (final IdChangeListener idChangeListener : idChangeListeners) {
+			idChangeListener.idChanged(idChangeEvent);
+		}
+	}
+
+	/**
+	 * Gets the id text field.
+	 * 
+	 * @return the id text field
+	 */
+	protected final JTextField getIdTextField() {
+		if (idTextField == null) {
+			idTextField = new JTextField();
+			idTextField.setMinimumSize(new Dimension(400, (int) idTextField.getSize().getHeight()));
+
+			idTextField.getDocument().addDocumentListener(new DocumentListener() {
+				@Override
+				public void changedUpdate(final DocumentEvent documentEvent) {
+					idChanged(documentEvent);
+				}
+
+				private void idChanged(final DocumentEvent documentEvent) {
+					try {
+						final Document document = documentEvent.getDocument();
+						final String newId = document.getText(0, document.getLength());
+						identifiableBean.setId(newId);
+
+						fireIdChangedEvent(identifiableBean);
+					}
+					catch (final BadLocationException e) {
+						e.printStackTrace(); // TODO Throw appropriate exception
+					}
+				}
+
+				@Override
+				public void insertUpdate(final DocumentEvent documentEvent) {
+					idChanged(documentEvent);
+				}
+
+				@Override
+				public void removeUpdate(final DocumentEvent documentEvent) {
+					idChanged(documentEvent);
+				}
+			});
+		}
+
+		return idTextField;
+	}
+
+	/**
 	 * Load id common field data.
 	 * 
 	 * @param identifiableBean the identifiable bean
@@ -68,6 +153,8 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 		final String prefix = "loadData(): ";
 
 		LOGGER.debug("{} entered, identifiableBean={}", prefix, identifiableBean);
+
+		this.identifiableBean = identifiableBean;
 
 		if (identifiableBean == null) {
 			getIdTextField().setText("");

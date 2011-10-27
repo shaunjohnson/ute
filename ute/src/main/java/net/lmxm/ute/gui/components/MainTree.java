@@ -34,6 +34,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import net.lmxm.ute.ConfigurationHolder;
+import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
@@ -62,6 +63,8 @@ import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
 import net.lmxm.ute.gui.renderers.JobDetailsTreeCellRenderer;
+import net.lmxm.ute.listeners.IdChangeEvent;
+import net.lmxm.ute.listeners.IdChangeListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +72,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class MainTree.
  */
-public class MainTree extends JTree {
+public class MainTree extends JTree implements IdChangeListener {
 
 	/**
 	 * The listener interface for receiving mainTreeKey events. The class that is interested in processing a mainTreeKey
@@ -702,6 +705,33 @@ public class MainTree extends JTree {
 		}
 
 		return taskPopupMenu;
+	}
+
+	@Override
+	public void idChanged(final IdChangeEvent idChangeEvent) {
+		final IdentifiableBean identifiableBean = idChangeEvent.getIdentifiableBean();
+
+		if (identifiableBean instanceof FileSystemLocation) {
+			mainTreeModel.refreshFileSystemLocation((FileSystemLocation) identifiableBean);
+		}
+		else if (identifiableBean instanceof Job) {
+			mainTreeModel.refreshJob((Job) identifiableBean);
+		}
+		else if (identifiableBean instanceof HttpLocation) {
+			mainTreeModel.refreshHttpLocation((HttpLocation) identifiableBean);
+		}
+		else if (identifiableBean instanceof Preference) {
+			mainTreeModel.refreshPreference((Preference) identifiableBean);
+		}
+		else if (identifiableBean instanceof Property) {
+			mainTreeModel.refreshProperty((Property) identifiableBean);
+		}
+		else if (identifiableBean instanceof SubversionRepositoryLocation) {
+			mainTreeModel.refreshSubversionRepositoryLocation((SubversionRepositoryLocation) identifiableBean);
+		}
+		else {
+			throw new IllegalStateException("Unsupported bean type"); // TODO
+		}
 	}
 
 	/**

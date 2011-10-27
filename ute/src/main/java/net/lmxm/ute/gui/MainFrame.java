@@ -684,6 +684,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private FileSystemLocationEditorPanel getFileSystemLocationEditorPanel(final FileSystemLocation fileSystemLocation) {
 		if (fileSystemLocationEditorPanel == null) {
 			fileSystemLocationEditorPanel = new FileSystemLocationEditorPanel(this);
+			fileSystemLocationEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		fileSystemLocationEditorPanel.loadData(fileSystemLocation);
@@ -773,6 +774,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private HttpLocationEditorPanel getHttpLocationEditorPanel(final HttpLocation httpLocation) {
 		if (httpLocationEditorPanel == null) {
 			httpLocationEditorPanel = new HttpLocationEditorPanel(this);
+			httpLocationEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		httpLocationEditorPanel.loadData(httpLocation);
@@ -965,6 +967,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private PreferenceEditorPanel getPreferenceEditorPanel(final Preference preference) {
 		if (preferenceEditorPanel == null) {
 			preferenceEditorPanel = new PreferenceEditorPanel(this);
+			preferenceEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		preferenceEditorPanel.loadData(preference);
@@ -1007,6 +1010,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private PropertyEditorPanel getPropertyEditorPanel(final Property property) {
 		if (propertyEditorPanel == null) {
 			propertyEditorPanel = new PropertyEditorPanel(this);
+			propertyEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		propertyEditorPanel.loadData(property);
@@ -1023,6 +1027,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private SequentialJobEditorPanel getSequentialJobEditorPanel(final Job job) {
 		if (sequentialJobEditorPanel == null) {
 			sequentialJobEditorPanel = new SequentialJobEditorPanel(this);
+			sequentialJobEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		sequentialJobEditorPanel.loadData(job);
@@ -1057,6 +1062,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			final SubversionRepositoryLocation subversionRepositoryLocation) {
 		if (subversionRepositoryLocationEditorPanel == null) {
 			subversionRepositoryLocationEditorPanel = new SubversionRepositoryLocationEditorPanel(this);
+			subversionRepositoryLocationEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		subversionRepositoryLocationEditorPanel.loadData(subversionRepositoryLocation);
