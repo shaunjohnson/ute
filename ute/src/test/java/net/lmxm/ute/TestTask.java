@@ -43,6 +43,16 @@ public class TestTask extends IdentifiableDomainBean implements Task {
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()
+	 */
+	@Override
+	public String getDisplayText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.Task#getEnabled()
 	 */
 	@Override

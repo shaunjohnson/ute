@@ -24,6 +24,13 @@ package net.lmxm.ute.beans;
 public interface IdentifiableBean extends Comparable<IdentifiableBean> {
 
 	/**
+	 * Gets the display text.
+	 * 
+	 * @return the display text
+	 */
+	String getDisplayText();
+
+	/**
 	 * Gets the id.
 	 * 
 	 * @return the id

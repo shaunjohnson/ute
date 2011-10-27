@@ -56,6 +56,15 @@ public final class Preference extends IdentifiableDomainBean {
 				.append(value, rhs.getValue()).isEquals();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()
+	 */
+	@Override
+	public String getDisplayText() {
+		return getId();
+	}
+
 	/**
 	 * Gets the value.
 	 * 

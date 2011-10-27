@@ -31,6 +31,15 @@ public final class FileSystemLocation extends IdentifiableDomainBean {
 	/** The path. */
 	private String path;
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()
+	 */
+	@Override
+	public String getDisplayText() {
+		return getId();
+	}
+
 	/**
 	 * Gets the path.
 	 * 

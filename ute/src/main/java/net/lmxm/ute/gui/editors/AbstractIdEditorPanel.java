@@ -117,6 +117,10 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 				}
 
 				private void idChanged(final DocumentEvent documentEvent) {
+					if (identifiableBean == null) {
+						return;
+					}
+
 					try {
 						final Document document = documentEvent.getDocument();
 						final String newId = document.getText(0, document.getLength());

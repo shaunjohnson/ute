@@ -18,11 +18,11 @@
  */
 package net.lmxm.ute;
 
+import java.util.List;
+
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
-
-import java.util.List;
 
 import org.junit.Ignore;
 
@@ -35,7 +35,8 @@ public class TestJob extends IdentifiableDomainBean implements Job {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5768119536424092115L;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.DescribableBean#getDescription()
 	 */
 	@Override
@@ -43,7 +44,17 @@ public class TestJob extends IdentifiableDomainBean implements Job {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()
+	 */
+	@Override
+	public String getDisplayText() {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.jobs.Job#getTasks()
 	 */
 	@Override
@@ -51,7 +62,8 @@ public class TestJob extends IdentifiableDomainBean implements Job {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.DescribableBean#setDescription(java.lang.String)
 	 */
 	@Override

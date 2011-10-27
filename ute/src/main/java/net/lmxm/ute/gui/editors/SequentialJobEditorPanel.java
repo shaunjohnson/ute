@@ -83,12 +83,12 @@ public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 
 		LOGGER.debug("{} entered, job={}", prefix, job);
 
+		loadIdCommonFieldData(job);
+
 		if (job == null) {
-			getIdTextField().setText("");
 			getDescriptionTextArea().setText("");
 		}
 		else {
-			getIdTextField().setText(job.getId());
 			getDescriptionTextArea().setText(job.getDescription());
 		}
 

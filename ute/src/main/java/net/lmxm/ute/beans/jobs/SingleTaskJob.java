@@ -56,6 +56,15 @@ public final class SingleTaskJob extends AbstractJob {
 		this.tasks = Collections.unmodifiableList(tasks);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()
+	 */
+	@Override
+	public String getDisplayText() {
+		return getId();
+	}
+
 	/**
 	 * Gets the task.
 	 * 

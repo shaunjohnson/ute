@@ -37,6 +37,7 @@ import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.nodes.FileSystemLocationsRootTreeNode;
 import net.lmxm.ute.gui.nodes.HttpLocationsRootTreeNode;
+import net.lmxm.ute.gui.nodes.IdentifiableBeanTreeNode;
 import net.lmxm.ute.gui.nodes.JobsRootTreeNode;
 import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
@@ -119,7 +120,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @return the tree path
 	 */
 	public TreePath addFileSystemLocation(final FileSystemLocation fileSystemLocation) {
-		final DefaultMutableTreeNode fileSystemLocationNode = new DefaultMutableTreeNode(fileSystemLocation);
+		final DefaultMutableTreeNode fileSystemLocationNode = new IdentifiableBeanTreeNode(fileSystemLocation);
 
 		insertNodeInto(fileSystemLocationNode, fileSystemLocationsNode, 0);
 
@@ -133,7 +134,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @return the tree path
 	 */
 	public TreePath addHttpLocation(final HttpLocation httpLocation) {
-		final DefaultMutableTreeNode httpLocationNode = new DefaultMutableTreeNode(httpLocation);
+		final DefaultMutableTreeNode httpLocationNode = new IdentifiableBeanTreeNode(httpLocation);
 
 		insertNodeInto(httpLocationNode, httpLocationsNode, 0);
 
@@ -147,7 +148,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @return the tree path
 	 */
 	public TreePath addJob(final Job job) {
-		final DefaultMutableTreeNode jobNode = new DefaultMutableTreeNode(job);
+		final DefaultMutableTreeNode jobNode = new IdentifiableBeanTreeNode(job);
 
 		insertNodeInto(jobNode, jobsNode, 0);
 
@@ -161,7 +162,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @return the tree path
 	 */
 	public TreePath addPreference(final Preference preference) {
-		final DefaultMutableTreeNode preferenceNode = new DefaultMutableTreeNode(preference);
+		final DefaultMutableTreeNode preferenceNode = new IdentifiableBeanTreeNode(preference);
 
 		insertNodeInto(preferenceNode, preferencesNode, 0);
 
@@ -175,7 +176,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @return the tree path
 	 */
 	public TreePath addProperty(final Property property) {
-		final DefaultMutableTreeNode propertyNode = new DefaultMutableTreeNode(property);
+		final DefaultMutableTreeNode propertyNode = new IdentifiableBeanTreeNode(property);
 
 		insertNodeInto(propertyNode, propertiesNode, 0);
 
@@ -189,7 +190,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @return the tree path
 	 */
 	public TreePath addSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
-		final DefaultMutableTreeNode subversionRepositoryLocationNode = new DefaultMutableTreeNode(
+		final DefaultMutableTreeNode subversionRepositoryLocationNode = new IdentifiableBeanTreeNode(
 				subversionRepositoryLocation);
 
 		insertNodeInto(subversionRepositoryLocationNode, subversionRepositoryLocationsNode, 0);
@@ -456,7 +457,7 @@ public class MainTreeModel extends DefaultTreeModel {
 		LOGGER.debug("{} entered, loading {} locations", prefix, fileSystemLocations.size());
 
 		for (final FileSystemLocation fileSystemLocation : fileSystemLocations) {
-			fileSystemLocationsNode.add(new DefaultMutableTreeNode(fileSystemLocation));
+			fileSystemLocationsNode.add(new IdentifiableBeanTreeNode(fileSystemLocation));
 		}
 
 		LOGGER.debug("{} leaving");
@@ -473,7 +474,7 @@ public class MainTreeModel extends DefaultTreeModel {
 		LOGGER.debug("{} entered, loading {} locations", prefix, httpLocations.size());
 
 		for (final HttpLocation httpLocation : httpLocations) {
-			httpLocationsNode.add(new DefaultMutableTreeNode(httpLocation));
+			httpLocationsNode.add(new IdentifiableBeanTreeNode(httpLocation));
 		}
 
 		LOGGER.debug("{} leaving");
@@ -490,13 +491,13 @@ public class MainTreeModel extends DefaultTreeModel {
 		LOGGER.debug("{} entered, loading {} jobs", prefix, jobs.size());
 
 		for (final Job job : jobs) {
-			final DefaultMutableTreeNode jobNode = new DefaultMutableTreeNode(job);
+			final DefaultMutableTreeNode jobNode = new IdentifiableBeanTreeNode(job);
 			final List<Task> tasks = job.getTasks();
 
 			LOGGER.debug("{} loading {} tasks", prefix, tasks.size());
 
 			for (final Task task : tasks) {
-				final DefaultMutableTreeNode taskNode = new DefaultMutableTreeNode(task);
+				final DefaultMutableTreeNode taskNode = new IdentifiableBeanTreeNode(task);
 
 				jobNode.add(taskNode);
 			}
@@ -518,7 +519,7 @@ public class MainTreeModel extends DefaultTreeModel {
 		LOGGER.debug("{} entered, loading {} preferences", prefix, preferences.size());
 
 		for (final Preference preference : preferences) {
-			preferencesNode.add(new DefaultMutableTreeNode(preference));
+			preferencesNode.add(new IdentifiableBeanTreeNode(preference));
 		}
 
 		LOGGER.debug("{} leaving");
@@ -535,7 +536,7 @@ public class MainTreeModel extends DefaultTreeModel {
 		LOGGER.debug("{} entered, loading {} properties", prefix, properties.size());
 
 		for (final Property property : properties) {
-			propertiesNode.add(new DefaultMutableTreeNode(property));
+			propertiesNode.add(new IdentifiableBeanTreeNode(property));
 		}
 
 		LOGGER.debug("{} leaving");
@@ -553,7 +554,7 @@ public class MainTreeModel extends DefaultTreeModel {
 		LOGGER.debug("{} entered, loading {} locations", prefix, subversionRepositoryLocations.size());
 
 		for (final SubversionRepositoryLocation subversionLocation : subversionRepositoryLocations) {
-			subversionRepositoryLocationsNode.add(new DefaultMutableTreeNode(subversionLocation));
+			subversionRepositoryLocationsNode.add(new IdentifiableBeanTreeNode(subversionLocation));
 		}
 
 		LOGGER.debug("{} leaving");

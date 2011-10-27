@@ -32,6 +32,15 @@ public final class SubversionRepositoryLocation extends AbstractHttpLocation {
 	/** The username. */
 	private String username;
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()
+	 */
+	@Override
+	public String getDisplayText() {
+		return getId();
+	}
+
 	/**
 	 * Gets the password.
 	 * 

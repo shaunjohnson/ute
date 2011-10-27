@@ -52,6 +52,15 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()
+	 */
+	@Override
+	public final String getDisplayText() {
+		return getId();
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.Task#getEnabled()
 	 */
 	@Override

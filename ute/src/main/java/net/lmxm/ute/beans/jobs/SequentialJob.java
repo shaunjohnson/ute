@@ -43,6 +43,15 @@ public final class SequentialJob extends AbstractJob {
 		tasks = new ArrayList<Task>();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()
+	 */
+	@Override
+	public String getDisplayText() {
+		return new StringBuilder(getId()).append(" (").append(tasks.size()).append(")").toString();
+	}
+
 	/**
 	 * Gets the tasks.
 	 * 
