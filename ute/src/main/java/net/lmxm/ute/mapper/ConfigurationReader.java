@@ -83,72 +83,46 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class ConfigurationMapper.
+ * The Class ConfigurationReader.
  */
-public final class ConfigurationMapper {
-
-	/** The Constant INSTANCE. */
-	private static final ConfigurationMapper INSTANCE = new ConfigurationMapper();
+public final class ConfigurationReader {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationMapper.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationReader.class);
+
+	/** The file. */
+	private final File file;
 
 	/**
-	 * Gets the single instance of ConfigurationMapper.
+	 * Instantiates a new configuration reader.
 	 * 
-	 * @return single instance of ConfigurationMapper
 	 */
-	public static ConfigurationMapper getInstance() {
-		return INSTANCE;
-	}
-
-	/**
-	 * Instantiates a new configuration mapper.
-	 */
-	public ConfigurationMapper() {
+	public ConfigurationReader(final File file) {
 		super();
+
+		this.file = file;
 	}
 
 	/**
-	 * Parses the.
+	 * Convert scope type to scope.
 	 * 
-	 * @param file the file
-	 * @return the configuration
+	 * @param scopeType the scope type
+	 * @return the scope
 	 */
-	public Configuration parse(final File file) {
-		final String prefix = "parse() :";
+	private Scope convertScopeTypeToScope(final ScopeType.Enum scopeType) {
+		final Scope scope;
 
-		LOGGER.debug("{} entered, file={}", prefix, file);
-
-		final Configuration configuration = new Configuration();
-
-		configuration.setAbsolutePath(file.getAbsolutePath());
-
-		try {
-			final UteConfigurationDocument document = UteConfigurationDocument.Factory.parse(file);
-			final UteConfigurationType configurationType = document.getUteConfiguration();
-
-			parsePreferences(configurationType, configuration);
-			parseProperties(configurationType, configuration);
-			parseLocations(configurationType, configuration);
-			parseJobs(configurationType, configuration);
-
-			ConfigurationUtils.validateConfiguration(configuration);
+		if (scopeType == ScopeType.FILE) {
+			scope = Scope.FILE;
 		}
-		catch (final XmlException e) {
-			LOGGER.error("XmlException caught while parsing configuration file", e);
-
-			throw new ConfigurationException("Error occurred loading configuration file", e);
+		else if (scopeType == ScopeType.LINE) {
+			scope = Scope.LINE;
 		}
-		catch (final IOException e) {
-			LOGGER.error("IOException caught while parsing configuration file", e);
-
-			throw new ConfigurationException("Error occurred loading configuration file", e);
+		else {
+			scope = Scope.LINE;
 		}
 
-		LOGGER.debug("{} returning {}", prefix, configuration);
-
-		return configuration;
+		return scope;
 	}
 
 	/**
@@ -324,7 +298,7 @@ public final class ConfigurationMapper {
 
 		final FindReplaceTask task = new FindReplaceTask();
 
-		task.setScope(parseScope(taskType.getScope()));
+		task.setScope(convertScopeTypeToScope(taskType.getScope()));
 		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
 
 		parseFiles(task, taskType.getFiles());
@@ -708,28 +682,6 @@ public final class ConfigurationMapper {
 	}
 
 	/**
-	 * Parses the scope.
-	 * 
-	 * @param scopeType the scope type
-	 * @return the scope
-	 */
-	private Scope parseScope(final ScopeType.Enum scopeType) {
-		final Scope scope;
-
-		if (scopeType == ScopeType.FILE) {
-			scope = Scope.FILE;
-		}
-		else if (scopeType == ScopeType.LINE) {
-			scope = Scope.LINE;
-		}
-		else {
-			scope = Scope.LINE;
-		}
-
-		return scope;
-	}
-
-	/**
 	 * Parses the subversion export task.
 	 * 
 	 * @param taskType the task type
@@ -907,5 +859,46 @@ public final class ConfigurationMapper {
 		LOGGER.debug("{} returning {}", prefix, task);
 
 		return task;
+	}
+
+	/**
+	 * Read.
+	 * 
+	 * @return the configuration
+	 */
+	public Configuration read() {
+		final String prefix = "read() :";
+
+		LOGGER.debug("{} entered, file={}", prefix, file);
+
+		final Configuration configuration = new Configuration();
+
+		configuration.setAbsolutePath(file.getAbsolutePath());
+
+		try {
+			final UteConfigurationDocument document = UteConfigurationDocument.Factory.parse(file);
+			final UteConfigurationType configurationType = document.getUteConfiguration();
+
+			parsePreferences(configurationType, configuration);
+			parseProperties(configurationType, configuration);
+			parseLocations(configurationType, configuration);
+			parseJobs(configurationType, configuration);
+
+			ConfigurationUtils.validateConfiguration(configuration);
+		}
+		catch (final XmlException e) {
+			LOGGER.error("XmlException caught while parsing configuration file", e);
+
+			throw new ConfigurationException("Error occurred loading configuration file", e);
+		}
+		catch (final IOException e) {
+			LOGGER.error("IOException caught while parsing configuration file", e);
+
+			throw new ConfigurationException("Error occurred loading configuration file", e);
+		}
+
+		LOGGER.debug("{} returning {}", prefix, configuration);
+
+		return configuration;
 	}
 }

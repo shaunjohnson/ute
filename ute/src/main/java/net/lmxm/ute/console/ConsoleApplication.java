@@ -29,7 +29,7 @@ import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
-import net.lmxm.ute.mapper.ConfigurationMapper;
+import net.lmxm.ute.mapper.ConfigurationReader;
 import net.lmxm.ute.utils.ConfigurationUtils;
 import net.lmxm.ute.utils.ResourcesUtils;
 
@@ -70,7 +70,7 @@ public final class ConsoleApplication {
 
 		final ConsoleArguments consoleArguments = getConsoleArguments();
 		final File inputFile = consoleArguments.getInputFile();
-		final Configuration configuration = new ConfigurationMapper().parse(inputFile);
+		final Configuration configuration = new ConfigurationReader(inputFile).read();
 
 		final List<Job> jobs = loadJobs(configuration, consoleArguments);
 		executeJobs(jobs, configuration);

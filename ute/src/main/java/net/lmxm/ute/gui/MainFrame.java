@@ -118,7 +118,8 @@ import net.lmxm.ute.gui.utils.DialogUtil;
 import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
-import net.lmxm.ute.mapper.ConfigurationMapper;
+import net.lmxm.ute.mapper.ConfigurationReader;
+import net.lmxm.ute.mapper.ConfigurationWriter;
 import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.ConfigurationUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
@@ -495,7 +496,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			LOGGER.debug("{} opening file {}", prefix, file.getName());
 
 			try {
-				configuration = ConfigurationMapper.getInstance().parse(file);
+				configuration = new ConfigurationReader(file).read();
 
 				loadAndValidatePreferences(file);
 
@@ -584,11 +585,25 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			actionOpenFile();
 		}
 		else if (actionCommand.equals(SAVE_FILE)) {
-			// TODO
+			actionSaveFile();
 		}
 		else if (actionCommand.equals(SAVE_FILE_AS)) {
-			// TODO
+			actionSaveFileAs();
 		}
+	}
+
+	/**
+	 * Action save file.
+	 */
+	private void actionSaveFile() {
+		new ConfigurationWriter(configuration).write();
+	}
+
+	/**
+	 * Action save file as.
+	 */
+	private void actionSaveFileAs() {
+		// TODO Auto-generated method stub
 	}
 
 	/*
@@ -1094,7 +1109,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 			try {
 				final File configurationFile = new File(filePath);
-				configuration = ConfigurationMapper.getInstance().parse(configurationFile);
+				configuration = new ConfigurationReader(configurationFile).read();
 
 				loadAndValidatePreferences(configurationFile);
 			}
