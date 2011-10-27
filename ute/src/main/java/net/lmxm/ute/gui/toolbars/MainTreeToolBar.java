@@ -39,7 +39,9 @@ public class MainTreeToolBar extends AbstractToolBar {
 		super(actionListener);
 
 		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_JOB);
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_LOCATION);
+		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_FILE_SYSTEM_LOCATION);
+		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_HTTP_LOCATION);
+		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_SUBVERSION_REPOSITORY_LOCATION);
 		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_PROPERTY);
 		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_PREFERENCE);
 	}

@@ -37,9 +37,6 @@ public enum GuiComponentToolbarButton implements GuiComponentType {
 	/** The ADD_JOB. */
 	ADD_JOB(ImageUtil.ADD_JOB_ICON, ActionConstants.ADD_JOB),
 
-	/** The ADD_LOCATION. */
-	ADD_LOCATION(ImageUtil.ADD_FILE_SYSTEM_LOCATION_ICON, ActionConstants.ADD_LOCATION),
-
 	/** The ADD_PREFERENCE. */
 	ADD_PREFERENCE(ImageUtil.ADD_PREFERENCE_ICON, ActionConstants.ADD_PREFERENCE),
 
