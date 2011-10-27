@@ -445,6 +445,15 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action new file.
+	 */
+	private void actionNewFile() {
+		configuration = new Configuration();
+		updateTitle();
+		getMainTree().refresh();
+	}
+
+	/**
 	 * Action open file.
 	 */
 	private void actionOpenFile() {
@@ -542,7 +551,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			actionExecute();
 		}
 		else if (actionCommand.equals(NEW_FILE)) {
-			// TODO
+			actionNewFile();
 		}
 		else if (actionCommand.equals(OPEN_FILE)) {
 			actionOpenFile();

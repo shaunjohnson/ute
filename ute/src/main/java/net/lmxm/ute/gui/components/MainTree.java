@@ -393,7 +393,7 @@ public class MainTree extends JTree {
 	 * 
 	 * @param parentTreePath the parent tree path
 	 */
-	public void collapseAll(final TreePath parentTreePath) {
+	private void collapseAll(final TreePath parentTreePath) {
 		final TreeNode parentTreeNode = (TreeNode) parentTreePath.getLastPathComponent();
 
 		if (parentTreeNode.getChildCount() >= 0) {
@@ -469,7 +469,7 @@ public class MainTree extends JTree {
 	 * 
 	 * @param parentTreePath the parent tree path
 	 */
-	public void expandAll(final TreePath parentTreePath) {
+	private void expandAll(final TreePath parentTreePath) {
 		final TreeNode parentTreeNode = (TreeNode) parentTreePath.getLastPathComponent();
 
 		if (parentTreeNode.getChildCount() >= 0) {
