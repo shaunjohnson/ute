@@ -176,7 +176,7 @@ public final class JobDetailsTreeCellRenderer extends JLabel implements TreeCell
 		else if (userObject instanceof SubversionRepositoryLocation) {
 			final SubversionRepositoryLocation subversionRepositoryLocation = (SubversionRepositoryLocation) userObject;
 
-			setIcon(ImageUtil.SUBVERSION_ICON);
+			setIcon(ImageUtil.SUBVERSION_REPOSITORY_LOCATION_ICON);
 			setText(subversionRepositoryLocation.getId());
 		}
 		else if (userObject instanceof SubversionUpdateTask) {
