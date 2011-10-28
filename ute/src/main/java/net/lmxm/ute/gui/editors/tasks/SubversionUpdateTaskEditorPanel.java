@@ -43,6 +43,7 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 12035329665657526L;
 
+	/** The tool bar. */
 	private JToolBar toolBar;
 
 	/**

@@ -28,6 +28,7 @@ import javax.swing.JToolBar;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.PropertyEditorToolBar;
+import net.lmxm.ute.listeners.ChangeAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,6 +76,14 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 			propertyValueTextField = new JTextField();
 			propertyValueTextField
 					.setMinimumSize(new Dimension(400, (int) propertyValueTextField.getSize().getHeight()));
+			propertyValueTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+				@Override
+				public void valueChanged(final String newValue) {
+					if (getUserObject() instanceof Property) {
+						((Property) getUserObject()).setValue(newValue);
+					}
+				}
+			});
 		}
 		return propertyValueTextField;
 	}

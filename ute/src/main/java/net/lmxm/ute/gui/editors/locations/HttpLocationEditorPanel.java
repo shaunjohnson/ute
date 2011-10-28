@@ -18,11 +18,8 @@
  */
 package net.lmxm.ute.gui.editors.locations;
 
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.HttpLocation;
@@ -35,7 +32,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class HttpLocationEditorPanel.
  */
-public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
+public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPanel {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpLocationEditorPanel.class);
@@ -46,9 +43,6 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 	/** The tool bar. */
 	private JToolBar toolBar;
 
-	/** The url text field. */
-	private JTextField urlTextField = null;
-
 	/**
 	 * Instantiates a new http location editor panel.
 	 * 
@@ -57,12 +51,7 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 	public HttpLocationEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.HTTP_LOCATION, actionListener);
 
-		final JPanel contentPanel = getContentPanel();
-
-		addLocationCommonFields();
-
-		addLabel(contentPanel, GuiComponentLabel.URL);
-		contentPanel.add(getUrlTextField());
+		addHttpLocationCommonFields();
 	}
 
 	/*
@@ -78,19 +67,6 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 	}
 
 	/**
-	 * Gets the url text field.
-	 * 
-	 * @return the url text field
-	 */
-	private JTextField getUrlTextField() {
-		if (urlTextField == null) {
-			urlTextField = new JTextField();
-			urlTextField.setMinimumSize(new Dimension(400, (int) urlTextField.getSize().getHeight()));
-		}
-		return urlTextField;
-	}
-
-	/**
 	 * Load data.
 	 * 
 	 * @param httpLocation the http location
@@ -102,14 +78,7 @@ public final class HttpLocationEditorPanel extends AbstractLocationEditorPanel {
 
 		setUserObject(httpLocation);
 
-		loadIdCommonFieldData();
-
-		if (httpLocation == null) {
-			getUrlTextField().setText("");
-		}
-		else {
-			getUrlTextField().setText(httpLocation.getUrl());
-		}
+		loatHttpLocationCommonFieldData();
 
 		LOGGER.debug("{} leaving", prefix);
 	}

@@ -28,6 +28,7 @@ import javax.swing.JToolBar;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.FileSystemLocationEditorToolBar;
+import net.lmxm.ute.listeners.ChangeAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +75,14 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 		if (pathTextField == null) {
 			pathTextField = new JTextField();
 			pathTextField.setMinimumSize(new Dimension(400, (int) pathTextField.getSize().getHeight()));
+			pathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+				@Override
+				public void valueChanged(final String newValue) {
+					if (getUserObject() instanceof FileSystemLocation) {
+						((FileSystemLocation) getUserObject()).setPath(newValue);
+					}
+				}
+			});
 		}
 		return pathTextField;
 	}

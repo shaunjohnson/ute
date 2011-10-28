@@ -38,9 +38,11 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.listeners.ChangeAdapter;
 import net.miginfocom.swing.MigLayout;
 
 import org.slf4j.Logger;
@@ -233,6 +235,14 @@ public abstract class AbstractEditorPanel extends JPanel {
 			descriptionTextArea.setRows(5);
 			descriptionTextArea.setLineWrap(true);
 			descriptionTextArea.setTabSize(4);
+			descriptionTextArea.getDocument().addDocumentListener(new ChangeAdapter() {
+				@Override
+				public void valueChanged(final String newValue) {
+					if (getUserObject() instanceof DescribableBean) {
+						((DescribableBean) getUserObject()).setDescription(newValue);
+					}
+				}
+			});
 		}
 		return descriptionTextArea;
 	}

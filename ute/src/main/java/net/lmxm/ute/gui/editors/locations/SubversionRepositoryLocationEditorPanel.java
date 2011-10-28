@@ -28,6 +28,7 @@ import javax.swing.JToolBar;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.SubversionRepositoryLocationEditorToolBar;
+import net.lmxm.ute.listeners.ChangeAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class SubversionRepositoryLocationEditorPanel.
  */
-public final class SubversionRepositoryLocationEditorPanel extends AbstractLocationEditorPanel {
+public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpLocationEditorPanel {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionRepositoryLocationEditorPanel.class);
@@ -48,9 +49,6 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 
 	/** The tool bar. */
 	private JToolBar toolBar;
-
-	/** The url text field. */
-	private JTextField urlTextField = null;
 
 	/** The username text field. */
 	private JTextField usernameTextField = null;
@@ -65,10 +63,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLocationCommonFields();
-
-		addLabel(contentPanel, GuiComponentLabel.URL);
-		contentPanel.add(getUrlTextField());
+		addHttpLocationCommonFields();
 
 		addLabel(contentPanel, GuiComponentLabel.USERNAME);
 		contentPanel.add(getUsernameTextField());
@@ -86,6 +81,14 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 		if (passwordTextField == null) {
 			passwordTextField = new JTextField();
 			passwordTextField.setMinimumSize(new Dimension(400, (int) passwordTextField.getSize().getHeight()));
+			passwordTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+				@Override
+				public void valueChanged(final String newValue) {
+					if (getUserObject() instanceof SubversionRepositoryLocation) {
+						((SubversionRepositoryLocation) getUserObject()).setPassword(newValue);
+					}
+				}
+			});
 		}
 		return passwordTextField;
 	}
@@ -103,19 +106,6 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 	}
 
 	/**
-	 * Gets the url text field.
-	 * 
-	 * @return the url text field
-	 */
-	private JTextField getUrlTextField() {
-		if (urlTextField == null) {
-			urlTextField = new JTextField();
-			urlTextField.setMinimumSize(new Dimension(400, (int) urlTextField.getSize().getHeight()));
-		}
-		return urlTextField;
-	}
-
-	/**
 	 * Gets the username text field.
 	 * 
 	 * @return the username text field
@@ -124,6 +114,14 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 		if (usernameTextField == null) {
 			usernameTextField = new JTextField();
 			usernameTextField.setMinimumSize(new Dimension(400, (int) usernameTextField.getSize().getHeight()));
+			usernameTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+				@Override
+				public void valueChanged(final String newValue) {
+					if (getUserObject() instanceof SubversionRepositoryLocation) {
+						((SubversionRepositoryLocation) getUserObject()).setUsername(newValue);
+					}
+				}
+			});
 		}
 		return usernameTextField;
 	}
@@ -140,15 +138,13 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractLocat
 
 		setUserObject(subversionRepositoryLocation);
 
-		loadIdCommonFieldData();
+		loatHttpLocationCommonFieldData();
 
 		if (subversionRepositoryLocation == null) {
-			getUrlTextField().setText("");
 			getUsernameTextField().setText("");
 			getPasswordTextField().setText("");
 		}
 		else {
-			getUrlTextField().setText(subversionRepositoryLocation.getUrl());
 			getUsernameTextField().setText(subversionRepositoryLocation.getUsername());
 			getPasswordTextField().setText(subversionRepositoryLocation.getPassword());
 		}

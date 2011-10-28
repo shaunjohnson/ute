@@ -30,8 +30,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * A factory for creating GuiComponent objects.
  */
@@ -240,12 +238,12 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 */
 	private static void setText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
 		final String text = getText(guiComponentType);
-		if (StringUtils.isNotBlank(text)) {
+		if (text != null) {
 			abstractButton.setText(text);
 		}
 
 		final String toolTipText = getToolTipText(guiComponentType);
-		if (StringUtils.isNotBlank(toolTipText)) {
+		if (toolTipText != null) {
 			abstractButton.setToolTipText(toolTipText);
 		}
 	}
@@ -258,12 +256,12 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 */
 	private static void setText(final JLabel label, final GuiComponentType guiComponentType) {
 		final String text = getText(guiComponentType);
-		if (StringUtils.isNotBlank(text)) {
+		if (text != null) {
 			label.setText(text);
 		}
 
 		final String toolTipText = getToolTipText(guiComponentType);
-		if (StringUtils.isNotBlank(toolTipText)) {
+		if (toolTipText != null) {
 			label.setToolTipText(toolTipText);
 		}
 	}
@@ -276,7 +274,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 */
 	private static void setToolTipText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
 		final String toolTipText = getToolTipText(guiComponentType);
-		if (StringUtils.isNotBlank(toolTipText)) {
+		if (toolTipText != null) {
 			abstractButton.setToolTipText(toolTipText);
 		}
 	}

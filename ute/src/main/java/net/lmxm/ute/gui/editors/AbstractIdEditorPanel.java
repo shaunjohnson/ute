@@ -25,13 +25,10 @@ import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.listeners.ChangeAdapter;
 import net.lmxm.ute.listeners.IdChangeEvent;
 import net.lmxm.ute.listeners.IdChangeListener;
 
@@ -107,37 +104,14 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 		if (idTextField == null) {
 			idTextField = new JTextField();
 			idTextField.setMinimumSize(new Dimension(400, (int) idTextField.getSize().getHeight()));
-
-			idTextField.getDocument().addDocumentListener(new DocumentListener() {
+			idTextField.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
-				public void changedUpdate(final DocumentEvent documentEvent) {
-					idChanged(documentEvent);
-				}
-
-				private void idChanged(final DocumentEvent documentEvent) {
+				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof IdentifiableBean) {
-						try {
-							final Document document = documentEvent.getDocument();
-							final String newId = document.getText(0, document.getLength());
-							final IdentifiableBean identifiableBean = (IdentifiableBean) getUserObject();
-							identifiableBean.setId(newId);
-
-							fireIdChangedEvent(identifiableBean);
-						}
-						catch (final BadLocationException e) {
-							e.printStackTrace(); // TODO Throw appropriate exception
-						}
+						final IdentifiableBean identifiableBean = (IdentifiableBean) getUserObject();
+						identifiableBean.setId(newValue);
+						fireIdChangedEvent(identifiableBean);
 					}
-				}
-
-				@Override
-				public void insertUpdate(final DocumentEvent documentEvent) {
-					idChanged(documentEvent);
-				}
-
-				@Override
-				public void removeUpdate(final DocumentEvent documentEvent) {
-					idChanged(documentEvent);
 				}
 			});
 		}
