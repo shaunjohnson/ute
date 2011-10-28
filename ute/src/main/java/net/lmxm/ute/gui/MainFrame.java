@@ -56,6 +56,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
@@ -269,10 +270,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * Action add file system delete task.
 	 */
 	private void actionAddFileSystemDeleteTask() {
-		final Job job = getCurrentJob();
-		final Task task = new FileSystemDeleteTask(job);
-		job.getTasks().add(task);
-		mainTree.addTask(task);
+		addNewTask(new FileSystemDeleteTask(getCurrentJob()));
 	}
 
 	/**
@@ -288,30 +286,21 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * Action add find replace task.
 	 */
 	private void actionAddFindReplaceTask() {
-		final Job job = getCurrentJob();
-		final Task task = new FindReplaceTask(job);
-		job.getTasks().add(task);
-		mainTree.addTask(task);
+		addNewTask(new FindReplaceTask(getCurrentJob()));
 	}
 
 	/**
 	 * Action add groovy task.
 	 */
 	private void actionAddGroovyTask() {
-		final Job job = getCurrentJob();
-		final Task task = new GroovyTask(job);
-		job.getTasks().add(task);
-		mainTree.addTask(task);
+		addNewTask(new GroovyTask(getCurrentJob()));
 	}
 
 	/**
 	 * Action add http download task.
 	 */
 	private void actionAddHttpDownloadTask() {
-		final Job job = getCurrentJob();
-		final Task task = new HttpDownloadTask(job);
-		job.getTasks().add(task);
-		mainTree.addTask(task);
+		addNewTask(new HttpDownloadTask(getCurrentJob()));
 	}
 
 	/**
@@ -354,10 +343,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * Action add subversion export task.
 	 */
 	private void actionAddSubversionExportTask() {
-		final Job job = getCurrentJob();
-		final Task task = new SubversionExportTask(job);
-		job.getTasks().add(task);
-		mainTree.addTask(task);
+		addNewTask(new SubversionExportTask(getCurrentJob()));
 	}
 
 	/**
@@ -373,10 +359,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * Action add subversion update task.
 	 */
 	private void actionAddSubversionUpdateTask() {
-		final Job job = getCurrentJob();
-		final Task task = new SubversionUpdateTask(job);
-		job.getTasks().add(task);
-		mainTree.addTask(task);
+		addNewTask(new SubversionUpdateTask(getCurrentJob()));
 	}
 
 	/**
@@ -690,6 +673,30 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * Adds the task to job.
+	 * 
+	 * @param job the job
+	 * @param task the task
+	 */
+	private void addNewTask(final Task task) {
+		final Task currentTask = getCurrentTask();
+		final List<Task> tasks = task.getJob().getTasks();
+		int index = 0;
+
+		if (currentTask == null) {
+			// Add to start of the list
+			tasks.add(index, task);
+		}
+		else {
+			// Add after the currently selected task
+			index = tasks.indexOf(currentTask) + 1;
+			tasks.add(index, task);
+		}
+
+		getMainTree().addTask(index, task);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()
@@ -754,6 +761,21 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (userObject instanceof Task) {
 			return ((Task) userObject).getJob();
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Gets the current task.
+	 * 
+	 * @return the current task
+	 */
+	private Task getCurrentTask() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (userObject instanceof Task) {
+			return (Task) userObject;
 		}
 		else {
 			return null;

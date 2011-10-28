@@ -393,10 +393,11 @@ public class MainTree extends JTree implements IdChangeListener {
 	/**
 	 * Adds the task.
 	 * 
+	 * @param index the index
 	 * @param task the task
 	 */
-	public void addTask(final Task task) {
-		showSelectedPath(mainTreeModel.addTask(task));
+	public void addTask(final int index, final Task task) {
+		showSelectedPath(mainTreeModel.addTask(index, task));
 	}
 
 	/**
