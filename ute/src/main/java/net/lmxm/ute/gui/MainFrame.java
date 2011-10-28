@@ -38,6 +38,7 @@ import static net.lmxm.ute.gui.ActionConstants.DELETE_JOB;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_PROPERTY;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.DELETE_TASK;
 import static net.lmxm.ute.gui.ActionConstants.EDIT_PREFERENCES;
 import static net.lmxm.ute.gui.ActionConstants.EXECUTE;
 import static net.lmxm.ute.gui.ActionConstants.EXIT;
@@ -453,6 +454,22 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		mainTree.deleteSubversionRepositoryLocation(subversionRepositoryLocation);
 	}
 
+	private void actionDeleteTask() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof Task)) {
+			return;
+		}
+
+		final Task task = (Task) userObject;
+		final Job job = task.getJob();
+
+		final List<Job> jobs = configuration.getJobs();
+		jobs.get(jobs.indexOf(job));
+		job.getTasks().remove(task);
+
+		mainTree.deleteTask(task);
+	}
+
 	/**
 	 * Action edit preferences.
 	 */
@@ -632,6 +649,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		}
 		else if (actionCommand.equals(DELETE_SUBVERSION_REPOSITORY_LOCATION)) {
 			actionDeleteSubversionRepositoryLocation();
+		}
+		else if (actionCommand.equals(DELETE_TASK)) {
+			actionDeleteTask();
 		}
 		else if (actionCommand.equals(EDIT_PREFERENCES)) {
 			actionEditPreferences();

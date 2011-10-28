@@ -91,7 +91,7 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 			ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION),
 
 	/** The DELETE_TASK. */
-	DELETE_TASK(null, null),
+	DELETE_TASK(null, ActionConstants.DELETE_TASK),
 
 	/** The EDIT_PREFERENCES. */
 	EDIT_PREFERENCES(ImageUtil.EDIT_PREFERENCES_ICON, ActionConstants.EDIT_PREFERENCES),

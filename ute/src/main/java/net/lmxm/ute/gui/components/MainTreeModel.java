@@ -348,6 +348,26 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Delete task.
+	 * 
+	 * @param task the task
+	 * @return the tree path
+	 */
+	protected TreePath deleteTask(final Task task) {
+		final DefaultMutableTreeNode taskNode = findTaskNode(task);
+		if (taskNode == null) {
+			throw new RuntimeException("Task node does not exist"); // TODO Use proper exception
+		}
+
+		final TreePath selectPath = getSiblingOrParentPath(taskNode,
+				jobsNodePath.pathByAddingChild(taskNode.getParent()));
+
+		removeNodeFromParent(taskNode);
+
+		return selectPath;
+	}
+
+	/**
 	 * Find child node by user object.
 	 * 
 	 * @param treeNode the tree node

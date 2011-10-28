@@ -487,6 +487,15 @@ public class MainTree extends JTree implements IdChangeListener {
 	}
 
 	/**
+	 * Delete task.
+	 * 
+	 * @param task the task
+	 */
+	public void deleteTask(final Task task) {
+		showSelectedPath(mainTreeModel.deleteTask(task));
+	}
+
+	/**
 	 * Expand all.
 	 */
 	public void expandAll() {

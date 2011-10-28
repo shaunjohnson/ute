@@ -42,6 +42,6 @@ public abstract class AbstractTaskEditorToolBar extends AbstractToolBar {
 		addToolbarButton(GuiComponentToolbarButton.EXECUTE_TASK);
 		addToolbarButton(GuiComponentToolbarButton.ADD_TASK, new AddTaskMouseListener(actionListener));
 		addSeparator(new Dimension(20, 20));
-		// addToolbarButton(GuiComponentToolbarButton.DELETE_TASK);
+		addToolbarButton(GuiComponentToolbarButton.DELETE_TASK);
 	}
 }

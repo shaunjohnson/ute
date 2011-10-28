@@ -72,6 +72,9 @@ public enum GuiComponentToolbarButton implements GuiComponentType {
 	DELETE_SUBVERSION_REPOSITORY_LOCATION(ImageUtil.DELETE_SUBVERSION_REPOSITORY_LOCATION_ICON,
 			ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION),
 
+	/** The DELETE_TASK. */
+	DELETE_TASK(null, ActionConstants.DELETE_TASK),
+
 	/** The EXECUTE_JOB. */
 	EXECUTE_JOB(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
 
