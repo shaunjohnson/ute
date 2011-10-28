@@ -39,7 +39,7 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 		super(actionListener);
 
 		addMenuItem(GuiComponentMenuItem.EXECUTE_TASK);
-		addMenuItem(GuiComponentMenuItem.ADD_TASK);
+		addTaskAddMenu();
 		addMenuItem(GuiComponentMenuItem.DELETE_TASK);
 	}
 }

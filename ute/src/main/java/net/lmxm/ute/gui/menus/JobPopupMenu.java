@@ -41,6 +41,6 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 		addMenuItem(GuiComponentMenuItem.EXECUTE_JOB);
 		addMenuItem(GuiComponentMenuItem.ADD_JOB);
 		addMenuItem(GuiComponentMenuItem.DELETE_JOB);
-		addMenuItem(GuiComponentMenuItem.ADD_TASK);
+		addTaskAddMenu();
 	}
 }

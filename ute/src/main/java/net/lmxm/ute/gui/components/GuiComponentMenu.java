@@ -25,6 +25,9 @@ import javax.swing.Icon;
  */
 public enum GuiComponentMenu implements GuiComponentType {
 
+	/** The ADD_TASK. */
+	ADD_TASK(null, null),
+
 	/** The EDIT. */
 	EDIT(null, null),
 
@@ -53,7 +56,6 @@ public enum GuiComponentMenu implements GuiComponentType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
 	 */
 	@Override
@@ -63,9 +65,7 @@ public enum GuiComponentMenu implements GuiComponentType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
 	public GuiComponentCategory getGuiComponentCategory() {
@@ -74,7 +74,6 @@ public enum GuiComponentMenu implements GuiComponentType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
 	@Override
