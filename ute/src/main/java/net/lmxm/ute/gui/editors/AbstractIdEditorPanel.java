@@ -35,6 +35,7 @@ import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.listeners.IdChangeEvent;
 import net.lmxm.ute.listeners.IdChangeListener;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -172,6 +173,8 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	 */
 	@Override
 	public final void setFocusToFirstInput() {
-		getIdTextField().requestFocusInWindow();
+		if (StringUtils.isBlank(getIdTextField().getText())) {
+			getIdTextField().requestFocusInWindow();
+		}
 	}
 }
