@@ -56,4 +56,13 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 		}
 		return toolBar;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#setFocusToFirstInput()
+	 */
+	@Override
+	public void setFocusToFirstInput() {
+
+	}
 }

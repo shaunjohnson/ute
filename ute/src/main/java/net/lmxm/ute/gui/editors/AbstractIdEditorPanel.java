@@ -165,4 +165,13 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 
 		LOGGER.debug("{} leaving", prefix);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#setFocusToFirstInput()
+	 */
+	@Override
+	public final void setFocusToFirstInput() {
+		getIdTextField().requestFocusInWindow();
+	}
 }

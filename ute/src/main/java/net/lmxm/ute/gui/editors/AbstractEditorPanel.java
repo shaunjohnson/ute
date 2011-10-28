@@ -306,6 +306,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Sets the focus to first input.
+	 */
+	public abstract void setFocusToFirstInput();
+
+	/**
 	 * Sets the selected index.
 	 * 
 	 * @param comboBox the combo box

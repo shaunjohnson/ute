@@ -1456,10 +1456,13 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			// TODO
 		}
 
-		if (editorPane != null) {
-			editorPane.initialize(configuration);
+		if (editorPane == null) {
+			getJobDetailsEditorScrollPane().setViewportView(null);
 		}
-
-		getJobDetailsEditorScrollPane().setViewportView(editorPane);
+		else {
+			editorPane.initialize(configuration);
+			getJobDetailsEditorScrollPane().setViewportView(editorPane);
+			editorPane.setFocusToFirstInput();
+		}
 	}
 }
