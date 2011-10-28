@@ -19,12 +19,18 @@
 package net.lmxm.ute.gui;
 
 import static net.lmxm.ute.gui.ActionConstants.ABOUT;
+import static net.lmxm.ute.gui.ActionConstants.ADD_FILE_SYSTEM_DELETE_TASK;
 import static net.lmxm.ute.gui.ActionConstants.ADD_FILE_SYSTEM_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.ADD_FIND_REPLACE_TASK;
+import static net.lmxm.ute.gui.ActionConstants.ADD_GROOVY_TASK;
+import static net.lmxm.ute.gui.ActionConstants.ADD_HTTP_DOWNLOAD_TASK;
 import static net.lmxm.ute.gui.ActionConstants.ADD_HTTP_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.ADD_JOB;
 import static net.lmxm.ute.gui.ActionConstants.ADD_PREFERENCE;
 import static net.lmxm.ute.gui.ActionConstants.ADD_PROPERTY;
+import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_EXPORT_TASK;
 import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_UPDATE_TASK;
 import static net.lmxm.ute.gui.ActionConstants.COLLAPSE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_FILE_SYSTEM_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_HTTP_LOCATION;
@@ -260,12 +266,52 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action add file system delete task.
+	 */
+	private void actionAddFileSystemDeleteTask() {
+		final Job job = getCurrentJob();
+		final Task task = new FileSystemDeleteTask(job);
+		job.getTasks().add(task);
+		mainTree.addTask(task);
+	}
+
+	/**
 	 * Action add file system location.
 	 */
 	private void actionAddFileSystemLocation() {
 		final FileSystemLocation fileSystemLocation = new FileSystemLocation();
 		configuration.getFileSystemLocations().add(fileSystemLocation);
 		mainTree.addFileSystemLocation(fileSystemLocation);
+	}
+
+	/**
+	 * Action add find replace task.
+	 */
+	private void actionAddFindReplaceTask() {
+		final Job job = getCurrentJob();
+		final Task task = new FindReplaceTask(job);
+		job.getTasks().add(task);
+		mainTree.addTask(task);
+	}
+
+	/**
+	 * Action add groovy task.
+	 */
+	private void actionAddGroovyTask() {
+		final Job job = getCurrentJob();
+		final Task task = new GroovyTask(job);
+		job.getTasks().add(task);
+		mainTree.addTask(task);
+	}
+
+	/**
+	 * Action add http download task.
+	 */
+	private void actionAddHttpDownloadTask() {
+		final Job job = getCurrentJob();
+		final Task task = new HttpDownloadTask(job);
+		job.getTasks().add(task);
+		mainTree.addTask(task);
 	}
 
 	/**
@@ -305,12 +351,32 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action add subversion export task.
+	 */
+	private void actionAddSubversionExportTask() {
+		final Job job = getCurrentJob();
+		final Task task = new SubversionExportTask(job);
+		job.getTasks().add(task);
+		mainTree.addTask(task);
+	}
+
+	/**
 	 * Action add subversion repository location.
 	 */
 	private void actionAddSubversionRepositoryLocation() {
 		final SubversionRepositoryLocation subversionRepositoryLocation = new SubversionRepositoryLocation();
 		configuration.getSubversionRepositoryLocations().add(subversionRepositoryLocation);
 		mainTree.addSubversionRepositoryLocation(subversionRepositoryLocation);
+	}
+
+	/**
+	 * Action add subversion update task.
+	 */
+	private void actionAddSubversionUpdateTask() {
+		final Job job = getCurrentJob();
+		final Task task = new SubversionUpdateTask(job);
+		job.getTasks().add(task);
+		mainTree.addTask(task);
 	}
 
 	/**
@@ -527,8 +593,20 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		if (actionCommand.equals(ABOUT)) {
 			actionAbout();
 		}
+		else if (actionCommand.equals(ADD_FILE_SYSTEM_DELETE_TASK)) {
+			actionAddFileSystemDeleteTask();
+		}
 		else if (actionCommand.equals(ADD_FILE_SYSTEM_LOCATION)) {
 			actionAddFileSystemLocation();
+		}
+		else if (actionCommand.equals(ADD_FIND_REPLACE_TASK)) {
+			actionAddFindReplaceTask();
+		}
+		else if (actionCommand.equals(ADD_GROOVY_TASK)) {
+			actionAddGroovyTask();
+		}
+		else if (actionCommand.equals(ADD_HTTP_DOWNLOAD_TASK)) {
+			actionAddHttpDownloadTask();
 		}
 		else if (actionCommand.equals(ADD_HTTP_LOCATION)) {
 			actionAddHttpLocation();
@@ -542,8 +620,14 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		else if (actionCommand.equals(ADD_PROPERTY)) {
 			actionAddProperty();
 		}
+		else if (actionCommand.equals(ADD_SUBVERSION_EXPORT_TASK)) {
+			actionAddSubversionExportTask();
+		}
 		else if (actionCommand.equals(ADD_SUBVERSION_REPOSITORY_LOCATION)) {
 			actionAddSubversionRepositoryLocation();
+		}
+		else if (actionCommand.equals(ADD_SUBVERSION_UPDATE_TASK)) {
+			actionAddSubversionUpdateTask();
 		}
 		else if (actionCommand.equals(COLLAPSE)) {
 			actionCollapse();
@@ -654,6 +738,24 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			}
 		}
 		catch (final IOException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Gets the current job.
+	 * 
+	 * @return the current job
+	 */
+	private Job getCurrentJob() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (userObject instanceof Job) {
+			return (Job) userObject;
+		}
+		else if (userObject instanceof Task) {
+			return ((Task) userObject).getJob();
+		}
+		else {
 			return null;
 		}
 	}

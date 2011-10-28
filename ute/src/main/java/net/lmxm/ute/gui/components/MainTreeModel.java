@@ -217,6 +217,21 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
+	 * Adds the task.
+	 * 
+	 * @param task the task
+	 * @return the tree path
+	 */
+	protected TreePath addTask(final Task task) {
+		final DefaultMutableTreeNode taskNode = new IdentifiableBeanTreeNode(task);
+		final DefaultMutableTreeNode jobNode = findJobNode(task.getJob());
+
+		insertNodeInto(taskNode, jobNode, jobNode.getChildCount());
+
+		return jobsNodePath.pathByAddingChild(jobNode).pathByAddingChild(taskNode);
+	}
+
+	/**
 	 * Delete file system location.
 	 * 
 	 * @param fileSystemLocation the file system location

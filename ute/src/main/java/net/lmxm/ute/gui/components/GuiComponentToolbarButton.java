@@ -47,6 +47,9 @@ public enum GuiComponentToolbarButton implements GuiComponentType {
 	ADD_SUBVERSION_REPOSITORY_LOCATION(ImageUtil.ADD_SUBVERSION_REPOSITORY_LOCATION_ICON,
 			ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION),
 
+	/** The ADD_TASK. */
+	ADD_TASK(null, null),
+
 	/** The COLLAPSE. */
 	COLLAPSE(ImageUtil.COLLAPSE_ICON, ActionConstants.COLLAPSE),
 

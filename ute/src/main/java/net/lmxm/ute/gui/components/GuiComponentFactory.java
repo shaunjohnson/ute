@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.components;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -73,7 +74,8 @@ public class GuiComponentFactory {
 	public static JButton createButton(final GuiComponentButton guiComponentButton, final ActionListener actionListener) {
 		final JButton button = new JButton();
 
-		setIconAndText(button, guiComponentButton);
+		setIcon(button, guiComponentButton);
+		setText(button, guiComponentButton);
 		setActionListener(button, guiComponentButton, actionListener);
 
 		return button;
@@ -89,7 +91,8 @@ public class GuiComponentFactory {
 	public static JLabel createLabel(final GuiComponentLabel guiComponentLabel, final int alignment) {
 		final JLabel label = new JLabel();
 
-		setIconAndText(label, guiComponentLabel);
+		setIcon(label, guiComponentLabel);
+		setText(label, guiComponentLabel);
 		label.setHorizontalAlignment(alignment);
 
 		return label;
@@ -104,7 +107,8 @@ public class GuiComponentFactory {
 	public static JMenu createMenu(final GuiComponentMenu guiComponentMenu) {
 		final JMenu menu = new JMenu();
 
-		setIconAndText(menu, guiComponentMenu);
+		setIcon(menu, guiComponentMenu);
+		setText(menu, guiComponentMenu);
 
 		return menu;
 	}
@@ -120,7 +124,8 @@ public class GuiComponentFactory {
 			final ActionListener actionListener) {
 		final JMenuItem menuItem = new JMenuItem();
 
-		setIconAndText(menuItem, guiComponentMenuItem);
+		setIcon(menuItem, guiComponentMenuItem);
+		setText(menuItem, guiComponentMenuItem);
 		setActionListener(menuItem, guiComponentMenuItem, actionListener);
 		setAccelerator(menuItem, guiComponentMenuItem);
 
@@ -136,7 +141,8 @@ public class GuiComponentFactory {
 	public static JLabel createPanelHeaderLabel(final GuiComponentLabel guiComponentLabel) {
 		final JLabel label = new JLabel();
 
-		setIconAndText(label, guiComponentLabel);
+		setIcon(label, guiComponentLabel);
+		setText(label, guiComponentLabel);
 		label.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
 
 		return label;
@@ -153,8 +159,28 @@ public class GuiComponentFactory {
 			final ActionListener actionListener) {
 		final JButton button = new JButton();
 
-		setIconAndText(button, guiComponentButton);
+		setIcon(button, guiComponentButton);
+		setText(button, guiComponentButton);
 		setActionListener(button, guiComponentButton, actionListener);
+
+		return button;
+	}
+
+	/**
+	 * Creates a new GuiComponent object.
+	 * 
+	 * @param guiComponentButton the gui component button
+	 * @param actionListener the action listener
+	 * @param mouseListener the mouse listener
+	 * @return the j button
+	 */
+	public static JButton createToolbarButton(final GuiComponentToolbarButton guiComponentButton,
+			final ActionListener actionListener, final MouseListener mouseListener) {
+		final JButton button = createToolbarButton(guiComponentButton, actionListener);
+
+		if (mouseListener != null) {
+			button.addMouseListener(mouseListener);
+		}
 
 		return button;
 	}
@@ -170,7 +196,8 @@ public class GuiComponentFactory {
 			final ActionListener actionListener) {
 		final JButton button = new JButton();
 
-		setIconNoText(button, guiComponentButton);
+		setIcon(button, guiComponentButton);
+		setToolTipText(button, guiComponentButton);
 		setActionListener(button, guiComponentButton, actionListener);
 
 		return button;
@@ -211,12 +238,36 @@ public class GuiComponentFactory {
 	}
 
 	/**
-	 * Sets the icon and text.
+	 * Sets the icon.
 	 * 
 	 * @param abstractButton the abstract button
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setIconAndText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
+	private static void setIcon(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
+		if (guiComponentType.getIcon() != null) {
+			abstractButton.setIcon(guiComponentType.getIcon());
+		}
+	}
+
+	/**
+	 * Sets the icon.
+	 * 
+	 * @param label the label
+	 * @param guiComponentType the gui component type
+	 */
+	private static void setIcon(final JLabel label, final GuiComponentType guiComponentType) {
+		if (guiComponentType.getIcon() != null) {
+			label.setIcon(guiComponentType.getIcon());
+		}
+	}
+
+	/**
+	 * Sets the text.
+	 * 
+	 * @param abstractButton the abstract button
+	 * @param guiComponentType the gui component type
+	 */
+	private static void setText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
 		final String resourcePrefix = buildResourcePrefix(guiComponentType);
 
 		final String text = ResourcesUtils.getString(resourcePrefix + TEXT_SUFFIX);
@@ -228,19 +279,15 @@ public class GuiComponentFactory {
 		if (StringUtils.isNotBlank(toolTipText)) {
 			abstractButton.setToolTipText(toolTipText);
 		}
-
-		if (guiComponentType.getIcon() != null) {
-			abstractButton.setIcon(guiComponentType.getIcon());
-		}
 	}
 
 	/**
-	 * Sets the icon and text.
+	 * Sets the text.
 	 * 
 	 * @param label the label
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setIconAndText(final JLabel label, final GuiComponentType guiComponentType) {
+	private static void setText(final JLabel label, final GuiComponentType guiComponentType) {
 		final String resourcePrefix = buildResourcePrefix(guiComponentType);
 
 		final String text = ResourcesUtils.getString(resourcePrefix + TEXT_SUFFIX);
@@ -252,28 +299,20 @@ public class GuiComponentFactory {
 		if (StringUtils.isNotBlank(toolTipText)) {
 			label.setToolTipText(toolTipText);
 		}
-
-		if (guiComponentType.getIcon() != null) {
-			label.setIcon(guiComponentType.getIcon());
-		}
 	}
 
 	/**
-	 * Sets the icon no text.
+	 * Sets the tool tip text.
 	 * 
 	 * @param abstractButton the abstract button
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setIconNoText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
+	private static void setToolTipText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
 		final String resourcePrefix = buildResourcePrefix(guiComponentType);
 
 		final String toolTipText = ResourcesUtils.getString(resourcePrefix + TOOL_TIP_TEXT_SUFFIX);
 		if (StringUtils.isNotBlank(toolTipText)) {
 			abstractButton.setToolTipText(toolTipText);
-		}
-
-		if (guiComponentType.getIcon() != null) {
-			abstractButton.setIcon(guiComponentType.getIcon());
 		}
 	}
 }

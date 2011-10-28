@@ -140,14 +140,14 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 		else if (userObject instanceof GroovyTask) {
 			final GroovyTask groovyTask = (GroovyTask) userObject;
 
-			setIcon(groovyTask.getEnabled() ? ImageUtil.GROOVY_ICON : ImageUtil.GROOVY_DISABLED_ICON);
+			setIcon(groovyTask.getEnabled() ? ImageUtil.GROOVY_TASK_ICON : ImageUtil.GROOVY_TASK_DISABLED_ICON);
 			setText(groovyTask.getId());
 		}
 		else if (userObject instanceof HttpDownloadTask) {
 			final HttpDownloadTask httpDownloadTask = (HttpDownloadTask) userObject;
 
-			setIcon(httpDownloadTask.getEnabled() ? ImageUtil.FOLDER_IMPORT_ICON
-					: ImageUtil.FOLDER_IMPORT_DISABLED_ICON);
+			setIcon(httpDownloadTask.getEnabled() ? ImageUtil.HTTP_DOWNLOAD_TASK_ICON
+					: ImageUtil.HTTP_DOWNLOAD_TASK_DISABLED_ICON);
 			setText(httpDownloadTask.getId());
 		}
 		else if (userObject instanceof HttpLocation) {
@@ -171,7 +171,7 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 		else if (userObject instanceof SubversionExportTask) {
 			final SubversionExportTask subversionExportTask = (SubversionExportTask) userObject;
 
-			setIcon(subversionExportTask.getEnabled() ? ImageUtil.EXPORT_ICON : ImageUtil.EXPORT_DISABLED_ICON);
+			setIcon(subversionExportTask.getEnabled() ? ImageUtil.SUBVERSION_EXPORT_TASK_ICON : ImageUtil.SUBVERSION_EXPORT_TASK_DISABLED_ICON);
 			setText(subversionExportTask.getId());
 		}
 		else if (userObject instanceof SubversionRepositoryLocation) {
@@ -183,7 +183,7 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 		else if (userObject instanceof SubversionUpdateTask) {
 			final SubversionUpdateTask subversionUpdateTask = (SubversionUpdateTask) userObject;
 
-			setIcon(subversionUpdateTask.getEnabled() ? ImageUtil.CHECKOUT_ICON : ImageUtil.CHECKOUT_DISABLED_ICON);
+			setIcon(subversionUpdateTask.getEnabled() ? ImageUtil.SUBVERSION_UPDATE_TASK_ICON : ImageUtil.SUBVERSION_UPDATE_TASK_DISABLED_ICON);
 			setText(subversionUpdateTask.getId());
 		}
 		else if (userObject instanceof RootTreeNode) {

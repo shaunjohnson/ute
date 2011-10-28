@@ -52,6 +52,7 @@ public final class FindReplaceTask extends AbstractFilesTask {
 		super(job);
 
 		patterns = new ArrayList<FindReplacePattern>();
+		scope = Scope.LINE;
 	}
 
 	/**

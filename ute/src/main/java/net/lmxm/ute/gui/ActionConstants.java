@@ -26,8 +26,20 @@ public final class ActionConstants {
 	/** The Constant ABOUT. */
 	public static final String ABOUT = "ABOUT";
 
+	/** The Constant ADD_FILE_SYSTEM_DELETE_TASK. */
+	public static final String ADD_FILE_SYSTEM_DELETE_TASK = "ADD_FILE_SYSTEM_DELETE_TASK";
+
 	/** The Constant ADD_FILE_SYSTEM_LOCATION. */
 	public static final String ADD_FILE_SYSTEM_LOCATION = "ADD_FILE_SYSTEM_LOCATION";
+
+	/** The Constant ADD_FIND_REPLACE_TASK. */
+	public static final String ADD_FIND_REPLACE_TASK = "ADD_FIND_REPLACE_TASK";
+
+	/** The Constant ADD_GROOVY_TASK. */
+	public static final String ADD_GROOVY_TASK = "ADD_GROOVY_TASK";
+
+	/** The Constant ADD_HTTP_DOWNLOAD_TASK. */
+	public static final String ADD_HTTP_DOWNLOAD_TASK = "ADD_HTTP_DOWNLOAD_TASK";
 
 	/** The Constant ADD_HTTP_LOCATION. */
 	public static final String ADD_HTTP_LOCATION = "ADD_HTTP_LOCATION";
@@ -35,17 +47,20 @@ public final class ActionConstants {
 	/** The Constant ADD_JOB. */
 	public static final String ADD_JOB = "ADD_JOB";
 
-	/** The Constant ADD_LOCATION. */
-	public static final String ADD_LOCATION = "ADD_LOCATION";
-
 	/** The Constant ADD_PREFERENCE. */
 	public static final String ADD_PREFERENCE = "ADD_PREFERENCE";
 
 	/** The Constant ADD_PROPERTY. */
 	public static final String ADD_PROPERTY = "ADD_PROPERTY";
 
+	/** The Constant ADD_SUBVERSION_EXPORT_TASK. */
+	public static final String ADD_SUBVERSION_EXPORT_TASK = "ADD_SUBVERSION_EXPORT_TASK";
+
 	/** The Constant ADD_SUBVERSION_REPOSITORY_LOCATION. */
 	public static final String ADD_SUBVERSION_REPOSITORY_LOCATION = "ADD_SUBVERSION_REPOSITORY_LOCATION";
+
+	/** The Constant ADD_SUBVERSION_UPDATE_TASK. */
+	public static final String ADD_SUBVERSION_UPDATE_TASK = "ADD_SUBVERSION_UPDATE_TASK";
 
 	/** The Constant COLLAPSE. */
 	public static final String COLLAPSE = "COLLAPSE";

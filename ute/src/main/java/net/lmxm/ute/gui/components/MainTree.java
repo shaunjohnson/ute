@@ -391,6 +391,15 @@ public class MainTree extends JTree implements IdChangeListener {
 	}
 
 	/**
+	 * Adds the task.
+	 * 
+	 * @param task the task
+	 */
+	public void addTask(final Task task) {
+		showSelectedPath(mainTreeModel.addTask(task));
+	}
+
+	/**
 	 * Collapse all.
 	 */
 	public void collapseAll() {

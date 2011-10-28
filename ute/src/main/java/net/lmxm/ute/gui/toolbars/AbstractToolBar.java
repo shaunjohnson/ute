@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.toolbars;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 import javax.swing.JToolBar;
 
@@ -56,6 +57,28 @@ public abstract class AbstractToolBar extends JToolBar {
 	 */
 	protected final void addToolbarButton(final GuiComponentToolbarButton guiComponentToolbarButton) {
 		add(GuiComponentFactory.createToolbarButton(guiComponentToolbarButton, actionListener));
+	}
+
+	/**
+	 * Adds the toolbar button.
+	 * 
+	 * @param guiComponentToolbarButton the gui component toolbar button
+	 * @param actionListener the action listener
+	 */
+	protected final void addToolbarButton(final GuiComponentToolbarButton guiComponentToolbarButton,
+			final ActionListener actionListener) {
+		add(GuiComponentFactory.createToolbarButton(guiComponentToolbarButton, actionListener));
+	}
+
+	/**
+	 * Adds the toolbar button.
+	 * 
+	 * @param guiComponentToolbarButton the gui component toolbar button
+	 * @param mouseListener the mouse listener
+	 */
+	protected final void addToolbarButton(final GuiComponentToolbarButton guiComponentToolbarButton,
+			final MouseListener mouseListener) {
+		add(GuiComponentFactory.createToolbarButton(guiComponentToolbarButton, actionListener, mouseListener));
 	}
 
 	/**

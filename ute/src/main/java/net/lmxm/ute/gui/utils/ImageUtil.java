@@ -35,8 +35,20 @@ public final class ImageUtil {
 	/** The Constant ABOUT_ICON. */
 	public static final ImageIcon ABOUT_ICON;
 
+	/** The Constant ADD_FILE_SYSTEM_DELETE_TASK_ICON. */
+	public static final Icon ADD_FILE_SYSTEM_DELETE_TASK_ICON;
+
 	/** The Constant ADD_FILE_SYSTEM_LOCATION_ICON. */
 	public static final Icon ADD_FILE_SYSTEM_LOCATION_ICON;
+
+	/** The Constant ADD_FIND_REPLACE_TASK_ICON. */
+	public static final Icon ADD_FIND_REPLACE_TASK_ICON;
+
+	/** The Constant ADD_GROOVY_TASK_ICON. */
+	public static final Icon ADD_GROOVY_TASK_ICON;
+
+	/** The Constant ADD_HTTP_DOWNLOAD_TASK_ICON. */
+	public static final Icon ADD_HTTP_DOWNLOAD_TASK_ICON;
 
 	/** The Constant ADD_HTTP_LOCATION_ICON. */
 	public static final Icon ADD_HTTP_LOCATION_ICON;
@@ -50,17 +62,17 @@ public final class ImageUtil {
 	/** The Constant ADD_PROPERTY_ICON. */
 	public static final Icon ADD_PROPERTY_ICON;
 
+	/** The Constant ADD_SUBVERSION_EXPORT_TASK_ICON. */
+	public static final Icon ADD_SUBVERSION_EXPORT_TASK_ICON;
+
 	/** The Constant ADD_SUBVERSION_REPOSITORY_LOCATION_ICON. */
 	public static final Icon ADD_SUBVERSION_REPOSITORY_LOCATION_ICON;
 
+	/** The Constant ADD_SUBVERSION_UPDATE_TASK_ICON. */
+	public static final Icon ADD_SUBVERSION_UPDATE_TASK_ICON;
+
 	/** The Constant APPLICATION_ICON_IMAGE. */
 	public static final Image APPLICATION_ICON_IMAGE;
-
-	/** The Constant CHECKOUT_DISABLED_ICON. */
-	public static final Icon CHECKOUT_DISABLED_ICON;
-
-	/** The Constant CHECKOUT_ICON. */
-	public static final Icon CHECKOUT_ICON;
 
 	/** The Constant CLEAR_ICON. */
 	public static final Icon CLEAR_ICON;
@@ -98,13 +110,8 @@ public final class ImageUtil {
 	/** The Constant EXIT_ICON. */
 	public static final Icon EXIT_ICON;
 
+	/** The Constant EXPAND_ICON. */
 	public static final Icon EXPAND_ICON;
-
-	/** The Constant EXPORT_DISABLED_ICON. */
-	public static final Icon EXPORT_DISABLED_ICON;
-
-	/** The Constant EXPORT_ICON. */
-	public static final Icon EXPORT_ICON;
 
 	/** The Constant FILE_SYSTEM_DELETE_TASK_DISABLED_ICON. */
 	public static final Icon FILE_SYSTEM_DELETE_TASK_DISABLED_ICON;
@@ -118,17 +125,17 @@ public final class ImageUtil {
 	/** The Constant FIND_REPLACE_ICON. */
 	public static final Icon FIND_REPLACE_ICON;
 
-	/** The Constant FOLDER_IMPORT_DISABLED_ICON. */
-	public static final Icon FOLDER_IMPORT_DISABLED_ICON;
-
-	/** The Constant FOLDER_IMPORT_ICON. */
-	public static final Icon FOLDER_IMPORT_ICON;
-
 	/** The Constant GROOVY_DISABLED_ICON. */
-	public static final Icon GROOVY_DISABLED_ICON;
+	public static final Icon GROOVY_TASK_DISABLED_ICON;
 
 	/** The Constant GROOVY_ICON. */
-	public static final Icon GROOVY_ICON;
+	public static final Icon GROOVY_TASK_ICON;
+
+	/** The Constant FOLDER_IMPORT_DISABLED_ICON. */
+	public static final Icon HTTP_DOWNLOAD_TASK_DISABLED_ICON;
+
+	/** The Constant FOLDER_IMPORT_ICON. */
+	public static final Icon HTTP_DOWNLOAD_TASK_ICON;
 
 	/** The Constant JOB_ICON. */
 	public static final Icon JOB_ICON;
@@ -160,8 +167,20 @@ public final class ImageUtil {
 	/** The Constant STOP_JOB_ICON. */
 	public static final Icon STOP_JOB_ICON;
 
+	/** The Constant EXPORT_DISABLED_ICON. */
+	public static final Icon SUBVERSION_EXPORT_TASK_DISABLED_ICON;
+
+	/** The Constant EXPORT_ICON. */
+	public static final Icon SUBVERSION_EXPORT_TASK_ICON;
+
 	/** The Constant SUBVERSION_REPOSITORY_LOCATION_ICON. */
 	public static final Icon SUBVERSION_REPOSITORY_LOCATION_ICON;
+
+	/** The Constant CHECKOUT_DISABLED_ICON. */
+	public static final Icon SUBVERSION_UPDATE_TASK_DISABLED_ICON;
+
+	/** The Constant CHECKOUT_ICON. */
+	public static final Icon SUBVERSION_UPDATE_TASK_ICON;
 
 	static {
 		final Class<ImageUtil> thisClass = ImageUtil.class;
@@ -204,20 +223,27 @@ public final class ImageUtil {
 		SUBVERSION_REPOSITORY_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/subversion.png"));
 
 		// Load task icons
-		CHECKOUT_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
+		ADD_FILE_SYSTEM_DELETE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
+		ADD_FIND_REPLACE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
+		ADD_GROOVY_TASK_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
+		ADD_HTTP_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
+		ADD_SUBVERSION_EXPORT_TASK_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
+		ADD_SUBVERSION_UPDATE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
+
 		FILE_SYSTEM_DELETE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
-		EXPORT_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
 		FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
-		FOLDER_IMPORT_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
-		GROOVY_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
+		GROOVY_TASK_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
+		HTTP_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
+		SUBVERSION_EXPORT_TASK_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
+		SUBVERSION_UPDATE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
 
 		// Create disabled task icons
-		CHECKOUT_DISABLED_ICON = createDisabledImage((ImageIcon) CHECKOUT_ICON);
 		FILE_SYSTEM_DELETE_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) FILE_SYSTEM_DELETE_TASK_ICON);
-		EXPORT_DISABLED_ICON = createDisabledImage((ImageIcon) EXPORT_ICON);
 		FIND_REPLACE_DISABLED_ICON = createDisabledImage((ImageIcon) FIND_REPLACE_ICON);
-		FOLDER_IMPORT_DISABLED_ICON = createDisabledImage((ImageIcon) FOLDER_IMPORT_ICON);
-		GROOVY_DISABLED_ICON = createDisabledImage((ImageIcon) GROOVY_ICON);
+		GROOVY_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) GROOVY_TASK_ICON);
+		HTTP_DOWNLOAD_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) HTTP_DOWNLOAD_TASK_ICON);
+		SUBVERSION_EXPORT_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) SUBVERSION_EXPORT_TASK_ICON);
+		SUBVERSION_UPDATE_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) SUBVERSION_UPDATE_TASK_ICON);
 	}
 
 	/**

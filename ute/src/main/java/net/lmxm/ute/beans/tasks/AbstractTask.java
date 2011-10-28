@@ -46,6 +46,7 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	public AbstractTask(final Job job) {
 		super();
 
+		this.enabled = true;
 		this.job = job;
 	}
 
