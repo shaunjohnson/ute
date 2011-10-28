@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import net.lmxm.ute.ConfigurationHolder;
@@ -63,54 +63,72 @@ public class MainTreeModel extends DefaultTreeModel {
 	/** The file system locations node. */
 	private final DefaultMutableTreeNode fileSystemLocationsNode;
 
+	private final TreePath fileSystemLocationsNodePath;
+
 	/** The http locations node. */
 	private final DefaultMutableTreeNode httpLocationsNode;
+
+	private final TreePath httpLocationsNodePath;
 
 	/** The jobs node. */
 	private final DefaultMutableTreeNode jobsNode;
 
+	private final TreePath jobsNodePath;
+
 	/** The preferences node. */
 	private final DefaultMutableTreeNode preferencesNode;
 
+	private final TreePath preferencesNodePath;
+
 	/** The properties node. */
 	private final DefaultMutableTreeNode propertiesNode;
-
+	private final TreePath propertiesNodePath;
 	/** The root node. */
 	private final DefaultMutableTreeNode rootNode;
-
 	/** The subversion locations node. */
 	private final DefaultMutableTreeNode subversionRepositoryLocationsNode;
+	private final TreePath subversionRepositoryLocationsNodePath;
 
 	/**
 	 * Instantiates a new main tree model.
 	 * 
 	 * @param configurationHolder the configuration holder
 	 */
-	public MainTreeModel(final ConfigurationHolder configurationHolder) {
+	protected MainTreeModel(final ConfigurationHolder configurationHolder) {
 		super(new DefaultMutableTreeNode("Root"));
 
 		this.configurationHolder = configurationHolder;
 
+		//
+		// The order of the nodes must be maintained.
+		//
 		rootNode = (DefaultMutableTreeNode) getRoot();
 
 		jobsNode = new DefaultMutableTreeNode(new JobsRootTreeNode(configurationHolder));
 		rootNode.add(jobsNode);
+		jobsNodePath = new TreePath(rootNode).pathByAddingChild(jobsNode);
 
 		fileSystemLocationsNode = new DefaultMutableTreeNode(new FileSystemLocationsRootTreeNode(configurationHolder));
 		rootNode.add(fileSystemLocationsNode);
+		fileSystemLocationsNodePath = new TreePath(rootNode).pathByAddingChild(fileSystemLocationsNode);
 
 		httpLocationsNode = new DefaultMutableTreeNode(new HttpLocationsRootTreeNode(configurationHolder));
 		rootNode.add(httpLocationsNode);
+		httpLocationsNodePath = new TreePath(rootNode).pathByAddingChild(httpLocationsNode);
 
 		subversionRepositoryLocationsNode = new DefaultMutableTreeNode(new SubversionRepositoryLocationsRootTreeNode(
 				configurationHolder));
 		rootNode.add(subversionRepositoryLocationsNode);
+		subversionRepositoryLocationsNodePath = new TreePath(rootNode)
+				.pathByAddingChild(subversionRepositoryLocationsNode);
 
 		propertiesNode = new DefaultMutableTreeNode(new PropertiesRootTreeNode(configurationHolder));
 		rootNode.add(propertiesNode);
+		propertiesNodePath = new TreePath(rootNode).pathByAddingChild(propertiesNode);
 
 		preferencesNode = new DefaultMutableTreeNode(new PreferencesRootTreeNode(configurationHolder));
 		rootNode.add(preferencesNode);
+		preferencesNodePath = new TreePath(rootNode).pathByAddingChild(preferencesNode);
 	}
 
 	/**
@@ -119,12 +137,12 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param fileSystemLocation the file system location
 	 * @return the tree path
 	 */
-	public TreePath addFileSystemLocation(final FileSystemLocation fileSystemLocation) {
+	protected TreePath addFileSystemLocation(final FileSystemLocation fileSystemLocation) {
 		final DefaultMutableTreeNode fileSystemLocationNode = new IdentifiableBeanTreeNode(fileSystemLocation);
 
 		insertNodeInto(fileSystemLocationNode, fileSystemLocationsNode, 0);
 
-		return getPathToFileSystemLocations().pathByAddingChild(fileSystemLocationNode);
+		return fileSystemLocationsNodePath.pathByAddingChild(fileSystemLocationNode);
 	}
 
 	/**
@@ -133,12 +151,12 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param httpLocation the http location
 	 * @return the tree path
 	 */
-	public TreePath addHttpLocation(final HttpLocation httpLocation) {
+	protected TreePath addHttpLocation(final HttpLocation httpLocation) {
 		final DefaultMutableTreeNode httpLocationNode = new IdentifiableBeanTreeNode(httpLocation);
 
 		insertNodeInto(httpLocationNode, httpLocationsNode, 0);
 
-		return getPathToHttpLocations().pathByAddingChild(httpLocationNode);
+		return httpLocationsNodePath.pathByAddingChild(httpLocationNode);
 	}
 
 	/**
@@ -147,12 +165,12 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param job the job
 	 * @return the tree path
 	 */
-	public TreePath addJob(final Job job) {
+	protected TreePath addJob(final Job job) {
 		final DefaultMutableTreeNode jobNode = new IdentifiableBeanTreeNode(job);
 
 		insertNodeInto(jobNode, jobsNode, 0);
 
-		return getPathToJobs().pathByAddingChild(jobNode);
+		return jobsNodePath.pathByAddingChild(jobNode);
 	}
 
 	/**
@@ -161,12 +179,12 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param preference the preference
 	 * @return the tree path
 	 */
-	public TreePath addPreference(final Preference preference) {
+	protected TreePath addPreference(final Preference preference) {
 		final DefaultMutableTreeNode preferenceNode = new IdentifiableBeanTreeNode(preference);
 
 		insertNodeInto(preferenceNode, preferencesNode, 0);
 
-		return getPathToPreferences().pathByAddingChild(preferenceNode);
+		return preferencesNodePath.pathByAddingChild(preferenceNode);
 	}
 
 	/**
@@ -175,12 +193,12 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param property the property
 	 * @return the tree path
 	 */
-	public TreePath addProperty(final Property property) {
+	protected TreePath addProperty(final Property property) {
 		final DefaultMutableTreeNode propertyNode = new IdentifiableBeanTreeNode(property);
 
 		insertNodeInto(propertyNode, propertiesNode, 0);
 
-		return getPathToProperties().pathByAddingChild(propertyNode);
+		return propertiesNodePath.pathByAddingChild(propertyNode);
 	}
 
 	/**
@@ -189,13 +207,13 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param subversionRepositoryLocation the subversion repository location
 	 * @return the tree path
 	 */
-	public TreePath addSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
+	protected TreePath addSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
 		final DefaultMutableTreeNode subversionRepositoryLocationNode = new IdentifiableBeanTreeNode(
 				subversionRepositoryLocation);
 
 		insertNodeInto(subversionRepositoryLocationNode, subversionRepositoryLocationsNode, 0);
 
-		return getPathToSubversionRepositoryLocations().pathByAddingChild(subversionRepositoryLocationNode);
+		return subversionRepositoryLocationsNodePath.pathByAddingChild(subversionRepositoryLocationNode);
 	}
 
 	/**
@@ -204,15 +222,17 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param fileSystemLocation the file system location
 	 * @return the tree path
 	 */
-	public TreePath deleteFileSystemLocation(final FileSystemLocation fileSystemLocation) {
-		final MutableTreeNode fileSystemLocationNode = findFileSystemLocationNode(fileSystemLocation);
+	protected TreePath deleteFileSystemLocation(final FileSystemLocation fileSystemLocation) {
+		final DefaultMutableTreeNode fileSystemLocationNode = findFileSystemLocationNode(fileSystemLocation);
 		if (fileSystemLocationNode == null) {
 			throw new RuntimeException("FileSystemLocation node does not exist"); // TODO Use proper exception
 		}
 
+		final TreePath selectPath = getSiblingOrParentPath(fileSystemLocationNode, fileSystemLocationsNodePath);
+
 		removeNodeFromParent(fileSystemLocationNode);
 
-		return getPathToFileSystemLocations();
+		return selectPath;
 	}
 
 	/**
@@ -221,15 +241,17 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param httpLocation the http location
 	 * @return the tree path
 	 */
-	public TreePath deleteHttpLocation(final HttpLocation httpLocation) {
-		final MutableTreeNode httpLocationNode = findHttpLocationNode(httpLocation);
+	protected TreePath deleteHttpLocation(final HttpLocation httpLocation) {
+		final DefaultMutableTreeNode httpLocationNode = findHttpLocationNode(httpLocation);
 		if (httpLocationNode == null) {
 			throw new RuntimeException("HttpLocation node does not exist"); // TODO Use proper exception
 		}
 
+		final TreePath selectPath = getSiblingOrParentPath(httpLocationNode, httpLocationsNodePath);
+
 		removeNodeFromParent(httpLocationNode);
 
-		return getPathToHttpLocations();
+		return selectPath;
 	}
 
 	/**
@@ -238,15 +260,17 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param job the job
 	 * @return the tree path
 	 */
-	public TreePath deleteJob(final Job job) {
-		final MutableTreeNode jobNode = findJobNode(job);
+	protected TreePath deleteJob(final Job job) {
+		final DefaultMutableTreeNode jobNode = findJobNode(job);
 		if (jobNode == null) {
 			throw new RuntimeException("Job node does not exist"); // TODO Use proper exception
 		}
 
+		final TreePath selectPath = getSiblingOrParentPath(jobNode, jobsNodePath);
+
 		removeNodeFromParent(jobNode);
 
-		return getPathToJobs();
+		return selectPath;
 	}
 
 	/**
@@ -255,15 +279,17 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param preference the preference
 	 * @return the tree path
 	 */
-	public TreePath deletePreference(final Preference preference) {
-		final MutableTreeNode preferenceNode = findPreferenceNode(preference);
+	protected TreePath deletePreference(final Preference preference) {
+		final DefaultMutableTreeNode preferenceNode = findPreferenceNode(preference);
 		if (preferenceNode == null) {
 			throw new RuntimeException("Preference node does not exist"); // TODO Use proper exception
 		}
 
+		final TreePath selectPath = getSiblingOrParentPath(preferenceNode, preferencesNodePath);
+
 		removeNodeFromParent(preferenceNode);
 
-		return getPathToPreferences();
+		return selectPath;
 	}
 
 	/**
@@ -272,15 +298,17 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param property the property
 	 * @return the tree path
 	 */
-	public TreePath deleteProperty(final Property property) {
-		final MutableTreeNode propertyNode = findPropertyNode(property);
+	protected TreePath deleteProperty(final Property property) {
+		final DefaultMutableTreeNode propertyNode = findPropertyNode(property);
 		if (propertyNode == null) {
 			throw new RuntimeException("Property node does not exist"); // TODO Use proper exception
 		}
 
+		final TreePath selectPath = getSiblingOrParentPath(propertyNode, propertiesNodePath);
+
 		removeNodeFromParent(propertyNode);
 
-		return getPathToProperties();
+		return selectPath;
 	}
 
 	/**
@@ -289,15 +317,19 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * @param subversionRepositoryLocation the subversion repository location
 	 * @return the tree path
 	 */
-	public TreePath deleteSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
-		final MutableTreeNode subversionRepositoryLocationNode = findSubversionRepositoryLocationNode(subversionRepositoryLocation);
+	protected TreePath deleteSubversionRepositoryLocation(
+			final SubversionRepositoryLocation subversionRepositoryLocation) {
+		final DefaultMutableTreeNode subversionRepositoryLocationNode = findSubversionRepositoryLocationNode(subversionRepositoryLocation);
 		if (subversionRepositoryLocationNode == null) {
 			throw new RuntimeException("SubversionRepositoryLocation node does not exist"); // TODO Use proper exception
 		}
 
+		final TreePath selectPath = getSiblingOrParentPath(subversionRepositoryLocationNode,
+				subversionRepositoryLocationsNodePath);
+
 		removeNodeFromParent(subversionRepositoryLocationNode);
 
-		return getPathToSubversionRepositoryLocations();
+		return selectPath;
 	}
 
 	/**
@@ -404,57 +436,34 @@ public class MainTreeModel extends DefaultTreeModel {
 	}
 
 	/**
-	 * Gets the path to file system locations.
+	 * Gets the default path.
 	 * 
-	 * @return the path to file system locations
+	 * @return the default path
 	 */
-	public TreePath getPathToFileSystemLocations() {
-		return new TreePath(rootNode).pathByAddingChild(fileSystemLocationsNode);
+	protected TreePath getDefaultPath() {
+		return jobsNodePath;
 	}
 
 	/**
-	 * Gets the path to http locations.
+	 * Gets the sibling or parent path.
 	 * 
-	 * @return the path to http locations
+	 * @param defaultMutableTreeNode the default mutable tree node
+	 * @param parentNodePath the parent node path
+	 * @return the sibling or parent path
 	 */
-	public TreePath getPathToHttpLocations() {
-		return new TreePath(rootNode).pathByAddingChild(httpLocationsNode);
-	}
+	private TreePath getSiblingOrParentPath(final DefaultMutableTreeNode defaultMutableTreeNode,
+			final TreePath parentNodePath) {
+		final TreeNode previousSibling = defaultMutableTreeNode.getPreviousSibling();
+		if (previousSibling != null) {
+			return parentNodePath.pathByAddingChild(previousSibling);
+		}
 
-	/**
-	 * Gets the path to jobs.
-	 * 
-	 * @return the path to jobs
-	 */
-	public TreePath getPathToJobs() {
-		return new TreePath(rootNode).pathByAddingChild(jobsNode);
-	}
+		final TreeNode nextSibling = defaultMutableTreeNode.getNextSibling();
+		if (nextSibling != null) {
+			return parentNodePath.pathByAddingChild(nextSibling);
+		}
 
-	/**
-	 * Gets the path to preferences.
-	 * 
-	 * @return the path to preferences
-	 */
-	public TreePath getPathToPreferences() {
-		return new TreePath(rootNode).pathByAddingChild(preferencesNode);
-	}
-
-	/**
-	 * Gets the path to properties.
-	 * 
-	 * @return the path to properties
-	 */
-	public TreePath getPathToProperties() {
-		return new TreePath(rootNode).pathByAddingChild(propertiesNode);
-	}
-
-	/**
-	 * Gets the path to subversion repository locations.
-	 * 
-	 * @return the path to subversion repository locations
-	 */
-	public TreePath getPathToSubversionRepositoryLocations() {
-		return new TreePath(rootNode).pathByAddingChild(subversionRepositoryLocationsNode);
+		return parentNodePath;
 	}
 
 	/**
@@ -574,7 +583,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	/**
 	 * Refresh.
 	 */
-	public void refresh() {
+	protected void refresh() {
 		removeAllChildren();
 
 		loadJobs();
@@ -592,7 +601,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * 
 	 * @param fileSystemLocation the file system location
 	 */
-	public void refreshFileSystemLocation(final FileSystemLocation fileSystemLocation) {
+	protected void refreshFileSystemLocation(final FileSystemLocation fileSystemLocation) {
 		nodeChanged(findFileSystemLocationNode(fileSystemLocation));
 	}
 
@@ -601,7 +610,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * 
 	 * @param httpLocation the http location
 	 */
-	public void refreshHttpLocation(final HttpLocation httpLocation) {
+	protected void refreshHttpLocation(final HttpLocation httpLocation) {
 		nodeChanged(findHttpLocationNode(httpLocation));
 	}
 
@@ -610,7 +619,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * 
 	 * @param job the job
 	 */
-	public void refreshJob(final Job job) {
+	protected void refreshJob(final Job job) {
 		nodeChanged(findJobNode(job));
 	}
 
@@ -619,7 +628,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * 
 	 * @param preference the preference
 	 */
-	public void refreshPreference(final Preference preference) {
+	protected void refreshPreference(final Preference preference) {
 		nodeChanged(findPreferenceNode(preference));
 	}
 
@@ -628,7 +637,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * 
 	 * @param property the property
 	 */
-	public void refreshProperty(final Property property) {
+	protected void refreshProperty(final Property property) {
 		nodeChanged(findPropertyNode(property));
 	}
 
@@ -637,7 +646,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * 
 	 * @param subversionRepositoryLocation the subversion repository location
 	 */
-	public void refreshSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
+	protected void refreshSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
 		nodeChanged(findSubversionRepositoryLocationNode(subversionRepositoryLocation));
 	}
 
@@ -646,7 +655,7 @@ public class MainTreeModel extends DefaultTreeModel {
 	 * 
 	 * @param task the task
 	 */
-	public void refreshTask(final Task task) {
+	protected void refreshTask(final Task task) {
 		nodeChanged(findTaskNode(task));
 	}
 

@@ -428,7 +428,7 @@ public class MainTree extends JTree implements IdChangeListener {
 	 * @param fileSystemLocation the file system location
 	 */
 	public void deleteFileSystemLocation(final FileSystemLocation fileSystemLocation) {
-		mainTreeModel.deleteFileSystemLocation(fileSystemLocation);
+		showSelectedPath(mainTreeModel.deleteFileSystemLocation(fileSystemLocation));
 	}
 
 	/**
@@ -437,7 +437,7 @@ public class MainTree extends JTree implements IdChangeListener {
 	 * @param httpLocation the http location
 	 */
 	public void deleteHttpLocation(final HttpLocation httpLocation) {
-		mainTreeModel.deleteHttpLocation(httpLocation);
+		showSelectedPath(mainTreeModel.deleteHttpLocation(httpLocation));
 	}
 
 	/**
@@ -446,7 +446,7 @@ public class MainTree extends JTree implements IdChangeListener {
 	 * @param job the job
 	 */
 	public void deleteJob(final Job job) {
-		mainTreeModel.deleteJob(job);
+		showSelectedPath(mainTreeModel.deleteJob(job));
 	}
 
 	/**
@@ -455,7 +455,7 @@ public class MainTree extends JTree implements IdChangeListener {
 	 * @param preference the preference
 	 */
 	public void deletePreference(final Preference preference) {
-		mainTreeModel.deletePreference(preference);
+		showSelectedPath(mainTreeModel.deletePreference(preference));
 	}
 
 	/**
@@ -464,7 +464,7 @@ public class MainTree extends JTree implements IdChangeListener {
 	 * @param property the property
 	 */
 	public void deleteProperty(final Property property) {
-		mainTreeModel.deleteProperty(property);
+		showSelectedPath(mainTreeModel.deleteProperty(property));
 	}
 
 	/**
@@ -473,7 +473,7 @@ public class MainTree extends JTree implements IdChangeListener {
 	 * @param subversionRepositoryLocation the subversion repository location
 	 */
 	public void deleteSubversionRepositoryLocation(final SubversionRepositoryLocation subversionRepositoryLocation) {
-		mainTreeModel.deleteSubversionRepositoryLocation(subversionRepositoryLocation);
+		showSelectedPath(mainTreeModel.deleteSubversionRepositoryLocation(subversionRepositoryLocation));
 	}
 
 	/**
@@ -748,7 +748,7 @@ public class MainTree extends JTree implements IdChangeListener {
 	 */
 	public MainTree refresh() {
 		mainTreeModel.refresh();
-		expandPath(mainTreeModel.getPathToJobs());
+		expandPath(mainTreeModel.getDefaultPath());
 
 		return this;
 	}
