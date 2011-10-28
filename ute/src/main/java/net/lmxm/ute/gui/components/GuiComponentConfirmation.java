@@ -18,25 +18,40 @@
  */
 package net.lmxm.ute.gui.components;
 
+import javax.swing.Icon;
+
 /**
- * The Enum GuiComponentCategory.
+ * The Enum GuiComponentConfirmation.
  */
-public enum GuiComponentCategory {
-	/** The BUTTON. */
-	BUTTON,
+public enum GuiComponentConfirmation implements GuiComponentType {
 
-	/** The CONFIRMATION. */
-	CONFIRMATION,
+	/** The DELETE_JOB. */
+	DELETE_JOB;
 
-	/** The LABEL. */
-	LABEL,
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
+	 */
+	@Override
+	public String getActionCommand() {
+		return null;
+	}
 
-	/** The MENU. */
-	MENU,
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 */
+	@Override
+	public GuiComponentCategory getGuiComponentCategory() {
+		return GuiComponentCategory.CONFIRMATION;
+	}
 
-	/** The MENU_ITEM. */
-	MENU_ITEM,
-
-	/** The TOOLBAR_BUTTON. */
-	TOOLBAR_BUTTON
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
+	 */
+	@Override
+	public Icon getIcon() {
+		return null;
+	}
 }

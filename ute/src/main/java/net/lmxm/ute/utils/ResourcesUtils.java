@@ -86,7 +86,7 @@ public final class ResourcesUtils {
 	public static Character getCharacter(final String key) {
 		final String string = getString(key);
 
-		return StringUtils.isBlank(string) ? null : string.charAt(0);
+		return string == null ? null : string.charAt(0);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public final class ResourcesUtils {
 	 * @return the string
 	 */
 	public static String getString(final String key) {
-		return bundle.getString(key);
+		return StringUtils.trimToNull(bundle.getString(key));
 	}
 
 	/**

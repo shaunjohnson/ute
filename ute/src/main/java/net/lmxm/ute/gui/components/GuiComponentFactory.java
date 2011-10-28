@@ -30,39 +30,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import net.lmxm.ute.utils.ResourcesUtils;
-
 import org.apache.commons.lang.StringUtils;
 
 /**
  * A factory for creating GuiComponent objects.
  */
-public class GuiComponentFactory {
-
-	/** The Constant ACCELERATOR_SUFFIX. */
-	private static final String ACCELERATOR_SUFFIX = "accelerator";
-
-	/** The Constant TEXT_SUFFIX. */
-	private static final String TEXT_SUFFIX = "text";
-
-	/** The Constant TOOL_TIP_TEXT_SUFFIX. */
-	private static final String TOOL_TIP_TEXT_SUFFIX = "toolTipText";
-
-	/**
-	 * Builds the resource prefix.
-	 * 
-	 * @param guiComponentType the gui component type
-	 * @return the string
-	 */
-	private static String buildResourcePrefix(final GuiComponentType guiComponentType) {
-		final StringBuilder builder = new StringBuilder();
-		builder.append(guiComponentType.getGuiComponentCategory().name());
-		builder.append(".");
-		builder.append(guiComponentType.name());
-		builder.append(".");
-
-		return builder.toString();
-	}
+public class GuiComponentFactory extends AbstractGuiFactory {
 
 	/**
 	 * Creates a new GuiComponent object.
@@ -210,9 +183,7 @@ public class GuiComponentFactory {
 	 * @param guiComponentType the gui component type
 	 */
 	private static void setAccelerator(final JMenuItem menuItem, final GuiComponentType guiComponentType) {
-		final String resourcePrefix = buildResourcePrefix(guiComponentType);
-
-		final Character accelerator = ResourcesUtils.getCharacter(resourcePrefix + ACCELERATOR_SUFFIX);
+		final Character accelerator = getAccelerator(guiComponentType);
 		if (accelerator != null) {
 			menuItem.setAccelerator(KeyStroke.getKeyStroke(accelerator, Toolkit.getDefaultToolkit()
 					.getMenuShortcutKeyMask(), false));
@@ -268,14 +239,12 @@ public class GuiComponentFactory {
 	 * @param guiComponentType the gui component type
 	 */
 	private static void setText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
-		final String resourcePrefix = buildResourcePrefix(guiComponentType);
-
-		final String text = ResourcesUtils.getString(resourcePrefix + TEXT_SUFFIX);
+		final String text = getText(guiComponentType);
 		if (StringUtils.isNotBlank(text)) {
 			abstractButton.setText(text);
 		}
 
-		final String toolTipText = ResourcesUtils.getString(resourcePrefix + TOOL_TIP_TEXT_SUFFIX);
+		final String toolTipText = getToolTipText(guiComponentType);
 		if (StringUtils.isNotBlank(toolTipText)) {
 			abstractButton.setToolTipText(toolTipText);
 		}
@@ -288,14 +257,12 @@ public class GuiComponentFactory {
 	 * @param guiComponentType the gui component type
 	 */
 	private static void setText(final JLabel label, final GuiComponentType guiComponentType) {
-		final String resourcePrefix = buildResourcePrefix(guiComponentType);
-
-		final String text = ResourcesUtils.getString(resourcePrefix + TEXT_SUFFIX);
+		final String text = getText(guiComponentType);
 		if (StringUtils.isNotBlank(text)) {
 			label.setText(text);
 		}
 
-		final String toolTipText = ResourcesUtils.getString(resourcePrefix + TOOL_TIP_TEXT_SUFFIX);
+		final String toolTipText = getToolTipText(guiComponentType);
 		if (StringUtils.isNotBlank(toolTipText)) {
 			label.setToolTipText(toolTipText);
 		}
@@ -308,9 +275,7 @@ public class GuiComponentFactory {
 	 * @param guiComponentType the gui component type
 	 */
 	private static void setToolTipText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
-		final String resourcePrefix = buildResourcePrefix(guiComponentType);
-
-		final String toolTipText = ResourcesUtils.getString(resourcePrefix + TOOL_TIP_TEXT_SUFFIX);
+		final String toolTipText = getToolTipText(guiComponentType);
 		if (StringUtils.isNotBlank(toolTipText)) {
 			abstractButton.setToolTipText(toolTipText);
 		}

@@ -18,25 +18,29 @@
  */
 package net.lmxm.ute.gui.components;
 
+import java.awt.Component;
+
+import javax.swing.JOptionPane;
+
 /**
- * The Enum GuiComponentCategory.
+ * A factory for creating OptionPane objects.
  */
-public enum GuiComponentCategory {
-	/** The BUTTON. */
-	BUTTON,
+public class OptionPaneFactory extends AbstractGuiFactory {
 
-	/** The CONFIRMATION. */
-	CONFIRMATION,
+	/**
+	 * Show confirmation.
+	 * 
+	 * @param parentComponent the parent component
+	 * @param guiComponentConfirmation the gui component confirmation
+	 * @param args the args
+	 * @return the int
+	 */
+	public static int showConfirmation(final Component parentComponent,
+			final GuiComponentConfirmation guiComponentConfirmation, final Object... args) {
+		final String message = String.format(getMessage(guiComponentConfirmation), args);
+		final String title = String.format(getTitle(guiComponentConfirmation), args);
 
-	/** The LABEL. */
-	LABEL,
-
-	/** The MENU. */
-	MENU,
-
-	/** The MENU_ITEM. */
-	MENU_ITEM,
-
-	/** The TOOLBAR_BUTTON. */
-	TOOLBAR_BUTTON
+		return JOptionPane.showConfirmDialog(parentComponent, message, title, JOptionPane.YES_NO_OPTION,
+				JOptionPane.WARNING_MESSAGE);
+	}
 }
