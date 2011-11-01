@@ -21,15 +21,18 @@ package net.lmxm.ute.gui.editors.tasks;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
@@ -38,6 +41,7 @@ import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.AbstractFilesTask;
+import net.lmxm.ute.beans.tasks.FileSystemTargetTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
@@ -67,6 +71,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 	/** The files table. */
 	private JTable filesTable = null;
+
+	/** The file system location target combo box. */
+	private JComboBox fileSystemLocationTargetComboBox = null;
 
 	/** The monospace font. */
 	private Font monospaceFont = null;
@@ -224,6 +231,41 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	}
 
 	/**
+	 * Gets the file system location target combo box.
+	 * 
+	 * @return the file system location target combo box
+	 */
+	protected final JComboBox getFileSystemLocationTargetComboBox() {
+		if (fileSystemLocationTargetComboBox == null) {
+			fileSystemLocationTargetComboBox = new JComboBox();
+			fileSystemLocationTargetComboBox.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent actionEvent) {
+					if (getUserObject() instanceof FileSystemTargetTask) {
+						final FileSystemTarget target = ((FileSystemTargetTask) getUserObject()).getTarget();
+
+						if (target == null) {
+							LOGGER.error("File system target is null");
+							throw new IllegalStateException("File system target is null"); // TODO
+						}
+
+						if (fileSystemLocationTargetComboBox.getSelectedIndex() == -1) {
+							target.setLocation(null);
+						}
+						else {
+							final FileSystemLocation location = (FileSystemLocation) fileSystemLocationTargetComboBox
+									.getSelectedItem();
+							target.setLocation(location);
+						}
+					}
+				}
+			});
+		}
+
+		return fileSystemLocationTargetComboBox;
+	}
+
+	/**
 	 * Gets the monospace font.
 	 * 
 	 * @return the monospace font
@@ -262,6 +304,14 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		}
 
 		return targetRelativePathTextField;
+	}
+
+	@Override
+	public final void initialize(final Configuration configuration) {
+		super.initialize(configuration);
+
+		getFileSystemLocationTargetComboBox().setModel(
+				createDefaultComboBoxModel(configuration.getFileSystemLocations()));
 	}
 
 	/**

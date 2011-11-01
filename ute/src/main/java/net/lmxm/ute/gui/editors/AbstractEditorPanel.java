@@ -83,9 +83,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/** The description text area. */
 	private JTextArea descriptionTextArea = null;
 
-	/** The file system location target combo box. */
-	private JComboBox fileSystemLocationTargetComboBox = null;
-
 	/** The http location target combo box. */
 	private JComboBox httpLocationTargetComboBox = null;
 
@@ -173,7 +170,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param list the list
 	 * @return the combo box model
 	 */
-	private ComboBoxModel createDefaultComboBoxModel(final List<? extends IdentifiableDomainBean> list) {
+	protected final ComboBoxModel createDefaultComboBoxModel(final List<? extends IdentifiableDomainBean> list) {
 		if (list == null) {
 			return new DefaultComboBoxModel();
 		}
@@ -248,19 +245,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 	}
 
 	/**
-	 * Gets the file system location target combo box.
-	 * 
-	 * @return the file system location target combo box
-	 */
-	protected final JComboBox getFileSystemLocationTargetComboBox() {
-		if (fileSystemLocationTargetComboBox == null) {
-			fileSystemLocationTargetComboBox = new JComboBox();
-		}
-
-		return fileSystemLocationTargetComboBox;
-	}
-
-	/**
 	 * Gets the http location source combo box.
 	 * 
 	 * @return the http location source combo box
@@ -307,9 +291,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * 
 	 * @param configuration the configuration
 	 */
-	public final void initialize(final Configuration configuration) {
-		getFileSystemLocationTargetComboBox().setModel(
-				createDefaultComboBoxModel(configuration.getFileSystemLocations()));
+	public void initialize(final Configuration configuration) {
 		getHttpLocationSourceComboBox().setModel(createDefaultComboBoxModel(configuration.getHttpLocations()));
 		getSubversionRepositoryLocationSourceComboBox().setModel(
 				createDefaultComboBoxModel(configuration.getSubversionRepositoryLocations()));

@@ -34,6 +34,24 @@ public final class FileSystemTarget extends AbstractTarget {
 	private FileSystemLocation location;
 
 	/**
+	 * Instantiates a new file system target.
+	 */
+	public FileSystemTarget() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new file system target.
+	 * 
+	 * @param location the location
+	 */
+	public FileSystemTarget(final FileSystemLocation location) {
+		super();
+
+		this.location = location;
+	}
+
+	/**
 	 * Gets the location.
 	 * 
 	 * @return the location

@@ -25,7 +25,7 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 /**
  * The Class SubversionExportTask.
  */
-public final class SubversionExportTask extends AbstractFilesTask {
+public final class SubversionExportTask extends AbstractFilesTask implements FileSystemTargetTask {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2831925595307147878L;
@@ -54,11 +54,11 @@ public final class SubversionExportTask extends AbstractFilesTask {
 		return source;
 	}
 
-	/**
-	 * Gets the target.
-	 * 
-	 * @return the target
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.FileSystemTargetTask#getTarget()
 	 */
+	@Override
 	public FileSystemTarget getTarget() {
 		return target;
 	}
@@ -72,11 +72,11 @@ public final class SubversionExportTask extends AbstractFilesTask {
 		this.source = source;
 	}
 
-	/**
-	 * Sets the target.
-	 * 
-	 * @param target the new target
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.FileSystemTargetTask#setTarget(net.lmxm.ute.beans.targets.FileSystemTarget)
 	 */
+	@Override
 	public void setTarget(final FileSystemTarget target) {
 		this.target = target;
 	}

@@ -24,7 +24,7 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 /**
  * The Class GroovyTask.
  */
-public final class GroovyTask extends AbstractFilesTask {
+public final class GroovyTask extends AbstractFilesTask implements FileSystemTargetTask {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5773262602501136737L;
@@ -53,11 +53,11 @@ public final class GroovyTask extends AbstractFilesTask {
 		return script;
 	}
 
-	/**
-	 * Gets the target.
-	 * 
-	 * @return the target
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.FileSystemTargetTask#getTarget()
 	 */
+	@Override
 	public FileSystemTarget getTarget() {
 		return target;
 	}
@@ -71,11 +71,11 @@ public final class GroovyTask extends AbstractFilesTask {
 		this.script = script;
 	}
 
-	/**
-	 * Sets the target.
-	 * 
-	 * @param target the new target
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.FileSystemTargetTask#setTarget(net.lmxm.ute.beans.targets.FileSystemTarget)
 	 */
+	@Override
 	public void setTarget(final FileSystemTarget target) {
 		this.target = target;
 	}

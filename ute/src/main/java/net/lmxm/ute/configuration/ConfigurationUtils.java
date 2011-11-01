@@ -39,6 +39,7 @@ import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.FileSystemTargetTask;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
@@ -386,7 +387,7 @@ public final class ConfigurationUtils {
 
 		for (final Task task : job.getTasks()) {
 			if (task instanceof FileSystemDeleteTask) {
-				final FileSystemDeleteTask fileSystemDeleteTask = (FileSystemDeleteTask) task;
+				final FileSystemTargetTask fileSystemDeleteTask = (FileSystemTargetTask) task;
 
 				interpolateFileSystemTarget(fileSystemDeleteTask.getTarget(), propertyNames, propertyValues);
 			}
