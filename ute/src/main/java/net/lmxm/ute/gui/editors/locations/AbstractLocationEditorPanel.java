@@ -23,12 +23,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
+import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 
 /**
  * The Class AbstractLocationEditorPanel.
  */
-public abstract class AbstractLocationEditorPanel extends AbstractIdEditorPanel {
+public abstract class AbstractLocationEditorPanel extends AbstractCommonEditorPanel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7277397468352612606L;
@@ -43,12 +43,5 @@ public abstract class AbstractLocationEditorPanel extends AbstractIdEditorPanel 
 	public AbstractLocationEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
 			final ActionListener actionListener) {
 		super(guiComponentLabel, toolBar, actionListener);
-	}
-
-	/**
-	 * Adds the location common fields.
-	 */
-	protected final void addLocationCommonFields() {
-		addIdCommonFields();
 	}
 }

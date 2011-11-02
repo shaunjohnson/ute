@@ -78,16 +78,32 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 	public SubversionRepositoryLocationEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATION, new SubversionRepositoryLocationEditorToolBar(
 				actionListener), actionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.locations.AbstractHttpLocationEditorPanel#addFields()
+	 */
+	@Override
+	protected void addFields() {
+		super.addFields();
 
 		final JPanel contentPanel = getContentPanel();
-
-		addHttpLocationCommonFields();
 
 		addLabel(contentPanel, GuiComponentLabel.USERNAME);
 		contentPanel.add(getUsernameTextField());
 
 		addLabel(contentPanel, GuiComponentLabel.PASSWORD);
 		contentPanel.add(getPasswordTextField());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new SubversionRepositoryLocation();
 	}
 
 	/**

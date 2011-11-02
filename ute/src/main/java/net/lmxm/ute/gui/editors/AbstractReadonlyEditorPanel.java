@@ -46,6 +46,24 @@ public abstract class AbstractReadonlyEditorPanel extends AbstractEditorPanel {
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#addFields()
+	 */
+	@Override
+	protected final void addFields() {
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new Object();
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#loadData()
 	 */
 	@Override

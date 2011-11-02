@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
@@ -75,10 +76,17 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 */
 	public GroovyTaskEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.GROOVY_TASK, new GroovyTaskEditorToolBar(actionListener), actionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#addFields()
+	 */
+	@Override
+	protected void addFields() {
+		super.addFields();
 
 		final JPanel contentPanel = getContentPanel();
-
-		addTaskCommonFields();
 
 		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
@@ -87,6 +95,15 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 		addSeparator(contentPanel, GuiComponentLabel.GROOVY_SCRIPT);
 		addLabel(contentPanel, GuiComponentLabel.SCRIPT);
 		contentPanel.add(getScriptPane());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new GroovyTask(new SequentialJob());
 	}
 
 	/**

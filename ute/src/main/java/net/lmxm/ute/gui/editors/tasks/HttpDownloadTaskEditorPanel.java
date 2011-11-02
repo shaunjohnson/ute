@@ -22,6 +22,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import net.lmxm.ute.beans.jobs.SequentialJob;
+import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
@@ -58,10 +60,17 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 	 */
 	public HttpDownloadTaskEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.HTTP_DOWNLOAD_TASK, new HttpDownloadTaskEditorToolBar(actionListener), actionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#addFields()
+	 */
+	@Override
+	protected void addFields() {
+		super.addFields();
 
 		final JPanel contentPanel = getContentPanel();
-
-		addTaskCommonFields();
 
 		addSeparator(contentPanel, GuiComponentLabel.SOURCE);
 		addHttpSourceFields();
@@ -69,5 +78,14 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new HttpDownloadTask(new SequentialJob());
 	}
 }

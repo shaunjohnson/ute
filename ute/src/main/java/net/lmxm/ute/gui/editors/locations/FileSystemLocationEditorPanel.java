@@ -75,13 +75,29 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	public FileSystemLocationEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.FILE_SYSTEM_LOCATION, new FileSystemLocationEditorToolBar(actionListener),
 				actionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractCommonEditorPanel#addFields()
+	 */
+	@Override
+	protected void addFields() {
+		super.addFields();
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLocationCommonFields();
-
 		addLabel(contentPanel, GuiComponentLabel.PATH);
 		contentPanel.add(getPathTextField());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new FileSystemLocation();
 	}
 
 	/**

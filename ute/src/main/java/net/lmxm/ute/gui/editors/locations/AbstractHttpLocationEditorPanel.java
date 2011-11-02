@@ -52,13 +52,15 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 		super(guiComponentLabel, toolBar, actionListener);
 	}
 
-	/**
-	 * Adds the http location common fields.
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractCommonEditorPanel#addFields()
 	 */
-	protected final void addHttpLocationCommonFields() {
-		final JPanel contentPanel = getContentPanel();
+	@Override
+	protected void addFields() {
+		super.addFields();
 
-		addLocationCommonFields();
+		final JPanel contentPanel = getContentPanel();
 
 		addLabel(contentPanel, GuiComponentLabel.URL);
 		contentPanel.add(getUrlTextField());

@@ -24,9 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
+import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.listeners.ChangeAdapter;
@@ -38,15 +41,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class AbstractIdEditorPanel.
+ * The Class AbstractCommonEditorPanel.
  */
-public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
+public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 
 	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractIdEditorPanel.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCommonEditorPanel.class);
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7144352139412573257L;
+
+	/** The description pane. */
+	private JScrollPane descriptionPane = null;
+
+	/** The description text area. */
+	private JTextArea descriptionTextArea = null;
 
 	/** The id change listeners. */
 	private final List<IdChangeListener> idChangeListeners = new ArrayList<IdChangeListener>();
@@ -55,15 +64,33 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	private JTextField idTextField = null;
 
 	/**
-	 * Instantiates a new abstract id editor panel.
+	 * Instantiates a new abstract common editor panel.
 	 * 
 	 * @param guiComponentLabel the gui component label
 	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractIdEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+	public AbstractCommonEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
 			final ActionListener actionListener) {
 		super(guiComponentLabel, toolBar, actionListener);
+	}
+
+	/**
+	 * Adds the common fields.
+	 */
+	@Override
+	protected void addFields() {
+		final JPanel contentPanel = getContentPanel();
+
+		if (IdentifiableBean.class.isInstance(getEditedObjectClass())) {
+			addLabel(contentPanel, GuiComponentLabel.ID);
+			contentPanel.add(getIdTextField());
+		}
+
+		if (DescribableBean.class.isInstance(getEditedObjectClass())) {
+			addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
+			contentPanel.add(getDescriptionPane());
+		}
 	}
 
 	/**
@@ -73,16 +100,6 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	 */
 	public final void addIdChangeListener(final IdChangeListener idChangeListener) {
 		idChangeListeners.add(idChangeListener);
-	}
-
-	/**
-	 * Adds the id common fields.
-	 */
-	protected final void addIdCommonFields() {
-		final JPanel contentPanel = getContentPanel();
-
-		addLabel(contentPanel, GuiComponentLabel.ID);
-		contentPanel.add(getIdTextField());
 	}
 
 	/**
@@ -96,6 +113,43 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 		for (final IdChangeListener idChangeListener : idChangeListeners) {
 			idChangeListener.idChanged(idChangeEvent);
 		}
+	}
+
+	/**
+	 * Gets the description pane.
+	 * 
+	 * @return the description pane
+	 */
+	private final JScrollPane getDescriptionPane() {
+		if (descriptionPane == null) {
+			descriptionPane = new JScrollPane(getDescriptionTextArea());
+		}
+
+		return descriptionPane;
+	}
+
+	/**
+	 * Gets the description text area.
+	 * 
+	 * @return the description text area
+	 */
+	private final JTextArea getDescriptionTextArea() {
+		if (descriptionTextArea == null) {
+			descriptionTextArea = new JTextArea();
+			descriptionTextArea.setColumns(40);
+			descriptionTextArea.setRows(5);
+			descriptionTextArea.setLineWrap(true);
+			descriptionTextArea.setTabSize(4);
+			descriptionTextArea.getDocument().addDocumentListener(new ChangeAdapter() {
+				@Override
+				public void valueChanged(final String newValue) {
+					if (getUserObject() instanceof DescribableBean) {
+						((DescribableBean) getUserObject()).setDescription(newValue);
+					}
+				}
+			});
+		}
+		return descriptionTextArea;
 	}
 
 	/**
@@ -136,6 +190,12 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 			final IdentifiableBean identifiableBean = (IdentifiableBean) getUserObject();
 
 			getIdTextField().setText(identifiableBean.getId());
+		}
+
+		if (getUserObject() instanceof DescribableBean) {
+			final DescribableBean describableBean = (DescribableBean) getUserObject();
+
+			getDescriptionTextArea().setText(describableBean.getDescription());
 		}
 
 		LOGGER.debug("{} leaving", prefix);

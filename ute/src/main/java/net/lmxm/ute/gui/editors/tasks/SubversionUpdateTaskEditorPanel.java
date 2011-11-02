@@ -22,6 +22,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import net.lmxm.ute.beans.jobs.SequentialJob;
+import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
@@ -59,10 +61,17 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 	public SubversionUpdateTaskEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.SUBVERSION_UPDATE_TASK, new SubversionUpdateTaskEditorToolBar(actionListener),
 				actionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractCommonEditorPanel#addFields()
+	 */
+	@Override
+	protected void addFields() {
+		super.addFields();
 
 		final JPanel contentPanel = getContentPanel();
-
-		addTaskCommonFields();
 
 		addSeparator(contentPanel, GuiComponentLabel.SOURCE);
 		addSubversionRepositorySourceFields();
@@ -70,5 +79,14 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new SubversionUpdateTask(new SequentialJob());
 	}
 }

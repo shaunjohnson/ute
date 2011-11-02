@@ -31,6 +31,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import net.lmxm.ute.beans.FindReplacePattern;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -93,10 +94,17 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 */
 	public FindReplaceTaskEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.FIND_AND_REPLACE_TASK, new FindReplaceTaskEditorToolBar(actionListener), actionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#addFields()
+	 */
+	@Override
+	protected void addFields() {
+		super.addFields();
 
 		final JPanel contentPanel = getContentPanel();
-
-		addTaskCommonFields();
 
 		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
@@ -131,6 +139,15 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		tableModel.addColumn("Replacement");
 
 		return tableModel;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new FindReplaceTask(new SequentialJob());
 	}
 
 	/**

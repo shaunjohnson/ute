@@ -20,6 +20,7 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
+import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
@@ -59,7 +60,14 @@ public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPan
 	 */
 	public HttpLocationEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.HTTP_LOCATION, new HttpLocationEditorToolBar(actionListener), actionListener);
+	}
 
-		addHttpLocationCommonFields();
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new HttpLocation();
 	}
 }

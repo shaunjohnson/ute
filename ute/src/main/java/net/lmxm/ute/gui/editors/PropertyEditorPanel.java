@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class PropertyEditor.
  */
-public final class PropertyEditorPanel extends AbstractIdEditorPanel {
+public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 
 	/**
 	 * The Class PropertyEditorToolBar.
@@ -74,13 +74,29 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 	 */
 	public PropertyEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.PROPERTY, new PropertyEditorToolBar(actionListener), actionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractCommonEditorPanel#addFields()
+	 */
+	@Override
+	protected void addFields() {
+		super.addFields();
 
 		final JPanel contentPanel = getContentPanel();
 
-		addIdCommonFields();
-
 		addLabel(contentPanel, GuiComponentLabel.VALUE);
 		contentPanel.add(getPropertyValueTextField());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new Property();
 	}
 
 	/**

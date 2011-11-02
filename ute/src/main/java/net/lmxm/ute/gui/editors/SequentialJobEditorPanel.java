@@ -20,8 +20,6 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.AbstractJobEditorToolBar;
@@ -32,7 +30,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class SequentialJobEditorPanel.
  */
-public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
+public final class SequentialJobEditorPanel extends AbstractCommonEditorPanel {
 
 	/**
 	 * The Class SequentialJobEditorToolbar.
@@ -66,13 +64,15 @@ public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 	 */
 	public SequentialJobEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.SEQUENTIAL_JOB, new SequentialJobEditorToolbar(actionListener), actionListener);
+	}
 
-		final JPanel contentPanel = getContentPanel();
-
-		addIdCommonFields();
-
-		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
-		contentPanel.add(getDescriptionPane());
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
+	 */
+	@Override
+	protected Object getEditedObjectClass() {
+		return new SequentialJob();
 	}
 
 	/*
@@ -88,9 +88,8 @@ public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 		super.loadData();
 
 		if (getUserObject() instanceof SequentialJob) {
-			final SequentialJob sequentialJob = (SequentialJob) getUserObject();
-
-			getDescriptionTextArea().setText(sequentialJob.getDescription());
+			// final SequentialJob sequentialJob = (SequentialJob) getUserObject();
+			// TODO
 		}
 
 		LOGGER.debug("{} leaving", prefix);

@@ -45,7 +45,7 @@ import net.lmxm.ute.beans.tasks.HttpSourceTask;
 import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
+import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class AbstractTaskEditorPanel.
  */
-public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
+public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTaskEditorPanel.class);
@@ -89,6 +89,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	 * Instantiates a new abstract task editor panel.
 	 * 
 	 * @param guiComponentLabel the gui component label
+	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
 	public AbstractTaskEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
@@ -96,6 +97,19 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		super(guiComponentLabel, toolBar, actionListener);
 
 		monospaceFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractCommonEditorPanel#addFields()
+	 */
+	@Override
+	protected void addFields() {
+		super.addFields();
+
+		final JPanel contentPanel = getContentPanel();
+
+		addCheckbox(contentPanel, getEnabledCheckbox(), GuiComponentLabel.ENABLED);
 	}
 
 	/**
@@ -145,20 +159,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 		addLabel(contentPanel, GuiComponentLabel.PATH);
 		contentPanel.add(getSourceRelativePathTextField());
-	}
-
-	/**
-	 * Adds the task common fields.
-	 */
-	protected final void addTaskCommonFields() {
-		final JPanel contentPanel = getContentPanel();
-
-		addIdCommonFields();
-
-		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
-		contentPanel.add(getDescriptionPane());
-
-		addCheckbox(contentPanel, getEnabledCheckbox(), GuiComponentLabel.ENABLED);
 	}
 
 	/**
@@ -308,6 +308,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		return targetRelativePathTextField;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#initialize(net.lmxm.ute.beans.Configuration)
+	 */
 	@Override
 	public final void initialize(final Configuration configuration) {
 		super.initialize(configuration);
@@ -316,11 +320,32 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 				createDefaultComboBoxModel(configuration.getFileSystemLocations()));
 	}
 
+	/**
+	 * Load common data.
+	 */
+	private final void loadCommonData() {
+		final String prefix = "loadTaskCommonFieldData(): ";
+
+		LOGGER.debug("{} entered", prefix);
+
+		if (getUserObject() instanceof Task) {
+			final Task task = (Task) getUserObject();
+
+			getEnabledCheckbox().setSelected(task.getEnabled());
+		}
+
+		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractCommonEditorPanel#loadData()
+	 */
 	@Override
 	public void loadData() {
 		// Load Common Fields
 		super.loadData();
-		loadTaskCommonFieldData();
+		loadCommonData();
 
 		// Load Source Fields
 		loadHttpSourceFieldData();
@@ -333,23 +358,25 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		loadFilesFieldData();
 	}
 
+	/**
+	 * Load files field data.
+	 */
 	private final void loadFilesFieldData() {
-		final DefaultTableModel tableModel = createEmptyFilesTableModel();
-		getFilesTable().setModel(tableModel);
-
 		if (getUserObject() instanceof FilesTask) {
 			final FilesTask filesTask = (FilesTask) getUserObject();
+			final DefaultTableModel tableModel = createEmptyFilesTableModel();
 
 			for (final FileReference fileReference : filesTask.getFiles()) {
 				tableModel.addRow(new Object[] { fileReference.getName(), fileReference.getTargetName() });
 			}
+
+			getFilesTable().setModel(tableModel);
 		}
 	}
 
 	/**
 	 * Load file system target field data.
 	 * 
-	 * @param fileSystemTarget the file system target
 	 */
 	private final void loadFileSystemTargetFieldData() {
 		final String prefix = "loadFileSystemTargetFieldData(): ";
@@ -369,7 +396,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	/**
 	 * Load http source field data.
 	 * 
-	 * @param httpSource the http source
 	 */
 	private final void loadHttpSourceFieldData() {
 		final String prefix = "loadHttpSourceFieldData(): ";
@@ -400,24 +426,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 
 			getSubversionRepositoryLocationSourceComboBox().setSelectedItem(subversionRepositorySource.getLocation());
 			getSourceRelativePathTextField().setText(subversionRepositorySource.getRelativePath());
-		}
-
-		LOGGER.debug("{} leaving", prefix);
-	}
-
-	/**
-	 * Load task common field data.
-	 */
-	private final void loadTaskCommonFieldData() {
-		final String prefix = "loadTaskCommonFieldData(): ";
-
-		LOGGER.debug("{} entered", prefix);
-
-		if (getUserObject() instanceof Task) {
-			final Task task = (Task) getUserObject();
-
-			getDescriptionTextArea().setText(task.getDescription());
-			getEnabledCheckbox().setSelected(task.getEnabled());
 		}
 
 		LOGGER.debug("{} leaving", prefix);

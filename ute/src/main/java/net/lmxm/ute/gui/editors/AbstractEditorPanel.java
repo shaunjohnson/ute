@@ -31,18 +31,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.listeners.ChangeAdapter;
 import net.miginfocom.swing.MigLayout;
 
 import com.google.common.base.Preconditions;
@@ -70,12 +66,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/** The content panel. */
 	private final JPanel contentPanel;
-
-	/** The description pane. */
-	private JScrollPane descriptionPane = null;
-
-	/** The description text area. */
-	private JTextArea descriptionTextArea = null;
 
 	/** The http location target combo box. */
 	private JComboBox httpLocationTargetComboBox = null;
@@ -116,6 +106,8 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 		// Add initial separator label
 		addSeparator(contentPanel, guiComponentLabel);
+
+		addFields();
 	}
 
 	/**
@@ -133,6 +125,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 		panel.add(subPanel, "skip 1");
 	}
+
+	/**
+	 * Adds the fields.
+	 */
+	protected abstract void addFields();
 
 	/**
 	 * Adds the label.
@@ -210,41 +207,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 	}
 
 	/**
-	 * Gets the description pane.
+	 * Gets the edited object class.
 	 * 
-	 * @return the description pane
+	 * @return the edited object class
 	 */
-	protected final JScrollPane getDescriptionPane() {
-		if (descriptionPane == null) {
-			descriptionPane = new JScrollPane(getDescriptionTextArea());
-		}
-
-		return descriptionPane;
-	}
-
-	/**
-	 * Gets the description text area.
-	 * 
-	 * @return the description text area
-	 */
-	protected final JTextArea getDescriptionTextArea() {
-		if (descriptionTextArea == null) {
-			descriptionTextArea = new JTextArea();
-			descriptionTextArea.setColumns(40);
-			descriptionTextArea.setRows(5);
-			descriptionTextArea.setLineWrap(true);
-			descriptionTextArea.setTabSize(4);
-			descriptionTextArea.getDocument().addDocumentListener(new ChangeAdapter() {
-				@Override
-				public void valueChanged(final String newValue) {
-					if (getUserObject() instanceof DescribableBean) {
-						((DescribableBean) getUserObject()).setDescription(newValue);
-					}
-				}
-			});
-		}
-		return descriptionTextArea;
-	}
+	protected abstract Object getEditedObjectClass();
 
 	/**
 	 * Gets the http location source combo box.
