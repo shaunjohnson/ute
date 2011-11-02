@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.components;
+package net.lmxm.ute.gui.maintree;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,7 +62,6 @@ import net.lmxm.ute.gui.nodes.JobsRootTreeNode;
 import net.lmxm.ute.gui.nodes.PreferencesRootTreeNode;
 import net.lmxm.ute.gui.nodes.PropertiesRootTreeNode;
 import net.lmxm.ute.gui.nodes.SubversionRepositoryLocationsRootTreeNode;
-import net.lmxm.ute.gui.renderers.MainTreeCellRenderer;
 import net.lmxm.ute.listeners.IdChangeEvent;
 import net.lmxm.ute.listeners.IdChangeListener;
 

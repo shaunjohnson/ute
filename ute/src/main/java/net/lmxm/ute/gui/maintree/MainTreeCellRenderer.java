@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.renderers;
+package net.lmxm.ute.gui.maintree;
 
 import java.awt.Color;
 import java.awt.Component;
