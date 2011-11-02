@@ -35,7 +35,7 @@ import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.FindReplaceTaskEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +44,24 @@ import org.slf4j.LoggerFactory;
  * The Class FindReplaceTaskEditorPanel.
  */
 public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
+
+	/**
+	 * The Class FindReplaceTaskEditorToolBar.
+	 */
+	private static class FindReplaceTaskEditorToolBar extends AbstractTaskEditorToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -4652716534538899767L;
+
+		/**
+		 * Instantiates a new find replace task editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public FindReplaceTaskEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+		}
+	}
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FindReplaceTaskEditorPanel.class);
@@ -68,9 +86,6 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/** The scope pane. */
 	private JPanel scopePane = null;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new find replace task editor panel.
@@ -215,10 +230,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new FindReplaceTaskEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new FindReplaceTaskEditorToolBar(getActionListener());
 	}
 
 	/*

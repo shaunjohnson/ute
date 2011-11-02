@@ -23,18 +23,36 @@ import java.awt.event.ActionListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.JobsEditorToolBar;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
  * The Class JobsEditorPanel.
  */
 public class JobsEditorPanel extends AbstractEditorPanel {
 
+	/**
+	 * The Class JobsEditorToolBar.
+	 */
+	private static class JobsEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -2652922370956062365L;
+
+		/**
+		 * Instantiates a new jobs editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public JobsEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.ADD_JOB);
+		}
+	}
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1456434546501638076L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new jobs editor panel.
@@ -51,10 +69,7 @@ public class JobsEditorPanel extends AbstractEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new JobsEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new JobsEditorToolBar(getActionListener());
 	}
 
 	/*

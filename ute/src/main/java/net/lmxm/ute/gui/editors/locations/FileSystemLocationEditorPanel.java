@@ -27,7 +27,8 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.FileSystemLocationEditorToolBar;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
 
 import org.slf4j.Logger;
@@ -38,6 +39,26 @@ import org.slf4j.LoggerFactory;
  */
 public final class FileSystemLocationEditorPanel extends AbstractLocationEditorPanel {
 
+	/**
+	 * The Class FileSystemLocationEditorToolBar.
+	 */
+	private static class FileSystemLocationEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 5647133443099985373L;
+
+		/**
+		 * Instantiates a new file system location editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public FileSystemLocationEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.DELETE_FILE_SYSTEM_LOCATION);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemLocationEditorPanel.class);
 
@@ -46,9 +67,6 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 	/** The path text field. */
 	private JTextField pathTextField = null;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new file system location editor panel.
@@ -93,10 +111,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new FileSystemLocationEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new FileSystemLocationEditorToolBar(getActionListener());
 	}
 
 	/*

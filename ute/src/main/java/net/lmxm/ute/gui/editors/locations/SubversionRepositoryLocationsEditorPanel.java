@@ -23,19 +23,37 @@ import java.awt.event.ActionListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
-import net.lmxm.ute.gui.toolbars.SubversionRepositoryLocationsEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
  * The Class SubversionRepositoryLocationsEditorPanel.
  */
 public class SubversionRepositoryLocationsEditorPanel extends AbstractEditorPanel {
 
+	/**
+	 * The Class SubversionRepositoryLocationsEditorToolBar.
+	 */
+	private static class SubversionRepositoryLocationsEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 2727238704897494027L;
+
+		/**
+		 * Instantiates a new subversion repository locations editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public SubversionRepositoryLocationsEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.ADD_SUBVERSION_REPOSITORY_LOCATION);
+		}
+	}
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1279109535635849415L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new subversion repository locations editor panel.
@@ -52,10 +70,7 @@ public class SubversionRepositoryLocationsEditorPanel extends AbstractEditorPane
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new SubversionRepositoryLocationsEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new SubversionRepositoryLocationsEditorToolBar(getActionListener());
 	}
 
 	/*

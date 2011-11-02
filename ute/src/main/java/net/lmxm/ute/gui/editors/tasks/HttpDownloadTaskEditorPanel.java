@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.HttpDownloadTaskEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,14 +34,26 @@ import org.slf4j.LoggerFactory;
  */
 public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
+	private static class HttpDownloadTaskEditorToolBar extends AbstractTaskEditorToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 2430542852877132983L;
+
+		/**
+		 * Instantiates a new http download task editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public HttpDownloadTaskEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpDownloadTaskEditorPanel.class);
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7076073228977636114L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new http download task editor panel.
@@ -69,10 +81,7 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new HttpDownloadTaskEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new HttpDownloadTaskEditorToolBar(getActionListener());
 	}
 
 	/*

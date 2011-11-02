@@ -27,7 +27,8 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.SubversionRepositoryLocationEditorToolBar;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
 
 import org.slf4j.Logger;
@@ -38,6 +39,26 @@ import org.slf4j.LoggerFactory;
  */
 public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpLocationEditorPanel {
 
+	/**
+	 * The Class SubversionRepositoryLocationEditorToolBar.
+	 */
+	private static class SubversionRepositoryLocationEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -1616267977286142640L;
+
+		/**
+		 * Instantiates a new subversion repository location editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public SubversionRepositoryLocationEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.DELETE_SUBVERSION_REPOSITORY_LOCATION);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionRepositoryLocationEditorPanel.class);
 
@@ -46,9 +67,6 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 
 	/** The password text field. */
 	private JTextField passwordTextField = null;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/** The username text field. */
 	private JTextField usernameTextField = null;
@@ -99,10 +117,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new SubversionRepositoryLocationEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new SubversionRepositoryLocationEditorToolBar(getActionListener());
 	}
 
 	/**

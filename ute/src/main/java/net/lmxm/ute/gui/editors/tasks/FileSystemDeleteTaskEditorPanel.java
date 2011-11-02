@@ -26,7 +26,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.FileSystemDeleteTaskEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +36,24 @@ import org.slf4j.LoggerFactory;
  */
 public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPanel {
 
+	/**
+	 * The Class FileSystemDeleteTaskEditorToolBar.
+	 */
+	private static class FileSystemDeleteTaskEditorToolBar extends AbstractTaskEditorToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 3117780598467179092L;
+
+		/**
+		 * Instantiates a new file system delete task editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public FileSystemDeleteTaskEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemDeleteTaskEditorPanel.class);
 
@@ -44,9 +62,6 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 
 	/** The stop on error checkbox. */
 	private JCheckBox stopOnErrorCheckbox = null;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new job editor panel.
@@ -85,12 +100,13 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new FileSystemDeleteTaskEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new FileSystemDeleteTaskEditorToolBar(getActionListener());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#loadData()
+	 */
 	@Override
 	public void loadData() {
 		final String prefix = "loadData(): ";

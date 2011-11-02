@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.SubversionExportTaskEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,14 +34,29 @@ import org.slf4j.LoggerFactory;
  */
 public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPanel {
 
+	/**
+	 * The Class SubversionExportTaskEditorToolBar.
+	 */
+	private static class SubversionExportTaskEditorToolBar extends AbstractTaskEditorToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -4774652510779094497L;
+
+		/**
+		 * Instantiates a new subversion export task editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public SubversionExportTaskEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionExportTaskEditorPanel.class);
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -254745593912919513L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new job editor panel.
@@ -69,10 +84,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new SubversionExportTaskEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new SubversionExportTaskEditorToolBar(getActionListener());
 	}
 
 	/*

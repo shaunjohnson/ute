@@ -23,18 +23,36 @@ import java.awt.event.ActionListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.PropertiesEditorToolBar;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
  * The Class PropertiesEditorPanel.
  */
 public class PropertiesEditorPanel extends AbstractEditorPanel {
 
+	/**
+	 * The Class PropertiesEditorToolBar.
+	 */
+	private static class PropertiesEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -1153768266558335635L;
+
+		/**
+		 * Instantiates a new properties editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public PropertiesEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.ADD_PROPERTY);
+		}
+	}
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2351152862222662562L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new properties editor panel.
@@ -51,10 +69,7 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new PropertiesEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new PropertiesEditorToolBar(getActionListener());
 	}
 
 	/*

@@ -18,22 +18,30 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+
 /**
- * The Class FileSystemDeleteTaskEditorToolBar.
+ * The Class AbstractJobEditorToolBar.
  */
-public class FileSystemDeleteTaskEditorToolBar extends AbstractTaskEditorToolBar {
+public abstract class AbstractJobEditorToolBar extends AbstractToolBar {
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 3117780598467179092L;
+	private static final long serialVersionUID = 2056761468717025839L;
 
 	/**
-	 * Instantiates a new file system delete task editor tool bar.
+	 * Instantiates a new abstract job editor tool bar.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public FileSystemDeleteTaskEditorToolBar(final ActionListener actionListener) {
+	public AbstractJobEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
+
+		addToolbarButton(GuiComponentToolbarButton.EXECUTE_JOB);
+		addToolbarButton(GuiComponentToolbarButton.ADD_TASK, new AddTaskMouseListener(actionListener));
+		addSeparator(new Dimension(20, 20));
+		addToolbarButton(GuiComponentToolbarButton.DELETE_JOB);
 	}
 }

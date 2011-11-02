@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.SubversionUpdateTaskEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,14 +34,29 @@ import org.slf4j.LoggerFactory;
  */
 public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPanel {
 
+	/**
+	 * The Class SubversionUpdateTaskEditorToolBar.
+	 */
+	private static class SubversionUpdateTaskEditorToolBar extends AbstractTaskEditorToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -7138989729064070675L;
+
+		/**
+		 * Instantiates a new subversion update task editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public SubversionUpdateTaskEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionUpdateTaskEditorPanel.class);
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 12035329665657526L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new job editor panel.
@@ -69,10 +84,7 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new SubversionUpdateTaskEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new SubversionUpdateTaskEditorToolBar(getActionListener());
 	}
 
 	/*

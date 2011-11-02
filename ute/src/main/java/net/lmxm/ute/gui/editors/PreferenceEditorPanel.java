@@ -27,7 +27,8 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.PreferenceEditorToolBar;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,26 @@ import org.slf4j.LoggerFactory;
  */
 public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 
+	/**
+	 * The Class PreferenceEditorToolBar.
+	 */
+	private static class PreferenceEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 924885959488061605L;
+
+		/**
+		 * Instantiates a new preference editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public PreferenceEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.DELETE_PREFERENCE);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(PreferenceEditorPanel.class);
 
@@ -45,9 +66,6 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 
 	/** The preference value text field. */
 	private JTextField preferenceValueTextField = null;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new preference editor panel.
@@ -86,10 +104,7 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new PreferenceEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new PreferenceEditorToolBar(getActionListener());
 	}
 
 	/*

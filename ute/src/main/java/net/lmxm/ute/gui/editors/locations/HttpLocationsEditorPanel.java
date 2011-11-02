@@ -23,19 +23,37 @@ import java.awt.event.ActionListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
-import net.lmxm.ute.gui.toolbars.HttpLocationsEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
  * The Class HttpLocationsEditorPanel.
  */
 public class HttpLocationsEditorPanel extends AbstractEditorPanel {
 
+	/**
+	 * The Class HttpLocationsEditorToolBar.
+	 */
+	private static class HttpLocationsEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -690594193291992431L;
+
+		/**
+		 * Instantiates a new http locations editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public HttpLocationsEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.ADD_HTTP_LOCATION);
+		}
+	}
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2293199305022188083L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new http locations editor panel.
@@ -52,10 +70,7 @@ public class HttpLocationsEditorPanel extends AbstractEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new HttpLocationsEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new HttpLocationsEditorToolBar(getActionListener());
 	}
 
 	/*

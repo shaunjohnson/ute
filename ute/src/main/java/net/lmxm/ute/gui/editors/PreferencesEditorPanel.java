@@ -23,18 +23,36 @@ import java.awt.event.ActionListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.PreferencesEditorToolBar;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
  * The Class PreferencesEditorPanel.
  */
 public class PreferencesEditorPanel extends AbstractEditorPanel {
 
+	/**
+	 * The Class PreferencesEditorToolBar.
+	 */
+	private static class PreferencesEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 1596742516975543683L;
+
+		/**
+		 * Instantiates a new preferences editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public PreferencesEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.ADD_PREFERENCE);
+		}
+	}
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3805356364223511110L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new properties editor panel.
@@ -51,10 +69,7 @@ public class PreferencesEditorPanel extends AbstractEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new PreferencesEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new PreferencesEditorToolBar(getActionListener());
 	}
 
 	/*

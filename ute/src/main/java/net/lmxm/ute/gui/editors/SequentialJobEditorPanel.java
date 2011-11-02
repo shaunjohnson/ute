@@ -25,7 +25,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.JobEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractJobEditorToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +35,30 @@ import org.slf4j.LoggerFactory;
  */
 public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 
+	/**
+	 * The Class SequentialJobEditorToolbar.
+	 */
+	private static class SequentialJobEditorToolbar extends AbstractJobEditorToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -416992524098561294L;
+
+		/**
+		 * Instantiates a new sequential job editor toolbar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public SequentialJobEditorToolbar(final ActionListener actionListener) {
+			super(actionListener);
+
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SequentialJobEditorPanel.class);
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -254745593912919513L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new sequential job editor panel.
@@ -66,10 +82,7 @@ public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new JobEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new SequentialJobEditorToolbar(getActionListener());
 	}
 
 	/*

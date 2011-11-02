@@ -23,7 +23,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.HttpLocationEditorToolBar;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +34,31 @@ import org.slf4j.LoggerFactory;
  */
 public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPanel {
 
+	/**
+	 * The Class HttpLocationEditorToolBar.
+	 */
+	private static class HttpLocationEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 7975688924393008182L;
+
+		/**
+		 * Instantiates a new http location editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public HttpLocationEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.DELETE_HTTP_LOCATION);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpLocationEditorPanel.class);
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4152865192476292446L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new http location editor panel.
@@ -59,10 +77,7 @@ public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPan
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new HttpLocationEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new HttpLocationEditorToolBar(getActionListener());
 	}
 
 	/*

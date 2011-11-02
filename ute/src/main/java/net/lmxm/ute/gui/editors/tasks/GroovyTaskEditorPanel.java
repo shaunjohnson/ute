@@ -26,7 +26,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.GroovyTaskEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
@@ -39,6 +39,24 @@ import org.slf4j.LoggerFactory;
  */
 public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 
+	/**
+	 * The Class GroovyTaskEditorToolBar.
+	 */
+	private static class GroovyTaskEditorToolBar extends AbstractTaskEditorToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 5352183821352721127L;
+
+		/**
+		 * Instantiates a new groovy task editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public GroovyTaskEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(GroovyTaskEditorPanel.class);
 
@@ -50,9 +68,6 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/** The script text area. */
 	private RSyntaxTextArea scriptTextArea = null;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new groovy task editor panel.
@@ -110,12 +125,13 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new GroovyTaskEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new GroovyTaskEditorToolBar(getActionListener());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#loadData()
+	 */
 	@Override
 	public void loadData() {
 		final String prefix = "loadData(): ";

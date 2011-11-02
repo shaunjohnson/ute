@@ -23,19 +23,37 @@ import java.awt.event.ActionListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
-import net.lmxm.ute.gui.toolbars.FileSystemLocationsEditorToolBar;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
  * The Class HttpLocationsEditorPanel.
  */
 public class FileSystemLocationsEditorPanel extends AbstractEditorPanel {
 
+	/**
+	 * The Class FileSystemLocationsEditorToolBar.
+	 */
+	private static class FileSystemLocationsEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 8767030052836785508L;
+
+		/**
+		 * Instantiates a new file system locations editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public FileSystemLocationsEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.ADD_FILE_SYSTEM_LOCATION);
+		}
+	}
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2293199305022188083L;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new http locations editor panel.
@@ -52,10 +70,7 @@ public class FileSystemLocationsEditorPanel extends AbstractEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new FileSystemLocationsEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new FileSystemLocationsEditorToolBar(getActionListener());
 	}
 
 	/*

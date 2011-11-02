@@ -27,7 +27,8 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.toolbars.PropertyEditorToolBar;
+import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
 
 import org.slf4j.Logger;
@@ -38,6 +39,26 @@ import org.slf4j.LoggerFactory;
  */
 public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
+	/**
+	 * The Class PropertyEditorToolBar.
+	 */
+	private static class PropertyEditorToolBar extends AbstractToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -3489509073783668457L;
+
+		/**
+		 * Instantiates a new properties editor tool bar.
+		 * 
+		 * @param actionListener the action listener
+		 */
+		public PropertyEditorToolBar(final ActionListener actionListener) {
+			super(actionListener);
+
+			addToolbarButton(GuiComponentToolbarButton.DELETE_PROPERTY);
+		}
+	}
+
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(PropertyEditorPanel.class);
 
@@ -46,9 +67,6 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 
 	/** The property value text field. */
 	private JTextField propertyValueTextField = null;
-
-	/** The tool bar. */
-	private JToolBar toolBar;
 
 	/**
 	 * Instantiates a new property editor.
@@ -94,10 +112,7 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 	 */
 	@Override
 	protected JToolBar getToolBar() {
-		if (toolBar == null) {
-			toolBar = new PropertyEditorToolBar(getActionListener());
-		}
-		return toolBar;
+		return new PropertyEditorToolBar(getActionListener());
 	}
 
 	/*
