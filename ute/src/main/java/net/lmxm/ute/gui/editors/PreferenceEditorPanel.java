@@ -92,23 +92,20 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param preference the preference
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractIdEditorPanel#loadData()
 	 */
-	public void loadData(final Preference preference) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, preference={}", prefix, preference);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(preference);
-		loadData();
+		super.loadData();
 
-		if (preference == null) {
-			getPreferenceValueTextField().setText("");
-		}
-		else {
+		if (getUserObject() instanceof Preference) {
+			final Preference preference = (Preference) getUserObject();
 
 			getPreferenceValueTextField().setText(preference.getValue());
 		}

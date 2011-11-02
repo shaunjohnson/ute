@@ -87,10 +87,8 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 	 * Loat http common field data.
 	 */
 	@Override
-	protected final void loadData() {
+	public void loadData() {
 		super.loadData();
-
-		getUrlTextField().setText("");
 
 		if (getUserObject() instanceof AbstractHttpLocation) {
 			final AbstractHttpLocation abstractHttpLocation = (AbstractHttpLocation) getUserObject();

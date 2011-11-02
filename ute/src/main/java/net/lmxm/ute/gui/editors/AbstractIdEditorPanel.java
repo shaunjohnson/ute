@@ -124,7 +124,7 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#loadData()
 	 */
 	@Override
-	protected void loadData() {
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
 		LOGGER.debug("{} entered", prefix);

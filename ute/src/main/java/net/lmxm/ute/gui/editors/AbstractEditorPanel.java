@@ -289,7 +289,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * 
 	 * @return the user object
 	 */
-	protected final Object getUserObject() {
+	public final Object getUserObject() {
 		return userObject;
 	}
 
@@ -307,7 +307,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/**
 	 * Load data.
 	 */
-	protected abstract void loadData();
+	public abstract void loadData();
 
 	/**
 	 * Sets the focus to first input.
@@ -315,47 +315,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 	public abstract void setFocusToFirstInput();
 
 	/**
-	 * Sets the selected index.
-	 * 
-	 * @param comboBox the combo box
-	 * @param value the value
-	 */
-	protected final void setSelectedIndex(final JComboBox comboBox, final Object value) {
-		final String prefix = "setSelectedIndex() :";
-
-		LOGGER.debug("{} entered", prefix);
-
-		final int itemCount = comboBox.getItemCount();
-		int selectedIndex = -1;
-
-		if (value == null) {
-			LOGGER.debug("{} value to select is null, setting index to -1", prefix);
-		}
-		else {
-			LOGGER.debug("{} value={}", prefix, value);
-
-			for (int i = 0; i < itemCount; i++) {
-				if (comboBox.getItemAt(i).toString().equals(value.toString())) {
-					selectedIndex = i;
-
-					break;
-				}
-			}
-		}
-
-		LOGGER.debug("{} setting index to {}", prefix, selectedIndex);
-
-		comboBox.setSelectedIndex(selectedIndex);
-
-		LOGGER.debug("{} leaving", prefix);
-	}
-
-	/**
 	 * Sets the user object.
 	 * 
 	 * @param userObject the new user object
 	 */
-	protected final void setUserObject(final Object userObject) {
+	public final void setUserObject(final Object userObject) {
 		this.userObject = userObject;
 	}
 }

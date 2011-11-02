@@ -63,7 +63,7 @@ public class FileSystemLocationsEditorPanel extends AbstractEditorPanel {
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#loadData()
 	 */
 	@Override
-	protected void loadData() {
+	public void loadData() {
 
 	}
 

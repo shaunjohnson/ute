@@ -126,24 +126,21 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 		return usernameTextField;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param subversionRepositoryLocation the subversion repository location
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.locations.AbstractHttpLocationEditorPanel#loadData()
 	 */
-	public void loadData(final SubversionRepositoryLocation subversionRepositoryLocation) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, subversionRepositoryLocation={}", prefix, subversionRepositoryLocation);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(subversionRepositoryLocation);
-		loadData();
+		super.loadData();
 
-		if (subversionRepositoryLocation == null) {
-			getUsernameTextField().setText("");
-			getPasswordTextField().setText("");
-		}
-		else {
+		if (getUserObject() instanceof SubversionRepositoryLocation) {
+			final SubversionRepositoryLocation subversionRepositoryLocation = (SubversionRepositoryLocation) getUserObject();
+
 			getUsernameTextField().setText(subversionRepositoryLocation.getUsername());
 			getPasswordTextField().setText(subversionRepositoryLocation.getPassword());
 		}

@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.SubversionExportTaskEditorToolBar;
 
@@ -76,18 +75,17 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param subversionExportTask the subversion export task
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#loadData()
 	 */
-	public void loadData(final SubversionRepositorySourceTask subversionExportTask) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, subversionExportTask={}", prefix, subversionExportTask);
+		LOGGER.debug("{} entered, subversionExportTask={}", prefix);
 
-		setUserObject(subversionExportTask);
-		loadData();
+		super.loadData();
 
 		LOGGER.debug("{} leaving", prefix);
 	}

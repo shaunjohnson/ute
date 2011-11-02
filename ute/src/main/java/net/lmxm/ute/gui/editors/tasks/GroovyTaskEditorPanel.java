@@ -116,23 +116,17 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param groovyTask the groovy task
-	 */
-	public void loadData(final GroovyTask groovyTask) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, groovyTask={}", prefix, groovyTask);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(groovyTask);
-		loadData();
+		super.loadData();
 
-		if (groovyTask == null) {
-			getScriptTextArea().setText("");
-		}
-		else {
+		if (getUserObject() instanceof GroovyTask) {
+			final GroovyTask groovyTask = (GroovyTask) getUserObject();
+
 			getScriptTextArea().setText(groovyTask.getScript());
 		}
 

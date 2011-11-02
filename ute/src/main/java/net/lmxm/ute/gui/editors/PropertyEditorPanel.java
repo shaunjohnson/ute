@@ -100,23 +100,21 @@ public final class PropertyEditorPanel extends AbstractIdEditorPanel {
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param property the property
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractIdEditorPanel#loadData()
 	 */
-	public void loadData(final Property property) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, property={}", prefix, property);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(property);
-		loadData();
+		super.loadData();
 
-		if (property == null) {
-			getPropertyValueTextField().setText("");
-		}
-		else {
+		if (getUserObject() instanceof Property) {
+			final Property property = (Property) getUserObject();
+
 			getPropertyValueTextField().setText(property.getValue());
 		}
 

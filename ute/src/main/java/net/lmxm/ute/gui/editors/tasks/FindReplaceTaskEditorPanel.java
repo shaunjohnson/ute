@@ -221,25 +221,29 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param findReplaceTask the find replace task
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#loadData()
 	 */
-	public void loadData(final FindReplaceTask findReplaceTask) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, findReplaceTask={}", prefix, findReplaceTask);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(findReplaceTask);
-		loadData();
-		loadPatternsFieldData(findReplaceTask);
+		super.loadData();
 
-		if (findReplaceTask == null || findReplaceTask.getScope() == Scope.LINE) {
-			getLineScopeRadioButton().setSelected(true);
-		}
-		else {
-			getFileScopeRadioButton().setSelected(true);
+		if (getUserObject() instanceof FindReplaceTask) {
+			final FindReplaceTask findReplaceTask = (FindReplaceTask) getUserObject();
+
+			loadPatternsFieldData(findReplaceTask);
+
+			if (findReplaceTask.getScope() == Scope.LINE) {
+				getLineScopeRadioButton().setSelected(true);
+			}
+			else {
+				getFileScopeRadioButton().setSelected(true);
+			}
 		}
 
 		LOGGER.debug("{} leaving", prefix);

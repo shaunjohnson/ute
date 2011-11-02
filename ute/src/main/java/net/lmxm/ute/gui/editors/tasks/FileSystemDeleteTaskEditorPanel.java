@@ -91,23 +91,17 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param fileSystemDeleteTask the file system delete task
-	 */
-	public void loadData(final FileSystemDeleteTask fileSystemDeleteTask) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, fileSystemDeleteTask={}", prefix, fileSystemDeleteTask);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(fileSystemDeleteTask);
-		loadData();
+		super.loadData();
 
-		if (fileSystemDeleteTask == null) {
-			getStopOnErrorCheckbox().setSelected(false);
-		}
-		else {
+		if (getUserObject() instanceof FileSystemDeleteTask) {
+			final FileSystemDeleteTask fileSystemDeleteTask = (FileSystemDeleteTask) getUserObject();
+
 			getStopOnErrorCheckbox().setSelected(fileSystemDeleteTask.getStopOnError());
 		}
 

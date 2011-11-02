@@ -315,7 +315,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	}
 
 	@Override
-	protected final void loadData() {
+	public void loadData() {
 		// Load Common Fields
 		super.loadData();
 		loadTaskCommonFieldData();
@@ -357,14 +357,8 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		if (getUserObject() instanceof FileSystemTargetTask) {
 			final FileSystemTarget fileSystemTarget = ((FileSystemTargetTask) getUserObject()).getTarget();
 
-			if (fileSystemTarget == null) {
-				getFileSystemLocationTargetComboBox().setSelectedIndex(-1);
-				getTargetRelativePathTextField().setText("");
-			}
-			else {
-				setSelectedIndex(getFileSystemLocationTargetComboBox(), fileSystemTarget.getLocation());
-				getTargetRelativePathTextField().setText(fileSystemTarget.getRelativePath());
-			}
+			getFileSystemLocationTargetComboBox().setSelectedItem(fileSystemTarget.getLocation());
+			getTargetRelativePathTextField().setText(fileSystemTarget.getRelativePath());
 		}
 
 		LOGGER.debug("{} leaving", prefix);
@@ -383,14 +377,8 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		if (getUserObject() instanceof HttpSourceTask) {
 			final HttpSource httpSource = ((HttpSourceTask) getUserObject()).getSource();
 
-			if (httpSource == null) {
-				getHttpLocationSourceComboBox().setSelectedIndex(-1);
-				getSourceRelativePathTextField().setText("");
-			}
-			else {
-				setSelectedIndex(getHttpLocationSourceComboBox(), httpSource.getLocation());
-				getSourceRelativePathTextField().setText(httpSource.getRelativePath());
-			}
+			getHttpLocationSourceComboBox().setSelectedItem(httpSource.getLocation());
+			getSourceRelativePathTextField().setText(httpSource.getRelativePath());
 		}
 
 		LOGGER.debug("{} leaving", prefix);
@@ -408,15 +396,8 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 			final SubversionRepositorySource subversionRepositorySource = ((SubversionRepositorySourceTask) getUserObject())
 					.getSource();
 
-			if (subversionRepositorySource == null) {
-				getSubversionRepositoryLocationSourceComboBox().setSelectedIndex(-1);
-				getSourceRelativePathTextField().setText("");
-			}
-			else {
-				setSelectedIndex(getSubversionRepositoryLocationSourceComboBox(),
-						subversionRepositorySource.getLocation());
-				getSourceRelativePathTextField().setText(subversionRepositorySource.getRelativePath());
-			}
+			getSubversionRepositoryLocationSourceComboBox().setSelectedItem(subversionRepositorySource.getLocation());
+			getSourceRelativePathTextField().setText(subversionRepositorySource.getRelativePath());
 		}
 
 		LOGGER.debug("{} leaving", prefix);
@@ -429,9 +410,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 		final String prefix = "loadTaskCommonFieldData(): ";
 
 		LOGGER.debug("{} entered", prefix);
-
-		getDescriptionTextArea().setText("");
-		getEnabledCheckbox().setSelected(false);
 
 		if (getUserObject() instanceof Task) {
 			final Task task = (Task) getUserObject();

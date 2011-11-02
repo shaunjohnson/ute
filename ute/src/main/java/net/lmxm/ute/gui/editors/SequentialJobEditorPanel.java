@@ -23,7 +23,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.JobEditorToolBar;
 
@@ -72,21 +72,22 @@ public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param job the job
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractIdEditorPanel#loadData()
 	 */
-	public void loadData(final Job job) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, job={}", prefix, job);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(job);
-		loadData();
+		super.loadData();
 
-		if (job != null) {
-			getDescriptionTextArea().setText(job.getDescription());
+		if (getUserObject() instanceof SequentialJob) {
+			final SequentialJob sequentialJob = (SequentialJob) getUserObject();
+
+			getDescriptionTextArea().setText(sequentialJob.getDescription());
 		}
 
 		LOGGER.debug("{} leaving", prefix);

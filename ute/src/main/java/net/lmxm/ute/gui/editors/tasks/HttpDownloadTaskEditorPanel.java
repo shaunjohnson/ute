@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.beans.tasks.HttpSourceTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.HttpDownloadTaskEditorToolBar;
 
@@ -76,18 +75,17 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param httpDownloadTask the http download task
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#loadData()
 	 */
-	public void loadData(final HttpSourceTask httpDownloadTask) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, httpDownloadTask={}", prefix, httpDownloadTask);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(httpDownloadTask);
-		loadData();
+		super.loadData();
 
 		LOGGER.debug("{} leaving", prefix);
 	}

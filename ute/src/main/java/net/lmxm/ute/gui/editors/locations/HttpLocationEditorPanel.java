@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.HttpLocationEditorToolBar;
 
@@ -66,18 +65,17 @@ public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPan
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param httpLocation the http location
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.locations.AbstractHttpLocationEditorPanel#loadData()
 	 */
-	public void loadData(final HttpLocation httpLocation) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, httpLocation={}", prefix, httpLocation);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(httpLocation);
-		loadData();
+		super.loadData();
 
 		LOGGER.debug("{} leaving", prefix);
 	}

@@ -99,23 +99,21 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 		return toolBar;
 	}
 
-	/**
-	 * Load data.
-	 * 
-	 * @param fileSystemLocation the property
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractIdEditorPanel#loadData()
 	 */
-	public void loadData(final FileSystemLocation fileSystemLocation) {
+	@Override
+	public void loadData() {
 		final String prefix = "loadData(): ";
 
-		LOGGER.debug("{} entered, fileSystemLocation={}", prefix, fileSystemLocation);
+		LOGGER.debug("{} entered", prefix);
 
-		setUserObject(fileSystemLocation);
-		loadData();
+		super.loadData();
 
-		if (fileSystemLocation == null) {
-			getPathTextField().setText("");
-		}
-		else {
+		if (getUserObject() instanceof FileSystemLocation) {
+			final FileSystemLocation fileSystemLocation = (FileSystemLocation) getUserObject();
+
 			getPathTextField().setText(fileSystemLocation.getPath());
 		}
 
