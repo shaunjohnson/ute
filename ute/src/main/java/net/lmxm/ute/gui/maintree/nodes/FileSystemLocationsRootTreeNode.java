@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.nodes;
+package net.lmxm.ute.gui.maintree.nodes;
 
 import java.text.MessageFormat;
 
@@ -25,16 +25,16 @@ import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.utils.ResourcesUtils;
 
 /**
- * The Class PreferencesRootTreeNode.
+ * The Class FileSystemLocationsRootTreeNode.
  */
-public final class PreferencesRootTreeNode extends AbstractRootTreeNode {
+public final class FileSystemLocationsRootTreeNode extends AbstractRootTreeNode {
 
 	/**
-	 * Instantiates a new preferences root tree node.
+	 * Instantiates a new file system locations root tree node.
 	 * 
 	 * @param configurationHolder the configuration holder
 	 */
-	public PreferencesRootTreeNode(final ConfigurationHolder configurationHolder) {
+	public FileSystemLocationsRootTreeNode(final ConfigurationHolder configurationHolder) {
 		super(configurationHolder);
 	}
 
@@ -44,8 +44,8 @@ public final class PreferencesRootTreeNode extends AbstractRootTreeNode {
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		final String pattern = ResourcesUtils.getString("NODE.PREFERENCES");
-		final Object[] arguments = { configuration.getPreferences().size() };
+		final String pattern = ResourcesUtils.getString("NODE.FILE_SYSTEM_LOCATIONS");
+		final Object[] arguments = { configuration.getFileSystemLocations().size() };
 
 		return MessageFormat.format(pattern, arguments);
 	}

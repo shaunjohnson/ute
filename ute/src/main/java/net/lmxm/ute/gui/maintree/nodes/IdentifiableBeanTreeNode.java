@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.nodes;
+package net.lmxm.ute.gui.maintree.nodes;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 

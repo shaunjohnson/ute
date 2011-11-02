@@ -16,44 +16,37 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.nodes;
+package net.lmxm.ute.gui.maintree.nodes;
+
+import java.text.MessageFormat;
 
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.utils.ResourcesUtils;
 
 /**
- * The Class AbstractRootTreeNode.
+ * The Class PreferencesRootTreeNode.
  */
-public abstract class AbstractRootTreeNode implements RootTreeNode {
-
-	/** The configuration holder. */
-	private final ConfigurationHolder configurationHolder;
+public final class PreferencesRootTreeNode extends AbstractRootTreeNode {
 
 	/**
-	 * Instantiates a new abstract root tree node.
+	 * Instantiates a new preferences root tree node.
 	 * 
 	 * @param configurationHolder the configuration holder
 	 */
-	public AbstractRootTreeNode(final ConfigurationHolder configurationHolder) {
-		super();
-
-		this.configurationHolder = configurationHolder;
+	public PreferencesRootTreeNode(final ConfigurationHolder configurationHolder) {
+		super(configurationHolder);
 	}
-
-	/**
-	 * Convert to string.
-	 * 
-	 * @param configuration the configuration
-	 * @return the string
-	 */
-	protected abstract String convertToString(Configuration configuration);
 
 	/*
 	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	 * @see net.lmxm.ute.gui.nodes.AbstractRootTreeNode#convertToString(net.lmxm.ute.beans.Configuration)
 	 */
 	@Override
-	public String toString() {
-		return convertToString(configurationHolder.getConfiguration());
+	protected String convertToString(final Configuration configuration) {
+		final String pattern = ResourcesUtils.getString("NODE.PREFERENCES");
+		final Object[] arguments = { configuration.getPreferences().size() };
+
+		return MessageFormat.format(pattern, arguments);
 	}
 }

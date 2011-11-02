@@ -16,37 +16,44 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.nodes;
-
-import java.text.MessageFormat;
+package net.lmxm.ute.gui.maintree.nodes;
 
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.utils.ResourcesUtils;
 
 /**
- * The Class PropertiesRootTreeNode.
+ * The Class AbstractRootTreeNode.
  */
-public final class PropertiesRootTreeNode extends AbstractRootTreeNode {
+public abstract class AbstractRootTreeNode implements RootTreeNode {
+
+	/** The configuration holder. */
+	private final ConfigurationHolder configurationHolder;
 
 	/**
-	 * Instantiates a new properties root tree node.
+	 * Instantiates a new abstract root tree node.
 	 * 
 	 * @param configurationHolder the configuration holder
 	 */
-	public PropertiesRootTreeNode(final ConfigurationHolder configurationHolder) {
-		super(configurationHolder);
+	public AbstractRootTreeNode(final ConfigurationHolder configurationHolder) {
+		super();
+
+		this.configurationHolder = configurationHolder;
 	}
+
+	/**
+	 * Convert to string.
+	 * 
+	 * @param configuration the configuration
+	 * @return the string
+	 */
+	protected abstract String convertToString(Configuration configuration);
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.nodes.AbstractRootTreeNode#convertToString(net.lmxm.ute.beans.Configuration)
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	protected String convertToString(final Configuration configuration) {
-		final String pattern = ResourcesUtils.getString("NODE.PROPERTIES");
-		final Object[] arguments = { configuration.getProperties().size() };
-
-		return MessageFormat.format(pattern, arguments);
+	public String toString() {
+		return convertToString(configurationHolder.getConfiguration());
 	}
 }

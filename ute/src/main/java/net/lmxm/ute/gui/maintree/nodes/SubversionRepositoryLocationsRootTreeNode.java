@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.nodes;
+package net.lmxm.ute.gui.maintree.nodes;
 
 import java.text.MessageFormat;
 
@@ -25,16 +25,16 @@ import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.utils.ResourcesUtils;
 
 /**
- * The Class FileSystemLocationsRootTreeNode.
+ * The Class SubversionRepositoryLocationsRootTreeNode.
  */
-public final class FileSystemLocationsRootTreeNode extends AbstractRootTreeNode {
+public final class SubversionRepositoryLocationsRootTreeNode extends AbstractRootTreeNode {
 
 	/**
-	 * Instantiates a new file system locations root tree node.
+	 * Instantiates a new subversion repository locations root tree node.
 	 * 
 	 * @param configurationHolder the configuration holder
 	 */
-	public FileSystemLocationsRootTreeNode(final ConfigurationHolder configurationHolder) {
+	public SubversionRepositoryLocationsRootTreeNode(final ConfigurationHolder configurationHolder) {
 		super(configurationHolder);
 	}
 
@@ -44,8 +44,8 @@ public final class FileSystemLocationsRootTreeNode extends AbstractRootTreeNode 
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		final String pattern = ResourcesUtils.getString("NODE.FILE_SYSTEM_LOCATIONS");
-		final Object[] arguments = { configuration.getFileSystemLocations().size() };
+		final String pattern = ResourcesUtils.getString("NODE.SUBVERSION_REPOSITORY_LOCATIONS");
+		final Object[] arguments = { configuration.getSubversionRepositoryLocations().size() };
 
 		return MessageFormat.format(pattern, arguments);
 	}

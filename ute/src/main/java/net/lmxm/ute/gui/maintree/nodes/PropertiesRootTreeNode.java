@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.nodes;
+package net.lmxm.ute.gui.maintree.nodes;
 
 import java.text.MessageFormat;
 
@@ -25,16 +25,16 @@ import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.utils.ResourcesUtils;
 
 /**
- * The Class HttpLocationsRootTreeNode.
+ * The Class PropertiesRootTreeNode.
  */
-public final class HttpLocationsRootTreeNode extends AbstractRootTreeNode {
+public final class PropertiesRootTreeNode extends AbstractRootTreeNode {
 
 	/**
-	 * Instantiates a new http locations root tree node.
+	 * Instantiates a new properties root tree node.
 	 * 
 	 * @param configurationHolder the configuration holder
 	 */
-	public HttpLocationsRootTreeNode(final ConfigurationHolder configurationHolder) {
+	public PropertiesRootTreeNode(final ConfigurationHolder configurationHolder) {
 		super(configurationHolder);
 	}
 
@@ -44,8 +44,8 @@ public final class HttpLocationsRootTreeNode extends AbstractRootTreeNode {
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		final String pattern = ResourcesUtils.getString("NODE.HTTP_LOCATIONS");
-		final Object[] arguments = { configuration.getHttpLocations().size() };
+		final String pattern = ResourcesUtils.getString("NODE.PROPERTIES");
+		final Object[] arguments = { configuration.getProperties().size() };
 
 		return MessageFormat.format(pattern, arguments);
 	}

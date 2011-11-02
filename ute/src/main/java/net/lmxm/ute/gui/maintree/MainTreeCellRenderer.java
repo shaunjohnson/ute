@@ -47,7 +47,7 @@ import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.gui.nodes.RootTreeNode;
+import net.lmxm.ute.gui.maintree.nodes.RootTreeNode;
 import net.lmxm.ute.gui.utils.ImageUtil;
 
 /**
