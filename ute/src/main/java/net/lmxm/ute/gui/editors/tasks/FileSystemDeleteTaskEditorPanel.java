@@ -20,15 +20,10 @@ package net.lmxm.ute.gui.editors.tasks;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JCheckBox;
-
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The Class FileSystemDeleteTaskEditorPanel.
@@ -53,14 +48,8 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		}
 	}
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemDeleteTaskEditorPanel.class);
-
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2318061314941784888L;
-
-	/** The stop on error checkbox. */
-	private JCheckBox stopOnErrorCheckbox = null;
 
 	/**
 	 * Instantiates a new job editor panel.
@@ -76,55 +65,10 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#addFields()
-	 */
-	@Override
-	protected void addFields() {
-		super.addFields();
-
-		addCheckbox(getStopOnErrorCheckbox(), GuiComponentLabel.STOP_ON_ERROR);
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
 	 */
 	@Override
 	protected Object getEditedObjectClass() {
 		return new FileSystemDeleteTask(new SequentialJob());
-	}
-
-	/**
-	 * Gets the stop on error checkbox.
-	 * 
-	 * @return the stop on error checkbox
-	 */
-	protected final JCheckBox getStopOnErrorCheckbox() {
-		if (stopOnErrorCheckbox == null) {
-			stopOnErrorCheckbox = new JCheckBox();
-		}
-
-		return stopOnErrorCheckbox;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#loadData()
-	 */
-	@Override
-	public void loadData() {
-		final String prefix = "loadData(): ";
-
-		LOGGER.debug("{} entered", prefix);
-
-		super.loadData();
-
-		if (getUserObject() instanceof FileSystemDeleteTask) {
-			final FileSystemDeleteTask fileSystemDeleteTask = (FileSystemDeleteTask) getUserObject();
-
-			getStopOnErrorCheckbox().setSelected(fileSystemDeleteTask.getStopOnError());
-		}
-
-		LOGGER.debug("{} leaving", prefix);
 	}
 }

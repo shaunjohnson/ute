@@ -24,7 +24,7 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 /**
  * The Class FileSystemDeleteTask.
  */
-public final class FileSystemDeleteTask extends AbstractFilesTask implements FileSystemTargetTask {
+public final class FileSystemDeleteTask extends AbstractFilesTask implements FileSystemTargetTask, StopOnErrorTask {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2208341570043553314L;
@@ -47,11 +47,11 @@ public final class FileSystemDeleteTask extends AbstractFilesTask implements Fil
 		target = new FileSystemTarget();
 	}
 
-	/**
-	 * Gets the stop on error.
-	 * 
-	 * @return the stop on error
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.StopOnErrorTask#getStopOnError()
 	 */
+	@Override
 	public boolean getStopOnError() {
 		return stopOnError;
 	}
@@ -65,11 +65,11 @@ public final class FileSystemDeleteTask extends AbstractFilesTask implements Fil
 		return target;
 	}
 
-	/**
-	 * Sets the stop on error.
-	 * 
-	 * @param stopOnError the new stop on error
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.StopOnErrorTask#setStopOnError(boolean)
 	 */
+	@Override
 	public void setStopOnError(final boolean stopOnError) {
 		this.stopOnError = stopOnError;
 	}

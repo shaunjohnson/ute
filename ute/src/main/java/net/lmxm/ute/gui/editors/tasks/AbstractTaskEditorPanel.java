@@ -42,6 +42,7 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemTargetTask;
 import net.lmxm.ute.beans.tasks.FilesTask;
 import net.lmxm.ute.beans.tasks.HttpSourceTask;
+import net.lmxm.ute.beans.tasks.StopOnErrorTask;
 import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -82,6 +83,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	/** The source relative path text field. */
 	private JTextField sourceRelativePathTextField = null;
 
+	/** The stop on error checkbox. */
+	private JCheckBox stopOnErrorCheckbox = null;
+
 	/** The target relative path text field. */
 	private JTextField targetRelativePathTextField = null;
 
@@ -108,6 +112,11 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		super.addFields();
 
 		addCheckbox(getEnabledCheckbox(), GuiComponentLabel.ENABLED);
+
+		if (StopOnErrorTask.class.isInstance(getEditedObjectClass())) {
+			addCheckbox(getStopOnErrorCheckbox(), GuiComponentLabel.STOP_ON_ERROR);
+		}
+
 		addSourceFields();
 		addTargetFields();
 	}
@@ -325,6 +334,19 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	}
 
 	/**
+	 * Gets the stop on error checkbox.
+	 * 
+	 * @return the stop on error checkbox
+	 */
+	protected final JCheckBox getStopOnErrorCheckbox() {
+		if (stopOnErrorCheckbox == null) {
+			stopOnErrorCheckbox = new JCheckBox();
+		}
+
+		return stopOnErrorCheckbox;
+	}
+
+	/**
 	 * Gets the target relative path text field.
 	 * 
 	 * @return the target relative path text field
@@ -387,6 +409,12 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			final Task task = (Task) getUserObject();
 
 			getEnabledCheckbox().setSelected(task.getEnabled());
+		}
+
+		if (getUserObject() instanceof StopOnErrorTask) {
+			final StopOnErrorTask stopOnErrorTask = (StopOnErrorTask) getUserObject();
+
+			getStopOnErrorCheckbox().setSelected(stopOnErrorTask.getStopOnError());
 		}
 
 		LOGGER.debug("{} leaving", prefix);
