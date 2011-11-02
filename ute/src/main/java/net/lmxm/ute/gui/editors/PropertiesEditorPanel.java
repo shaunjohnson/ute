@@ -29,7 +29,7 @@ import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 /**
  * The Class PropertiesEditorPanel.
  */
-public class PropertiesEditorPanel extends AbstractEditorPanel {
+public class PropertiesEditorPanel extends AbstractReadonlyEditorPanel {
 
 	/**
 	 * The Class PropertiesEditorToolBar.
@@ -70,23 +70,5 @@ public class PropertiesEditorPanel extends AbstractEditorPanel {
 	@Override
 	protected JToolBar getToolBar() {
 		return new PropertiesEditorToolBar(getActionListener());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#loadData()
-	 */
-	@Override
-	public void loadData() {
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#setFocusToFirstInput()
-	 */
-	@Override
-	public void setFocusToFirstInput() {
-
 	}
 }

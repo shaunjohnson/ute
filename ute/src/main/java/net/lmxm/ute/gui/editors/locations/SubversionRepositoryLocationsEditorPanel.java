@@ -24,13 +24,13 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
-import net.lmxm.ute.gui.editors.AbstractEditorPanel;
+import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
  * The Class SubversionRepositoryLocationsEditorPanel.
  */
-public class SubversionRepositoryLocationsEditorPanel extends AbstractEditorPanel {
+public class SubversionRepositoryLocationsEditorPanel extends AbstractReadonlyEditorPanel {
 
 	/**
 	 * The Class SubversionRepositoryLocationsEditorToolBar.
@@ -71,23 +71,5 @@ public class SubversionRepositoryLocationsEditorPanel extends AbstractEditorPane
 	@Override
 	protected JToolBar getToolBar() {
 		return new SubversionRepositoryLocationsEditorToolBar(getActionListener());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#loadData()
-	 */
-	@Override
-	public void loadData() {
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#setFocusToFirstInput()
-	 */
-	@Override
-	public void setFocusToFirstInput() {
-
 	}
 }

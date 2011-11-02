@@ -24,13 +24,13 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
-import net.lmxm.ute.gui.editors.AbstractEditorPanel;
+import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
  * The Class HttpLocationsEditorPanel.
  */
-public class FileSystemLocationsEditorPanel extends AbstractEditorPanel {
+public class FileSystemLocationsEditorPanel extends AbstractReadonlyEditorPanel {
 
 	/**
 	 * The Class FileSystemLocationsEditorToolBar.
@@ -71,23 +71,5 @@ public class FileSystemLocationsEditorPanel extends AbstractEditorPanel {
 	@Override
 	protected JToolBar getToolBar() {
 		return new FileSystemLocationsEditorToolBar(getActionListener());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#loadData()
-	 */
-	@Override
-	public void loadData() {
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#setFocusToFirstInput()
-	 */
-	@Override
-	public void setFocusToFirstInput() {
-
 	}
 }

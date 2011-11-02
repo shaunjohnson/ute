@@ -29,7 +29,7 @@ import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 /**
  * The Class JobsEditorPanel.
  */
-public class JobsEditorPanel extends AbstractEditorPanel {
+public class JobsEditorPanel extends AbstractReadonlyEditorPanel {
 
 	/**
 	 * The Class JobsEditorToolBar.
@@ -70,23 +70,5 @@ public class JobsEditorPanel extends AbstractEditorPanel {
 	@Override
 	protected JToolBar getToolBar() {
 		return new JobsEditorToolBar(getActionListener());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#loadData()
-	 */
-	@Override
-	public void loadData() {
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#setFocusToFirstInput()
-	 */
-	@Override
-	public void setFocusToFirstInput() {
-
 	}
 }
