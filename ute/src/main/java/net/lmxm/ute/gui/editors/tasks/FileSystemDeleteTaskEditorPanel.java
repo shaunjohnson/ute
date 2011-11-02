@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -69,7 +68,8 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 	 * @param actionListener the action listener
 	 */
 	public FileSystemDeleteTaskEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.FILE_SYSTEM_DELETE_TASK, actionListener);
+		super(GuiComponentLabel.FILE_SYSTEM_DELETE_TASK, new FileSystemDeleteTaskEditorToolBar(actionListener),
+				actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -92,15 +92,6 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		}
 
 		return stopOnErrorCheckbox;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new FileSystemDeleteTaskEditorToolBar(getActionListener());
 	}
 
 	/*

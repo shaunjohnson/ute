@@ -20,8 +20,6 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JToolBar;
-
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
@@ -61,15 +59,7 @@ public class SubversionRepositoryLocationsEditorPanel extends AbstractReadonlyEd
 	 * @param actionListener the action listener
 	 */
 	public SubversionRepositoryLocationsEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATIONS, actionListener);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new SubversionRepositoryLocationsEditorToolBar(getActionListener());
+		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATIONS, new SubversionRepositoryLocationsEditorToolBar(
+				actionListener), actionListener);
 	}
 }

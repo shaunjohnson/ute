@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -74,7 +73,8 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	 * @param actionListener the action listener
 	 */
 	public FileSystemLocationEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.FILE_SYSTEM_LOCATION, actionListener);
+		super(GuiComponentLabel.FILE_SYSTEM_LOCATION, new FileSystemLocationEditorToolBar(actionListener),
+				actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -103,15 +103,6 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 			});
 		}
 		return pathTextField;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new FileSystemLocationEditorToolBar(getActionListener());
 	}
 
 	/*

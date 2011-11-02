@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -75,7 +74,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public GroovyTaskEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.GROOVY_TASK, actionListener);
+		super(GuiComponentLabel.GROOVY_TASK, new GroovyTaskEditorToolBar(actionListener), actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -117,15 +116,6 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 			scriptTextArea.setTabSize(4);
 		}
 		return scriptTextArea;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new GroovyTaskEditorToolBar(getActionListener());
 	}
 
 	/*

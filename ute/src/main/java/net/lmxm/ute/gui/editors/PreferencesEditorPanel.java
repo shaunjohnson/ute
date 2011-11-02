@@ -20,8 +20,6 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JToolBar;
-
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
@@ -60,15 +58,6 @@ public class PreferencesEditorPanel extends AbstractReadonlyEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public PreferencesEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.PREFERENCES, actionListener);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new PreferencesEditorToolBar(getActionListener());
+		super(GuiComponentLabel.PREFERENCES, new PreferencesEditorToolBar(actionListener), actionListener);
 	}
 }

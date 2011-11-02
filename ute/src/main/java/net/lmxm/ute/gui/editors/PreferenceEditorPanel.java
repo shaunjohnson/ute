@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -73,7 +72,7 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public PreferenceEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.PREFERENCE, actionListener);
+		super(GuiComponentLabel.PREFERENCE, new PreferenceEditorToolBar(actionListener), actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -96,15 +95,6 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 					.getHeight()));
 		}
 		return preferenceValueTextField;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new PreferenceEditorToolBar(getActionListener());
 	}
 
 	/*

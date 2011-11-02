@@ -21,7 +21,6 @@ package net.lmxm.ute.gui.editors;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -66,7 +65,7 @@ public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public SequentialJobEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.SEQUENTIAL_JOB, actionListener);
+		super(GuiComponentLabel.SEQUENTIAL_JOB, new SequentialJobEditorToolbar(actionListener), actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -74,15 +73,6 @@ public final class SequentialJobEditorPanel extends AbstractIdEditorPanel {
 
 		addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
 		contentPanel.add(getDescriptionPane());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new SequentialJobEditorToolbar(getActionListener());
 	}
 
 	/*

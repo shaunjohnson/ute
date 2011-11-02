@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -43,11 +44,12 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 	 * Instantiates a new abstract http location editor panel.
 	 * 
 	 * @param guiComponentLabel the gui component label
+	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractHttpLocationEditorPanel(final GuiComponentLabel guiComponentLabel,
+	public AbstractHttpLocationEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
 			final ActionListener actionListener) {
-		super(guiComponentLabel, actionListener);
+		super(guiComponentLabel, toolBar, actionListener);
 	}
 
 	/**

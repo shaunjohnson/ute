@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -77,7 +76,8 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 	 * @param actionListener the action listener
 	 */
 	public SubversionRepositoryLocationEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATION, actionListener);
+		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATION, new SubversionRepositoryLocationEditorToolBar(
+				actionListener), actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -109,15 +109,6 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 			});
 		}
 		return passwordTextField;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new SubversionRepositoryLocationEditorToolBar(getActionListener());
 	}
 
 	/**

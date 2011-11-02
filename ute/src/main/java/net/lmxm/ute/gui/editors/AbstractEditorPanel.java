@@ -45,9 +45,6 @@ import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.listeners.ChangeAdapter;
 import net.miginfocom.swing.MigLayout;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.base.Preconditions;
 
 /**
@@ -57,9 +54,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/** The Constant BOLD_FONT. */
 	private static final Font BOLD_FONT;
-
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEditorPanel.class);
 
 	/** The Constant SEPARATOR_LABEL_COLOR. */
 	private static final Color SEPARATOR_LABEL_COLOR = new Color(0, 70, 213);
@@ -96,9 +90,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * Instantiates a new abstract editor panel.
 	 * 
 	 * @param guiComponentLabel the gui component label
+	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractEditorPanel(final GuiComponentLabel guiComponentLabel, final ActionListener actionListener) {
+	public AbstractEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+			final ActionListener actionListener) {
 		super();
 
 		Preconditions.checkNotNull(actionListener, "Action listener may not be null");
@@ -110,7 +106,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 		setBorder(BorderFactory.createEmptyBorder());
 
 		// Setup the toolbar
-		final JToolBar toolBar = getToolBar();
 		if (toolBar != null) {
 			add(toolBar, BorderLayout.NORTH);
 		}
@@ -276,13 +271,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 		return subversionRepositoryLocationTargetComboBox;
 	}
-
-	/**
-	 * Gets the tool bar.
-	 * 
-	 * @return the tool bar
-	 */
-	protected abstract JToolBar getToolBar();
 
 	/**
 	 * Gets the user object.

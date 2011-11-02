@@ -20,6 +20,8 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.event.ActionListener;
 
+import javax.swing.JToolBar;
+
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 
 /**
@@ -34,10 +36,12 @@ public abstract class AbstractReadonlyEditorPanel extends AbstractEditorPanel {
 	 * Instantiates a new abstract readonly editor panel.
 	 * 
 	 * @param guiComponentLabel the gui component label
+	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractReadonlyEditorPanel(final GuiComponentLabel guiComponentLabel, final ActionListener actionListener) {
-		super(guiComponentLabel, actionListener);
+	public AbstractReadonlyEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+			final ActionListener actionListener) {
+		super(guiComponentLabel, toolBar, actionListener);
 	}
 
 	/*

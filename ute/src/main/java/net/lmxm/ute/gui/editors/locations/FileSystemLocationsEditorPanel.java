@@ -20,8 +20,6 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JToolBar;
-
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
@@ -61,15 +59,7 @@ public class FileSystemLocationsEditorPanel extends AbstractReadonlyEditorPanel 
 	 * @param actionListener the action listener
 	 */
 	public FileSystemLocationsEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.FILE_SYSTEM_LOCATIONS, actionListener);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new FileSystemLocationsEditorToolBar(getActionListener());
+		super(GuiComponentLabel.FILE_SYSTEM_LOCATIONS, new FileSystemLocationsEditorToolBar(actionListener),
+				actionListener);
 	}
 }

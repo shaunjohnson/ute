@@ -20,6 +20,8 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
+import javax.swing.JToolBar;
+
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
 
@@ -35,10 +37,12 @@ public abstract class AbstractLocationEditorPanel extends AbstractIdEditorPanel 
 	 * Instantiates a new abstract location editor panel.
 	 * 
 	 * @param guiComponentLabel the gui component label
+	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractLocationEditorPanel(final GuiComponentLabel guiComponentLabel, final ActionListener actionListener) {
-		super(guiComponentLabel, actionListener);
+	public AbstractLocationEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+			final ActionListener actionListener) {
+		super(guiComponentLabel, toolBar, actionListener);
 	}
 
 	/**

@@ -21,19 +21,18 @@ package net.lmxm.ute.gui.editors.tasks;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The Class HttpDownloadTaskEditorPanel.
  */
 public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
+	/**
+	 * The Class HttpDownloadTaskEditorToolBar.
+	 */
 	private static class HttpDownloadTaskEditorToolBar extends AbstractTaskEditorToolBar {
 
 		/** The Constant serialVersionUID. */
@@ -49,9 +48,6 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 		}
 	}
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(HttpDownloadTaskEditorPanel.class);
-
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7076073228977636114L;
 
@@ -61,7 +57,7 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public HttpDownloadTaskEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.HTTP_DOWNLOAD_TASK, actionListener);
+		super(GuiComponentLabel.HTTP_DOWNLOAD_TASK, new HttpDownloadTaskEditorToolBar(actionListener), actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -73,29 +69,5 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new HttpDownloadTaskEditorToolBar(getActionListener());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#loadData()
-	 */
-	@Override
-	public void loadData() {
-		final String prefix = "loadData(): ";
-
-		LOGGER.debug("{} entered", prefix);
-
-		super.loadData();
-
-		LOGGER.debug("{} leaving", prefix);
 	}
 }

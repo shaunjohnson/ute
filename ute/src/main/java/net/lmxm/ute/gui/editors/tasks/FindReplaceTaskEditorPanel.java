@@ -28,7 +28,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 
 import net.lmxm.ute.beans.FindReplacePattern;
@@ -93,7 +92,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public FindReplaceTaskEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.FIND_AND_REPLACE_TASK, actionListener);
+		super(GuiComponentLabel.FIND_AND_REPLACE_TASK, new FindReplaceTaskEditorToolBar(actionListener), actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -222,15 +221,6 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		}
 
 		return scopePane;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new FindReplaceTaskEditorToolBar(getActionListener());
 	}
 
 	/*

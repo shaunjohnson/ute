@@ -21,13 +21,9 @@ package net.lmxm.ute.gui.editors.tasks;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The Class SubversionExportTaskEditorPanel.
@@ -52,9 +48,6 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 		}
 	}
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SubversionExportTaskEditorPanel.class);
-
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -254745593912919513L;
 
@@ -64,7 +57,8 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	 * @param actionListener the action listener
 	 */
 	public SubversionExportTaskEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.SUBVERSION_EXPORT_TASK, actionListener);
+		super(GuiComponentLabel.SUBVERSION_EXPORT_TASK, new SubversionExportTaskEditorToolBar(actionListener),
+				actionListener);
 
 		final JPanel contentPanel = getContentPanel();
 
@@ -76,29 +70,5 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 		addSeparator(contentPanel, GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getToolBar()
-	 */
-	@Override
-	protected JToolBar getToolBar() {
-		return new SubversionExportTaskEditorToolBar(getActionListener());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#loadData()
-	 */
-	@Override
-	public void loadData() {
-		final String prefix = "loadData(): ";
-
-		LOGGER.debug("{} entered, subversionExportTask={}", prefix);
-
-		super.loadData();
-
-		LOGGER.debug("{} leaving", prefix);
 	}
 }

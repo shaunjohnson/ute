@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 
 import net.lmxm.ute.beans.Configuration;
@@ -90,8 +91,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	 * @param guiComponentLabel the gui component label
 	 * @param actionListener the action listener
 	 */
-	public AbstractTaskEditorPanel(final GuiComponentLabel guiComponentLabel, final ActionListener actionListener) {
-		super(guiComponentLabel, actionListener);
+	public AbstractTaskEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+			final ActionListener actionListener) {
+		super(guiComponentLabel, toolBar, actionListener);
 
 		monospaceFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 	}
