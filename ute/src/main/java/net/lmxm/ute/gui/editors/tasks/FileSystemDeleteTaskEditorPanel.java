@@ -83,10 +83,6 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		super.addFields();
 
 		addCheckbox(getStopOnErrorCheckbox(), GuiComponentLabel.STOP_ON_ERROR);
-
-		addSeparator(GuiComponentLabel.TARGET);
-		addFileSystemTargetFields();
-		addFilesFields();
 	}
 
 	/*

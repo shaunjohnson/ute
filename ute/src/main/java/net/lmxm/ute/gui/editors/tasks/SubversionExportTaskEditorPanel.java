@@ -65,22 +65,6 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.AbstractCommonEditorPanel#addFields()
-	 */
-	@Override
-	protected void addFields() {
-		super.addFields();
-
-		addSeparator(GuiComponentLabel.SOURCE);
-		addSubversionRepositorySourceFields();
-
-		addSeparator(GuiComponentLabel.TARGET);
-		addFileSystemTargetFields();
-		addFilesFields();
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
 	 */
 	@Override

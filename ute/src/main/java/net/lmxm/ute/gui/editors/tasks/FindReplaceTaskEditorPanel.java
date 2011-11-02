@@ -106,15 +106,10 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	protected void addFields() {
 		super.addFields();
 
-		final JPanel contentPanel = getContentPanel();
-
-		addSeparator(GuiComponentLabel.TARGET);
-		addFileSystemTargetFields();
-		addFilesFields();
-
 		addSeparator(GuiComponentLabel.FIND_AND_REPLACE);
 		addLabel(GuiComponentLabel.SCOPE);
-		contentPanel.add(getScopePane());
+
+		getContentPanel().add(getScopePane());
 
 		addPatternsFields();
 	}

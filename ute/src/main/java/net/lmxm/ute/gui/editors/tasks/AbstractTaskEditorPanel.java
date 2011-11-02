@@ -108,55 +108,89 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		super.addFields();
 
 		addCheckbox(getEnabledCheckbox(), GuiComponentLabel.ENABLED);
+		addSourceFields();
+		addTargetFields();
 	}
 
 	/**
 	 * Adds the files fields.
 	 */
 	protected final void addFilesFields() {
-		final JPanel contentPanel = getContentPanel();
+		if (FilesTask.class.isInstance(getEditedObjectClass())) {
+			final JPanel contentPanel = getContentPanel();
 
-		addLabel(GuiComponentLabel.FILES);
-		contentPanel.add(getFilesPane());
+			addLabel(GuiComponentLabel.FILES);
+			contentPanel.add(getFilesPane());
+		}
 	}
 
 	/**
 	 * Adds the file system target fields.
 	 */
 	protected final void addFileSystemTargetFields() {
-		final JPanel contentPanel = getContentPanel();
+		if (FileSystemTargetTask.class.isInstance(getEditedObjectClass())) {
+			final JPanel contentPanel = getContentPanel();
 
-		addLabel(GuiComponentLabel.LOCATION);
-		contentPanel.add(getFileSystemLocationTargetComboBox());
+			addLabel(GuiComponentLabel.LOCATION);
+			contentPanel.add(getFileSystemLocationTargetComboBox());
 
-		addLabel(GuiComponentLabel.PATH);
-		contentPanel.add(getTargetRelativePathTextField());
+			addLabel(GuiComponentLabel.PATH);
+			contentPanel.add(getTargetRelativePathTextField());
+		}
 	}
 
 	/**
 	 * Adds the http source fields.
 	 */
 	protected final void addHttpSourceFields() {
-		final JPanel contentPanel = getContentPanel();
+		if (HttpSourceTask.class.isInstance(getEditedObjectClass())) {
+			final JPanel contentPanel = getContentPanel();
 
-		addLabel(GuiComponentLabel.SERVER);
-		contentPanel.add(getHttpLocationSourceComboBox());
+			addLabel(GuiComponentLabel.SERVER);
+			contentPanel.add(getHttpLocationSourceComboBox());
 
-		addLabel(GuiComponentLabel.PATH);
-		contentPanel.add(getSourceRelativePathTextField());
+			addLabel(GuiComponentLabel.PATH);
+			contentPanel.add(getSourceRelativePathTextField());
+		}
+	}
+
+	/**
+	 * Adds the source fields.
+	 */
+	protected void addSourceFields() {
+		if (hasSourceFields()) {
+			addSeparator(GuiComponentLabel.SOURCE);
+
+			addHttpSourceFields();
+			addSubversionRepositorySourceFields();
+		}
 	}
 
 	/**
 	 * Adds the subversion repository source fields.
 	 */
 	protected final void addSubversionRepositorySourceFields() {
-		final JPanel contentPanel = getContentPanel();
+		if (SubversionRepositorySourceTask.class.isInstance(getEditedObjectClass())) {
+			final JPanel contentPanel = getContentPanel();
 
-		addLabel(GuiComponentLabel.SERVER);
-		contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
+			addLabel(GuiComponentLabel.SERVER);
+			contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
 
-		addLabel(GuiComponentLabel.PATH);
-		contentPanel.add(getSourceRelativePathTextField());
+			addLabel(GuiComponentLabel.PATH);
+			contentPanel.add(getSourceRelativePathTextField());
+		}
+	}
+
+	/**
+	 * Adds the target fields.
+	 */
+	protected void addTargetFields() {
+		if (hasTargetFields()) {
+			addSeparator(GuiComponentLabel.TARGET);
+
+			addFileSystemTargetFields();
+			addFilesFields();
+		}
 	}
 
 	/**
@@ -304,6 +338,29 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		}
 
 		return targetRelativePathTextField;
+	}
+
+	/**
+	 * Checks for source fields.
+	 * 
+	 * @return true, if successful
+	 */
+	private boolean hasSourceFields() {
+		final Object editedObject = getEditedObjectClass();
+
+		return HttpSourceTask.class.isInstance(editedObject)
+				|| SubversionRepositorySourceTask.class.isInstance(editedObject);
+	}
+
+	/**
+	 * Checks for target fields.
+	 * 
+	 * @return true, if successful
+	 */
+	private boolean hasTargetFields() {
+		final Object editedObject = getEditedObjectClass();
+
+		return FileSystemTargetTask.class.isInstance(editedObject) || FilesTask.class.isInstance(editedObject);
 	}
 
 	/*

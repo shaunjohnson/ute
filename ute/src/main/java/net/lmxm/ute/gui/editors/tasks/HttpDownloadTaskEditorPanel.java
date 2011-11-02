@@ -64,22 +64,6 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#addFields()
-	 */
-	@Override
-	protected void addFields() {
-		super.addFields();
-
-		addSeparator(GuiComponentLabel.SOURCE);
-		addHttpSourceFields();
-
-		addSeparator(GuiComponentLabel.TARGET);
-		addFileSystemTargetFields();
-		addFilesFields();
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
 	 */
 	@Override
