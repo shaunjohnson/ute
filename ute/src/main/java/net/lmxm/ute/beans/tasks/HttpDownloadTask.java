@@ -43,9 +43,13 @@ public class HttpDownloadTask extends AbstractFilesTask implements FileSystemTar
 	 */
 	public HttpDownloadTask(final Job job) {
 		super(job);
+
+		source = new HttpSource();
+		target = new FileSystemTarget();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.HttpSourceTask#getSource()
 	 */
 	@Override
@@ -62,7 +66,8 @@ public class HttpDownloadTask extends AbstractFilesTask implements FileSystemTar
 		return target;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.HttpSourceTask#setSource(net.lmxm.ute.beans.sources.HttpSource)
 	 */
 	@Override

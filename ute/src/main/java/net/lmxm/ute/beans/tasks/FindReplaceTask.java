@@ -53,6 +53,7 @@ public final class FindReplaceTask extends AbstractFilesTask implements FileSyst
 
 		patterns = new ArrayList<FindReplacePattern>();
 		scope = Scope.LINE;
+		target = new FileSystemTarget();
 	}
 
 	/**

@@ -21,7 +21,6 @@ package net.lmxm.ute.gui.editors.tasks;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
-import javax.swing.JPanel;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
@@ -71,6 +70,8 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 	public FileSystemDeleteTaskEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.FILE_SYSTEM_DELETE_TASK, new FileSystemDeleteTaskEditorToolBar(actionListener),
 				actionListener);
+
+		addFields();
 	}
 
 	/*
@@ -81,11 +82,9 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 	protected void addFields() {
 		super.addFields();
 
-		final JPanel contentPanel = getContentPanel();
+		addCheckbox(getStopOnErrorCheckbox(), GuiComponentLabel.STOP_ON_ERROR);
 
-		addCheckbox(contentPanel, getStopOnErrorCheckbox(), GuiComponentLabel.STOP_ON_ERROR);
-
-		addSeparator(contentPanel, GuiComponentLabel.TARGET);
+		addSeparator(GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
 	}

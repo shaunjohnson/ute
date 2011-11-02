@@ -74,6 +74,8 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 	 */
 	public PropertyEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.PROPERTY, new PropertyEditorToolBar(actionListener), actionListener);
+
+		addFields();
 	}
 
 	/*
@@ -86,7 +88,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.VALUE);
+		addLabel(GuiComponentLabel.VALUE);
 		contentPanel.add(getPropertyValueTextField());
 	}
 

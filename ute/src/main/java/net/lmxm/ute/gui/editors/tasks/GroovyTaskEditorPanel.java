@@ -20,7 +20,6 @@ package net.lmxm.ute.gui.editors.tasks;
 
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
@@ -76,6 +75,8 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 */
 	public GroovyTaskEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.GROOVY_TASK, new GroovyTaskEditorToolBar(actionListener), actionListener);
+
+		addFields();
 	}
 
 	/*
@@ -86,15 +87,13 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	protected void addFields() {
 		super.addFields();
 
-		final JPanel contentPanel = getContentPanel();
-
-		addSeparator(contentPanel, GuiComponentLabel.TARGET);
+		addSeparator(GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
 
-		addSeparator(contentPanel, GuiComponentLabel.GROOVY_SCRIPT);
-		addLabel(contentPanel, GuiComponentLabel.SCRIPT);
-		contentPanel.add(getScriptPane());
+		addSeparator(GuiComponentLabel.GROOVY_SCRIPT);
+		addLabel(GuiComponentLabel.SCRIPT);
+		getContentPanel().add(getScriptPane());
 	}
 
 	/*

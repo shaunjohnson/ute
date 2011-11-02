@@ -59,5 +59,7 @@ public class PreferencesEditorPanel extends AbstractReadonlyEditorPanel {
 	 */
 	public PreferencesEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.PREFERENCES, new PreferencesEditorToolBar(actionListener), actionListener);
+
+		addFields();
 	}
 }

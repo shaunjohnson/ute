@@ -59,5 +59,7 @@ public class JobsEditorPanel extends AbstractReadonlyEditorPanel {
 	 */
 	public JobsEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.JOBS, new JobsEditorToolBar(actionListener), actionListener);
+
+		addFields();
 	}
 }

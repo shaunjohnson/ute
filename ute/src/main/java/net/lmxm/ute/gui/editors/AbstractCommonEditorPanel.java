@@ -83,12 +83,12 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 		final JPanel contentPanel = getContentPanel();
 
 		if (IdentifiableBean.class.isInstance(getEditedObjectClass())) {
-			addLabel(contentPanel, GuiComponentLabel.ID);
+			addLabel(GuiComponentLabel.ID);
 			contentPanel.add(getIdTextField());
 		}
 
 		if (DescribableBean.class.isInstance(getEditedObjectClass())) {
-			addLabel(contentPanel, GuiComponentLabel.DESCRIPTION);
+			addLabel(GuiComponentLabel.DESCRIPTION);
 			contentPanel.add(getDescriptionPane());
 		}
 	}

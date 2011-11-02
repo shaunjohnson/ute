@@ -44,6 +44,9 @@ public final class SubversionUpdateTask extends AbstractFilesTask implements Fil
 	 */
 	public SubversionUpdateTask(final Job job) {
 		super(job);
+
+		source = new SubversionRepositorySource();
+		target = new FileSystemTarget();
 	}
 
 	/*

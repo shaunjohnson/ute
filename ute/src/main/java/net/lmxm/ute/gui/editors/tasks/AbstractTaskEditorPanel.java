@@ -107,9 +107,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	protected void addFields() {
 		super.addFields();
 
-		final JPanel contentPanel = getContentPanel();
-
-		addCheckbox(contentPanel, getEnabledCheckbox(), GuiComponentLabel.ENABLED);
+		addCheckbox(getEnabledCheckbox(), GuiComponentLabel.ENABLED);
 	}
 
 	/**
@@ -118,7 +116,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	protected final void addFilesFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.FILES);
+		addLabel(GuiComponentLabel.FILES);
 		contentPanel.add(getFilesPane());
 	}
 
@@ -128,10 +126,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	protected final void addFileSystemTargetFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.LOCATION);
+		addLabel(GuiComponentLabel.LOCATION);
 		contentPanel.add(getFileSystemLocationTargetComboBox());
 
-		addLabel(contentPanel, GuiComponentLabel.PATH);
+		addLabel(GuiComponentLabel.PATH);
 		contentPanel.add(getTargetRelativePathTextField());
 	}
 
@@ -141,10 +139,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	protected final void addHttpSourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.SERVER);
+		addLabel(GuiComponentLabel.SERVER);
 		contentPanel.add(getHttpLocationSourceComboBox());
 
-		addLabel(contentPanel, GuiComponentLabel.PATH);
+		addLabel(GuiComponentLabel.PATH);
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 
@@ -154,10 +152,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	protected final void addSubversionRepositorySourceFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.SERVER);
+		addLabel(GuiComponentLabel.SERVER);
 		contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
 
-		addLabel(contentPanel, GuiComponentLabel.PATH);
+		addLabel(GuiComponentLabel.PATH);
 		contentPanel.add(getSourceRelativePathTextField());
 	}
 

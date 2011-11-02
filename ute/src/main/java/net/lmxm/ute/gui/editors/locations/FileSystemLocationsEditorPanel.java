@@ -61,5 +61,7 @@ public class FileSystemLocationsEditorPanel extends AbstractReadonlyEditorPanel 
 	public FileSystemLocationsEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.FILE_SYSTEM_LOCATIONS, new FileSystemLocationsEditorToolBar(actionListener),
 				actionListener);
+
+		addFields();
 	}
 }

@@ -25,7 +25,8 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 /**
  * The Class SubversionExportTask.
  */
-public final class SubversionExportTask extends AbstractFilesTask implements FileSystemTargetTask, SubversionRepositorySourceTask {
+public final class SubversionExportTask extends AbstractFilesTask implements FileSystemTargetTask,
+		SubversionRepositorySourceTask {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2831925595307147878L;
@@ -43,9 +44,13 @@ public final class SubversionExportTask extends AbstractFilesTask implements Fil
 	 */
 	public SubversionExportTask(final Job job) {
 		super(job);
+
+		source = new SubversionRepositorySource();
+		target = new FileSystemTarget();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask#getSource()
 	 */
 	@Override
@@ -62,8 +67,10 @@ public final class SubversionExportTask extends AbstractFilesTask implements Fil
 		return target;
 	}
 
-	/* (non-Javadoc)
-	 * @see net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask#setSource(net.lmxm.ute.beans.sources.SubversionRepositorySource)
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask#setSource(net.lmxm.ute.beans.sources.
+	 * SubversionRepositorySource)
 	 */
 	@Override
 	public void setSource(final SubversionRepositorySource source) {

@@ -42,6 +42,9 @@ public final class FileSystemDeleteTask extends AbstractFilesTask implements Fil
 	 */
 	public FileSystemDeleteTask(final Job job) {
 		super(job);
+
+		stopOnError = false;
+		target = new FileSystemTarget();
 	}
 
 	/**
@@ -53,7 +56,8 @@ public final class FileSystemDeleteTask extends AbstractFilesTask implements Fil
 		return stopOnError;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.FileSystemTargetTask#getTarget()
 	 */
 	@Override
@@ -70,7 +74,8 @@ public final class FileSystemDeleteTask extends AbstractFilesTask implements Fil
 		this.stopOnError = stopOnError;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.FileSystemTargetTask#setTarget(net.lmxm.ute.beans.targets.FileSystemTarget)
 	 */
 	@Override

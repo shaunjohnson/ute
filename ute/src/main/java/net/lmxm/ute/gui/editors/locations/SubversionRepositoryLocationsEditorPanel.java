@@ -61,5 +61,7 @@ public class SubversionRepositoryLocationsEditorPanel extends AbstractReadonlyEd
 	public SubversionRepositoryLocationsEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATIONS, new SubversionRepositoryLocationsEditorToolBar(
 				actionListener), actionListener);
+
+		addFields();
 	}
 }

@@ -78,6 +78,8 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 	public SubversionRepositoryLocationEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATION, new SubversionRepositoryLocationEditorToolBar(
 				actionListener), actionListener);
+
+		addFields();
 	}
 
 	/*
@@ -90,10 +92,10 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.USERNAME);
+		addLabel(GuiComponentLabel.USERNAME);
 		contentPanel.add(getUsernameTextField());
 
-		addLabel(contentPanel, GuiComponentLabel.PASSWORD);
+		addLabel(GuiComponentLabel.PASSWORD);
 		contentPanel.add(getPasswordTextField());
 	}
 

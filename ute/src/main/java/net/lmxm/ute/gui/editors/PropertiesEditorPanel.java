@@ -59,5 +59,7 @@ public class PropertiesEditorPanel extends AbstractReadonlyEditorPanel {
 	 */
 	public PropertiesEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.PROPERTIES, new PropertiesEditorToolBar(actionListener), actionListener);
+
+		addFields();
 	}
 }

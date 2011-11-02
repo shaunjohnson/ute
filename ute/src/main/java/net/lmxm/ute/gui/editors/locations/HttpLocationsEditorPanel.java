@@ -60,5 +60,7 @@ public class HttpLocationsEditorPanel extends AbstractReadonlyEditorPanel {
 	 */
 	public HttpLocationsEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.HTTP_LOCATIONS, new HttpLocationsEditorToolBar(actionListener), actionListener);
+
+		addFields();
 	}
 }

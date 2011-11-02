@@ -75,6 +75,8 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	public FileSystemLocationEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.FILE_SYSTEM_LOCATION, new FileSystemLocationEditorToolBar(actionListener),
 				actionListener);
+
+		addFields();
 	}
 
 	/*
@@ -87,7 +89,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.PATH);
+		addLabel(GuiComponentLabel.PATH);
 		contentPanel.add(getPathTextField());
 	}
 

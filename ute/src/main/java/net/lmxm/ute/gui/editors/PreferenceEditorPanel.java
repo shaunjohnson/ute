@@ -74,6 +74,8 @@ public final class PreferenceEditorPanel extends AbstractCommonEditorPanel {
 	 */
 	public PreferenceEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.PREFERENCE, new PreferenceEditorToolBar(actionListener), actionListener);
+
+		addFields();
 	}
 
 	/*
@@ -86,7 +88,7 @@ public final class PreferenceEditorPanel extends AbstractCommonEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.CURRENT_VALUE);
+		addLabel(GuiComponentLabel.CURRENT_VALUE);
 		contentPanel.add(getPreferenceValueTextField());
 	}
 

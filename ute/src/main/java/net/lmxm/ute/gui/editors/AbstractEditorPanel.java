@@ -65,7 +65,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	private final ActionListener actionListener;
 
 	/** The content panel. */
-	private final JPanel contentPanel;
+	private JPanel contentPanel;
 
 	/** The http location target combo box. */
 	private JComboBox httpLocationTargetComboBox = null;
@@ -101,29 +101,24 @@ public abstract class AbstractEditorPanel extends JPanel {
 		}
 
 		// Setup the content main
-		contentPanel = new JPanel(new MigLayout("wrap 2", "[right][fill]"));
-		add(contentPanel, BorderLayout.CENTER);
+		add(getContentPanel(), BorderLayout.CENTER);
 
 		// Add initial separator label
-		addSeparator(contentPanel, guiComponentLabel);
-
-		addFields();
+		addSeparator(guiComponentLabel);
 	}
 
 	/**
 	 * Adds the checkbox.
 	 * 
-	 * @param panel the panel
 	 * @param checkBox the check box
 	 * @param guiComponentLabel the gui component label
 	 */
-	protected final void addCheckbox(final JPanel panel, final JCheckBox checkBox,
-			final GuiComponentLabel guiComponentLabel) {
+	protected final void addCheckbox(final JCheckBox checkBox, final GuiComponentLabel guiComponentLabel) {
 		final JPanel subPanel = new JPanel(new MigLayout("ins 0", "[left]"));
 		subPanel.add(checkBox);
 		subPanel.add(createLabel(guiComponentLabel));
 
-		panel.add(subPanel, "skip 1");
+		getContentPanel().add(subPanel, "skip 1");
 	}
 
 	/**
@@ -134,26 +129,24 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/**
 	 * Adds the label.
 	 * 
-	 * @param panel the panel
 	 * @param guiComponentLabel the gui component label
 	 */
-	protected final void addLabel(final JPanel panel, final GuiComponentLabel guiComponentLabel) {
-		panel.add(createLabel(guiComponentLabel), "gapleft 20, top");
+	protected final void addLabel(final GuiComponentLabel guiComponentLabel) {
+		getContentPanel().add(createLabel(guiComponentLabel), "gapleft 20, top");
 	}
 
 	/**
 	 * Adds the separator.
 	 * 
-	 * @param panel the panel
 	 * @param guiComponentLabel the gui component label
 	 */
-	protected final void addSeparator(final JPanel panel, final GuiComponentLabel guiComponentLabel) {
+	protected final void addSeparator(final GuiComponentLabel guiComponentLabel) {
 		final JLabel label = createLabel(guiComponentLabel);
 		label.setFont(BOLD_FONT);
 		label.setForeground(SEPARATOR_LABEL_COLOR);
 
-		panel.add(label, "gapy 10, span, split 2, aligny center");
-		panel.add(new JSeparator(), "gapleft rel, gapy 14, growx");
+		getContentPanel().add(label, "gapy 10, span, split 2, aligny center");
+		getContentPanel().add(new JSeparator(), "gapleft rel, gapy 14, growx");
 	}
 
 	/**
@@ -203,6 +196,9 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @return the content panel
 	 */
 	protected JPanel getContentPanel() {
+		if (contentPanel == null) {
+			contentPanel = new JPanel(new MigLayout("wrap 2", "[right][fill]"));
+		}
 		return contentPanel;
 	}
 

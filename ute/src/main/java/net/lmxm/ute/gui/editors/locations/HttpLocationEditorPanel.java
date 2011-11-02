@@ -60,6 +60,8 @@ public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPan
 	 */
 	public HttpLocationEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.HTTP_LOCATION, new HttpLocationEditorToolBar(actionListener), actionListener);
+
+		addFields();
 	}
 
 	/*

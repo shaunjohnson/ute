@@ -94,6 +94,8 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 */
 	public FindReplaceTaskEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.FIND_AND_REPLACE_TASK, new FindReplaceTaskEditorToolBar(actionListener), actionListener);
+
+		addFields();
 	}
 
 	/*
@@ -106,12 +108,12 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addSeparator(contentPanel, GuiComponentLabel.TARGET);
+		addSeparator(GuiComponentLabel.TARGET);
 		addFileSystemTargetFields();
 		addFilesFields();
 
-		addSeparator(contentPanel, GuiComponentLabel.FIND_AND_REPLACE);
-		addLabel(contentPanel, GuiComponentLabel.SCOPE);
+		addSeparator(GuiComponentLabel.FIND_AND_REPLACE);
+		addLabel(GuiComponentLabel.SCOPE);
 		contentPanel.add(getScopePane());
 
 		addPatternsFields();
@@ -123,7 +125,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	protected final void addPatternsFields() {
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(contentPanel, GuiComponentLabel.PATTERNS);
+		addLabel(GuiComponentLabel.PATTERNS);
 		contentPanel.add(getPatternsPane());
 	}
 

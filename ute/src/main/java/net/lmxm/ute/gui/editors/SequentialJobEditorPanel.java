@@ -64,6 +64,8 @@ public final class SequentialJobEditorPanel extends AbstractCommonEditorPanel {
 	 */
 	public SequentialJobEditorPanel(final ActionListener actionListener) {
 		super(GuiComponentLabel.SEQUENTIAL_JOB, new SequentialJobEditorToolbar(actionListener), actionListener);
+
+		addFields();
 	}
 
 	/*

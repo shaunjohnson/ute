@@ -42,6 +42,8 @@ public final class GroovyTask extends AbstractFilesTask implements FileSystemTar
 	 */
 	public GroovyTask(final Job job) {
 		super(job);
+
+		target = new FileSystemTarget();
 	}
 
 	/**
