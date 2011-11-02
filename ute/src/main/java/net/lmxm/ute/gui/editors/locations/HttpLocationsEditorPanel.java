@@ -60,6 +60,15 @@ public class HttpLocationsEditorPanel extends AbstractEditorPanel {
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#loadData()
+	 */
+	@Override
+	protected void loadData() {
+
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#setFocusToFirstInput()
 	 */
 	@Override

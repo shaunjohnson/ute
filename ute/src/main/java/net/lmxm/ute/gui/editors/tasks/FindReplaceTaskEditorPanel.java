@@ -32,7 +32,6 @@ import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 
 import net.lmxm.ute.beans.FindReplacePattern;
-import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
@@ -233,24 +232,14 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		LOGGER.debug("{} entered, findReplaceTask={}", prefix, findReplaceTask);
 
 		setUserObject(findReplaceTask);
-
-		final FileSystemTarget target = findReplaceTask == null ? null : findReplaceTask.getTarget();
-
-		loadTaskCommonFieldData();
-		loadFileSystemTargetFieldData(target);
-		loadFilesFieldData(findReplaceTask);
+		loadData();
 		loadPatternsFieldData(findReplaceTask);
 
-		if (findReplaceTask == null) {
+		if (findReplaceTask == null || findReplaceTask.getScope() == Scope.LINE) {
 			getLineScopeRadioButton().setSelected(true);
 		}
 		else {
-			if (findReplaceTask.getScope() == Scope.LINE) {
-				getLineScopeRadioButton().setSelected(true);
-			}
-			else {
-				getFileScopeRadioButton().setSelected(true);
-			}
+			getFileScopeRadioButton().setSelected(true);
 		}
 
 		LOGGER.debug("{} leaving", prefix);

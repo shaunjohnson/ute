@@ -24,7 +24,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.FileSystemDeleteTaskEditorToolBar;
@@ -103,12 +102,7 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		LOGGER.debug("{} entered, fileSystemDeleteTask={}", prefix, fileSystemDeleteTask);
 
 		setUserObject(fileSystemDeleteTask);
-
-		final FileSystemTarget target = fileSystemDeleteTask == null ? null : fileSystemDeleteTask.getTarget();
-
-		loadTaskCommonFieldData();
-		loadFileSystemTargetFieldData(target);
-		loadFilesFieldData(fileSystemDeleteTask);
+		loadData();
 
 		if (fileSystemDeleteTask == null) {
 			getStopOnErrorCheckbox().setSelected(false);

@@ -35,13 +35,13 @@ import javax.swing.table.DefaultTableModel;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
-import net.lmxm.ute.beans.locations.HttpLocation;
-import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
-import net.lmxm.ute.beans.tasks.AbstractFilesTask;
 import net.lmxm.ute.beans.tasks.FileSystemTargetTask;
+import net.lmxm.ute.beans.tasks.FilesTask;
+import net.lmxm.ute.beans.tasks.HttpSourceTask;
+import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.editors.AbstractIdEditorPanel;
@@ -314,21 +314,34 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 				createDefaultComboBoxModel(configuration.getFileSystemLocations()));
 	}
 
-	/**
-	 * Load files field data.
-	 * 
-	 * @param abstractFilesTask the abstract files task
-	 */
-	protected final void loadFilesFieldData(final AbstractFilesTask abstractFilesTask) {
-		final DefaultTableModel tableModel = createEmptyFilesTableModel();
+	@Override
+	protected final void loadData() {
+		// Load Common Fields
+		super.loadData();
+		loadTaskCommonFieldData();
 
-		if (abstractFilesTask != null) {
-			for (final FileReference fileReference : abstractFilesTask.getFiles()) {
+		// Load Source Fields
+		loadHttpSourceFieldData();
+		loadSubversionRepositorySourceFieldData();
+
+		// Load Target Fields
+		loadFileSystemTargetFieldData();
+
+		// Load Other Fields
+		loadFilesFieldData();
+	}
+
+	private final void loadFilesFieldData() {
+		final DefaultTableModel tableModel = createEmptyFilesTableModel();
+		getFilesTable().setModel(tableModel);
+
+		if (getUserObject() instanceof FilesTask) {
+			final FilesTask filesTask = (FilesTask) getUserObject();
+
+			for (final FileReference fileReference : filesTask.getFiles()) {
 				tableModel.addRow(new Object[] { fileReference.getName(), fileReference.getTargetName() });
 			}
 		}
-
-		getFilesTable().setModel(tableModel);
 	}
 
 	/**
@@ -336,18 +349,23 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	 * 
 	 * @param fileSystemTarget the file system target
 	 */
-	protected final void loadFileSystemTargetFieldData(final FileSystemTarget fileSystemTarget) {
+	private final void loadFileSystemTargetFieldData() {
 		final String prefix = "loadFileSystemTargetFieldData(): ";
 
-		LOGGER.debug("{} entered, fileSystemTarget={}", prefix, fileSystemTarget);
+		LOGGER.debug("{} entered");
 
-		final FileSystemLocation targetLocation = fileSystemTarget == null ? null : fileSystemTarget.getLocation();
-		LOGGER.debug("{} setting target location to {}", prefix, targetLocation);
-		setSelectedIndex(getFileSystemLocationTargetComboBox(), targetLocation);
+		if (getUserObject() instanceof FileSystemTargetTask) {
+			final FileSystemTarget fileSystemTarget = ((FileSystemTargetTask) getUserObject()).getTarget();
 
-		final String targetRelativePath = fileSystemTarget == null ? null : fileSystemTarget.getRelativePath();
-		LOGGER.debug("{} setting target relative path to {}", prefix, targetRelativePath);
-		getTargetRelativePathTextField().setText(targetRelativePath);
+			if (fileSystemTarget == null) {
+				getFileSystemLocationTargetComboBox().setSelectedIndex(-1);
+				getTargetRelativePathTextField().setText("");
+			}
+			else {
+				setSelectedIndex(getFileSystemLocationTargetComboBox(), fileSystemTarget.getLocation());
+				getTargetRelativePathTextField().setText(fileSystemTarget.getRelativePath());
+			}
+		}
 
 		LOGGER.debug("{} leaving", prefix);
 	}
@@ -357,42 +375,49 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	 * 
 	 * @param httpSource the http source
 	 */
-	protected final void loadHttpSourceFieldData(final HttpSource httpSource) {
+	private final void loadHttpSourceFieldData() {
 		final String prefix = "loadHttpSourceFieldData(): ";
 
-		LOGGER.debug("{} entered, httpSource={}", prefix, httpSource);
+		LOGGER.debug("{} entered");
 
-		final HttpLocation sourceLocation = httpSource == null ? null : httpSource.getLocation();
-		LOGGER.debug("{} setting source location to {}", prefix, sourceLocation);
-		setSelectedIndex(getHttpLocationSourceComboBox(), sourceLocation);
+		if (getUserObject() instanceof HttpSourceTask) {
+			final HttpSource httpSource = ((HttpSourceTask) getUserObject()).getSource();
 
-		final String sourceRelativePath = httpSource == null ? null : httpSource.getRelativePath();
-		LOGGER.debug("{} setting source relative path to {}", prefix, sourceRelativePath);
-		getSourceRelativePathTextField().setText(sourceRelativePath);
+			if (httpSource == null) {
+				getHttpLocationSourceComboBox().setSelectedIndex(-1);
+				getSourceRelativePathTextField().setText("");
+			}
+			else {
+				setSelectedIndex(getHttpLocationSourceComboBox(), httpSource.getLocation());
+				getSourceRelativePathTextField().setText(httpSource.getRelativePath());
+			}
+		}
 
 		LOGGER.debug("{} leaving", prefix);
 	}
 
 	/**
 	 * Load subversion repository source field data.
-	 * 
-	 * @param subversionRepositorySource the subversion repository source
 	 */
-	protected final void loadSubversionRepositorySourceFieldData(
-			final SubversionRepositorySource subversionRepositorySource) {
+	private final void loadSubversionRepositorySourceFieldData() {
 		final String prefix = "loadSubversionRepositorySourceFieldData(): ";
 
-		LOGGER.debug("{} entered, subversionRepositorySource={}", prefix, subversionRepositorySource);
+		LOGGER.debug("{} entered");
 
-		final SubversionRepositoryLocation sourceLocation = subversionRepositorySource == null ? null
-				: subversionRepositorySource.getLocation();
-		LOGGER.debug("{} setting source location to {}", prefix, sourceLocation);
-		setSelectedIndex(getSubversionRepositoryLocationSourceComboBox(), sourceLocation);
+		if (getUserObject() instanceof SubversionRepositorySourceTask) {
+			final SubversionRepositorySource subversionRepositorySource = ((SubversionRepositorySourceTask) getUserObject())
+					.getSource();
 
-		final String sourceRelativePath = subversionRepositorySource == null ? null : subversionRepositorySource
-				.getRelativePath();
-		LOGGER.debug("{} setting source relative path to {}", prefix, sourceRelativePath);
-		getSourceRelativePathTextField().setText(sourceRelativePath);
+			if (subversionRepositorySource == null) {
+				getSubversionRepositoryLocationSourceComboBox().setSelectedIndex(-1);
+				getSourceRelativePathTextField().setText("");
+			}
+			else {
+				setSelectedIndex(getSubversionRepositoryLocationSourceComboBox(),
+						subversionRepositorySource.getLocation());
+				getSourceRelativePathTextField().setText(subversionRepositorySource.getRelativePath());
+			}
+		}
 
 		LOGGER.debug("{} leaving", prefix);
 	}
@@ -400,12 +425,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractIdEditorPanel {
 	/**
 	 * Load task common field data.
 	 */
-	protected final void loadTaskCommonFieldData() {
+	private final void loadTaskCommonFieldData() {
 		final String prefix = "loadTaskCommonFieldData(): ";
 
 		LOGGER.debug("{} entered", prefix);
-
-		loadIdCommonFieldData();
 
 		getDescriptionTextArea().setText("");
 		getEnabledCheckbox().setSelected(false);

@@ -137,8 +137,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 		LOGGER.debug("{} entered, subversionRepositoryLocation={}", prefix, subversionRepositoryLocation);
 
 		setUserObject(subversionRepositoryLocation);
-
-		loatHttpLocationCommonFieldData();
+		loadData();
 
 		if (subversionRepositoryLocation == null) {
 			getUsernameTextField().setText("");

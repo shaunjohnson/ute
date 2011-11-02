@@ -38,9 +38,9 @@ import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
-import net.lmxm.ute.beans.tasks.AbstractFilesTask;
 import net.lmxm.ute.beans.tasks.AbstractTask;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.beans.tasks.FilesTask;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
@@ -152,7 +152,7 @@ public final class ConfigurationReader {
 	 * @param task the task
 	 * @param filesType the files type
 	 */
-	private void parseFiles(final AbstractFilesTask task, final FilesType filesType) {
+	private void parseFiles(final FilesTask task, final FilesType filesType) {
 		final String prefix = "parseFiles() :";
 
 		LOGGER.debug("{} entered", prefix);

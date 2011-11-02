@@ -23,8 +23,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.beans.sources.SubversionRepositorySource;
-import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.SubversionUpdateTaskEditorToolBar;
@@ -89,15 +87,7 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 		LOGGER.debug("{} entered, subversionUpdateTask={}", prefix, subversionUpdateTask);
 
 		setUserObject(subversionUpdateTask);
-
-		final SubversionRepositorySource source = subversionUpdateTask == null ? null : subversionUpdateTask
-				.getSource();
-		final FileSystemTarget target = subversionUpdateTask == null ? null : subversionUpdateTask.getTarget();
-
-		loadTaskCommonFieldData();
-		loadSubversionRepositorySourceFieldData(source);
-		loadFileSystemTargetFieldData(target);
-		loadFilesFieldData(subversionUpdateTask);
+		loadData();
 
 		LOGGER.debug("{} leaving", prefix);
 	}

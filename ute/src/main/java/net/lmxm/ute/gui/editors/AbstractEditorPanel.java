@@ -165,6 +165,13 @@ public abstract class AbstractEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Clear user object.
+	 */
+	public void clearUserObject() {
+		this.userObject = null;
+	}
+
+	/**
 	 * Creates the default combo box model.
 	 * 
 	 * @param list the list
@@ -296,6 +303,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 		getSubversionRepositoryLocationSourceComboBox().setModel(
 				createDefaultComboBoxModel(configuration.getSubversionRepositoryLocations()));
 	}
+
+	/**
+	 * Load data.
+	 */
+	protected abstract void loadData();
 
 	/**
 	 * Sets the focus to first input.

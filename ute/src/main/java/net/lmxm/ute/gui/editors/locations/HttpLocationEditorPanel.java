@@ -77,8 +77,7 @@ public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPan
 		LOGGER.debug("{} entered, httpLocation={}", prefix, httpLocation);
 
 		setUserObject(httpLocation);
-
-		loatHttpLocationCommonFieldData();
+		loadData();
 
 		LOGGER.debug("{} leaving", prefix);
 	}

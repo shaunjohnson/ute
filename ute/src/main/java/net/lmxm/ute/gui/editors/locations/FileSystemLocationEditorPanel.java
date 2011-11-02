@@ -110,8 +110,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 		LOGGER.debug("{} entered, fileSystemLocation={}", prefix, fileSystemLocation);
 
 		setUserObject(fileSystemLocation);
-
-		loadIdCommonFieldData();
+		loadData();
 
 		if (fileSystemLocation == null) {
 			getPathTextField().setText("");

@@ -119,12 +119,12 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 		return idTextField;
 	}
 
-	/**
-	 * Load id common field data.
-	 * 
-	 * @param identifiableBean the identifiable bean
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#loadData()
 	 */
-	protected final void loadIdCommonFieldData() {
+	@Override
+	protected void loadData() {
 		final String prefix = "loadData(): ";
 
 		LOGGER.debug("{} entered", prefix);
@@ -133,9 +133,6 @@ public abstract class AbstractIdEditorPanel extends AbstractEditorPanel {
 			final IdentifiableBean identifiableBean = (IdentifiableBean) getUserObject();
 
 			getIdTextField().setText(identifiableBean.getId());
-		}
-		else {
-			getIdTextField().setText("");
 		}
 
 		LOGGER.debug("{} leaving", prefix);

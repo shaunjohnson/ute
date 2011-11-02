@@ -27,7 +27,7 @@ import net.lmxm.ute.beans.jobs.Job;
 /**
  * The Class AbstractFilesTask.
  */
-public abstract class AbstractFilesTask extends AbstractTask {
+public abstract class AbstractFilesTask extends AbstractTask implements FilesTask {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2308238681775709817L;
@@ -46,20 +46,20 @@ public abstract class AbstractFilesTask extends AbstractTask {
 		files = new ArrayList<FileReference>();
 	}
 
-	/**
-	 * Gets the files.
-	 * 
-	 * @return the files
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.FilesTask#getFiles()
 	 */
+	@Override
 	public final List<FileReference> getFiles() {
 		return files;
 	}
 
-	/**
-	 * Sets the files.
-	 * 
-	 * @param files the new files
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.FilesTask#setFiles(java.util.List)
 	 */
+	@Override
 	public final void setFiles(final List<FileReference> files) {
 		this.files = files;
 	}

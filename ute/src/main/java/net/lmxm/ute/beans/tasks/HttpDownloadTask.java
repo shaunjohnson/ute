@@ -25,7 +25,7 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 /**
  * The Class HttpDownloadTask.
  */
-public class HttpDownloadTask extends AbstractFilesTask implements FileSystemTargetTask {
+public class HttpDownloadTask extends AbstractFilesTask implements FileSystemTargetTask, HttpSourceTask {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7304138948723618917L;
@@ -45,11 +45,10 @@ public class HttpDownloadTask extends AbstractFilesTask implements FileSystemTar
 		super(job);
 	}
 
-	/**
-	 * Gets the source.
-	 * 
-	 * @return the source
+	/* (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.HttpSourceTask#getSource()
 	 */
+	@Override
 	public HttpSource getSource() {
 		return source;
 	}
@@ -63,11 +62,10 @@ public class HttpDownloadTask extends AbstractFilesTask implements FileSystemTar
 		return target;
 	}
 
-	/**
-	 * Sets the source.
-	 * 
-	 * @param source the new source
+	/* (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.HttpSourceTask#setSource(net.lmxm.ute.beans.sources.HttpSource)
 	 */
+	@Override
 	public void setSource(final HttpSource source) {
 		this.source = source;
 	}

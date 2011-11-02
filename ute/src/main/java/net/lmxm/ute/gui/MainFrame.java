@@ -86,7 +86,9 @@ import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
+import net.lmxm.ute.beans.tasks.HttpSourceTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
+import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationReader;
@@ -914,7 +916,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * @param httpDownloadTask the http download task
 	 * @return the http download task editor panel
 	 */
-	private HttpDownloadTaskEditorPanel getHttpDownloadTaskEditorPanel(final HttpDownloadTask httpDownloadTask) {
+	private HttpDownloadTaskEditorPanel getHttpDownloadTaskEditorPanel(final HttpSourceTask httpDownloadTask) {
 		if (httpDownloadTaskEditorPanel == null) {
 			httpDownloadTaskEditorPanel = new HttpDownloadTaskEditorPanel(this);
 			httpDownloadTaskEditorPanel.addIdChangeListener(getMainTree());
@@ -989,6 +991,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private JScrollPane getJobDetailsEditorScrollPane() {
 		if (jobDetailsEditorScrollPane == null) {
 			jobDetailsEditorScrollPane = new JScrollPane();
+			jobDetailsEditorScrollPane.setViewport(null);
 		}
 		return jobDetailsEditorScrollPane;
 	}
@@ -1202,7 +1205,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * @return the subversion export task editor panel
 	 */
 	private SubversionExportTaskEditorPanel getSubversionExportTaskEditorPanel(
-			final SubversionExportTask subversionExportTask) {
+			final SubversionRepositorySourceTask subversionExportTask) {
 		if (subversionExportTaskEditorPanel == null) {
 			subversionExportTaskEditorPanel = new SubversionExportTaskEditorPanel(this);
 			subversionExportTaskEditorPanel.addIdChangeListener(getMainTree());
@@ -1449,7 +1452,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			editorPane = getGroovyTaskEditorPanel((GroovyTask) userObject);
 		}
 		else if (userObject instanceof HttpDownloadTask) {
-			editorPane = getHttpDownloadTaskEditorPanel((HttpDownloadTask) userObject);
+			editorPane = getHttpDownloadTaskEditorPanel((HttpSourceTask) userObject);
 		}
 		else if (userObject instanceof HttpLocation) {
 			editorPane = getHttpLocationEditorPanel((HttpLocation) userObject);
@@ -1473,7 +1476,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			editorPane = getPropertyEditorPanel((Property) userObject);
 		}
 		else if (userObject instanceof SubversionExportTask) {
-			editorPane = getSubversionExportTaskEditorPanel((SubversionExportTask) userObject);
+			editorPane = getSubversionExportTaskEditorPanel((SubversionRepositorySourceTask) userObject);
 		}
 		else if (userObject instanceof SubversionRepositoryLocation) {
 			editorPane = getSubversionRepositoryLocationEditorPanel((SubversionRepositoryLocation) userObject);

@@ -24,7 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.GroovyTaskEditorToolBar;
@@ -128,12 +127,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 		LOGGER.debug("{} entered, groovyTask={}", prefix, groovyTask);
 
 		setUserObject(groovyTask);
-
-		final FileSystemTarget target = groovyTask == null ? null : groovyTask.getTarget();
-
-		loadTaskCommonFieldData();
-		loadFileSystemTargetFieldData(target);
-		loadFilesFieldData(groovyTask);
+		loadData();
 
 		if (groovyTask == null) {
 			getScriptTextArea().setText("");

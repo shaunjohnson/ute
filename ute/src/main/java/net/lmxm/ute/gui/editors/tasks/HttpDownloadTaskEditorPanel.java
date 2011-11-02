@@ -23,9 +23,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.beans.sources.HttpSource;
-import net.lmxm.ute.beans.targets.FileSystemTarget;
-import net.lmxm.ute.beans.tasks.HttpDownloadTask;
+import net.lmxm.ute.beans.tasks.HttpSourceTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.HttpDownloadTaskEditorToolBar;
 
@@ -83,20 +81,13 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @param httpDownloadTask the http download task
 	 */
-	public void loadData(final HttpDownloadTask httpDownloadTask) {
+	public void loadData(final HttpSourceTask httpDownloadTask) {
 		final String prefix = "loadData(): ";
 
 		LOGGER.debug("{} entered, httpDownloadTask={}", prefix, httpDownloadTask);
 
 		setUserObject(httpDownloadTask);
-
-		final HttpSource source = httpDownloadTask == null ? null : httpDownloadTask.getSource();
-		final FileSystemTarget target = httpDownloadTask == null ? null : httpDownloadTask.getTarget();
-
-		loadTaskCommonFieldData();
-		loadHttpSourceFieldData(source);
-		loadFileSystemTargetFieldData(target);
-		loadFilesFieldData(httpDownloadTask);
+		loadData();
 
 		LOGGER.debug("{} leaving", prefix);
 	}

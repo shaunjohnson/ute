@@ -103,8 +103,7 @@ public final class PreferenceEditorPanel extends AbstractIdEditorPanel {
 		LOGGER.debug("{} entered, preference={}", prefix, preference);
 
 		setUserObject(preference);
-
-		loadIdCommonFieldData();
+		loadData();
 
 		if (preference == null) {
 			getPreferenceValueTextField().setText("");
