@@ -121,7 +121,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	/**
 	 * Adds the patterns fields.
 	 */
-	protected final void addPatternsFields() {
+	private void addPatternsFields() {
 		final JPanel contentPanel = getContentPanel();
 
 		addLabel(GuiComponentLabel.PATTERNS);
@@ -133,7 +133,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the default table model
 	 */
-	protected final DefaultTableModel createEmptyPatternsTableModel() {
+	private DefaultTableModel createEmptyPatternsTableModel() {
 		final DefaultTableModel tableModel = new DefaultTableModel();
 
 		tableModel.addColumn("Pattern");
@@ -184,7 +184,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the patterns pane
 	 */
-	protected final JPanel getPatternsPane() {
+	private JPanel getPatternsPane() {
 		if (patternsPane == null) {
 			patternsPane = new JPanel();
 			patternsPane.setLayout(new BorderLayout());
@@ -200,7 +200,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the patterns scroll pane
 	 */
-	protected final JScrollPane getPatternsScrollPane() {
+	private JScrollPane getPatternsScrollPane() {
 		if (patternsScrollPane == null) {
 			patternsScrollPane = new JScrollPane(getPatternsTable());
 			patternsScrollPane.setMaximumSize(new Dimension(400, 100));
@@ -214,7 +214,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the patterns table
 	 */
-	protected final JTable getPatternsTable() {
+	private JTable getPatternsTable() {
 		if (patternsTable == null) {
 			patternsTable = new JTable(createEmptyPatternsTableModel());
 			patternsTable.setFillsViewportHeight(true);
@@ -256,7 +256,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the scope pane
 	 */
-	private final JPanel getScopePane() {
+	private JPanel getScopePane() {
 		if (scopePane == null) {
 			scopePane = new JPanel();
 			scopePane.setLayout(new FlowLayout(FlowLayout.LEFT));
