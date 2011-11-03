@@ -19,12 +19,16 @@
 package net.lmxm.ute.beans;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.beans.tasks.FilesTask;
+import net.lmxm.ute.beans.tasks.FindReplaceTask;
+import net.lmxm.ute.beans.tasks.Task;
 
 /**
  * The Class Configuration.
@@ -110,6 +114,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	 * 
 	 * @return the preferences
 	 */
+	@Override
 	public List<Preference> getPreferences() {
 		return preferences;
 	}
@@ -119,6 +124,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	 * 
 	 * @return the properties
 	 */
+	@Override
 	public List<Property> getProperties() {
 		return properties;
 	}
@@ -130,6 +136,35 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	 */
 	public List<SubversionRepositoryLocation> getSubversionRepositoryLocations() {
 		return subversionRepositoryLocations;
+	}
+
+	/**
+	 * Removes the empty objects.
+	 */
+	public void removeEmptyObjects() {
+		for (final Job job : jobs) {
+			for (final Task task : job.getTasks()) {
+				if (task instanceof FilesTask) {
+					final Iterator<FileReference> iterator = ((FilesTask) task).getFiles().iterator();
+
+					while (iterator.hasNext()) {
+						if (iterator.next().isEmpty()) {
+							iterator.remove();
+						}
+					}
+				}
+
+				if (task instanceof FindReplaceTask) {
+					final Iterator<FindReplacePattern> iterator = ((FindReplaceTask) task).getPatterns().iterator();
+
+					while (iterator.hasNext()) {
+						if (iterator.next().isEmpty()) {
+							iterator.remove();
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**

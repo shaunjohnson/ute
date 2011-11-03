@@ -136,6 +136,7 @@ public class ConfigurationWriter {
 		LOGGER.debug("{} entered", prefix);
 
 		configuration.getAbsolutePath();
+		configuration.removeEmptyObjects();
 
 		try {
 			ConfigurationUtils.validateConfiguration(configuration);
@@ -185,12 +186,10 @@ public class ConfigurationWriter {
 		LOGGER.debug("{} entered", prefix);
 
 		for (final FileReference file : files) {
-			if (!file.isEmpty()) {
-				final FileType fileType = filesType.addNewFile();
+			final FileType fileType = filesType.addNewFile();
 
-				fileType.setName(file.getName());
-				fileType.setTargetName(file.getTargetName());
-			}
+			fileType.setName(file.getName());
+			fileType.setTargetName(file.getTargetName());
 		}
 
 		LOGGER.debug("{} leaving", prefix);
