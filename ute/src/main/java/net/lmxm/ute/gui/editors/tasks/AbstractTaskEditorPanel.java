@@ -36,11 +36,9 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.EnabledStateBean;
-import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
@@ -53,6 +51,7 @@ import net.lmxm.ute.beans.tasks.HttpSourceTask;
 import net.lmxm.ute.beans.tasks.StopOnErrorTask;
 import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.gui.components.FilesTableModel;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 import net.lmxm.ute.listeners.ChangeAdapter;
@@ -232,20 +231,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	}
 
 	/**
-	 * Creates the empty files table model.
-	 * 
-	 * @return the default table model
-	 */
-	private DefaultTableModel createEmptyFilesTableModel() {
-		final DefaultTableModel tableModel = new DefaultTableModel();
-
-		tableModel.addColumn("File Name/Pattern");
-		tableModel.addColumn("Target File Name");
-
-		return tableModel;
-	}
-
-	/**
 	 * Fire enabled state changed event.
 	 * 
 	 * @param enabledStateBean the enabled state bean
@@ -320,7 +305,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 */
 	private JTable getFilesTable() {
 		if (filesTable == null) {
-			filesTable = new JTable(createEmptyFilesTableModel());
+			filesTable = new JTable();
 			filesTable.setFillsViewportHeight(true);
 		}
 
@@ -607,13 +592,8 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	private void loadFilesFieldData() {
 		if (getUserObject() instanceof FilesTask) {
 			final FilesTask filesTask = (FilesTask) getUserObject();
-			final DefaultTableModel tableModel = createEmptyFilesTableModel();
 
-			for (final FileReference fileReference : filesTask.getFiles()) {
-				tableModel.addRow(new Object[] { fileReference.getName(), fileReference.getTargetName() });
-			}
-
-			getFilesTable().setModel(tableModel);
+			getFilesTable().setModel(new FilesTableModel(filesTask));
 		}
 	}
 

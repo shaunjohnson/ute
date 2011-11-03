@@ -18,28 +18,43 @@
  */
 package net.lmxm.ute.gui.components;
 
+import javax.swing.Icon;
+
 /**
- * The Enum GuiComponentCategory.
+ * The Enum GuiComponentLabel.
  */
-public enum GuiComponentCategory {
-	/** The BUTTON. */
-	BUTTON,
+public enum GuiComponentTableColumn implements GuiComponentType {
 
-	/** The CONFIRMATION. */
-	CONFIRMATION,
+	/** The FILE_NAME. */
+	FILE_NAME,
 
-	/** The LABEL. */
-	LABEL,
+	/** The TARGET_FILE_NAME. */
+	TARGET_FILE_NAME;
 
-	/** The MENU. */
-	MENU,
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
+	 */
+	@Override
+	public String getActionCommand() {
+		return null;
+	}
 
-	/** The MENU_ITEM. */
-	MENU_ITEM,
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 */
+	@Override
+	public GuiComponentCategory getGuiComponentCategory() {
+		return GuiComponentCategory.TABLE_COLUMN;
+	}
 
-	/** The TABLE_COLUMN. */
-	TABLE_COLUMN,
-
-	/** The TOOLBAR_BUTTON. */
-	TOOLBAR_BUTTON
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
+	 */
+	@Override
+	public Icon getIcon() {
+		return null;
+	}
 }

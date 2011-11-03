@@ -185,10 +185,12 @@ public class ConfigurationWriter {
 		LOGGER.debug("{} entered", prefix);
 
 		for (final FileReference file : files) {
-			final FileType fileType = filesType.addNewFile();
+			if (!file.isEmpty()) {
+				final FileType fileType = filesType.addNewFile();
 
-			fileType.setName(file.getName());
-			fileType.setTargetName(file.getTargetName());
+				fileType.setName(file.getName());
+				fileType.setTargetName(file.getTargetName());
+			}
 		}
 
 		LOGGER.debug("{} leaving", prefix);

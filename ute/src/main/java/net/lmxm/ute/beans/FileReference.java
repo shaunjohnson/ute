@@ -20,6 +20,7 @@ package net.lmxm.ute.beans;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * The Class FileReference.
@@ -84,6 +85,15 @@ public final class FileReference implements DomainBean {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(name).append(targetName).toHashCode();
+	}
+
+	/**
+	 * Checks if is empty.
+	 * 
+	 * @return true, if is empty
+	 */
+	public boolean isEmpty() {
+		return StringUtils.isBlank(name) && StringUtils.isBlank(targetName);
 	}
 
 	/**
