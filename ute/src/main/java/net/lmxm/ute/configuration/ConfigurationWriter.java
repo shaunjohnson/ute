@@ -152,7 +152,14 @@ public class ConfigurationWriter {
 
 			// Create a backup of the existing file
 			if (file.exists()) {
-				FileUtils.moveFile(file, new File(file.getAbsolutePath() + ".bak"));
+				final File backupFile = new File(file.getAbsolutePath() + ".bak");
+
+				// Delete existing backup
+				if (backupFile.exists()) {
+					FileUtils.deleteQuietly(backupFile);
+				}
+
+				FileUtils.moveFile(file, backupFile);
 			}
 
 			document.save(file);
