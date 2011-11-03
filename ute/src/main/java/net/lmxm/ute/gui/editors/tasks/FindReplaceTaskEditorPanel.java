@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors.tasks;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
@@ -83,6 +84,9 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/** The patterns table. */
 	private JTable patternsTable = null;
+
+	/** The scope action listener. */
+	private ActionListener scopeActionListener = null;
 
 	/** The scope pane. */
 	private JPanel scopePane = null;
@@ -155,6 +159,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	private JRadioButton getFileScopeRadioButton() {
 		if (fileScopeRadioButton == null) {
 			fileScopeRadioButton = new JRadioButton(Scope.FILE.toString());
+			fileScopeRadioButton.addActionListener(getScopeActionListener());
 		}
 
 		return fileScopeRadioButton;
@@ -168,6 +173,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	private JRadioButton getLineScopeRadioButton() {
 		if (lineScopeRadioButton == null) {
 			lineScopeRadioButton = new JRadioButton(Scope.LINE.toString());
+			lineScopeRadioButton.addActionListener(getScopeActionListener());
 		}
 
 		return lineScopeRadioButton;
@@ -215,6 +221,34 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		}
 
 		return patternsTable;
+	}
+
+	/**
+	 * Gets the scope action listener.
+	 * 
+	 * @return the scope action listener
+	 */
+	private ActionListener getScopeActionListener() {
+		if (scopeActionListener == null) {
+			scopeActionListener = new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent actionEvent) {
+					if (getUserObject() instanceof FindReplaceTask) {
+						final FindReplaceTask findReplaceTask = (FindReplaceTask) getUserObject();
+
+						final Object source = actionEvent.getSource();
+						if (source.equals(getFileScopeRadioButton())) {
+							findReplaceTask.setScope(Scope.FILE);
+						}
+						else {
+							findReplaceTask.setScope(Scope.LINE);
+						}
+					}
+				}
+			};
+		}
+
+		return scopeActionListener;
 	}
 
 	/**
