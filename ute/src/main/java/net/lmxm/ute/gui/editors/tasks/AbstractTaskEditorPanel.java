@@ -329,6 +329,19 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			sourceRelativePathTextField.setFont(monospaceFont);
 			sourceRelativePathTextField.setMinimumSize(new Dimension(400, (int) sourceRelativePathTextField.getSize()
 					.getHeight()));
+			sourceRelativePathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+				@Override
+				public void valueChanged(final String newValue) {
+					if (getUserObject() instanceof HttpSourceTask) {
+						final HttpSourceTask httpSourceTask = (HttpSourceTask) getUserObject();
+						httpSourceTask.getSource().setRelativePath(newValue);
+					}
+					else if (getUserObject() instanceof SubversionRepositorySourceTask) {
+						final SubversionRepositorySourceTask subversionRepositorySourceTask = (SubversionRepositorySourceTask) getUserObject();
+						subversionRepositorySourceTask.getSource().setRelativePath(newValue);
+					}
+				}
+			});
 		}
 
 		return sourceRelativePathTextField;
