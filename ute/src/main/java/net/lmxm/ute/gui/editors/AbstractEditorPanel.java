@@ -143,13 +143,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 	}
 
 	/**
-	 * Clear user object.
-	 */
-	public void clearUserObject() {
-		this.userObject = null;
-	}
-
-	/**
 	 * Creates the default combo box model.
 	 * 
 	 * @param list the list
@@ -188,7 +181,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * 
 	 * @return the content panel
 	 */
-	protected JPanel getContentPanel() {
+	protected final JPanel getContentPanel() {
 		if (contentPanel == null) {
 			contentPanel = new JPanel(new MigLayout("wrap 2", "[right][fill]"));
 		}

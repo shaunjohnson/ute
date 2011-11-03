@@ -175,7 +175,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	/**
 	 * Adds the source fields.
 	 */
-	protected void addSourceFields() {
+	protected final void addSourceFields() {
 		if (hasSourceFields()) {
 			addSeparator(GuiComponentLabel.SOURCE);
 
@@ -202,7 +202,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	/**
 	 * Adds the target fields.
 	 */
-	protected void addTargetFields() {
+	protected final void addTargetFields() {
 		if (hasTargetFields()) {
 			addSeparator(GuiComponentLabel.TARGET);
 
@@ -216,7 +216,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the default table model
 	 */
-	protected DefaultTableModel createEmptyFilesTableModel() {
+	private DefaultTableModel createEmptyFilesTableModel() {
 		final DefaultTableModel tableModel = new DefaultTableModel();
 
 		tableModel.addColumn("File Name/Pattern");
@@ -230,7 +230,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the enabled checkbox
 	 */
-	protected final JCheckBox getEnabledCheckbox() {
+	private JCheckBox getEnabledCheckbox() {
 		if (enabledCheckbox == null) {
 			enabledCheckbox = new JCheckBox();
 		}
@@ -243,7 +243,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the files pane
 	 */
-	protected final JPanel getFilesPane() {
+	private JPanel getFilesPane() {
 		if (filesPane == null) {
 			filesPane = new JPanel();
 			filesPane.setLayout(new BorderLayout());
@@ -259,7 +259,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the files scroll pane
 	 */
-	protected final JScrollPane getFilesScrollPane() {
+	private JScrollPane getFilesScrollPane() {
 		if (filesScrollPane == null) {
 			filesScrollPane = new JScrollPane(getFilesTable());
 			filesScrollPane.setMaximumSize(new Dimension(400, 100));
@@ -273,7 +273,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the files table
 	 */
-	protected final JTable getFilesTable() {
+	private JTable getFilesTable() {
 		if (filesTable == null) {
 			filesTable = new JTable(createEmptyFilesTableModel());
 			filesTable.setFillsViewportHeight(true);
@@ -287,7 +287,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the file system location target combo box
 	 */
-	private final JComboBox getFileSystemLocationTargetComboBox() {
+	private JComboBox getFileSystemLocationTargetComboBox() {
 		if (fileSystemLocationTargetComboBox == null) {
 			fileSystemLocationTargetComboBox = new JComboBox();
 			fileSystemLocationTargetComboBox.addActionListener(new ActionListener() {
@@ -322,7 +322,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the http location source combo box
 	 */
-	private final JComboBox getHttpLocationSourceComboBox() {
+	private JComboBox getHttpLocationSourceComboBox() {
 		if (httpLocationTargetComboBox == null) {
 			httpLocationTargetComboBox = new JComboBox();
 			httpLocationTargetComboBox.addActionListener(new ActionListener() {
@@ -356,7 +356,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the monospace font
 	 */
-	protected final Font getMonospaceFont() {
+	private Font getMonospaceFont() {
 		return monospaceFont;
 	}
 
@@ -365,10 +365,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the source relative path text field
 	 */
-	private final JTextField getSourceRelativePathTextField() {
+	private JTextField getSourceRelativePathTextField() {
 		if (sourceRelativePathTextField == null) {
 			sourceRelativePathTextField = new JTextField();
-			sourceRelativePathTextField.setFont(monospaceFont);
+			sourceRelativePathTextField.setFont(getMonospaceFont());
 			sourceRelativePathTextField.setMinimumSize(new Dimension(400, (int) sourceRelativePathTextField.getSize()
 					.getHeight()));
 			sourceRelativePathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
@@ -394,7 +394,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the stop on error checkbox
 	 */
-	private final JCheckBox getStopOnErrorCheckbox() {
+	private JCheckBox getStopOnErrorCheckbox() {
 		if (stopOnErrorCheckbox == null) {
 			stopOnErrorCheckbox = new JCheckBox();
 		}
@@ -407,7 +407,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the subversion repository location source combo box
 	 */
-	private final JComboBox getSubversionRepositoryLocationSourceComboBox() {
+	private JComboBox getSubversionRepositoryLocationSourceComboBox() {
 		if (subversionRepositoryLocationTargetComboBox == null) {
 			subversionRepositoryLocationTargetComboBox = new JComboBox();
 			subversionRepositoryLocationTargetComboBox.addActionListener(new ActionListener() {
@@ -443,10 +443,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the target relative path text field
 	 */
-	private final JTextField getTargetRelativePathTextField() {
+	private JTextField getTargetRelativePathTextField() {
 		if (targetRelativePathTextField == null) {
 			targetRelativePathTextField = new JTextField();
-			targetRelativePathTextField.setFont(monospaceFont);
+			targetRelativePathTextField.setFont(getMonospaceFont());
 			targetRelativePathTextField.setMinimumSize(new Dimension(400, (int) targetRelativePathTextField.getSize()
 					.getHeight()));
 			targetRelativePathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
@@ -548,7 +548,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	/**
 	 * Load files field data.
 	 */
-	private final void loadFilesFieldData() {
+	private void loadFilesFieldData() {
 		if (getUserObject() instanceof FilesTask) {
 			final FilesTask filesTask = (FilesTask) getUserObject();
 			final DefaultTableModel tableModel = createEmptyFilesTableModel();
