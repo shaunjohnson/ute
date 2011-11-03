@@ -18,17 +18,25 @@
  */
 package net.lmxm.ute.gui.editors.locations;
 
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.gui.components.GuiComponentButton;
+import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
+import net.miginfocom.swing.MigLayout;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,6 +72,12 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7086761608623968446L;
 
+	/** The browse path button. */
+	private JButton browsePathButton = null;
+
+	/** The path panel. */
+	private JPanel pathPanel = null;
+
 	/** The path text field. */
 	private JTextField pathTextField = null;
 
@@ -90,7 +104,41 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 		final JPanel contentPanel = getContentPanel();
 
 		addLabel(GuiComponentLabel.PATH);
-		contentPanel.add(getPathTextField());
+		contentPanel.add(getPathPanel());
+	}
+
+	/**
+	 * Gets the browse path button.
+	 * 
+	 * @return the browse path button
+	 */
+	private JButton getBrowsePathButton() {
+		if (browsePathButton == null) {
+			final Component parent = this;
+
+			browsePathButton = GuiComponentFactory.createButton(GuiComponentButton.DIRECTORY_BROWSE,
+					new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent e) {
+							final JFileChooser fcOpen = new JFileChooser();
+
+							fcOpen.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+							final int returnVal = fcOpen.showOpenDialog(parent);
+
+							if (returnVal == JFileChooser.APPROVE_OPTION) {
+								final File file = fcOpen.getSelectedFile();
+
+								getPathTextField().setText(file.getAbsolutePath());
+							}
+							else {
+								// TODO Canceled by user
+							}
+						}
+					});
+		}
+
+		return browsePathButton;
 	}
 
 	/*
@@ -100,6 +148,21 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	@Override
 	protected Object getEditedObjectClass() {
 		return new FileSystemLocation();
+	}
+
+	/**
+	 * Gets the path panel.
+	 * 
+	 * @return the path panel
+	 */
+	private JPanel getPathPanel() {
+		if (pathPanel == null) {
+			pathPanel = new JPanel(new MigLayout("ins 0", "[left]"));
+
+			pathPanel.add(getPathTextField());
+			pathPanel.add(getBrowsePathButton());
+		}
+		return pathPanel;
 	}
 
 	/**

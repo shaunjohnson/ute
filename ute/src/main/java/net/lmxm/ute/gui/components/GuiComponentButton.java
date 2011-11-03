@@ -26,7 +26,10 @@ import javax.swing.Icon;
 public enum GuiComponentButton implements GuiComponentType {
 
 	/** The CLOSE_DIALOG button. */
-	CLOSE_DIALOG(null, null);
+	CLOSE_DIALOG(null, null),
+
+	/** The DIRECTORY_BROWSE button. */
+	DIRECTORY_BROWSE(null, null);
 
 	/** The action command. */
 	private final String actionCommand;

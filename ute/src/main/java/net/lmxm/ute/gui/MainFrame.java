@@ -591,7 +591,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		else {
 			LOGGER.debug("{} cancelled by user", prefix);
 		}
-
 	}
 
 	/*
