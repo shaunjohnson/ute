@@ -22,20 +22,14 @@ import java.io.Serializable;
 
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.DomainBean;
+import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.jobs.Job;
 
 /**
  * The Interface Task.
  */
-public interface Task extends DescribableBean, DomainBean, IdentifiableBean, Serializable {
-
-	/**
-	 * Gets the enabled.
-	 * 
-	 * @return the enabled
-	 */
-	boolean getEnabled();
+public interface Task extends DescribableBean, DomainBean, EnabledStateBean, IdentifiableBean, Serializable {
 
 	/**
 	 * Gets the job.
@@ -44,10 +38,4 @@ public interface Task extends DescribableBean, DomainBean, IdentifiableBean, Ser
 	 */
 	Job getJob();
 
-	/**
-	 * Sets the enabled.
-	 * 
-	 * @param enabled the enabled
-	 */
-	void setEnabled(boolean enabled);
 }

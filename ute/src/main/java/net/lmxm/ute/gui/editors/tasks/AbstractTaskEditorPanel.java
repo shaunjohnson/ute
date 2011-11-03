@@ -23,7 +23,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -31,9 +34,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
@@ -50,6 +56,8 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 import net.lmxm.ute.listeners.ChangeAdapter;
+import net.lmxm.ute.listeners.EnabledStateChangeEvent;
+import net.lmxm.ute.listeners.EnabledStateChangeListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +75,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 
 	/** The enabled checkbox. */
 	private JCheckBox enabledCheckbox = null;
+
+	/** The enabled state change listeners. */
+	private final List<EnabledStateChangeListener> enabledStateChangeListeners = new ArrayList<EnabledStateChangeListener>();
 
 	/** The files pane. */
 	private JPanel filesPane = null;
@@ -110,6 +121,15 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		super(guiComponentLabel, toolBar, actionListener);
 
 		monospaceFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+	}
+
+	/**
+	 * Adds the enabled state change listener.
+	 * 
+	 * @param enabledStateChangeListener the enabled state change listener
+	 */
+	public final void addEnabledStateChangeListener(final EnabledStateChangeListener enabledStateChangeListener) {
+		enabledStateChangeListeners.add(enabledStateChangeListener);
 	}
 
 	/*
@@ -226,6 +246,19 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	}
 
 	/**
+	 * Fire enabled state changed event.
+	 * 
+	 * @param enabledStateBean the enabled state bean
+	 */
+	private void fireEnabledStateChangedEvent(final EnabledStateBean enabledStateBean) {
+		final EnabledStateChangeEvent enabledStateChangeEvent = new EnabledStateChangeEvent(this, enabledStateBean);
+
+		for (final EnabledStateChangeListener enabledStateChangeListener : enabledStateChangeListeners) {
+			enabledStateChangeListener.enabledStateChanged(enabledStateChangeEvent);
+		}
+	}
+
+	/**
 	 * Gets the enabled checkbox.
 	 * 
 	 * @return the enabled checkbox
@@ -233,6 +266,18 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	private JCheckBox getEnabledCheckbox() {
 		if (enabledCheckbox == null) {
 			enabledCheckbox = new JCheckBox();
+			enabledCheckbox.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(final ChangeEvent changeEvent) {
+					if (getUserObject() instanceof Task) {
+						final Task task = (Task) getUserObject();
+						final boolean isSelected = ((AbstractButton) changeEvent.getSource()).isSelected();
+
+						task.setEnabled(isSelected);
+						fireEnabledStateChangedEvent(task);
+					}
+				}
+			});
 		}
 
 		return enabledCheckbox;
@@ -397,6 +442,17 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	private JCheckBox getStopOnErrorCheckbox() {
 		if (stopOnErrorCheckbox == null) {
 			stopOnErrorCheckbox = new JCheckBox();
+			stopOnErrorCheckbox.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(final ChangeEvent changeEvent) {
+					if (getUserObject() instanceof StopOnErrorTask) {
+						final StopOnErrorTask stopOnErrorTask = (StopOnErrorTask) getUserObject();
+						final boolean isSelected = ((AbstractButton) changeEvent.getSource()).isSelected();
+
+						stopOnErrorTask.setStopOnError(isSelected);
+					}
+				}
+			});
 		}
 
 		return stopOnErrorCheckbox;
@@ -617,4 +673,5 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 
 		LOGGER.debug("{} leaving", prefix);
 	}
+
 }

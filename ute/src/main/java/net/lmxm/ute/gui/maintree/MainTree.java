@@ -34,6 +34,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import net.lmxm.ute.ConfigurationHolder;
+import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
@@ -62,6 +63,8 @@ import net.lmxm.ute.gui.menus.PropertyPopupMenu;
 import net.lmxm.ute.gui.menus.SubversionRepositoryLocationPopupMenu;
 import net.lmxm.ute.gui.menus.SubversionRepositoryLocationsRootPopupMenu;
 import net.lmxm.ute.gui.menus.TaskPopupMenu;
+import net.lmxm.ute.listeners.EnabledStateChangeEvent;
+import net.lmxm.ute.listeners.EnabledStateChangeListener;
 import net.lmxm.ute.listeners.IdChangeEvent;
 import net.lmxm.ute.listeners.IdChangeListener;
 
@@ -71,7 +74,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class MainTree.
  */
-public class MainTree extends JTree implements IdChangeListener {
+public class MainTree extends JTree implements EnabledStateChangeListener, IdChangeListener {
 
 	/**
 	 * The listener interface for receiving mainTreeKey events. The class that is interested in processing a mainTreeKey
@@ -492,6 +495,24 @@ public class MainTree extends JTree implements IdChangeListener {
 	 */
 	public void deleteTask(final Task task) {
 		showSelectedPath(mainTreeModel.deleteTask(task));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * net.lmxm.ute.listeners.EnabledStateChangeListener#enabledStateChanged(net.lmxm.ute.listeners.EnabledStateChangeEvent
+	 * )
+	 */
+	@Override
+	public void enabledStateChanged(final EnabledStateChangeEvent enabledStateChangeEvent) {
+		final EnabledStateBean enabledStateBean = enabledStateChangeEvent.getEnabledStateBean();
+
+		if (enabledStateBean instanceof Task) {
+			mainTreeModel.refreshTask((Task) enabledStateBean);
+		}
+		else {
+			throw new IllegalStateException("Unsupported bean type"); // TODO
+		}
 	}
 
 	/**

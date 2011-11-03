@@ -34,6 +34,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
 import net.lmxm.ute.beans.DescribableBean;
+import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
@@ -171,7 +172,8 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 		else if (userObject instanceof SubversionExportTask) {
 			final SubversionExportTask subversionExportTask = (SubversionExportTask) userObject;
 
-			setIcon(subversionExportTask.getEnabled() ? ImageUtil.SUBVERSION_EXPORT_TASK_ICON : ImageUtil.SUBVERSION_EXPORT_TASK_DISABLED_ICON);
+			setIcon(subversionExportTask.getEnabled() ? ImageUtil.SUBVERSION_EXPORT_TASK_ICON
+					: ImageUtil.SUBVERSION_EXPORT_TASK_DISABLED_ICON);
 			setText(subversionExportTask.getId());
 		}
 		else if (userObject instanceof SubversionRepositoryLocation) {
@@ -183,7 +185,8 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 		else if (userObject instanceof SubversionUpdateTask) {
 			final SubversionUpdateTask subversionUpdateTask = (SubversionUpdateTask) userObject;
 
-			setIcon(subversionUpdateTask.getEnabled() ? ImageUtil.SUBVERSION_UPDATE_TASK_ICON : ImageUtil.SUBVERSION_UPDATE_TASK_DISABLED_ICON);
+			setIcon(subversionUpdateTask.getEnabled() ? ImageUtil.SUBVERSION_UPDATE_TASK_ICON
+					: ImageUtil.SUBVERSION_UPDATE_TASK_DISABLED_ICON);
 			setText(subversionUpdateTask.getId());
 		}
 		else if (userObject instanceof RootTreeNode) {
@@ -196,8 +199,8 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 			setText(value.toString());
 		}
 
-		// Apply disabled task styles
-		if (isDisabledTask(userObject)) {
+		// Apply disabled bean styles
+		if (isDisabled(userObject)) {
 			foregroundColor = Color.LIGHT_GRAY;
 			setFont(disabledFont);
 		}
@@ -238,14 +241,14 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 	}
 
 	/**
-	 * Determines if the user object is a task and is disabled.
+	 * Checks if is disabled.
 	 * 
-	 * @param userObject User object to test
-	 * @return True if the user object is a disabled task
+	 * @param userObject the user object
+	 * @return true, if is disabled
 	 */
-	private boolean isDisabledTask(final Object userObject) {
-		if (userObject instanceof Task) {
-			return !((Task) userObject).getEnabled();
+	private boolean isDisabled(final Object userObject) {
+		if (userObject instanceof EnabledStateBean) {
+			return !((EnabledStateBean) userObject).getEnabled();
 		}
 		else {
 			return false;
