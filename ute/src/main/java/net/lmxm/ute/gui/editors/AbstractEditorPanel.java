@@ -28,7 +28,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -66,12 +65,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/** The content panel. */
 	private JPanel contentPanel;
-
-	/** The http location target combo box. */
-	private JComboBox httpLocationTargetComboBox = null;
-
-	/** The subversion repository location target combo box. */
-	private JComboBox subversionRepositoryLocationTargetComboBox = null;
 
 	/** The user object. */
 	private Object userObject;
@@ -210,32 +203,6 @@ public abstract class AbstractEditorPanel extends JPanel {
 	protected abstract Object getEditedObjectClass();
 
 	/**
-	 * Gets the http location source combo box.
-	 * 
-	 * @return the http location source combo box
-	 */
-	protected final JComboBox getHttpLocationSourceComboBox() {
-		if (httpLocationTargetComboBox == null) {
-			httpLocationTargetComboBox = new JComboBox();
-		}
-
-		return httpLocationTargetComboBox;
-	}
-
-	/**
-	 * Gets the subversion repository location source combo box.
-	 * 
-	 * @return the subversion repository location source combo box
-	 */
-	protected final JComboBox getSubversionRepositoryLocationSourceComboBox() {
-		if (subversionRepositoryLocationTargetComboBox == null) {
-			subversionRepositoryLocationTargetComboBox = new JComboBox();
-		}
-
-		return subversionRepositoryLocationTargetComboBox;
-	}
-
-	/**
 	 * Gets the user object.
 	 * 
 	 * @return the user object
@@ -250,9 +217,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param configuration the configuration
 	 */
 	public void initialize(final Configuration configuration) {
-		getHttpLocationSourceComboBox().setModel(createDefaultComboBoxModel(configuration.getHttpLocations()));
-		getSubversionRepositoryLocationSourceComboBox().setModel(
-				createDefaultComboBoxModel(configuration.getSubversionRepositoryLocations()));
+
 	}
 
 	/**

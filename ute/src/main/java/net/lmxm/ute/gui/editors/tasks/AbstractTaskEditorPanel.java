@@ -36,6 +36,8 @@ import javax.swing.table.DefaultTableModel;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
@@ -78,6 +80,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	/** The file system location target combo box. */
 	private JComboBox fileSystemLocationTargetComboBox = null;
 
+	/** The http location target combo box. */
+	private JComboBox httpLocationTargetComboBox = null;
+
 	/** The monospace font. */
 	private Font monospaceFont = null;
 
@@ -86,6 +91,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 
 	/** The stop on error checkbox. */
 	private JCheckBox stopOnErrorCheckbox = null;
+
+	/** The subversion repository location target combo box. */
+	private JComboBox subversionRepositoryLocationTargetComboBox = null;
 
 	/** The target relative path text field. */
 	private JTextField targetRelativePathTextField = null;
@@ -279,7 +287,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the file system location target combo box
 	 */
-	protected final JComboBox getFileSystemLocationTargetComboBox() {
+	private final JComboBox getFileSystemLocationTargetComboBox() {
 		if (fileSystemLocationTargetComboBox == null) {
 			fileSystemLocationTargetComboBox = new JComboBox();
 			fileSystemLocationTargetComboBox.addActionListener(new ActionListener() {
@@ -310,6 +318,40 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	}
 
 	/**
+	 * Gets the http location source combo box.
+	 * 
+	 * @return the http location source combo box
+	 */
+	private final JComboBox getHttpLocationSourceComboBox() {
+		if (httpLocationTargetComboBox == null) {
+			httpLocationTargetComboBox = new JComboBox();
+			httpLocationTargetComboBox.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent actionEvent) {
+					if (getUserObject() instanceof HttpSourceTask) {
+						final HttpSource source = ((HttpSourceTask) getUserObject()).getSource();
+
+						if (source == null) {
+							LOGGER.error("HTTP source is null");
+							throw new IllegalStateException("HTTP source is null"); // TODO
+						}
+
+						if (httpLocationTargetComboBox.getSelectedIndex() == -1) {
+							source.setLocation(null);
+						}
+						else {
+							final HttpLocation location = (HttpLocation) httpLocationTargetComboBox.getSelectedItem();
+							source.setLocation(location);
+						}
+					}
+				}
+			});
+		}
+
+		return httpLocationTargetComboBox;
+	}
+
+	/**
 	 * Gets the monospace font.
 	 * 
 	 * @return the monospace font
@@ -323,7 +365,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the source relative path text field
 	 */
-	protected final JTextField getSourceRelativePathTextField() {
+	private final JTextField getSourceRelativePathTextField() {
 		if (sourceRelativePathTextField == null) {
 			sourceRelativePathTextField = new JTextField();
 			sourceRelativePathTextField.setFont(monospaceFont);
@@ -352,7 +394,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @return the stop on error checkbox
 	 */
-	protected final JCheckBox getStopOnErrorCheckbox() {
+	private final JCheckBox getStopOnErrorCheckbox() {
 		if (stopOnErrorCheckbox == null) {
 			stopOnErrorCheckbox = new JCheckBox();
 		}
@@ -361,11 +403,47 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	}
 
 	/**
+	 * Gets the subversion repository location source combo box.
+	 * 
+	 * @return the subversion repository location source combo box
+	 */
+	private final JComboBox getSubversionRepositoryLocationSourceComboBox() {
+		if (subversionRepositoryLocationTargetComboBox == null) {
+			subversionRepositoryLocationTargetComboBox = new JComboBox();
+			subversionRepositoryLocationTargetComboBox.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent actionEvent) {
+					if (getUserObject() instanceof SubversionRepositorySourceTask) {
+						final SubversionRepositorySource source = ((SubversionRepositorySourceTask) getUserObject())
+								.getSource();
+
+						if (source == null) {
+							LOGGER.error("Subversion Repository source is null");
+							throw new IllegalStateException("Subversion Repository source is null"); // TODO
+						}
+
+						if (subversionRepositoryLocationTargetComboBox.getSelectedIndex() == -1) {
+							source.setLocation(null);
+						}
+						else {
+							final SubversionRepositoryLocation location = (SubversionRepositoryLocation) subversionRepositoryLocationTargetComboBox
+									.getSelectedItem();
+							source.setLocation(location);
+						}
+					}
+				}
+			});
+		}
+
+		return subversionRepositoryLocationTargetComboBox;
+	}
+
+	/**
 	 * Gets the target relative path text field.
 	 * 
 	 * @return the target relative path text field
 	 */
-	protected final JTextField getTargetRelativePathTextField() {
+	private final JTextField getTargetRelativePathTextField() {
 		if (targetRelativePathTextField == null) {
 			targetRelativePathTextField = new JTextField();
 			targetRelativePathTextField.setFont(monospaceFont);
@@ -418,6 +496,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 
 		getFileSystemLocationTargetComboBox().setModel(
 				createDefaultComboBoxModel(configuration.getFileSystemLocations()));
+		getHttpLocationSourceComboBox().setModel(createDefaultComboBoxModel(configuration.getHttpLocations()));
+		getSubversionRepositoryLocationSourceComboBox().setModel(
+				createDefaultComboBoxModel(configuration.getSubversionRepositoryLocations()));
 	}
 
 	/**
