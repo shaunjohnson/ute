@@ -74,6 +74,7 @@ import noNamespace.UteConfigurationType;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.xmlbeans.XmlOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -163,7 +164,7 @@ public class ConfigurationWriter {
 				FileUtils.moveFile(file, backupFile);
 			}
 
-			document.save(file);
+			document.save(file, new XmlOptions().setSavePrettyPrint().setSavePrettyPrintIndent(4));
 		}
 		catch (final IOException e) {
 			LOGGER.error("IOException caught while writing configuration file", e);
