@@ -25,4 +25,17 @@ import java.io.Serializable;
  */
 public interface Target extends Serializable {
 
+	/**
+	 * Gets the relative path.
+	 * 
+	 * @return the relative path
+	 */
+	String getRelativePath();
+
+	/**
+	 * Sets the relative path.
+	 * 
+	 * @param relativePath the new relative path
+	 */
+	void setRelativePath(final String relativePath);
 }

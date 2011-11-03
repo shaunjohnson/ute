@@ -31,20 +31,20 @@ public abstract class AbstractTarget implements DomainBean, Target {
 	/** The relative path. */
 	private String relativePath;
 
-	/**
-	 * Gets the relative path.
-	 * 
-	 * @return the relative path
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.targets.Target#getRelativePath()
 	 */
+	@Override
 	public final String getRelativePath() {
 		return relativePath;
 	}
 
-	/**
-	 * Sets the relative path.
-	 * 
-	 * @param relativePath the new relative path
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.targets.Target#setRelativePath(java.lang.String)
 	 */
+	@Override
 	public final void setRelativePath(final String relativePath) {
 		this.relativePath = relativePath;
 	}

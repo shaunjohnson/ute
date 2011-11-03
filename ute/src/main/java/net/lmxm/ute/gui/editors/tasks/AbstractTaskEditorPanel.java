@@ -47,6 +47,7 @@ import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
+import net.lmxm.ute.listeners.ChangeAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -357,6 +358,15 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			targetRelativePathTextField.setFont(monospaceFont);
 			targetRelativePathTextField.setMinimumSize(new Dimension(400, (int) targetRelativePathTextField.getSize()
 					.getHeight()));
+			targetRelativePathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+				@Override
+				public void valueChanged(final String newValue) {
+					if (getUserObject() instanceof FileSystemTargetTask) {
+						final FileSystemTargetTask fileSystemTargetTask = (FileSystemTargetTask) getUserObject();
+						fileSystemTargetTask.getTarget().setRelativePath(newValue);
+					}
+				}
+			});
 		}
 
 		return targetRelativePathTextField;
