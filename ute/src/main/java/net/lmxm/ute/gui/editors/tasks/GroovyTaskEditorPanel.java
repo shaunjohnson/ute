@@ -26,6 +26,7 @@ import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
+import net.lmxm.ute.listeners.ChangeAdapter;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
@@ -126,6 +127,15 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 			scriptTextArea.setColumns(80);
 			scriptTextArea.setRows(30);
 			scriptTextArea.setTabSize(4);
+			scriptTextArea.getDocument().addDocumentListener(new ChangeAdapter() {
+				@Override
+				public void valueChanged(final String newValue) {
+					if (getUserObject() instanceof GroovyTask) {
+						final GroovyTask groovyTask = (GroovyTask) getUserObject();
+						groovyTask.setScript(newValue);
+					}
+				}
+			});
 		}
 		return scriptTextArea;
 	}
