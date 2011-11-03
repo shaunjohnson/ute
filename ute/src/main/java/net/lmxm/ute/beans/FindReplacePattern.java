@@ -21,6 +21,8 @@ package net.lmxm.ute.beans;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
  * The Class FindReplacePattern.
  */
@@ -51,6 +53,15 @@ public class FindReplacePattern implements DomainBean {
 	 */
 	public String getReplace() {
 		return replace;
+	}
+
+	/**
+	 * Checks if is empty.
+	 * 
+	 * @return true, if is empty
+	 */
+	public boolean isEmpty() {
+		return StringUtils.isBlank(find) && StringUtils.isBlank(replace);
 	}
 
 	/**

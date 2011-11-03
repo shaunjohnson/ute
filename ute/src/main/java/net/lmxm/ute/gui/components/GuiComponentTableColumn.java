@@ -28,6 +28,12 @@ public enum GuiComponentTableColumn implements GuiComponentType {
 	/** The FILE_NAME. */
 	FILE_NAME,
 
+	/** The FIND. */
+	FIND,
+
+	/** The REPLACEMENT. */
+	REPLACEMENT,
+
 	/** The TARGET_FILE_NAME. */
 	TARGET_FILE_NAME;
 

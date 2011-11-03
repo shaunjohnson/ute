@@ -29,12 +29,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
+import net.lmxm.ute.gui.components.FindReplacePatternsTableModel;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
@@ -128,20 +127,6 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		contentPanel.add(getPatternsPane());
 	}
 
-	/**
-	 * Creates the empty patterns table model.
-	 * 
-	 * @return the default table model
-	 */
-	private DefaultTableModel createEmptyPatternsTableModel() {
-		final DefaultTableModel tableModel = new DefaultTableModel();
-
-		tableModel.addColumn("Pattern");
-		tableModel.addColumn("Replacement");
-
-		return tableModel;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
@@ -216,7 +201,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 */
 	private JTable getPatternsTable() {
 		if (patternsTable == null) {
-			patternsTable = new JTable(createEmptyPatternsTableModel());
+			patternsTable = new JTable();
 			patternsTable.setFillsViewportHeight(true);
 		}
 
@@ -286,7 +271,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		if (getUserObject() instanceof FindReplaceTask) {
 			final FindReplaceTask findReplaceTask = (FindReplaceTask) getUserObject();
 
-			loadPatternsFieldData(findReplaceTask);
+			getPatternsTable().setModel(new FindReplacePatternsTableModel(findReplaceTask));
 
 			if (findReplaceTask.getScope() == Scope.LINE) {
 				getLineScopeRadioButton().setSelected(true);
@@ -297,22 +282,5 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		}
 
 		LOGGER.debug("{} leaving", prefix);
-	}
-
-	/**
-	 * Load patterns field data.
-	 * 
-	 * @param findReplaceTask the find replace task
-	 */
-	protected final void loadPatternsFieldData(final FindReplaceTask findReplaceTask) {
-		final DefaultTableModel tableModel = createEmptyPatternsTableModel();
-
-		if (findReplaceTask != null) {
-			for (final FindReplacePattern findReplacePattern : findReplaceTask.getPatterns()) {
-				tableModel.addRow(new Object[] { findReplacePattern.getFind(), findReplacePattern.getReplace() });
-			}
-		}
-
-		getPatternsTable().setModel(tableModel);
 	}
 }
