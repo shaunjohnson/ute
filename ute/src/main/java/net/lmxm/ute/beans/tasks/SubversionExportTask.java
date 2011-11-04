@@ -79,6 +79,16 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		super.removeEmptyObjects();
+		DomainBeanUtils.removeEmptyObjects(source, target);
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask#setSource(net.lmxm.ute.beans.sources.
 	 * SubversionRepositorySource)
 	 */

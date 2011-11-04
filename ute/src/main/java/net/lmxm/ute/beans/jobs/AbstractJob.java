@@ -59,6 +59,15 @@ public abstract class AbstractJob extends IdentifiableDomainBean implements Job 
 		return super.isEmpty() && StringUtils.isBlank(description);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// Do nothing
+	}
+
 	/**
 	 * Sets the description.
 	 * 

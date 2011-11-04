@@ -76,6 +76,16 @@ public final class GroovyTask extends AbstractFilesTask implements FileSystemTar
 		return super.isEmpty() && StringUtils.isBlank(script) && DomainBeanUtils.isEmpty(target);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		super.removeEmptyObjects();
+		DomainBeanUtils.removeEmptyObjects(target);
+	}
+
 	/**
 	 * Sets the script.
 	 * 

@@ -19,16 +19,12 @@
 package net.lmxm.ute.beans;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.tasks.FilesTask;
-import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.utils.DomainBeanUtils;
 
 import org.codehaus.plexus.util.StringUtils;
@@ -156,49 +152,14 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	/**
 	 * Removes the empty objects.
 	 */
+	@Override
 	public void removeEmptyObjects() {
-		final Iterator<Job> jobIterator = jobs.iterator();
-
-		while (jobIterator.hasNext()) {
-			final Job job = jobIterator.next();
-
-			if (job.isEmpty()) {
-				jobIterator.remove();
-			}
-			else {
-				final Iterator<Task> taskIterator = job.getTasks().iterator();
-
-				while (taskIterator.hasNext()) {
-					final Task task = taskIterator.next();
-
-					if (task.isEmpty()) {
-						taskIterator.remove();
-					}
-					else {
-						if (task instanceof FilesTask) {
-							final Iterator<FileReference> iterator = ((FilesTask) task).getFiles().iterator();
-
-							while (iterator.hasNext()) {
-								if (iterator.next().isEmpty()) {
-									iterator.remove();
-								}
-							}
-						}
-
-						if (task instanceof FindReplaceTask) {
-							final Iterator<FindReplacePattern> iterator = ((FindReplaceTask) task).getPatterns()
-									.iterator();
-
-							while (iterator.hasNext()) {
-								if (iterator.next().isEmpty()) {
-									iterator.remove();
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		DomainBeanUtils.removeEmptyObjects(fileSystemLocations);
+		DomainBeanUtils.removeEmptyObjects(httpLocations);
+		DomainBeanUtils.removeEmptyObjects(jobs);
+		DomainBeanUtils.removeEmptyObjects(preferences);
+		DomainBeanUtils.removeEmptyObjects(properties);
+		DomainBeanUtils.removeEmptyObjects(subversionRepositoryLocations);
 	}
 
 	/**

@@ -53,6 +53,15 @@ public abstract class AbstractSource implements DomainBean, Source {
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// Do nothing
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.sources.Source#setRelativePath(java.lang.String)
 	 */
 	@Override

@@ -51,6 +51,15 @@ public abstract class AbstractHttpLocation extends IdentifiableDomainBean {
 		return super.isEmpty() && StringUtils.isBlank(url);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// Do nothing
+	}
+
 	/**
 	 * Sets the url.
 	 * 

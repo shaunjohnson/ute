@@ -72,6 +72,16 @@ public final class SequentialJob extends AbstractJob {
 		return super.isEmpty() && DomainBeanUtils.isEmpty(tasks);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		super.removeEmptyObjects();
+		DomainBeanUtils.removeEmptyObjects(tasks);
+	}
+
 	/**
 	 * Sets the tasks.
 	 * 

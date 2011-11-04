@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.utils;
 
+import java.util.Iterator;
 import java.util.List;
 
 import net.lmxm.ute.beans.DomainBean;
@@ -60,6 +61,42 @@ public class DomainBeanUtils {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Removes the empty objects.
+	 * 
+	 * @param domainBeans the domain beans
+	 */
+	public static void removeEmptyObjects(final DomainBean... domainBeans) {
+		for (final DomainBean domainBean : domainBeans) {
+			if (domainBean != null) {
+				domainBean.removeEmptyObjects();
+			}
+		}
+	}
+
+	/**
+	 * Removes the empty objects.
+	 * 
+	 * @param domainBeans the domain beans
+	 */
+	public static void removeEmptyObjects(final List<? extends DomainBean> domainBeans) {
+		if (domainBeans == null) {
+			return;
+		}
+
+		final Iterator<? extends DomainBean> iterator = domainBeans.iterator();
+		while (iterator.hasNext()) {
+			final DomainBean domainBean = iterator.next();
+
+			if (domainBean.isEmpty()) {
+				iterator.remove();
+			}
+			else {
+				domainBean.removeEmptyObjects();
+			}
+		}
 	}
 
 	/**

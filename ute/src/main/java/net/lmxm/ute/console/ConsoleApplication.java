@@ -94,6 +94,7 @@ public final class ConsoleApplication {
 			LOGGER.debug("{} executing job {}", prefix, job.getId());
 
 			final Job jobInterpolated = ConfigurationUtils.interpolateJobValues(job, configuration);
+			job.removeEmptyObjects();
 
 			final JobExecuter jobExecuter = JobExecuterFactory.create(jobInterpolated, configuration);
 			jobExecuter.addJobStatusListener(new ConsoleJobStatusListener());

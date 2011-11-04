@@ -93,6 +93,17 @@ public final class FindReplaceTask extends AbstractFilesTask implements FileSyst
 		return super.isEmpty() && DomainBeanUtils.isEmpty(patterns) && scope == null & DomainBeanUtils.isEmpty(target);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		super.removeEmptyObjects();
+		DomainBeanUtils.removeEmptyObjects(patterns);
+		DomainBeanUtils.removeEmptyObjects(target);
+	}
+
 	/**
 	 * Sets the patterns.
 	 * 

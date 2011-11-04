@@ -92,6 +92,15 @@ public final class Preference extends IdentifiableDomainBean {
 		return super.isEmpty();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// No children objects
+	}
+
 	/**
 	 * Sets the value.
 	 * 

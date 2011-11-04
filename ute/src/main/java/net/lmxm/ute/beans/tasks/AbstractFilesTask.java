@@ -67,6 +67,16 @@ public abstract class AbstractFilesTask extends AbstractTask implements FilesTas
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		super.removeEmptyObjects();
+		DomainBeanUtils.removeEmptyObjects(files);
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.FilesTask#setFiles(java.util.List)
 	 */
 	@Override

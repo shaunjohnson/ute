@@ -83,6 +83,15 @@ public class FindReplacePattern implements DomainBean {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// No children objects
+	}
+
 	/**
 	 * Sets the find.
 	 * 

@@ -511,6 +511,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 		if (job != null) {
 			job = ConfigurationUtils.interpolateJobValues(job, configuration);
+			job.removeEmptyObjects();
 
 			final JTabbedPane tabbedPane = getBottomPanel();
 			final StatusOutputPanel statusOutputPanel = new StatusOutputPanel(job);

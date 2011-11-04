@@ -92,4 +92,14 @@ public final class SingleTaskJob extends AbstractJob {
 	public boolean isEmpty() {
 		return super.isEmpty() && DomainBeanUtils.isEmpty(tasks);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		super.removeEmptyObjects();
+		DomainBeanUtils.removeEmptyObjects(tasks);
+	}
 }

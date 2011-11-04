@@ -70,6 +70,11 @@ public class TestTask extends IdentifiableDomainBean implements Task {
 		return null;
 	}
 
+	@Override
+	public void removeEmptyObjects() {
+
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.DescribableBean#setDescription(java.lang.String)

@@ -52,6 +52,16 @@ public final class SubversionRepositorySource extends AbstractSource {
 		return super.isEmpty() && DomainBeanUtils.isEmpty(location);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		super.removeEmptyObjects();
+		DomainBeanUtils.removeEmptyObjects(location);
+	}
+
 	/**
 	 * Sets the location.
 	 * 

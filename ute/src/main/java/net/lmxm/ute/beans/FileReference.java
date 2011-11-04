@@ -92,8 +92,18 @@ public final class FileReference implements DomainBean {
 	 * 
 	 * @return true, if is empty
 	 */
+	@Override
 	public boolean isEmpty() {
 		return StringUtils.isBlank(name) && StringUtils.isBlank(targetName);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// No children objects
 	}
 
 	/**

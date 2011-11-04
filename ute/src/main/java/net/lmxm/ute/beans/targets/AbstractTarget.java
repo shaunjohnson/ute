@@ -53,6 +53,15 @@ public abstract class AbstractTarget implements DomainBean, Target {
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// Do nothing
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.targets.Target#setRelativePath(java.lang.String)
 	 */
 	@Override

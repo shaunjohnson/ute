@@ -96,6 +96,15 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// Do nothing;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.Task#setDescription(java.lang.String)
 	 */
 	@Override

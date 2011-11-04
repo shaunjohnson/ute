@@ -93,6 +93,15 @@ public final class Property extends IdentifiableDomainBean {
 		return super.isEmpty() && StringUtils.isBlank(value);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// No children objects
+	}
+
 	/**
 	 * Sets the value.
 	 * 

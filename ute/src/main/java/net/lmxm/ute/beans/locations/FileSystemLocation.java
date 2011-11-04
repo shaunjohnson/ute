@@ -60,6 +60,15 @@ public final class FileSystemLocation extends IdentifiableDomainBean {
 		return super.isEmpty() && StringUtils.isBlank(path);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// Do nothing
+	}
+
 	/**
 	 * Sets the path.
 	 * 

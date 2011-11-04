@@ -78,6 +78,16 @@ public class HttpDownloadTask extends AbstractRenameFilesTask implements FileSys
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		super.removeEmptyObjects();
+		DomainBeanUtils.removeEmptyObjects(source, target);
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.HttpSourceTask#setSource(net.lmxm.ute.beans.sources.HttpSource)
 	 */
 	@Override

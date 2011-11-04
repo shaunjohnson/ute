@@ -31,4 +31,9 @@ public interface DomainBean extends Serializable {
 	 * @return true, if is empty
 	 */
 	boolean isEmpty();
+
+	/**
+	 * Removes the empty objects.
+	 */
+	void removeEmptyObjects();
 }

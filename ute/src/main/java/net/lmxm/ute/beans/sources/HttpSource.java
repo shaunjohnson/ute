@@ -66,6 +66,16 @@ public class HttpSource extends AbstractSource {
 		return super.isEmpty() && DomainBeanUtils.isEmpty(location) && queryParams.isEmpty();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		super.removeEmptyObjects();
+		DomainBeanUtils.removeEmptyObjects(location);
+	}
+
 	/**
 	 * Sets the location.
 	 * 

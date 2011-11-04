@@ -143,4 +143,13 @@ public class PatternWrapper implements Comparable<PatternWrapper>, DomainBean {
 	public boolean isEmpty() {
 		return pattern == null && StringUtils.isBlank(replacement);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
+	@Override
+	public void removeEmptyObjects() {
+		// No children objects
+	}
 }
