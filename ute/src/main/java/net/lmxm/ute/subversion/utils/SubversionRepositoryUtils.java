@@ -162,7 +162,14 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 						repository.getFile(fileName, latestRevision, null, contents);
 						contents.close();
 
-						getStatusChangeHelper().info(this, StatusChangeMessage.SUBVERSION_EXPORT_FILE_ADDED, fileName);
+						if (StringUtils.isBlank(targetName)) {
+							getStatusChangeHelper().info(this, StatusChangeMessage.SUBVERSION_EXPORT_FILE_ADDED,
+									fileName);
+						}
+						else {
+							getStatusChangeHelper().info(this, StatusChangeMessage.SUBVERSION_EXPORT_FILE_ADDED_AS,
+									fileName, targetName);
+						}
 					}
 					catch (final FileNotFoundException e) {
 						LOGGER.error("FileNotFoundException caught exporting a file", e);
