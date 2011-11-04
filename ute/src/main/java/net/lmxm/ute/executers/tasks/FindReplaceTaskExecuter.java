@@ -228,20 +228,25 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 		final List<File> files = FileSystemUtils.convertToFileObjects(path, fileReferences);
 		final List<PatternWrapper> patterns = convertFindReplacePatternsToRegexPatterns(findReplacePatterns);
 
-		for (final File file : files) {
-			if (file.isFile()) {
-				findReplaceContent(file, patterns, scope);
+		if (files.isEmpty()) {
+			LOGGER.debug("{} No matching files found at", prefix);
 
-				getStatusChangeHelper().info(this, StatusChangeMessage.FIND_REPLACE_EXECUTION_FINISHED,
-						file.getAbsolutePath());
-			}
-			else {
-				LOGGER.debug("{} The file at {} is \not a file; skipping", prefix, file);
+			getStatusChangeHelper().error(this, StatusChangeMessage.FIND_REPLACE_NO_MATCHING_FILES);
+		}
+		else {
+			for (final File file : files) {
+				if (file.isFile()) {
+					findReplaceContent(file, patterns, scope);
 
-				getStatusChangeHelper().error(this, StatusChangeMessage.FIND_REPLACE_NOT_FILE_ERROR,
-						file.getAbsolutePath());
+					getStatusChangeHelper().info(this, StatusChangeMessage.FIND_REPLACE_EXECUTION_FINISHED,
+							file.getAbsolutePath());
+				}
+				else {
+					LOGGER.debug("{} The file at {} is \not a file; skipping", prefix, file);
 
-				continue;
+					getStatusChangeHelper().error(this, StatusChangeMessage.FIND_REPLACE_NOT_FILE_ERROR,
+							file.getAbsolutePath());
+				}
 			}
 		}
 
