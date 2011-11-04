@@ -62,6 +62,15 @@ public final class SequentialJob extends AbstractJob {
 		return tasks;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && tasks.isEmpty();
+	}
+
 	/**
 	 * Sets the tasks.
 	 * 

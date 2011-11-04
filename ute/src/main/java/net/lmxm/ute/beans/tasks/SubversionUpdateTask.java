@@ -69,6 +69,15 @@ public final class SubversionUpdateTask extends AbstractFilesTask implements Fil
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && source == null && target == null;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask#setSource(net.lmxm.ute.beans.sources.
 	 * SubversionRepositorySource)
 	 */

@@ -20,6 +20,8 @@ package net.lmxm.ute.beans.locations;
 
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
  * The Class AbstractHttpLocation.
  */
@@ -38,6 +40,15 @@ public abstract class AbstractHttpLocation extends IdentifiableDomainBean {
 	 */
 	public final String getUrl() {
 		return url;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && StringUtils.isBlank(url);
 	}
 
 	/**

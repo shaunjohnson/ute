@@ -21,6 +21,8 @@ package net.lmxm.ute.beans.tasks;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.jobs.Job;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
  * The Class AbstractTask.
  */
@@ -80,6 +82,15 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	@Override
 	public Job getJob() {
 		return job;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && StringUtils.isBlank(description) && job == null;
 	}
 
 	/*

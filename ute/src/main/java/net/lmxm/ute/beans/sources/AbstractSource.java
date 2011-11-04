@@ -18,10 +18,14 @@
  */
 package net.lmxm.ute.beans.sources;
 
+import net.lmxm.ute.beans.DomainBean;
+
+import org.codehaus.plexus.util.StringUtils;
+
 /**
  * The Class AbstractSource.
  */
-public abstract class AbstractSource implements Source {
+public abstract class AbstractSource implements DomainBean, Source {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5365100899115539132L;
@@ -36,6 +40,15 @@ public abstract class AbstractSource implements Source {
 	@Override
 	public final String getRelativePath() {
 		return relativePath;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return StringUtils.isBlank(relativePath);
 	}
 
 	/*

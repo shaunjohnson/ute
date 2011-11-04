@@ -42,6 +42,15 @@ public final class SubversionRepositorySource extends AbstractSource {
 		return location;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && location == null;
+	}
+
 	/**
 	 * Sets the location.
 	 * 

@@ -68,6 +68,15 @@ public class HttpDownloadTask extends AbstractFilesTask implements FileSystemTar
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && source == null && target == null;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.HttpSourceTask#setSource(net.lmxm.ute.beans.sources.HttpSource)
 	 */
 	@Override

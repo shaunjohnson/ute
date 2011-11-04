@@ -82,4 +82,13 @@ public final class SingleTaskJob extends AbstractJob {
 	public List<Task> getTasks() {
 		return tasks;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && tasks.isEmpty();
+	}
 }

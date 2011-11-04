@@ -30,6 +30,8 @@ import net.lmxm.ute.beans.tasks.FilesTask;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.Task;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
  * The Class Configuration.
  */
@@ -44,8 +46,8 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	/** The file system locations. */
 	private List<FileSystemLocation> fileSystemLocations;
 
-	/** The Http locations. */
-	private List<HttpLocation> HttpLocations;
+	/** The http locations. */
+	private List<HttpLocation> httpLocations;
 
 	/** The jobs. */
 	private List<Job> jobs;
@@ -67,7 +69,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 
 		jobs = new ArrayList<Job>();
 		fileSystemLocations = new ArrayList<FileSystemLocation>();
-		HttpLocations = new ArrayList<HttpLocation>();
+		httpLocations = new ArrayList<HttpLocation>();
 		preferences = new ArrayList<Preference>();
 		properties = new ArrayList<Property>();
 		subversionRepositoryLocations = new ArrayList<SubversionRepositoryLocation>();
@@ -97,7 +99,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	 * @return the http locations
 	 */
 	public List<HttpLocation> getHttpLocations() {
-		return HttpLocations;
+		return httpLocations;
 	}
 
 	/**
@@ -138,28 +140,58 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 		return subversionRepositoryLocations;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return StringUtils.isBlank(absolutePath) && fileSystemLocations.isEmpty() && httpLocations.isEmpty()
+				&& jobs.isEmpty() && preferences.isEmpty() && properties.isEmpty()
+				&& subversionRepositoryLocations.isEmpty();
+	}
+
 	/**
 	 * Removes the empty objects.
 	 */
 	public void removeEmptyObjects() {
-		for (final Job job : jobs) {
-			for (final Task task : job.getTasks()) {
-				if (task instanceof FilesTask) {
-					final Iterator<FileReference> iterator = ((FilesTask) task).getFiles().iterator();
+		final Iterator<Job> jobIterator = jobs.iterator();
 
-					while (iterator.hasNext()) {
-						if (iterator.next().isEmpty()) {
-							iterator.remove();
-						}
+		while (jobIterator.hasNext()) {
+			final Job job = jobIterator.next();
+
+			if (job.isEmpty()) {
+				jobIterator.remove();
+			}
+			else {
+				final Iterator<Task> taskIterator = job.getTasks().iterator();
+
+				while (taskIterator.hasNext()) {
+					final Task task = taskIterator.next();
+
+					if (task.isEmpty()) {
+						taskIterator.remove();
 					}
-				}
+					else {
+						if (task instanceof FilesTask) {
+							final Iterator<FileReference> iterator = ((FilesTask) task).getFiles().iterator();
 
-				if (task instanceof FindReplaceTask) {
-					final Iterator<FindReplacePattern> iterator = ((FindReplaceTask) task).getPatterns().iterator();
+							while (iterator.hasNext()) {
+								if (iterator.next().isEmpty()) {
+									iterator.remove();
+								}
+							}
+						}
 
-					while (iterator.hasNext()) {
-						if (iterator.next().isEmpty()) {
-							iterator.remove();
+						if (task instanceof FindReplaceTask) {
+							final Iterator<FindReplacePattern> iterator = ((FindReplaceTask) task).getPatterns()
+									.iterator();
+
+							while (iterator.hasNext()) {
+								if (iterator.next().isEmpty()) {
+									iterator.remove();
+								}
+							}
 						}
 					}
 				}
@@ -191,7 +223,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	 * @param httpLocations the new http locations
 	 */
 	public void setHttpLocations(final List<HttpLocation> httpLocations) {
-		HttpLocations = httpLocations;
+		this.httpLocations = httpLocations;
 	}
 
 	/**

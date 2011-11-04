@@ -57,6 +57,15 @@ public abstract class AbstractFilesTask extends AbstractTask implements FilesTas
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && files.isEmpty();
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.FilesTask#setFiles(java.util.List)
 	 */
 	@Override

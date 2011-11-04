@@ -20,6 +20,8 @@ package net.lmxm.ute.beans.targets;
 
 import net.lmxm.ute.beans.DomainBean;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
  * The Class AbstractTarget.
  */
@@ -38,6 +40,15 @@ public abstract class AbstractTarget implements DomainBean, Target {
 	@Override
 	public final String getRelativePath() {
 		return relativePath;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return StringUtils.isBlank(relativePath);
 	}
 
 	/*

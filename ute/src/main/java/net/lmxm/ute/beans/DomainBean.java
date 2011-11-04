@@ -25,4 +25,10 @@ import java.io.Serializable;
  */
 public interface DomainBean extends Serializable {
 
+	/**
+	 * Checks if is empty.
+	 * 
+	 * @return true, if is empty
+	 */
+	boolean isEmpty();
 }

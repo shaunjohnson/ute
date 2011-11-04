@@ -20,6 +20,8 @@ package net.lmxm.ute.beans.locations;
 
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
  * The Class FileSystemLocation.
  */
@@ -47,6 +49,15 @@ public final class FileSystemLocation extends IdentifiableDomainBean {
 	 */
 	public String getPath() {
 		return path;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && StringUtils.isBlank(path);
 	}
 
 	/**

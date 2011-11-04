@@ -22,13 +22,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import net.lmxm.ute.beans.DescribableBean;
+import net.lmxm.ute.beans.DomainBean;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.tasks.Task;
 
 /**
  * The Interface Job.
  */
-public interface Job extends DescribableBean, IdentifiableBean, Serializable {
+public interface Job extends DescribableBean, DomainBean, IdentifiableBean, Serializable {
 
 	/**
 	 * Gets the tasks.

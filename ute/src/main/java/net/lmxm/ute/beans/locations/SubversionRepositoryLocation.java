@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.beans.locations;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
  * The Class SubversionRepositoryLocation.
  */
@@ -57,6 +59,15 @@ public final class SubversionRepositoryLocation extends AbstractHttpLocation {
 	 */
 	public String getUsername() {
 		return username;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && StringUtils.isBlank(username) && StringUtils.isBlank(password);
 	}
 
 	/**

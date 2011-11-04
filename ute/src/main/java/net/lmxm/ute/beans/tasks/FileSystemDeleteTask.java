@@ -67,6 +67,15 @@ public final class FileSystemDeleteTask extends AbstractFilesTask implements Fil
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && target == null;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.tasks.StopOnErrorTask#setStopOnError(boolean)
 	 */
 	@Override

@@ -21,6 +21,7 @@ package net.lmxm.ute.beans;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * The Class IdentifiableDomainBean.
@@ -82,6 +83,15 @@ public abstract class IdentifiableDomainBean implements DomainBean, Identifiable
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(id).toHashCode();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return StringUtils.isBlank(id);
 	}
 
 	/**

@@ -56,6 +56,15 @@ public class HttpSource extends AbstractSource {
 		return queryParams;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && location == null && queryParams.isEmpty();
+	}
+
 	/**
 	 * Sets the location.
 	 * 

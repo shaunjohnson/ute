@@ -83,6 +83,15 @@ public final class FindReplaceTask extends AbstractFilesTask implements FileSyst
 		return target;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.IdentifiableDomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && patterns.isEmpty() && scope == null & target == null;
+	}
+
 	/**
 	 * Sets the patterns.
 	 * 
