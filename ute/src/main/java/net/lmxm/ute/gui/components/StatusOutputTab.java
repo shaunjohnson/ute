@@ -29,7 +29,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -38,6 +37,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.gui.menus.StatusOutputTabPopupMenu;
 import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeEvent;
@@ -49,7 +50,7 @@ import com.google.common.base.Preconditions;
  * The Class StatusOutputTab.
  */
 @SuppressWarnings("serial")
-public class StatusOutputTab extends JPanel implements JobStatusListener, StatusChangeListener {
+public class StatusOutputTab extends JPanel implements ActionListener, JobStatusListener, StatusChangeListener {
 
 	/**
 	 * The Class CloseTabButton.
@@ -62,18 +63,19 @@ public class StatusOutputTab extends JPanel implements JobStatusListener, Status
 		/**
 		 * Instantiates a new close tab button.
 		 */
-		public CloseTabButton() {
+		public CloseTabButton(final ActionListener actionListener) {
 			setContentAreaFilled(false);
 			setFocusable(false);
 			setPreferredSize(new Dimension(17, 17));
-			setToolTipText("close this tab");
+			setToolTipText("Close this tab");
 			setUI(new BasicButtonUI());
 
 			setBorder(BorderFactory.createEtchedBorder());
 			setBorderPainted(false);
 
 			addActionListener(closeButtonActionListener);
-			addMouseListener(closeButtonMouseListener);
+			addMouseListener(new TabMouseListener());
+
 			setRolloverEnabled(true);
 		}
 
@@ -121,6 +123,75 @@ public class StatusOutputTab extends JPanel implements JobStatusListener, Status
 		}
 	}
 
+	/**
+	 * The listener interface for receiving tabMouse events. The class that is interested in processing a tabMouse event
+	 * implements this interface, and the object created with that class is registered with a component using the
+	 * component's <code>addTabMouseListener<code> method. When
+	 * the tabMouse event occurs, that object's appropriate
+	 * method is invoked.
+	 * 
+	 * @see TabMouseEvent
+	 */
+	private class TabMouseListener extends MouseAdapter {
+
+		/**
+		 * Handle popup trigger.
+		 * 
+		 * @param mouseEvent the mouse event
+		 */
+		public void handlePopupTrigger(final MouseEvent mouseEvent) {
+			if (mouseEvent.isPopupTrigger()) {
+				final int x = mouseEvent.getX();
+				final int y = mouseEvent.getY();
+
+				getStatusOutputTabPopupMenu().show(mouseEvent.getComponent(), x, y);
+			}
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+		 */
+		@Override
+		public void mouseClicked(final MouseEvent mouseEvent) {
+			handlePopupTrigger(mouseEvent);
+		}
+
+		@Override
+		public void mouseEntered(final MouseEvent mouseEvent) {
+			final Component component = mouseEvent.getComponent();
+			if (component instanceof JButton) {
+				((JButton) component).setBorderPainted(true);
+			}
+		}
+
+		@Override
+		public void mouseExited(final MouseEvent mouseEvent) {
+			final Component component = mouseEvent.getComponent();
+			if (component instanceof JButton) {
+				((JButton) component).setBorderPainted(false);
+			}
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+		 */
+		@Override
+		public void mousePressed(final MouseEvent mouseEvent) {
+			handlePopupTrigger(mouseEvent);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
+		 */
+		@Override
+		public void mouseReleased(final MouseEvent mouseEvent) {
+			handlePopupTrigger(mouseEvent);
+		}
+	}
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7600868895544725246L;
 
@@ -138,27 +209,11 @@ public class StatusOutputTab extends JPanel implements JobStatusListener, Status
 		}
 	};
 
-	/** The close button mouse listener. */
-	private final MouseListener closeButtonMouseListener = new MouseAdapter() {
-		@Override
-		public void mouseEntered(final MouseEvent mouseEvent) {
-			final Component component = mouseEvent.getComponent();
-			if (component instanceof JButton) {
-				((JButton) component).setBorderPainted(true);
-			}
-		}
-
-		@Override
-		public void mouseExited(final MouseEvent mouseEvent) {
-			final Component component = mouseEvent.getComponent();
-			if (component instanceof JButton) {
-				((JButton) component).setBorderPainted(false);
-			}
-		}
-	};
-
 	/** The loader icon. */
 	private JLabel loaderIcon = null;
+
+	/** The status output tab popup menu. */
+	private StatusOutputTabPopupMenu statusOutputTabPopupMenu = null;
 
 	/** The tabbed pane. */
 	private final JTabbedPane tabbedPane;
@@ -191,6 +246,19 @@ public class StatusOutputTab extends JPanel implements JobStatusListener, Status
 		add(getCloseButton());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	@Override
+	public void actionPerformed(final ActionEvent actionEvent) {
+		final String actionCommand = actionEvent.getActionCommand();
+
+		if (actionCommand.equals(ActionConstants.CLOSE_ALL_TABS)) {
+			tabbedPane.removeAll();
+		}
+	}
+
 	/**
 	 * Gets the close button.
 	 * 
@@ -198,7 +266,7 @@ public class StatusOutputTab extends JPanel implements JobStatusListener, Status
 	 */
 	private JButton getCloseButton() {
 		if (closeButton == null) {
-			closeButton = new CloseTabButton() {
+			closeButton = new CloseTabButton(this) {
 				{
 					setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 					setVisible(false);
@@ -224,6 +292,40 @@ public class StatusOutputTab extends JPanel implements JobStatusListener, Status
 		}
 
 		return loaderIcon;
+	}
+
+	/**
+	 * Gets the status output tab component.
+	 * 
+	 * @param component the component
+	 * @return the status output tab component
+	 */
+	private StatusOutputTab getStatusOutputTabComponent(final Component component) {
+		if (component == null) {
+			System.out.println("Component is null");
+			return null;
+		}
+		else if (component instanceof StatusOutputTab) {
+			System.out.println("Component is StatusOutputTab");
+			return (StatusOutputTab) component;
+		}
+		else {
+			System.out.println("Down the rabbit hole class=" + component.getClass());
+			return getStatusOutputTabComponent(component.getParent());
+		}
+	}
+
+	/**
+	 * Gets the status output tab popup menu.
+	 * 
+	 * @return the status output tab popup menu
+	 */
+	protected StatusOutputTabPopupMenu getStatusOutputTabPopupMenu() {
+		if (statusOutputTabPopupMenu == null) {
+			statusOutputTabPopupMenu = new StatusOutputTabPopupMenu(this);
+		}
+
+		return statusOutputTabPopupMenu;
 	}
 
 	/**

@@ -62,6 +62,9 @@ public final class ActionConstants {
 	/** The Constant ADD_SUBVERSION_UPDATE_TASK. */
 	public static final String ADD_SUBVERSION_UPDATE_TASK = "ADD_SUBVERSION_UPDATE_TASK";
 
+	/** The Constant CLOSE_ALL_TABS. */
+	public static final String CLOSE_ALL_TABS = "CLOSE_ALL_TABS";
+
 	/** The Constant COLLAPSE. */
 	public static final String COLLAPSE = "COLLAPSE";
 

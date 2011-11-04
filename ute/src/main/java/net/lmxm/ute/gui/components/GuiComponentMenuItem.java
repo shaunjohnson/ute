@@ -71,6 +71,9 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 	/** The ADD_TASK. */
 	ADD_TASK(null, null),
 
+	/** The CLOSE_ALL_TABS. */
+	CLOSE_ALL_TABS(null, ActionConstants.CLOSE_ALL_TABS),
+
 	/** The DELETE_FILE_SYSTEM_LOCATION. */
 	DELETE_FILE_SYSTEM_LOCATION(ImageUtil.DELETE_FILE_SYSTEM_LOCATION_ICON, ActionConstants.DELETE_FILE_SYSTEM_LOCATION),
 
