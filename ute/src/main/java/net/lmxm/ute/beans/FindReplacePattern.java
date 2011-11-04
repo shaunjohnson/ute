@@ -60,6 +60,7 @@ public class FindReplacePattern implements DomainBean {
 	 * 
 	 * @return true, if is empty
 	 */
+	@Override
 	public boolean isEmpty() {
 		return StringUtils.isBlank(find) && StringUtils.isBlank(replace);
 	}
@@ -73,6 +74,9 @@ public class FindReplacePattern implements DomainBean {
 		try {
 			Pattern.compile(find);
 			return true;
+		}
+		catch (final NullPointerException e) {
+			return false;
 		}
 		catch (final PatternSyntaxException e) {
 			return false;

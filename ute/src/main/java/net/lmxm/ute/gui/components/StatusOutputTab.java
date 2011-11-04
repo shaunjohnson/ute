@@ -295,27 +295,6 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 	}
 
 	/**
-	 * Gets the status output tab component.
-	 * 
-	 * @param component the component
-	 * @return the status output tab component
-	 */
-	private StatusOutputTab getStatusOutputTabComponent(final Component component) {
-		if (component == null) {
-			System.out.println("Component is null");
-			return null;
-		}
-		else if (component instanceof StatusOutputTab) {
-			System.out.println("Component is StatusOutputTab");
-			return (StatusOutputTab) component;
-		}
-		else {
-			System.out.println("Down the rabbit hole class=" + component.getClass());
-			return getStatusOutputTabComponent(component.getParent());
-		}
-	}
-
-	/**
 	 * Gets the status output tab popup menu.
 	 * 
 	 * @return the status output tab popup menu

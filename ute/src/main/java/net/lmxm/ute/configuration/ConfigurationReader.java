@@ -136,10 +136,14 @@ public final class ConfigurationReader {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final FileReference file = new FileReference();
+		FileReference file = new FileReference();
 
 		file.setName(StringUtils.trim(fileType.getName()));
 		file.setTargetName(StringUtils.trim(fileType.getTargetName()));
+
+		if (file.isEmpty()) {
+			file = null;
+		}
 
 		LOGGER.debug("{} returning {}", prefix, file);
 
@@ -175,7 +179,11 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} parsing {} file types", prefix, fileTypeArray.length);
 
 		for (final FileType fileType : fileTypeArray) {
-			files.add(parseFile(fileType));
+			final FileReference file = parseFile(fileType);
+
+			if (file != null) {
+				files.add(file);
+			}
 		}
 
 		LOGGER.debug("{} exiting", prefix);
@@ -546,12 +554,15 @@ public final class ConfigurationReader {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final FindReplacePattern pattern = new FindReplacePattern();
+		FindReplacePattern pattern = new FindReplacePattern();
 
 		pattern.setFind(patternType.getFind());
 		pattern.setReplace(patternType.getReplace());
 
-		if (!pattern.isValid()) {
+		if (pattern.isEmpty()) {
+			pattern = null;
+		}
+		else if (!pattern.isValid()) {
 			throw new ConfigurationException("The find pattern \"" + patternType.getFind() + "\" is not valid");
 		}
 
@@ -589,7 +600,11 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} parsing {} pattern types", prefix, patternTypeArray.length);
 
 		for (final PatternType patternType : patternTypeArray) {
-			patterns.add(parsePattern(patternType));
+			final FindReplacePattern pattern = parsePattern(patternType);
+
+			if (pattern != null) {
+				patterns.add(pattern);
+			}
 		}
 
 		LOGGER.debug("{} exiting", prefix);
