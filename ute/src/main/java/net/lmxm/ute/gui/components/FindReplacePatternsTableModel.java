@@ -44,7 +44,7 @@ public class FindReplacePatternsTableModel extends AbstractEditableTableModel {
 	 * @param findReplaceTask the find replace task
 	 */
 	public FindReplacePatternsTableModel(final FindReplaceTask findReplaceTask) {
-		super(EnumSet.of(GuiComponentTableColumn.FIND, GuiComponentTableColumn.REPLACEMENT));
+		super(EnumSet.of(TableColumnResourceType.FIND, TableColumnResourceType.REPLACEMENT));
 
 		rowData = findReplaceTask.getPatterns();
 

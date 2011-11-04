@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 
 /**
@@ -40,7 +40,7 @@ public abstract class AbstractLocationEditorPanel extends AbstractCommonEditorPa
 	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractLocationEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+	public AbstractLocationEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
 			final ActionListener actionListener) {
 		super(guiComponentLabel, toolBar, actionListener);
 	}

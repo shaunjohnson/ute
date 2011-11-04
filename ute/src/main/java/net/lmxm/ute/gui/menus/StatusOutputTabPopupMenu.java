@@ -20,7 +20,7 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+import net.lmxm.ute.gui.components.MenuItemResourceType;
 
 /**
  * The Class StatusOutputTabPopupMenu.
@@ -38,6 +38,6 @@ public final class StatusOutputTabPopupMenu extends AbstractPopupMenu {
 	public StatusOutputTabPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		addMenuItem(GuiComponentMenuItem.CLOSE_ALL_TABS);
+		addMenuItem(MenuItemResourceType.CLOSE_ALL_TABS);
 	}
 }

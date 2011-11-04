@@ -30,10 +30,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
-import net.lmxm.ute.gui.components.GuiComponentButton;
+import net.lmxm.ute.gui.components.ButtonResourceType;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.LabelResourceType;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
 import net.miginfocom.swing.MigLayout;
@@ -62,7 +62,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 		public FileSystemLocationEditorToolBar(final ActionListener actionListener) {
 			super(actionListener);
 
-			addToolbarButton(GuiComponentToolbarButton.DELETE_FILE_SYSTEM_LOCATION);
+			addToolbarButton(ToolbarButtonResourceType.DELETE_FILE_SYSTEM_LOCATION);
 		}
 	}
 
@@ -87,7 +87,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	 * @param actionListener the action listener
 	 */
 	public FileSystemLocationEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.FILE_SYSTEM_LOCATION, new FileSystemLocationEditorToolBar(actionListener),
+		super(LabelResourceType.FILE_SYSTEM_LOCATION, new FileSystemLocationEditorToolBar(actionListener),
 				actionListener);
 
 		addFields();
@@ -103,7 +103,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 		final JPanel contentPanel = getContentPanel();
 
-		addRequiredLabel(GuiComponentLabel.PATH);
+		addRequiredLabel(LabelResourceType.PATH);
 		contentPanel.add(getPathPanel());
 	}
 
@@ -116,7 +116,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 		if (browsePathButton == null) {
 			final Component parent = this;
 
-			browsePathButton = GuiComponentFactory.createButton(GuiComponentButton.DIRECTORY_BROWSE,
+			browsePathButton = GuiComponentFactory.createButton(ButtonResourceType.DIRECTORY_BROWSE,
 					new ActionListener() {
 						@Override
 						public void actionPerformed(final ActionEvent e) {

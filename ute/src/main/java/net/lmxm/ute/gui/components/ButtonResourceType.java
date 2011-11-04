@@ -23,7 +23,7 @@ import javax.swing.Icon;
 /**
  * The Enum GuiComponentButton.
  */
-public enum GuiComponentButton implements GuiComponentType {
+public enum ButtonResourceType implements ResourceType {
 
 	/** The CLOSE_DIALOG button. */
 	CLOSE_DIALOG(null, null),
@@ -43,7 +43,7 @@ public enum GuiComponentButton implements GuiComponentType {
 	 * @param icon the icon
 	 * @param actionCommand the action command
 	 */
-	GuiComponentButton(final Icon icon, final String actionCommand) {
+	ButtonResourceType(final Icon icon, final String actionCommand) {
 		this.icon = icon;
 		this.actionCommand = actionCommand;
 	}
@@ -62,8 +62,8 @@ public enum GuiComponentButton implements GuiComponentType {
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
 	 */
 	@Override
-	public GuiComponentCategory getGuiComponentCategory() {
-		return GuiComponentCategory.BUTTON;
+	public ResourceCategory getGuiComponentCategory() {
+		return ResourceCategory.BUTTON;
 	}
 
 	/*

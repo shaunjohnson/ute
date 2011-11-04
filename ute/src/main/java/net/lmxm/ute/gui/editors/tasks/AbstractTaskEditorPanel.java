@@ -53,7 +53,7 @@ import net.lmxm.ute.beans.tasks.StopOnErrorTask;
 import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.FilesTableModel;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.gui.components.RenameFilesTableModel;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 import net.lmxm.ute.listeners.ChangeAdapter;
@@ -117,7 +117,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractTaskEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+	public AbstractTaskEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
 			final ActionListener actionListener) {
 		super(guiComponentLabel, toolBar, actionListener);
 
@@ -141,10 +141,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	protected void addFields() {
 		super.addFields();
 
-		addCheckbox(getEnabledCheckbox(), GuiComponentLabel.ENABLED);
+		addCheckbox(getEnabledCheckbox(), LabelResourceType.ENABLED);
 
 		if (StopOnErrorTask.class.isInstance(getEditedObjectClass())) {
-			addCheckbox(getStopOnErrorCheckbox(), GuiComponentLabel.STOP_ON_ERROR);
+			addCheckbox(getStopOnErrorCheckbox(), LabelResourceType.STOP_ON_ERROR);
 		}
 
 		addSourceFields();
@@ -158,7 +158,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (FilesTask.class.isInstance(getEditedObjectClass())) {
 			final JPanel contentPanel = getContentPanel();
 
-			addLabel(GuiComponentLabel.FILES);
+			addLabel(LabelResourceType.FILES);
 			contentPanel.add(getFilesPane());
 		}
 	}
@@ -170,10 +170,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (FileSystemTargetTask.class.isInstance(getEditedObjectClass())) {
 			final JPanel contentPanel = getContentPanel();
 
-			addRequiredLabel(GuiComponentLabel.LOCATION);
+			addRequiredLabel(LabelResourceType.LOCATION);
 			contentPanel.add(getFileSystemLocationTargetComboBox());
 
-			addLabel(GuiComponentLabel.PATH);
+			addLabel(LabelResourceType.PATH);
 			contentPanel.add(getTargetRelativePathTextField());
 		}
 	}
@@ -185,10 +185,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (HttpSourceTask.class.isInstance(getEditedObjectClass())) {
 			final JPanel contentPanel = getContentPanel();
 
-			addRequiredLabel(GuiComponentLabel.SERVER);
+			addRequiredLabel(LabelResourceType.SERVER);
 			contentPanel.add(getHttpLocationSourceComboBox());
 
-			addLabel(GuiComponentLabel.PATH);
+			addLabel(LabelResourceType.PATH);
 			contentPanel.add(getSourceRelativePathTextField());
 		}
 	}
@@ -198,7 +198,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 */
 	protected final void addSourceFields() {
 		if (hasSourceFields()) {
-			addSeparator(GuiComponentLabel.SOURCE);
+			addSeparator(LabelResourceType.SOURCE);
 
 			addHttpSourceFields();
 			addSubversionRepositorySourceFields();
@@ -212,10 +212,10 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (SubversionRepositorySourceTask.class.isInstance(getEditedObjectClass())) {
 			final JPanel contentPanel = getContentPanel();
 
-			addRequiredLabel(GuiComponentLabel.SERVER);
+			addRequiredLabel(LabelResourceType.SERVER);
 			contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
 
-			addLabel(GuiComponentLabel.PATH);
+			addLabel(LabelResourceType.PATH);
 			contentPanel.add(getSourceRelativePathTextField());
 		}
 	}
@@ -225,7 +225,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 */
 	protected final void addTargetFields() {
 		if (hasTargetFields()) {
-			addSeparator(GuiComponentLabel.TARGET);
+			addSeparator(LabelResourceType.TARGET);
 
 			addFileSystemTargetFields();
 			addFilesFields();

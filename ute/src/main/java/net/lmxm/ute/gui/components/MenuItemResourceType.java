@@ -26,7 +26,7 @@ import net.lmxm.ute.resources.ImageUtil;
 /**
  * The Enum GuiComponentMenuItem.
  */
-public enum GuiComponentMenuItem implements GuiComponentType {
+public enum MenuItemResourceType implements ResourceType {
 
 	/** The ABOUT. */
 	ABOUT(ImageUtil.ABOUT_ICON, ActionConstants.ABOUT),
@@ -132,7 +132,7 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 	 * @param icon the icon
 	 * @param actionCommand the action command
 	 */
-	GuiComponentMenuItem(final Icon icon, final String actionCommand) {
+	MenuItemResourceType(final Icon icon, final String actionCommand) {
 		this.icon = icon;
 		this.actionCommand = actionCommand;
 	}
@@ -151,8 +151,8 @@ public enum GuiComponentMenuItem implements GuiComponentType {
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
-	public GuiComponentCategory getGuiComponentCategory() {
-		return GuiComponentCategory.MENU_ITEM;
+	public ResourceCategory getGuiComponentCategory() {
+		return ResourceCategory.MENU_ITEM;
 	}
 
 	/*

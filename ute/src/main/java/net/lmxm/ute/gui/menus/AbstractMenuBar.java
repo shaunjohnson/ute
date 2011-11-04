@@ -24,7 +24,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+import net.lmxm.ute.gui.components.MenuItemResourceType;
 
 /**
  * The Class AbstractMenuBar.
@@ -54,7 +54,7 @@ public abstract class AbstractMenuBar extends JMenuBar {
 	 * @param menu the menu
 	 * @param guiComponentMenuItem the gui component menu item
 	 */
-	protected final void addMenuItem(final JMenu menu, final GuiComponentMenuItem guiComponentMenuItem) {
+	protected final void addMenuItem(final JMenu menu, final MenuItemResourceType guiComponentMenuItem) {
 		menu.add(GuiComponentFactory.createMenuItem(guiComponentMenuItem, actionListener));
 	}
 }

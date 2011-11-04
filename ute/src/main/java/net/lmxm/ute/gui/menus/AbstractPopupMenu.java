@@ -25,8 +25,8 @@ import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.components.GuiComponentMenu;
-import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+import net.lmxm.ute.gui.components.MenuResourceType;
+import net.lmxm.ute.gui.components.MenuItemResourceType;
 
 import com.google.common.base.Preconditions;
 
@@ -59,7 +59,7 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 	 * 
 	 * @param guiComponentMenuItem the gui component menu item
 	 */
-	protected final void addMenuItem(final GuiComponentMenuItem guiComponentMenuItem) {
+	protected final void addMenuItem(final MenuItemResourceType guiComponentMenuItem) {
 		add(GuiComponentFactory.createMenuItem(guiComponentMenuItem, actionListener));
 	}
 
@@ -67,14 +67,14 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 	 * Adds the task add menu.
 	 */
 	protected final void addTaskAddMenu() {
-		final JMenu menu = GuiComponentFactory.createMenu(GuiComponentMenu.ADD_TASK);
+		final JMenu menu = GuiComponentFactory.createMenu(MenuResourceType.ADD_TASK);
 
-		menu.add(GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_FILE_SYSTEM_DELETE_TASK, actionListener));
-		menu.add(GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_FIND_REPLACE_TASK, actionListener));
-		menu.add(GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_GROOVY_TASK, actionListener));
-		menu.add(GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_HTTP_DOWNLOAD_TASK, actionListener));
-		menu.add(GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_SUBVERSION_EXPORT_TASK, actionListener));
-		menu.add(GuiComponentFactory.createMenuItem(GuiComponentMenuItem.ADD_SUBVERSION_UPDATE_TASK, actionListener));
+		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_FILE_SYSTEM_DELETE_TASK, actionListener));
+		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_FIND_REPLACE_TASK, actionListener));
+		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_GROOVY_TASK, actionListener));
+		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_HTTP_DOWNLOAD_TASK, actionListener));
+		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_SUBVERSION_EXPORT_TASK, actionListener));
+		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_SUBVERSION_UPDATE_TASK, actionListener));
 
 		add(menu);
 	}

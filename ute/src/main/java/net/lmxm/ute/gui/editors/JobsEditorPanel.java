@@ -20,8 +20,8 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.LabelResourceType;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
@@ -45,7 +45,7 @@ public class JobsEditorPanel extends AbstractReadonlyEditorPanel {
 		public JobsEditorToolBar(final ActionListener actionListener) {
 			super(actionListener);
 
-			addToolbarButton(GuiComponentToolbarButton.ADD_JOB);
+			addToolbarButton(ToolbarButtonResourceType.ADD_JOB);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class JobsEditorPanel extends AbstractReadonlyEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public JobsEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.JOBS, new JobsEditorToolBar(actionListener), actionListener);
+		super(LabelResourceType.JOBS, new JobsEditorToolBar(actionListener), actionListener);
 
 		addFields();
 	}

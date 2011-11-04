@@ -34,7 +34,7 @@ import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.gui.components.FindReplacePatternsTableModel;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 
 import org.slf4j.Logger;
@@ -96,7 +96,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public FindReplaceTaskEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.FIND_AND_REPLACE_TASK, new FindReplaceTaskEditorToolBar(actionListener), actionListener);
+		super(LabelResourceType.FIND_AND_REPLACE_TASK, new FindReplaceTaskEditorToolBar(actionListener), actionListener);
 
 		addFields();
 	}
@@ -109,12 +109,12 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	protected void addFields() {
 		super.addFields();
 
-		addSeparator(GuiComponentLabel.FIND_AND_REPLACE);
-		addRequiredLabel(GuiComponentLabel.SCOPE);
+		addSeparator(LabelResourceType.FIND_AND_REPLACE);
+		addRequiredLabel(LabelResourceType.SCOPE);
 
 		getContentPanel().add(getScopePane());
 
-		addRequiredLabel(GuiComponentLabel.PATTERNS);
+		addRequiredLabel(LabelResourceType.PATTERNS);
 		getContentPanel().add(getPatternsPane());
 	}
 

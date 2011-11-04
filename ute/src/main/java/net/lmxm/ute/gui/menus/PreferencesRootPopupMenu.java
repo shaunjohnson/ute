@@ -20,7 +20,7 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+import net.lmxm.ute.gui.components.MenuItemResourceType;
 
 /**
  * The Class PreferencesRootPopupMenu.
@@ -38,6 +38,6 @@ public final class PreferencesRootPopupMenu extends AbstractPopupMenu {
 	public PreferencesRootPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		addMenuItem(GuiComponentMenuItem.ADD_PREFERENCE);
+		addMenuItem(MenuItemResourceType.ADD_PREFERENCE);
 	}
 }

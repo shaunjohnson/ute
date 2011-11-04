@@ -26,7 +26,7 @@ import net.lmxm.ute.resources.ImageUtil;
 /**
  * The Enum GuiComponentButton.
  */
-public enum GuiComponentToolbarButton implements GuiComponentType {
+public enum ToolbarButtonResourceType implements ResourceType {
 
 	/** The ADD_FILE_SYSTEM_LOCATION. */
 	ADD_FILE_SYSTEM_LOCATION(ImageUtil.ADD_FILE_SYSTEM_LOCATION_ICON, ActionConstants.ADD_FILE_SYSTEM_LOCATION),
@@ -111,7 +111,7 @@ public enum GuiComponentToolbarButton implements GuiComponentType {
 	 * @param icon the icon
 	 * @param actionCommand the action command
 	 */
-	GuiComponentToolbarButton(final Icon icon, final String actionCommand) {
+	ToolbarButtonResourceType(final Icon icon, final String actionCommand) {
 		this.icon = icon;
 		this.actionCommand = actionCommand;
 	}
@@ -130,8 +130,8 @@ public enum GuiComponentToolbarButton implements GuiComponentType {
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
 	 */
 	@Override
-	public GuiComponentCategory getGuiComponentCategory() {
-		return GuiComponentCategory.TOOLBAR_BUTTON;
+	public ResourceCategory getGuiComponentCategory() {
+		return ResourceCategory.TOOLBAR_BUTTON;
 	}
 
 	/*

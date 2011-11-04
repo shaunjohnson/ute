@@ -45,7 +45,7 @@ public abstract class AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 * @return the string
 	 */
-	private static String buildResourcePrefix(final GuiComponentType guiComponentType) {
+	private static String buildResourcePrefix(final ResourceType guiComponentType) {
 		final StringBuilder builder = new StringBuilder();
 		builder.append(guiComponentType.getGuiComponentCategory().name());
 		builder.append(".");
@@ -61,7 +61,7 @@ public abstract class AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 * @return the accelerator
 	 */
-	protected static final Character getAccelerator(final GuiComponentType guiComponentType) {
+	protected static final Character getAccelerator(final ResourceType guiComponentType) {
 		return getResourceCharacter(guiComponentType, ACCELERATOR_SUFFIX);
 	}
 
@@ -71,7 +71,7 @@ public abstract class AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 * @return the message
 	 */
-	protected static final String getMessage(final GuiComponentType guiComponentType) {
+	protected static final String getMessage(final ResourceType guiComponentType) {
 		return getResourceString(guiComponentType, MESSAGE_SUFFIX);
 	}
 
@@ -82,7 +82,7 @@ public abstract class AbstractGuiFactory {
 	 * @param suffix the suffix
 	 * @return the resource character
 	 */
-	private static final Character getResourceCharacter(final GuiComponentType guiComponentType, final String suffix) {
+	private static final Character getResourceCharacter(final ResourceType guiComponentType, final String suffix) {
 		final String resourcePrefix = buildResourcePrefix(guiComponentType);
 
 		return ResourcesUtils.getCharacter(resourcePrefix + suffix);
@@ -95,7 +95,7 @@ public abstract class AbstractGuiFactory {
 	 * @param suffix the suffix
 	 * @return the resource string
 	 */
-	private static final String getResourceString(final GuiComponentType guiComponentType, final String suffix) {
+	private static final String getResourceString(final ResourceType guiComponentType, final String suffix) {
 		final String resourcePrefix = buildResourcePrefix(guiComponentType);
 
 		return ResourcesUtils.getString(resourcePrefix + suffix);
@@ -107,7 +107,7 @@ public abstract class AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 * @return the text
 	 */
-	protected static final String getText(final GuiComponentType guiComponentType) {
+	protected static final String getText(final ResourceType guiComponentType) {
 		return getResourceString(guiComponentType, TEXT_SUFFIX);
 	}
 
@@ -117,7 +117,7 @@ public abstract class AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 * @return the title
 	 */
-	protected static final String getTitle(final GuiComponentType guiComponentType) {
+	protected static final String getTitle(final ResourceType guiComponentType) {
 		return getResourceString(guiComponentType, TITLE_SUFFIX);
 	}
 
@@ -127,7 +127,7 @@ public abstract class AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 * @return the tool tip text
 	 */
-	protected static final String getToolTipText(final GuiComponentType guiComponentType) {
+	protected static final String getToolTipText(final ResourceType guiComponentType) {
 		return getResourceString(guiComponentType, TOOL_TIP_TEXT_SUFFIX);
 	}
 }

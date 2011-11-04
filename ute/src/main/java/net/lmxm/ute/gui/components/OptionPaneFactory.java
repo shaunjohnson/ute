@@ -36,7 +36,7 @@ public class OptionPaneFactory extends AbstractGuiFactory {
 	 * @return the int
 	 */
 	public static int showConfirmation(final Component parentComponent,
-			final GuiComponentConfirmation guiComponentConfirmation, final Object... args) {
+			final ConfirmationResourceType guiComponentConfirmation, final Object... args) {
 		final String message = String.format(getMessage(guiComponentConfirmation), args);
 		final String title = String.format(getTitle(guiComponentConfirmation), args);
 

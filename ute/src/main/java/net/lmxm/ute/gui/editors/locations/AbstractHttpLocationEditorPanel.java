@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.listeners.ChangeAdapter;
 
 /**
@@ -47,7 +47,7 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractHttpLocationEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+	public AbstractHttpLocationEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
 			final ActionListener actionListener) {
 		super(guiComponentLabel, toolBar, actionListener);
 	}
@@ -62,7 +62,7 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 
 		final JPanel contentPanel = getContentPanel();
 
-		addRequiredLabel(GuiComponentLabel.URL);
+		addRequiredLabel(LabelResourceType.URL);
 		contentPanel.add(getUrlTextField());
 	}
 

@@ -21,7 +21,7 @@ package net.lmxm.ute.gui.toolbars;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 
 /**
  * The Class MainTreeToolBar.
@@ -39,14 +39,14 @@ public class MainTreeToolBar extends AbstractToolBar {
 	public MainTreeToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_JOB);
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_FILE_SYSTEM_LOCATION);
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_HTTP_LOCATION);
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_SUBVERSION_REPOSITORY_LOCATION);
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_PROPERTY);
-		addToolbarButtonNoText(GuiComponentToolbarButton.ADD_PREFERENCE);
+		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_JOB);
+		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_FILE_SYSTEM_LOCATION);
+		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_HTTP_LOCATION);
+		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_SUBVERSION_REPOSITORY_LOCATION);
+		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_PROPERTY);
+		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_PREFERENCE);
 		addSeparator(new Dimension(20, 20));
-		addToolbarButtonNoText(GuiComponentToolbarButton.COLLAPSE);
-		addToolbarButtonNoText(GuiComponentToolbarButton.EXPAND);
+		addToolbarButtonNoText(ToolbarButtonResourceType.COLLAPSE);
+		addToolbarButtonNoText(ToolbarButtonResourceType.EXPAND);
 	}
 }

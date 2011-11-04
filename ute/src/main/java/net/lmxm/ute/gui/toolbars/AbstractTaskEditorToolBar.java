@@ -21,7 +21,7 @@ package net.lmxm.ute.gui.toolbars;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 
 /**
  * The Class AbstractTaskEditorToolBar.
@@ -39,9 +39,9 @@ public abstract class AbstractTaskEditorToolBar extends AbstractToolBar {
 	public AbstractTaskEditorToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		addToolbarButton(GuiComponentToolbarButton.EXECUTE_TASK);
-		addToolbarButton(GuiComponentToolbarButton.ADD_TASK, new AddTaskMouseListener(actionListener));
+		addToolbarButton(ToolbarButtonResourceType.EXECUTE_TASK);
+		addToolbarButton(ToolbarButtonResourceType.ADD_TASK, new AddTaskMouseListener(actionListener));
 		addSeparator(new Dimension(20, 20));
-		addToolbarButton(GuiComponentToolbarButton.DELETE_TASK);
+		addToolbarButton(ToolbarButtonResourceType.DELETE_TASK);
 	}
 }

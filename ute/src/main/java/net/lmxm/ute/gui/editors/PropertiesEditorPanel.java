@@ -20,8 +20,8 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.LabelResourceType;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 /**
@@ -45,7 +45,7 @@ public class PropertiesEditorPanel extends AbstractReadonlyEditorPanel {
 		public PropertiesEditorToolBar(final ActionListener actionListener) {
 			super(actionListener);
 
-			addToolbarButton(GuiComponentToolbarButton.ADD_PROPERTY);
+			addToolbarButton(ToolbarButtonResourceType.ADD_PROPERTY);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class PropertiesEditorPanel extends AbstractReadonlyEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public PropertiesEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.PROPERTIES, new PropertiesEditorToolBar(actionListener), actionListener);
+		super(LabelResourceType.PROPERTIES, new PropertiesEditorToolBar(actionListener), actionListener);
 
 		addFields();
 	}

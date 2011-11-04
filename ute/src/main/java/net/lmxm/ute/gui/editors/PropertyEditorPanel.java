@@ -25,8 +25,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.Property;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.LabelResourceType;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
 
@@ -54,7 +54,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 		public PropertyEditorToolBar(final ActionListener actionListener) {
 			super(actionListener);
 
-			addToolbarButton(GuiComponentToolbarButton.DELETE_PROPERTY);
+			addToolbarButton(ToolbarButtonResourceType.DELETE_PROPERTY);
 		}
 	}
 
@@ -73,7 +73,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public PropertyEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.PROPERTY, new PropertyEditorToolBar(actionListener), actionListener);
+		super(LabelResourceType.PROPERTY, new PropertyEditorToolBar(actionListener), actionListener);
 
 		addFields();
 	}
@@ -88,7 +88,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addRequiredLabel(GuiComponentLabel.VALUE);
+		addRequiredLabel(LabelResourceType.VALUE);
 		contentPanel.add(getPropertyValueTextField());
 	}
 

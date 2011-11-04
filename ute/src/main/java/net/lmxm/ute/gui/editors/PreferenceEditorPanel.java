@@ -26,8 +26,8 @@ import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.DomainBean;
 import net.lmxm.ute.beans.Preference;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.LabelResourceType;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ public final class PreferenceEditorPanel extends AbstractCommonEditorPanel {
 		public PreferenceEditorToolBar(final ActionListener actionListener) {
 			super(actionListener);
 
-			addToolbarButton(GuiComponentToolbarButton.DELETE_PREFERENCE);
+			addToolbarButton(ToolbarButtonResourceType.DELETE_PREFERENCE);
 		}
 	}
 
@@ -73,7 +73,7 @@ public final class PreferenceEditorPanel extends AbstractCommonEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public PreferenceEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.PREFERENCE, new PreferenceEditorToolBar(actionListener), actionListener);
+		super(LabelResourceType.PREFERENCE, new PreferenceEditorToolBar(actionListener), actionListener);
 
 		addFields();
 	}
@@ -88,7 +88,7 @@ public final class PreferenceEditorPanel extends AbstractCommonEditorPanel {
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(GuiComponentLabel.CURRENT_VALUE);
+		addLabel(LabelResourceType.CURRENT_VALUE);
 		contentPanel.add(getPreferenceValueTextField());
 	}
 

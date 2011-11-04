@@ -25,8 +25,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.LabelResourceType;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
 
@@ -54,7 +54,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 		public SubversionRepositoryLocationEditorToolBar(final ActionListener actionListener) {
 			super(actionListener);
 
-			addToolbarButton(GuiComponentToolbarButton.DELETE_SUBVERSION_REPOSITORY_LOCATION);
+			addToolbarButton(ToolbarButtonResourceType.DELETE_SUBVERSION_REPOSITORY_LOCATION);
 		}
 	}
 
@@ -76,7 +76,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 	 * @param actionListener the action listener
 	 */
 	public SubversionRepositoryLocationEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATION, new SubversionRepositoryLocationEditorToolBar(
+		super(LabelResourceType.SUBVERSION_REPOSITORY_LOCATION, new SubversionRepositoryLocationEditorToolBar(
 				actionListener), actionListener);
 
 		addFields();
@@ -92,10 +92,10 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(GuiComponentLabel.USERNAME);
+		addLabel(LabelResourceType.USERNAME);
 		contentPanel.add(getUsernameTextField());
 
-		addLabel(GuiComponentLabel.PASSWORD);
+		addLabel(LabelResourceType.PASSWORD);
 		contentPanel.add(getPasswordTextField());
 	}
 

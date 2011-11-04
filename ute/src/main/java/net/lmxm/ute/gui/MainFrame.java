@@ -92,7 +92,7 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationReader;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.configuration.ConfigurationWriter;
-import net.lmxm.ute.gui.components.GuiComponentConfirmation;
+import net.lmxm.ute.gui.components.ConfirmationResourceType;
 import net.lmxm.ute.gui.components.OptionPaneFactory;
 import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.components.StatusOutputTab;
@@ -412,7 +412,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		final Job job = (Job) userObject;
 
 		if (job.getTasks().size() > 0) {
-			final int result = OptionPaneFactory.showConfirmation(this, GuiComponentConfirmation.DELETE_JOB,
+			final int result = OptionPaneFactory.showConfirmation(this, ConfirmationResourceType.DELETE_JOB,
 					job.getId(), job.getTasks().size());
 
 			if (result == JOptionPane.NO_OPTION) {

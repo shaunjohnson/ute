@@ -21,35 +21,37 @@ package net.lmxm.ute.gui.components;
 import javax.swing.Icon;
 
 /**
- * The Interface GuiComponentType.
+ * The Enum GuiComponentConfirmation.
  */
-public interface GuiComponentType {
+public enum ConfirmationResourceType implements ResourceType {
 
-	/**
-	 * Gets the action command.
-	 * 
-	 * @return the action command
-	 */
-	String getActionCommand();
+	/** The DELETE_JOB. */
+	DELETE_JOB;
 
-	/**
-	 * Gets the gui component category.
-	 * 
-	 * @return the gui component category
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
 	 */
-	GuiComponentCategory getGuiComponentCategory();
+	@Override
+	public String getActionCommand() {
+		return null;
+	}
 
-	/**
-	 * Gets the icon.
-	 * 
-	 * @return the icon
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
-	Icon getIcon();
+	@Override
+	public ResourceCategory getGuiComponentCategory() {
+		return ResourceCategory.CONFIRMATION;
+	}
 
-	/**
-	 * Name.
-	 * 
-	 * @return the string
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
-	String name();
+	@Override
+	public Icon getIcon() {
+		return null;
+	}
 }

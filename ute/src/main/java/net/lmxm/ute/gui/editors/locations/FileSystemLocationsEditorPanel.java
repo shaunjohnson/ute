@@ -20,8 +20,8 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.LabelResourceType;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
@@ -46,7 +46,7 @@ public class FileSystemLocationsEditorPanel extends AbstractReadonlyEditorPanel 
 		public FileSystemLocationsEditorToolBar(final ActionListener actionListener) {
 			super(actionListener);
 
-			addToolbarButton(GuiComponentToolbarButton.ADD_FILE_SYSTEM_LOCATION);
+			addToolbarButton(ToolbarButtonResourceType.ADD_FILE_SYSTEM_LOCATION);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class FileSystemLocationsEditorPanel extends AbstractReadonlyEditorPanel 
 	 * @param actionListener the action listener
 	 */
 	public FileSystemLocationsEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.FILE_SYSTEM_LOCATIONS, new FileSystemLocationsEditorToolBar(actionListener),
+		super(LabelResourceType.FILE_SYSTEM_LOCATIONS, new FileSystemLocationsEditorToolBar(actionListener),
 				actionListener);
 
 		addFields();

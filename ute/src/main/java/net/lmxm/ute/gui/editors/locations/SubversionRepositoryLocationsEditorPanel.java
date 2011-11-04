@@ -20,8 +20,8 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.LabelResourceType;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
@@ -46,7 +46,7 @@ public class SubversionRepositoryLocationsEditorPanel extends AbstractReadonlyEd
 		public SubversionRepositoryLocationsEditorToolBar(final ActionListener actionListener) {
 			super(actionListener);
 
-			addToolbarButton(GuiComponentToolbarButton.ADD_SUBVERSION_REPOSITORY_LOCATION);
+			addToolbarButton(ToolbarButtonResourceType.ADD_SUBVERSION_REPOSITORY_LOCATION);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class SubversionRepositoryLocationsEditorPanel extends AbstractReadonlyEd
 	 * @param actionListener the action listener
 	 */
 	public SubversionRepositoryLocationsEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.SUBVERSION_REPOSITORY_LOCATIONS, new SubversionRepositoryLocationsEditorToolBar(
+		super(LabelResourceType.SUBVERSION_REPOSITORY_LOCATIONS, new SubversionRepositoryLocationsEditorToolBar(
 				actionListener), actionListener);
 
 		addFields();

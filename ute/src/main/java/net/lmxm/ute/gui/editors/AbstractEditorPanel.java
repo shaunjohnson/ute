@@ -37,7 +37,7 @@ import javax.swing.SwingConstants;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
 
 import com.google.common.base.Preconditions;
@@ -76,7 +76,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+	public AbstractEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
 			final ActionListener actionListener) {
 		super();
 
@@ -106,7 +106,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param checkBox the check box
 	 * @param guiComponentLabel the gui component label
 	 */
-	protected final void addCheckbox(final JCheckBox checkBox, final GuiComponentLabel guiComponentLabel) {
+	protected final void addCheckbox(final JCheckBox checkBox, final LabelResourceType guiComponentLabel) {
 		final JPanel subPanel = new JPanel(new MigLayout("ins 0", "[left]"));
 		subPanel.add(checkBox);
 		subPanel.add(createLabel(guiComponentLabel));
@@ -124,11 +124,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * 
 	 * @param guiComponentLabel the gui component label
 	 */
-	protected final void addLabel(final GuiComponentLabel guiComponentLabel) {
+	protected final void addLabel(final LabelResourceType guiComponentLabel) {
 		getContentPanel().add(createLabel(guiComponentLabel), "gapleft 20, top");
 	}
 
-	protected final void addRequiredLabel(final GuiComponentLabel guiComponentLabel) {
+	protected final void addRequiredLabel(final LabelResourceType guiComponentLabel) {
 		getContentPanel().add(createRequiredLabel(guiComponentLabel), "gapleft 20, top");
 	}
 
@@ -137,7 +137,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * 
 	 * @param guiComponentLabel the gui component label
 	 */
-	protected final void addSeparator(final GuiComponentLabel guiComponentLabel) {
+	protected final void addSeparator(final LabelResourceType guiComponentLabel) {
 		final JLabel label = createLabel(guiComponentLabel);
 		label.setFont(BOLD_FONT);
 		label.setForeground(SEPARATOR_LABEL_COLOR);
@@ -167,7 +167,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param guiComponentLabel the gui component label
 	 * @return the j label
 	 */
-	protected final JLabel createLabel(final GuiComponentLabel guiComponentLabel) {
+	protected final JLabel createLabel(final LabelResourceType guiComponentLabel) {
 		return GuiComponentFactory.createLabel(guiComponentLabel, SwingConstants.LEADING);
 	}
 
@@ -177,7 +177,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param guiComponentLabel the gui component label
 	 * @return the j label
 	 */
-	protected final JLabel createRequiredLabel(final GuiComponentLabel guiComponentLabel) {
+	protected final JLabel createRequiredLabel(final LabelResourceType guiComponentLabel) {
 		return GuiComponentFactory.createRequiredLabel(guiComponentLabel, SwingConstants.LEADING);
 	}
 

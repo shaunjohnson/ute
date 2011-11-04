@@ -20,7 +20,7 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+import net.lmxm.ute.gui.components.MenuItemResourceType;
 
 /**
  * The Class HttpLocationPopupMenu.
@@ -38,7 +38,7 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 	public HttpLocationPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		addMenuItem(GuiComponentMenuItem.ADD_HTTP_LOCATION);
-		addMenuItem(GuiComponentMenuItem.DELETE_HTTP_LOCATION);
+		addMenuItem(MenuItemResourceType.ADD_HTTP_LOCATION);
+		addMenuItem(MenuItemResourceType.DELETE_HTTP_LOCATION);
 	}
 }

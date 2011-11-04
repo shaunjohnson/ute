@@ -24,7 +24,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 
 /**
  * The Class AbstractToolBar.
@@ -55,7 +55,7 @@ public abstract class AbstractToolBar extends JToolBar {
 	 * 
 	 * @param guiComponentToolbarButton the gui component toolbar button
 	 */
-	protected final void addToolbarButton(final GuiComponentToolbarButton guiComponentToolbarButton) {
+	protected final void addToolbarButton(final ToolbarButtonResourceType guiComponentToolbarButton) {
 		add(GuiComponentFactory.createToolbarButton(guiComponentToolbarButton, actionListener));
 	}
 
@@ -65,7 +65,7 @@ public abstract class AbstractToolBar extends JToolBar {
 	 * @param guiComponentToolbarButton the gui component toolbar button
 	 * @param actionListener the action listener
 	 */
-	protected final void addToolbarButton(final GuiComponentToolbarButton guiComponentToolbarButton,
+	protected final void addToolbarButton(final ToolbarButtonResourceType guiComponentToolbarButton,
 			final ActionListener actionListener) {
 		add(GuiComponentFactory.createToolbarButton(guiComponentToolbarButton, actionListener));
 	}
@@ -76,7 +76,7 @@ public abstract class AbstractToolBar extends JToolBar {
 	 * @param guiComponentToolbarButton the gui component toolbar button
 	 * @param mouseListener the mouse listener
 	 */
-	protected final void addToolbarButton(final GuiComponentToolbarButton guiComponentToolbarButton,
+	protected final void addToolbarButton(final ToolbarButtonResourceType guiComponentToolbarButton,
 			final MouseListener mouseListener) {
 		add(GuiComponentFactory.createToolbarButton(guiComponentToolbarButton, actionListener, mouseListener));
 	}
@@ -86,7 +86,7 @@ public abstract class AbstractToolBar extends JToolBar {
 	 * 
 	 * @param guiComponentToolbarButton the gui component toolbar button
 	 */
-	protected final void addToolbarButtonNoText(final GuiComponentToolbarButton guiComponentToolbarButton) {
+	protected final void addToolbarButtonNoText(final ToolbarButtonResourceType guiComponentToolbarButton) {
 		add(GuiComponentFactory.createToolbarButtonNoText(guiComponentToolbarButton, actionListener));
 	}
 }

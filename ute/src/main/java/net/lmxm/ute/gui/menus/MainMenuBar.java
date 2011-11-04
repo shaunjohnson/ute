@@ -24,8 +24,8 @@ import javax.swing.JMenu;
 import javax.swing.JSeparator;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.components.GuiComponentMenu;
-import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+import net.lmxm.ute.gui.components.MenuResourceType;
+import net.lmxm.ute.gui.components.MenuItemResourceType;
 
 /**
  * The Class MainMenuBar.
@@ -65,9 +65,9 @@ public class MainMenuBar extends AbstractMenuBar {
 	 */
 	private JMenu getEditMenu() {
 		if (editMenu == null) {
-			editMenu = GuiComponentFactory.createMenu(GuiComponentMenu.EDIT);
+			editMenu = GuiComponentFactory.createMenu(MenuResourceType.EDIT);
 
-			addMenuItem(editMenu, GuiComponentMenuItem.EDIT_PREFERENCES);
+			addMenuItem(editMenu, MenuItemResourceType.EDIT_PREFERENCES);
 		}
 		return editMenu;
 	}
@@ -79,14 +79,14 @@ public class MainMenuBar extends AbstractMenuBar {
 	 */
 	private JMenu getFileMenu() {
 		if (fileMenu == null) {
-			fileMenu = GuiComponentFactory.createMenu(GuiComponentMenu.FILE);
+			fileMenu = GuiComponentFactory.createMenu(MenuResourceType.FILE);
 
-			addMenuItem(fileMenu, GuiComponentMenuItem.NEW_FILE);
-			addMenuItem(fileMenu, GuiComponentMenuItem.OPEN_FILE);
-			addMenuItem(fileMenu, GuiComponentMenuItem.SAVE_FILE);
-			addMenuItem(fileMenu, GuiComponentMenuItem.SAVE_FILE_AS);
+			addMenuItem(fileMenu, MenuItemResourceType.NEW_FILE);
+			addMenuItem(fileMenu, MenuItemResourceType.OPEN_FILE);
+			addMenuItem(fileMenu, MenuItemResourceType.SAVE_FILE);
+			addMenuItem(fileMenu, MenuItemResourceType.SAVE_FILE_AS);
 			fileMenu.add(new JSeparator());
-			addMenuItem(fileMenu, GuiComponentMenuItem.EXIT);
+			addMenuItem(fileMenu, MenuItemResourceType.EXIT);
 		}
 		return fileMenu;
 	}
@@ -99,8 +99,8 @@ public class MainMenuBar extends AbstractMenuBar {
 	@Override
 	public JMenu getHelpMenu() {
 		if (helpMenu == null) {
-			helpMenu = GuiComponentFactory.createMenu(GuiComponentMenu.HELP);
-			addMenuItem(helpMenu, GuiComponentMenuItem.ABOUT);
+			helpMenu = GuiComponentFactory.createMenu(MenuResourceType.HELP);
+			addMenuItem(helpMenu, MenuItemResourceType.ABOUT);
 		}
 		return helpMenu;
 	}

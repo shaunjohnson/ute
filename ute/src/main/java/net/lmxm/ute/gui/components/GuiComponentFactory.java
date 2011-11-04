@@ -42,7 +42,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param actionListener the action listener
 	 * @return the j button
 	 */
-	public static JButton createButton(final GuiComponentButton guiComponentButton, final ActionListener actionListener) {
+	public static JButton createButton(final ButtonResourceType guiComponentButton, final ActionListener actionListener) {
 		final JButton button = new JButton();
 
 		setIcon(button, guiComponentButton);
@@ -59,7 +59,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param alignment the alignment
 	 * @return the j label
 	 */
-	public static JLabel createLabel(final GuiComponentLabel guiComponentLabel, final int alignment) {
+	public static JLabel createLabel(final LabelResourceType guiComponentLabel, final int alignment) {
 		final JLabel label = new JLabel();
 
 		setIcon(label, guiComponentLabel);
@@ -75,7 +75,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param guiComponentMenu the gui component menu
 	 * @return the j menu
 	 */
-	public static JMenu createMenu(final GuiComponentMenu guiComponentMenu) {
+	public static JMenu createMenu(final MenuResourceType guiComponentMenu) {
 		final JMenu menu = new JMenu();
 
 		setIcon(menu, guiComponentMenu);
@@ -91,7 +91,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param actionListener the action listener
 	 * @return the j menu item
 	 */
-	public static JMenuItem createMenuItem(final GuiComponentMenuItem guiComponentMenuItem,
+	public static JMenuItem createMenuItem(final MenuItemResourceType guiComponentMenuItem,
 			final ActionListener actionListener) {
 		final JMenuItem menuItem = new JMenuItem();
 
@@ -109,7 +109,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param guiComponentLabel the gui component label
 	 * @return the j label
 	 */
-	public static JLabel createPanelHeaderLabel(final GuiComponentLabel guiComponentLabel) {
+	public static JLabel createPanelHeaderLabel(final LabelResourceType guiComponentLabel) {
 		final JLabel label = new JLabel();
 
 		setIcon(label, guiComponentLabel);
@@ -126,7 +126,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param alignment the alignment
 	 * @return the j label
 	 */
-	public static JLabel createRequiredLabel(final GuiComponentLabel guiComponentLabel, final int alignment) {
+	public static JLabel createRequiredLabel(final LabelResourceType guiComponentLabel, final int alignment) {
 		final JLabel label = new JLabel();
 
 		setIcon(label, guiComponentLabel);
@@ -143,7 +143,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param actionListener the action listener
 	 * @return the j button
 	 */
-	public static JButton createToolbarButton(final GuiComponentToolbarButton guiComponentButton,
+	public static JButton createToolbarButton(final ToolbarButtonResourceType guiComponentButton,
 			final ActionListener actionListener) {
 		final JButton button = new JButton();
 
@@ -162,7 +162,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param mouseListener the mouse listener
 	 * @return the j button
 	 */
-	public static JButton createToolbarButton(final GuiComponentToolbarButton guiComponentButton,
+	public static JButton createToolbarButton(final ToolbarButtonResourceType guiComponentButton,
 			final ActionListener actionListener, final MouseListener mouseListener) {
 		final JButton button = createToolbarButton(guiComponentButton, actionListener);
 
@@ -180,7 +180,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param actionListener the action listener
 	 * @return the j button
 	 */
-	public static JButton createToolbarButtonNoText(final GuiComponentToolbarButton guiComponentButton,
+	public static JButton createToolbarButtonNoText(final ToolbarButtonResourceType guiComponentButton,
 			final ActionListener actionListener) {
 		final JButton button = new JButton();
 
@@ -197,7 +197,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param menuItem the menu item
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setAccelerator(final JMenuItem menuItem, final GuiComponentType guiComponentType) {
+	private static void setAccelerator(final JMenuItem menuItem, final ResourceType guiComponentType) {
 		final Character accelerator = getAccelerator(guiComponentType);
 		if (accelerator != null) {
 			menuItem.setAccelerator(KeyStroke.getKeyStroke(accelerator, Toolkit.getDefaultToolkit()
@@ -212,7 +212,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 * @param actionListener the action listener
 	 */
-	private static void setActionListener(final AbstractButton abstractButton, final GuiComponentType guiComponentType,
+	private static void setActionListener(final AbstractButton abstractButton, final ResourceType guiComponentType,
 			final ActionListener actionListener) {
 		if (actionListener != null) {
 			abstractButton.addActionListener(actionListener);
@@ -229,7 +229,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param abstractButton the abstract button
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setIcon(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
+	private static void setIcon(final AbstractButton abstractButton, final ResourceType guiComponentType) {
 		if (guiComponentType.getIcon() != null) {
 			abstractButton.setIcon(guiComponentType.getIcon());
 		}
@@ -241,7 +241,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param label the label
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setIcon(final JLabel label, final GuiComponentType guiComponentType) {
+	private static void setIcon(final JLabel label, final ResourceType guiComponentType) {
 		if (guiComponentType.getIcon() != null) {
 			label.setIcon(guiComponentType.getIcon());
 		}
@@ -253,7 +253,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param label the label
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setRequiredText(final JLabel label, final GuiComponentType guiComponentType) {
+	private static void setRequiredText(final JLabel label, final ResourceType guiComponentType) {
 		final String text = getText(guiComponentType);
 		if (text != null) {
 			label.setText("<html><font color=red size=4><b>*</b></font> " + text + "</html>");
@@ -271,7 +271,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param abstractButton the abstract button
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
+	private static void setText(final AbstractButton abstractButton, final ResourceType guiComponentType) {
 		final String text = getText(guiComponentType);
 		if (text != null) {
 			abstractButton.setText(text);
@@ -289,7 +289,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param label the label
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setText(final JLabel label, final GuiComponentType guiComponentType) {
+	private static void setText(final JLabel label, final ResourceType guiComponentType) {
 		final String text = getText(guiComponentType);
 		if (text != null) {
 			label.setText(text);
@@ -307,7 +307,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param abstractButton the abstract button
 	 * @param guiComponentType the gui component type
 	 */
-	private static void setToolTipText(final AbstractButton abstractButton, final GuiComponentType guiComponentType) {
+	private static void setToolTipText(final AbstractButton abstractButton, final ResourceType guiComponentType) {
 		final String toolTipText = getToolTipText(guiComponentType);
 		if (toolTipText != null) {
 			abstractButton.setToolTipText(toolTipText);

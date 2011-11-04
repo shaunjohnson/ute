@@ -43,7 +43,7 @@ public abstract class AbstractEditableTableModel extends AbstractTableModel {
 	 * @param guiComponentType the gui component type
 	 * @return the string
 	 */
-	private static String buildResourcePrefix(final GuiComponentType guiComponentType) {
+	private static String buildResourcePrefix(final ResourceType guiComponentType) {
 		final StringBuilder builder = new StringBuilder();
 		builder.append(guiComponentType.getGuiComponentCategory().name());
 		builder.append(".");
@@ -60,7 +60,7 @@ public abstract class AbstractEditableTableModel extends AbstractTableModel {
 	 * @param suffix the suffix
 	 * @return the resource string
 	 */
-	private static final String getResourceString(final GuiComponentType guiComponentType, final String suffix) {
+	private static final String getResourceString(final ResourceType guiComponentType, final String suffix) {
 		final String resourcePrefix = buildResourcePrefix(guiComponentType);
 
 		return ResourcesUtils.getString(resourcePrefix + suffix);
@@ -74,12 +74,12 @@ public abstract class AbstractEditableTableModel extends AbstractTableModel {
 	 * 
 	 * @param columnEnums the column enums
 	 */
-	public AbstractEditableTableModel(final EnumSet<GuiComponentTableColumn> columnEnums) {
+	public AbstractEditableTableModel(final EnumSet<TableColumnResourceType> columnEnums) {
 		super();
 
 		columnNames = new ArrayList<String>(columnEnums.size());
 
-		for (final GuiComponentTableColumn columnEnum : columnEnums) {
+		for (final TableColumnResourceType columnEnum : columnEnums) {
 			columnNames.add(getResourceString(columnEnum, TEXT_SUFFIX));
 		}
 	}

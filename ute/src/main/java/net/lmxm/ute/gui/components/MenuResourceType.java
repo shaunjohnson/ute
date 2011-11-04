@@ -23,7 +23,7 @@ import javax.swing.Icon;
 /**
  * The Enum GuiComponentMenu.
  */
-public enum GuiComponentMenu implements GuiComponentType {
+public enum MenuResourceType implements ResourceType {
 
 	/** The ADD_TASK. */
 	ADD_TASK(null, null),
@@ -49,7 +49,7 @@ public enum GuiComponentMenu implements GuiComponentType {
 	 * @param icon the icon
 	 * @param actionCommand the action command
 	 */
-	GuiComponentMenu(final Icon icon, final String actionCommand) {
+	MenuResourceType(final Icon icon, final String actionCommand) {
 		this.icon = icon;
 		this.actionCommand = actionCommand;
 	}
@@ -68,8 +68,8 @@ public enum GuiComponentMenu implements GuiComponentType {
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
-	public GuiComponentCategory getGuiComponentCategory() {
-		return GuiComponentCategory.MENU;
+	public ResourceCategory getGuiComponentCategory() {
+		return ResourceCategory.MENU;
 	}
 
 	/*

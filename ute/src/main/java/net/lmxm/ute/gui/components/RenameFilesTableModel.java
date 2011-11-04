@@ -44,7 +44,7 @@ public class RenameFilesTableModel extends AbstractEditableTableModel {
 	 * @param renameFilesTask the rename files task
 	 */
 	public RenameFilesTableModel(final RenameFilesTask renameFilesTask) {
-		super(EnumSet.of(GuiComponentTableColumn.FILE_NAME, GuiComponentTableColumn.TARGET_FILE_NAME));
+		super(EnumSet.of(TableColumnResourceType.FILE_NAME, TableColumnResourceType.TARGET_FILE_NAME));
 
 		rowData = renameFilesTask.getFiles();
 

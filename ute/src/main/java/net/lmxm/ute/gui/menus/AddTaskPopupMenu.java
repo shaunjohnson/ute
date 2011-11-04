@@ -20,7 +20,7 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+import net.lmxm.ute.gui.components.MenuItemResourceType;
 
 /**
  * The Class AddTaskPopupMenu.
@@ -38,11 +38,11 @@ public final class AddTaskPopupMenu extends AbstractPopupMenu {
 	public AddTaskPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		addMenuItem(GuiComponentMenuItem.ADD_FILE_SYSTEM_DELETE_TASK);
-		addMenuItem(GuiComponentMenuItem.ADD_FIND_REPLACE_TASK);
-		addMenuItem(GuiComponentMenuItem.ADD_GROOVY_TASK);
-		addMenuItem(GuiComponentMenuItem.ADD_HTTP_DOWNLOAD_TASK);
-		addMenuItem(GuiComponentMenuItem.ADD_SUBVERSION_EXPORT_TASK);
-		addMenuItem(GuiComponentMenuItem.ADD_SUBVERSION_UPDATE_TASK);
+		addMenuItem(MenuItemResourceType.ADD_FILE_SYSTEM_DELETE_TASK);
+		addMenuItem(MenuItemResourceType.ADD_FIND_REPLACE_TASK);
+		addMenuItem(MenuItemResourceType.ADD_GROOVY_TASK);
+		addMenuItem(MenuItemResourceType.ADD_HTTP_DOWNLOAD_TASK);
+		addMenuItem(MenuItemResourceType.ADD_SUBVERSION_EXPORT_TASK);
+		addMenuItem(MenuItemResourceType.ADD_SUBVERSION_UPDATE_TASK);
 	}
 }

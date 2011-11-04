@@ -31,7 +31,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableBean;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.listeners.ChangeAdapter;
 import net.lmxm.ute.listeners.IdChangeEvent;
 import net.lmxm.ute.listeners.IdChangeListener;
@@ -70,7 +70,7 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 	 * @param toolBar the tool bar
 	 * @param actionListener the action listener
 	 */
-	public AbstractCommonEditorPanel(final GuiComponentLabel guiComponentLabel, final JToolBar toolBar,
+	public AbstractCommonEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
 			final ActionListener actionListener) {
 		super(guiComponentLabel, toolBar, actionListener);
 	}
@@ -83,12 +83,12 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 		final JPanel contentPanel = getContentPanel();
 
 		if (IdentifiableBean.class.isInstance(getEditedObjectClass())) {
-			addRequiredLabel(GuiComponentLabel.ID);
+			addRequiredLabel(LabelResourceType.ID);
 			contentPanel.add(getIdTextField());
 		}
 
 		if (DescribableBean.class.isInstance(getEditedObjectClass())) {
-			addLabel(GuiComponentLabel.DESCRIPTION);
+			addLabel(LabelResourceType.DESCRIPTION);
 			contentPanel.add(getDescriptionPane());
 		}
 	}

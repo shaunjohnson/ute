@@ -44,7 +44,7 @@ public class FilesTableModel extends AbstractEditableTableModel {
 	 * @param filesTask the files task
 	 */
 	public FilesTableModel(final FilesTask filesTask) {
-		super(EnumSet.of(GuiComponentTableColumn.FILE_NAME));
+		super(EnumSet.of(TableColumnResourceType.FILE_NAME));
 
 		rowData = filesTask.getFiles();
 

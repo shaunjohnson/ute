@@ -20,7 +20,7 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+import net.lmxm.ute.gui.components.MenuItemResourceType;
 
 /**
  * The Class PropertyPopupMenu.
@@ -38,7 +38,7 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 	public PropertyPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		addMenuItem(GuiComponentMenuItem.ADD_PROPERTY);
-		addMenuItem(GuiComponentMenuItem.DELETE_PROPERTY);
+		addMenuItem(MenuItemResourceType.ADD_PROPERTY);
+		addMenuItem(MenuItemResourceType.DELETE_PROPERTY);
 	}
 }

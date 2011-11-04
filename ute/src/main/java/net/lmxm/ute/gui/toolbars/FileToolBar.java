@@ -21,7 +21,7 @@ package net.lmxm.ute.gui.toolbars;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 
 /**
  * The Class FileToolBar.
@@ -39,11 +39,11 @@ public class FileToolBar extends AbstractToolBar {
 	public FileToolBar(final ActionListener actionListener) {
 		super(actionListener);
 
-		addToolbarButton(GuiComponentToolbarButton.NEW_FILE);
-		addToolbarButton(GuiComponentToolbarButton.OPEN_FILE);
-		addToolbarButton(GuiComponentToolbarButton.SAVE_FILE);
-		addToolbarButton(GuiComponentToolbarButton.SAVE_FILE_AS);
+		addToolbarButton(ToolbarButtonResourceType.NEW_FILE);
+		addToolbarButton(ToolbarButtonResourceType.OPEN_FILE);
+		addToolbarButton(ToolbarButtonResourceType.SAVE_FILE);
+		addToolbarButton(ToolbarButtonResourceType.SAVE_FILE_AS);
 		addSeparator(new Dimension(20, 20));
-		addToolbarButton(GuiComponentToolbarButton.EXIT);
+		addToolbarButton(ToolbarButtonResourceType.EXIT);
 	}
 }

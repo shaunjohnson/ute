@@ -21,7 +21,7 @@ package net.lmxm.ute.gui.editors;
 import java.awt.event.ActionListener;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
-import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractJobEditorToolBar;
 
 import org.slf4j.Logger;
@@ -63,7 +63,7 @@ public final class SequentialJobEditorPanel extends AbstractCommonEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public SequentialJobEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.SEQUENTIAL_JOB, new SequentialJobEditorToolbar(actionListener), actionListener);
+		super(LabelResourceType.SEQUENTIAL_JOB, new SequentialJobEditorToolbar(actionListener), actionListener);
 
 		addFields();
 	}

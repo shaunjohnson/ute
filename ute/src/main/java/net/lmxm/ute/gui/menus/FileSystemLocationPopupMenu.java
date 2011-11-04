@@ -20,7 +20,7 @@ package net.lmxm.ute.gui.menus;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentMenuItem;
+import net.lmxm.ute.gui.components.MenuItemResourceType;
 
 /**
  * The Class FileSystemLocationPopupMenu.
@@ -38,7 +38,7 @@ public final class FileSystemLocationPopupMenu extends AbstractPopupMenu {
 	public FileSystemLocationPopupMenu(final ActionListener actionListener) {
 		super(actionListener);
 
-		addMenuItem(GuiComponentMenuItem.ADD_FILE_SYSTEM_LOCATION);
-		addMenuItem(GuiComponentMenuItem.DELETE_FILE_SYSTEM_LOCATION);
+		addMenuItem(MenuItemResourceType.ADD_FILE_SYSTEM_LOCATION);
+		addMenuItem(MenuItemResourceType.DELETE_FILE_SYSTEM_LOCATION);
 	}
 }

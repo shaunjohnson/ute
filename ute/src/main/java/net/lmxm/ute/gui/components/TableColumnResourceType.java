@@ -21,12 +21,21 @@ package net.lmxm.ute.gui.components;
 import javax.swing.Icon;
 
 /**
- * The Enum GuiComponentConfirmation.
+ * The Enum GuiComponentLabel.
  */
-public enum GuiComponentConfirmation implements GuiComponentType {
+public enum TableColumnResourceType implements ResourceType {
 
-	/** The DELETE_JOB. */
-	DELETE_JOB;
+	/** The FILE_NAME. */
+	FILE_NAME,
+
+	/** The FIND. */
+	FIND,
+
+	/** The REPLACEMENT. */
+	REPLACEMENT,
+
+	/** The TARGET_FILE_NAME. */
+	TARGET_FILE_NAME;
 
 	/*
 	 * (non-Javadoc)
@@ -42,8 +51,8 @@ public enum GuiComponentConfirmation implements GuiComponentType {
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
-	public GuiComponentCategory getGuiComponentCategory() {
-		return GuiComponentCategory.CONFIRMATION;
+	public ResourceCategory getGuiComponentCategory() {
+		return ResourceCategory.TABLE_COLUMN;
 	}
 
 	/*

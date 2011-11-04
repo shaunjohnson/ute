@@ -20,8 +20,8 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.GuiComponentLabel;
-import net.lmxm.ute.gui.components.GuiComponentToolbarButton;
+import net.lmxm.ute.gui.components.LabelResourceType;
+import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 
@@ -46,7 +46,7 @@ public class HttpLocationsEditorPanel extends AbstractReadonlyEditorPanel {
 		public HttpLocationsEditorToolBar(final ActionListener actionListener) {
 			super(actionListener);
 
-			addToolbarButton(GuiComponentToolbarButton.ADD_HTTP_LOCATION);
+			addToolbarButton(ToolbarButtonResourceType.ADD_HTTP_LOCATION);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class HttpLocationsEditorPanel extends AbstractReadonlyEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public HttpLocationsEditorPanel(final ActionListener actionListener) {
-		super(GuiComponentLabel.HTTP_LOCATIONS, new HttpLocationsEditorToolBar(actionListener), actionListener);
+		super(LabelResourceType.HTTP_LOCATIONS, new HttpLocationsEditorToolBar(actionListener), actionListener);
 
 		addFields();
 	}

@@ -23,7 +23,7 @@ import javax.swing.Icon;
 /**
  * The Enum GuiComponentLabel.
  */
-public enum GuiComponentLabel implements GuiComponentType {
+public enum LabelResourceType implements ResourceType {
 
 	/** The CURRENT_VALUE. */
 	CURRENT_VALUE,
@@ -159,8 +159,8 @@ public enum GuiComponentLabel implements GuiComponentType {
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
-	public GuiComponentCategory getGuiComponentCategory() {
-		return GuiComponentCategory.LABEL;
+	public ResourceCategory getGuiComponentCategory() {
+		return ResourceCategory.LABEL;
 	}
 
 	/*
