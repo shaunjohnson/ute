@@ -23,30 +23,30 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.tasks.FilesTask;
+import net.lmxm.ute.beans.tasks.RenameFilesTask;
 
 import org.apache.commons.lang.ObjectUtils;
 
 /**
- * The Class FilesTableModel.
+ * The Class RenameFilesTableModel.
  */
-public class FilesTableModel extends AbstractEditableTableModel {
+public class RenameFilesTableModel extends AbstractEditableTableModel {
 
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -7385898634801413285L;
+	private static final long serialVersionUID = 1009294184442779820L;
 
 	/** The row data. */
 	private final List<FileReference> rowData;
 
 	/**
-	 * Instantiates a new files table model.
+	 * Instantiates a new rename files table model.
 	 * 
-	 * @param filesTask the files task
+	 * @param renameFilesTask the rename files task
 	 */
-	public FilesTableModel(final FilesTask filesTask) {
-		super(EnumSet.of(GuiComponentTableColumn.FILE_NAME));
+	public RenameFilesTableModel(final RenameFilesTask renameFilesTask) {
+		super(EnumSet.of(GuiComponentTableColumn.FILE_NAME, GuiComponentTableColumn.TARGET_FILE_NAME));
 
-		rowData = filesTask.getFiles();
+		rowData = renameFilesTask.getFiles();
 
 		cleanRowData();
 	}
@@ -85,6 +85,9 @@ public class FilesTableModel extends AbstractEditableTableModel {
 		if (column == 0) {
 			return fileReference.getName();
 		}
+		else if (column == 1) {
+			return fileReference.getTargetName();
+		}
 		else {
 			throw new IllegalArgumentException("Column index does not exist"); // TODO
 		}
@@ -101,6 +104,9 @@ public class FilesTableModel extends AbstractEditableTableModel {
 
 		if (column == 0) {
 			fileReference.setName(valueString);
+		}
+		else if (column == 1) {
+			fileReference.setTargetName(valueString);
 		}
 		else {
 			throw new IllegalArgumentException("Column index does not exist"); // TODO

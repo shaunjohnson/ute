@@ -25,7 +25,7 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 /**
  * The Class SubversionExportTask.
  */
-public final class SubversionExportTask extends AbstractFilesTask implements FileSystemTargetTask,
+public final class SubversionExportTask extends AbstractRenameFilesTask implements FileSystemTargetTask,
 		SubversionRepositorySourceTask {
 
 	/** The Constant serialVersionUID. */

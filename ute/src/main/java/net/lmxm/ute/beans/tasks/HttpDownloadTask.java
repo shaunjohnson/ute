@@ -25,7 +25,7 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 /**
  * The Class HttpDownloadTask.
  */
-public class HttpDownloadTask extends AbstractFilesTask implements FileSystemTargetTask, HttpSourceTask {
+public class HttpDownloadTask extends AbstractRenameFilesTask implements FileSystemTargetTask, HttpSourceTask {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7304138948723618917L;

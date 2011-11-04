@@ -48,11 +48,13 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemTargetTask;
 import net.lmxm.ute.beans.tasks.FilesTask;
 import net.lmxm.ute.beans.tasks.HttpSourceTask;
+import net.lmxm.ute.beans.tasks.RenameFilesTask;
 import net.lmxm.ute.beans.tasks.StopOnErrorTask;
 import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.components.FilesTableModel;
 import net.lmxm.ute.gui.components.GuiComponentLabel;
+import net.lmxm.ute.gui.components.RenameFilesTableModel;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 import net.lmxm.ute.listeners.ChangeAdapter;
 import net.lmxm.ute.listeners.EnabledStateChangeEvent;
@@ -590,7 +592,12 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * Load files field data.
 	 */
 	private void loadFilesFieldData() {
-		if (getUserObject() instanceof FilesTask) {
+		if (getUserObject() instanceof RenameFilesTask) {
+			final RenameFilesTask renameFilesTask = (RenameFilesTask) getUserObject();
+
+			getFilesTable().setModel(new RenameFilesTableModel(renameFilesTask));
+		}
+		else if (getUserObject() instanceof FilesTask) {
 			final FilesTask filesTask = (FilesTask) getUserObject();
 
 			getFilesTable().setModel(new FilesTableModel(filesTask));
