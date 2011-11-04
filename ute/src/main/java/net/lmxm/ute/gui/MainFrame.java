@@ -129,6 +129,7 @@ import net.lmxm.ute.gui.toolbars.MainTreeToolBar;
 import net.lmxm.ute.gui.utils.DialogUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
+import net.lmxm.ute.resources.ApplicationResourceType;
 import net.lmxm.ute.resources.ConfirmationResourceType;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -1345,9 +1346,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	private void updateTitle() {
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append(ResourcesUtils.getApplicationName());
+		builder.append(ResourcesUtils.getResourceText(ApplicationResourceType.NAME));
 		builder.append(" ");
-		builder.append(ResourcesUtils.getApplicationVersion());
+		builder.append(ResourcesUtils.getResourceText(ApplicationResourceType.VERSION));
 
 		if (configuration != null) {
 			builder.append(" - ");

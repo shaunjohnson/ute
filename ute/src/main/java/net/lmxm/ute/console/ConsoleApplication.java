@@ -31,6 +31,7 @@ import net.lmxm.ute.configuration.ConfigurationReader;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
+import net.lmxm.ute.resources.ApplicationResourceType;
 import net.lmxm.ute.resources.ResourcesUtils;
 
 import org.slf4j.Logger;
@@ -118,7 +119,7 @@ public final class ConsoleApplication {
 		final ConsoleArguments consoleArguments = new ConsoleArguments();
 		final JCommander jCommander = new JCommander(consoleArguments);
 
-		jCommander.setProgramName(ResourcesUtils.getApplicationName());
+		jCommander.setProgramName(ResourcesUtils.getResourceText(ApplicationResourceType.NAME));
 
 		try {
 			if (LOGGER.isDebugEnabled()) {

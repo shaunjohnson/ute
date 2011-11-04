@@ -18,42 +18,10 @@
  */
 package net.lmxm.ute.utils;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import net.lmxm.ute.resources.ResourcesUtils;
-
-import org.junit.Test;
 
 /**
  * The Class ResourcesUtilsTest.
  */
 public class ResourcesUtilsTest {
 
-	/**
-	 * Test get application attributions.
-	 */
-	@Test
-	public void testGetApplicationAttributions() {
-		assertNotNull(ResourcesUtils.getApplicationAttributions());
-		assertTrue(ResourcesUtils.getApplicationAttributions().length() > 0);
-	}
-
-	/**
-	 * Test get application name.
-	 */
-	@Test
-	public void testGetApplicationName() {
-		assertNotNull(ResourcesUtils.getApplicationName());
-		assertTrue(ResourcesUtils.getApplicationName().length() > 0);
-	}
-
-	/**
-	 * Test get application version.
-	 */
-	@Test
-	public void testGetApplicationVersion() {
-		assertNotNull(ResourcesUtils.getApplicationVersion());
-		assertTrue(ResourcesUtils.getApplicationVersion().length() > 0);
-	}
 }

@@ -18,43 +18,49 @@
  */
 package net.lmxm.ute.resources;
 
+import javax.swing.Icon;
+
 /**
- * The Enum ResourceCategory.
+ * The Enum ScopeResourceType.
  */
-public enum ResourceCategory {
-	/** The APPLICATION. */
-	APPLICATION,
+public enum ApplicationResourceType implements ResourceType {
 
-	/** The BUTTON. */
-	BUTTON,
+	/** The ABOUT. */
+	ABOUT,
 
-	/** The CONFIRMATION. */
-	CONFIRMATION,
+	/** The ATTRIBUTIONS. */
+	ATTRIBUTIONS,
 
-	/** The LABEL. */
-	LABEL,
+	/** The NAME. */
+	NAME,
 
-	/** The MENU. */
-	MENU,
+	/** The VERSION. */
+	VERSION;
 
-	/** The MENU_ITEM. */
-	MENU_ITEM,
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
+	 */
+	@Override
+	public String getActionCommand() {
+		return null;
+	}
 
-	/** The SCOPE. */
-	SCOPE,
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
+	 */
+	@Override
+	public Icon getIcon() {
+		return null;
+	}
 
-	/** The STATUS_CHANGE_MESSAGE. */
-	STATUS_CHANGE_MESSAGE,
-
-	/** The SUBVERSION_EVENT. */
-	SUBVERSION_EVENT,
-
-	/** The TABLE_COLUMN. */
-	TABLE_COLUMN,
-
-	/** The TOOLBAR_BUTTON. */
-	TOOLBAR_BUTTON,
-
-	/** The TREE_NODE. */
-	TREE_NODE;
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
+	 */
+	@Override
+	public ResourceCategory getResourceCategory() {
+		return ResourceCategory.APPLICATION;
+	}
 }

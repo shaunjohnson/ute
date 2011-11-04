@@ -30,15 +30,6 @@ public final class ResourcesUtils {
 	/** The Constant ACCELERATOR_SUFFIX. */
 	private static final String ACCELERATOR_SUFFIX = "accelerator";
 
-	/** The Constant applicationAttributions. */
-	private static final String applicationAttributions;
-
-	/** The Constant applicationName. */
-	private static final String applicationName;
-
-	/** The Constant applicationVersion. */
-	private static final String applicationVersion;
-
 	/** The Constant bundle. */
 	private static final ResourceBundle bundle;
 
@@ -59,10 +50,6 @@ public final class ResourcesUtils {
 	 */
 	static {
 		bundle = ResourceBundle.getBundle("resources");
-
-		applicationName = bundle.getString("application.name");
-		applicationVersion = bundle.getString("application.version");
-		applicationAttributions = bundle.getString("application.attributions");
 	}
 
 	/**
@@ -79,33 +66,6 @@ public final class ResourcesUtils {
 		builder.append(".");
 
 		return builder.toString();
-	}
-
-	/**
-	 * Gets the application attributions.
-	 * 
-	 * @return the application attributions
-	 */
-	public static String getApplicationAttributions() {
-		return applicationAttributions;
-	}
-
-	/**
-	 * Gets the application name.
-	 * 
-	 * @return the application name
-	 */
-	public static String getApplicationName() {
-		return applicationName;
-	}
-
-	/**
-	 * Gets the application version.
-	 * 
-	 * @return the application version
-	 */
-	public static String getApplicationVersion() {
-		return applicationVersion;
 	}
 
 	/**

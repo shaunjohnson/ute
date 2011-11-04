@@ -35,6 +35,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.resources.ApplicationResourceType;
 import net.lmxm.ute.resources.ButtonResourceType;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -84,7 +85,7 @@ public class AboutDialog extends JDialog {
 		if (attributionsTextPane == null) {
 			attributionsTextPane = new JTextPane();
 			attributionsTextPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-			attributionsTextPane.setText(ResourcesUtils.getApplicationAttributions());
+			attributionsTextPane.setText(ResourcesUtils.getResourceText(ApplicationResourceType.ATTRIBUTIONS));
 			attributionsTextPane.setOpaque(false);
 		}
 		return attributionsTextPane;
@@ -148,12 +149,12 @@ public class AboutDialog extends JDialog {
 			gridLayout.setColumns(1);
 
 			titleLabel = new JLabel();
-			titleLabel.setText(ResourcesUtils.getApplicationName());
+			titleLabel.setText(ResourcesUtils.getResourceText(ApplicationResourceType.NAME));
 			titleLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 			versionLabel = new JLabel();
-			versionLabel.setText(ResourcesUtils.getApplicationVersion());
+			versionLabel.setText(ResourcesUtils.getResourceText(ApplicationResourceType.VERSION));
 			versionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 			titlePanel = new JPanel();
@@ -174,7 +175,7 @@ public class AboutDialog extends JDialog {
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setContentPane(getMainLayoutPanel());
 		setModal(true);
-		setTitle("About " + ResourcesUtils.getApplicationName());
+		setTitle(ResourcesUtils.getResourceText(ApplicationResourceType.ABOUT));
 
 		pack();
 
