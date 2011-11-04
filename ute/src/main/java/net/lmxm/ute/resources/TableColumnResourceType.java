@@ -20,9 +20,8 @@ package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
-
 /**
- * The Enum GuiComponentLabel.
+ * The Enum TableColumnResourceType.
  */
 public enum TableColumnResourceType implements ResourceType {
 
@@ -52,7 +51,7 @@ public enum TableColumnResourceType implements ResourceType {
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
-	public ResourceCategory getGuiComponentCategory() {
+	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.TABLE_COLUMN;
 	}
 

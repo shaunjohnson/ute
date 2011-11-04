@@ -47,7 +47,7 @@ public abstract class AbstractEditableTableModel extends AbstractTableModel {
 	 */
 	private static String buildResourcePrefix(final ResourceType guiComponentType) {
 		final StringBuilder builder = new StringBuilder();
-		builder.append(guiComponentType.getGuiComponentCategory().name());
+		builder.append(guiComponentType.getResourceCategory().name());
 		builder.append(".");
 		builder.append(guiComponentType.name());
 		builder.append(".");

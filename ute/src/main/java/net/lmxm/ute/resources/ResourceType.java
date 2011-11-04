@@ -33,18 +33,18 @@ public interface ResourceType {
 	String getActionCommand();
 
 	/**
-	 * Gets the gui component category.
-	 * 
-	 * @return the gui component category
-	 */
-	ResourceCategory getGuiComponentCategory();
-
-	/**
 	 * Gets the icon.
 	 * 
 	 * @return the icon
 	 */
 	Icon getIcon();
+
+	/**
+	 * Gets the resource category.
+	 * 
+	 * @return the resource category
+	 */
+	ResourceCategory getResourceCategory();
 
 	/**
 	 * Name.

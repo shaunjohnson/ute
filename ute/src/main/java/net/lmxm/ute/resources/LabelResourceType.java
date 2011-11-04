@@ -20,9 +20,8 @@ package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
-
 /**
- * The Enum GuiComponentLabel.
+ * The Enum LabelResourceType.
  */
 public enum LabelResourceType implements ResourceType {
 
@@ -160,7 +159,7 @@ public enum LabelResourceType implements ResourceType {
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
-	public ResourceCategory getGuiComponentCategory() {
+	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.LABEL;
 	}
 

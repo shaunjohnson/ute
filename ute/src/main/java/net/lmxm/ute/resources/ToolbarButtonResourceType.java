@@ -23,7 +23,7 @@ import javax.swing.Icon;
 import net.lmxm.ute.gui.ActionConstants;
 
 /**
- * The Enum GuiComponentButton.
+ * The Enum ToolbarButtonResourceType.
  */
 public enum ToolbarButtonResourceType implements ResourceType {
 
@@ -129,7 +129,7 @@ public enum ToolbarButtonResourceType implements ResourceType {
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
 	 */
 	@Override
-	public ResourceCategory getGuiComponentCategory() {
+	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.TOOLBAR_BUTTON;
 	}
 

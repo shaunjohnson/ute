@@ -20,9 +20,8 @@ package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
-
 /**
- * The Enum GuiComponentButton.
+ * The Enum ButtonResourceType.
  */
 public enum ButtonResourceType implements ResourceType {
 
@@ -63,7 +62,7 @@ public enum ButtonResourceType implements ResourceType {
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
 	 */
 	@Override
-	public ResourceCategory getGuiComponentCategory() {
+	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.BUTTON;
 	}
 

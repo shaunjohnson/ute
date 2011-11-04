@@ -20,9 +20,8 @@ package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
-
 /**
- * The Enum GuiComponentMenu.
+ * The Enum MenuResourceType.
  */
 public enum MenuResourceType implements ResourceType {
 
@@ -69,7 +68,7 @@ public enum MenuResourceType implements ResourceType {
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
-	public ResourceCategory getGuiComponentCategory() {
+	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.MENU;
 	}
 

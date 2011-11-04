@@ -23,7 +23,7 @@ import javax.swing.Icon;
 import net.lmxm.ute.gui.ActionConstants;
 
 /**
- * The Enum GuiComponentMenuItem.
+ * The Enum MenuItemResourceType.
  */
 public enum MenuItemResourceType implements ResourceType {
 
@@ -150,7 +150,7 @@ public enum MenuItemResourceType implements ResourceType {
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
-	public ResourceCategory getGuiComponentCategory() {
+	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.MENU_ITEM;
 	}
 
