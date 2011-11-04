@@ -18,40 +18,43 @@
  */
 package net.lmxm.ute.resources;
 
+import javax.swing.Icon;
+
 /**
- * The Enum ResourceCategory.
+ * The Enum ScopeResourceType.
  */
-public enum ResourceCategory {
-	/** The BUTTON. */
-	BUTTON,
+public enum ScopeResourceType implements ResourceType {
 
-	/** The CONFIRMATION. */
-	CONFIRMATION,
+	/** The FILE. */
+	FILE,
 
-	/** The LABEL. */
-	LABEL,
+	/** The LINE. */
+	LINE;
 
-	/** The MENU. */
-	MENU,
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
+	 */
+	@Override
+	public String getActionCommand() {
+		return null;
+	}
 
-	/** The MENU_ITEM. */
-	MENU_ITEM,
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
+	 */
+	@Override
+	public Icon getIcon() {
+		return null;
+	}
 
-	/** The SCOPE. */
-	SCOPE,
-
-	/** The STATUS_CHANGE_MESSAGE. */
-	STATUS_CHANGE_MESSAGE,
-
-	/** The SUBVERSION_EVENT. */
-	SUBVERSION_EVENT,
-
-	/** The TABLE_COLUMN. */
-	TABLE_COLUMN,
-
-	/** The TOOLBAR_BUTTON. */
-	TOOLBAR_BUTTON,
-
-	/** The TREE_NODE. */
-	TREE_NODE;
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
+	 */
+	@Override
+	public ResourceCategory getResourceCategory() {
+		return ResourceCategory.SCOPE;
+	}
 }

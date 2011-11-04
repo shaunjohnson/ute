@@ -19,6 +19,7 @@
 package net.lmxm.ute.enums;
 
 import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.ScopeResourceType;
 
 /**
  * The Enum Scope.
@@ -26,10 +27,10 @@ import net.lmxm.ute.resources.ResourcesUtils;
 public enum Scope {
 
 	/** The FILE. */
-	FILE(ResourcesUtils.getString("SCOPE.FILE")),
+	FILE(ResourcesUtils.getResourceText(ScopeResourceType.FILE)),
 
 	/** The LINE. */
-	LINE(ResourcesUtils.getString("SCOPE.LINE"));
+	LINE(ResourcesUtils.getResourceText(ScopeResourceType.LINE));
 
 	/** The name. */
 	private final String name;

@@ -18,11 +18,10 @@
  */
 package net.lmxm.ute.gui.maintree.nodes;
 
-import java.text.MessageFormat;
-
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.TreeNodeResourceType;
 
 /**
  * The Class SubversionRepositoryLocationsRootTreeNode.
@@ -44,9 +43,8 @@ public final class SubversionRepositoryLocationsRootTreeNode extends AbstractRoo
 	 */
 	@Override
 	protected String convertToString(final Configuration configuration) {
-		final String pattern = ResourcesUtils.getString("NODE.SUBVERSION_REPOSITORY_LOCATIONS");
-		final Object[] arguments = { configuration.getSubversionRepositoryLocations().size() };
+		final String format = ResourcesUtils.getResourceText(TreeNodeResourceType.SUBVERSION_REPOSITORY_LOCATIONS);
 
-		return MessageFormat.format(pattern, arguments);
+		return String.format(format, configuration.getSubversionRepositoryLocations().size());
 	}
 }

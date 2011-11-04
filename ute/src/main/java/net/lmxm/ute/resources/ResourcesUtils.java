@@ -115,7 +115,7 @@ public final class ResourcesUtils {
 	 * @return the character
 	 */
 	public static Character getCharacter(final String key) {
-		final String string = getString(key);
+		final String string = StringUtils.trimToNull(bundle.getString(key));
 
 		return string == null ? null : string.charAt(0);
 	}
@@ -154,12 +154,14 @@ public final class ResourcesUtils {
 	/**
 	 * Gets the resource string.
 	 * 
-	 * @param guiComponentType the gui component type
+	 * @param resourceType the resource type
 	 * @param suffix the suffix
 	 * @return the resource string
 	 */
-	private static final String getResourceString(final ResourceType guiComponentType, final String suffix) {
-		return getString(buildResourcePrefix(guiComponentType) + suffix);
+	private static final String getResourceString(final ResourceType resourceType, final String suffix) {
+		final String key = buildResourcePrefix(resourceType) + suffix;
+
+		return StringUtils.trimToNull(bundle.getString(key));
 	}
 
 	/**
@@ -190,16 +192,6 @@ public final class ResourcesUtils {
 	 */
 	public static final String getResourceToolTipText(final ResourceType resourceType) {
 		return getResourceString(resourceType, TOOL_TIP_TEXT_SUFFIX);
-	}
-
-	/**
-	 * Gets the string.
-	 * 
-	 * @param key the key
-	 * @return the string
-	 */
-	public static String getString(final String key) {
-		return StringUtils.trimToNull(bundle.getString(key));
 	}
 
 	/**

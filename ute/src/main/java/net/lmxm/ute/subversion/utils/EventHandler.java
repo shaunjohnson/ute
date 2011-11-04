@@ -21,6 +21,7 @@ package net.lmxm.ute.subversion.utils;
 import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.StatusChangeMessage;
+import net.lmxm.ute.resources.SubversionEventResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,19 +43,19 @@ public final class EventHandler implements ISVNEventHandler {
 	private enum UpdateChangeType {
 
 		/** The ADDED. */
-		ADDED(ResourcesUtils.getString("SUBVERSION.STATUS_ADDED")),
+		ADDED(ResourcesUtils.getResourceText(SubversionEventResourceType.STATUS_ADDED)),
 
 		/** The CONFLICTED. */
-		CONFLICTED(ResourcesUtils.getString("SUBVERSION.STATUS_CONFLICTED")),
+		CONFLICTED(ResourcesUtils.getResourceText(SubversionEventResourceType.STATUS_CONFLICTED)),
 
 		/** The DELETED. */
-		DELETED(ResourcesUtils.getString("SUBVERSION.STATUS_DELETED")),
+		DELETED(ResourcesUtils.getResourceText(SubversionEventResourceType.STATUS_DELETED)),
 
 		/** The MERGED. */
-		MERGED(ResourcesUtils.getString("SUBVERSION.STATUS_MERGED")),
+		MERGED(ResourcesUtils.getResourceText(SubversionEventResourceType.STATUS_MERGED)),
 
 		/** The UPDATED. */
-		UPDATED(ResourcesUtils.getString("SUBVERSION.STATUS_UPDATED"));
+		UPDATED(ResourcesUtils.getResourceText(SubversionEventResourceType.STATUS_UPDATED));
 
 		/** The value. */
 		private final String value;
@@ -193,7 +194,8 @@ public final class EventHandler implements ISVNEventHandler {
 
 		final String updateChangeString = updateChangeType.toString();
 		final String propertyChangeString = propertiesChangeType == null ? "" : propertiesChangeType.toString();
-		final String lockLabel = isUnlocked(event) ? ResourcesUtils.getString("SUBVERSION.LOCK_STATUS_UNLOCKED") : "";
+		final String lockLabel = isUnlocked(event) ? ResourcesUtils
+				.getResourceText(SubversionEventResourceType.LOCK_STATUS_UNLOCKED) : "";
 
 		statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_UPDATE, updateChangeString,
 				propertyChangeString, lockLabel, event.getFile().getAbsolutePath());
