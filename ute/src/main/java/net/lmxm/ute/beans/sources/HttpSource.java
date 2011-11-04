@@ -21,6 +21,7 @@ package net.lmxm.ute.beans.sources;
 import java.util.Map;
 
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -62,7 +63,7 @@ public class HttpSource extends AbstractSource {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && location == null && queryParams.isEmpty();
+		return super.isEmpty() && DomainBeanUtils.isEmpty(location) && queryParams.isEmpty();
 	}
 
 	/**

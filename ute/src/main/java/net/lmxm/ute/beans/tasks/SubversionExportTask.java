@@ -21,6 +21,7 @@ package net.lmxm.ute.beans.tasks;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 /**
  * The Class SubversionExportTask.
@@ -73,7 +74,7 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && source == null && target == null;
+		return super.isEmpty() && DomainBeanUtils.isEmpty(source) && DomainBeanUtils.isEmpty(target);
 	}
 
 	/*

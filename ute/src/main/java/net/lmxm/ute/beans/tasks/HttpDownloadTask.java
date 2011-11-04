@@ -21,6 +21,7 @@ package net.lmxm.ute.beans.tasks;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 /**
  * The Class HttpDownloadTask.
@@ -72,7 +73,7 @@ public class HttpDownloadTask extends AbstractRenameFilesTask implements FileSys
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && source == null && target == null;
+		return super.isEmpty() && DomainBeanUtils.isEmpty(source) && DomainBeanUtils.isEmpty(target);
 	}
 
 	/*

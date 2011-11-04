@@ -23,6 +23,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 /**
  * The Class AbstractFilesTask.
@@ -61,7 +62,7 @@ public abstract class AbstractFilesTask extends AbstractTask implements FilesTas
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && files.isEmpty();
+		return super.isEmpty() && DomainBeanUtils.isEmpty(files);
 	}
 
 	/*

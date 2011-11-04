@@ -20,6 +20,7 @@ package net.lmxm.ute.beans.tasks;
 
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 import org.codehaus.plexus.util.StringUtils;
 
@@ -72,7 +73,7 @@ public final class GroovyTask extends AbstractFilesTask implements FileSystemTar
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && StringUtils.isBlank(script) && target == null;
+		return super.isEmpty() && StringUtils.isBlank(script) && DomainBeanUtils.isEmpty(target);
 	}
 
 	/**

@@ -20,6 +20,7 @@ package net.lmxm.ute.beans.tasks;
 
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 /**
  * The Class FileSystemDeleteTask.
@@ -71,7 +72,7 @@ public final class FileSystemDeleteTask extends AbstractFilesTask implements Fil
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && target == null;
+		return super.isEmpty() && DomainBeanUtils.isEmpty(target);
 	}
 
 	/*

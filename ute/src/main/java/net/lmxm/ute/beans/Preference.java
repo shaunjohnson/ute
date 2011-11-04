@@ -83,6 +83,15 @@ public final class Preference extends IdentifiableDomainBean {
 		return new HashCodeBuilder(17, 37).append(getId()).append(value).toHashCode();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty();
+	}
+
 	/**
 	 * Sets the value.
 	 * 

@@ -20,6 +20,7 @@ package net.lmxm.ute.beans.tasks;
 
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 import org.codehaus.plexus.util.StringUtils;
 
@@ -90,7 +91,7 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && StringUtils.isBlank(description) && job == null;
+		return super.isEmpty() && StringUtils.isBlank(description) && DomainBeanUtils.isEmpty(job);
 	}
 
 	/*

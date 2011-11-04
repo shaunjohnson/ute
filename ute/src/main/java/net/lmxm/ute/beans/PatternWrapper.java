@@ -27,7 +27,10 @@ import com.google.common.base.Preconditions;
 /**
  * The Class PatternWrapper.
  */
-public class PatternWrapper implements Comparable<PatternWrapper> {
+public class PatternWrapper implements Comparable<PatternWrapper>, DomainBean {
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 56380193688254319L;
 
 	/** The pattern. */
 	private final Pattern pattern;
@@ -130,5 +133,14 @@ public class PatternWrapper implements Comparable<PatternWrapper> {
 		result = prime * result + (pattern == null ? 0 : pattern.hashCode());
 		result = prime * result + (replacement == null ? 0 : replacement.hashCode());
 		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return pattern == null && StringUtils.isBlank(replacement);
 	}
 }

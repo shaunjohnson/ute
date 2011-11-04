@@ -19,6 +19,7 @@
 package net.lmxm.ute.beans.targets;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -66,7 +67,7 @@ public final class FileSystemTarget extends AbstractTarget {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && location == null;
+		return super.isEmpty() && DomainBeanUtils.isEmpty(location);
 	}
 
 	/**

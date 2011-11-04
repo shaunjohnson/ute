@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 /**
  * The Class SequentialJob.
@@ -68,7 +69,7 @@ public final class SequentialJob extends AbstractJob {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && tasks.isEmpty();
+		return super.isEmpty() && DomainBeanUtils.isEmpty(tasks);
 	}
 
 	/**

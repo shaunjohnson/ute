@@ -19,6 +19,7 @@
 package net.lmxm.ute.beans.sources;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -48,7 +49,7 @@ public final class SubversionRepositorySource extends AbstractSource {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && location == null;
+		return super.isEmpty() && DomainBeanUtils.isEmpty(location);
 	}
 
 	/**

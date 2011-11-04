@@ -29,6 +29,7 @@ import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.FilesTask;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 import org.codehaus.plexus.util.StringUtils;
 
@@ -146,9 +147,10 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return StringUtils.isBlank(absolutePath) && fileSystemLocations.isEmpty() && httpLocations.isEmpty()
-				&& jobs.isEmpty() && preferences.isEmpty() && properties.isEmpty()
-				&& subversionRepositoryLocations.isEmpty();
+		return StringUtils.isBlank(absolutePath) && DomainBeanUtils.isEmpty(fileSystemLocations)
+				&& DomainBeanUtils.isEmpty(httpLocations) && DomainBeanUtils.isEmpty(jobs)
+				&& DomainBeanUtils.isEmpty(preferences) && DomainBeanUtils.isEmpty(properties)
+				&& DomainBeanUtils.isEmpty(subversionRepositoryLocations);
 	}
 
 	/**

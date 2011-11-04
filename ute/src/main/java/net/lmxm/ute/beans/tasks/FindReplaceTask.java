@@ -25,6 +25,7 @@ import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.enums.Scope;
+import net.lmxm.ute.utils.DomainBeanUtils;
 
 /**
  * The Class FindReplaceTask.
@@ -89,7 +90,7 @@ public final class FindReplaceTask extends AbstractFilesTask implements FileSyst
 	 */
 	@Override
 	public boolean isEmpty() {
-		return super.isEmpty() && patterns.isEmpty() && scope == null & target == null;
+		return super.isEmpty() && DomainBeanUtils.isEmpty(patterns) && scope == null & DomainBeanUtils.isEmpty(target);
 	}
 
 	/**
