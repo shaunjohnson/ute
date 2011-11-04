@@ -21,8 +21,8 @@ package net.lmxm.ute.gui.editors;
 import java.awt.event.ActionListener;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
-import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractJobEditorToolBar;
+import net.lmxm.ute.resources.LabelResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

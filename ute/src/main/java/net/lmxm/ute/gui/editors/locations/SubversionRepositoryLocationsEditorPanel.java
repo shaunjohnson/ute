@@ -20,10 +20,10 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.LabelResourceType;
-import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
+import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.ToolbarButtonResourceType;
 
 /**
  * The Class SubversionRepositoryLocationsEditorPanel.

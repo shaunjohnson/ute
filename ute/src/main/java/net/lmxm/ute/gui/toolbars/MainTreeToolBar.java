@@ -21,7 +21,7 @@ package net.lmxm.ute.gui.toolbars;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
+import net.lmxm.ute.resources.ToolbarButtonResourceType;
 
 /**
  * The Class MainTreeToolBar.

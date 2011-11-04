@@ -16,30 +16,40 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.components;
+package net.lmxm.ute.resources;
+
+import javax.swing.Icon;
 
 /**
- * The Enum ResourceCategory.
+ * The Interface ResourceType.
  */
-public enum ResourceCategory {
-	/** The BUTTON. */
-	BUTTON,
+public interface ResourceType {
 
-	/** The CONFIRMATION. */
-	CONFIRMATION,
+	/**
+	 * Gets the action command.
+	 * 
+	 * @return the action command
+	 */
+	String getActionCommand();
 
-	/** The LABEL. */
-	LABEL,
+	/**
+	 * Gets the gui component category.
+	 * 
+	 * @return the gui component category
+	 */
+	ResourceCategory getGuiComponentCategory();
 
-	/** The MENU. */
-	MENU,
+	/**
+	 * Gets the icon.
+	 * 
+	 * @return the icon
+	 */
+	Icon getIcon();
 
-	/** The MENU_ITEM. */
-	MENU_ITEM,
-
-	/** The TABLE_COLUMN. */
-	TABLE_COLUMN,
-
-	/** The TOOLBAR_BUTTON. */
-	TOOLBAR_BUTTON
+	/**
+	 * Name.
+	 * 
+	 * @return the string
+	 */
+	String name();
 }

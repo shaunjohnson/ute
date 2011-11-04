@@ -16,35 +16,19 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.components;
+package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
 import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.resources.ImageUtil;
 
 /**
- * The Enum GuiComponentMenuItem.
+ * The Enum GuiComponentButton.
  */
-public enum MenuItemResourceType implements ResourceType {
-
-	/** The ABOUT. */
-	ABOUT(ImageUtil.ABOUT_ICON, ActionConstants.ABOUT),
-
-	/** The ADD_FILE_SYSTEM_DELETE_TASK. */
-	ADD_FILE_SYSTEM_DELETE_TASK(ImageUtil.ADD_FILE_SYSTEM_DELETE_TASK_ICON, ActionConstants.ADD_FILE_SYSTEM_DELETE_TASK),
+public enum ToolbarButtonResourceType implements ResourceType {
 
 	/** The ADD_FILE_SYSTEM_LOCATION. */
 	ADD_FILE_SYSTEM_LOCATION(ImageUtil.ADD_FILE_SYSTEM_LOCATION_ICON, ActionConstants.ADD_FILE_SYSTEM_LOCATION),
-
-	/** The ADD_FIND_REPLACE_TASK. */
-	ADD_FIND_REPLACE_TASK(ImageUtil.ADD_FIND_REPLACE_TASK_ICON, ActionConstants.ADD_FIND_REPLACE_TASK),
-
-	/** The ADD_GROOVY_TASK. */
-	ADD_GROOVY_TASK(ImageUtil.ADD_GROOVY_TASK_ICON, ActionConstants.ADD_GROOVY_TASK),
-
-	/** The ADD_HTTP_DOWNLOAD_TASK. */
-	ADD_HTTP_DOWNLOAD_TASK(ImageUtil.ADD_HTTP_DOWNLOAD_TASK_ICON, ActionConstants.ADD_HTTP_DOWNLOAD_TASK),
 
 	/** The ADD_HTTP_LOCATION. */
 	ADD_HTTP_LOCATION(ImageUtil.ADD_HTTP_LOCATION_ICON, ActionConstants.ADD_HTTP_LOCATION),
@@ -58,21 +42,15 @@ public enum MenuItemResourceType implements ResourceType {
 	/** The ADD_PROPERTY. */
 	ADD_PROPERTY(ImageUtil.ADD_PROPERTY_ICON, ActionConstants.ADD_PROPERTY),
 
-	/** The ADD_SUBVERSION_EXPORT_TASK. */
-	ADD_SUBVERSION_EXPORT_TASK(ImageUtil.ADD_SUBVERSION_EXPORT_TASK_ICON, ActionConstants.ADD_SUBVERSION_EXPORT_TASK),
-
 	/** The ADD_SUBVERSION_REPOSITORY_LOCATION. */
 	ADD_SUBVERSION_REPOSITORY_LOCATION(ImageUtil.ADD_SUBVERSION_REPOSITORY_LOCATION_ICON,
 			ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION),
 
-	/** The ADD_SUBVERSION_UPDATE_TASK. */
-	ADD_SUBVERSION_UPDATE_TASK(ImageUtil.ADD_SUBVERSION_UPDATE_TASK_ICON, ActionConstants.ADD_SUBVERSION_UPDATE_TASK),
-
 	/** The ADD_TASK. */
 	ADD_TASK(null, null),
 
-	/** The CLOSE_ALL_TABS. */
-	CLOSE_ALL_TABS(null, ActionConstants.CLOSE_ALL_TABS),
+	/** The COLLAPSE. */
+	COLLAPSE(ImageUtil.COLLAPSE_ICON, ActionConstants.COLLAPSE),
 
 	/** The DELETE_FILE_SYSTEM_LOCATION. */
 	DELETE_FILE_SYSTEM_LOCATION(ImageUtil.DELETE_FILE_SYSTEM_LOCATION_ICON, ActionConstants.DELETE_FILE_SYSTEM_LOCATION),
@@ -96,9 +74,6 @@ public enum MenuItemResourceType implements ResourceType {
 	/** The DELETE_TASK. */
 	DELETE_TASK(null, ActionConstants.DELETE_TASK),
 
-	/** The EDIT_PREFERENCES. */
-	EDIT_PREFERENCES(ImageUtil.EDIT_PREFERENCES_ICON, ActionConstants.EDIT_PREFERENCES),
-
 	/** The EXECUTE_JOB. */
 	EXECUTE_JOB(ImageUtil.EXECUTE_ICON, ActionConstants.EXECUTE),
 
@@ -107,6 +82,9 @@ public enum MenuItemResourceType implements ResourceType {
 
 	/** The EXIT. */
 	EXIT(ImageUtil.EXIT_ICON, ActionConstants.EXIT),
+
+	/** The EXPAND. */
+	EXPAND(ImageUtil.EXPAND_ICON, ActionConstants.EXPAND),
 
 	/** The NEW_FILE. */
 	NEW_FILE(ImageUtil.NEW_FILE_ICON, ActionConstants.NEW_FILE),
@@ -127,19 +105,19 @@ public enum MenuItemResourceType implements ResourceType {
 	private final Icon icon;
 
 	/**
-	 * Instantiates a new gui component menu item.
+	 * Instantiates a new gui component button.
 	 * 
 	 * @param icon the icon
 	 * @param actionCommand the action command
 	 */
-	MenuItemResourceType(final Icon icon, final String actionCommand) {
+	ToolbarButtonResourceType(final Icon icon, final String actionCommand) {
 		this.icon = icon;
 		this.actionCommand = actionCommand;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
 	 */
 	@Override
 	public String getActionCommand() {
@@ -148,16 +126,16 @@ public enum MenuItemResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
 	 */
 	@Override
 	public ResourceCategory getGuiComponentCategory() {
-		return ResourceCategory.MENU_ITEM;
+		return ResourceCategory.TOOLBAR_BUTTON;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {

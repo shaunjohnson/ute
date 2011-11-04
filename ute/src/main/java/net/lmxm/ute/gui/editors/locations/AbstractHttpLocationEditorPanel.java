@@ -26,8 +26,8 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
-import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.listeners.ChangeAdapter;
+import net.lmxm.ute.resources.LabelResourceType;
 
 /**
  * The Class AbstractHttpLocationEditorPanel.

@@ -16,51 +16,63 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.components;
+package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
+
 /**
- * The Enum GuiComponentLabel.
+ * The Enum GuiComponentButton.
  */
-public enum TableColumnResourceType implements ResourceType {
+public enum ButtonResourceType implements ResourceType {
 
-	/** The FILE_NAME. */
-	FILE_NAME,
+	/** The CLOSE_DIALOG button. */
+	CLOSE_DIALOG(null, null),
 
-	/** The FIND. */
-	FIND,
+	/** The DIRECTORY_BROWSE button. */
+	DIRECTORY_BROWSE(null, null);
 
-	/** The REPLACEMENT. */
-	REPLACEMENT,
+	/** The action command. */
+	private final String actionCommand;
 
-	/** The TARGET_FILE_NAME. */
-	TARGET_FILE_NAME;
+	/** The icon. */
+	private final Icon icon;
+
+	/**
+	 * Instantiates a new gui component button.
+	 * 
+	 * @param icon the icon
+	 * @param actionCommand the action command
+	 */
+	ButtonResourceType(final Icon icon, final String actionCommand) {
+		this.icon = icon;
+		this.actionCommand = actionCommand;
+	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
 	 */
 	@Override
 	public String getActionCommand() {
-		return null;
+		return actionCommand;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
 	 */
 	@Override
 	public ResourceCategory getGuiComponentCategory() {
-		return ResourceCategory.TABLE_COLUMN;
+		return ResourceCategory.BUTTON;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
-		return null;
+		return icon;
 	}
 }

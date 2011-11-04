@@ -22,6 +22,8 @@ import java.awt.Component;
 
 import javax.swing.JOptionPane;
 
+import net.lmxm.ute.resources.ConfirmationResourceType;
+
 /**
  * A factory for creating OptionPane objects.
  */

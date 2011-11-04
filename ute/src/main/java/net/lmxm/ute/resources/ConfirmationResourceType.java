@@ -16,43 +16,18 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.components;
+package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
+
 /**
- * The Enum GuiComponentMenu.
+ * The Enum GuiComponentConfirmation.
  */
-public enum MenuResourceType implements ResourceType {
+public enum ConfirmationResourceType implements ResourceType {
 
-	/** The ADD_TASK. */
-	ADD_TASK(null, null),
-
-	/** The EDIT. */
-	EDIT(null, null),
-
-	/** The FILE. */
-	FILE(null, null),
-
-	/** The HELP. */
-	HELP(null, null);
-
-	/** The action command. */
-	private final String actionCommand;
-
-	/** The icon. */
-	private final Icon icon;
-
-	/**
-	 * Instantiates a new gui component menu.
-	 * 
-	 * @param icon the icon
-	 * @param actionCommand the action command
-	 */
-	MenuResourceType(final Icon icon, final String actionCommand) {
-		this.icon = icon;
-		this.actionCommand = actionCommand;
-	}
+	/** The DELETE_JOB. */
+	DELETE_JOB;
 
 	/*
 	 * (non-Javadoc)
@@ -60,7 +35,7 @@ public enum MenuResourceType implements ResourceType {
 	 */
 	@Override
 	public String getActionCommand() {
-		return actionCommand;
+		return null;
 	}
 
 	/*
@@ -69,7 +44,7 @@ public enum MenuResourceType implements ResourceType {
 	 */
 	@Override
 	public ResourceCategory getGuiComponentCategory() {
-		return ResourceCategory.MENU;
+		return ResourceCategory.CONFIRMATION;
 	}
 
 	/*
@@ -78,6 +53,6 @@ public enum MenuResourceType implements ResourceType {
 	 */
 	@Override
 	public Icon getIcon() {
-		return icon;
+		return null;
 	}
 }

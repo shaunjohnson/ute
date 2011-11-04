@@ -16,20 +16,27 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.components;
+package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
+
 /**
- * The Enum GuiComponentButton.
+ * The Enum GuiComponentMenu.
  */
-public enum ButtonResourceType implements ResourceType {
+public enum MenuResourceType implements ResourceType {
 
-	/** The CLOSE_DIALOG button. */
-	CLOSE_DIALOG(null, null),
+	/** The ADD_TASK. */
+	ADD_TASK(null, null),
 
-	/** The DIRECTORY_BROWSE button. */
-	DIRECTORY_BROWSE(null, null);
+	/** The EDIT. */
+	EDIT(null, null),
+
+	/** The FILE. */
+	FILE(null, null),
+
+	/** The HELP. */
+	HELP(null, null);
 
 	/** The action command. */
 	private final String actionCommand;
@@ -38,19 +45,19 @@ public enum ButtonResourceType implements ResourceType {
 	private final Icon icon;
 
 	/**
-	 * Instantiates a new gui component button.
+	 * Instantiates a new gui component menu.
 	 * 
 	 * @param icon the icon
 	 * @param actionCommand the action command
 	 */
-	ButtonResourceType(final Icon icon, final String actionCommand) {
+	MenuResourceType(final Icon icon, final String actionCommand) {
 		this.icon = icon;
 		this.actionCommand = actionCommand;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
 	 */
 	@Override
 	public String getActionCommand() {
@@ -59,16 +66,16 @@ public enum ButtonResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
 	public ResourceCategory getGuiComponentCategory() {
-		return ResourceCategory.BUTTON;
+		return ResourceCategory.MENU;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {

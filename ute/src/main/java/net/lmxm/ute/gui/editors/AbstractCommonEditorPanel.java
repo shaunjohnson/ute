@@ -31,10 +31,10 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableBean;
-import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.listeners.ChangeAdapter;
 import net.lmxm.ute.listeners.IdChangeEvent;
 import net.lmxm.ute.listeners.IdChangeListener;
+import net.lmxm.ute.resources.LabelResourceType;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

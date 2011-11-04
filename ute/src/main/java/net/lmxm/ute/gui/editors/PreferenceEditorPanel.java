@@ -26,9 +26,9 @@ import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.DomainBean;
 import net.lmxm.ute.beans.Preference;
-import net.lmxm.ute.gui.components.LabelResourceType;
-import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
+import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.ToolbarButtonResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

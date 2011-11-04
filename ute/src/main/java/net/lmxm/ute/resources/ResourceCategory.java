@@ -16,42 +16,30 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.components;
-
-import javax.swing.Icon;
+package net.lmxm.ute.resources;
 
 /**
- * The Enum GuiComponentConfirmation.
+ * The Enum ResourceCategory.
  */
-public enum ConfirmationResourceType implements ResourceType {
+public enum ResourceCategory {
+	/** The BUTTON. */
+	BUTTON,
 
-	/** The DELETE_JOB. */
-	DELETE_JOB;
+	/** The CONFIRMATION. */
+	CONFIRMATION,
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
-	 */
-	@Override
-	public String getActionCommand() {
-		return null;
-	}
+	/** The LABEL. */
+	LABEL,
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
-	 */
-	@Override
-	public ResourceCategory getGuiComponentCategory() {
-		return ResourceCategory.CONFIRMATION;
-	}
+	/** The MENU. */
+	MENU,
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
-	 */
-	@Override
-	public Icon getIcon() {
-		return null;
-	}
+	/** The MENU_ITEM. */
+	MENU_ITEM,
+
+	/** The TABLE_COLUMN. */
+	TABLE_COLUMN,
+
+	/** The TOOLBAR_BUTTON. */
+	TOOLBAR_BUTTON
 }

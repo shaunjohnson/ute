@@ -24,8 +24,8 @@ import javax.swing.JMenu;
 import javax.swing.JSeparator;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.components.MenuResourceType;
-import net.lmxm.ute.gui.components.MenuItemResourceType;
+import net.lmxm.ute.resources.MenuItemResourceType;
+import net.lmxm.ute.resources.MenuResourceType;
 
 /**
  * The Class MainMenuBar.

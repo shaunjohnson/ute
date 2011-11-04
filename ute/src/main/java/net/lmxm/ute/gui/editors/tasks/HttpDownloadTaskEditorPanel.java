@@ -22,8 +22,8 @@ import java.awt.event.ActionListener;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.gui.components.LabelResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
+import net.lmxm.ute.resources.LabelResourceType;
 
 /**
  * The Class HttpDownloadTaskEditorPanel.

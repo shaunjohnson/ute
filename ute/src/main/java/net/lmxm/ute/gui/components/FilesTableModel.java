@@ -24,6 +24,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FilesTask;
+import net.lmxm.ute.resources.TableColumnResourceType;
 
 import org.apache.commons.lang.ObjectUtils;
 

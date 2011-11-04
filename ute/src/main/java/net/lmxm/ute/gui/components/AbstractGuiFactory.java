@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.components;
 
+import net.lmxm.ute.resources.ResourceType;
 import net.lmxm.ute.resources.ResourcesUtils;
 
 /**

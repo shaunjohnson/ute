@@ -20,9 +20,9 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.event.ActionListener;
 
-import net.lmxm.ute.gui.components.LabelResourceType;
-import net.lmxm.ute.gui.components.ToolbarButtonResourceType;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
+import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.ToolbarButtonResourceType;
 
 /**
  * The Class JobsEditorPanel.
