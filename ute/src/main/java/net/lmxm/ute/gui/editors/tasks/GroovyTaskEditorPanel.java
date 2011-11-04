@@ -89,7 +89,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 		super.addFields();
 
 		addSeparator(GuiComponentLabel.GROOVY_SCRIPT);
-		addLabel(GuiComponentLabel.SCRIPT);
+		addRequiredLabel(GuiComponentLabel.SCRIPT);
 		getContentPanel().add(getScriptPane());
 	}
 

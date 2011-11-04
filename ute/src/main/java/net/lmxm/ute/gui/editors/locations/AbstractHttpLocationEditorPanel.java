@@ -62,7 +62,7 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(GuiComponentLabel.URL);
+		addRequiredLabel(GuiComponentLabel.URL);
 		contentPanel.add(getUrlTextField());
 	}
 

@@ -128,6 +128,10 @@ public abstract class AbstractEditorPanel extends JPanel {
 		getContentPanel().add(createLabel(guiComponentLabel), "gapleft 20, top");
 	}
 
+	protected final void addRequiredLabel(final GuiComponentLabel guiComponentLabel) {
+		getContentPanel().add(createRequiredLabel(guiComponentLabel), "gapleft 20, top");
+	}
+
 	/**
 	 * Adds the separator.
 	 * 
@@ -165,6 +169,16 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 */
 	protected final JLabel createLabel(final GuiComponentLabel guiComponentLabel) {
 		return GuiComponentFactory.createLabel(guiComponentLabel, SwingConstants.LEADING);
+	}
+
+	/**
+	 * Creates the required label.
+	 * 
+	 * @param guiComponentLabel the gui component label
+	 * @return the j label
+	 */
+	protected final JLabel createRequiredLabel(final GuiComponentLabel guiComponentLabel) {
+		return GuiComponentFactory.createRequiredLabel(guiComponentLabel, SwingConstants.LEADING);
 	}
 
 	/**

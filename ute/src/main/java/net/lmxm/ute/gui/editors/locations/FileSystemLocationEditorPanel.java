@@ -103,7 +103,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 		final JPanel contentPanel = getContentPanel();
 
-		addLabel(GuiComponentLabel.PATH);
+		addRequiredLabel(GuiComponentLabel.PATH);
 		contentPanel.add(getPathPanel());
 	}
 

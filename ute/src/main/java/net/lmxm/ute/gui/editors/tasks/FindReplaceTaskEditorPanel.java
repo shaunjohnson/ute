@@ -110,21 +110,12 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		super.addFields();
 
 		addSeparator(GuiComponentLabel.FIND_AND_REPLACE);
-		addLabel(GuiComponentLabel.SCOPE);
+		addRequiredLabel(GuiComponentLabel.SCOPE);
 
 		getContentPanel().add(getScopePane());
 
-		addPatternsFields();
-	}
-
-	/**
-	 * Adds the patterns fields.
-	 */
-	private void addPatternsFields() {
-		final JPanel contentPanel = getContentPanel();
-
-		addLabel(GuiComponentLabel.PATTERNS);
-		contentPanel.add(getPatternsPane());
+		addRequiredLabel(GuiComponentLabel.PATTERNS);
+		getContentPanel().add(getPatternsPane());
 	}
 
 	/*

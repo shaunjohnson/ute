@@ -170,7 +170,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (FileSystemTargetTask.class.isInstance(getEditedObjectClass())) {
 			final JPanel contentPanel = getContentPanel();
 
-			addLabel(GuiComponentLabel.LOCATION);
+			addRequiredLabel(GuiComponentLabel.LOCATION);
 			contentPanel.add(getFileSystemLocationTargetComboBox());
 
 			addLabel(GuiComponentLabel.PATH);
@@ -185,7 +185,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (HttpSourceTask.class.isInstance(getEditedObjectClass())) {
 			final JPanel contentPanel = getContentPanel();
 
-			addLabel(GuiComponentLabel.SERVER);
+			addRequiredLabel(GuiComponentLabel.SERVER);
 			contentPanel.add(getHttpLocationSourceComboBox());
 
 			addLabel(GuiComponentLabel.PATH);
@@ -212,7 +212,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (SubversionRepositorySourceTask.class.isInstance(getEditedObjectClass())) {
 			final JPanel contentPanel = getContentPanel();
 
-			addLabel(GuiComponentLabel.SERVER);
+			addRequiredLabel(GuiComponentLabel.SERVER);
 			contentPanel.add(getSubversionRepositoryLocationSourceComboBox());
 
 			addLabel(GuiComponentLabel.PATH);

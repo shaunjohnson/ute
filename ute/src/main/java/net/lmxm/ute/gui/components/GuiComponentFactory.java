@@ -122,6 +122,23 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	/**
 	 * Creates a new GuiComponent object.
 	 * 
+	 * @param guiComponentLabel the gui component label
+	 * @param alignment the alignment
+	 * @return the j label
+	 */
+	public static JLabel createRequiredLabel(final GuiComponentLabel guiComponentLabel, final int alignment) {
+		final JLabel label = new JLabel();
+
+		setIcon(label, guiComponentLabel);
+		setRequiredText(label, guiComponentLabel);
+		label.setHorizontalAlignment(alignment);
+
+		return label;
+	}
+
+	/**
+	 * Creates a new GuiComponent object.
+	 * 
 	 * @param guiComponentButton the gui component button
 	 * @param actionListener the action listener
 	 * @return the j button
@@ -227,6 +244,24 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	private static void setIcon(final JLabel label, final GuiComponentType guiComponentType) {
 		if (guiComponentType.getIcon() != null) {
 			label.setIcon(guiComponentType.getIcon());
+		}
+	}
+
+	/**
+	 * Sets the required text.
+	 * 
+	 * @param label the label
+	 * @param guiComponentType the gui component type
+	 */
+	private static void setRequiredText(final JLabel label, final GuiComponentType guiComponentType) {
+		final String text = getText(guiComponentType);
+		if (text != null) {
+			label.setText("<html><font color=red size=4><b>*</b></font> " + text + "</html>");
+		}
+
+		final String toolTipText = getToolTipText(guiComponentType);
+		if (toolTipText != null) {
+			label.setToolTipText(toolTipText);
 		}
 	}
 
