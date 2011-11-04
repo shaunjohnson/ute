@@ -22,7 +22,7 @@ import java.text.MessageFormat;
 
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
-import net.lmxm.ute.utils.ResourcesUtils;
+import net.lmxm.ute.resources.ResourcesUtils;
 
 /**
  * The Class PropertiesRootTreeNode.

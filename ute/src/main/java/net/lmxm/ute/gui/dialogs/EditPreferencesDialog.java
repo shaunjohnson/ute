@@ -38,7 +38,7 @@ import javax.swing.table.DefaultTableModel;
 
 import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
-import net.lmxm.ute.gui.utils.ImageUtil;
+import net.lmxm.ute.resources.ImageUtil;
 
 /**
  * The Class EditPreferencesDialog.

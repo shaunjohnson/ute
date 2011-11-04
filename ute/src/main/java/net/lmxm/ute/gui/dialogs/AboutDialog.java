@@ -36,8 +36,8 @@ import javax.swing.border.EmptyBorder;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.components.GuiComponentButton;
-import net.lmxm.ute.gui.utils.ImageUtil;
-import net.lmxm.ute.utils.ResourcesUtils;
+import net.lmxm.ute.resources.ImageUtil;
+import net.lmxm.ute.resources.ResourcesUtils;
 
 /**
  * The Class AboutDialog.

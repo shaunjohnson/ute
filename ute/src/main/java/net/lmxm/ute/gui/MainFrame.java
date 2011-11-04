@@ -128,12 +128,12 @@ import net.lmxm.ute.gui.menus.MainMenuBar;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
 import net.lmxm.ute.gui.toolbars.MainTreeToolBar;
 import net.lmxm.ute.gui.utils.DialogUtil;
-import net.lmxm.ute.gui.utils.ImageUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
+import net.lmxm.ute.resources.ImageUtil;
+import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.FileSystemUtils;
-import net.lmxm.ute.utils.ResourcesUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

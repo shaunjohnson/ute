@@ -21,7 +21,7 @@ package net.lmxm.ute.listeners;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.lmxm.ute.utils.ResourcesUtils;
+import net.lmxm.ute.resources.ResourcesUtils;
 
 /**
  * The Class StatusChangeHelper.

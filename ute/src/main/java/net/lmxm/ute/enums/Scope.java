@@ -18,7 +18,7 @@
  */
 package net.lmxm.ute.enums;
 
-import net.lmxm.ute.utils.ResourcesUtils;
+import net.lmxm.ute.resources.ResourcesUtils;
 
 /**
  * The Enum Scope.

@@ -18,7 +18,7 @@
  */
 package net.lmxm.ute.gui.components;
 
-import net.lmxm.ute.utils.ResourcesUtils;
+import net.lmxm.ute.resources.ResourcesUtils;
 
 /**
  * A factory for creating AbstractGui objects.

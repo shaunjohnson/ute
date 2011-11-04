@@ -21,6 +21,8 @@ package net.lmxm.ute.utils;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import net.lmxm.ute.resources.ResourcesUtils;
+
 import org.junit.Test;
 
 /**

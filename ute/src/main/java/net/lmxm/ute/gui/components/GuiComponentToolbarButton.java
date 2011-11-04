@@ -21,7 +21,7 @@ package net.lmxm.ute.gui.components;
 import javax.swing.Icon;
 
 import net.lmxm.ute.gui.ActionConstants;
-import net.lmxm.ute.gui.utils.ImageUtil;
+import net.lmxm.ute.resources.ImageUtil;
 
 /**
  * The Enum GuiComponentButton.
