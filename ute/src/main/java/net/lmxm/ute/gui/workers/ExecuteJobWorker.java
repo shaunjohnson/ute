@@ -30,7 +30,7 @@ import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.listeners.StatusChangeListener;
-import net.lmxm.ute.listeners.StatusChangeMessage;
+import net.lmxm.ute.resources.StatusChangeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

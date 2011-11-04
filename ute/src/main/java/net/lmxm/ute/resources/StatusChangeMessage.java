@@ -17,12 +17,14 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.listeners;
+package net.lmxm.ute.resources;
+
+import javax.swing.Icon;
 
 /**
  * The Enum StatusChangeMessage.
  */
-public enum StatusChangeMessage {
+public enum StatusChangeMessage implements ResourceType {
 	/** The DISABLED_TASK_SKIPPED. */
 	DISABLED_TASK_SKIPPED,
 
@@ -47,7 +49,7 @@ public enum StatusChangeMessage {
 	/** The FILE_DELETE_PATH_DOES_NOT_EXIST_ERROR. */
 	FILE_DELETE_PATH_DOES_NOT_EXIST_ERROR,
 
-	/** FIND_REPLACE_EXECUTION_FINISHED */
+	/** FIND_REPLACE_EXECUTION_FINISHED. */
 	FIND_REPLACE_EXECUTION_FINISHED,
 
 	/** The FIND_REPLACE_NO_MATCHING_FILES. */
@@ -68,7 +70,7 @@ public enum StatusChangeMessage {
 	/** GROOVY_EXECUTION_STARTED. */
 	GROOVY_EXECUTION_STARTED,
 
-	/** HTTP_DOWNLOAD_ERROR */
+	/** HTTP_DOWNLOAD_ERROR. */
 	HTTP_DOWNLOAD_ERROR,
 
 	/** HTTP_DOWNLOAD_FILE_LIST_EMPTY. */
@@ -157,4 +159,31 @@ public enum StatusChangeMessage {
 
 	/** The SUBVERSION_UPDATE_STARTED. */
 	SUBVERSION_UPDATE_STARTED;
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.resources.ResourceType#getActionCommand()
+	 */
+	@Override
+	public String getActionCommand() {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.resources.ResourceType#getIcon()
+	 */
+	@Override
+	public Icon getIcon() {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.resources.ResourceType#getResourceCategory()
+	 */
+	@Override
+	public ResourceCategory getResourceCategory() {
+		return ResourceCategory.STATUS_CHANGE_MESSAGE;
+	}
 }

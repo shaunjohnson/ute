@@ -23,6 +23,7 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 
 import net.lmxm.ute.resources.ConfirmationResourceType;
+import net.lmxm.ute.resources.ResourcesUtils;
 
 /**
  * A factory for creating OptionPane objects.
@@ -39,8 +40,8 @@ public class OptionPaneFactory extends AbstractGuiFactory {
 	 */
 	public static int showConfirmation(final Component parentComponent,
 			final ConfirmationResourceType guiComponentConfirmation, final Object... args) {
-		final String message = String.format(getMessage(guiComponentConfirmation), args);
-		final String title = String.format(getTitle(guiComponentConfirmation), args);
+		final String message = String.format(ResourcesUtils.getResourceMessage(guiComponentConfirmation), args);
+		final String title = String.format(ResourcesUtils.getResourceTitle(guiComponentConfirmation), args);
 
 		return JOptionPane.showConfirmDialog(parentComponent, message, title, JOptionPane.YES_NO_OPTION,
 				JOptionPane.WARNING_MESSAGE);

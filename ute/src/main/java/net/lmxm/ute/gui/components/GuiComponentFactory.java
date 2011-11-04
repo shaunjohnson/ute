@@ -35,6 +35,7 @@ import net.lmxm.ute.resources.LabelResourceType;
 import net.lmxm.ute.resources.MenuItemResourceType;
 import net.lmxm.ute.resources.MenuResourceType;
 import net.lmxm.ute.resources.ResourceType;
+import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.ToolbarButtonResourceType;
 
 /**
@@ -205,7 +206,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 */
 	private static void setAccelerator(final JMenuItem menuItem, final ResourceType guiComponentType) {
-		final Character accelerator = getAccelerator(guiComponentType);
+		final Character accelerator = ResourcesUtils.getResourceAccelerator(guiComponentType);
 		if (accelerator != null) {
 			menuItem.setAccelerator(KeyStroke.getKeyStroke(accelerator, Toolkit.getDefaultToolkit()
 					.getMenuShortcutKeyMask(), false));
@@ -261,12 +262,12 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 */
 	private static void setRequiredText(final JLabel label, final ResourceType guiComponentType) {
-		final String text = getText(guiComponentType);
+		final String text = ResourcesUtils.getResourceText(guiComponentType);
 		if (text != null) {
 			label.setText("<html><font color=red size=4><b>*</b></font> " + text + "</html>");
 		}
 
-		final String toolTipText = getToolTipText(guiComponentType);
+		final String toolTipText = ResourcesUtils.getResourceToolTipText(guiComponentType);
 		if (toolTipText != null) {
 			label.setToolTipText(toolTipText);
 		}
@@ -279,12 +280,12 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 */
 	private static void setText(final AbstractButton abstractButton, final ResourceType guiComponentType) {
-		final String text = getText(guiComponentType);
+		final String text = ResourcesUtils.getResourceText(guiComponentType);
 		if (text != null) {
 			abstractButton.setText(text);
 		}
 
-		final String toolTipText = getToolTipText(guiComponentType);
+		final String toolTipText = ResourcesUtils.getResourceToolTipText(guiComponentType);
 		if (toolTipText != null) {
 			abstractButton.setToolTipText(toolTipText);
 		}
@@ -297,12 +298,12 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 */
 	private static void setText(final JLabel label, final ResourceType guiComponentType) {
-		final String text = getText(guiComponentType);
+		final String text = ResourcesUtils.getResourceText(guiComponentType);
 		if (text != null) {
 			label.setText(text);
 		}
 
-		final String toolTipText = getToolTipText(guiComponentType);
+		final String toolTipText = ResourcesUtils.getResourceToolTipText(guiComponentType);
 		if (toolTipText != null) {
 			label.setToolTipText(toolTipText);
 		}
@@ -315,7 +316,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param guiComponentType the gui component type
 	 */
 	private static void setToolTipText(final AbstractButton abstractButton, final ResourceType guiComponentType) {
-		final String toolTipText = getToolTipText(guiComponentType);
+		final String toolTipText = ResourcesUtils.getResourceToolTipText(guiComponentType);
 		if (toolTipText != null) {
 			abstractButton.setToolTipText(toolTipText);
 		}

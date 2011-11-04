@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.StatusChangeMessage;
 
 /**
  * The Class StatusChangeHelper.
@@ -77,9 +78,7 @@ public class StatusChangeHelper {
 	 * @return the string
 	 */
 	private String formatMessage(final StatusChangeMessage statusChangeMessage, final Object[] arguments) {
-		final String format = ResourcesUtils.getString("STATUS_CHANGE_MESSAGE." + statusChangeMessage.name());
-
-		return String.format(format, arguments);
+		return String.format(ResourcesUtils.getResourceMessage(statusChangeMessage), arguments);
 	}
 
 	/**

@@ -37,6 +37,9 @@ public enum ResourceCategory {
 	/** The MENU_ITEM. */
 	MENU_ITEM,
 
+	/** The STATUS_CHANGE_MESSAGE. */
+	STATUS_CHANGE_MESSAGE,
+
 	/** The TABLE_COLUMN. */
 	TABLE_COLUMN,
 

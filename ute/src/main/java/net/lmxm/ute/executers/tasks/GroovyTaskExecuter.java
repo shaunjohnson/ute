@@ -31,7 +31,7 @@ import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.listeners.StatusChangeHelper;
-import net.lmxm.ute.listeners.StatusChangeMessage;
+import net.lmxm.ute.resources.StatusChangeMessage;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 

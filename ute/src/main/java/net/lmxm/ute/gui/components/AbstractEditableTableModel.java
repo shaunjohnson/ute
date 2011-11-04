@@ -24,7 +24,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import net.lmxm.ute.resources.ResourceType;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.TableColumnResourceType;
 
@@ -35,38 +34,6 @@ public abstract class AbstractEditableTableModel extends AbstractTableModel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4429594168236863932L;
-
-	/** The Constant TEXT_SUFFIX. */
-	private static final String TEXT_SUFFIX = "text";
-
-	/**
-	 * Builds the resource prefix.
-	 * 
-	 * @param guiComponentType the gui component type
-	 * @return the string
-	 */
-	private static String buildResourcePrefix(final ResourceType guiComponentType) {
-		final StringBuilder builder = new StringBuilder();
-		builder.append(guiComponentType.getResourceCategory().name());
-		builder.append(".");
-		builder.append(guiComponentType.name());
-		builder.append(".");
-
-		return builder.toString();
-	}
-
-	/**
-	 * Gets the resource string.
-	 * 
-	 * @param guiComponentType the gui component type
-	 * @param suffix the suffix
-	 * @return the resource string
-	 */
-	private static final String getResourceString(final ResourceType guiComponentType, final String suffix) {
-		final String resourcePrefix = buildResourcePrefix(guiComponentType);
-
-		return ResourcesUtils.getString(resourcePrefix + suffix);
-	}
 
 	/** The column names. */
 	private final List<String> columnNames;
@@ -82,7 +49,7 @@ public abstract class AbstractEditableTableModel extends AbstractTableModel {
 		columnNames = new ArrayList<String>(columnEnums.size());
 
 		for (final TableColumnResourceType columnEnum : columnEnums) {
-			columnNames.add(getResourceString(columnEnum, TEXT_SUFFIX));
+			columnNames.add(ResourcesUtils.getResourceText(columnEnum));
 		}
 	}
 

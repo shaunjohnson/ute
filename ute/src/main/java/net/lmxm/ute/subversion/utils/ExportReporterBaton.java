@@ -19,7 +19,7 @@
 package net.lmxm.ute.subversion.utils;
 
 import net.lmxm.ute.listeners.StatusChangeHelper;
-import net.lmxm.ute.listeners.StatusChangeMessage;
+import net.lmxm.ute.resources.StatusChangeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -27,6 +27,9 @@ import org.apache.commons.lang.StringUtils;
  */
 public final class ResourcesUtils {
 
+	/** The Constant ACCELERATOR_SUFFIX. */
+	private static final String ACCELERATOR_SUFFIX = "accelerator";
+
 	/** The Constant applicationAttributions. */
 	private static final String applicationAttributions;
 
@@ -39,6 +42,18 @@ public final class ResourcesUtils {
 	/** The Constant bundle. */
 	private static final ResourceBundle bundle;
 
+	/** The Constant MESSAGE_SUFFIX. */
+	private static final String MESSAGE_SUFFIX = "message";
+
+	/** The Constant TEXT_SUFFIX. */
+	private static final String TEXT_SUFFIX = "text";
+
+	/** The Constant TITLE_SUFFIX. */
+	private static final String TITLE_SUFFIX = "title";
+
+	/** The Constant TOOL_TIP_TEXT_SUFFIX. */
+	private static final String TOOL_TIP_TEXT_SUFFIX = "toolTipText";
+
 	/**
 	 * Instantiates a new resources utils.
 	 */
@@ -48,6 +63,22 @@ public final class ResourcesUtils {
 		applicationName = bundle.getString("application.name");
 		applicationVersion = bundle.getString("application.version");
 		applicationAttributions = bundle.getString("application.attributions");
+	}
+
+	/**
+	 * Builds the resource prefix.
+	 * 
+	 * @param resourceType the resource type
+	 * @return the string
+	 */
+	private static String buildResourcePrefix(final ResourceType resourceType) {
+		final StringBuilder builder = new StringBuilder();
+		builder.append(resourceType.getResourceCategory().name());
+		builder.append(".");
+		builder.append(resourceType.name());
+		builder.append(".");
+
+		return builder.toString();
 	}
 
 	/**
@@ -87,6 +118,78 @@ public final class ResourcesUtils {
 		final String string = getString(key);
 
 		return string == null ? null : string.charAt(0);
+	}
+
+	/**
+	 * Gets the resource accelerator.
+	 * 
+	 * @param resourceType the resource type
+	 * @return the resource accelerator
+	 */
+	public static final Character getResourceAccelerator(final ResourceType resourceType) {
+		return getResourceCharacter(resourceType, ACCELERATOR_SUFFIX);
+	}
+
+	/**
+	 * Gets the resource character.
+	 * 
+	 * @param guiComponentType the gui component type
+	 * @param suffix the suffix
+	 * @return the resource character
+	 */
+	private static final Character getResourceCharacter(final ResourceType guiComponentType, final String suffix) {
+		return getCharacter(buildResourcePrefix(guiComponentType) + suffix);
+	}
+
+	/**
+	 * Gets the resource message.
+	 * 
+	 * @param resourceType the resource type
+	 * @return the resource message
+	 */
+	public static final String getResourceMessage(final ResourceType resourceType) {
+		return getResourceString(resourceType, MESSAGE_SUFFIX);
+	}
+
+	/**
+	 * Gets the resource string.
+	 * 
+	 * @param guiComponentType the gui component type
+	 * @param suffix the suffix
+	 * @return the resource string
+	 */
+	private static final String getResourceString(final ResourceType guiComponentType, final String suffix) {
+		return getString(buildResourcePrefix(guiComponentType) + suffix);
+	}
+
+	/**
+	 * Gets the resource text.
+	 * 
+	 * @param resourceType the resource type
+	 * @return the resource text
+	 */
+	public static final String getResourceText(final ResourceType resourceType) {
+		return getResourceString(resourceType, TEXT_SUFFIX);
+	}
+
+	/**
+	 * Gets the resource title.
+	 * 
+	 * @param resourceType the resource type
+	 * @return the resource title
+	 */
+	public static final String getResourceTitle(final ResourceType resourceType) {
+		return getResourceString(resourceType, TITLE_SUFFIX);
+	}
+
+	/**
+	 * Gets the resource tool tip text.
+	 * 
+	 * @param resourceType the resource type
+	 * @return the resource tool tip text
+	 */
+	public static final String getResourceToolTipText(final ResourceType resourceType) {
+		return getResourceString(resourceType, TOOL_TIP_TEXT_SUFFIX);
 	}
 
 	/**
