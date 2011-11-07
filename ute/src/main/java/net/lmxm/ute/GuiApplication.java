@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute;
 
+import javax.swing.UIManager;
+
 import net.lmxm.ute.gui.MainFrame;
 
 import org.slf4j.Logger;
@@ -38,6 +40,8 @@ public class GuiApplication {
 		final String prefix = "executeGui() :";
 
 		LOGGER.debug("{} entered", prefix);
+
+		UIManager.put("swing.boldMetal", Boolean.FALSE);
 
 		new MainFrame().setVisible(true);
 
