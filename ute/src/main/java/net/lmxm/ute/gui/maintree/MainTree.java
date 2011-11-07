@@ -26,6 +26,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 
+import javax.swing.DropMode;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -336,6 +337,10 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 
 		addKeyListener(new MainTreeKeyListener());
 		addMouseListener(new MainTreeMouseListener());
+
+		setDragEnabled(true);
+		setDropMode(DropMode.INSERT);
+		setTransferHandler(new MainTreeTransferHandler());
 	}
 
 	/**

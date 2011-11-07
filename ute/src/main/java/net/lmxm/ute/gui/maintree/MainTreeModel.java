@@ -612,7 +612,51 @@ public class MainTreeModel extends DefaultTreeModel {
 			subversionRepositoryLocationsNode.add(new IdentifiableBeanTreeNode(subversionLocation));
 		}
 
-		LOGGER.debug("{} leaving");
+		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
+	 * Move task node into.
+	 * 
+	 * @param node the node
+	 * @param parent the parent
+	 * @param newIndex the new index
+	 */
+	public void moveTaskNodeInto(final IdentifiableBeanTreeNode node, final IdentifiableBeanTreeNode parent,
+			final int newIndex) {
+		final String prefix = "moveTaskNodeInto() :";
+
+		LOGGER.debug("{} Moving task node into {}", prefix, newIndex);
+
+		insertNodeInto(node, parent, newIndex);
+
+		// Update configuration
+		final Task task = (Task) node.getUserObject();
+		final Job oldJob = task.getJob();
+		final Job newJob = (Job) parent.getUserObject();
+
+		if (oldJob.equals(newJob)) {
+			// Move task within the same job
+			final List<Task> tasks = oldJob.getTasks();
+			final int originalIndex = tasks.indexOf(task);
+			final int destinationIndex = newIndex > originalIndex ? newIndex - 1 : newIndex;
+
+			LOGGER.debug("Moving task from index {} to {} within a single job", originalIndex, destinationIndex);
+
+			// Move task to new location in list
+			tasks.remove(originalIndex);
+			tasks.add(destinationIndex, task);
+		}
+		else {
+			// Move task from old to new job
+			LOGGER.debug("Moving task from job {} to job {}", oldJob, newJob);
+
+			oldJob.getTasks().remove(task);
+			newJob.getTasks().add(newIndex, task);
+			task.setJob(newJob);
+		}
+
+		LOGGER.debug("{} leaving", prefix);
 	}
 
 	/**
