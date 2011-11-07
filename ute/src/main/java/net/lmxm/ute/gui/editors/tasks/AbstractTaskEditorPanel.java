@@ -403,6 +403,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			sourceRelativePathTextField.setFont(getMonospaceFont());
 			sourceRelativePathTextField.setMinimumSize(new Dimension(400, (int) sourceRelativePathTextField.getSize()
 					.getHeight()));
+			sourceRelativePathTextField.setDragEnabled(true);
 			sourceRelativePathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
@@ -492,6 +493,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			targetRelativePathTextField.setFont(getMonospaceFont());
 			targetRelativePathTextField.setMinimumSize(new Dimension(400, (int) targetRelativePathTextField.getSize()
 					.getHeight()));
+			targetRelativePathTextField.setDragEnabled(true);
 			targetRelativePathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {

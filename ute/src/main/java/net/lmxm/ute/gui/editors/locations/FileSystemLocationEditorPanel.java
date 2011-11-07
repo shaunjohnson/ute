@@ -174,6 +174,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 		if (pathTextField == null) {
 			pathTextField = new JTextField();
 			pathTextField.setMinimumSize(new Dimension(400, (int) pathTextField.getSize().getHeight()));
+			pathTextField.setDragEnabled(true);
 			pathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {

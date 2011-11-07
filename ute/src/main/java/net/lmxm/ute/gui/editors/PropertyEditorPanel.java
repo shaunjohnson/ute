@@ -111,6 +111,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 			propertyValueTextField = new JTextField();
 			propertyValueTextField
 					.setMinimumSize(new Dimension(400, (int) propertyValueTextField.getSize().getHeight()));
+			propertyValueTextField.setDragEnabled(true);
 			propertyValueTextField.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {

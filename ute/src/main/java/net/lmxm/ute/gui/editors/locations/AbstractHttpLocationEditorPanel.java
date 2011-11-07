@@ -75,6 +75,7 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 		if (urlTextField == null) {
 			urlTextField = new JTextField();
 			urlTextField.setMinimumSize(new Dimension(400, (int) urlTextField.getSize().getHeight()));
+			urlTextField.setDragEnabled(true);
 			urlTextField.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {

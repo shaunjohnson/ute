@@ -140,6 +140,7 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 			descriptionTextArea.setRows(5);
 			descriptionTextArea.setLineWrap(true);
 			descriptionTextArea.setTabSize(4);
+			descriptionTextArea.setDragEnabled(true);
 			descriptionTextArea.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
@@ -161,6 +162,7 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 		if (idTextField == null) {
 			idTextField = new JTextField();
 			idTextField.setMinimumSize(new Dimension(400, (int) idTextField.getSize().getHeight()));
+			idTextField.setDragEnabled(true);
 			idTextField.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {

@@ -107,7 +107,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the script pane
 	 */
-	protected final JScrollPane getScriptPane() {
+	private final JScrollPane getScriptPane() {
 		if (scriptPane == null) {
 			scriptPane = new RTextScrollPane(getScriptTextArea());
 		}
@@ -120,13 +120,14 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the script text area
 	 */
-	protected final RSyntaxTextArea getScriptTextArea() {
+	private final RSyntaxTextArea getScriptTextArea() {
 		if (scriptTextArea == null) {
 			scriptTextArea = new RSyntaxTextArea();
 			scriptTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_GROOVY);
 			scriptTextArea.setColumns(80);
 			scriptTextArea.setRows(30);
 			scriptTextArea.setTabSize(4);
+			scriptTextArea.setDragEnabled(true);
 			scriptTextArea.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {

@@ -117,6 +117,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 		if (passwordTextField == null) {
 			passwordTextField = new JTextField();
 			passwordTextField.setMinimumSize(new Dimension(400, (int) passwordTextField.getSize().getHeight()));
+			passwordTextField.setDragEnabled(true);
 			passwordTextField.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
@@ -138,6 +139,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 		if (usernameTextField == null) {
 			usernameTextField = new JTextField();
 			usernameTextField.setMinimumSize(new Dimension(400, (int) usernameTextField.getSize().getHeight()));
+			usernameTextField.setDragEnabled(true);
 			usernameTextField.getDocument().addDocumentListener(new ChangeAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
