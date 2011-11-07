@@ -70,6 +70,10 @@ public class TestTask extends IdentifiableDomainBean implements Task {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
+	 */
 	@Override
 	public void removeEmptyObjects() {
 
@@ -90,6 +94,15 @@ public class TestTask extends IdentifiableDomainBean implements Task {
 	 */
 	@Override
 	public void setEnabled(final boolean enabled) {
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#setJob(net.lmxm.ute.beans.jobs.Job)
+	 */
+	@Override
+	public void setJob(final Job job) {
 
 	}
 }

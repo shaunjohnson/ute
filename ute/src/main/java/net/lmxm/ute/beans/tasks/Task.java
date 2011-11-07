@@ -37,4 +37,11 @@ public interface Task extends DescribableBean, DomainBean, EnabledStateBean, Ide
 	 * @return the job
 	 */
 	Job getJob();
+
+	/**
+	 * Sets the job.
+	 * 
+	 * @param job the new job
+	 */
+	void setJob(Job job);
 }

@@ -39,7 +39,7 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	private boolean enabled;
 
 	/** The job. */
-	private final Job job;
+	private Job job;
 
 	/**
 	 * Instantiates a new abstract task.
@@ -81,7 +81,7 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	}
 
 	@Override
-	public Job getJob() {
+	public final Job getJob() {
 		return job;
 	}
 
@@ -119,5 +119,14 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	@Override
 	public final void setEnabled(final boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#setJob(net.lmxm.ute.beans.jobs.Job)
+	 */
+	@Override
+	public final void setJob(final Job job) {
+		this.job = job;
 	}
 }
