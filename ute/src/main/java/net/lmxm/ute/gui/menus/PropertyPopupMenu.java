@@ -39,6 +39,7 @@ public final class PropertyPopupMenu extends AbstractPopupMenu {
 		super(actionListener);
 
 		addMenuItem(MenuItemResourceType.ADD_PROPERTY);
+		addSeparator();
 		addMenuItem(MenuItemResourceType.DELETE_PROPERTY);
 	}
 }

@@ -39,6 +39,7 @@ public final class SubversionRepositoryLocationPopupMenu extends AbstractPopupMe
 		super(actionListener);
 
 		addMenuItem(MenuItemResourceType.ADD_SUBVERSION_REPOSITORY_LOCATION);
+		addSeparator();
 		addMenuItem(MenuItemResourceType.DELETE_SUBVERSION_REPOSITORY_LOCATION);
 	}
 }

@@ -39,6 +39,7 @@ public final class PreferencePopupMenu extends AbstractPopupMenu {
 		super(actionListener);
 
 		addMenuItem(MenuItemResourceType.ADD_PREFERENCE);
+		addSeparator();
 		addMenuItem(MenuItemResourceType.DELETE_PREFERENCE);
 	}
 }
