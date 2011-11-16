@@ -146,6 +146,7 @@ import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.FileSystemUtils;
 
 import org.apache.commons.lang.SerializationUtils;
+import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -832,7 +833,25 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * Action save file.
 	 */
 	private void actionSaveFile() {
-		new ConfigurationWriter(configuration).write();
+		if (StringUtils.isBlank(configuration.getAbsolutePath())) {
+			final JFileChooser fcSave = new JFileChooser();
+
+			fcSave.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			fcSave.setDialogType(JFileChooser.SAVE_DIALOG);
+
+			final int returnVal = fcSave.showSaveDialog(this);
+
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				final File file = fcSave.getSelectedFile();
+
+				configuration.setAbsolutePath(file.getAbsolutePath());
+				updateTitle();
+				new ConfigurationWriter(configuration).write();
+			}
+		}
+		else {
+			new ConfigurationWriter(configuration).write();
+		}
 	}
 
 	/**
