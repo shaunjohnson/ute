@@ -83,6 +83,7 @@ public class MainMenuBar extends AbstractMenuBar {
 
 			addMenuItem(fileMenu, MenuItemResourceType.NEW_FILE);
 			addMenuItem(fileMenu, MenuItemResourceType.OPEN_FILE);
+			addMenuItem(fileMenu, MenuItemResourceType.RELOAD_FILE);
 			addMenuItem(fileMenu, MenuItemResourceType.SAVE_FILE);
 			addMenuItem(fileMenu, MenuItemResourceType.SAVE_FILE_AS);
 			fileMenu.add(new JSeparator());

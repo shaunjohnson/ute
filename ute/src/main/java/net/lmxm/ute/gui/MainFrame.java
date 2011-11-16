@@ -53,6 +53,7 @@ import static net.lmxm.ute.gui.ActionConstants.EXIT;
 import static net.lmxm.ute.gui.ActionConstants.EXPAND;
 import static net.lmxm.ute.gui.ActionConstants.NEW_FILE;
 import static net.lmxm.ute.gui.ActionConstants.OPEN_FILE;
+import static net.lmxm.ute.gui.ActionConstants.RELOAD_FILE;
 import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE;
 import static net.lmxm.ute.gui.ActionConstants.SAVE_FILE_AS;
 
@@ -825,11 +826,27 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		else if (actionCommand.equals(OPEN_FILE)) {
 			actionOpenFile();
 		}
+		else if (actionCommand.equals(RELOAD_FILE)) {
+			actionReloadFile();
+		}
 		else if (actionCommand.equals(SAVE_FILE)) {
 			actionSaveFile();
 		}
 		else if (actionCommand.equals(SAVE_FILE_AS)) {
 			actionSaveFileAs();
+		}
+	}
+
+	/**
+	 * Action reload file.
+	 */
+	private void actionReloadFile() {
+		final String path = configuration.getAbsolutePath();
+
+		if (path != null) {
+			configuration = new ConfigurationReader(path).read();
+			refreshJobsTree();
+			updateTitle();
 		}
 	}
 
@@ -1452,7 +1469,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			}
 		}
 		else {
-			LOGGER.debug("{} starting with an empty configruation", prefix);
+			LOGGER.debug("{} starting with an empty configuration", prefix);
 
 			configuration = new Configuration();
 

@@ -158,6 +158,9 @@ public final class ImageUtil {
 	/** The Constant PROPERTY_ICON. */
 	public static final Icon PROPERTY_ICON;
 
+	/** The Constant RELOAD_FILE_ICON. */
+	public static final Icon RELOAD_FILE_ICON;
+
 	/** The Constant SAVE_FILE_AS_ICON. */
 	public static final Icon SAVE_FILE_AS_ICON;
 
@@ -217,6 +220,7 @@ public final class ImageUtil {
 		OPEN_FILE_ICON = new ImageIcon(thisClass.getResource("/images/folder-open-document.png"));
 		PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/script-text.png"));
 		PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
+		RELOAD_FILE_ICON = new ImageIcon(thisClass.getResource("/images/arrow-circle-135-left.png"));
 		SAVE_FILE_AS_ICON = new ImageIcon(thisClass.getResource("/images/disks-black.png"));
 		SAVE_FILE_ICON = new ImageIcon(thisClass.getResource("/images/disk-black.png"));
 		STOP_JOB_ICON = new ImageIcon(thisClass.getResource("/images/slash.png"));

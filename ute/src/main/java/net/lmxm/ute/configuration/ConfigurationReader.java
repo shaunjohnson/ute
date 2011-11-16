@@ -95,11 +95,21 @@ public final class ConfigurationReader {
 	/**
 	 * Instantiates a new configuration reader.
 	 * 
+	 * @param file the file
 	 */
 	public ConfigurationReader(final File file) {
 		super();
 
 		this.file = file;
+	}
+
+	/**
+	 * Instantiates a new configuration reader.
+	 * 
+	 * @param filePath the file path
+	 */
+	public ConfigurationReader(final String filePath) {
+		this(new File(filePath));
 	}
 
 	/**

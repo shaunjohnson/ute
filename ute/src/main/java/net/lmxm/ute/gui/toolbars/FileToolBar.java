@@ -41,6 +41,7 @@ public class FileToolBar extends AbstractToolBar {
 
 		addToolbarButton(ToolbarButtonResourceType.NEW_FILE);
 		addToolbarButton(ToolbarButtonResourceType.OPEN_FILE);
+		addToolbarButton(ToolbarButtonResourceType.RELOAD_FILE);
 		addToolbarButton(ToolbarButtonResourceType.SAVE_FILE);
 		addToolbarButton(ToolbarButtonResourceType.SAVE_FILE_AS);
 		addSeparator(new Dimension(20, 20));

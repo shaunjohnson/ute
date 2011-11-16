@@ -92,6 +92,9 @@ public enum ToolbarButtonResourceType implements ResourceType {
 	/** The OPEN_FILE. */
 	OPEN_FILE(ImageUtil.OPEN_FILE_ICON, ActionConstants.OPEN_FILE),
 
+	/** The RELOAD_FILE. */
+	RELOAD_FILE(ImageUtil.RELOAD_FILE_ICON, ActionConstants.RELOAD_FILE),
+
 	/** The SAVE_FILE. */
 	SAVE_FILE(ImageUtil.SAVE_FILE_ICON, ActionConstants.SAVE_FILE),
 
@@ -126,19 +129,19 @@ public enum ToolbarButtonResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
-	 */
-	@Override
-	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.TOOLBAR_BUTTON;
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
 		return icon;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
+	 */
+	@Override
+	public ResourceCategory getResourceCategory() {
+		return ResourceCategory.TOOLBAR_BUTTON;
 	}
 }

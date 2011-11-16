@@ -134,6 +134,9 @@ public enum MenuItemResourceType implements ResourceType {
 	/** The OPEN_FILE. */
 	OPEN_FILE(ImageUtil.OPEN_FILE_ICON, ActionConstants.OPEN_FILE),
 
+	/** The RELOAD_FILE. */
+	RELOAD_FILE(ImageUtil.RELOAD_FILE_ICON, ActionConstants.RELOAD_FILE),
+
 	/** The SAVE_FILE. */
 	SAVE_FILE(ImageUtil.SAVE_FILE_ICON, ActionConstants.SAVE_FILE),
 

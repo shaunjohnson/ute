@@ -128,6 +128,9 @@ public final class ActionConstants {
 	/** The Constant OPEN_FILE. */
 	public static final String OPEN_FILE = "OPEN_FILE";
 
+	/** The Constant RELOAD_FILE. */
+	public static final String RELOAD_FILE = "RELOAD_FILE";
+
 	/** The Constant SAVE_FILE. */
 	public static final String SAVE_FILE = "SAVE_FILE";
 
