@@ -1541,8 +1541,11 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		builder.append(ResourcesUtils.getResourceText(ApplicationResourceType.VERSION));
 
 		if (configuration != null) {
+			final String path = configuration.getAbsolutePath();
+			final String newFile = ResourcesUtils.getResourceText(ApplicationResourceType.NEW_FILE);
+
 			builder.append(" - ");
-			builder.append(configuration.getAbsolutePath());
+			builder.append(path == null ? newFile : path);
 		}
 
 		setTitle(builder.toString());
