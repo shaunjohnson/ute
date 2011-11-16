@@ -27,6 +27,7 @@ import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.utils.DomainBeanUtils;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
@@ -147,6 +148,16 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 				&& DomainBeanUtils.isEmpty(httpLocations) && DomainBeanUtils.isEmpty(jobs)
 				&& DomainBeanUtils.isEmpty(preferences) && DomainBeanUtils.isEmpty(properties)
 				&& DomainBeanUtils.isEmpty(subversionRepositoryLocations);
+	}
+
+	/**
+	 * Checks if is locations empty.
+	 * 
+	 * @return true, if is locations empty
+	 */
+	public boolean isLocationsEmpty() {
+		return CollectionUtils.isEmpty(fileSystemLocations) && CollectionUtils.isEmpty(httpLocations)
+				&& CollectionUtils.isEmpty(subversionRepositoryLocations);
 	}
 
 	/**

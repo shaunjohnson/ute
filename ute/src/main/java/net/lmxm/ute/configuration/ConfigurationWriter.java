@@ -497,11 +497,13 @@ public class ConfigurationWriter {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final LocationsType locationsType = configurationType.addNewLocations();
+		if (!configuration.isLocationsEmpty()) {
+			final LocationsType locationsType = configurationType.addNewLocations();
 
-		writeFileSystemLocations(locationsType, configuration);
-		writeHttpLocations(locationsType, configuration);
-		writeSubversionRepositoryLocations(locationsType, configuration);
+			writeFileSystemLocations(locationsType, configuration);
+			writeHttpLocations(locationsType, configuration);
+			writeSubversionRepositoryLocations(locationsType, configuration);
+		}
 
 		LOGGER.debug("{} exiting", prefix);
 	}
