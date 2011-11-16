@@ -72,7 +72,6 @@ import noNamespace.TasksType;
 import noNamespace.UteConfigurationDocument;
 import noNamespace.UteConfigurationType;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlOptions;
 import org.slf4j.Logger;
@@ -153,16 +152,11 @@ public class ConfigurationWriter {
 			final File file = new File(configuration.getAbsolutePath());
 
 			// Create a backup of the existing file
-			if (file.exists()) {
-				final File backupFile = new File(file.getAbsolutePath() + ".bak");
-
-				// Delete existing backup
-				if (backupFile.exists()) {
-					FileUtils.deleteQuietly(backupFile);
-				}
-
-				FileUtils.moveFile(file, backupFile);
-			}
+			/*
+			 * if (file.exists()) { final File backupFile = new File(file.getAbsolutePath() + ".bak"); // Delete
+			 * existing backup if (backupFile.exists()) { FileUtils.deleteQuietly(backupFile); }
+			 * FileUtils.moveFile(file, backupFile); }
+			 */
 
 			document.save(file, new XmlOptions().setSavePrettyPrint().setSavePrettyPrintIndent(4));
 		}
