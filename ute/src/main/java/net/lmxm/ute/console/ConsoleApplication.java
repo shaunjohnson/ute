@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.lmxm.ute.beans.configuration.ApplicationPreferences;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
@@ -72,6 +73,8 @@ public final class ConsoleApplication {
 		final ConsoleArguments consoleArguments = getConsoleArguments();
 		final File inputFile = consoleArguments.getInputFile();
 		final Configuration configuration = new ConfigurationReader(inputFile).read();
+
+		loadAndValidatePreferencesAreSet(configuration);
 
 		final List<Job> jobs = loadJobs(configuration, consoleArguments);
 		executeJobs(jobs, configuration);
@@ -139,6 +142,31 @@ public final class ConsoleApplication {
 		LOGGER.debug("{} returning", prefix);
 
 		return consoleArguments;
+	}
+
+	/**
+	 * Load and validate preferences are set.
+	 * 
+	 * @param configuration the configuration
+	 */
+	private void loadAndValidatePreferencesAreSet(final Configuration configuration) {
+		final String prefix = "loadAndValidatePreferencesAreSet() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final ApplicationPreferences applicationPreferences = new ApplicationPreferences(new File(
+				configuration.getAbsolutePath()));
+		applicationPreferences.loadPreferenceValues(configuration.getPreferences());
+
+		if (applicationPreferences.hasAllPreferences(configuration.getPreferences())) {
+			LOGGER.debug("{} all preferences have values", prefix);
+		}
+		else {
+			LOGGER.error("{} at least one preference does not have a value", prefix);
+			throw new RuntimeException("Preferences must be assigned values before continuing");
+		}
+
+		LOGGER.debug("{} leaving", prefix);
 	}
 
 	/**
