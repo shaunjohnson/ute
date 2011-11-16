@@ -40,6 +40,9 @@ public enum ApplicationResourceType implements ResourceType {
 	/** The NEW_FILE. */
 	NEW_FILE,
 
+	/** The SAVE_FILE_AS. */
+	SAVE_FILE_AS,
+
 	/** The VERSION. */
 	VERSION;
 

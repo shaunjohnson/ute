@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.configuration;
 
+import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +51,7 @@ import net.lmxm.ute.beans.tasks.Task;
 
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.plexus.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,6 +75,21 @@ public final class ConfigurationUtils {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationUtils.class);
+
+	/**
+	 * Append file extension.
+	 * 
+	 * @param path the path
+	 * @return the string
+	 */
+	public static String appendFileExtension(final String path) {
+		if (FileUtils.extension(path).equals(FILE_EXTENSION)) {
+			return path;
+		}
+		else {
+			return path + "." + FILE_EXTENSION;
+		}
+	}
 
 	/**
 	 * Generate property maps.

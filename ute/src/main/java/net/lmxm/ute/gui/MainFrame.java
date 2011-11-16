@@ -149,7 +149,6 @@ import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.FileSystemUtils;
 
 import org.apache.commons.lang.SerializationUtils;
-import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -839,7 +838,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 */
 	private void actionSaveFile() {
 		if (StringUtils.isBlank(configuration.getAbsolutePath())) {
-			final JFileChooser fcSave = new JFileChooser();
+			final JFileChooser fcSave = new JFileChooser(getCurrentDirectory());
 
 			fcSave.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fcSave.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -850,12 +849,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				final String path = fcSave.getSelectedFile().getAbsolutePath();
 
-				if (FileUtils.extension(path).equals(FILE_EXTENSION)) {
-					configuration.setAbsolutePath(path);
-				}
-				else {
-					configuration.setAbsolutePath(path + "." + FILE_EXTENSION);
-				}
+				configuration.setAbsolutePath(ConfigurationUtils.appendFileExtension(path));
 
 				updateTitle();
 				new ConfigurationWriter(configuration).write();
@@ -870,7 +864,23 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	 * Action save file as.
 	 */
 	private void actionSaveFileAs() {
-		// TODO Auto-generated method stub
+		final JFileChooser fcSaveAs = new JFileChooser(getCurrentDirectory());
+
+		fcSaveAs.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		fcSaveAs.setDialogType(JFileChooser.SAVE_DIALOG);
+		fcSaveAs.setFileFilter(getFileFilter());
+		fcSaveAs.setDialogTitle(ResourcesUtils.getResourceTitle(ApplicationResourceType.SAVE_FILE_AS));
+
+		final int returnVal = fcSaveAs.showSaveDialog(this);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			final String path = fcSaveAs.getSelectedFile().getAbsolutePath();
+
+			configuration.setAbsolutePath(ConfigurationUtils.appendFileExtension(path));
+
+			updateTitle();
+			new ConfigurationWriter(configuration).write();
+		}
 	}
 
 	/**
