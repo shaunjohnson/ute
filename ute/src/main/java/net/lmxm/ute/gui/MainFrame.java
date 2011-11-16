@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui;
 
+import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
 import static net.lmxm.ute.gui.ActionConstants.ABOUT;
 import static net.lmxm.ute.gui.ActionConstants.ADD_FILE_SYSTEM_DELETE_TASK;
 import static net.lmxm.ute.gui.ActionConstants.ADD_FILE_SYSTEM_LOCATION;
@@ -78,6 +79,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
@@ -146,6 +149,7 @@ import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.FileSystemUtils;
 
 import org.apache.commons.lang.SerializationUtils;
+import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -683,6 +687,7 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		final JFileChooser fcOpen = new JFileChooser(getCurrentDirectory());
 
 		fcOpen.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		fcOpen.setFileFilter(getFileFilter());
 
 		final int returnVal = fcOpen.showOpenDialog(this);
 
@@ -838,13 +843,20 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 
 			fcSave.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fcSave.setDialogType(JFileChooser.SAVE_DIALOG);
+			fcSave.setFileFilter(getFileFilter());
 
 			final int returnVal = fcSave.showSaveDialog(this);
 
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				final File file = fcSave.getSelectedFile();
+				final String path = fcSave.getSelectedFile().getAbsolutePath();
 
-				configuration.setAbsolutePath(file.getAbsolutePath());
+				if (FileUtils.extension(path).equals(FILE_EXTENSION)) {
+					configuration.setAbsolutePath(path);
+				}
+				else {
+					configuration.setAbsolutePath(path + "." + FILE_EXTENSION);
+				}
+
 				updateTitle();
 				new ConfigurationWriter(configuration).write();
 			}
@@ -981,6 +993,16 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		else {
 			return null;
 		}
+	}
+
+	/**
+	 * Gets the file filter.
+	 * 
+	 * @return the file filter
+	 */
+	private FileFilter getFileFilter() {
+		final String description = ResourcesUtils.getResourceText(ApplicationResourceType.FILE_DESCRIPTION);
+		return new FileNameExtensionFilter(description, FILE_EXTENSION);
 	}
 
 	/**

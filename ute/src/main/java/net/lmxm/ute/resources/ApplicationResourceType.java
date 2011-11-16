@@ -31,6 +31,9 @@ public enum ApplicationResourceType implements ResourceType {
 	/** The ATTRIBUTIONS. */
 	ATTRIBUTIONS,
 
+	/** The FILE_DESCRIPTION. */
+	FILE_DESCRIPTION,
+
 	/** The NAME. */
 	NAME,
 
