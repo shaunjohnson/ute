@@ -84,11 +84,12 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.lmxm.ute.ConfigurationHolder;
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.configuration.ApplicationPreferences;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
@@ -146,7 +147,6 @@ import net.lmxm.ute.resources.ApplicationResourceType;
 import net.lmxm.ute.resources.ConfirmationResourceType;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.FileSystemUtils;
 
 import org.apache.commons.lang.SerializationUtils;

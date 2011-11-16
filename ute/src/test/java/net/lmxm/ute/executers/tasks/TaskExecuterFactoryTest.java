@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.TestTask;
-import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.beans.tasks.GroovyTask;

@@ -36,8 +36,8 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.resources.ImageUtil;
 
 /**

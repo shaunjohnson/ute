@@ -27,9 +27,9 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import net.lmxm.ute.ConfigurationHolder;
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;

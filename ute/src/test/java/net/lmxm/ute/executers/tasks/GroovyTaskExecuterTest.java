@@ -19,8 +19,8 @@
 package net.lmxm.ute.executers.tasks;
 
 import net.lmxm.ute.TestJob;
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.PropertiesHolder;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.listeners.StatusChangeHelper;
 

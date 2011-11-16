@@ -37,8 +37,8 @@ import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.EnabledStateBean;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;

@@ -16,11 +16,15 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.beans;
+package net.lmxm.ute.beans.configuration;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.lmxm.ute.beans.DomainBean;
+import net.lmxm.ute.beans.Preference;
+import net.lmxm.ute.beans.PropertiesHolder;
+import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;

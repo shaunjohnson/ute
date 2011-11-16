@@ -18,7 +18,7 @@
  */
 package net.lmxm.ute;
 
-import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.configuration.Configuration;
 
 /**
  * The Interface ConfigurationHolder.

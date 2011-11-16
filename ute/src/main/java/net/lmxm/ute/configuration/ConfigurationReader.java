@@ -25,11 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.lmxm.ute.beans.Configuration;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.locations.FileSystemLocation;

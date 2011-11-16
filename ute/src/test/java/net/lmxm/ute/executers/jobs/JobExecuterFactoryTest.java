@@ -21,7 +21,7 @@ package net.lmxm.ute.executers.jobs;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import net.lmxm.ute.TestJob;
-import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.configuration.Configuration;
 
 import org.junit.Test;
 
