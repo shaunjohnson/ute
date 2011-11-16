@@ -29,6 +29,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -62,6 +66,8 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 
 		/**
 		 * Instantiates a new close tab button.
+		 * 
+		 * @param actionListener the action listener
 		 */
 		public CloseTabButton(final ActionListener actionListener) {
 			setContentAreaFilled(false);
@@ -157,6 +163,10 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 			handlePopupTrigger(mouseEvent);
 		}
 
+		/*
+		 * (non-Javadoc)
+		 * @see java.awt.event.MouseAdapter#mouseEntered(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mouseEntered(final MouseEvent mouseEvent) {
 			final Component component = mouseEvent.getComponent();
@@ -165,6 +175,10 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 			}
 		}
 
+		/*
+		 * (non-Javadoc)
+		 * @see java.awt.event.MouseAdapter#mouseExited(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mouseExited(final MouseEvent mouseEvent) {
 			final Component component = mouseEvent.getComponent();
@@ -208,6 +222,9 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 			}
 		}
 	};
+
+	/** The job running. */
+	private boolean jobRunning = false;
 
 	/** The loader icon. */
 	private JLabel loaderIcon = null;
@@ -255,7 +272,28 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 		final String actionCommand = actionEvent.getActionCommand();
 
 		if (actionCommand.equals(ActionConstants.CLOSE_ALL_TABS)) {
-			tabbedPane.removeAll();
+			final int tabCount = tabbedPane.getTabCount();
+			final List<Integer> inactiveTabIndices = new ArrayList<Integer>();
+
+			for (int i = 0; i < tabCount; i++) {
+				final StatusOutputTab tab = (StatusOutputTab) tabbedPane.getTabComponentAt(i);
+
+				if (!tab.isJobRunning()) {
+					inactiveTabIndices.add(i);
+				}
+			}
+
+			// Remove tabs in reverse order to avoid having to re-base indices
+			Collections.sort(inactiveTabIndices, new Comparator<Integer>() {
+				@Override
+				public int compare(final Integer integer1, final Integer integer2) {
+					return integer2.compareTo(integer1);
+				}
+			});
+
+			for (final int index : inactiveTabIndices) {
+				tabbedPane.removeTabAt(index);
+			}
 		}
 	}
 
@@ -324,6 +362,15 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 		return titleLabel;
 	}
 
+	/**
+	 * Checks if is job running.
+	 * 
+	 * @return true, if is job running
+	 */
+	public boolean isJobRunning() {
+		return jobRunning;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.JobStatusListener#jobAborted()
@@ -346,6 +393,7 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 	 * Job is not running.
 	 */
 	private void jobIsNotRunning() {
+		jobRunning = false;
 		getLoaderIcon().setVisible(false);
 		getCloseButton().setVisible(true);
 	}
@@ -354,6 +402,7 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 	 * Job is running.
 	 */
 	private void jobIsRunning() {
+		jobRunning = true;
 		getLoaderIcon().setVisible(true);
 		getCloseButton().setVisible(false);
 	}
