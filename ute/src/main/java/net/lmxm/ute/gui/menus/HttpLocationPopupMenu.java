@@ -39,6 +39,7 @@ public final class HttpLocationPopupMenu extends AbstractPopupMenu {
 		super(actionListener);
 
 		addMenuItem(MenuItemResourceType.ADD_HTTP_LOCATION);
+		addMenuItem(MenuItemResourceType.CLONE_HTTP_LOCATION);
 		addSeparator();
 		addMenuItem(MenuItemResourceType.DELETE_HTTP_LOCATION);
 	}

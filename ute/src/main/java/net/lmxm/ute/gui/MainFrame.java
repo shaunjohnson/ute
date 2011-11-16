@@ -31,6 +31,13 @@ import static net.lmxm.ute.gui.ActionConstants.ADD_PROPERTY;
 import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_EXPORT_TASK;
 import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_REPOSITORY_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.ADD_SUBVERSION_UPDATE_TASK;
+import static net.lmxm.ute.gui.ActionConstants.CLONE_FILE_SYSTEM_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.CLONE_HTTP_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.CLONE_JOB;
+import static net.lmxm.ute.gui.ActionConstants.CLONE_PREFERENCE;
+import static net.lmxm.ute.gui.ActionConstants.CLONE_PROPERTY;
+import static net.lmxm.ute.gui.ActionConstants.CLONE_SUBVERSION_REPOSITORY_LOCATION;
+import static net.lmxm.ute.gui.ActionConstants.CLONE_TASK;
 import static net.lmxm.ute.gui.ActionConstants.COLLAPSE;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_FILE_SYSTEM_LOCATION;
 import static net.lmxm.ute.gui.ActionConstants.DELETE_HTTP_LOCATION;
@@ -74,6 +81,8 @@ import javax.swing.event.TreeSelectionListener;
 
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.Configuration;
+import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
@@ -136,6 +145,7 @@ import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.utils.ApplicationPreferences;
 import net.lmxm.ute.utils.FileSystemUtils;
 
+import org.apache.commons.lang.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -367,6 +377,108 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	}
 
 	/**
+	 * Action clone file system location.
+	 */
+	private void actionCloneFileSystemLocation() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof FileSystemLocation)) {
+			return;
+		}
+
+		final FileSystemLocation fileSystemLocation = (FileSystemLocation) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		configuration.getFileSystemLocations().add(fileSystemLocation);
+		mainTree.addFileSystemLocation(fileSystemLocation);
+	}
+
+	/**
+	 * Action clone http location.
+	 */
+	private void actionCloneHttpLocation() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof HttpLocation)) {
+			return;
+		}
+
+		final HttpLocation httpLocation = (HttpLocation) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		configuration.getHttpLocations().add(httpLocation);
+		mainTree.addHttpLocation(httpLocation);
+	}
+
+	/**
+	 * Action clone job.
+	 */
+	private void actionCloneJob() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof Job)) {
+			return;
+		}
+
+		final Job job = (Job) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		configuration.getJobs().add(job);
+		mainTree.addJob(job);
+	}
+
+	/**
+	 * Action clone preference.
+	 */
+	private void actionClonePreference() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof Preference)) {
+			return;
+		}
+
+		final Preference preference = (Preference) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		configuration.getPreferences().add(preference);
+		mainTree.addPreference(preference);
+	}
+
+	/**
+	 * Action clone property.
+	 */
+	private void actionCloneProperty() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof Property)) {
+			return;
+		}
+
+		final Property property = (Property) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		configuration.getProperties().add(property);
+		mainTree.addProperty(property);
+	}
+
+	/**
+	 * Action clone subversion repository location.
+	 */
+	private void actionCloneSubversionRepositoryLocation() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof SubversionRepositoryLocation)) {
+			return;
+		}
+
+		final SubversionRepositoryLocation subversionRepositoryLocation = (SubversionRepositoryLocation) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		configuration.getSubversionRepositoryLocations().add(subversionRepositoryLocation);
+		mainTree.addSubversionRepositoryLocation(subversionRepositoryLocation);
+	}
+
+	/**
+	 * Action clone task.
+	 */
+	private void actionCloneTask() {
+		final Object userObject = getMainTree().getSelectedTreeObject();
+		if (!(userObject instanceof Task)) {
+			return;
+		}
+
+		final Task originalTask = (Task) userObject;
+		final Task cloneTask = (Task) cloneIdentifiableBean(originalTask);
+
+		// Change clone task to point to original Job
+		cloneTask.setJob(originalTask.getJob());
+
+		addNewTask(cloneTask);
+	}
+
+	/**
 	 * Action collapse.
 	 */
 	private void actionCollapse() {
@@ -467,6 +579,9 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		mainTree.deleteSubversionRepositoryLocation(subversionRepositoryLocation);
 	}
 
+	/**
+	 * Action delete task.
+	 */
 	private void actionDeleteTask() {
 		final Object userObject = getMainTree().getSelectedTreeObject();
 		if (!(userObject instanceof Task)) {
@@ -642,6 +757,27 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 		else if (actionCommand.equals(ADD_SUBVERSION_UPDATE_TASK)) {
 			actionAddSubversionUpdateTask();
 		}
+		else if (actionCommand.equals(CLONE_FILE_SYSTEM_LOCATION)) {
+			actionCloneFileSystemLocation();
+		}
+		else if (actionCommand.equals(CLONE_HTTP_LOCATION)) {
+			actionCloneHttpLocation();
+		}
+		else if (actionCommand.equals(CLONE_JOB)) {
+			actionCloneJob();
+		}
+		else if (actionCommand.equals(CLONE_PREFERENCE)) {
+			actionClonePreference();
+		}
+		else if (actionCommand.equals(CLONE_PROPERTY)) {
+			actionCloneProperty();
+		}
+		else if (actionCommand.equals(CLONE_SUBVERSION_REPOSITORY_LOCATION)) {
+			actionCloneSubversionRepositoryLocation();
+		}
+		else if (actionCommand.equals(CLONE_TASK)) {
+			actionCloneTask();
+		}
 		else if (actionCommand.equals(COLLAPSE)) {
 			actionCollapse();
 		}
@@ -709,7 +845,6 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	/**
 	 * Adds the task to job.
 	 * 
-	 * @param job the job
 	 * @param task the task
 	 */
 	private void addNewTask(final Task task) {
@@ -737,6 +872,20 @@ public final class MainFrame extends JFrame implements ConfigurationHolder, Acti
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException("Clone not supported");
+	}
+
+	/**
+	 * Clone identifiable bean.
+	 * 
+	 * @param bean the bean
+	 * @return the identifiable bean
+	 */
+	private IdentifiableBean cloneIdentifiableBean(final IdentifiableBean bean) {
+		final IdentifiableBean newBean = (IdentifiableBean) SerializationUtils.clone(bean);
+
+		newBean.setId("Copy of " + newBean.getId());
+
+		return newBean;
 	}
 
 	/**

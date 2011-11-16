@@ -18,10 +18,12 @@
  */
 package net.lmxm.ute.beans;
 
+import java.io.Serializable;
+
 /**
  * The Interface IdentifiableBean.
  */
-public interface IdentifiableBean extends Comparable<IdentifiableBean> {
+public interface IdentifiableBean extends Comparable<IdentifiableBean>, Serializable {
 
 	/**
 	 * Gets the display text.

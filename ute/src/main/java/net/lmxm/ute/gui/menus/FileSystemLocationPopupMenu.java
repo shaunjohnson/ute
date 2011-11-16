@@ -39,6 +39,7 @@ public final class FileSystemLocationPopupMenu extends AbstractPopupMenu {
 		super(actionListener);
 
 		addMenuItem(MenuItemResourceType.ADD_FILE_SYSTEM_LOCATION);
+		addMenuItem(MenuItemResourceType.CLONE_FILE_SYSTEM_LOCATION);
 		addSeparator();
 		addMenuItem(MenuItemResourceType.DELETE_FILE_SYSTEM_LOCATION);
 	}

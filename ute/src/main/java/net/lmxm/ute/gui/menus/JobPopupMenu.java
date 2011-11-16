@@ -40,6 +40,7 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 
 		addMenuItem(MenuItemResourceType.EXECUTE_JOB);
 		addMenuItem(MenuItemResourceType.ADD_JOB);
+		addMenuItem(MenuItemResourceType.CLONE_JOB);
 		addTaskAddMenu();
 		addSeparator();
 		addMenuItem(MenuItemResourceType.DELETE_JOB);

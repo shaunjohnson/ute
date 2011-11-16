@@ -170,6 +170,14 @@ public class MainTreeModel extends DefaultTreeModel {
 
 		insertNodeInto(jobNode, jobsNode, 0);
 
+		final List<Task> tasks = job.getTasks();
+
+		for (final Task task : tasks) {
+			final DefaultMutableTreeNode taskNode = new IdentifiableBeanTreeNode(task);
+
+			jobNode.add(taskNode);
+		}
+
 		return jobsNodePath.pathByAddingChild(jobNode);
 	}
 

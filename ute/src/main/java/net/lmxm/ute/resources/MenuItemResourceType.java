@@ -70,6 +70,27 @@ public enum MenuItemResourceType implements ResourceType {
 	/** The ADD_TASK. */
 	ADD_TASK(null, null),
 
+	/** The CLONE_FILE_SYSTEM_LOCATION. */
+	CLONE_FILE_SYSTEM_LOCATION(null, ActionConstants.CLONE_FILE_SYSTEM_LOCATION),
+
+	/** The CLONE_HTTP_LOCATION. */
+	CLONE_HTTP_LOCATION(null, ActionConstants.CLONE_HTTP_LOCATION),
+
+	/** The CLONE_JOB. */
+	CLONE_JOB(null, ActionConstants.CLONE_JOB),
+
+	/** The CLONE_PREFERENCE. */
+	CLONE_PREFERENCE(null, ActionConstants.CLONE_PREFERENCE),
+
+	/** The CLONE_PROPERTY. */
+	CLONE_PROPERTY(null, ActionConstants.CLONE_PROPERTY),
+
+	/** The CLONE_SUBVERSION_REPOSITORY_LOCATION. */
+	CLONE_SUBVERSION_REPOSITORY_LOCATION(null, ActionConstants.CLONE_SUBVERSION_REPOSITORY_LOCATION),
+
+	/** The CLONE_TASK. */
+	CLONE_TASK(null, ActionConstants.CLONE_TASK),
+
 	/** The CLOSE_ALL_TABS. */
 	CLOSE_ALL_TABS(null, ActionConstants.CLOSE_ALL_TABS),
 
@@ -147,19 +168,19 @@ public enum MenuItemResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
-	 */
-	@Override
-	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.MENU_ITEM;
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
 		return icon;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 */
+	@Override
+	public ResourceCategory getResourceCategory() {
+		return ResourceCategory.MENU_ITEM;
 	}
 }

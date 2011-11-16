@@ -40,6 +40,7 @@ public final class TaskPopupMenu extends AbstractPopupMenu {
 
 		addMenuItem(MenuItemResourceType.EXECUTE_TASK);
 		addTaskAddMenu();
+		addMenuItem(MenuItemResourceType.CLONE_TASK);
 		addSeparator();
 		addMenuItem(MenuItemResourceType.DELETE_TASK);
 	}

@@ -62,6 +62,27 @@ public final class ActionConstants {
 	/** The Constant ADD_SUBVERSION_UPDATE_TASK. */
 	public static final String ADD_SUBVERSION_UPDATE_TASK = "ADD_SUBVERSION_UPDATE_TASK";
 
+	/** The Constant CLONE_FILE_SYSTEM_LOCATION. */
+	public static final String CLONE_FILE_SYSTEM_LOCATION = "CLONE_FILE_SYSTEM_LOCATION";
+
+	/** The Constant CLONE_HTTP_LOCATION. */
+	public static final String CLONE_HTTP_LOCATION = "CLONE_HTTP_LOCATION";
+
+	/** The Constant CLONE_JOB. */
+	public static final String CLONE_JOB = "CLONE_JOB";
+
+	/** The Constant CLONE_PREFERENCE. */
+	public static final String CLONE_PREFERENCE = "CLONE_PREFERENCE";
+
+	/** The Constant CLONE_PROPERTY. */
+	public static final String CLONE_PROPERTY = "CLONE_PROPERTY";
+
+	/** The Constant CLONE_SUBVERSION_REPOSITORY_LOCATION. */
+	public static final String CLONE_SUBVERSION_REPOSITORY_LOCATION = "CLONE_SUBVERSION_REPOSITORY_LOCATION";
+
+	/** The Constant CLONE_TASK. */
+	public static final String CLONE_TASK = "CLONE_TASK";
+
 	/** The Constant CLOSE_ALL_TABS. */
 	public static final String CLOSE_ALL_TABS = "CLOSE_ALL_TABS";
 
