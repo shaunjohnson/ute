@@ -21,6 +21,7 @@ package net.lmxm.ute;
 import java.awt.GraphicsEnvironment;
 
 import net.lmxm.ute.console.ConsoleApplication;
+import net.lmxm.ute.gui.GuiApplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

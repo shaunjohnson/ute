@@ -16,11 +16,10 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute;
+package net.lmxm.ute.gui;
 
 import javax.swing.UIManager;
 
-import net.lmxm.ute.gui.MainFrame;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
