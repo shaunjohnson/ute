@@ -851,7 +851,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		final String path = configuration.getAbsolutePath();
 
 		if (path != null) {
-			configuration = new ConfigurationReader(path).read();
+			configuration = new ConfigurationReader(new File(path)).read();
 			refreshJobsTree();
 			updateTitle();
 		}

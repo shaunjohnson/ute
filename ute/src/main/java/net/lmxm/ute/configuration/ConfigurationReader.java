@@ -82,6 +82,8 @@ import org.apache.xmlbeans.XmlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Preconditions;
+
 /**
  * The Class ConfigurationReader.
  */
@@ -90,27 +92,21 @@ public final class ConfigurationReader {
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationReader.class);
 
-	/** The file. */
-	private final File file;
+	/** The configuration file. */
+	private final File configurationFile;
 
 	/**
 	 * Instantiates a new configuration reader.
 	 * 
-	 * @param file the file
+	 * @param configurationFile the configuration file
 	 */
-	public ConfigurationReader(final File file) {
+	public ConfigurationReader(final File configurationFile) {
 		super();
 
-		this.file = file;
-	}
+		Preconditions.checkNotNull(configurationFile, "Configuration file is null");
+		Preconditions.checkArgument(configurationFile.exists(), "Configuration file does not exist");
 
-	/**
-	 * Instantiates a new configuration reader.
-	 * 
-	 * @param filePath the file path
-	 */
-	public ConfigurationReader(final String filePath) {
-		this(new File(filePath));
+		this.configurationFile = configurationFile;
 	}
 
 	/**
@@ -129,7 +125,8 @@ public final class ConfigurationReader {
 			scope = Scope.LINE;
 		}
 		else {
-			scope = Scope.LINE;
+			LOGGER.error("convertScopeTypeToScope() : Unsupported scope type \"{}\"", scopeType);
+			throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_SCOPE_TYPE, scopeType);
 		}
 
 		return scope;
@@ -229,27 +226,24 @@ public final class ConfigurationReader {
 	/**
 	 * Parses the file system location.
 	 * 
-	 * @param fileSystemLocationType the file system location type
+	 * @param locationType the location type
 	 * @param configuration the configuration
-	 * 
 	 * @return the file system location
 	 */
-	private FileSystemLocation parseFileSystemLocation(final FileSystemLocationType fileSystemLocationType,
+	private FileSystemLocation parseFileSystemLocation(final FileSystemLocationType locationType,
 			final Configuration configuration) {
 		final String prefix = "parseFileSystemLocation() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final FileSystemLocation fileSystemLocation = new FileSystemLocation();
-		final String id = fileSystemLocationType.getId();
-		final String path = fileSystemLocationType.getPath();
+		final FileSystemLocation location = new FileSystemLocation();
 
-		fileSystemLocation.setId(id);
-		fileSystemLocation.setPath(path);
+		location.setId(StringUtils.trim(locationType.getId()));
+		location.setPath(StringUtils.trim(locationType.getPath()));
 
-		LOGGER.debug("{} returning {}", prefix, fileSystemLocation);
+		LOGGER.debug("{} returning {}", prefix, location);
 
-		return fileSystemLocation;
+		return location;
 	}
 
 	/**
@@ -263,15 +257,15 @@ public final class ConfigurationReader {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final List<FileSystemLocation> fileSystemLocations = configuration.getFileSystemLocations();
+		final List<FileSystemLocation> locations = configuration.getFileSystemLocations();
 
-		LOGGER.debug("{} parsing {} file system locations", prefix, fileSystemLocations.size());
+		LOGGER.debug("{} parsing {} file system locations", prefix, locations.size());
 
-		for (final FileSystemLocationType fileSystemLocationType : locationsType.getFileSystemLocationArray()) {
-			fileSystemLocations.add(parseFileSystemLocation(fileSystemLocationType, configuration));
+		for (final FileSystemLocationType locationType : locationsType.getFileSystemLocationArray()) {
+			locations.add(parseFileSystemLocation(locationType, configuration));
 		}
 
-		Collections.sort(fileSystemLocations);
+		Collections.sort(locations);
 
 		LOGGER.debug("{} exiting", prefix);
 	}
@@ -383,25 +377,23 @@ public final class ConfigurationReader {
 	/**
 	 * Parses the http location.
 	 * 
-	 * @param httpLocationType the http location type
+	 * @param locationType the location type
 	 * @param configuration the configuration
 	 * @return the http location
 	 */
-	private HttpLocation parseHttpLocation(final HttpLocationType httpLocationType, final Configuration configuration) {
+	private HttpLocation parseHttpLocation(final HttpLocationType locationType, final Configuration configuration) {
 		final String prefix = "parseHttpLocation() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final HttpLocation httpLocation = new HttpLocation();
-		final String id = httpLocationType.getId();
-		final String url = StringUtils.trim(httpLocationType.getUrl());
+		final HttpLocation location = new HttpLocation();
 
-		httpLocation.setId(id);
-		httpLocation.setUrl(url);
+		location.setId(StringUtils.trim(locationType.getId()));
+		location.setUrl(StringUtils.trim(StringUtils.trim(locationType.getUrl())));
 
-		LOGGER.debug("{} returning {}", prefix, httpLocation);
+		LOGGER.debug("{} returning {}", prefix, location);
 
-		return httpLocation;
+		return location;
 	}
 
 	/**
@@ -415,17 +407,16 @@ public final class ConfigurationReader {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final List<HttpLocation> httpLocations = configuration.getHttpLocations();
-
+		final List<HttpLocation> locations = configuration.getHttpLocations();
 		final HttpLocationType[] locationTypeArray = locationsType.getHttpLocationArray();
 
 		LOGGER.debug("{} parsing {} HTTP locations", prefix, locationTypeArray.length);
 
 		for (final HttpLocationType httpLocationType : locationTypeArray) {
-			httpLocations.add(parseHttpLocation(httpLocationType, configuration));
+			locations.add(parseHttpLocation(httpLocationType, configuration));
 		}
 
-		Collections.sort(httpLocations);
+		Collections.sort(locations);
 
 		LOGGER.debug("{} exiting", prefix);
 	}
@@ -445,7 +436,7 @@ public final class ConfigurationReader {
 
 		if (sourceType.isSetQueryParams()) {
 			for (final QueryParam queryParam : sourceType.getQueryParams().getQueryParamArray()) {
-				queryParams.put(queryParam.getName(), queryParam.getValue());
+				queryParams.put(StringUtils.trim(queryParam.getName()), StringUtils.trim(queryParam.getValue()));
 			}
 		}
 
@@ -494,8 +485,8 @@ public final class ConfigurationReader {
 
 		final SequentialJob job = new SequentialJob();
 
-		job.setDescription(jobType.getDescription());
-		job.setId(jobType.getId());
+		job.setDescription(StringUtils.trim(jobType.getDescription()));
+		job.setId(StringUtils.trim(jobType.getId()));
 
 		final List<Task> tasks = job.getTasks();
 
@@ -567,6 +558,7 @@ public final class ConfigurationReader {
 
 		FindReplacePattern pattern = new FindReplacePattern();
 
+		// Intentially not trimming find and replace as they may contain leading or trailing spaces
 		pattern.setFind(patternType.getFind());
 		pattern.setReplace(patternType.getReplace());
 
@@ -635,7 +627,7 @@ public final class ConfigurationReader {
 
 		final Preference preference = new Preference();
 
-		preference.setId(preferenceType.getId());
+		preference.setId(StringUtils.trim(preferenceType.getId()));
 
 		LOGGER.debug("{} returning {}", prefix, preference);
 
@@ -704,8 +696,8 @@ public final class ConfigurationReader {
 
 		final Property property = new Property();
 
-		property.setId(propertyType.getId());
-		property.setValue(propertyType.getValue());
+		property.setId(StringUtils.trim(propertyType.getId()));
+		property.setValue(StringUtils.trim(propertyType.getValue()));
 
 		LOGGER.debug("{} returning {}", prefix, property);
 
@@ -716,6 +708,7 @@ public final class ConfigurationReader {
 	 * Parses the subversion export task.
 	 * 
 	 * @param taskType the task type
+	 * @param job the job
 	 * @param configuration the configuration
 	 * @return the task
 	 */
@@ -740,31 +733,26 @@ public final class ConfigurationReader {
 	/**
 	 * Parses the subversion repository location.
 	 * 
-	 * @param subversionRepositoryLocationType the subversion repository location type
+	 * @param locationType the location type
 	 * @param configuration the configuration
-	 * 
 	 * @return the subversion repository location
 	 */
 	private SubversionRepositoryLocation parseSubversionRepositoryLocation(
-			final SubversionRespositoryLocationType subversionRepositoryLocationType, final Configuration configuration) {
+			final SubversionRespositoryLocationType locationType, final Configuration configuration) {
 		final String prefix = "parseSubversionRepositoryLocation() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final SubversionRepositoryLocation subversionRepositoryLocation = new SubversionRepositoryLocation();
-		final String id = subversionRepositoryLocationType.getId();
-		final String url = subversionRepositoryLocationType.getUrl();
-		final String username = subversionRepositoryLocationType.getUsername();
-		final String password = subversionRepositoryLocationType.getPassword();
+		final SubversionRepositoryLocation location = new SubversionRepositoryLocation();
 
-		subversionRepositoryLocation.setId(id);
-		subversionRepositoryLocation.setUrl(url);
-		subversionRepositoryLocation.setUsername(username);
-		subversionRepositoryLocation.setPassword(password);
+		location.setId(StringUtils.trim(locationType.getId()));
+		location.setUrl(StringUtils.trim(locationType.getUrl()));
+		location.setUsername(StringUtils.trim(locationType.getUsername()));
+		location.setPassword(StringUtils.trim(locationType.getPassword()));
 
-		LOGGER.debug("{} returning {}", prefix, subversionRepositoryLocation);
+		LOGGER.debug("{} returning {}", prefix, location);
 
-		return subversionRepositoryLocation;
+		return location;
 	}
 
 	/**
@@ -778,7 +766,7 @@ public final class ConfigurationReader {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final List<SubversionRepositoryLocation> subversionRepositoryLocations = configuration
+		final List<SubversionRepositoryLocation> locations = configuration
 				.getSubversionRepositoryLocations();
 
 		final SubversionRespositoryLocationType[] locationTypeArray = locationsType
@@ -787,11 +775,11 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} parsing {} Subversion repository locations", prefix, locationTypeArray.length);
 
 		for (final SubversionRespositoryLocationType subversionRepositoryLocationType : locationTypeArray) {
-			subversionRepositoryLocations.add(parseSubversionRepositoryLocation(subversionRepositoryLocationType,
+			locations.add(parseSubversionRepositoryLocation(subversionRepositoryLocationType,
 					configuration));
 		}
 
-		Collections.sort(subversionRepositoryLocations);
+		Collections.sort(locations);
 
 		LOGGER.debug("{} exiting", prefix);
 	}
@@ -815,7 +803,7 @@ public final class ConfigurationReader {
 				sourceType.getLocationId());
 
 		source.setLocation(location);
-		source.setRelativePath(sourceType.getRelativePath());
+		source.setRelativePath(StringUtils.trim(sourceType.getRelativePath()));
 
 		LOGGER.debug("{} returning {}", prefix, source);
 
@@ -902,14 +890,14 @@ public final class ConfigurationReader {
 	public Configuration read() {
 		final String prefix = "read() :";
 
-		LOGGER.debug("{} entered, file={}", prefix, file);
+		LOGGER.debug("{} entered, file={}", prefix, configurationFile);
 
 		final Configuration configuration = new Configuration();
 
-		configuration.setAbsolutePath(file.getAbsolutePath());
+		configuration.setAbsolutePath(configurationFile.getAbsolutePath());
 
 		try {
-			final UteConfigurationDocument document = UteConfigurationDocument.Factory.parse(file);
+			final UteConfigurationDocument document = UteConfigurationDocument.Factory.parse(configurationFile);
 			final UteConfigurationType configurationType = document.getUteConfiguration();
 
 			parsePreferences(configurationType, configuration);

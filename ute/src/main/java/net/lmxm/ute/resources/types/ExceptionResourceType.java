@@ -40,6 +40,8 @@ public enum ExceptionResourceType implements ResourceType {
 
 	PREFERENCES_FILE_ALREADY_EXISTS,
 
+	UNSUPPORTED_SCOPE_TYPE,
+
 	UNSUPPORTED_TASK_TYPE;
 
 	/*

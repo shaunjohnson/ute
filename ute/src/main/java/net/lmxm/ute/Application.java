@@ -35,36 +35,6 @@ public final class Application {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
 	/**
-	 * Execute command line.
-	 * 
-	 * @param args the args
-	 */
-	private static void executeCommandLine(final String[] args) {
-		final String prefix = "executeCommandLine() :";
-
-		LOGGER.debug("{} entered", prefix);
-
-		final ConsoleApplication consoleApplication = new ConsoleApplication(args);
-		consoleApplication.execute();
-
-		LOGGER.debug("{} leaving", prefix);
-	}
-
-	/**
-	 * Execute gui.
-	 */
-	private static void executeGui() {
-		final String prefix = "executeGui() :";
-
-		LOGGER.debug("{} entered", prefix);
-
-		final GuiApplication guiApplication = new GuiApplication();
-		guiApplication.execute();
-
-		LOGGER.debug("{} exiting", prefix);
-	}
-
-	/**
 	 * The main method.
 	 * 
 	 * @param args the arguments
@@ -76,10 +46,10 @@ public final class Application {
 		LOGGER.info("{} Application started", prefix);
 
 		if (shouldExecuteGui(args)) {
-			executeGui();
+			new GuiApplication().execute();
 		}
 		else {
-			executeCommandLine(args);
+			new ConsoleApplication(args).execute();
 		}
 
 		LOGGER.info("{} Application ended", prefix);
