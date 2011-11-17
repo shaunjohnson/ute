@@ -18,10 +18,12 @@
  */
 package net.lmxm.ute.exceptions;
 
+import net.lmxm.ute.resources.ExceptionResourceType;
+
 /**
  * The Class ConfigurationException.
  */
-public final class ConfigurationException extends RuntimeException {
+public final class ConfigurationException extends AbstractRuntimeException {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2160059616539742552L;
@@ -29,35 +31,27 @@ public final class ConfigurationException extends RuntimeException {
 	/**
 	 * Instantiates a new configuration exception.
 	 */
-	public ConfigurationException() {
-		super();
+	public ConfigurationException(final ExceptionResourceType type) {
+		super(type);
 	}
 
 	/**
 	 * Instantiates a new configuration exception.
 	 * 
-	 * @param message the message
+	 * @param type the type
+	 * @param args the args
 	 */
-	public ConfigurationException(final String message) {
-		super(message);
+	public ConfigurationException(final ExceptionResourceType type, final Object... args) {
+		super(type, args);
 	}
 
 	/**
 	 * Instantiates a new configuration exception.
 	 * 
-	 * @param message the message
+	 * @param type the type
 	 * @param cause the cause
 	 */
-	public ConfigurationException(final String message, final Throwable cause) {
-		super(message, cause);
-	}
-
-	/**
-	 * Instantiates a new configuration exception.
-	 * 
-	 * @param cause the cause
-	 */
-	public ConfigurationException(final Throwable cause) {
-		super(cause);
+	public ConfigurationException(final ExceptionResourceType type, final Throwable cause) {
+		super(type, cause);
 	}
 }

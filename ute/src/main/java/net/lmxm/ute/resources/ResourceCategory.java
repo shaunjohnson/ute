@@ -31,6 +31,9 @@ public enum ResourceCategory {
 	/** The CONFIRMATION. */
 	CONFIRMATION,
 
+	/** The EXCEPTION. */
+	EXCEPTION,
+
 	/** The LABEL. */
 	LABEL,
 

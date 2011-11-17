@@ -25,6 +25,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.exceptions.ConfigurationException;
+import net.lmxm.ute.resources.ExceptionResourceType;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.XMLConfiguration;
@@ -75,8 +76,7 @@ public final class ApplicationPreferences {
 		}
 		catch (final org.apache.commons.configuration.ConfigurationException e) {
 			LOGGER.debug(prefix + " ConfigurationException caught trying to load configuration", e);
-
-			throw new ConfigurationException("Unable to load preferences file", e);
+			throw new ConfigurationException(ExceptionResourceType.ERROR_LOADING_PREFERENCES_FILE, e);
 		}
 
 		configuration = xmlConfiguration;
@@ -100,8 +100,7 @@ public final class ApplicationPreferences {
 			}
 			else {
 				LOGGER.error("{} unable to create preferences file", prefix);
-
-				throw new ConfigurationException("Unable to create preferences file");
+				throw new ConfigurationException(ExceptionResourceType.PREFERENCES_FILE_ALREADY_EXISTS);
 			}
 
 			final FileWriter fileWriter = new FileWriter(preferencesFile);
@@ -110,8 +109,7 @@ public final class ApplicationPreferences {
 		}
 		catch (final IOException e) {
 			LOGGER.error("{} unable to create empty preferences file", prefix);
-
-			throw new ConfigurationException("Unable to create empty preferences file", e);
+			throw new ConfigurationException(ExceptionResourceType.ERROR_CREATING_PREFERENCES_FILE, e);
 		}
 
 		LOGGER.debug("{} leaving", prefix);

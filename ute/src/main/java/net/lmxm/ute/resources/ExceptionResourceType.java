@@ -21,33 +21,24 @@ package net.lmxm.ute.resources;
 import javax.swing.Icon;
 
 /**
- * The Enum ScopeResourceType.
  */
-public enum ApplicationResourceType implements ResourceType {
+public enum ExceptionResourceType implements ResourceType {
 
-	/** The ABOUT. */
-	ABOUT,
+	ERROR_CREATING_PREFERENCES_FILE,
 
-	/** The ATTRIBUTIONS. */
-	ATTRIBUTIONS,
+	ERROR_LOADING_CONFIGURATION_FILE,
 
-	/** The ERROR_OCCURRED. */
-	ERROR_OCCURRED,
+	ERROR_LOADING_PREFERENCES_FILE,
 
-	/** The FILE_DESCRIPTION. */
-	FILE_DESCRIPTION,
+	ERROR_SAVING_CONFIGURATION_FILE,
 
-	/** The NAME. */
-	NAME,
+	INVALID_CONFIGURATION_FILE,
 
-	/** The NEW_FILE. */
-	NEW_FILE,
+	INVALID_PATTERN,
 
-	/** The SAVE_FILE_AS. */
-	SAVE_FILE_AS,
+	PREFERENCES_FILE_ALREADY_EXISTS,
 
-	/** The VERSION. */
-	VERSION;
+	UNSUPPORTED_TASK_TYPE;
 
 	/*
 	 * (non-Javadoc)
@@ -73,6 +64,6 @@ public enum ApplicationResourceType implements ResourceType {
 	 */
 	@Override
 	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.APPLICATION;
+		return ResourceCategory.EXCEPTION;
 	}
 }

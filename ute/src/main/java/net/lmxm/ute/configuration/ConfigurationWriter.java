@@ -43,6 +43,7 @@ import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.exceptions.ConfigurationException;
+import net.lmxm.ute.resources.ExceptionResourceType;
 import noNamespace.FileSystemDeleteTaskType;
 import noNamespace.FileSystemLocationType;
 import noNamespace.FileSystemTargetType;
@@ -138,32 +139,31 @@ public class ConfigurationWriter {
 		configuration.getAbsolutePath();
 		configuration.removeEmptyObjects();
 
+		ConfigurationUtils.validateConfiguration(configuration);
+
+		final UteConfigurationDocument document = UteConfigurationDocument.Factory.newInstance();
+		final UteConfigurationType configurationType = document.addNewUteConfiguration();
+
+		writePreferences(configurationType, configuration);
+		writeProperties(configurationType, configuration);
+		writeLocations(configurationType, configuration);
+		writeJobs(configurationType, configuration);
+
+		final File file = new File(configuration.getAbsolutePath());
+
+		// Create a backup of the existing file
+		/*
+		 * if (file.exists()) { final File backupFile = new File(file.getAbsolutePath() + ".bak"); // Delete existing
+		 * backup if (backupFile.exists()) { FileUtils.deleteQuietly(backupFile); } FileUtils.moveFile(file,
+		 * backupFile); }
+		 */
+
 		try {
-			ConfigurationUtils.validateConfiguration(configuration);
-
-			final UteConfigurationDocument document = UteConfigurationDocument.Factory.newInstance();
-			final UteConfigurationType configurationType = document.addNewUteConfiguration();
-
-			writePreferences(configurationType, configuration);
-			writeProperties(configurationType, configuration);
-			writeLocations(configurationType, configuration);
-			writeJobs(configurationType, configuration);
-
-			final File file = new File(configuration.getAbsolutePath());
-
-			// Create a backup of the existing file
-			/*
-			 * if (file.exists()) { final File backupFile = new File(file.getAbsolutePath() + ".bak"); // Delete
-			 * existing backup if (backupFile.exists()) { FileUtils.deleteQuietly(backupFile); }
-			 * FileUtils.moveFile(file, backupFile); }
-			 */
-
 			document.save(file, new XmlOptions().setSavePrettyPrint().setSavePrettyPrintIndent(4));
 		}
 		catch (final IOException e) {
-			LOGGER.error("IOException caught while writing configuration file", e);
-
-			throw new ConfigurationException("Error occurred writing configuration file", e);
+			LOGGER.error("IOException caught while saving configuration file", e);
+			throw new ConfigurationException(ExceptionResourceType.ERROR_SAVING_CONFIGURATION_FILE, e);
 		}
 
 		LOGGER.debug("{} leaving", prefix);
@@ -825,7 +825,8 @@ public class ConfigurationWriter {
 				writeSubversionUpdateTask(taskType, task);
 			}
 			else {
-				throw new ConfigurationException("Unsupported task type"); // TODO
+				LOGGER.error("{} Unsupported task type {}", prefix, task.getClass());
+				throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE);
 			}
 		}
 

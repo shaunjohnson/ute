@@ -49,6 +49,7 @@ import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.exceptions.ConfigurationException;
+import net.lmxm.ute.resources.ExceptionResourceType;
 import noNamespace.FileSystemDeleteTaskType;
 import noNamespace.FileSystemLocationType;
 import noNamespace.FileSystemTargetType;
@@ -573,7 +574,8 @@ public final class ConfigurationReader {
 			pattern = null;
 		}
 		else if (!pattern.isValid()) {
-			throw new ConfigurationException("The find pattern \"" + patternType.getFind() + "\" is not valid");
+			LOGGER.error("{} The find pattern \"{}\" is not valid", prefix, patternType.getFind());
+			throw new ConfigurationException(ExceptionResourceType.INVALID_PATTERN, patternType.getFind());
 		}
 
 		LOGGER.debug("{} returning {}", prefix, pattern);
@@ -879,7 +881,8 @@ public final class ConfigurationReader {
 			task = parseSubversionUpdateTask(taskType.getSubversionUpdateTask(), job, configuration);
 		}
 		else {
-			throw new ConfigurationException("Unsupported task type");
+			LOGGER.error("{} Unsupported task type {}", prefix, taskType.getClass());
+			throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE);
 		}
 
 		task.setDescription(taskType.getDescription());
@@ -918,13 +921,11 @@ public final class ConfigurationReader {
 		}
 		catch (final XmlException e) {
 			LOGGER.error("XmlException caught while parsing configuration file", e);
-
-			throw new ConfigurationException("Error occurred loading configuration file", e);
+			throw new ConfigurationException(ExceptionResourceType.INVALID_CONFIGURATION_FILE, e);
 		}
 		catch (final IOException e) {
 			LOGGER.error("IOException caught while parsing configuration file", e);
-
-			throw new ConfigurationException("Error occurred loading configuration file", e);
+			throw new ConfigurationException(ExceptionResourceType.ERROR_LOADING_CONFIGURATION_FILE, e);
 		}
 
 		LOGGER.debug("{} returning {}", prefix, configuration);

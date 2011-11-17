@@ -561,7 +561,7 @@ public final class ConfigurationUtils {
 		if (matcher.find()) {
 			LOGGER.error("{} undefined property with name \"{}\"", prefix, matcher.group(3));
 
-			throw new RuntimeException("Undefined property with name \"" + matcher.group(3) + "\"");
+			throw new RuntimeException("Undefined property with name \"" + matcher.group(3) + "\""); // TODO
 		}
 		else {
 			LOGGER.debug("{} no property references found", prefix);
