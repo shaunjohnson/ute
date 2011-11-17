@@ -48,6 +48,8 @@ import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.exceptions.ConfigurationException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.StringUtils;
@@ -442,7 +444,8 @@ public final class ConfigurationUtils {
 				interpolateFiles(subversionUpdateTask.getFiles(), propertyNames, propertyValues);
 			}
 			else {
-				throw new RuntimeException("Unsupported task type"); // TODO Use appropriate exception
+				LOGGER.error("{} Unsupported task type {}", prefix, task.getClass());
+				throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE);
 			}
 		}
 

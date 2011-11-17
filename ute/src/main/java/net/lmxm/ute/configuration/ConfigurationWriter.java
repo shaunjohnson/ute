@@ -118,7 +118,8 @@ public class ConfigurationWriter {
 			scopeType = ScopeType.LINE;
 		}
 		else {
-			scopeType = ScopeType.LINE;
+			LOGGER.error("convertScopeToScopeType() : Unsupported scope \"{}\"", scope);
+			throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_SCOPE, scope);
 		}
 
 		LOGGER.debug("{} returning {}", prefix, scopeType);
