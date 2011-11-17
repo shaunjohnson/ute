@@ -25,10 +25,8 @@ import javax.swing.Icon;
  */
 public enum ScopeResourceType implements ResourceType {
 
-	/** The FILE. */
 	FILE,
 
-	/** The LINE. */
 	LINE;
 
 	/*

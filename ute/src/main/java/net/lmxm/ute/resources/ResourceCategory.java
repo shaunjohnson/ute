@@ -22,42 +22,30 @@ package net.lmxm.ute.resources;
  * The Enum ResourceCategory.
  */
 public enum ResourceCategory {
-	/** The APPLICATION. */
+
 	APPLICATION,
 
-	/** The BUTTON. */
 	BUTTON,
 
-	/** The CONFIRMATION. */
 	CONFIRMATION,
 
-	/** The EXCEPTION. */
 	EXCEPTION,
 
-	/** The LABEL. */
 	LABEL,
 
-	/** The MENU. */
 	MENU,
 
-	/** The MENU_ITEM. */
 	MENU_ITEM,
 
-	/** The SCOPE. */
 	SCOPE,
 
-	/** The STATUS_CHANGE_MESSAGE. */
 	STATUS_CHANGE_MESSAGE,
 
-	/** The SUBVERSION_EVENT. */
 	SUBVERSION_EVENT,
 
-	/** The TABLE_COLUMN. */
 	TABLE_COLUMN,
 
-	/** The TOOLBAR_BUTTON. */
 	TOOLBAR_BUTTON,
 
-	/** The TREE_NODE. */
 	TREE_NODE;
 }

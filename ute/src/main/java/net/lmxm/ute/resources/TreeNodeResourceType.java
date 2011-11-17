@@ -24,22 +24,16 @@ import javax.swing.Icon;
  */
 public enum TreeNodeResourceType implements ResourceType {
 
-	/** The FILE_SYSTEM_LOCATIONS. */
 	FILE_SYSTEM_LOCATIONS,
 
-	/** The HTTP_LOCATIONS. */
 	HTTP_LOCATIONS,
 
-	/** The FILE. */
 	JOBS,
 
-	/** The PREFERENCES. */
 	PREFERENCES,
 
-	/** The PROPERTIES. */
 	PROPERTIES,
 
-	/** The SUBVERSION_REPOSITORY_LOCATIONS. */
 	SUBVERSION_REPOSITORY_LOCATIONS;
 
 	/*

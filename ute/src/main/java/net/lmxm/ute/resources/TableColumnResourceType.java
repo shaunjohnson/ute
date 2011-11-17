@@ -25,16 +25,12 @@ import javax.swing.Icon;
  */
 public enum TableColumnResourceType implements ResourceType {
 
-	/** The FILE_NAME. */
 	FILE_NAME,
 
-	/** The FIND. */
 	FIND,
 
-	/** The REPLACEMENT. */
 	REPLACEMENT,
 
-	/** The TARGET_FILE_NAME. */
 	TARGET_FILE_NAME;
 
 	/*
@@ -48,19 +44,19 @@ public enum TableColumnResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
-	 */
-	@Override
-	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.TABLE_COLUMN;
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 */
+	@Override
+	public ResourceCategory getResourceCategory() {
+		return ResourceCategory.TABLE_COLUMN;
 	}
 }

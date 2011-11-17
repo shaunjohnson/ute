@@ -25,10 +25,8 @@ import javax.swing.Icon;
  */
 public enum ButtonResourceType implements ResourceType {
 
-	/** The CLOSE_DIALOG button. */
 	CLOSE_DIALOG(null, null),
 
-	/** The DIRECTORY_BROWSE button. */
 	DIRECTORY_BROWSE(null, null);
 
 	/** The action command. */
@@ -59,19 +57,19 @@ public enum ButtonResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
-	 */
-	@Override
-	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.BUTTON;
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
 		return icon;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
+	 */
+	@Override
+	public ResourceCategory getResourceCategory() {
+		return ResourceCategory.BUTTON;
 	}
 }

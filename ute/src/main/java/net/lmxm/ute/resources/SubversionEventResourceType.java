@@ -24,22 +24,17 @@ import javax.swing.Icon;
  * The Enum ScopeResourceType.
  */
 public enum SubversionEventResourceType implements ResourceType {
-	/** The LOCK_STATUS_UNLOCKED. */
+
 	LOCK_STATUS_UNLOCKED,
 
-	/** The STATUS_ADDED. */
 	STATUS_ADDED,
 
-	/** The STATUS_CONFLICTED. */
 	STATUS_CONFLICTED,
 
-	/** The STATUS_DELETED. */
 	STATUS_DELETED,
 
-	/** The STATUS_MERGED. */
 	STATUS_MERGED,
 
-	/** The STATUS_UPDATED. */
 	STATUS_UPDATED;
 
 	/*

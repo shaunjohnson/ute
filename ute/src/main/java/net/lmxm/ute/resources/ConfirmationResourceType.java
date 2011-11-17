@@ -25,7 +25,6 @@ import javax.swing.Icon;
  */
 public enum ConfirmationResourceType implements ResourceType {
 
-	/** The DELETE_JOB. */
 	DELETE_JOB;
 
 	/*
@@ -39,19 +38,19 @@ public enum ConfirmationResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
-	 */
-	@Override
-	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.CONFIRMATION;
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 */
+	@Override
+	public ResourceCategory getResourceCategory() {
+		return ResourceCategory.CONFIRMATION;
 	}
 }

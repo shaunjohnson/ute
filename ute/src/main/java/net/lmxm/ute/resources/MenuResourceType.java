@@ -25,16 +25,12 @@ import javax.swing.Icon;
  */
 public enum MenuResourceType implements ResourceType {
 
-	/** The ADD_TASK. */
 	ADD_TASK(null, null),
 
-	/** The EDIT. */
 	EDIT(null, null),
 
-	/** The FILE. */
 	FILE(null, null),
 
-	/** The HELP. */
 	HELP(null, null);
 
 	/** The action command. */
@@ -65,19 +61,19 @@ public enum MenuResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
-	 */
-	@Override
-	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.MENU;
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
 		return icon;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 */
+	@Override
+	public ResourceCategory getResourceCategory() {
+		return ResourceCategory.MENU;
 	}
 }

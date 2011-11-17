@@ -25,28 +25,20 @@ import javax.swing.Icon;
  */
 public enum ApplicationResourceType implements ResourceType {
 
-	/** The ABOUT. */
 	ABOUT,
 
-	/** The ATTRIBUTIONS. */
 	ATTRIBUTIONS,
 
-	/** The ERROR_OCCURRED. */
 	ERROR_OCCURRED,
 
-	/** The FILE_DESCRIPTION. */
 	FILE_DESCRIPTION,
 
-	/** The NAME. */
 	NAME,
 
-	/** The NEW_FILE. */
 	NEW_FILE,
 
-	/** The SAVE_FILE_AS. */
 	SAVE_FILE_AS,
 
-	/** The VERSION. */
 	VERSION;
 
 	/*
