@@ -37,7 +37,7 @@ import javax.swing.SwingConstants;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.types.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
 
 import com.google.common.base.Preconditions;

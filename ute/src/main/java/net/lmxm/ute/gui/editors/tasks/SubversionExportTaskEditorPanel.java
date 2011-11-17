@@ -23,7 +23,7 @@ import java.awt.event.ActionListener;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
-import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.types.LabelResourceType;
 
 /**
  * The Class SubversionExportTaskEditorPanel.

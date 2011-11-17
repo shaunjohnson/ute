@@ -26,7 +26,7 @@ import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
-import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;

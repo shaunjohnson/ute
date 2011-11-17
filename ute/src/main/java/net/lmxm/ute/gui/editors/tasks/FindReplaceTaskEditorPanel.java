@@ -35,7 +35,7 @@ import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.gui.components.FindReplacePatternsTableModel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
-import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

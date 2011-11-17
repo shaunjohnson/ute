@@ -16,39 +16,96 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.resources;
+package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.resources.ResourceCategory;
+
 /**
- * The Enum MenuResourceType.
+ * The Enum LabelResourceType.
  */
-public enum MenuResourceType implements ResourceType {
+public enum LabelResourceType implements ResourceType {
 
-	ADD_TASK(null, null),
+	CURRENT_VALUE,
 
-	EDIT(null, null),
+	DESCRIPTION,
 
-	FILE(null, null),
+	ENABLED,
 
-	HELP(null, null);
+	FILE_SYSTEM_DELETE_TASK,
 
-	/** The action command. */
-	private final String actionCommand;
+	FILE_SYSTEM_LOCATION,
 
-	/** The icon. */
-	private final Icon icon;
+	FILE_SYSTEM_LOCATIONS,
 
-	/**
-	 * Instantiates a new gui component menu.
-	 * 
-	 * @param icon the icon
-	 * @param actionCommand the action command
-	 */
-	MenuResourceType(final Icon icon, final String actionCommand) {
-		this.icon = icon;
-		this.actionCommand = actionCommand;
-	}
+	FILES,
+
+	FIND_AND_REPLACE,
+
+	FIND_AND_REPLACE_TASK,
+
+	GROOVY_SCRIPT,
+
+	GROOVY_TASK,
+
+	HTTP_DOWNLOAD_TASK,
+
+	HTTP_LOCATION,
+
+	HTTP_LOCATIONS,
+
+	ID,
+
+	JOB,
+
+	JOBS,
+
+	LOCATION,
+
+	PASSWORD,
+
+	PATH,
+
+	PATTERNS,
+
+	PREFERENCE,
+
+	PREFERENCES,
+
+	PROPERTIES,
+
+	PROPERTY,
+
+	SCOPE,
+
+	SCRIPT,
+
+	SEQUENTIAL_JOB,
+
+	SERVER,
+
+	SOURCE,
+
+	STOP_ON_ERROR,
+
+	SUBVERSION_EXPORT_TASK,
+
+	SUBVERSION_REPOSITORY_LOCATION,
+
+	SUBVERSION_REPOSITORY_LOCATIONS,
+
+	SUBVERSION_UPDATE_TASK,
+
+	TARGET,
+
+	TASK,
+
+	URL,
+
+	USERNAME,
+
+	VALUE;
 
 	/*
 	 * (non-Javadoc)
@@ -56,7 +113,7 @@ public enum MenuResourceType implements ResourceType {
 	 */
 	@Override
 	public String getActionCommand() {
-		return actionCommand;
+		return null;
 	}
 
 	/*
@@ -65,7 +122,7 @@ public enum MenuResourceType implements ResourceType {
 	 */
 	@Override
 	public Icon getIcon() {
-		return icon;
+		return null;
 	}
 
 	/*
@@ -74,6 +131,6 @@ public enum MenuResourceType implements ResourceType {
 	 */
 	@Override
 	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.MENU;
+		return ResourceCategory.LABEL;
 	}
 }

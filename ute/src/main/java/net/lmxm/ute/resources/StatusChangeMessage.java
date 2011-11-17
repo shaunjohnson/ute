@@ -21,6 +21,8 @@ package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.resources.types.ResourceType;
+
 /**
  * The Enum StatusChangeMessage.
  */

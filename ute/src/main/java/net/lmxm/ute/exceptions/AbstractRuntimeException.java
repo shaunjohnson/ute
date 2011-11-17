@@ -18,8 +18,8 @@
  */
 package net.lmxm.ute.exceptions;
 
-import net.lmxm.ute.resources.ExceptionResourceType;
 import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 
 /**
  * The Class AbstractRuntimeException.

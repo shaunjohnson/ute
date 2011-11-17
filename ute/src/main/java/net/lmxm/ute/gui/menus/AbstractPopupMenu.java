@@ -25,8 +25,8 @@ import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.resources.MenuItemResourceType;
-import net.lmxm.ute.resources.MenuResourceType;
+import net.lmxm.ute.resources.types.MenuItemResourceType;
+import net.lmxm.ute.resources.types.MenuResourceType;
 
 import com.google.common.base.Preconditions;
 

@@ -16,11 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.resources;
+package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
 import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.resources.ImageUtil;
+import net.lmxm.ute.resources.ResourceCategory;
 
 /**
  * The Enum MenuItemResourceType.

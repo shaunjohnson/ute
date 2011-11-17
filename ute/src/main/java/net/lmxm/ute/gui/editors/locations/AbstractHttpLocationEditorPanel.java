@@ -27,7 +27,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
 import net.lmxm.ute.listeners.ChangeAdapter;
-import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.types.LabelResourceType;
 
 /**
  * The Class AbstractHttpLocationEditorPanel.

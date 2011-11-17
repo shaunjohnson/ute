@@ -24,7 +24,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.resources.ToolbarButtonResourceType;
+import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
 /**
  * The Class AbstractToolBar.

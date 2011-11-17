@@ -58,7 +58,7 @@ import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 import net.lmxm.ute.listeners.ChangeAdapter;
 import net.lmxm.ute.listeners.EnabledStateChangeEvent;
 import net.lmxm.ute.listeners.EnabledStateChangeListener;
-import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

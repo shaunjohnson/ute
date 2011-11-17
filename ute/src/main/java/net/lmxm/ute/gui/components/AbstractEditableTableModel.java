@@ -25,7 +25,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.TableColumnResourceType;
+import net.lmxm.ute.resources.types.TableColumnResourceType;
 
 /**
  * The Class AbstractEditableTableModel.

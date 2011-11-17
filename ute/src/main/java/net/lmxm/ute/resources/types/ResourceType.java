@@ -16,41 +16,42 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.resources;
+package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.resources.ResourceCategory;
+
 /**
- * The Enum ConfirmationResourceType.
+ * The Interface ResourceType.
  */
-public enum ConfirmationResourceType implements ResourceType {
+public interface ResourceType {
 
-	DELETE_JOB;
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
+	/**
+	 * Gets the action command.
+	 * 
+	 * @return the action command
 	 */
-	@Override
-	public String getActionCommand() {
-		return null;
-	}
+	String getActionCommand();
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
+	/**
+	 * Gets the icon.
+	 * 
+	 * @return the icon
 	 */
-	@Override
-	public Icon getIcon() {
-		return null;
-	}
+	Icon getIcon();
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	/**
+	 * Gets the resource category.
+	 * 
+	 * @return the resource category
 	 */
-	@Override
-	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.CONFIRMATION;
-	}
+	ResourceCategory getResourceCategory();
+
+	/**
+	 * Name.
+	 * 
+	 * @return the string
+	 */
+	String name();
 }

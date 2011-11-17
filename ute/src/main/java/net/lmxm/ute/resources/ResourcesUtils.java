@@ -20,6 +20,8 @@ package net.lmxm.ute.resources;
 
 import java.util.ResourceBundle;
 
+import net.lmxm.ute.resources.types.ResourceType;
+
 import org.apache.commons.lang.StringUtils;
 
 /**

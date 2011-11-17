@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JToolBar;
 
-import net.lmxm.ute.resources.LabelResourceType;
+import net.lmxm.ute.resources.types.LabelResourceType;
 
 /**
  * The Class AbstractReadonlyEditorPanel.

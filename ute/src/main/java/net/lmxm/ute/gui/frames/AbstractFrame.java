@@ -21,8 +21,8 @@ package net.lmxm.ute.gui.frames;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import net.lmxm.ute.resources.ApplicationResourceType;
 import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.types.ApplicationResourceType;
 
 /**
  * The Class AbstractFrame.

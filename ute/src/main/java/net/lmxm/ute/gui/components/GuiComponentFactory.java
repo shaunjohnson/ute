@@ -30,13 +30,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import net.lmxm.ute.resources.ButtonResourceType;
-import net.lmxm.ute.resources.LabelResourceType;
-import net.lmxm.ute.resources.MenuItemResourceType;
-import net.lmxm.ute.resources.MenuResourceType;
-import net.lmxm.ute.resources.ResourceType;
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.ToolbarButtonResourceType;
+import net.lmxm.ute.resources.types.ButtonResourceType;
+import net.lmxm.ute.resources.types.LabelResourceType;
+import net.lmxm.ute.resources.types.MenuItemResourceType;
+import net.lmxm.ute.resources.types.MenuResourceType;
+import net.lmxm.ute.resources.types.ResourceType;
+import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
 /**
  * A factory for creating GuiComponent objects.

@@ -16,26 +16,20 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.resources;
+package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
+
+import net.lmxm.ute.resources.ResourceCategory;
 
 /**
  * The Enum ScopeResourceType.
  */
-public enum SubversionEventResourceType implements ResourceType {
+public enum ScopeResourceType implements ResourceType {
 
-	LOCK_STATUS_UNLOCKED,
+	FILE,
 
-	STATUS_ADDED,
-
-	STATUS_CONFLICTED,
-
-	STATUS_DELETED,
-
-	STATUS_MERGED,
-
-	STATUS_UPDATED;
+	LINE;
 
 	/*
 	 * (non-Javadoc)
@@ -61,6 +55,6 @@ public enum SubversionEventResourceType implements ResourceType {
 	 */
 	@Override
 	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.SUBVERSION_EVENT;
+		return ResourceCategory.SCOPE;
 	}
 }

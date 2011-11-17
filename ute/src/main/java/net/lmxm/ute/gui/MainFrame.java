@@ -144,10 +144,10 @@ import net.lmxm.ute.gui.toolbars.MainTreeToolBar;
 import net.lmxm.ute.gui.utils.DialogUtil;
 import net.lmxm.ute.gui.utils.UserPreferences;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
-import net.lmxm.ute.resources.ApplicationResourceType;
-import net.lmxm.ute.resources.ConfirmationResourceType;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.types.ApplicationResourceType;
+import net.lmxm.ute.resources.types.ConfirmationResourceType;
 import net.lmxm.ute.utils.FileSystemUtils;
 
 import org.apache.commons.lang.SerializationUtils;

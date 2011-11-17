@@ -16,18 +16,31 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.resources;
+package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.resources.ResourceCategory;
+
 /**
- * The Enum ScopeResourceType.
  */
-public enum ScopeResourceType implements ResourceType {
+public enum ExceptionResourceType implements ResourceType {
 
-	FILE,
+	ERROR_CREATING_PREFERENCES_FILE,
 
-	LINE;
+	ERROR_LOADING_CONFIGURATION_FILE,
+
+	ERROR_LOADING_PREFERENCES_FILE,
+
+	ERROR_SAVING_CONFIGURATION_FILE,
+
+	INVALID_CONFIGURATION_FILE,
+
+	INVALID_PATTERN,
+
+	PREFERENCES_FILE_ALREADY_EXISTS,
+
+	UNSUPPORTED_TASK_TYPE;
 
 	/*
 	 * (non-Javadoc)
@@ -53,6 +66,6 @@ public enum ScopeResourceType implements ResourceType {
 	 */
 	@Override
 	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.SCOPE;
+		return ResourceCategory.EXCEPTION;
 	}
 }

@@ -16,34 +16,28 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.resources;
+package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.resources.ResourceCategory;
+
 /**
- * The Enum ScopeResourceType.
+ * The Enum TableColumnResourceType.
  */
-public enum ApplicationResourceType implements ResourceType {
+public enum TableColumnResourceType implements ResourceType {
 
-	ABOUT,
+	FILE_NAME,
 
-	ATTRIBUTIONS,
+	FIND,
 
-	ERROR_OCCURRED,
+	REPLACEMENT,
 
-	FILE_DESCRIPTION,
-
-	NAME,
-
-	NEW_FILE,
-
-	SAVE_FILE_AS,
-
-	VERSION;
+	TARGET_FILE_NAME;
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
 	 */
 	@Override
 	public String getActionCommand() {
@@ -52,7 +46,7 @@ public enum ApplicationResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
@@ -61,10 +55,10 @@ public enum ApplicationResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
 	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.APPLICATION;
+		return ResourceCategory.TABLE_COLUMN;
 	}
 }

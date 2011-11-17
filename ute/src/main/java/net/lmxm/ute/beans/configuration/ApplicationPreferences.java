@@ -25,7 +25,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.exceptions.ConfigurationException;
-import net.lmxm.ute.resources.ExceptionResourceType;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.XMLConfiguration;

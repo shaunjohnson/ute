@@ -21,7 +21,7 @@ package net.lmxm.ute.gui.maintree.nodes;
 import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.TreeNodeResourceType;
+import net.lmxm.ute.resources.types.TreeNodeResourceType;
 
 /**
  * The Class FileSystemLocationsRootTreeNode.

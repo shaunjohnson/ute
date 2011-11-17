@@ -22,8 +22,8 @@ import java.awt.event.ActionListener;
 
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
-import net.lmxm.ute.resources.LabelResourceType;
-import net.lmxm.ute.resources.ToolbarButtonResourceType;
+import net.lmxm.ute.resources.types.LabelResourceType;
+import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
 /**
  * The Class HttpLocationEditorPanel.

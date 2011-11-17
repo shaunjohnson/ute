@@ -19,7 +19,7 @@
 package net.lmxm.ute.enums;
 
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.ScopeResourceType;
+import net.lmxm.ute.resources.types.ScopeResourceType;
 
 /**
  * The Enum Scope.

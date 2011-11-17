@@ -32,8 +32,8 @@ import net.lmxm.ute.configuration.ConfigurationReader;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
-import net.lmxm.ute.resources.ApplicationResourceType;
 import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.types.ApplicationResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

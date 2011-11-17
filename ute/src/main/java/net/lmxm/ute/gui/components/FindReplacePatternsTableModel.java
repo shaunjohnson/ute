@@ -24,7 +24,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.resources.TableColumnResourceType;
+import net.lmxm.ute.resources.types.TableColumnResourceType;
 
 import org.apache.commons.lang.ObjectUtils;
 

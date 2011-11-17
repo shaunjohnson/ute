@@ -16,54 +16,66 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.resources;
+package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.resources.ResourceCategory;
+
 /**
+ * The Enum MenuResourceType.
  */
-public enum ExceptionResourceType implements ResourceType {
+public enum MenuResourceType implements ResourceType {
 
-	ERROR_CREATING_PREFERENCES_FILE,
+	ADD_TASK(null, null),
 
-	ERROR_LOADING_CONFIGURATION_FILE,
+	EDIT(null, null),
 
-	ERROR_LOADING_PREFERENCES_FILE,
+	FILE(null, null),
 
-	ERROR_SAVING_CONFIGURATION_FILE,
+	HELP(null, null);
 
-	INVALID_CONFIGURATION_FILE,
+	/** The action command. */
+	private final String actionCommand;
 
-	INVALID_PATTERN,
+	/** The icon. */
+	private final Icon icon;
 
-	PREFERENCES_FILE_ALREADY_EXISTS,
-
-	UNSUPPORTED_TASK_TYPE;
+	/**
+	 * Instantiates a new gui component menu.
+	 * 
+	 * @param icon the icon
+	 * @param actionCommand the action command
+	 */
+	MenuResourceType(final Icon icon, final String actionCommand) {
+		this.icon = icon;
+		this.actionCommand = actionCommand;
+	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
 	 */
 	@Override
 	public String getActionCommand() {
-		return null;
+		return actionCommand;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
-		return null;
+		return icon;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
+	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
 	 */
 	@Override
 	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.EXCEPTION;
+		return ResourceCategory.MENU;
 	}
 }

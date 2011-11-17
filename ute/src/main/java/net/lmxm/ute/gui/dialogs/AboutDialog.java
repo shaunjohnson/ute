@@ -35,10 +35,10 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.resources.ApplicationResourceType;
-import net.lmxm.ute.resources.ButtonResourceType;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.types.ApplicationResourceType;
+import net.lmxm.ute.resources.types.ButtonResourceType;
 
 /**
  * The Class AboutDialog.
