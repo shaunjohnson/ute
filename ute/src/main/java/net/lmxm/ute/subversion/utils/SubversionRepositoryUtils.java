@@ -35,6 +35,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tmatesoft.svn.core.SVNAuthenticationException;
+import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNErrorCode;
 import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
@@ -143,7 +144,7 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 				final SubversionExportEditor exportEditor = new SubversionExportEditor(exportDirectory,
 						getStatusChangeHelper());
 
-				repository.update(revisionToExport, null, true, reporterBaton, exportEditor);
+				repository.update(revisionToExport, null, SVNDepth.INFINITY, true, reporterBaton, exportEditor);
 			}
 			else {
 				LOGGER.debug("{} files list contains entries, exporting {} individual files", prefix, files.size());
