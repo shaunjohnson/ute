@@ -22,9 +22,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.resources.StatusChangeMessage;
 
@@ -70,8 +72,12 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 	 * @param urlString the url
 	 * @param destinationPath the path
 	 * @param files the files
+	 * @param revision the revision
+	 * @param revisionDate the revision date
+	 * @param revisionNumber the revision number
 	 */
-	public void exportFiles(final String urlString, final String destinationPath, final List<FileReference> files) {
+	public void exportFiles(final String urlString, final String destinationPath, final List<FileReference> files,
+			final SubversionRevision revision, final Date revisionDate, final Long revisionNumber) {
 		final String prefix = "exportFiles() :";
 
 		if (LOGGER.isDebugEnabled()) {
@@ -111,7 +117,6 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 			repository.setAuthenticationManager(getAuthenticationManager());
 
 			final SVNNodeKind nodeKind = repository.checkPath("", -1);
-			final long latestRevision = repository.getLatestRevision();
 
 			if (nodeKind == SVNNodeKind.NONE) {
 				LOGGER.error("{} No entry at URL {}", prefix, url);
@@ -128,14 +133,17 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 				throw new SVNException(err);
 			}
 
+			final long revisionToExport = resolveRevision(repository, revision, revisionDate, revisionNumber);
+
 			if (CollectionUtils.isEmpty(files)) {
 				LOGGER.debug("{} files list is empty, exporting entire directory", prefix);
 
-				final ISVNReporterBaton reporterBaton = new ExportReporterBaton(latestRevision, getStatusChangeHelper());
+				final ISVNReporterBaton reporterBaton = new ExportReporterBaton(revisionToExport,
+						getStatusChangeHelper());
 				final SubversionExportEditor exportEditor = new SubversionExportEditor(exportDirectory,
 						getStatusChangeHelper());
 
-				repository.update(latestRevision, null, true, reporterBaton, exportEditor);
+				repository.update(revisionToExport, null, true, reporterBaton, exportEditor);
 			}
 			else {
 				LOGGER.debug("{} files list contains entries, exporting {} individual files", prefix, files.size());
@@ -159,7 +167,7 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 						}
 
 						contents = new FileOutputStream(destinationFile);
-						repository.getFile(fileName, latestRevision, null, contents);
+						repository.getFile(fileName, revisionToExport, null, contents);
 						contents.close();
 
 						if (StringUtils.isBlank(targetName)) {
@@ -196,7 +204,7 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 
 			LOGGER.debug("{} finished exporting files", prefix);
 
-			getStatusChangeHelper().important(this, StatusChangeMessage.SUBVERSION_EXPORT_FINISHED, latestRevision);
+			getStatusChangeHelper().important(this, StatusChangeMessage.SUBVERSION_EXPORT_FINISHED, revisionToExport);
 		}
 		catch (final SVNAuthenticationException e) {
 			LOGGER.error("SVNAuthenticationException caught exporting a file", e);
@@ -208,5 +216,42 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 			getStatusChangeHelper().error(this, StatusChangeMessage.SUBVERSION_EXPORT_ERROR);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
+	}
+
+	/**
+	 * Resolve revision.
+	 * 
+	 * @param repository the repository
+	 * @param revision the revision
+	 * @param revisionDate the revision date
+	 * @param revisionNumber the revision number
+	 * @return the long
+	 * @throws SVNException the sVN exception
+	 */
+	private long resolveRevision(final SVNRepository repository, final SubversionRevision revision,
+			final Date revisionDate, final Long revisionNumber) throws SVNException {
+		final String prefix = "resolveRevision() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final long revisionToExport;
+
+		if (revision == SubversionRevision.DATE) {
+			revisionToExport = repository.getDatedRevision(revisionDate);
+		}
+		else if (revision == SubversionRevision.HEAD) {
+			revisionToExport = repository.getLatestRevision();
+		}
+		else if (revision == SubversionRevision.NUMBERED) {
+			revisionToExport = revisionNumber;
+		}
+		else {
+			LOGGER.error("{} unsupported revision type {}", prefix, revision);
+			throw new RuntimeException("Unsupported revision type"); // TODO
+		}
+
+		LOGGER.debug("{} returning {}", prefix, revisionToExport);
+
+		return revisionToExport;
 	}
 }
