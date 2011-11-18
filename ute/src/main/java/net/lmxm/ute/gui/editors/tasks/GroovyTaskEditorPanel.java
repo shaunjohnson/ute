@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.GroovyTask;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -72,10 +73,12 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	/**
 	 * Instantiates a new groovy task editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public GroovyTaskEditorPanel(final ActionListener actionListener) {
-		super(LabelResourceType.GROOVY_TASK, new GroovyTaskEditorToolBar(actionListener), actionListener);
+	public GroovyTaskEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(LabelResourceType.GROOVY_TASK, new GroovyTaskEditorToolBar(actionListener), configurationHolder,
+				actionListener);
 
 		addFields();
 	}

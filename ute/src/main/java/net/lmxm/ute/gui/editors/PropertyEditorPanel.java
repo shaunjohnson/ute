@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -70,10 +71,12 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 	/**
 	 * Instantiates a new property editor.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public PropertyEditorPanel(final ActionListener actionListener) {
-		super(LabelResourceType.PROPERTY, new PropertyEditorToolBar(actionListener), actionListener);
+	public PropertyEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(LabelResourceType.PROPERTY, new PropertyEditorToolBar(actionListener), configurationHolder,
+				actionListener);
 
 		addFields();
 	}

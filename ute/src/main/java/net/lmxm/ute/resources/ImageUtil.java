@@ -104,6 +104,9 @@ public final class ImageUtil {
 	/** The Constant EDIT_PREFERENCES_ICON. */
 	public static final Icon EDIT_PREFERENCES_ICON;
 
+	/** The Constant ERROR_ICON. */
+	public static final Icon ERROR_ICON;
+
 	/** The Constant EXECUTE_ICON. */
 	public static final Icon EXECUTE_ICON;
 
@@ -210,6 +213,7 @@ public final class ImageUtil {
 				thisClass.getResource("/images/subversion--minus.png"));
 		DRIVE_ICON = new ImageIcon(thisClass.getResource("/images/drive.png"));
 		EDIT_PREFERENCES_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
+		ERROR_ICON = new ImageIcon(thisClass.getResource("/images/cross-circle.png"));
 		EXECUTE_ICON = new ImageIcon(thisClass.getResource("/images/lightning.png"));
 		EXIT_ICON = new ImageIcon(thisClass.getResource("/images/door-open-out.png"));
 		EXPAND_ICON = new ImageIcon(thisClass.getResource("/images/toggle-expand.png"));

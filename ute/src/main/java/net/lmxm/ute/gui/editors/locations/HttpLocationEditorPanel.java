@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors.locations;
 import java.awt.event.ActionListener;
 
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -56,10 +57,12 @@ public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPan
 	/**
 	 * Instantiates a new http location editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public HttpLocationEditorPanel(final ActionListener actionListener) {
-		super(LabelResourceType.HTTP_LOCATION, new HttpLocationEditorToolBar(actionListener), actionListener);
+	public HttpLocationEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(LabelResourceType.HTTP_LOCATION, new HttpLocationEditorToolBar(actionListener), configurationHolder,
+				actionListener);
 
 		addFields();
 	}

@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -54,10 +55,13 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 	/**
 	 * Instantiates a new http download task editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public HttpDownloadTaskEditorPanel(final ActionListener actionListener) {
-		super(LabelResourceType.HTTP_DOWNLOAD_TASK, new HttpDownloadTaskEditorToolBar(actionListener), actionListener);
+	public HttpDownloadTaskEditorPanel(final ConfigurationHolder configurationHolder,
+			final ActionListener actionListener) {
+		super(LabelResourceType.HTTP_DOWNLOAD_TASK, new HttpDownloadTaskEditorToolBar(actionListener),
+				configurationHolder, actionListener);
 
 		addFields();
 	}

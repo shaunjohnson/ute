@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
@@ -84,11 +85,13 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	/**
 	 * Instantiates a new file system location editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public FileSystemLocationEditorPanel(final ActionListener actionListener) {
+	public FileSystemLocationEditorPanel(final ConfigurationHolder configurationHolder,
+			final ActionListener actionListener) {
 		super(LabelResourceType.FILE_SYSTEM_LOCATION, new FileSystemLocationEditorToolBar(actionListener),
-				actionListener);
+				configurationHolder, actionListener);
 
 		addFields();
 	}

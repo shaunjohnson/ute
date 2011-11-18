@@ -32,6 +32,7 @@ import javax.swing.JTable;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.gui.components.FindReplacePatternsTableModel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
@@ -93,10 +94,12 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	/**
 	 * Instantiates a new find replace task editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public FindReplaceTaskEditorPanel(final ActionListener actionListener) {
-		super(LabelResourceType.FIND_AND_REPLACE_TASK, new FindReplaceTaskEditorToolBar(actionListener), actionListener);
+	public FindReplaceTaskEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(LabelResourceType.FIND_AND_REPLACE_TASK, new FindReplaceTaskEditorToolBar(actionListener),
+				configurationHolder, actionListener);
 
 		addFields();
 	}

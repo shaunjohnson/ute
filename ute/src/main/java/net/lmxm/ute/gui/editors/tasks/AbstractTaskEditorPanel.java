@@ -52,6 +52,7 @@ import net.lmxm.ute.beans.tasks.RenameFilesTask;
 import net.lmxm.ute.beans.tasks.StopOnErrorTask;
 import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.EnabledStateChangeEvent;
 import net.lmxm.ute.event.EnabledStateChangeListener;
@@ -115,11 +116,12 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * 
 	 * @param guiComponentLabel the gui component label
 	 * @param toolBar the tool bar
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
 	public AbstractTaskEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
-			final ActionListener actionListener) {
-		super(guiComponentLabel, toolBar, actionListener);
+			final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(guiComponentLabel, toolBar, configurationHolder, actionListener);
 
 		monospaceFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 	}

@@ -31,9 +31,12 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
+import net.lmxm.ute.gui.validation.JobIdValidator;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.apache.commons.lang.StringUtils;
@@ -68,11 +71,12 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 	 * 
 	 * @param guiComponentLabel the gui component label
 	 * @param toolBar the tool bar
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
 	public AbstractCommonEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
-			final ActionListener actionListener) {
-		super(guiComponentLabel, toolBar, actionListener);
+			final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(guiComponentLabel, toolBar, configurationHolder, actionListener);
 	}
 
 	/**
@@ -192,6 +196,11 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 			final IdentifiableBean identifiableBean = (IdentifiableBean) getUserObject();
 
 			getIdTextField().setText(identifiableBean.getId());
+
+			getIdTextField().setInputVerifier(null);
+			if (getUserObject() instanceof Job) {
+				JobIdValidator.addInputValidator((Job) getUserObject(), getIdTextField(), getConfigurationHolder());
+			}
 		}
 
 		if (getUserObject() instanceof DescribableBean) {

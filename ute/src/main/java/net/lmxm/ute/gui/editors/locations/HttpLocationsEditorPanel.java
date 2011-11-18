@@ -20,6 +20,7 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -56,10 +57,12 @@ public class HttpLocationsEditorPanel extends AbstractReadonlyEditorPanel {
 	/**
 	 * Instantiates a new http locations editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public HttpLocationsEditorPanel(final ActionListener actionListener) {
-		super(LabelResourceType.HTTP_LOCATIONS, new HttpLocationsEditorToolBar(actionListener), actionListener);
+	public HttpLocationsEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(LabelResourceType.HTTP_LOCATIONS, new HttpLocationsEditorToolBar(actionListener), configurationHolder,
+				actionListener);
 
 		addFields();
 	}

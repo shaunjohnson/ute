@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JToolBar;
 
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -38,10 +39,11 @@ public abstract class AbstractLocationEditorPanel extends AbstractCommonEditorPa
 	 * 
 	 * @param guiComponentLabel the gui component label
 	 * @param toolBar the tool bar
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
 	public AbstractLocationEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
-			final ActionListener actionListener) {
-		super(guiComponentLabel, toolBar, actionListener);
+			final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(guiComponentLabel, toolBar, configurationHolder, actionListener);
 	}
 }

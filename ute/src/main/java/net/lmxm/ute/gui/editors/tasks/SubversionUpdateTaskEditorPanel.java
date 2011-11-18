@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -54,11 +55,13 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 	/**
 	 * Instantiates a new job editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public SubversionUpdateTaskEditorPanel(final ActionListener actionListener) {
+	public SubversionUpdateTaskEditorPanel(final ConfigurationHolder configurationHolder,
+			final ActionListener actionListener) {
 		super(LabelResourceType.SUBVERSION_UPDATE_TASK, new SubversionUpdateTaskEditorToolBar(actionListener),
-				actionListener);
+				configurationHolder, actionListener);
 
 		addFields();
 	}

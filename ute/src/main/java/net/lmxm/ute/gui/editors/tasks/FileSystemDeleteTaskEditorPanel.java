@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -54,11 +55,13 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 	/**
 	 * Instantiates a new job editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public FileSystemDeleteTaskEditorPanel(final ActionListener actionListener) {
+	public FileSystemDeleteTaskEditorPanel(final ConfigurationHolder configurationHolder,
+			final ActionListener actionListener) {
 		super(LabelResourceType.FILE_SYSTEM_DELETE_TASK, new FileSystemDeleteTaskEditorToolBar(actionListener),
-				actionListener);
+				configurationHolder, actionListener);
 
 		addFields();
 	}

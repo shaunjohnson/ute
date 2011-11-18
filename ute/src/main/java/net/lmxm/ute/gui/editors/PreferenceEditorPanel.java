@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.DomainBean;
 import net.lmxm.ute.beans.Preference;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -70,10 +71,12 @@ public final class PreferenceEditorPanel extends AbstractCommonEditorPanel {
 	/**
 	 * Instantiates a new preference editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public PreferenceEditorPanel(final ActionListener actionListener) {
-		super(LabelResourceType.PREFERENCE, new PreferenceEditorToolBar(actionListener), actionListener);
+	public PreferenceEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(LabelResourceType.PREFERENCE, new PreferenceEditorToolBar(actionListener), configurationHolder,
+				actionListener);
 
 		addFields();
 	}

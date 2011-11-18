@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.event.DocumentAdapter;
@@ -102,11 +103,13 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	/**
 	 * Instantiates a new job editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public SubversionExportTaskEditorPanel(final ActionListener actionListener) {
+	public SubversionExportTaskEditorPanel(final ConfigurationHolder configurationHolder,
+			final ActionListener actionListener) {
 		super(LabelResourceType.SUBVERSION_EXPORT_TASK, new SubversionExportTaskEditorToolBar(actionListener),
-				actionListener);
+				configurationHolder, actionListener);
 
 		addFields();
 	}

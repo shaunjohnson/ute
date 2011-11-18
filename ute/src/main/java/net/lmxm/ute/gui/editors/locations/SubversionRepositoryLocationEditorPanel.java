@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -73,11 +74,13 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 	/**
 	 * Instantiates a new subversion repository location editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public SubversionRepositoryLocationEditorPanel(final ActionListener actionListener) {
+	public SubversionRepositoryLocationEditorPanel(final ConfigurationHolder configurationHolder,
+			final ActionListener actionListener) {
 		super(LabelResourceType.SUBVERSION_REPOSITORY_LOCATION, new SubversionRepositoryLocationEditorToolBar(
-				actionListener), actionListener);
+				actionListener), configurationHolder, actionListener);
 
 		addFields();
 	}

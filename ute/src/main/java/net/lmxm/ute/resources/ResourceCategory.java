@@ -51,5 +51,7 @@ public enum ResourceCategory {
 
 	TOOLBAR_BUTTON,
 
-	TREE_NODE;
+	TREE_NODE,
+
+	VALIDATOR;
 }

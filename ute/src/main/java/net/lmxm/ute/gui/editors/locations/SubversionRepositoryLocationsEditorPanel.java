@@ -20,6 +20,7 @@ package net.lmxm.ute.gui.editors.locations;
 
 import java.awt.event.ActionListener;
 
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -56,11 +57,13 @@ public class SubversionRepositoryLocationsEditorPanel extends AbstractReadonlyEd
 	/**
 	 * Instantiates a new subversion repository locations editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public SubversionRepositoryLocationsEditorPanel(final ActionListener actionListener) {
+	public SubversionRepositoryLocationsEditorPanel(final ConfigurationHolder configurationHolder,
+			final ActionListener actionListener) {
 		super(LabelResourceType.SUBVERSION_REPOSITORY_LOCATIONS, new SubversionRepositoryLocationsEditorToolBar(
-				actionListener), actionListener);
+				actionListener), configurationHolder, actionListener);
 
 		addFields();
 	}

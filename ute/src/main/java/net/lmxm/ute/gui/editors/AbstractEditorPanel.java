@@ -36,6 +36,7 @@ import javax.swing.SwingConstants;
 
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.configuration.Configuration;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
@@ -63,6 +64,8 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/** The action listener. */
 	private final ActionListener actionListener;
 
+	private final ConfigurationHolder configurationHolder;
+
 	/** The content panel. */
 	private JPanel contentPanel;
 
@@ -74,15 +77,18 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * 
 	 * @param guiComponentLabel the gui component label
 	 * @param toolBar the tool bar
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
 	public AbstractEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
-			final ActionListener actionListener) {
+			final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
 		super();
 
 		Preconditions.checkNotNull(actionListener, "Action listener may not be null");
+		Preconditions.checkNotNull(configurationHolder, "Configuration holder may not be null");
 
 		this.actionListener = actionListener;
+		this.configurationHolder = configurationHolder;
 
 		// Setup this panel
 		setLayout(new BorderLayout());
@@ -188,6 +194,15 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 */
 	protected final ActionListener getActionListener() {
 		return actionListener;
+	}
+
+	/**
+	 * Gets the configuration holder.
+	 * 
+	 * @return the configuration holder
+	 */
+	protected final ConfigurationHolder getConfigurationHolder() {
+		return configurationHolder;
 	}
 
 	/**

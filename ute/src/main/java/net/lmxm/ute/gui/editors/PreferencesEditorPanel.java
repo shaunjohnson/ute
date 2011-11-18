@@ -20,6 +20,7 @@ package net.lmxm.ute.gui.editors;
 
 import java.awt.event.ActionListener;
 
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -55,10 +56,12 @@ public class PreferencesEditorPanel extends AbstractReadonlyEditorPanel {
 	/**
 	 * Instantiates a new properties editor panel.
 	 * 
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public PreferencesEditorPanel(final ActionListener actionListener) {
-		super(LabelResourceType.PREFERENCES, new PreferencesEditorToolBar(actionListener), actionListener);
+	public PreferencesEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(LabelResourceType.PREFERENCES, new PreferencesEditorToolBar(actionListener), configurationHolder,
+				actionListener);
 
 		addFields();
 	}

@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -45,11 +46,12 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 	 * 
 	 * @param guiComponentLabel the gui component label
 	 * @param toolBar the tool bar
+	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
 	public AbstractHttpLocationEditorPanel(final LabelResourceType guiComponentLabel, final JToolBar toolBar,
-			final ActionListener actionListener) {
-		super(guiComponentLabel, toolBar, actionListener);
+			final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+		super(guiComponentLabel, toolBar, configurationHolder, actionListener);
 	}
 
 	/*
