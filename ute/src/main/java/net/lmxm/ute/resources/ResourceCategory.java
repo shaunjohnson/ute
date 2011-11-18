@@ -43,6 +43,8 @@ public enum ResourceCategory {
 
 	SUBVERSION_EVENT,
 
+	SUBVERSION_REVISION,
+
 	TABLE_COLUMN,
 
 	TOOLBAR_BUTTON,

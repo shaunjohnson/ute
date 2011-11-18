@@ -20,6 +20,7 @@ package net.lmxm.ute.configuration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
@@ -42,8 +43,10 @@ import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.enums.Scope;
+import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
+import net.lmxm.ute.subversion.utils.SubversionUtils;
 import noNamespace.FileSystemDeleteTaskType;
 import noNamespace.FileSystemLocationType;
 import noNamespace.FileSystemTargetType;
@@ -663,6 +666,8 @@ public class ConfigurationWriter {
 		final FileSystemTargetType fileSystemTargetType = subversionExportTaskType.addNewFileSystemTarget();
 		writeFileSystemTarget(fileSystemTargetType, subversionExportTask.getTarget());
 
+		writeSubversionRevision(subversionExportTaskType, subversionExportTask);
+
 		final List<FileReference> files = subversionExportTask.getFiles();
 		if (!files.isEmpty()) {
 			final FilesType filesType = subversionExportTaskType.addNewFiles();
@@ -746,6 +751,32 @@ public class ConfigurationWriter {
 		}
 
 		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
+	 * Write subversion revision.
+	 * 
+	 * @param subversionExportTaskType the subversion export task type
+	 * @param subversionExportTask the subversion export task
+	 */
+	private void writeSubversionRevision(final SubversionExportTaskType subversionExportTaskType,
+			final SubversionExportTask subversionExportTask) {
+		final SubversionRevision revision = subversionExportTask.getRevision();
+
+		if (revision == SubversionRevision.DATE) {
+			final Date revisionDate = subversionExportTask.getRevisionDate();
+			final String formattedRevisionDate = SubversionUtils.formatRevisionDate(revisionDate);
+			subversionExportTaskType.setRevision(formattedRevisionDate);
+		}
+		else if (revision == SubversionRevision.HEAD) {
+			subversionExportTaskType.setRevision(SubversionUtils.HEAD_REVISION);
+		}
+		else if (revision == SubversionRevision.NUMBERED) {
+			subversionExportTaskType.setRevision(subversionExportTask.getRevisionNumber().toString());
+		}
+		else {
+			throw new RuntimeException("Unsupported revision type"); // TODO
+		}
 	}
 
 	/**

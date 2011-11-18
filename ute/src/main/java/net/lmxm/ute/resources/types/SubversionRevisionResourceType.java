@@ -23,97 +23,19 @@ import javax.swing.Icon;
 import net.lmxm.ute.resources.ResourceCategory;
 
 /**
- * The Enum LabelResourceType.
+ * The Enum SubversionRevisionResourceType.
  */
-public enum LabelResourceType implements ResourceType {
+public enum SubversionRevisionResourceType implements ResourceType {
 
-	CURRENT_VALUE,
+	DATE,
 
-	DESCRIPTION,
+	HEAD,
 
-	ENABLED,
-
-	FILE_SYSTEM_DELETE_TASK,
-
-	FILE_SYSTEM_LOCATION,
-
-	FILE_SYSTEM_LOCATIONS,
-
-	FILES,
-
-	FIND_AND_REPLACE,
-
-	FIND_AND_REPLACE_TASK,
-
-	GROOVY_SCRIPT,
-
-	GROOVY_TASK,
-
-	HTTP_DOWNLOAD_TASK,
-
-	HTTP_LOCATION,
-
-	HTTP_LOCATIONS,
-
-	ID,
-
-	JOB,
-
-	JOBS,
-
-	LOCATION,
-
-	OPTIONS,
-
-	PASSWORD,
-
-	PATH,
-
-	PATTERNS,
-
-	PREFERENCE,
-
-	PREFERENCES,
-
-	PROPERTIES,
-
-	PROPERTY,
-
-	REVISION,
-
-	SCOPE,
-
-	SCRIPT,
-
-	SEQUENTIAL_JOB,
-
-	SERVER,
-
-	SOURCE,
-
-	STOP_ON_ERROR,
-
-	SUBVERSION_EXPORT_TASK,
-
-	SUBVERSION_REPOSITORY_LOCATION,
-
-	SUBVERSION_REPOSITORY_LOCATIONS,
-
-	SUBVERSION_UPDATE_TASK,
-
-	TARGET,
-
-	TASK,
-
-	URL,
-
-	USERNAME,
-
-	VALUE;
+	NUMBERED;
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
 	 */
 	@Override
 	public String getActionCommand() {
@@ -122,7 +44,7 @@ public enum LabelResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
 	 */
 	@Override
 	public Icon getIcon() {
@@ -131,10 +53,10 @@ public enum LabelResourceType implements ResourceType {
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
+	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
 	 */
 	@Override
 	public ResourceCategory getResourceCategory() {
-		return ResourceCategory.LABEL;
+		return ResourceCategory.SUBVERSION_REVISION;
 	}
 }

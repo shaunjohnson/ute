@@ -182,6 +182,7 @@
 			<xs:element name="file-system-target" type="file-system-target-type"/>
 			<xs:element name="files" type="files-type" minOccurs="0"/>
 		</xs:sequence>
+		<xs:attribute name="revision" type="xs:string" use="optional" default="HEAD"/>
 	</xs:complexType>
 	<xs:complexType name="subversion-respository-location-type">
 		<xs:sequence>

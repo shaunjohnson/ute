@@ -18,9 +18,12 @@
  */
 package net.lmxm.ute.beans.tasks;
 
+import java.util.Date;
+
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
+import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.utils.DomainBeanUtils;
 
 /**
@@ -31,6 +34,15 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2831925595307147878L;
+
+	/** The revision. */
+	private SubversionRevision revision;
+
+	/** The revision date. */
+	private Date revisionDate;
+
+	/** The revision number. */
+	private Long revisionNumber;
 
 	/** The source. */
 	private SubversionRepositorySource source;
@@ -48,6 +60,33 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 
 		source = new SubversionRepositorySource();
 		target = new FileSystemTarget();
+	}
+
+	/**
+	 * Gets the revision.
+	 * 
+	 * @return the revision
+	 */
+	public SubversionRevision getRevision() {
+		return revision;
+	}
+
+	/**
+	 * Gets the revision date.
+	 * 
+	 * @return the revision date
+	 */
+	public Date getRevisionDate() {
+		return revisionDate;
+	}
+
+	/**
+	 * Gets the revision number.
+	 * 
+	 * @return the revision number
+	 */
+	public Long getRevisionNumber() {
+		return revisionNumber;
 	}
 
 	/*
@@ -85,6 +124,33 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 	public void removeEmptyObjects() {
 		super.removeEmptyObjects();
 		DomainBeanUtils.removeEmptyObjects(source, target);
+	}
+
+	/**
+	 * Sets the revision.
+	 * 
+	 * @param revision the new revision
+	 */
+	public void setRevision(final SubversionRevision revision) {
+		this.revision = revision;
+	}
+
+	/**
+	 * Sets the revision date.
+	 * 
+	 * @param revisionDate the new revision date
+	 */
+	public void setRevisionDate(final Date revisionDate) {
+		this.revisionDate = revisionDate;
+	}
+
+	/**
+	 * Sets the revision number.
+	 * 
+	 * @param revisionNumber the new revision number
+	 */
+	public void setRevisionNumber(final Long revisionNumber) {
+		this.revisionNumber = revisionNumber;
 	}
 
 	/*

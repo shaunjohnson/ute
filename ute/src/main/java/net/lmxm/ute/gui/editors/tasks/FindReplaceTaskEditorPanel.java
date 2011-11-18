@@ -216,8 +216,11 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 						if (source.equals(getFileScopeRadioButton())) {
 							findReplaceTask.setScope(Scope.FILE);
 						}
-						else {
+						else if (source.equals(getLineScopeRadioButton())) {
 							findReplaceTask.setScope(Scope.LINE);
+						}
+						else {
+							throw new RuntimeException("Unsupported scope"); // TODO
 						}
 					}
 				}
@@ -264,11 +267,14 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 			getPatternsTable().setModel(new FindReplacePatternsTableModel(findReplaceTask));
 
-			if (findReplaceTask.getScope() == Scope.LINE) {
-				getLineScopeRadioButton().setSelected(true);
+			if (findReplaceTask.getScope() == Scope.FILE) {
+				getFileScopeRadioButton().setSelected(true);
+			}
+			else if (findReplaceTask.getScope() == Scope.LINE) {
+				getFileScopeRadioButton().setSelected(true);
 			}
 			else {
-				getFileScopeRadioButton().setSelected(true);
+				throw new RuntimeException("Unsupported scope"); // TODO
 			}
 		}
 

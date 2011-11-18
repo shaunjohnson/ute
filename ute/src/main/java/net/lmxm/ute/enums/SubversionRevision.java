@@ -19,26 +19,27 @@
 package net.lmxm.ute.enums;
 
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.types.ScopeResourceType;
+import net.lmxm.ute.resources.types.SubversionRevisionResourceType;
 
 /**
- * The Enum Scope.
  */
-public enum Scope {
+public enum SubversionRevision {
 
-	FILE(ResourcesUtils.getResourceText(ScopeResourceType.FILE)),
+	DATE(ResourcesUtils.getResourceText(SubversionRevisionResourceType.DATE)),
 
-	LINE(ResourcesUtils.getResourceText(ScopeResourceType.LINE));
+	HEAD(ResourcesUtils.getResourceText(SubversionRevisionResourceType.HEAD)),
+
+	NUMBERED(ResourcesUtils.getResourceText(SubversionRevisionResourceType.NUMBERED));
 
 	/** The name. */
 	private final String name;
 
 	/**
-	 * Instantiates a new scope.
+	 * Instantiates a new subversion revision.
 	 * 
 	 * @param name the name
 	 */
-	Scope(final String name) {
+	SubversionRevision(final String name) {
 		this.name = name;
 	}
 

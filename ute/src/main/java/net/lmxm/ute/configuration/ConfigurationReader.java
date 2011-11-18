@@ -48,8 +48,10 @@ import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.enums.Scope;
+import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
+import net.lmxm.ute.subversion.utils.SubversionUtils;
 import noNamespace.FileSystemDeleteTaskType;
 import noNamespace.FileSystemLocationType;
 import noNamespace.FileSystemTargetType;
@@ -722,6 +724,7 @@ public final class ConfigurationReader {
 
 		task.setSource(parseSubversionRepositorySource(taskType.getSubversionRepositorySource(), configuration));
 		task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
+		parseSubversionRevision(task, taskType.getRevision());
 
 		parseFiles(task, taskType.getFiles());
 
@@ -766,8 +769,7 @@ public final class ConfigurationReader {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final List<SubversionRepositoryLocation> locations = configuration
-				.getSubversionRepositoryLocations();
+		final List<SubversionRepositoryLocation> locations = configuration.getSubversionRepositoryLocations();
 
 		final SubversionRespositoryLocationType[] locationTypeArray = locationsType
 				.getSubversionRespositoryLocationArray();
@@ -775,8 +777,7 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} parsing {} Subversion repository locations", prefix, locationTypeArray.length);
 
 		for (final SubversionRespositoryLocationType subversionRepositoryLocationType : locationTypeArray) {
-			locations.add(parseSubversionRepositoryLocation(subversionRepositoryLocationType,
-					configuration));
+			locations.add(parseSubversionRepositoryLocation(subversionRepositoryLocationType, configuration));
 		}
 
 		Collections.sort(locations);
@@ -808,6 +809,38 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} returning {}", prefix, source);
 
 		return source;
+	}
+
+	/**
+	 * Parses the subversion revision.
+	 * 
+	 * @param task the task
+	 * @param revision the revision
+	 */
+	private void parseSubversionRevision(final SubversionExportTask task, final String revision) {
+		final String prefix = "parseSubversionRevision() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final String trimmedRevision = StringUtils.trimToNull(revision);
+
+		if (trimmedRevision == null || SubversionUtils.isHeadRevision(trimmedRevision)) {
+			task.setRevision(SubversionRevision.HEAD);
+		}
+		else if (SubversionUtils.isRevisionNumber(trimmedRevision)) {
+			task.setRevision(SubversionRevision.NUMBERED);
+			task.setRevisionNumber(Long.valueOf(trimmedRevision));
+		}
+		else if (SubversionUtils.isRevisionDate(trimmedRevision)) {
+			task.setRevision(SubversionRevision.DATE);
+			task.setRevisionDate(SubversionUtils.parseRevisionDate(trimmedRevision));
+		}
+		else {
+			LOGGER.error("{} Invalid revision value", prefix);
+			throw new RuntimeException("Invalid revision value"); // TODO
+		}
+
+		LOGGER.debug("{} returning", prefix);
 	}
 
 	/**
