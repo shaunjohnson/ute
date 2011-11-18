@@ -25,12 +25,16 @@ import java.util.Date;
 import java.util.SortedSet;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
+import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
@@ -93,6 +97,8 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	/** The revision pane. */
 	private JPanel revisionPane = null;
 
+	private JComboBox subversionDepthComboBox = null;
+
 	/**
 	 * Instantiates a new job editor panel.
 	 * 
@@ -114,6 +120,9 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 		super.addFields();
 
 		addSeparator(LabelResourceType.OPTIONS);
+
+		addRequiredLabel(LabelResourceType.DEPTH);
+		getContentPanel().add(getSubversionDepthComboBox());
 
 		addRequiredLabel(LabelResourceType.REVISION);
 		getContentPanel().add(getRevisionPane());
@@ -290,6 +299,46 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 		return revisionPane;
 	}
 
+	private JComboBox getSubversionDepthComboBox() {
+		if (subversionDepthComboBox == null) {
+			subversionDepthComboBox = new JComboBox();
+			subversionDepthComboBox.addActionListener(new ActionListener() {
+
+				/*
+				 * (non-Javadoc)
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
+				@Override
+				public void actionPerformed(final ActionEvent actionEvent) {
+					if (getUserObject() instanceof SubversionExportTask) {
+						final SubversionExportTask task = (SubversionExportTask) getUserObject();
+
+						if (subversionDepthComboBox.getSelectedIndex() == -1) {
+							task.setDepth(null);
+						}
+						else {
+							final SubversionDepth depth = (SubversionDepth) subversionDepthComboBox.getSelectedItem();
+							task.setDepth(depth);
+						}
+					}
+				}
+			});
+		}
+
+		return subversionDepthComboBox;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#initialize(net.lmxm.ute.beans.Configuration)
+	 */
+	@Override
+	public void initialize(final Configuration configuration) {
+		super.initialize(configuration);
+
+		getSubversionDepthComboBox().setModel(new DefaultComboBoxModel(SubversionDepth.values()));
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#loadData()
@@ -304,6 +353,9 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 
 		if (getUserObject() instanceof SubversionExportTask) {
 			final SubversionExportTask subversionExportTask = (SubversionExportTask) getUserObject();
+
+			getSubversionDepthComboBox().setSelectedItem(subversionExportTask.getDepth());
+
 			final SubversionRevision revision = subversionExportTask.getRevision();
 
 			if (revision == SubversionRevision.HEAD) {

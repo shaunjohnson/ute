@@ -25,6 +25,7 @@ import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
+import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryLocationUtils;
@@ -82,11 +83,12 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 		final String url = SubversionRepositoryLocationUtils.getFullUrl(source);
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
 		final List<FileReference> files = task.getFiles();
+		final SubversionDepth depth = task.getDepth();
 		final SubversionRevision revision = task.getRevision();
 		final Date revisionDate = task.getRevisionDate();
 		final Long revisionNumber = task.getRevisionNumber();
 
-		subversionRepositoryUtils.exportFiles(url, path, files, revision, revisionDate, revisionNumber);
+		subversionRepositoryUtils.exportFiles(url, path, files, depth, revision, revisionDate, revisionNumber);
 
 		LOGGER.debug("{} returning", prefix);
 	}

@@ -176,12 +176,22 @@
 		</xs:sequence>
 		<xs:attribute name="location-id" type="xs:NCName"/>
 	</xs:complexType>
+	<xs:simpleType name="subversion-depth-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="empty"/>
+			<xs:enumeration value="exclude"/>
+			<xs:enumeration value="files"/>
+			<xs:enumeration value="immediates"/>
+			<xs:enumeration value="infinity"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="subversion-export-task-type">
 		<xs:sequence>
 			<xs:element name="subversion-repository-source" type="subversion-repository-source-type"/>
 			<xs:element name="file-system-target" type="file-system-target-type"/>
 			<xs:element name="files" type="files-type" minOccurs="0"/>
 		</xs:sequence>
+		<xs:attribute name="depth" type="subversion-depth-type" use="optional" default="infinity"/>
 		<xs:attribute name="revision" type="xs:string" use="optional" default="HEAD"/>
 	</xs:complexType>
 	<xs:complexType name="subversion-respository-location-type">

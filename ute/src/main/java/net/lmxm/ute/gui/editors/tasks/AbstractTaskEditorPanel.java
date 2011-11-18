@@ -536,7 +536,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#initialize(net.lmxm.ute.beans.Configuration)
 	 */
 	@Override
-	public final void initialize(final Configuration configuration) {
+	public void initialize(final Configuration configuration) {
 		super.initialize(configuration);
 
 		getFileSystemLocationTargetComboBox().setModel(

@@ -26,9 +26,12 @@ import java.util.Date;
 import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
+import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.resources.StatusChangeMessage;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -68,17 +71,57 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 	}
 
 	/**
+	 * Convert subversion depth to svn depth.
+	 * 
+	 * @param depth the depth
+	 * @return the sVN depth
+	 */
+	private SVNDepth convertSubversionDepthToSvnDepth(final SubversionDepth depth) {
+		final String prefix = "convertSubversionDepthToSvnDepth() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final SVNDepth svnDepth;
+
+		if (depth == SubversionDepth.EMPTY) {
+			svnDepth = SVNDepth.EMPTY;
+		}
+		else if (depth == SubversionDepth.EXCLUDE) {
+			svnDepth = SVNDepth.EXCLUDE;
+		}
+		else if (depth == SubversionDepth.FILES) {
+			svnDepth = SVNDepth.FILES;
+		}
+		else if (depth == SubversionDepth.IMMEDIATES) {
+			svnDepth = SVNDepth.IMMEDIATES;
+		}
+		else if (depth == SubversionDepth.INFINITY) {
+			svnDepth = SVNDepth.INFINITY;
+		}
+		else {
+			LOGGER.error("{} : Unsupported Subversion depth \"{}\"", prefix, depth);
+			throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_SUBVERSION_DEPTH, depth);
+		}
+
+		LOGGER.debug("{} returning {}", prefix, svnDepth);
+
+		return svnDepth;
+	}
+
+	/**
 	 * Export files.
 	 * 
 	 * @param urlString the url
 	 * @param destinationPath the path
 	 * @param files the files
+	 * @param depth the depth
 	 * @param revision the revision
 	 * @param revisionDate the revision date
 	 * @param revisionNumber the revision number
 	 */
 	public void exportFiles(final String urlString, final String destinationPath, final List<FileReference> files,
-			final SubversionRevision revision, final Date revisionDate, final Long revisionNumber) {
+			final SubversionDepth depth, final SubversionRevision revision, final Date revisionDate,
+			final Long revisionNumber) {
 		final String prefix = "exportFiles() :";
 
 		if (LOGGER.isDebugEnabled()) {
@@ -143,8 +186,9 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 						getStatusChangeHelper());
 				final SubversionExportEditor exportEditor = new SubversionExportEditor(exportDirectory,
 						getStatusChangeHelper());
+				final SVNDepth svnDepth = convertSubversionDepthToSvnDepth(depth);
 
-				repository.update(revisionToExport, null, SVNDepth.INFINITY, true, reporterBaton, exportEditor);
+				repository.update(revisionToExport, null, svnDepth, true, reporterBaton, exportEditor);
 			}
 			else {
 				LOGGER.debug("{} files list contains entries, exporting {} individual files", prefix, files.size());

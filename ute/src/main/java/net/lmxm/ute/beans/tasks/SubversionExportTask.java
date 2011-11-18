@@ -23,6 +23,7 @@ import java.util.Date;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
+import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.utils.DomainBeanUtils;
 
@@ -34,6 +35,9 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2831925595307147878L;
+
+	/** The depth. */
+	private SubversionDepth depth;
 
 	/** The revision. */
 	private SubversionRevision revision;
@@ -60,6 +64,10 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 
 		source = new SubversionRepositorySource();
 		target = new FileSystemTarget();
+	}
+
+	public SubversionDepth getDepth() {
+		return depth;
 	}
 
 	/**
@@ -124,6 +132,10 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 	public void removeEmptyObjects() {
 		super.removeEmptyObjects();
 		DomainBeanUtils.removeEmptyObjects(source, target);
+	}
+
+	public void setDepth(final SubversionDepth depth) {
+		this.depth = depth;
 	}
 
 	/**

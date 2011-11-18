@@ -44,6 +44,10 @@ public enum ExceptionResourceType implements ResourceType {
 
 	UNSUPPORTED_SCOPE_TYPE,
 
+	UNSUPPORTED_SUBVERSION_DEPTH,
+
+	UNSUPPORTED_SUBVERSION_DEPTH_TYPE,
+
 	UNSUPPORTED_TASK_TYPE;
 
 	/*

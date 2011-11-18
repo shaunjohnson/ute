@@ -43,6 +43,7 @@ import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.enums.Scope;
+import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
@@ -67,6 +68,7 @@ import noNamespace.PreferencesType;
 import noNamespace.PropertiesType;
 import noNamespace.PropertyType;
 import noNamespace.ScopeType;
+import noNamespace.SubversionDepthType;
 import noNamespace.SubversionExportTaskType;
 import noNamespace.SubversionRepositorySourceType;
 import noNamespace.SubversionRespositoryLocationType;
@@ -108,7 +110,7 @@ public class ConfigurationWriter {
 	 * @return the scope type. enum
 	 */
 	private ScopeType.Enum convertScopeToScopeType(final Scope scope) {
-		final String prefix = "writeFiles() :";
+		final String prefix = "convertScopeToScopeType() :";
 
 		LOGGER.debug("{} entered", prefix);
 
@@ -121,13 +123,51 @@ public class ConfigurationWriter {
 			scopeType = ScopeType.LINE;
 		}
 		else {
-			LOGGER.error("convertScopeToScopeType() : Unsupported scope \"{}\"", scope);
+			LOGGER.error("{} Unsupported scope \"{}\"", prefix, scope);
 			throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_SCOPE, scope);
 		}
 
 		LOGGER.debug("{} returning {}", prefix, scopeType);
 
 		return scopeType;
+	}
+
+	/**
+	 * Convert subversion depth to subversion depth type.
+	 * 
+	 * @param depth the depth
+	 * @return the subversion depth type. enum
+	 */
+	private SubversionDepthType.Enum convertSubversionDepthToSubversionDepthType(final SubversionDepth depth) {
+		final String prefix = "convertSubversionDepthToSubversionDepthType() :";
+
+		LOGGER.debug("{} entered", prefix);
+
+		final SubversionDepthType.Enum subversionDepthType;
+
+		if (depth == SubversionDepth.EMPTY) {
+			subversionDepthType = SubversionDepthType.EMPTY;
+		}
+		else if (depth == SubversionDepth.EXCLUDE) {
+			subversionDepthType = SubversionDepthType.EXCLUDE;
+		}
+		else if (depth == SubversionDepth.FILES) {
+			subversionDepthType = SubversionDepthType.FILES;
+		}
+		else if (depth == SubversionDepth.IMMEDIATES) {
+			subversionDepthType = SubversionDepthType.IMMEDIATES;
+		}
+		else if (depth == SubversionDepth.INFINITY) {
+			subversionDepthType = SubversionDepthType.INFINITY;
+		}
+		else {
+			LOGGER.error("{} : Unsupported Subversion depth \"{}\"", prefix, depth);
+			throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_SUBVERSION_DEPTH, depth);
+		}
+
+		LOGGER.debug("{} returning {}", prefix, subversionDepthType);
+
+		return subversionDepthType;
 	}
 
 	/**
@@ -665,6 +705,8 @@ public class ConfigurationWriter {
 
 		final FileSystemTargetType fileSystemTargetType = subversionExportTaskType.addNewFileSystemTarget();
 		writeFileSystemTarget(fileSystemTargetType, subversionExportTask.getTarget());
+
+		subversionExportTaskType.setDepth(convertSubversionDepthToSubversionDepthType(subversionExportTask.getDepth()));
 
 		writeSubversionRevision(subversionExportTaskType, subversionExportTask);
 

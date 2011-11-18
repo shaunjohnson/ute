@@ -19,18 +19,22 @@
 package net.lmxm.ute.enums;
 
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.types.SubversionRevisionResourceType;
+import net.lmxm.ute.resources.types.SubversionDepthResourceType;
 
 /**
- * The Enum SubversionRevision.
+ * The Enum SubversionDepth.
  */
-public enum SubversionRevision {
+public enum SubversionDepth {
 
-	DATE(ResourcesUtils.getResourceText(SubversionRevisionResourceType.DATE)),
+	EMPTY(ResourcesUtils.getResourceText(SubversionDepthResourceType.EMPTY)),
 
-	HEAD(ResourcesUtils.getResourceText(SubversionRevisionResourceType.HEAD)),
+	EXCLUDE(ResourcesUtils.getResourceText(SubversionDepthResourceType.EXCLUDE)),
 
-	NUMBERED(ResourcesUtils.getResourceText(SubversionRevisionResourceType.NUMBERED));
+	FILES(ResourcesUtils.getResourceText(SubversionDepthResourceType.FILES)),
+
+	IMMEDIATES(ResourcesUtils.getResourceText(SubversionDepthResourceType.IMMEDIATES)),
+
+	INFINITY(ResourcesUtils.getResourceText(SubversionDepthResourceType.INFINITY));
 
 	/** The name. */
 	private final String name;
@@ -40,7 +44,7 @@ public enum SubversionRevision {
 	 * 
 	 * @param name the name
 	 */
-	SubversionRevision(final String name) {
+	SubversionDepth(final String name) {
 		this.name = name;
 	}
 
