@@ -41,7 +41,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-import net.lmxm.ute.enums.ActionConstants;
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.event.StatusChangeListener;
@@ -271,7 +271,7 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 	public void actionPerformed(final ActionEvent actionEvent) {
 		final String actionCommand = actionEvent.getActionCommand();
 
-		if (actionCommand.equals(ActionConstants.CLOSE_ALL_TABS)) {
+		if (actionCommand.equals(ActionCommand.CLOSE_ALL_TABS)) {
 			final int tabCount = tabbedPane.getTabCount();
 			final List<Integer> inactiveTabIndices = new ArrayList<Integer>();
 

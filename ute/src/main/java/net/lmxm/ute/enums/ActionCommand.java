@@ -21,7 +21,7 @@ package net.lmxm.ute.enums;
 /**
  * The Class ActionConstants.
  */
-public final class ActionConstants {
+public final class ActionCommand {
 
 	/** The Constant ABOUT. */
 	public static final String ABOUT = "ABOUT";
@@ -140,7 +140,7 @@ public final class ActionConstants {
 	/**
 	 * Instantiates a new action constants.
 	 */
-	private ActionConstants() {
+	private ActionCommand() {
 		throw new AssertionError();
 	}
 }

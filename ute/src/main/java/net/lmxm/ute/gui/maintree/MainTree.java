@@ -44,7 +44,7 @@ import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
-import net.lmxm.ute.enums.ActionConstants;
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.EnabledStateChangeEvent;
 import net.lmxm.ute.event.EnabledStateChangeListener;
 import net.lmxm.ute.event.IdChangeEvent;
@@ -109,25 +109,25 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 				final ActionEvent actionEvent;
 
 				if (userObject instanceof FileSystemLocation) {
-					actionEvent = createActionEvent(ActionConstants.DELETE_FILE_SYSTEM_LOCATION);
+					actionEvent = createActionEvent(ActionCommand.DELETE_FILE_SYSTEM_LOCATION);
 				}
 				else if (userObject instanceof HttpLocation) {
-					actionEvent = createActionEvent(ActionConstants.DELETE_HTTP_LOCATION);
+					actionEvent = createActionEvent(ActionCommand.DELETE_HTTP_LOCATION);
 				}
 				else if (userObject instanceof Job) {
-					actionEvent = createActionEvent(ActionConstants.DELETE_JOB);
+					actionEvent = createActionEvent(ActionCommand.DELETE_JOB);
 				}
 				else if (userObject instanceof Preference) {
-					actionEvent = createActionEvent(ActionConstants.DELETE_PREFERENCE);
+					actionEvent = createActionEvent(ActionCommand.DELETE_PREFERENCE);
 				}
 				else if (userObject instanceof Property) {
-					actionEvent = createActionEvent(ActionConstants.DELETE_PROPERTY);
+					actionEvent = createActionEvent(ActionCommand.DELETE_PROPERTY);
 				}
 				else if (userObject instanceof SubversionRepositoryLocation) {
-					actionEvent = createActionEvent(ActionConstants.DELETE_SUBVERSION_REPOSITORY_LOCATION);
+					actionEvent = createActionEvent(ActionCommand.DELETE_SUBVERSION_REPOSITORY_LOCATION);
 				}
 				else if (userObject instanceof Task) {
-					actionEvent = createActionEvent(ActionConstants.DELETE_TASK);
+					actionEvent = createActionEvent(ActionCommand.DELETE_TASK);
 				}
 				else {
 					actionEvent = null;
