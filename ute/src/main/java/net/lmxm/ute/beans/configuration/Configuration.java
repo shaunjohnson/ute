@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans.configuration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,6 @@ import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.utils.DomainBeanUtils;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * The Class Configuration.
@@ -42,8 +42,8 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 351774939048448102L;
 
-	/** The absolute path. */
-	private String absolutePath;
+	/** The configuration file. */
+	private File configurationFile = null;
 
 	/** The file system locations. */
 	private List<FileSystemLocation> fileSystemLocations;
@@ -78,12 +78,12 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	}
 
 	/**
-	 * Gets the absolute path.
+	 * Gets the configuration file.
 	 * 
-	 * @return the absolute path
+	 * @return the configuration file
 	 */
-	public String getAbsolutePath() {
-		return absolutePath;
+	public File getConfigurationFile() {
+		return configurationFile;
 	}
 
 	/**
@@ -148,7 +148,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return StringUtils.isBlank(absolutePath) && DomainBeanUtils.isEmpty(fileSystemLocations)
+		return configurationFile == null && DomainBeanUtils.isEmpty(fileSystemLocations)
 				&& DomainBeanUtils.isEmpty(httpLocations) && DomainBeanUtils.isEmpty(jobs)
 				&& DomainBeanUtils.isEmpty(preferences) && DomainBeanUtils.isEmpty(properties)
 				&& DomainBeanUtils.isEmpty(subversionRepositoryLocations);
@@ -178,12 +178,12 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	}
 
 	/**
-	 * Sets the absolute path.
+	 * Sets the configuration file.
 	 * 
-	 * @param absolutePath the new absolute path
+	 * @param configurationFile the new configuration file
 	 */
-	public void setAbsolutePath(final String absolutePath) {
-		this.absolutePath = absolutePath;
+	public void setConfigurationFile(final File configurationFile) {
+		this.configurationFile = configurationFile;
 	}
 
 	/**

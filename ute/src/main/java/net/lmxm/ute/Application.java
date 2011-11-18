@@ -45,28 +45,13 @@ public final class Application {
 
 		LOGGER.info("{} Application started", prefix);
 
-		if (shouldExecuteGui(args)) {
-			new GuiApplication().execute();
+		if (GraphicsEnvironment.isHeadless() || args.length > 0) {
+			new ConsoleApplication(args).execute();
 		}
 		else {
-			new ConsoleApplication(args).execute();
+			new GuiApplication().execute();
 		}
 
 		LOGGER.info("{} Application ended", prefix);
-	}
-
-	/**
-	 * Should execute gui.
-	 * 
-	 * @param args the args
-	 * @return true, if successful
-	 */
-	private static boolean shouldExecuteGui(final String[] args) {
-		if (GraphicsEnvironment.isHeadless() || args.length > 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
 	}
 }

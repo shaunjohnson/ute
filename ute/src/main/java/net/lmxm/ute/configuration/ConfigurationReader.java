@@ -966,7 +966,7 @@ public final class ConfigurationReader {
 
 		final Configuration configuration = new Configuration();
 
-		configuration.setAbsolutePath(configurationFile.getAbsolutePath());
+		configuration.setConfigurationFile(configurationFile);
 
 		try {
 			final UteConfigurationDocument document = UteConfigurationDocument.Factory.parse(configurationFile);

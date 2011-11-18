@@ -152,7 +152,6 @@ import net.lmxm.ute.resources.types.ConfirmationResourceType;
 import net.lmxm.ute.utils.FileSystemUtils;
 
 import org.apache.commons.lang.SerializationUtils;
-import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -849,10 +848,10 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 * Action reload file.
 	 */
 	private void actionReloadFile() {
-		final String path = configuration.getAbsolutePath();
+		final File configurationFile = configuration.getConfigurationFile();
 
-		if (path != null) {
-			configuration = new ConfigurationReader(new File(path)).read();
+		if (configurationFile != null) {
+			configuration = new ConfigurationReader(configurationFile).read();
 			refreshJobsTree();
 			updateTitle();
 		}
@@ -862,7 +861,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 * Action save file.
 	 */
 	private void actionSaveFile() {
-		if (StringUtils.isBlank(configuration.getAbsolutePath())) {
+		if (configuration.getConfigurationFile() == null) {
 			final JFileChooser fcSave = new JFileChooser(getCurrentDirectory());
 
 			fcSave.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -874,7 +873,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				final String path = fcSave.getSelectedFile().getAbsolutePath();
 
-				configuration.setAbsolutePath(ConfigurationUtils.appendFileExtension(path));
+				configuration.setConfigurationFile(new File(ConfigurationUtils.appendFileExtension(path)));
 
 				updateTitle();
 				new ConfigurationWriter(configuration).write();
@@ -901,7 +900,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			final String path = fcSaveAs.getSelectedFile().getAbsolutePath();
 
-			configuration.setAbsolutePath(ConfigurationUtils.appendFileExtension(path));
+			configuration.setConfigurationFile(new File(ConfigurationUtils.appendFileExtension(path)));
 
 			updateTitle();
 			new ConfigurationWriter(configuration).write();
@@ -983,13 +982,13 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 */
 	private String getCurrentDirectory() {
 		try {
-			final String configurationPath = configuration.getAbsolutePath();
+			final File configurationFile = configuration.getConfigurationFile();
 
-			if (configurationPath == null) {
+			if (configurationFile == null) {
 				return new File(".").getCanonicalPath();
 			}
 			else {
-				return configurationPath;
+				return configurationFile.getAbsolutePath();
 			}
 		}
 		catch (final IOException e) {
@@ -1576,11 +1575,11 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		builder.append(ResourcesUtils.getResourceText(ApplicationResourceType.VERSION));
 
 		if (configuration != null) {
-			final String path = configuration.getAbsolutePath();
+			final File configurationFile = configuration.getConfigurationFile();
 			final String newFile = ResourcesUtils.getResourceText(ApplicationResourceType.NEW_FILE);
 
 			builder.append(" - ");
-			builder.append(path == null ? newFile : path);
+			builder.append(configurationFile == null ? newFile : configurationFile.getAbsolutePath());
 		}
 
 		setTitle(builder.toString());

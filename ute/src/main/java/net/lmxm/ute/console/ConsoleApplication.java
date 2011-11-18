@@ -155,8 +155,8 @@ public final class ConsoleApplication {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final ApplicationPreferences applicationPreferences = new ApplicationPreferences(new File(
-				configuration.getAbsolutePath()));
+		final ApplicationPreferences applicationPreferences = new ApplicationPreferences(
+				configuration.getConfigurationFile());
 		applicationPreferences.loadPreferenceValues(configuration.getPreferences());
 
 		if (applicationPreferences.hasAllPreferences(configuration.getPreferences())) {

@@ -83,6 +83,8 @@ import org.apache.xmlbeans.XmlOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Preconditions;
+
 /**
  * The Class ConfigurationWriter.
  */
@@ -180,7 +182,10 @@ public class ConfigurationWriter {
 
 		LOGGER.debug("{} entered", prefix);
 
-		configuration.getAbsolutePath();
+		final File configurationFile = configuration.getConfigurationFile();
+
+		Preconditions.checkState(configurationFile.exists(), "Configuration file does not exist");
+
 		configuration.removeEmptyObjects();
 
 		ConfigurationUtils.validateConfiguration(configuration);
@@ -193,8 +198,6 @@ public class ConfigurationWriter {
 		writeLocations(configurationType, configuration);
 		writeJobs(configurationType, configuration);
 
-		final File file = new File(configuration.getAbsolutePath());
-
 		// Create a backup of the existing file
 		/*
 		 * if (file.exists()) { final File backupFile = new File(file.getAbsolutePath() + ".bak"); // Delete existing
@@ -203,7 +206,7 @@ public class ConfigurationWriter {
 		 */
 
 		try {
-			document.save(file, new XmlOptions().setSavePrettyPrint().setSavePrettyPrintIndent(4));
+			document.save(configurationFile, new XmlOptions().setSavePrettyPrint().setSavePrettyPrintIndent(4));
 		}
 		catch (final IOException e) {
 			LOGGER.error("IOException caught while saving configuration file", e);
