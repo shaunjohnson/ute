@@ -20,7 +20,7 @@ package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
-import net.lmxm.ute.gui.ActionConstants;
+import net.lmxm.ute.enums.ActionConstants;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourceCategory;
 
