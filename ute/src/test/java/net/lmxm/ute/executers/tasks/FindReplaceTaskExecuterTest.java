@@ -31,7 +31,7 @@ import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeHelper;
 
 import org.junit.Before;
 import org.junit.Test;

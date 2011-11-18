@@ -16,12 +16,15 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.listeners;
+package net.lmxm.ute.event;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+
+import net.lmxm.ute.event.StatusChangeEvent;
+import net.lmxm.ute.event.StatusChangeEventType;
 
 import org.junit.Test;
 

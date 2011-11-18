@@ -25,7 +25,7 @@ import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.resources.StatusChangeMessage;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 

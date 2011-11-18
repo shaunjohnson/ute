@@ -18,7 +18,7 @@
  */
 package net.lmxm.ute.executers;
 
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.event.StatusChangeListener;
 
 /**
  * The Interface Executer.

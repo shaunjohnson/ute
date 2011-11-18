@@ -18,7 +18,7 @@
  */
 package net.lmxm.ute.subversion.utils;
 
-import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.tmatesoft.svn.core.auth.BasicAuthenticationManager;

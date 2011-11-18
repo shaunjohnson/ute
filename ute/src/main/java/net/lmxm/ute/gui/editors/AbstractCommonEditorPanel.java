@@ -31,9 +31,9 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableBean;
-import net.lmxm.ute.listeners.ChangeAdapter;
-import net.lmxm.ute.listeners.IdChangeEvent;
-import net.lmxm.ute.listeners.IdChangeListener;
+import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.IdChangeEvent;
+import net.lmxm.ute.event.IdChangeListener;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.apache.commons.lang.StringUtils;

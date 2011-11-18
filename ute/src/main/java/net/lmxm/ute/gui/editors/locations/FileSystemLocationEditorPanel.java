@@ -30,9 +30,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.event.ChangeAdapter;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
-import net.lmxm.ute.listeners.ChangeAdapter;
 import net.lmxm.ute.resources.types.ButtonResourceType;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;

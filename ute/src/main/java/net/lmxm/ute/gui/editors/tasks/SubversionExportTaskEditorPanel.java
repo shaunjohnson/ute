@@ -36,8 +36,8 @@ import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
+import net.lmxm.ute.event.ChangeAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
-import net.lmxm.ute.listeners.ChangeAdapter;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
 

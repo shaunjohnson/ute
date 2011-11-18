@@ -18,8 +18,8 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.executers.AbstractExecuter;
-import net.lmxm.ute.listeners.StatusChangeHelper;
 
 /**
  * The Class AbstractTaskExecuter.

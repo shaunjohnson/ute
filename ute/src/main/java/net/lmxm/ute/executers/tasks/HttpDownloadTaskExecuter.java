@@ -27,7 +27,7 @@ import java.util.Map;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.resources.StatusChangeMessage;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;

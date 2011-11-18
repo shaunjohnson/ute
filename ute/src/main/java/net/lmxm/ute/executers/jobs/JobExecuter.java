@@ -18,8 +18,8 @@
  */
 package net.lmxm.ute.executers.jobs;
 
+import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.executers.Executer;
-import net.lmxm.ute.listeners.JobStatusListener;
 
 /**
  * The Interface JobExecuter.

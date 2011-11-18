@@ -16,23 +16,23 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.listeners;
+package net.lmxm.ute.event;
 
 /**
- * The listener interface for receiving enabledStateChange events. The class that is interested in processing a
- * enabledStateChange event implements this interface, and the object created with that class is registered with a
- * component using the component's <code>addEnabledStateChangeListener<code> method. When
- * the enabledStateChange event occurs, that object's appropriate
+ * The listener interface for receiving idChange events. The class that is interested in processing a idChange event
+ * implements this interface, and the object created with that class is registered with a component using the
+ * component's <code>addIdChangeListener<code> method. When
+ * the idChange event occurs, that object's appropriate
  * method is invoked.
  * 
- * @see EnabledStateChangeEvent
+ * @see IdChangeEvent
  */
-public interface EnabledStateChangeListener {
+public interface IdChangeListener {
 
 	/**
-	 * Enabled state changed.
+	 * Id changed.
 	 * 
-	 * @param enabledStateChangeEvent the enabled state change event
+	 * @param idChangeEvent the id change event
 	 */
-	void enabledStateChanged(EnabledStateChangeEvent enabledStateChangeEvent);
+	void idChanged(IdChangeEvent idChangeEvent);
 }

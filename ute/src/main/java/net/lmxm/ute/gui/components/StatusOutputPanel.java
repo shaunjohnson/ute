@@ -40,10 +40,10 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.event.JobStatusListener;
+import net.lmxm.ute.event.StatusChangeEvent;
+import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
-import net.lmxm.ute.listeners.JobStatusListener;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.resources.ImageUtil;
 
 import org.slf4j.Logger;

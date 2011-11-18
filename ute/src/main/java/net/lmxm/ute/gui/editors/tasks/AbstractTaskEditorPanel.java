@@ -52,12 +52,12 @@ import net.lmxm.ute.beans.tasks.RenameFilesTask;
 import net.lmxm.ute.beans.tasks.StopOnErrorTask;
 import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.EnabledStateChangeEvent;
+import net.lmxm.ute.event.EnabledStateChangeListener;
 import net.lmxm.ute.gui.components.FilesTableModel;
 import net.lmxm.ute.gui.components.RenameFilesTableModel;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
-import net.lmxm.ute.listeners.ChangeAdapter;
-import net.lmxm.ute.listeners.EnabledStateChangeEvent;
-import net.lmxm.ute.listeners.EnabledStateChangeListener;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.slf4j.Logger;

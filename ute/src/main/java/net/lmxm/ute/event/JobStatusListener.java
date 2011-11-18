@@ -16,25 +16,51 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.listeners;
-
-import java.util.EventListener;
+package net.lmxm.ute.event;
 
 /**
- * The listener interface for receiving statusChange events. The class that is interested in processing a statusChange
- * event implements this interface, and the object created with that class is registered with a component using the
- * component's <code>addStatusChangeListener<code> method. When
- * the statusChange event occurs, that object's appropriate
+ * The listener interface for receiving jobStatus events. The class that is interested in processing a jobStatus event
+ * implements this interface, and the object created with that class is registered with a component using the
+ * component's <code>addJobStatusListener<code> method. When
+ * the jobStatus event occurs, that object's appropriate
  * method is invoked.
  * 
- * @see StatusChangeEvent
+ * @see JobStatusEvent
  */
-public interface StatusChangeListener extends EventListener {
+public interface JobStatusListener {
 
 	/**
-	 * Status change.
-	 * 
-	 * @param changeEvent the change event
+	 * Job aborted.
 	 */
-	void statusChange(final StatusChangeEvent changeEvent);
+	void jobAborted();
+
+	/**
+	 * Job completed.
+	 */
+	void jobCompleted();
+
+	/**
+	 * Job started.
+	 */
+	void jobStarted();
+
+	/**
+	 * Job stopped.
+	 */
+	void jobStopped();
+
+	/**
+	 * Job task completed.
+	 */
+	void jobTaskCompleted();
+
+	/**
+	 * Job task skipped.
+	 */
+	void jobTaskSkipped();
+
+	/**
+	 * Job task started.
+	 */
+	void jobTaskStarted();
 }

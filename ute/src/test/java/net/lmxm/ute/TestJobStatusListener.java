@@ -18,7 +18,7 @@
  */
 package net.lmxm.ute;
 
-import net.lmxm.ute.listeners.JobStatusListener;
+import net.lmxm.ute.event.JobStatusListener;
 
 import org.junit.Ignore;
 

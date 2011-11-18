@@ -20,7 +20,7 @@ package net.lmxm.ute.executers.tasks;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.subversion.utils.SubversionWorkingCopyUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 

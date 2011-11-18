@@ -24,8 +24,8 @@ import java.util.List;
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.executers.AbstractExecuter;
-import net.lmxm.ute.listeners.JobStatusListener;
 import net.lmxm.ute.resources.StatusChangeMessage;
 
 import com.google.common.base.Preconditions;

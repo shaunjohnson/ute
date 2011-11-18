@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
-import net.lmxm.ute.listeners.ChangeAdapter;
+import net.lmxm.ute.event.ChangeAdapter;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 /**

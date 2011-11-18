@@ -27,7 +27,7 @@ import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
-import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryLocationUtils;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;

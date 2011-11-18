@@ -1,7 +1,8 @@
 package net.lmxm.ute.utils.testimpl;
 
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeListener;
+import net.lmxm.ute.event.StatusChangeEvent;
+import net.lmxm.ute.event.StatusChangeListener;
+
 import org.junit.Ignore;
 
 /**

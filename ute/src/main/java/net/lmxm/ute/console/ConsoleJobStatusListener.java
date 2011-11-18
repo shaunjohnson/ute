@@ -18,7 +18,7 @@
  */
 package net.lmxm.ute.console;
 
-import net.lmxm.ute.listeners.JobStatusListener;
+import net.lmxm.ute.event.JobStatusListener;
 
 /**
  * The listener interface for receiving consoleJobStatus events. The class that is interested in processing a

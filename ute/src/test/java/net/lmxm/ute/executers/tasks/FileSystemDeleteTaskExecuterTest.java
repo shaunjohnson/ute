@@ -30,7 +30,7 @@ import java.util.List;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeHelper;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;

@@ -30,8 +30,8 @@ import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
+import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.executers.Executer;
-import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.junit.Test;
 

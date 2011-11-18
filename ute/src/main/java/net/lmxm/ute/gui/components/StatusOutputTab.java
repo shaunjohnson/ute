@@ -41,11 +41,11 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+import net.lmxm.ute.event.JobStatusListener;
+import net.lmxm.ute.event.StatusChangeEvent;
+import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.gui.ActionConstants;
 import net.lmxm.ute.gui.menus.StatusOutputTabPopupMenu;
-import net.lmxm.ute.listeners.JobStatusListener;
-import net.lmxm.ute.listeners.StatusChangeEvent;
-import net.lmxm.ute.listeners.StatusChangeListener;
 import net.lmxm.ute.resources.ImageUtil;
 
 import com.google.common.base.Preconditions;

@@ -26,9 +26,9 @@ import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.executers.Executer;
 import net.lmxm.ute.executers.ExecuterFactory;
-import net.lmxm.ute.listeners.StatusChangeHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

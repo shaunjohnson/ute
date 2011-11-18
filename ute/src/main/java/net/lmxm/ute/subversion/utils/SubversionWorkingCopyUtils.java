@@ -20,7 +20,7 @@ package net.lmxm.ute.subversion.utils;
 
 import java.io.File;
 
-import net.lmxm.ute.listeners.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.resources.StatusChangeMessage;
 
 import org.apache.commons.lang.StringUtils;

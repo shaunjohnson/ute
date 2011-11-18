@@ -28,8 +28,8 @@ import java.util.List;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
+import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.exceptions.ConfigurationException;
-import net.lmxm.ute.listeners.StatusChangeHelper;
 import net.lmxm.ute.resources.StatusChangeMessage;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 
