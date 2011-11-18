@@ -34,7 +34,6 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
@@ -44,6 +43,7 @@ import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.ActionConstants;
 import net.lmxm.ute.gui.maintree.nodes.FileSystemLocationsRootTreeNode;
 import net.lmxm.ute.gui.maintree.nodes.HttpLocationsRootTreeNode;

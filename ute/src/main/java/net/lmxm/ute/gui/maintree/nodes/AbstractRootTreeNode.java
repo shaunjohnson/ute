@@ -18,8 +18,8 @@
  */
 package net.lmxm.ute.gui.maintree.nodes;
 
-import net.lmxm.ute.ConfigurationHolder;
 import net.lmxm.ute.beans.configuration.Configuration;
+import net.lmxm.ute.configuration.ConfigurationHolder;
 
 /**
  * The Class AbstractRootTreeNode.
