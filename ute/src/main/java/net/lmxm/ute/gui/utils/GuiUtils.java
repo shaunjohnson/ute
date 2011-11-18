@@ -24,9 +24,9 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 /**
- * Parent class to all dialogs. Provides common functions useful in all dialogs.
+ * GUI related utility methods.
  */
-public final class DialogUtil {
+public final class GuiUtils {
 
 	/**
 	 * Center the specified component on the screen.

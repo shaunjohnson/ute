@@ -142,7 +142,7 @@ import net.lmxm.ute.gui.maintree.nodes.SubversionRepositoryLocationsRootTreeNode
 import net.lmxm.ute.gui.menus.MainMenuBar;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
 import net.lmxm.ute.gui.toolbars.MainTreeToolBar;
-import net.lmxm.ute.gui.utils.DialogUtil;
+import net.lmxm.ute.gui.utils.GuiUtils;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
 import net.lmxm.ute.preferences.UserPreferences;
 import net.lmxm.ute.resources.ImageUtil;
@@ -284,7 +284,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 */
 	private void actionAbout() {
 		final JDialog dialog = new AboutDialog();
-		DialogUtil.center(dialog);
+		GuiUtils.center(dialog);
 		dialog.setVisible(true);
 	}
 
@@ -611,7 +611,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 */
 	private void actionEditPreferences() {
 		final EditPreferencesDialog dialog = new EditPreferencesDialog(getConfiguration());
-		DialogUtil.center(dialog);
+		GuiUtils.center(dialog);
 		dialog.setVisible(true);
 	}
 
