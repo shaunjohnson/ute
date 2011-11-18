@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.SortedSet;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -34,10 +35,11 @@ import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.listeners.ChangeAdapter;
 import net.lmxm.ute.resources.types.LabelResourceType;
-import net.lmxm.ute.subversion.utils.SubversionUtils;
 import net.miginfocom.swing.MigLayout;
 
 import org.codehaus.plexus.util.StringUtils;
+import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.JXMonthView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,7 +85,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	private ActionListener revisionActionListener = null;
 
 	/** The revision date text field. */
-	private JTextField revisionDateTextField = null;
+	private JXDatePicker revisionDateTextField = null;
 
 	/** The revision number text field. */
 	private JTextField revisionNumberTextField = null;
@@ -209,24 +211,51 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	 * 
 	 * @return the revision date text field
 	 */
-	private JTextField getRevisionDateTextField() {
+	private JXDatePicker getRevisionDateTextField() {
+		// if (revisionDateTextField == null) {
+		// revisionDateTextField = new JTextField();
+		// revisionDateTextField.setMinimumSize(new Dimension(75, (int) revisionDateTextField.getSize().getHeight()));
+		// revisionDateTextField.setDragEnabled(true);
+		// revisionDateTextField.setEnabled(false);
+		// revisionDateTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+		// @Override
+		// public void valueChanged(final String newValue) {
+		// if (getUserObject() instanceof SubversionExportTask) {
+		// final Date revisionDate = StringUtils.isBlank(newValue) ? null : SubversionUtils
+		// .parseRevisionDate(newValue);
+		// ((SubversionExportTask) getUserObject()).setRevisionDate(revisionDate);
+		// }
+		// }
+		// });
+		// }
+		// return revisionDateTextField;
+
 		if (revisionDateTextField == null) {
-			revisionDateTextField = new JTextField();
-			revisionDateTextField.setMinimumSize(new Dimension(75, (int) revisionDateTextField.getSize().getHeight()));
-			revisionDateTextField.setDragEnabled(true);
-			revisionDateTextField.setEnabled(false);
-			revisionDateTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			revisionDateTextField = new JXDatePicker(new Date());
+			revisionDateTextField.setFormats("yyyy-MM-dd");
+
+			final JXMonthView monthView = revisionDateTextField.getMonthView();
+
+			monthView.addActionListener(new ActionListener() {
 				@Override
-				public void valueChanged(final String newValue) {
+				public void actionPerformed(final ActionEvent actionEvent) {
 					if (getUserObject() instanceof SubversionExportTask) {
-						final Date revisionDate = StringUtils.isBlank(newValue) ? null : SubversionUtils
-								.parseRevisionDate(newValue);
-						((SubversionExportTask) getUserObject()).setRevisionDate(revisionDate);
+						final SubversionExportTask subversionExportTask = (SubversionExportTask) getUserObject();
+
+						final SortedSet<Date> selection = monthView.getSelection();
+						if (selection.size() == 0) {
+							subversionExportTask.setRevisionDate(null);
+						}
+						else {
+							subversionExportTask.setRevisionDate(selection.first());
+						}
 					}
 				}
 			});
 		}
+
 		return revisionDateTextField;
+
 	}
 
 	/**
@@ -309,7 +338,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 			}
 
 			final Date revisionDate = subversionExportTask.getRevisionDate();
-			getRevisionDateTextField().setText(revisionDate == null ? "" : revisionDate.toString());
+			getRevisionDateTextField().setDate(revisionDate == null ? null : revisionDate);
 
 			final Long revisionNumber = subversionExportTask.getRevisionNumber();
 			getRevisionNumberTextField().setText(revisionNumber == null ? "" : revisionNumber.toString());
