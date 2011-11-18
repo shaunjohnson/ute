@@ -20,6 +20,7 @@ package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 /**
@@ -32,7 +33,7 @@ public enum ButtonResourceType implements ResourceType {
 	DIRECTORY_BROWSE(null, null);
 
 	/** The action command. */
-	private final String actionCommand;
+	private final ActionCommand actionCommand;
 
 	/** The icon. */
 	private final Icon icon;
@@ -43,7 +44,7 @@ public enum ButtonResourceType implements ResourceType {
 	 * @param icon the icon
 	 * @param actionCommand the action command
 	 */
-	ButtonResourceType(final Icon icon, final String actionCommand) {
+	ButtonResourceType(final Icon icon, final ActionCommand actionCommand) {
 		this.icon = icon;
 		this.actionCommand = actionCommand;
 	}
@@ -53,7 +54,7 @@ public enum ButtonResourceType implements ResourceType {
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
 	 */
 	@Override
-	public String getActionCommand() {
+	public ActionCommand getActionCommand() {
 		return actionCommand;
 	}
 

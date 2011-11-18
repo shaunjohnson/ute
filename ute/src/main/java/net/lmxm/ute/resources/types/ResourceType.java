@@ -20,6 +20,7 @@ package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 /**
@@ -32,7 +33,7 @@ public interface ResourceType {
 	 * 
 	 * @return the action command
 	 */
-	String getActionCommand();
+	ActionCommand getActionCommand();
 
 	/**
 	 * Gets the icon.

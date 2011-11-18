@@ -269,9 +269,9 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 	 */
 	@Override
 	public void actionPerformed(final ActionEvent actionEvent) {
-		final String actionCommand = actionEvent.getActionCommand();
+		final ActionCommand actionCommand = ActionCommand.valueOf(actionEvent.getActionCommand());
 
-		if (actionCommand.equals(ActionCommand.CLOSE_ALL_TABS)) {
+		if (actionCommand == ActionCommand.CLOSE_ALL_TABS) {
 			final int tabCount = tabbedPane.getTabCount();
 			final List<Integer> inactiveTabIndices = new ArrayList<Integer>();
 

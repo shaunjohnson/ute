@@ -21,126 +21,81 @@ package net.lmxm.ute.enums;
 /**
  * The Class ActionConstants.
  */
-public final class ActionCommand {
+public enum ActionCommand {
 
-	/** The Constant ABOUT. */
-	public static final String ABOUT = "ABOUT";
+	ABOUT,
 
-	/** The Constant ADD_FILE_SYSTEM_DELETE_TASK. */
-	public static final String ADD_FILE_SYSTEM_DELETE_TASK = "ADD_FILE_SYSTEM_DELETE_TASK";
+	ADD_FILE_SYSTEM_DELETE_TASK,
 
-	/** The Constant ADD_FILE_SYSTEM_LOCATION. */
-	public static final String ADD_FILE_SYSTEM_LOCATION = "ADD_FILE_SYSTEM_LOCATION";
+	ADD_FILE_SYSTEM_LOCATION,
 
-	/** The Constant ADD_FIND_REPLACE_TASK. */
-	public static final String ADD_FIND_REPLACE_TASK = "ADD_FIND_REPLACE_TASK";
+	ADD_FIND_REPLACE_TASK,
 
-	/** The Constant ADD_GROOVY_TASK. */
-	public static final String ADD_GROOVY_TASK = "ADD_GROOVY_TASK";
+	ADD_GROOVY_TASK,
 
-	/** The Constant ADD_HTTP_DOWNLOAD_TASK. */
-	public static final String ADD_HTTP_DOWNLOAD_TASK = "ADD_HTTP_DOWNLOAD_TASK";
+	ADD_HTTP_DOWNLOAD_TASK,
 
-	/** The Constant ADD_HTTP_LOCATION. */
-	public static final String ADD_HTTP_LOCATION = "ADD_HTTP_LOCATION";
+	ADD_HTTP_LOCATION,
 
-	/** The Constant ADD_JOB. */
-	public static final String ADD_JOB = "ADD_JOB";
+	ADD_JOB,
 
-	/** The Constant ADD_PREFERENCE. */
-	public static final String ADD_PREFERENCE = "ADD_PREFERENCE";
+	ADD_PREFERENCE,
 
-	/** The Constant ADD_PROPERTY. */
-	public static final String ADD_PROPERTY = "ADD_PROPERTY";
+	ADD_PROPERTY,
 
-	/** The Constant ADD_SUBVERSION_EXPORT_TASK. */
-	public static final String ADD_SUBVERSION_EXPORT_TASK = "ADD_SUBVERSION_EXPORT_TASK";
+	ADD_SUBVERSION_EXPORT_TASK,
 
-	/** The Constant ADD_SUBVERSION_REPOSITORY_LOCATION. */
-	public static final String ADD_SUBVERSION_REPOSITORY_LOCATION = "ADD_SUBVERSION_REPOSITORY_LOCATION";
+	ADD_SUBVERSION_REPOSITORY_LOCATION,
 
-	/** The Constant ADD_SUBVERSION_UPDATE_TASK. */
-	public static final String ADD_SUBVERSION_UPDATE_TASK = "ADD_SUBVERSION_UPDATE_TASK";
+	ADD_SUBVERSION_UPDATE_TASK,
 
-	/** The Constant CLONE_FILE_SYSTEM_LOCATION. */
-	public static final String CLONE_FILE_SYSTEM_LOCATION = "CLONE_FILE_SYSTEM_LOCATION";
+	CLONE_FILE_SYSTEM_LOCATION,
 
-	/** The Constant CLONE_HTTP_LOCATION. */
-	public static final String CLONE_HTTP_LOCATION = "CLONE_HTTP_LOCATION";
+	CLONE_HTTP_LOCATION,
 
-	/** The Constant CLONE_JOB. */
-	public static final String CLONE_JOB = "CLONE_JOB";
+	CLONE_JOB,
 
-	/** The Constant CLONE_PREFERENCE. */
-	public static final String CLONE_PREFERENCE = "CLONE_PREFERENCE";
+	CLONE_PREFERENCE,
 
-	/** The Constant CLONE_PROPERTY. */
-	public static final String CLONE_PROPERTY = "CLONE_PROPERTY";
+	CLONE_PROPERTY,
 
-	/** The Constant CLONE_SUBVERSION_REPOSITORY_LOCATION. */
-	public static final String CLONE_SUBVERSION_REPOSITORY_LOCATION = "CLONE_SUBVERSION_REPOSITORY_LOCATION";
+	CLONE_SUBVERSION_REPOSITORY_LOCATION,
 
-	/** The Constant CLONE_TASK. */
-	public static final String CLONE_TASK = "CLONE_TASK";
+	CLONE_TASK,
 
-	/** The Constant CLOSE_ALL_TABS. */
-	public static final String CLOSE_ALL_TABS = "CLOSE_ALL_TABS";
+	CLOSE_ALL_TABS,
 
-	/** The Constant COLLAPSE. */
-	public static final String COLLAPSE = "COLLAPSE";
+	COLLAPSE,
 
-	/** The Constant DELETE_FILE_SYSTEM_LOCATION. */
-	public static final String DELETE_FILE_SYSTEM_LOCATION = "DELETE_FILE_SYSTEM_LOCATION";
+	DELETE_FILE_SYSTEM_LOCATION,
 
-	/** The Constant DELETE_HTTP_LOCATION. */
-	public static final String DELETE_HTTP_LOCATION = "DELETE_HTTP_LOCATION";
+	DELETE_HTTP_LOCATION,
 
-	/** The Constant DELETE_JOB. */
-	public static final String DELETE_JOB = "DELETE_JOB";
+	DELETE_JOB,
 
-	/** The Constant DELETE_PREFERENCE. */
-	public static final String DELETE_PREFERENCE = "DELETE_PREFERENCE";
+	DELETE_PREFERENCE,
 
-	/** The Constant DELETE_PROPERTY. */
-	public static final String DELETE_PROPERTY = "DELETE_PROPERTY";
+	DELETE_PROPERTY,
 
-	/** The Constant DELETE_SUBVERSION_REPOSITORY_LOCATION. */
-	public static final String DELETE_SUBVERSION_REPOSITORY_LOCATION = "DELETE_SUBVERSION_REPOSITORY_LOCATION";
+	DELETE_SUBVERSION_REPOSITORY_LOCATION,
 
-	/** The Constant DELETE_TASK. */
-	public static final String DELETE_TASK = "DELETE_TASK";
+	DELETE_TASK,
 
-	/** The Constant EDIT_PREFERENCES. */
-	public static final String EDIT_PREFERENCES = "EDIT_PREFERENCES";
+	EDIT_PREFERENCES,
 
-	/** The Constant EXECUTE. */
-	public static final String EXECUTE = "EXECUTE";
+	EXECUTE,
 
-	/** The Constant EXIT. */
-	public static final String EXIT = "EXIT";
+	EXIT,
 
-	/** The Constant EXPAND. */
-	public static final String EXPAND = "EXPAND";
+	EXPAND,
 
-	/** The Constant NEW_FILE. */
-	public static final String NEW_FILE = "NEW_FILE";
+	NEW_FILE,
 
-	/** The Constant OPEN_FILE. */
-	public static final String OPEN_FILE = "OPEN_FILE";
+	OPEN_FILE,
 
-	/** The Constant RELOAD_FILE. */
-	public static final String RELOAD_FILE = "RELOAD_FILE";
+	RELOAD_FILE,
 
-	/** The Constant SAVE_FILE. */
-	public static final String SAVE_FILE = "SAVE_FILE";
+	SAVE_FILE,
 
-	/** The Constant SAVE_FILE_AS. */
-	public static final String SAVE_FILE_AS = "SAVE_FILE_AS";
-
-	/**
-	 * Instantiates a new action constants.
-	 */
-	private ActionCommand() {
-		throw new AssertionError();
-	}
+	SAVE_FILE_AS;
 }

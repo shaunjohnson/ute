@@ -109,25 +109,25 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 				final ActionEvent actionEvent;
 
 				if (userObject instanceof FileSystemLocation) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_FILE_SYSTEM_LOCATION);
+					actionEvent = createActionEvent(ActionCommand.DELETE_FILE_SYSTEM_LOCATION.name());
 				}
 				else if (userObject instanceof HttpLocation) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_HTTP_LOCATION);
+					actionEvent = createActionEvent(ActionCommand.DELETE_HTTP_LOCATION.name());
 				}
 				else if (userObject instanceof Job) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_JOB);
+					actionEvent = createActionEvent(ActionCommand.DELETE_JOB.name());
 				}
 				else if (userObject instanceof Preference) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_PREFERENCE);
+					actionEvent = createActionEvent(ActionCommand.DELETE_PREFERENCE.name());
 				}
 				else if (userObject instanceof Property) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_PROPERTY);
+					actionEvent = createActionEvent(ActionCommand.DELETE_PROPERTY.name());
 				}
 				else if (userObject instanceof SubversionRepositoryLocation) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_SUBVERSION_REPOSITORY_LOCATION);
+					actionEvent = createActionEvent(ActionCommand.DELETE_SUBVERSION_REPOSITORY_LOCATION.name());
 				}
 				else if (userObject instanceof Task) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_TASK);
+					actionEvent = createActionEvent(ActionCommand.DELETE_TASK.name());
 				}
 				else {
 					actionEvent = null;

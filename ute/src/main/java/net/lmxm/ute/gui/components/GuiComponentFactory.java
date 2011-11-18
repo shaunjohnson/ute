@@ -227,7 +227,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 		}
 
 		if (guiComponentType.getActionCommand() != null) {
-			abstractButton.setActionCommand(guiComponentType.getActionCommand());
+			abstractButton.setActionCommand(guiComponentType.getActionCommand().name());
 		}
 	}
 

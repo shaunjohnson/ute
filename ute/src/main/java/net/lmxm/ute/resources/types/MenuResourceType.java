@@ -20,6 +20,7 @@ package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 /**
@@ -27,38 +28,21 @@ import net.lmxm.ute.resources.ResourceCategory;
  */
 public enum MenuResourceType implements ResourceType {
 
-	ADD_TASK(null, null),
+	ADD_TASK,
 
-	EDIT(null, null),
+	EDIT,
 
-	FILE(null, null),
+	FILE,
 
-	HELP(null, null);
-
-	/** The action command. */
-	private final String actionCommand;
-
-	/** The icon. */
-	private final Icon icon;
-
-	/**
-	 * Instantiates a new gui component menu.
-	 * 
-	 * @param icon the icon
-	 * @param actionCommand the action command
-	 */
-	MenuResourceType(final Icon icon, final String actionCommand) {
-		this.icon = icon;
-		this.actionCommand = actionCommand;
-	}
+	HELP;
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
 	 */
 	@Override
-	public String getActionCommand() {
-		return actionCommand;
+	public ActionCommand getActionCommand() {
+		return null;
 	}
 
 	/*
@@ -67,7 +51,7 @@ public enum MenuResourceType implements ResourceType {
 	 */
 	@Override
 	public Icon getIcon() {
-		return icon;
+		return null;
 	}
 
 	/*

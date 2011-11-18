@@ -119,7 +119,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 			browsePathButton = GuiComponentFactory.createButton(ButtonResourceType.DIRECTORY_BROWSE,
 					new ActionListener() {
 						@Override
-						public void actionPerformed(final ActionEvent e) {
+						public void actionPerformed(final ActionEvent actionEvent) {
 							final JFileChooser fcOpen = new JFileChooser();
 
 							fcOpen.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

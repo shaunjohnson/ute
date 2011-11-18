@@ -80,7 +80,7 @@ public enum ToolbarButtonResourceType implements ResourceType {
 	SAVE_FILE_AS(ImageUtil.SAVE_FILE_AS_ICON, ActionCommand.SAVE_FILE_AS);
 
 	/** The action command. */
-	private final String actionCommand;
+	private final ActionCommand actionCommand;
 
 	/** The icon. */
 	private final Icon icon;
@@ -91,7 +91,7 @@ public enum ToolbarButtonResourceType implements ResourceType {
 	 * @param icon the icon
 	 * @param actionCommand the action command
 	 */
-	ToolbarButtonResourceType(final Icon icon, final String actionCommand) {
+	ToolbarButtonResourceType(final Icon icon, final ActionCommand actionCommand) {
 		this.icon = icon;
 		this.actionCommand = actionCommand;
 	}
@@ -101,7 +101,7 @@ public enum ToolbarButtonResourceType implements ResourceType {
 	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
 	 */
 	@Override
-	public String getActionCommand() {
+	public ActionCommand getActionCommand() {
 		return actionCommand;
 	}
 

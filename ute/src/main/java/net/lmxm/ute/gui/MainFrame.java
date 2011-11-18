@@ -107,6 +107,7 @@ import net.lmxm.ute.configuration.ConfigurationInterpolator;
 import net.lmxm.ute.configuration.ConfigurationReader;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.configuration.ConfigurationWriter;
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.gui.components.OptionPaneFactory;
 import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.components.StatusOutputTab;
@@ -725,117 +726,117 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	@Override
 	public void actionPerformed(final ActionEvent actionEvent) {
 		try {
-			final String actionCommand = actionEvent.getActionCommand();
+			final ActionCommand actionCommand = ActionCommand.valueOf(actionEvent.getActionCommand());
 
 			if (actionCommand.equals(ABOUT)) {
 				actionAbout();
 			}
-			else if (actionCommand.equals(ADD_FILE_SYSTEM_DELETE_TASK)) {
+			else if (actionCommand == ADD_FILE_SYSTEM_DELETE_TASK) {
 				actionAddFileSystemDeleteTask();
 			}
-			else if (actionCommand.equals(ADD_FILE_SYSTEM_LOCATION)) {
+			else if (actionCommand == ADD_FILE_SYSTEM_LOCATION) {
 				actionAddFileSystemLocation();
 			}
-			else if (actionCommand.equals(ADD_FIND_REPLACE_TASK)) {
+			else if (actionCommand == ADD_FIND_REPLACE_TASK) {
 				actionAddFindReplaceTask();
 			}
-			else if (actionCommand.equals(ADD_GROOVY_TASK)) {
+			else if (actionCommand == ADD_GROOVY_TASK) {
 				actionAddGroovyTask();
 			}
-			else if (actionCommand.equals(ADD_HTTP_DOWNLOAD_TASK)) {
+			else if (actionCommand == ADD_HTTP_DOWNLOAD_TASK) {
 				actionAddHttpDownloadTask();
 			}
-			else if (actionCommand.equals(ADD_HTTP_LOCATION)) {
+			else if (actionCommand == ADD_HTTP_LOCATION) {
 				actionAddHttpLocation();
 			}
-			else if (actionCommand.equals(ADD_JOB)) {
+			else if (actionCommand == ADD_JOB) {
 				actionAddJob();
 			}
-			else if (actionCommand.equals(ADD_PREFERENCE)) {
+			else if (actionCommand == ADD_PREFERENCE) {
 				actionAddPreference();
 			}
-			else if (actionCommand.equals(ADD_PROPERTY)) {
+			else if (actionCommand == ADD_PROPERTY) {
 				actionAddProperty();
 			}
-			else if (actionCommand.equals(ADD_SUBVERSION_EXPORT_TASK)) {
+			else if (actionCommand == ADD_SUBVERSION_EXPORT_TASK) {
 				actionAddSubversionExportTask();
 			}
-			else if (actionCommand.equals(ADD_SUBVERSION_REPOSITORY_LOCATION)) {
+			else if (actionCommand == ADD_SUBVERSION_REPOSITORY_LOCATION) {
 				actionAddSubversionRepositoryLocation();
 			}
-			else if (actionCommand.equals(ADD_SUBVERSION_UPDATE_TASK)) {
+			else if (actionCommand == ADD_SUBVERSION_UPDATE_TASK) {
 				actionAddSubversionUpdateTask();
 			}
-			else if (actionCommand.equals(CLONE_FILE_SYSTEM_LOCATION)) {
+			else if (actionCommand == CLONE_FILE_SYSTEM_LOCATION) {
 				actionCloneFileSystemLocation();
 			}
-			else if (actionCommand.equals(CLONE_HTTP_LOCATION)) {
+			else if (actionCommand == CLONE_HTTP_LOCATION) {
 				actionCloneHttpLocation();
 			}
-			else if (actionCommand.equals(CLONE_JOB)) {
+			else if (actionCommand == CLONE_JOB) {
 				actionCloneJob();
 			}
-			else if (actionCommand.equals(CLONE_PREFERENCE)) {
+			else if (actionCommand == CLONE_PREFERENCE) {
 				actionClonePreference();
 			}
-			else if (actionCommand.equals(CLONE_PROPERTY)) {
+			else if (actionCommand == CLONE_PROPERTY) {
 				actionCloneProperty();
 			}
-			else if (actionCommand.equals(CLONE_SUBVERSION_REPOSITORY_LOCATION)) {
+			else if (actionCommand == CLONE_SUBVERSION_REPOSITORY_LOCATION) {
 				actionCloneSubversionRepositoryLocation();
 			}
-			else if (actionCommand.equals(CLONE_TASK)) {
+			else if (actionCommand == CLONE_TASK) {
 				actionCloneTask();
 			}
-			else if (actionCommand.equals(COLLAPSE)) {
+			else if (actionCommand == COLLAPSE) {
 				actionCollapse();
 			}
-			else if (actionCommand.equals(DELETE_FILE_SYSTEM_LOCATION)) {
+			else if (actionCommand == DELETE_FILE_SYSTEM_LOCATION) {
 				actionDeleteFileSystemLocation();
 			}
-			else if (actionCommand.equals(DELETE_HTTP_LOCATION)) {
+			else if (actionCommand == DELETE_HTTP_LOCATION) {
 				actionDeleteHttpLocation();
 			}
-			else if (actionCommand.equals(DELETE_JOB)) {
+			else if (actionCommand == DELETE_JOB) {
 				actionDeleteJob();
 			}
-			else if (actionCommand.equals(DELETE_PREFERENCE)) {
+			else if (actionCommand == DELETE_PREFERENCE) {
 				actionDeletePreference();
 			}
-			else if (actionCommand.equals(DELETE_PROPERTY)) {
+			else if (actionCommand == DELETE_PROPERTY) {
 				actionDeleteProperty();
 			}
-			else if (actionCommand.equals(DELETE_SUBVERSION_REPOSITORY_LOCATION)) {
+			else if (actionCommand == DELETE_SUBVERSION_REPOSITORY_LOCATION) {
 				actionDeleteSubversionRepositoryLocation();
 			}
-			else if (actionCommand.equals(DELETE_TASK)) {
+			else if (actionCommand == DELETE_TASK) {
 				actionDeleteTask();
 			}
-			else if (actionCommand.equals(EDIT_PREFERENCES)) {
+			else if (actionCommand == EDIT_PREFERENCES) {
 				actionEditPreferences();
 			}
-			else if (actionCommand.equals(EXIT)) {
+			else if (actionCommand == EXIT) {
 				actionExit();
 			}
-			else if (actionCommand.equals(EXPAND)) {
+			else if (actionCommand == EXPAND) {
 				actionExpand();
 			}
-			else if (actionCommand.equals(EXECUTE)) {
+			else if (actionCommand == EXECUTE) {
 				actionExecute();
 			}
-			else if (actionCommand.equals(NEW_FILE)) {
+			else if (actionCommand == NEW_FILE) {
 				actionNewFile();
 			}
-			else if (actionCommand.equals(OPEN_FILE)) {
+			else if (actionCommand == OPEN_FILE) {
 				actionOpenFile();
 			}
-			else if (actionCommand.equals(RELOAD_FILE)) {
+			else if (actionCommand == RELOAD_FILE) {
 				actionReloadFile();
 			}
-			else if (actionCommand.equals(SAVE_FILE)) {
+			else if (actionCommand == SAVE_FILE) {
 				actionSaveFile();
 			}
-			else if (actionCommand.equals(SAVE_FILE_AS)) {
+			else if (actionCommand == SAVE_FILE_AS) {
 				actionSaveFileAs();
 			}
 		}

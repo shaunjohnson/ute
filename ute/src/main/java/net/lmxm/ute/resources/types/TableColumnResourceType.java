@@ -20,6 +20,7 @@ package net.lmxm.ute.resources.types;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 /**
@@ -40,7 +41,7 @@ public enum TableColumnResourceType implements ResourceType {
 	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
 	 */
 	@Override
-	public String getActionCommand() {
+	public ActionCommand getActionCommand() {
 		return null;
 	}
 

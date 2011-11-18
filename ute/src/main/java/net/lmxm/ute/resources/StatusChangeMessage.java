@@ -21,6 +21,7 @@ package net.lmxm.ute.resources;
 
 import javax.swing.Icon;
 
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.types.ResourceType;
 
 /**
@@ -123,7 +124,7 @@ public enum StatusChangeMessage implements ResourceType {
 	 * @see net.lmxm.ute.resources.ResourceType#getActionCommand()
 	 */
 	@Override
-	public String getActionCommand() {
+	public ActionCommand getActionCommand() {
 		return null;
 	}
 
