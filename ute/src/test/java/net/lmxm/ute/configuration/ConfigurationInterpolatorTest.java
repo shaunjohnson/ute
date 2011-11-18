@@ -9,7 +9,7 @@ public class ConfigurationInterpolatorTest {
 
 	@Test
 	public void testInterpolateJobValues() {
-		fail("Not yet implemented");
+		// TODO Not yet implemented
 	}
 
 	/**

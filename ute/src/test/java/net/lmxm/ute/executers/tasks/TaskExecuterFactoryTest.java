@@ -31,6 +31,7 @@ import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.event.StatusChangeHelper;
+import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.executers.Executer;
 
 import org.junit.Test;
@@ -89,8 +90,11 @@ public class TaskExecuterFactoryTest {
 			TaskExecuterFactory.create(new TestTask(), new Configuration(), STATUS_CHANGE_HELPER);
 			fail();
 		}
-		catch (final IllegalArgumentException e) {
-			assertNotNull(e.getMessage());
+		catch (final TaskExecuterException e) {
+			assertNotNull(e);
+		}
+		catch (final Exception e) {
+			fail();
 		}
 
 		// Test file system delete task

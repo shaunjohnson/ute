@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.configuration.Configuration;
+import net.lmxm.ute.exceptions.JobExecuterException;
 
 import org.junit.Test;
 
@@ -67,8 +68,11 @@ public class JobExecuterFactoryTest {
 			JobExecuterFactory.create(new TestJob(), new Configuration());
 			fail();
 		}
-		catch (final IllegalArgumentException e) {
+		catch (final JobExecuterException e) {
 			assertNotNull(e);
+		}
+		catch (final Exception e) {
+			fail();
 		}
 	}
 }
