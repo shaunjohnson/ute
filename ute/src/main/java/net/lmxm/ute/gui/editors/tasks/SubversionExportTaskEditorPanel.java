@@ -212,24 +212,6 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	 * @return the revision date text field
 	 */
 	private JXDatePicker getRevisionDateTextField() {
-		// if (revisionDateTextField == null) {
-		// revisionDateTextField = new JTextField();
-		// revisionDateTextField.setMinimumSize(new Dimension(75, (int) revisionDateTextField.getSize().getHeight()));
-		// revisionDateTextField.setDragEnabled(true);
-		// revisionDateTextField.setEnabled(false);
-		// revisionDateTextField.getDocument().addDocumentListener(new ChangeAdapter() {
-		// @Override
-		// public void valueChanged(final String newValue) {
-		// if (getUserObject() instanceof SubversionExportTask) {
-		// final Date revisionDate = StringUtils.isBlank(newValue) ? null : SubversionUtils
-		// .parseRevisionDate(newValue);
-		// ((SubversionExportTask) getUserObject()).setRevisionDate(revisionDate);
-		// }
-		// }
-		// });
-		// }
-		// return revisionDateTextField;
-
 		if (revisionDateTextField == null) {
 			revisionDateTextField = new JXDatePicker(new Date());
 			revisionDateTextField.setFormats("yyyy-MM-dd");
@@ -349,6 +331,11 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 		LOGGER.debug("{} leaving", prefix);
 	}
 
+	/**
+	 * Update revision fields.
+	 * 
+	 * @param revision the revision
+	 */
 	private void updateRevisionFields(final SubversionRevision revision) {
 		if (revision == SubversionRevision.HEAD) {
 			getRevisionDateTextField().setEnabled(false);
