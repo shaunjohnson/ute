@@ -1,27 +1,22 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
  * 
- * This file is part of Universal Task Executer.
+ * This file is part of Universal Task Executor.
  * 
- * Universal Task Executer is free software: you can redistribute it and/or modify
+ * Universal Task Executor is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * Universal Task Executer is distributed in the hope that it will be useful, but
+ * Universal Task Executor is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  * 
  * You should have received a copy of the GNU General Public License along with
- * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
+ * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.configuration;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
-import net.lmxm.ute.configuration.ConfigurationUtils;
 
 import org.junit.Test;
 
@@ -31,59 +26,43 @@ import org.junit.Test;
 public class ConfigurationUtilsTest {
 
 	/**
-	 * Test get file names.
+	 * Test append file extension.
 	 */
 	@Test
-	public void testGetFileNames() {
-		// Not yet implemented
+	public void testAppendFileExtension() {
+		// TODO Not yet implemented
 	}
 
 	/**
-	 * Test get file system location.
+	 * Test find file system location by id.
 	 */
 	@Test
-	public void testGetFileSystemLocation() {
-		// Not yet implemented
+	public void testFindFileSystemLocationById() {
+		// TODO Not yet implemented
 	}
 
 	/**
-	 * Test get http location.
+	 * Test find http location by id.
 	 */
 	@Test
-	public void testGetHttpLocation() {
-		// Not yet implemented
+	public void testFindHttpLocationById() {
+		// TODO Not yet implemented
 	}
 
 	/**
-	 * Test get job.
+	 * Test find job by id.
 	 */
 	@Test
-	public void testGetJob() {
-		// Not yet implemented
+	public void testFindJobById() {
+		// TODO Not yet implemented
 	}
 
 	/**
-	 * Test get property names.
+	 * Test find subversion repository location by id.
 	 */
 	@Test
-	public void testGetPropertyNames() {
-		// Not yet implemented
-	}
-
-	/**
-	 * Test get property values.
-	 */
-	@Test
-	public void testGetPropertyValues() {
-		// Not yet implemented
-	}
-
-	/**
-	 * Test get subversion repository location.
-	 */
-	@Test
-	public void testGetSubversionRepositoryLocation() {
-		// Not yet implemented
+	public void testFindSubversionRepositoryLocationById() {
+		// TODO Not yet implemented
 	}
 
 	/**
@@ -91,58 +70,7 @@ public class ConfigurationUtilsTest {
 	 */
 	@Test
 	public void testValidateConfiguration() {
-		// Not yet implemented
+		// TODO Not yet implemented
 	}
 
-	/**
-	 * Test validate does not contain properties.
-	 */
-	@Test
-	public void testValidateDoesNotContainProperties() {
-		ConfigurationUtils.validateDoesNotContainProperties(null);
-		ConfigurationUtils.validateDoesNotContainProperties("");
-		ConfigurationUtils.validateDoesNotContainProperties("    ");
-		ConfigurationUtils.validateDoesNotContainProperties("abc");
-		ConfigurationUtils.validateDoesNotContainProperties("a{b}c");
-
-		try {
-			ConfigurationUtils.validateDoesNotContainProperties("${}");
-			fail();
-		}
-		catch (final Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			ConfigurationUtils.validateDoesNotContainProperties("${abc}");
-			fail();
-		}
-		catch (final Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			ConfigurationUtils.validateDoesNotContainProperties("before${abc}");
-			fail();
-		}
-		catch (final Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			ConfigurationUtils.validateDoesNotContainProperties("${abc}after");
-			fail();
-		}
-		catch (final Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			ConfigurationUtils.validateDoesNotContainProperties("before${abc}after");
-			fail();
-		}
-		catch (final Exception e) {
-			assertNotNull(e);
-		}
-	}
 }
