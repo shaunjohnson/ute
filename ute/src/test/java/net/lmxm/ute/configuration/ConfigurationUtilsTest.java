@@ -87,14 +87,6 @@ public class ConfigurationUtilsTest {
 	}
 
 	/**
-	 * Test interpolate job values.
-	 */
-	@Test
-	public void testInterpolateJobValues() {
-		// Not yet implemented
-	}
-
-	/**
 	 * Test validate configuration.
 	 */
 	@Test
