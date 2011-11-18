@@ -26,7 +26,7 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.executers.AbstractExecuter;
-import net.lmxm.ute.resources.StatusChangeMessageResourceType;
+import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 
 import com.google.common.base.Preconditions;
 

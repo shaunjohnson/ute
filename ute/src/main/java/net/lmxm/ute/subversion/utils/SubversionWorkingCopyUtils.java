@@ -21,7 +21,7 @@ package net.lmxm.ute.subversion.utils;
 import java.io.File;
 
 import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.resources.StatusChangeMessageResourceType;
+import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

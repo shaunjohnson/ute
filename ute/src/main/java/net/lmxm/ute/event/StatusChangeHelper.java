@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.StatusChangeMessageResourceType;
+import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 
 /**
  * The Class StatusChangeHelper.

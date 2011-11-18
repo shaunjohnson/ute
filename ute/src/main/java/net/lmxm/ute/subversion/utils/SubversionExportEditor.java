@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.resources.StatusChangeMessageResourceType;
+import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
