@@ -300,7 +300,7 @@ public class ConfigurationInterpolator {
 			}
 			else {
 				LOGGER.error("{} Unsupported task type {}", prefix, task.getClass());
-				throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE);
+				throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE, task.getClass());
 			}
 		}
 
@@ -391,7 +391,7 @@ public class ConfigurationInterpolator {
 	 * 
 	 * @param string the string
 	 */
-	private static void validateDoesNotContainProperties(final String string) {
+	protected static void validateDoesNotContainProperties(final String string) {
 		final String prefix = "validateDoesNotContainProperties() :";
 
 		LOGGER.debug("{} entered, string={}", prefix, string);

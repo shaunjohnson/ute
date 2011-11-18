@@ -22,7 +22,9 @@ import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
+import net.lmxm.ute.exceptions.JobExecuterException;
 import net.lmxm.ute.executers.ExecuterFactory;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +66,9 @@ public final class JobExecuterFactory implements ExecuterFactory {
 			executer = new SingleTaskJobExecuter(job, propertiesHolder);
 		}
 		else {
-			throw new IllegalArgumentException("Unsupported job type");
+			LOGGER.error("{} unsupported job type {}", prefix, job);
+
+			throw new JobExecuterException(ExceptionResourceType.UNSUPPORTED_JOB_TYPE, job);
 		}
 
 		LOGGER.debug("{} returning {}", prefix, executer);

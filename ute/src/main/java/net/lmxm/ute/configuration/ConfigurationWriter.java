@@ -836,7 +836,7 @@ public class ConfigurationWriter {
 			}
 			else {
 				LOGGER.error("{} Unsupported task type {}", prefix, task.getClass());
-				throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE);
+				throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE, task.getClass());
 			}
 		}
 

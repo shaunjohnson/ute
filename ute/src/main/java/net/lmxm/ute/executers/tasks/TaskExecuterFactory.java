@@ -27,8 +27,10 @@ import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.event.StatusChangeHelper;
+import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.executers.Executer;
 import net.lmxm.ute.executers.ExecuterFactory;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,9 +100,9 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 			executer = new SubversionUpdateTaskExecuter((SubversionUpdateTask) task, statusChangeHelper);
 		}
 		else {
-			LOGGER.error("{} unsupported task type {}", prefix, task);
+			LOGGER.error("{} unsupported task type {}", prefix, task.getClass());
 
-			throw new IllegalArgumentException("Unsupported task type");
+			throw new TaskExecuterException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE, task.getClass());
 		}
 
 		LOGGER.debug("{} returning {}", prefix, executer);

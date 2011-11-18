@@ -435,7 +435,8 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} entered", prefix);
 
 		final HttpSource source = new HttpSource();
-		final HttpLocation location = ConfigurationUtils.findHttpLocationById(configuration, sourceType.getLocationId());
+		final HttpLocation location = ConfigurationUtils
+				.findHttpLocationById(configuration, sourceType.getLocationId());
 
 		source.setLocation(location);
 		source.setRelativePath(sourceType.getRelativePath());
@@ -777,8 +778,8 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} entered", prefix);
 
 		final SubversionRepositorySource source = new SubversionRepositorySource();
-		final SubversionRepositoryLocation location = ConfigurationUtils.findSubversionRepositoryLocationById(configuration,
-				sourceType.getLocationId());
+		final SubversionRepositoryLocation location = ConfigurationUtils.findSubversionRepositoryLocationById(
+				configuration, sourceType.getLocationId());
 
 		source.setLocation(location);
 		source.setRelativePath(StringUtils.trim(sourceType.getRelativePath()));
@@ -880,7 +881,7 @@ public final class ConfigurationReader {
 		}
 		else {
 			LOGGER.error("{} Unsupported task type {}", prefix, taskType.getClass());
-			throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE);
+			throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE, taskType.getClass());
 		}
 
 		task.setDescription(taskType.getDescription());
