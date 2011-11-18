@@ -19,17 +19,12 @@
 package net.lmxm.ute.configuration;
 
 import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 
-import org.apache.commons.lang.StringUtils;
 import org.codehaus.plexus.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -175,37 +170,6 @@ public final class ConfigurationUtils {
 		for (final Job job : configuration.getJobs()) {
 			ConfigurationInterpolator.interpolateJobValues(job, configuration);
 		}
-	}
-
-	/**
-	 * Validate does not contain properties.
-	 * 
-	 * @param string the string
-	 */
-	protected static void validateDoesNotContainProperties(final String string) {
-		final String prefix = "validateDoesNotContainProperties() :";
-
-		LOGGER.debug("{} entered, string={}", prefix, string);
-
-		if (StringUtils.isBlank(string)) {
-			LOGGER.debug("{} leaving, string is blank", prefix);
-
-			return;
-		}
-
-		final Pattern pattern = Pattern.compile("^(.*)(\\$\\{)(.*)(\\})(.*)$");
-		final Matcher matcher = pattern.matcher(string);
-
-		if (matcher.find()) {
-			LOGGER.error("{} undefined property with name \"{}\"", prefix, matcher.group(3));
-
-			throw new RuntimeException("Undefined property with name \"" + matcher.group(3) + "\""); // TODO
-		}
-		else {
-			LOGGER.debug("{} no property references found", prefix);
-		}
-
-		LOGGER.debug("{} leaving", prefix);
 	}
 
 	/**

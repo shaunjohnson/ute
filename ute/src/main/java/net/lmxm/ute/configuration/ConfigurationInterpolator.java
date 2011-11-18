@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.FindReplacePattern;
@@ -345,7 +347,7 @@ public class ConfigurationInterpolator {
 			final String[] propertyValues) {
 		final String newString = StringUtils.replaceEachRepeatedly(string, propertyNames, propertyValues);
 
-		ConfigurationUtils.validateDoesNotContainProperties(newString);
+		validateDoesNotContainProperties(newString);
 
 		return newString;
 	}
@@ -379,6 +381,37 @@ public class ConfigurationInterpolator {
 			}
 
 			source.setRelativePath(interpolateProperties(source.getRelativePath(), propertyNames, propertyValues));
+		}
+
+		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
+	 * Validate does not contain properties.
+	 * 
+	 * @param string the string
+	 */
+	private static void validateDoesNotContainProperties(final String string) {
+		final String prefix = "validateDoesNotContainProperties() :";
+
+		LOGGER.debug("{} entered, string={}", prefix, string);
+
+		if (StringUtils.isBlank(string)) {
+			LOGGER.debug("{} leaving, string is blank", prefix);
+
+			return;
+		}
+
+		final Pattern pattern = Pattern.compile("^(.*)(\\$\\{)(.*)(\\})(.*)$");
+		final Matcher matcher = pattern.matcher(string);
+
+		if (matcher.find()) {
+			LOGGER.error("{} undefined property with name \"{}\"", prefix, matcher.group(3));
+
+			throw new RuntimeException("Undefined property with name \"" + matcher.group(3) + "\""); // TODO
+		}
+		else {
+			LOGGER.debug("{} no property references found", prefix);
 		}
 
 		LOGGER.debug("{} leaving", prefix);
