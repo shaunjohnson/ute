@@ -30,7 +30,7 @@ import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.exceptions.ConfigurationException;
-import net.lmxm.ute.resources.StatusChangeMessage;
+import net.lmxm.ute.resources.StatusChangeMessageResourceType;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -135,9 +135,9 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 		Preconditions.checkNotNull(destinationPath, "Destination path must not be null");
 
 		try {
-			getStatusChangeHelper().important(this, StatusChangeMessage.SUBVERSION_EXPORT_STARTED);
+			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_STARTED);
 
-			getStatusChangeHelper().info(this, StatusChangeMessage.SUBVERSION_EXPORT_FILE, urlString, destinationPath);
+			getStatusChangeHelper().info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE, urlString, destinationPath);
 
 			final SVNURL url = SVNURL.parseURIEncoded(urlString);
 			final File exportDirectory = new File(destinationPath);
@@ -216,11 +216,11 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 						contents.close();
 
 						if (StringUtils.isBlank(targetName)) {
-							getStatusChangeHelper().info(this, StatusChangeMessage.SUBVERSION_EXPORT_FILE_ADDED,
+							getStatusChangeHelper().info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED,
 									fileName);
 						}
 						else {
-							getStatusChangeHelper().info(this, StatusChangeMessage.SUBVERSION_EXPORT_FILE_ADDED_AS,
+							getStatusChangeHelper().info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED_AS,
 									fileName, targetName);
 						}
 					}
@@ -249,16 +249,16 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 
 			LOGGER.debug("{} finished exporting files", prefix);
 
-			getStatusChangeHelper().important(this, StatusChangeMessage.SUBVERSION_EXPORT_FINISHED, revisionToExport);
+			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FINISHED, revisionToExport);
 		}
 		catch (final SVNAuthenticationException e) {
 			LOGGER.error("SVNAuthenticationException caught exporting a file", e);
-			getStatusChangeHelper().error(this, StatusChangeMessage.SUBVERSION_AUTHENCITAION_FAILED);
+			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.SUBVERSION_AUTHENCITAION_FAILED);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 		catch (final SVNException e) {
 			LOGGER.error("SVNException caught exporting a file", e);
-			getStatusChangeHelper().error(this, StatusChangeMessage.SUBVERSION_EXPORT_ERROR);
+			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_ERROR);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 	}

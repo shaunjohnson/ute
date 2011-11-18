@@ -20,7 +20,7 @@ package net.lmxm.ute.subversion.utils;
 
 import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.StatusChangeMessage;
+import net.lmxm.ute.resources.StatusChangeMessageResourceType;
 import net.lmxm.ute.resources.types.SubversionEventResourceType;
 
 import org.slf4j.Logger;
@@ -126,38 +126,38 @@ public final class EventHandler implements ISVNEventHandler {
 			handlePathChange(event, UpdateChangeType.DELETED);
 		}
 		else if (action == SVNEventAction.UPDATE_NONE) {
-			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_UPDATE_NONE, event.getFile()
+			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_UPDATE_NONE, event.getFile()
 					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.UPDATE_UPDATE) {
 			handleUpdateEvent(event);
 		}
 		else if (action == SVNEventAction.UPDATE_EXTERNAL) {
-			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_UPDATE_EXTERNAL,
+			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_UPDATE_EXTERNAL,
 					event.getRevision(), event.getFile().getAbsolutePath());
 		}
 		else if (action == SVNEventAction.UPDATE_COMPLETED) {
-			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_UPDATE_COMPLETED,
+			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_UPDATE_COMPLETED,
 					event.getRevision());
 		}
 		else if (action == SVNEventAction.ADD) {
-			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_ADD, event.getFile()
+			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_ADD, event.getFile()
 					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.DELETE) {
-			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_DELETE, event.getFile()
+			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_DELETE, event.getFile()
 					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.LOCKED) {
-			statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_LOCKED, event.getFile()
+			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_LOCKED, event.getFile()
 					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.LOCK_FAILED) {
-			statusChangeHelper.error(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_LOCK_FAILED, event.getFile()
+			statusChangeHelper.error(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_LOCK_FAILED, event.getFile()
 					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.FAILED_EXTERNAL) {
-			statusChangeHelper.error(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_FAILED_EXTERNAL, event.getFile()
+			statusChangeHelper.error(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_FAILED_EXTERNAL, event.getFile()
 					.getAbsolutePath());
 		}
 		else {
@@ -197,7 +197,7 @@ public final class EventHandler implements ISVNEventHandler {
 		final String lockLabel = isUnlocked(event) ? ResourcesUtils
 				.getResourceText(SubversionEventResourceType.LOCK_STATUS_UNLOCKED) : "";
 
-		statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_UPDATE_EVENT_UPDATE, updateChangeString,
+		statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_UPDATE, updateChangeString,
 				propertyChangeString, lockLabel, event.getFile().getAbsolutePath());
 
 		LOGGER.debug("{} leaving", prefix);

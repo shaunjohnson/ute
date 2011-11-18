@@ -30,7 +30,7 @@ import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
-import net.lmxm.ute.resources.StatusChangeMessage;
+import net.lmxm.ute.resources.StatusChangeMessageResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -121,7 +121,7 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 		LOGGER.debug("{} entered", prefix);
 
 		if (isCancelled()) {
-			statusChangeHelper.heading(this, StatusChangeMessage.JOB_STOPPED, job.getId());
+			statusChangeHelper.heading(this, StatusChangeMessageResourceType.JOB_STOPPED, job.getId());
 		}
 
 		for (final JobStatusListener jobStatusListener : jobStatusListeners) {

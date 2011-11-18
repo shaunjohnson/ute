@@ -26,7 +26,7 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.executers.AbstractExecuter;
-import net.lmxm.ute.resources.StatusChangeMessage;
+import net.lmxm.ute.resources.StatusChangeMessageResourceType;
 
 import com.google.common.base.Preconditions;
 
@@ -89,7 +89,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
 	 * Job aborted.
 	 */
 	protected final void jobAborted() {
-		getStatusChangeHelper().heading(this, StatusChangeMessage.JOB_ABORTED, job.getId());
+		getStatusChangeHelper().heading(this, StatusChangeMessageResourceType.JOB_ABORTED, job.getId());
 
 		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
 			jobStatusListener.jobAborted();
@@ -100,7 +100,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
 	 * Job completed.
 	 */
 	protected final void jobCompleted() {
-		getStatusChangeHelper().heading(this, StatusChangeMessage.JOB_FINISHED, job.getId());
+		getStatusChangeHelper().heading(this, StatusChangeMessageResourceType.JOB_FINISHED, job.getId());
 
 		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
 			jobStatusListener.jobCompleted();
@@ -111,7 +111,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
 	 * Job started.
 	 */
 	protected final void jobStarted() {
-		getStatusChangeHelper().heading(this, StatusChangeMessage.JOB_STARTED, job.getId());
+		getStatusChangeHelper().heading(this, StatusChangeMessageResourceType.JOB_STARTED, job.getId());
 
 		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
 			jobStatusListener.jobStarted();
@@ -135,7 +135,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
 	 * @param task the task
 	 */
 	protected final void taskSkipped(final Task task) {
-		getStatusChangeHelper().info(this, StatusChangeMessage.DISABLED_TASK_SKIPPED, task.getId());
+		getStatusChangeHelper().info(this, StatusChangeMessageResourceType.DISABLED_TASK_SKIPPED, task.getId());
 
 		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
 			jobStatusListener.jobTaskSkipped();

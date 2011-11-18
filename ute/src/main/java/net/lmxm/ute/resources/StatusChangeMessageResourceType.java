@@ -25,9 +25,9 @@ import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.types.ResourceType;
 
 /**
- * The Enum StatusChangeMessage.
+ * The Enum StatusChangeMessageResourceType.
  */
-public enum StatusChangeMessage implements ResourceType {
+public enum StatusChangeMessageResourceType implements ResourceType {
 
 	DISABLED_TASK_SKIPPED,
 

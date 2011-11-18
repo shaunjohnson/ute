@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.resources.StatusChangeMessage;
+import net.lmxm.ute.resources.StatusChangeMessageResourceType;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -132,7 +132,7 @@ public class SubversionExportEditor implements ISVNEditor {
 			}
 		}
 
-		statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_EXPORT_DIRECTORY_ADDED, path);
+		statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_DIRECTORY_ADDED, path);
 
 		LOGGER.debug("{} leaving", prefix);
 	}
@@ -270,7 +270,7 @@ public class SubversionExportEditor implements ISVNEditor {
 	 */
 	@Override
 	public void closeFile(final String path, final String textChecksum) throws SVNException {
-		statusChangeHelper.info(this, StatusChangeMessage.SUBVERSION_EXPORT_FILE_ADDED, path);
+		statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED, path);
 	}
 
 	/**

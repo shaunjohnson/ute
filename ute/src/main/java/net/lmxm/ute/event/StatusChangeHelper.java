@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.StatusChangeMessage;
+import net.lmxm.ute.resources.StatusChangeMessageResourceType;
 
 /**
  * The Class StatusChangeHelper.
@@ -46,7 +46,7 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void error(final Object source, final StatusChangeMessage statusChangeMessage,
+	public final void error(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
 		final String message = formatMessage(statusChangeMessage, arguments);
 
@@ -61,7 +61,7 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void fatal(final Object source, final StatusChangeMessage statusChangeMessage,
+	public final void fatal(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
 		final String message = formatMessage(statusChangeMessage, arguments);
 
@@ -77,7 +77,7 @@ public class StatusChangeHelper {
 	 * @param arguments the arguments
 	 * @return the string
 	 */
-	private String formatMessage(final StatusChangeMessage statusChangeMessage, final Object[] arguments) {
+	private String formatMessage(final StatusChangeMessageResourceType statusChangeMessage, final Object[] arguments) {
 		return String.format(ResourcesUtils.getResourceMessage(statusChangeMessage), arguments);
 	}
 
@@ -87,7 +87,7 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void heading(final Object source, final StatusChangeMessage statusChangeMessage,
+	public final void heading(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
 		final String message = formatMessage(statusChangeMessage, arguments);
 
@@ -102,7 +102,7 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void important(final Object source, final StatusChangeMessage statusChangeMessage,
+	public final void important(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
 		final String message = formatMessage(statusChangeMessage, arguments);
 
@@ -117,7 +117,7 @@ public class StatusChangeHelper {
 	 * @param source the source
 	 * @param message the message
 	 */
-	public final void info(final Object source, final StatusChangeMessage statusChangeMessage,
+	public final void info(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
 		final String message = formatMessage(statusChangeMessage, arguments);
 
