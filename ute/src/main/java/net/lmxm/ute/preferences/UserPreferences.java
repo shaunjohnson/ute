@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.utils;
+package net.lmxm.ute.preferences;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -24,7 +24,6 @@ import java.awt.Point;
 import javax.swing.JFrame;
 
 import net.lmxm.ute.gui.GuiContants;
-import net.lmxm.ute.utils.AbstractPreferences;
 
 /**
  * Retrieves and persists user settings stored using java Preferences.

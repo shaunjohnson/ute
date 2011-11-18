@@ -23,7 +23,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
-import net.lmxm.ute.gui.utils.UserPreferences;
+import net.lmxm.ute.preferences.UserPreferences;
 
 /**
  * The listener interface for receiving mainFrameWindow events. The class that is interested in processing a
