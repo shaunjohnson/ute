@@ -30,7 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
-import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.ButtonResourceType;
@@ -175,7 +175,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 			pathTextField = new JTextField();
 			pathTextField.setMinimumSize(new Dimension(400, (int) pathTextField.getSize().getHeight()));
 			pathTextField.setDragEnabled(true);
-			pathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			pathTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof FileSystemLocation) {

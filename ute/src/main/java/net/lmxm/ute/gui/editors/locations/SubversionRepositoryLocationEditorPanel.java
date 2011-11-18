@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -118,7 +118,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 			passwordTextField = new JTextField();
 			passwordTextField.setMinimumSize(new Dimension(400, (int) passwordTextField.getSize().getHeight()));
 			passwordTextField.setDragEnabled(true);
-			passwordTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			passwordTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof SubversionRepositoryLocation) {
@@ -140,7 +140,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 			usernameTextField = new JTextField();
 			usernameTextField.setMinimumSize(new Dimension(400, (int) usernameTextField.getSize().getHeight()));
 			usernameTextField.setDragEnabled(true);
-			usernameTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			usernameTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof SubversionRepositoryLocation) {

@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
-import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 /**
@@ -76,7 +76,7 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 			urlTextField = new JTextField();
 			urlTextField.setMinimumSize(new Dimension(400, (int) urlTextField.getSize().getHeight()));
 			urlTextField.setDragEnabled(true);
-			urlTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			urlTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof AbstractHttpLocation) {

@@ -52,7 +52,7 @@ import net.lmxm.ute.beans.tasks.RenameFilesTask;
 import net.lmxm.ute.beans.tasks.StopOnErrorTask;
 import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.EnabledStateChangeEvent;
 import net.lmxm.ute.event.EnabledStateChangeListener;
 import net.lmxm.ute.gui.components.FilesTableModel;
@@ -404,7 +404,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			sourceRelativePathTextField.setMinimumSize(new Dimension(400, (int) sourceRelativePathTextField.getSize()
 					.getHeight()));
 			sourceRelativePathTextField.setDragEnabled(true);
-			sourceRelativePathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			sourceRelativePathTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof HttpSourceTask) {
@@ -494,7 +494,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			targetRelativePathTextField.setMinimumSize(new Dimension(400, (int) targetRelativePathTextField.getSize()
 					.getHeight()));
 			targetRelativePathTextField.setDragEnabled(true);
-			targetRelativePathTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			targetRelativePathTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof FileSystemTargetTask) {

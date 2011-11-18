@@ -36,7 +36,7 @@ import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
-import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
@@ -261,7 +261,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 					.getHeight()));
 			revisionNumberTextField.setDragEnabled(true);
 			revisionNumberTextField.setEnabled(false);
-			revisionNumberTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			revisionNumberTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof SubversionExportTask) {

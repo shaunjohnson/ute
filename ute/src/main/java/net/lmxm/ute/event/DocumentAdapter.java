@@ -24,9 +24,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 /**
- * The Class ChangeAdapter.
+ * The Class DocumentAdapter.
  */
-public abstract class ChangeAdapter implements DocumentListener {
+public abstract class DocumentAdapter implements DocumentListener {
 
 	/*
 	 * (non-Javadoc)

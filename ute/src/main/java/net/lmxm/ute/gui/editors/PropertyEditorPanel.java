@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.Property;
-import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -112,7 +112,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 			propertyValueTextField
 					.setMinimumSize(new Dimension(400, (int) propertyValueTextField.getSize().getHeight()));
 			propertyValueTextField.setDragEnabled(true);
-			propertyValueTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			propertyValueTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof Property) {

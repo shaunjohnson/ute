@@ -31,7 +31,7 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableBean;
-import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -141,7 +141,7 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 			descriptionTextArea.setLineWrap(true);
 			descriptionTextArea.setTabSize(4);
 			descriptionTextArea.setDragEnabled(true);
-			descriptionTextArea.getDocument().addDocumentListener(new ChangeAdapter() {
+			descriptionTextArea.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof DescribableBean) {
@@ -163,7 +163,7 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 			idTextField = new JTextField();
 			idTextField.setMinimumSize(new Dimension(400, (int) idTextField.getSize().getHeight()));
 			idTextField.setDragEnabled(true);
-			idTextField.getDocument().addDocumentListener(new ChangeAdapter() {
+			idTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof IdentifiableBean) {

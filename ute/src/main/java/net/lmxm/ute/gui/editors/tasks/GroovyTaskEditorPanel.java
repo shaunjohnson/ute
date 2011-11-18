@@ -24,7 +24,7 @@ import javax.swing.JScrollPane;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.event.ChangeAdapter;
+import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -128,7 +128,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 			scriptTextArea.setRows(30);
 			scriptTextArea.setTabSize(4);
 			scriptTextArea.setDragEnabled(true);
-			scriptTextArea.getDocument().addDocumentListener(new ChangeAdapter() {
+			scriptTextArea.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
 					if (getUserObject() instanceof GroovyTask) {
