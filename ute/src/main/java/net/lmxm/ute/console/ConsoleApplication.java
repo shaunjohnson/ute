@@ -28,6 +28,7 @@ import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.configuration.ConfigurationInterpolator;
 import net.lmxm.ute.configuration.ConfigurationReader;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.executers.jobs.JobExecuter;
@@ -97,7 +98,7 @@ public final class ConsoleApplication {
 		for (final Job job : jobs) {
 			LOGGER.debug("{} executing job {}", prefix, job.getId());
 
-			final Job jobInterpolated = ConfigurationUtils.interpolateJobValues(job, configuration);
+			final Job jobInterpolated = ConfigurationInterpolator.interpolateJobValues(job, configuration);
 			job.removeEmptyObjects();
 
 			final JobExecuter jobExecuter = JobExecuterFactory.create(jobInterpolated, configuration);

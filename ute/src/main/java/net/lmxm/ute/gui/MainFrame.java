@@ -103,6 +103,7 @@ import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.configuration.ConfigurationInterpolator;
 import net.lmxm.ute.configuration.ConfigurationReader;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.configuration.ConfigurationWriter;
@@ -633,7 +634,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		}
 
 		if (job != null) {
-			job = ConfigurationUtils.interpolateJobValues(job, configuration);
+			job = ConfigurationInterpolator.interpolateJobValues(job, configuration);
 			job.removeEmptyObjects();
 
 			final JTabbedPane tabbedPane = getBottomPanel();
