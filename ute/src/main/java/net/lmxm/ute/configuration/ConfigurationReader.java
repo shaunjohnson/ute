@@ -262,7 +262,7 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} entered", prefix);
 
 		final FileSystemTarget target = new FileSystemTarget();
-		final FileSystemLocation targetLocation = ConfigurationUtils.getFileSystemLocation(configuration,
+		final FileSystemLocation targetLocation = ConfigurationUtils.findFileSystemLocationById(configuration,
 				targetType.getLocationId());
 
 		target.setLocation(targetLocation);
@@ -435,7 +435,7 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} entered", prefix);
 
 		final HttpSource source = new HttpSource();
-		final HttpLocation location = ConfigurationUtils.getHttpLocation(configuration, sourceType.getLocationId());
+		final HttpLocation location = ConfigurationUtils.findHttpLocationById(configuration, sourceType.getLocationId());
 
 		source.setLocation(location);
 		source.setRelativePath(sourceType.getRelativePath());
@@ -777,7 +777,7 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} entered", prefix);
 
 		final SubversionRepositorySource source = new SubversionRepositorySource();
-		final SubversionRepositoryLocation location = ConfigurationUtils.getSubversionRepositoryLocation(configuration,
+		final SubversionRepositoryLocation location = ConfigurationUtils.findSubversionRepositoryLocationById(configuration,
 				sourceType.getLocationId());
 
 		source.setLocation(location);

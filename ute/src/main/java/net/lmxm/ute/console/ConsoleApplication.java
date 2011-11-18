@@ -187,7 +187,7 @@ public final class ConsoleApplication {
 		final String jobId = consoleArguments.getJobId();
 		final String taskId = consoleArguments.getTaskId();
 
-		final Job job = ConfigurationUtils.getJob(configuration, jobId);
+		final Job job = ConfigurationUtils.findJobById(configuration, jobId);
 		if (job == null) {
 			LOGGER.error("{} job with id \"{}\" does not exist", prefix, jobId);
 			throw new RuntimeException("Job with id \"" + jobId + "\" does not exist");

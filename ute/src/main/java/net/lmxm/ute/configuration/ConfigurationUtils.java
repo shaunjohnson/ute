@@ -20,11 +20,9 @@ package net.lmxm.ute.configuration;
 
 import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -51,6 +49,9 @@ public final class ConfigurationUtils {
 	 * @return the string
 	 */
 	public static String appendFileExtension(final String path) {
+		if (path == null) {
+			return null;
+		}
 		if (FileUtils.extension(path).equals(FILE_EXTENSION)) {
 			return path;
 		}
@@ -60,130 +61,109 @@ public final class ConfigurationUtils {
 	}
 
 	/**
-	 * Gets the file names.
-	 * 
-	 * @param files the files
-	 * 
-	 * @return the file names
-	 */
-	public static String[] getFileNames(final List<FileReference> files) {
-		final String prefix = "getFileNames() :";
-
-		LOGGER.debug("{} entered, files={}", prefix, files);
-
-		final String[] fileNames = new String[files.size()];
-		int i = 0;
-
-		for (final FileReference file : files) {
-			fileNames[i++] = file.getName();
-		}
-
-		LOGGER.debug("{} returning {}", prefix, fileNames);
-
-		return fileNames;
-	}
-
-	/**
-	 * Gets the file system location.
+	 * Find file system location by id.
 	 * 
 	 * @param configuration the configuration
 	 * @param locationId the location id
-	 * 
 	 * @return the file system location
 	 */
-	public static FileSystemLocation getFileSystemLocation(final Configuration configuration, final String locationId) {
-		final String prefix = "getFileSystemLocation() :";
+	public static FileSystemLocation findFileSystemLocationById(final Configuration configuration,
+			final String locationId) {
+		final String prefix = "findFileSystemLocationById() :";
 
 		LOGGER.debug("{} entered, locationId={}", prefix, locationId);
 
+		FileSystemLocation foundLocation = null;
+
 		for (final FileSystemLocation location : configuration.getFileSystemLocations()) {
 			if (location.getId().equals(locationId)) {
-				LOGGER.debug("{} returning {}", prefix, location);
-
-				return location;
+				foundLocation = location;
+				break;
 			}
 		}
 
-		LOGGER.debug("{} returning null", prefix);
+		LOGGER.debug("{} returning {}", prefix, foundLocation);
 
-		return null;
+		return foundLocation;
 	}
 
 	/**
-	 * Gets the http location.
+	 * Find http location by id.
 	 * 
 	 * @param configuration the configuration
 	 * @param locationId the location id
 	 * @return the http location
 	 */
-	public static HttpLocation getHttpLocation(final Configuration configuration, final String locationId) {
-		final String prefix = "getHttpLocation() :";
+	public static HttpLocation findHttpLocationById(final Configuration configuration, final String locationId) {
+		final String prefix = "findHttpLocationById() :";
 
 		LOGGER.debug("{} entered, locationId={}", prefix, locationId);
 
+		HttpLocation foundLocation = null;
+
 		for (final HttpLocation location : configuration.getHttpLocations()) {
 			if (location.getId().equals(locationId)) {
-				LOGGER.debug("{} returning {}", prefix, location);
-
-				return location;
+				foundLocation = location;
+				break;
 			}
 		}
 
-		LOGGER.debug("{} returning null", prefix);
+		LOGGER.debug("{} returning {}", prefix, foundLocation);
 
-		return null;
+		return foundLocation;
 	}
 
 	/**
-	 * Gets the job.
+	 * Find job by id.
 	 * 
 	 * @param configuration the configuration
 	 * @param jobId the job id
 	 * @return the job
 	 */
-	public static Job getJob(final Configuration configuration, final String jobId) {
-		final String prefix = "getJob() :";
+	public static Job findJobById(final Configuration configuration, final String jobId) {
+		final String prefix = "findJobById() :";
 
 		LOGGER.debug("{} entered, jobId={}", prefix, jobId);
 
+		Job foundJob = null;
+
 		for (final Job job : configuration.getJobs()) {
 			if (job.getId().equals(jobId)) {
-				LOGGER.debug("{} returning {}", prefix, job);
-
-				return job;
+				foundJob = job;
+				break;
 			}
 		}
 
-		LOGGER.debug("{} returning null", prefix);
+		LOGGER.debug("{} returning {}", prefix, foundJob);
 
-		return null;
+		return foundJob;
 	}
 
 	/**
-	 * Gets the subversion repository location.
+	 * Find subversion repository location by id.
 	 * 
 	 * @param configuration the configuration
 	 * @param locationId the location id
-	 * 
 	 * @return the subversion repository location
 	 */
-	public static SubversionRepositoryLocation getSubversionRepositoryLocation(final Configuration configuration,
+	public static SubversionRepositoryLocation findSubversionRepositoryLocationById(final Configuration configuration,
 			final String locationId) {
-		final String prefix = "getSubversionRepositoryLocation() :";
+		final String prefix = "findSubversionRepositoryLocationById() :";
 
 		LOGGER.debug("{} entered, locationId={}", prefix, locationId);
 
+		SubversionRepositoryLocation foundLocation = null;
+
 		for (final SubversionRepositoryLocation location : configuration.getSubversionRepositoryLocations()) {
 			if (location.getId().equals(locationId)) {
-				LOGGER.debug("{} returning {}", prefix, location);
-
-				return location;
+				foundLocation = location;
+				break;
 			}
 		}
 
-		LOGGER.debug("{} returning null", prefix);
+		LOGGER.debug("{} returning {}", prefix, foundLocation);
 
-		return null;
+		return foundLocation;
 	}
 
 	/**
