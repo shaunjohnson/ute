@@ -64,6 +64,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/** The action listener. */
 	private final ActionListener actionListener;
 
+	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
 
 	/** The content panel. */
@@ -134,6 +135,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 		getContentPanel().add(createLabel(guiComponentLabel), "gapleft 20, top");
 	}
 
+	/**
+	 * Adds the required label.
+	 * 
+	 * @param guiComponentLabel the gui component label
+	 */
 	protected final void addRequiredLabel(final LabelResourceType guiComponentLabel) {
 		getContentPanel().add(createRequiredLabel(guiComponentLabel), "gapleft 20, top");
 	}

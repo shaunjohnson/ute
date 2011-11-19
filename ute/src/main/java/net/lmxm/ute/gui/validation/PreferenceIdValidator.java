@@ -24,7 +24,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -35,51 +35,52 @@ import org.codehaus.plexus.util.StringUtils;
 import com.google.common.base.Preconditions;
 
 /**
- * The Class JobIdValidator.
+ * The Class PreferenceIdValidator.
  */
-public final class JobIdValidator extends AbstractInputValidator {
+public final class PreferenceIdValidator extends AbstractInputValidator {
 
-	/** The Constant JOB_ID_ALREADY_USED. */
-	private static final String JOB_ID_ALREADY_USED = ResourcesUtils
-			.getResourceMessage(ValidatorResourceType.JOB_ID_ALREADY_USED);
+	/** The Constant PREFERENCE_ID_ALREADY_USED. */
+	private static final String PREFERENCE_ID_ALREADY_USED = ResourcesUtils
+			.getResourceMessage(ValidatorResourceType.PREFERENCE_ID_ALREADY_USED);
 
-	/** The Constant JOB_ID_REQUIRED. */
-	private static final String JOB_ID_REQUIRED = ResourcesUtils
-			.getResourceMessage(ValidatorResourceType.JOB_ID_REQUIRED);
+	/** The Constant PREFERENCE_ID_REQUIRED. */
+	private static final String PREFERENCE_ID_REQUIRED = ResourcesUtils
+			.getResourceMessage(ValidatorResourceType.PREFERENCE_ID_REQUIRED);
 
 	/**
 	 * Adds the input validator.
 	 * 
-	 * @param job the job
+	 * @param preference the preference
 	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	public static void addInputValidator(final Job job, final JComponent component,
+	public static void addInputValidator(final Preference preference, final JComponent component,
 			final ConfigurationHolder configurationHolder) {
-		Preconditions.checkNotNull(job, "Job is null");
+		Preconditions.checkNotNull(preference, "Preference is null");
 		Preconditions.checkNotNull(component, "Component is null");
 		Preconditions.checkNotNull(configurationHolder, "Configuration holder is null");
 
-		component.setInputVerifier(new JobIdValidator(job, component, configurationHolder));
+		component.setInputVerifier(new PreferenceIdValidator(preference, component, configurationHolder));
 	}
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
 
-	/** The job. */
-	private final Job job;
+	/** The preference. */
+	private final Preference preference;
 
 	/**
 	 * Instantiates a new job id validator.
 	 * 
-	 * @param job the job
+	 * @param preference the preference
 	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	private JobIdValidator(final Job job, final JComponent component, final ConfigurationHolder configurationHolder) {
+	private PreferenceIdValidator(final Preference preference, final JComponent component,
+			final ConfigurationHolder configurationHolder) {
 		super(component);
 
-		this.job = job;
+		this.preference = preference;
 		this.configurationHolder = configurationHolder;
 	}
 
@@ -95,13 +96,14 @@ public final class JobIdValidator extends AbstractInputValidator {
 			final String text = ((JTextField) c).getText();
 
 			if (StringUtils.isBlank(text)) {
-				messages.add(JOB_ID_REQUIRED);
+				messages.add(PREFERENCE_ID_REQUIRED);
 			}
 			else {
-				final Job existingJob = ConfigurationUtils.findJobById(configurationHolder.getConfiguration(), text);
+				final Preference existingPreference = ConfigurationUtils.findPreferenceById(
+						configurationHolder.getConfiguration(), text);
 
-				if (existingJob != null && job != existingJob) {
-					messages.add(JOB_ID_ALREADY_USED);
+				if (existingPreference != null && preference != existingPreference) {
+					messages.add(PREFERENCE_ID_ALREADY_USED);
 				}
 			}
 		}

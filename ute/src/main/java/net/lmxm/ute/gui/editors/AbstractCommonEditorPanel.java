@@ -31,12 +31,14 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
 import net.lmxm.ute.gui.validation.JobIdValidator;
+import net.lmxm.ute.gui.validation.PreferenceIdValidator;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.apache.commons.lang.StringUtils;
@@ -197,8 +199,14 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 
 			getIdTextField().setText(identifiableBean.getId());
 
+			// Add validator
 			getIdTextField().setInputVerifier(null);
-			if (getUserObject() instanceof Job) {
+
+			if (getUserObject() instanceof Preference) {
+				PreferenceIdValidator.addInputValidator((Preference) getUserObject(), getIdTextField(),
+						getConfigurationHolder());
+			}
+			else if (getUserObject() instanceof Job) {
 				JobIdValidator.addInputValidator((Job) getUserObject(), getIdTextField(), getConfigurationHolder());
 			}
 		}

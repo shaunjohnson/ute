@@ -19,6 +19,7 @@
 package net.lmxm.ute.configuration;
 
 import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -132,6 +133,32 @@ public final class ConfigurationUtils {
 		LOGGER.debug("{} returning {}", prefix, foundJob);
 
 		return foundJob;
+	}
+
+	/**
+	 * Find preference by id.
+	 * 
+	 * @param configuration the configuration
+	 * @param preferenceId the preference id
+	 * @return the preference
+	 */
+	public static Preference findPreferenceById(final Configuration configuration, final String preferenceId) {
+		final String prefix = "findPreferenceById() :";
+
+		LOGGER.debug("{} entered, jobId={}", prefix, preferenceId);
+
+		Preference foundPreference = null;
+
+		for (final Preference preference : configuration.getPreferences()) {
+			if (preference.getId().equals(preferenceId)) {
+				foundPreference = preference;
+				break;
+			}
+		}
+
+		LOGGER.debug("{} returning {}", prefix, foundPreference);
+
+		return foundPreference;
 	}
 
 	/**

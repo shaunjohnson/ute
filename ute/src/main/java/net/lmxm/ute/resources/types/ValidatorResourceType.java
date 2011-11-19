@@ -30,7 +30,11 @@ public enum ValidatorResourceType implements ResourceType {
 
 	JOB_ID_ALREADY_USED,
 
-	JOB_ID_REQUIRED;
+	JOB_ID_REQUIRED,
+
+	PREFERENCE_ID_ALREADY_USED,
+
+	PREFERENCE_ID_REQUIRED;
 
 	/*
 	 * (non-Javadoc)
