@@ -18,10 +18,12 @@
  */
 package net.lmxm.ute.utils;
 
+import org.junit.Ignore;
 
 /**
  * The Class ResourcesUtilsTest.
  */
+@Ignore
 public class ResourcesUtilsTest {
 
 }
