@@ -88,11 +88,11 @@ public final class JobIdValidator extends AbstractInputValidator {
 	 * @see net.lmxm.ute.gui.validation.AbstractInputValidator#validate(javax.swing.JComponent)
 	 */
 	@Override
-	protected List<String> validate(final JComponent c) {
+	protected List<String> validate(final JComponent component) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (c instanceof JTextField) {
-			final String text = ((JTextField) c).getText();
+		if (component instanceof JTextField) {
+			final String text = ((JTextField) component).getText();
 
 			if (StringUtils.isBlank(text)) {
 				messages.add(JOB_ID_REQUIRED);

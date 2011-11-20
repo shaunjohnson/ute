@@ -103,7 +103,7 @@ public abstract class AbstractInputValidator extends InputVerifier implements Ke
 
 			final Container contentPane = messagesDialog.getContentPane();
 			contentPane.setLayout(new FlowLayout());
-			contentPane.setBackground(new Color(243, 255, 159));
+			contentPane.setBackground(new Color(255, 250, 1));
 			contentPane.add(getMessagesIcon());
 			contentPane.add(getMessagesLabel());
 		}

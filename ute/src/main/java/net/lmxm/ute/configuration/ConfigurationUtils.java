@@ -19,7 +19,12 @@
 package net.lmxm.ute.configuration;
 
 import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
+
+import java.util.List;
+
+import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
+import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -60,105 +65,82 @@ public final class ConfigurationUtils {
 	 * Find file system location by id.
 	 * 
 	 * @param configuration the configuration
-	 * @param locationId the location id
+	 * @param id the id
 	 * @return the file system location
 	 */
-	public static FileSystemLocation findFileSystemLocationById(final Configuration configuration,
-			final String locationId) {
-		final String prefix = "findFileSystemLocationById() :";
-
-		LOGGER.debug("{} entered, locationId={}", prefix, locationId);
-
-		FileSystemLocation foundLocation = null;
-
-		for (final FileSystemLocation location : configuration.getFileSystemLocations()) {
-			if (location.getId().equals(locationId)) {
-				foundLocation = location;
-				break;
-			}
-		}
-
-		LOGGER.debug("{} returning {}", prefix, foundLocation);
-
-		return foundLocation;
+	public static FileSystemLocation findFileSystemLocationById(final Configuration configuration, final String id) {
+		return (FileSystemLocation) findIdentifiableBeanById(configuration.getFileSystemLocations(), id);
 	}
 
 	/**
 	 * Find http location by id.
 	 * 
 	 * @param configuration the configuration
-	 * @param locationId the location id
+	 * @param id the id
 	 * @return the http location
 	 */
-	public static HttpLocation findHttpLocationById(final Configuration configuration, final String locationId) {
-		final String prefix = "findHttpLocationById() :";
+	public static HttpLocation findHttpLocationById(final Configuration configuration, final String id) {
+		return (HttpLocation) findIdentifiableBeanById(configuration.getHttpLocations(), id);
+	}
 
-		LOGGER.debug("{} entered, locationId={}", prefix, locationId);
+	/**
+	 * Find identifiable bean by id.
+	 * 
+	 * @param identifiableBeans the identifiable beans
+	 * @param id the id
+	 * @return the identifiable bean
+	 */
+	protected static IdentifiableBean findIdentifiableBeanById(
+			final List<? extends IdentifiableBean> identifiableBeans, final String id) {
+		final String prefix = "findIdentifiableBeanById() :";
 
-		HttpLocation foundLocation = null;
+		LOGGER.debug("{} entered, id={}", prefix, id);
 
-		for (final HttpLocation location : configuration.getHttpLocations()) {
-			if (location.getId().equals(locationId)) {
-				foundLocation = location;
+		IdentifiableBean foundIdentifiableBean = null;
+
+		for (final IdentifiableBean identifiableBean : identifiableBeans) {
+			if (identifiableBean.getId().equals(id)) {
+				foundIdentifiableBean = identifiableBean;
 				break;
 			}
 		}
 
-		LOGGER.debug("{} returning {}", prefix, foundLocation);
+		LOGGER.debug("{} returning {}", prefix, foundIdentifiableBean);
 
-		return foundLocation;
+		return foundIdentifiableBean;
 	}
 
 	/**
 	 * Find job by id.
 	 * 
 	 * @param configuration the configuration
-	 * @param jobId the job id
+	 * @param id the id
 	 * @return the job
 	 */
-	public static Job findJobById(final Configuration configuration, final String jobId) {
-		final String prefix = "findJobById() :";
-
-		LOGGER.debug("{} entered, jobId={}", prefix, jobId);
-
-		Job foundJob = null;
-
-		for (final Job job : configuration.getJobs()) {
-			if (job.getId().equals(jobId)) {
-				foundJob = job;
-				break;
-			}
-		}
-
-		LOGGER.debug("{} returning {}", prefix, foundJob);
-
-		return foundJob;
+	public static Job findJobById(final Configuration configuration, final String id) {
+		return (Job) findIdentifiableBeanById(configuration.getJobs(), id);
 	}
 
 	/**
 	 * Find preference by id.
 	 * 
 	 * @param configuration the configuration
-	 * @param preferenceId the preference id
+	 * @param id the id
 	 * @return the preference
 	 */
-	public static Preference findPreferenceById(final Configuration configuration, final String preferenceId) {
-		final String prefix = "findPreferenceById() :";
+	public static Preference findPreferenceById(final Configuration configuration, final String id) {
+		return (Preference) findIdentifiableBeanById(configuration.getPreferences(), id);
+	}
 
-		LOGGER.debug("{} entered, jobId={}", prefix, preferenceId);
-
-		Preference foundPreference = null;
-
-		for (final Preference preference : configuration.getPreferences()) {
-			if (preference.getId().equals(preferenceId)) {
-				foundPreference = preference;
-				break;
-			}
-		}
-
-		LOGGER.debug("{} returning {}", prefix, foundPreference);
-
-		return foundPreference;
+	/**
+	 * Find property by id.
+	 * 
+	 * @param configuration the configuration
+	 * @param id the id
+	 * @return the property
+	 */
+	public static Property findPropertyById(final Configuration configuration, final String id) {
+		return (Property) findIdentifiableBeanById(configuration.getProperties(), id);
 	}
 
 	/**
@@ -170,22 +152,8 @@ public final class ConfigurationUtils {
 	 */
 	public static SubversionRepositoryLocation findSubversionRepositoryLocationById(final Configuration configuration,
 			final String locationId) {
-		final String prefix = "findSubversionRepositoryLocationById() :";
-
-		LOGGER.debug("{} entered, locationId={}", prefix, locationId);
-
-		SubversionRepositoryLocation foundLocation = null;
-
-		for (final SubversionRepositoryLocation location : configuration.getSubversionRepositoryLocations()) {
-			if (location.getId().equals(locationId)) {
-				foundLocation = location;
-				break;
-			}
-		}
-
-		LOGGER.debug("{} returning {}", prefix, foundLocation);
-
-		return foundLocation;
+		return (SubversionRepositoryLocation) findIdentifiableBeanById(
+				configuration.getSubversionRepositoryLocations(), locationId);
 	}
 
 	/**

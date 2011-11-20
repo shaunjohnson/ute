@@ -24,7 +24,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import net.lmxm.ute.beans.Preference;
+import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -35,52 +35,49 @@ import org.codehaus.plexus.util.StringUtils;
 import com.google.common.base.Preconditions;
 
 /**
- * The Class PreferenceIdValidator.
+ * The Class PropertyIdValidator.
  */
-public final class PreferenceIdValidator extends AbstractInputValidator {
+public final class PropertyIdValidator extends AbstractInputValidator {
 
-	/** The Constant PREFERENCE_ID_ALREADY_USED. */
-	private static final String PREFERENCE_ID_ALREADY_USED = ResourcesUtils
-			.getResourceMessage(ValidatorResourceType.PREFERENCE_ID_ALREADY_USED);
+	/** The Constant PROPERTY_ID_ALREADY_USED. */
+	private static final String PROPERTY_ID_ALREADY_USED = ResourcesUtils
+			.getResourceMessage(ValidatorResourceType.PROPERTY_ID_ALREADY_USED);
 
-	/** The Constant PREFERENCE_ID_REQUIRED. */
-	private static final String PREFERENCE_ID_REQUIRED = ResourcesUtils
-			.getResourceMessage(ValidatorResourceType.PREFERENCE_ID_REQUIRED);
+	/** The Constant PROPERTY_ID_REQUIRED. */
+	private static final String PROPERTY_ID_REQUIRED = ResourcesUtils
+			.getResourceMessage(ValidatorResourceType.PROPERTY_ID_REQUIRED);
 
 	/**
 	 * Adds the input validator.
 	 * 
-	 * @param preference the preference
 	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	public static void addInputValidator(final Preference preference, final JComponent component,
+	public static void addInputValidator(final Property property, final JComponent component,
 			final ConfigurationHolder configurationHolder) {
-		Preconditions.checkNotNull(preference, "Preference is null");
+		Preconditions.checkNotNull(property, "Property is null");
 		Preconditions.checkNotNull(component, "Component is null");
 		Preconditions.checkNotNull(configurationHolder, "Configuration holder is null");
 
-		component.setInputVerifier(new PreferenceIdValidator(preference, component, configurationHolder));
+		component.setInputVerifier(new PropertyIdValidator(property, component, configurationHolder));
 	}
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
 
-	/** The preference. */
-	private final Preference preference;
+	private final Property property;
 
 	/**
 	 * Instantiates a new job id validator.
 	 * 
-	 * @param preference the preference
 	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	private PreferenceIdValidator(final Preference preference, final JComponent component,
+	private PropertyIdValidator(final Property property, final JComponent component,
 			final ConfigurationHolder configurationHolder) {
 		super(component);
 
-		this.preference = preference;
+		this.property = property;
 		this.configurationHolder = configurationHolder;
 	}
 
@@ -96,14 +93,14 @@ public final class PreferenceIdValidator extends AbstractInputValidator {
 			final String text = ((JTextField) component).getText();
 
 			if (StringUtils.isBlank(text)) {
-				messages.add(PREFERENCE_ID_REQUIRED);
+				messages.add(PROPERTY_ID_REQUIRED);
 			}
 			else {
-				final Preference existingPreference = ConfigurationUtils.findPreferenceById(
+				final Property existingProperty = ConfigurationUtils.findPropertyById(
 						configurationHolder.getConfiguration(), text);
 
-				if (existingPreference != null && preference != existingPreference) {
-					messages.add(PREFERENCE_ID_ALREADY_USED);
+				if (existingProperty != null && property != existingProperty) {
+					messages.add(PROPERTY_ID_ALREADY_USED);
 				}
 			}
 		}
