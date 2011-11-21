@@ -133,10 +133,13 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 */
 	protected abstract void addFields();
 
-	protected final void addInputValidator(final InputVerifier inputVerifier) {
-		if (inputVerifier instanceof InputValidator) {
-			inputValidators.add((InputValidator) inputVerifier);
-		}
+	/**
+	 * Adds the input validator.
+	 * 
+	 * @param inputValidator the input validator
+	 */
+	protected final void addInputValidator(final InputValidator inputValidator) {
+		inputValidators.add(inputValidator);
 	}
 
 	/**

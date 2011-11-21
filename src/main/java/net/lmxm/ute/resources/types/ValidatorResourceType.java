@@ -44,11 +44,11 @@ public enum ValidatorResourceType implements ResourceType {
 
 	PREFERENCE_ID_REQUIRED,
 
-	PROPERTY_VALUE_REQUIRED,
-
 	PROPERTY_ID_ALREADY_USED,
 
 	PROPERTY_ID_REQUIRED,
+
+	PROPERTY_VALUE_REQUIRED,
 
 	SUBVERSION_REPOSITORY_LOCATION_ID_ALREADY_USED,
 
@@ -56,7 +56,9 @@ public enum ValidatorResourceType implements ResourceType {
 
 	TASK_ID_ALREADY_USED,
 
-	TASK_ID_REQUIRED;
+	TASK_ID_REQUIRED,
+
+	URL_MALFORMED;
 
 	/*
 	 * (non-Javadoc)

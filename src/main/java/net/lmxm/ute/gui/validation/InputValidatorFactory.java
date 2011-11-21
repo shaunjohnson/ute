@@ -34,6 +34,7 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.validation.rules.FileSystemLocationIdAlreadyInUseValidationRule;
 import net.lmxm.ute.gui.validation.rules.HttpLocationIdAlreadyInUseValidationRule;
+import net.lmxm.ute.gui.validation.rules.HttpUrlTextValidationRule;
 import net.lmxm.ute.gui.validation.rules.JobIdAlreadyInUseValidationRule;
 import net.lmxm.ute.gui.validation.rules.PreferenceIdAlreadyInUseValidationRule;
 import net.lmxm.ute.gui.validation.rules.PropertyIdAlreadyInUseValidationRule;
@@ -84,6 +85,16 @@ public final class InputValidatorFactory {
 		rules.add(new HttpLocationIdAlreadyInUseValidationRule(httpLocation, configurationHolder));
 
 		return new TextComponentValidator(component, rules.toArray(new ValidationRule[0]));
+	}
+
+	/**
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @return the input validator
+	 */
+	public static InputValidator createHttpUrlValidator(final JTextComponent component) {
+		return new TextComponentValidator(component, new HttpUrlTextValidationRule(ValidatorResourceType.URL_MALFORMED));
 	}
 
 	/**

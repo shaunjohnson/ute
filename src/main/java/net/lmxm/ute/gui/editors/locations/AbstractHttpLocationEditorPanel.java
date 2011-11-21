@@ -24,10 +24,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.text.JTextComponent;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
+import net.lmxm.ute.gui.validation.InputValidator;
+import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 /**
@@ -68,6 +71,18 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 		contentPanel.add(getUrlTextField());
 	}
 
+	private void addInputValidators() {
+		if (getUserObject() instanceof AbstractHttpLocation) {
+			final JTextComponent component = getUrlTextField();
+
+			removeInputValidator(component);
+
+			final InputValidator inputValidator = InputValidatorFactory.createHttpUrlValidator(component);
+			component.setInputVerifier(inputValidator);
+			addInputValidator(inputValidator);
+		}
+	}
+
 	/**
 	 * Gets the url text field.
 	 * 
@@ -102,5 +117,7 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 
 			getUrlTextField().setText(abstractHttpLocation.getUrl());
 		}
+
+		addInputValidators();
 	}
 }
