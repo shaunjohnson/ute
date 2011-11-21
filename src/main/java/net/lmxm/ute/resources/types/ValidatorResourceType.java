@@ -28,6 +28,14 @@ import net.lmxm.ute.resources.ResourceCategory;
  */
 public enum ValidatorResourceType implements ResourceType {
 
+	FILE_SYSTEM_LOCATION_ID_ALREADY_USED,
+
+	FILE_SYSTEM_LOCATION_ID_REQUIRED,
+
+	HTTP_LOCATION_ID_ALREADY_USED,
+
+	HTTP_LOCATION_ID_REQUIRED,
+
 	JOB_ID_ALREADY_USED,
 
 	JOB_ID_REQUIRED,

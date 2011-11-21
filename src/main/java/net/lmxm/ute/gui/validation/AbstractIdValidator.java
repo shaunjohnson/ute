@@ -29,6 +29,8 @@ import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 
@@ -55,7 +57,14 @@ public abstract class AbstractIdValidator extends AbstractInputValidator {
 		Preconditions.checkNotNull(configurationHolder, "Configuration holder is null");
 
 		final InputVerifier inputVerifier;
-		if (identifiableBean instanceof Job) {
+		if (identifiableBean instanceof FileSystemLocation) {
+			inputVerifier = new FileSystemLocationIdValidator((FileSystemLocation) identifiableBean, component,
+					configurationHolder);
+		}
+		else if (identifiableBean instanceof HttpLocation) {
+			inputVerifier = new HttpLocationIdValidator((HttpLocation) identifiableBean, component, configurationHolder);
+		}
+		else if (identifiableBean instanceof Job) {
 			inputVerifier = new JobIdValidator((Job) identifiableBean, component, configurationHolder);
 		}
 		else if (identifiableBean instanceof Preference) {

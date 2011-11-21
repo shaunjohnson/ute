@@ -28,6 +28,7 @@ import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
 /**
+ * The Class SubversionRepositoryLocationIdValidator.
  */
 public final class SubversionRepositoryLocationIdValidator extends AbstractIdValidator {
 
@@ -37,7 +38,7 @@ public final class SubversionRepositoryLocationIdValidator extends AbstractIdVal
 	/**
 	 * Instantiates a new subversion repository location id validator.
 	 * 
-	 * @param property the property
+	 * @param subversionRepositoryLocation the subversion repository location
 	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
