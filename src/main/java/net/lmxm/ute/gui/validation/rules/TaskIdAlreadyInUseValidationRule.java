@@ -16,62 +16,65 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation;
+package net.lmxm.ute.gui.validation.rules;
 
-import javax.swing.JComponent;
+import java.util.ArrayList;
+import java.util.List;
 
-import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
- * The Class PropertyIdValidator.
+ * The Class TaskIdAlreadyInUseValidationRule.
  */
-public final class TaskIdValidator extends AbstractIdValidator {
+public final class TaskIdAlreadyInUseValidationRule extends AbstractTextComponentValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
 
+	/** The error message. */
+	private final String errorMessage;
+
+	/** The task. */
+	private final Task task;
+
 	/**
-	 * Instantiates a new task id validator.
+	 * Instantiates a new task id already in use validation rule.
 	 * 
 	 * @param task the task
-	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	protected TaskIdValidator(final Task task, final JComponent component, final ConfigurationHolder configurationHolder) {
-		super(task, component);
+	public TaskIdAlreadyInUseValidationRule(final Task task, final ConfigurationHolder configurationHolder) {
+		super();
 
+		this.task = task;
 		this.configurationHolder = configurationHolder;
+
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.TASK_ID_ALREADY_USED);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getExistingObject(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
 	 */
 	@Override
-	protected IdentifiableBean getExistingObject(final String id) {
-		return ConfigurationUtils.findTaskById(configurationHolder.getConfiguration(), id);
-	}
+	public List<String> validateText(final String text) {
+		final List<String> messages = new ArrayList<String>();
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectInUseMessage()
-	 */
-	@Override
-	protected String getObjectInUseMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.TASK_ID_ALREADY_USED);
-	}
+		if (StringUtils.isNotBlank(text)) {
+			final Configuration configuration = configurationHolder.getConfiguration();
+			final Task existingTask = ConfigurationUtils.findTaskById(configuration, text);
+			if (existingTask != null && task != existingTask) {
+				messages.add(errorMessage);
+			}
+		}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectRequiredMessage()
-	 */
-	@Override
-	protected String getObjectRequiredMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.TASK_ID_REQUIRED);
+		return messages;
 	}
 }

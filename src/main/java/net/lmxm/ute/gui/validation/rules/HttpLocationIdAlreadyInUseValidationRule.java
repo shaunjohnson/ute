@@ -16,63 +16,66 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation;
+package net.lmxm.ute.gui.validation.rules;
 
-import javax.swing.JComponent;
+import java.util.ArrayList;
+import java.util.List;
 
-import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
- * The Class HttpLocationIdValidator.
+ * The Class HttpLocationIdAlreadyInUseValidationRule.
  */
-public final class HttpLocationIdValidator extends AbstractIdValidator {
+public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractTextComponentValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
 
+	/** The error message. */
+	private final String errorMessage;
+
+	/** The http location. */
+	private final HttpLocation httpLocation;
+
 	/**
-	 * Instantiates a new http location id validator.
+	 * Instantiates a new http location id already in use validation rule.
 	 * 
 	 * @param httpLocation the http location
-	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	protected HttpLocationIdValidator(final HttpLocation httpLocation, final JComponent component,
+	public HttpLocationIdAlreadyInUseValidationRule(final HttpLocation httpLocation,
 			final ConfigurationHolder configurationHolder) {
-		super(httpLocation, component);
+		super();
 
+		this.httpLocation = httpLocation;
 		this.configurationHolder = configurationHolder;
+
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.HTTP_LOCATION_ID_ALREADY_USED);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getExistingObject(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
 	 */
 	@Override
-	protected IdentifiableBean getExistingObject(final String id) {
-		return ConfigurationUtils.findHttpLocationById(configurationHolder.getConfiguration(), id);
-	}
+	public List<String> validateText(final String text) {
+		final List<String> messages = new ArrayList<String>();
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectInUseMessage()
-	 */
-	@Override
-	protected String getObjectInUseMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.HTTP_LOCATION_ID_ALREADY_USED);
-	}
+		if (StringUtils.isNotBlank(text)) {
+			final Configuration configuration = configurationHolder.getConfiguration();
+			final HttpLocation existingLocation = ConfigurationUtils.findHttpLocationById(configuration, text);
+			if (existingLocation != null && httpLocation != existingLocation) {
+				messages.add(errorMessage);
+			}
+		}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectRequiredMessage()
-	 */
-	@Override
-	protected String getObjectRequiredMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.HTTP_LOCATION_ID_REQUIRED);
+		return messages;
 	}
 }

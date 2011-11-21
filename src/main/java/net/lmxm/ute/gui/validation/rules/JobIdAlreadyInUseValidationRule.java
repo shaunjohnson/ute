@@ -16,62 +16,65 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation;
+package net.lmxm.ute.gui.validation.rules;
 
-import javax.swing.JComponent;
+import java.util.ArrayList;
+import java.util.List;
 
-import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
- * The Class JobIdValidator.
+ * The Class JobIdAlreadyInUseValidationRule.
  */
-public final class JobIdValidator extends AbstractIdValidator {
+public final class JobIdAlreadyInUseValidationRule extends AbstractTextComponentValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
 
+	/** The error message. */
+	private final String errorMessage;
+
+	/** The job. */
+	private final Job job;
+
 	/**
-	 * Instantiates a new job id validator.
+	 * Instantiates a new job id already in use validation rule.
 	 * 
 	 * @param job the job
-	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	protected JobIdValidator(final Job job, final JComponent component, final ConfigurationHolder configurationHolder) {
-		super(job, component);
+	public JobIdAlreadyInUseValidationRule(final Job job, final ConfigurationHolder configurationHolder) {
+		super();
 
+		this.job = job;
 		this.configurationHolder = configurationHolder;
+
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.JOB_ID_ALREADY_USED);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getExistingObject(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
 	 */
 	@Override
-	protected IdentifiableBean getExistingObject(final String id) {
-		return ConfigurationUtils.findJobById(configurationHolder.getConfiguration(), id);
-	}
+	public List<String> validateText(final String text) {
+		final List<String> messages = new ArrayList<String>();
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectInUseMessage()
-	 */
-	@Override
-	protected String getObjectInUseMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.JOB_ID_ALREADY_USED);
-	}
+		if (StringUtils.isNotBlank(text)) {
+			final Configuration configuration = configurationHolder.getConfiguration();
+			final Job existingJob = ConfigurationUtils.findJobById(configuration, text);
+			if (existingJob != null && job != existingJob) {
+				messages.add(errorMessage);
+			}
+		}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectRequiredMessage()
-	 */
-	@Override
-	protected String getObjectRequiredMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.JOB_ID_REQUIRED);
+		return messages;
 	}
 }

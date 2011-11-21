@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.InputVerifier;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -35,6 +36,7 @@ import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
+import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.apache.commons.lang.StringUtils;
@@ -108,13 +110,15 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 	 * Adds the input validators.
 	 */
 	private void addInputValidators() {
-		// if (getUserObject() instanceof IdentifiableBean) {
-		// removeInputValidator(getIdTextField());
-		//
-		// AbstractIdValidator.addInputValidator((IdentifiableBean) getUserObject(), getIdTextField(),
-		// getConfigurationHolder());
-		// addInputValidator(getIdTextField().getInputVerifier());
-		// }
+		if (getUserObject() instanceof IdentifiableBean) {
+			removeInputValidator(getIdTextField());
+
+			final InputVerifier inputVerifier = InputValidatorFactory.createIdValidator(
+					(IdentifiableBean) getUserObject(), getIdTextField(), getConfigurationHolder());
+
+			getIdTextField().setInputVerifier(inputVerifier);
+			addInputValidator(inputVerifier);
+		}
 	}
 
 	/**

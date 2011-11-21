@@ -200,8 +200,13 @@ public abstract class AbstractInputValidator extends InputVerifier implements Ke
 	private List<String> validate(final JComponent component) {
 		final List<String> messages = new ArrayList<String>();
 
-		for (final ValidationRule validator : validators) {
-			messages.addAll(validator.validate(component));
+		try {
+			for (final ValidationRule validator : validators) {
+				messages.addAll(validator.validate(component));
+			}
+		}
+		catch (final Exception e) {
+			messages.add("Unexpected occurred during validation"); // TODO
 		}
 
 		return messages;

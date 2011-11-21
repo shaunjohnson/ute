@@ -16,63 +16,65 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation;
+package net.lmxm.ute.gui.validation.rules;
 
-import javax.swing.JComponent;
+import java.util.ArrayList;
+import java.util.List;
 
-import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
- * The Class PropertyIdValidator.
+ * The Class PropertyIdAlreadyInUseValidationRule.
  */
-public final class PropertyIdValidator extends AbstractIdValidator {
+public final class PropertyIdAlreadyInUseValidationRule extends AbstractTextComponentValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
 
+	/** The error message. */
+	private final String errorMessage;
+
+	/** The property. */
+	private final Property property;
+
 	/**
-	 * Instantiates a new property id validator.
+	 * Instantiates a new property id already in use validation rule.
 	 * 
 	 * @param property the property
-	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	protected PropertyIdValidator(final Property property, final JComponent component,
-			final ConfigurationHolder configurationHolder) {
-		super(property, component);
+	public PropertyIdAlreadyInUseValidationRule(final Property property, final ConfigurationHolder configurationHolder) {
+		super();
 
+		this.property = property;
 		this.configurationHolder = configurationHolder;
+
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.PROPERTY_ID_ALREADY_USED);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getExistingObject(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
 	 */
 	@Override
-	protected IdentifiableBean getExistingObject(final String id) {
-		return ConfigurationUtils.findPropertyById(configurationHolder.getConfiguration(), id);
-	}
+	public List<String> validateText(final String text) {
+		final List<String> messages = new ArrayList<String>();
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectInUseMessage()
-	 */
-	@Override
-	protected String getObjectInUseMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.PROPERTY_ID_ALREADY_USED);
-	}
+		if (StringUtils.isNotBlank(text)) {
+			final Configuration configuration = configurationHolder.getConfiguration();
+			final Property existingProperty = ConfigurationUtils.findPropertyById(configuration, text);
+			if (existingProperty != null && property != existingProperty) {
+				messages.add(errorMessage);
+			}
+		}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectRequiredMessage()
-	 */
-	@Override
-	protected String getObjectRequiredMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.PROPERTY_ID_REQUIRED);
+		return messages;
 	}
 }
