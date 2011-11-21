@@ -59,6 +59,8 @@ public final class MainFrameWindowListener extends WindowAdapter {
 	 */
 	@Override
 	public void windowClosing(final WindowEvent e) {
+		mainFrame.clearInputValidators();
+
 		userPreferences.setWindowState(mainFrame.getExtendedState());
 
 		mainFrame.setExtendedState(JFrame.NORMAL);

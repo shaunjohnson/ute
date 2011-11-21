@@ -57,6 +57,15 @@ public abstract class AbstractReadonlyEditorPanel extends AbstractEditorPanel {
 
 	/*
 	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#clearInputValidators()
+	 */
+	@Override
+	public void clearInputValidators() {
+
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
 	 */
 	@Override

@@ -931,6 +931,30 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		getMainTree().addTask(index, task);
 	}
 
+	/**
+	 * Clear input validators.
+	 */
+	public void clearInputValidators() {
+		getSequentialJobEditorPanel().clearInputValidators();
+		getFileSystemDeleteTaskEditorPanel().clearInputValidators();
+		getFileSystemLocationEditorPanel().clearInputValidators();
+		getFileSystemLocationsEditorPanel().clearInputValidators();
+		getFindReplaceTaskEditorPanel().clearInputValidators();
+		getGroovyTaskEditorPanel().clearInputValidators();
+		getHttpDownloadTaskEditorPanel().clearInputValidators();
+		getHttpLocationEditorPanel().clearInputValidators();
+		getHttpLocationsEditorPanel().clearInputValidators();
+		getJobsEditorPanel().clearInputValidators();
+		getPreferenceEditorPanel().clearInputValidators();
+		getPreferencesEditorPanel().clearInputValidators();
+		getPropertiesEditorPanel().clearInputValidators();
+		getPropertyEditorPanel().clearInputValidators();
+		getSubversionExportTaskEditorPanel().clearInputValidators();
+		getSubversionRepositoryLocationEditorPanel().clearInputValidators();
+		getSubversionRepositoryLocationsEditorPanel().clearInputValidators();
+		getSubversionUpdateTaskEditorPanel().clearInputValidators();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()

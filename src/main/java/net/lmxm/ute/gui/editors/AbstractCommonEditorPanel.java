@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.InputVerifier;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -36,6 +37,7 @@ import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
 import net.lmxm.ute.gui.validation.AbstractIdValidator;
+import net.lmxm.ute.gui.validation.AbstractInputValidator;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.apache.commons.lang.StringUtils;
@@ -64,6 +66,8 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 
 	/** The id text field. */
 	private JTextField idTextField = null;
+
+	private final List<AbstractInputValidator> inputValidators = new ArrayList<AbstractInputValidator>();
 
 	/**
 	 * Instantiates a new abstract common editor panel.
@@ -105,15 +109,33 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 		idChangeListeners.add(idChangeListener);
 	}
 
+	private void addInputValidator(final InputVerifier inputVerifier) {
+		if (inputVerifier instanceof AbstractInputValidator) {
+			inputValidators.add((AbstractInputValidator) inputVerifier);
+		}
+	}
+
 	/**
 	 * Adds the input validators.
 	 */
 	private void addInputValidators() {
 		if (getUserObject() instanceof IdentifiableBean) {
+			removeInputValidator(getIdTextField().getInputVerifier());
 			getIdTextField().setInputVerifier(null);
 
 			AbstractIdValidator.addInputValidator((IdentifiableBean) getUserObject(), getIdTextField(),
 					getConfigurationHolder());
+			addInputValidator(getIdTextField().getInputVerifier());
+		}
+	}
+
+	public void clearInputValidators() {
+		disposeInputValidators();
+	}
+
+	private void disposeInputValidators() {
+		for (final AbstractInputValidator inputValidator : inputValidators) {
+			inputValidator.clear();
 		}
 	}
 
@@ -218,6 +240,15 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 		addInputValidators();
 
 		LOGGER.debug("{} leaving", prefix);
+	}
+
+	private void removeInputValidator(final InputVerifier inputVerifier) {
+		if (inputVerifier instanceof AbstractInputValidator) {
+			final AbstractInputValidator inputValidator = (AbstractInputValidator) inputVerifier;
+
+			inputValidator.clear();
+			inputValidators.remove(inputValidator);
+		}
 	}
 
 	/*

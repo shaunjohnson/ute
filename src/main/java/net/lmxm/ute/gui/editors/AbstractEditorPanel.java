@@ -159,6 +159,11 @@ public abstract class AbstractEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Clear input validators.
+	 */
+	public abstract void clearInputValidators();
+
+	/**
 	 * Creates the default combo box model.
 	 * 
 	 * @param list the list
@@ -245,7 +250,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param configuration the configuration
 	 */
 	public void initialize(final Configuration configuration) {
-
+		clearInputValidators();
 	}
 
 	/**

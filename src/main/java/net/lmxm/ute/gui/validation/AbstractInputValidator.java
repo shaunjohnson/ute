@@ -42,6 +42,9 @@ import org.apache.commons.lang.StringUtils;
  */
 public abstract class AbstractInputValidator extends InputVerifier implements KeyListener {
 
+	/** The input component. */
+	final JComponent inputComponent;
+
 	/** The message icon. */
 	private JLabel messageIcon = null;
 
@@ -54,15 +57,27 @@ public abstract class AbstractInputValidator extends InputVerifier implements Ke
 	/**
 	 * Instantiates a new abstract input validator.
 	 * 
-	 * @param component the component
+	 * @param inputComponent the input component
 	 */
-	public AbstractInputValidator(final JComponent component) {
+	public AbstractInputValidator(final JComponent inputComponent) {
 		super();
 
-		component.addKeyListener(this);
+		this.inputComponent = inputComponent;
+
+		inputComponent.addKeyListener(this);
 
 		// Preload GUI components
 		getMessagesDialog();
+	}
+
+	/**
+	 * Clear.
+	 */
+	public final void clear() {
+		getMessagesDialog().dispose();
+
+		inputComponent.setBackground(Color.WHITE);
+		inputComponent.removeKeyListener(this);
 	}
 
 	/**
