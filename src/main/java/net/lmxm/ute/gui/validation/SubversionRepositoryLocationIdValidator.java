@@ -21,30 +21,29 @@ package net.lmxm.ute.gui.validation;
 import javax.swing.JComponent;
 
 import net.lmxm.ute.beans.IdentifiableBean;
-import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
 /**
- * The Class PropertyIdValidator.
  */
-public final class PropertyIdValidator extends AbstractIdValidator {
+public final class SubversionRepositoryLocationIdValidator extends AbstractIdValidator {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
 
 	/**
-	 * Instantiates a new property id validator.
+	 * Instantiates a new subversion repository location id validator.
 	 * 
 	 * @param property the property
 	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	protected PropertyIdValidator(final Property property, final JComponent component,
-			final ConfigurationHolder configurationHolder) {
-		super(property, component);
+	protected SubversionRepositoryLocationIdValidator(final SubversionRepositoryLocation subversionRepositoryLocation,
+			final JComponent component, final ConfigurationHolder configurationHolder) {
+		super(subversionRepositoryLocation, component);
 
 		this.configurationHolder = configurationHolder;
 	}
@@ -55,7 +54,7 @@ public final class PropertyIdValidator extends AbstractIdValidator {
 	 */
 	@Override
 	protected IdentifiableBean getExistingObject(final String id) {
-		return ConfigurationUtils.findPropertyById(configurationHolder.getConfiguration(), id);
+		return ConfigurationUtils.findSubversionRepositoryLocationById(configurationHolder.getConfiguration(), id);
 	}
 
 	/*
@@ -64,7 +63,7 @@ public final class PropertyIdValidator extends AbstractIdValidator {
 	 */
 	@Override
 	protected String getObjectInUseMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.PROPERTY_ID_ALREADY_USED);
+		return ResourcesUtils.getResourceMessage(ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_ID_ALREADY_USED);
 	}
 
 	/*
@@ -73,6 +72,6 @@ public final class PropertyIdValidator extends AbstractIdValidator {
 	 */
 	@Override
 	protected String getObjectRequiredMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.PROPERTY_ID_REQUIRED);
+		return ResourcesUtils.getResourceMessage(ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_ID_REQUIRED);
 	}
 }

@@ -31,16 +31,11 @@ import javax.swing.JToolBar;
 
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.IdentifiableBean;
-import net.lmxm.ute.beans.Preference;
-import net.lmxm.ute.beans.Property;
-import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
-import net.lmxm.ute.gui.validation.JobIdValidator;
-import net.lmxm.ute.gui.validation.PreferenceIdValidator;
-import net.lmxm.ute.gui.validation.PropertyIdValidator;
+import net.lmxm.ute.gui.validation.AbstractIdValidator;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
 import org.apache.commons.lang.StringUtils;
@@ -114,18 +109,11 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 	 * Adds the input validators.
 	 */
 	private void addInputValidators() {
-		getIdTextField().setInputVerifier(null);
+		if (getUserObject() instanceof IdentifiableBean) {
+			getIdTextField().setInputVerifier(null);
 
-		final Object userObject = getUserObject();
-		if (userObject instanceof Job) {
-			JobIdValidator.addInputValidator((Job) userObject, getIdTextField(), getConfigurationHolder());
-		}
-		else if (userObject instanceof Preference) {
-			PreferenceIdValidator
-					.addInputValidator((Preference) userObject, getIdTextField(), getConfigurationHolder());
-		}
-		else if (userObject instanceof Property) {
-			PropertyIdValidator.addInputValidator((Property) userObject, getIdTextField(), getConfigurationHolder());
+			AbstractIdValidator.addInputValidator((IdentifiableBean) getUserObject(), getIdTextField(),
+					getConfigurationHolder());
 		}
 	}
 

@@ -29,6 +29,7 @@ import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 
 import org.codehaus.plexus.util.StringUtils;
@@ -62,6 +63,10 @@ public abstract class AbstractIdValidator extends AbstractInputValidator {
 		}
 		else if (identifiableBean instanceof Property) {
 			inputVerifier = new PropertyIdValidator((Property) identifiableBean, component, configurationHolder);
+		}
+		else if (identifiableBean instanceof SubversionRepositoryLocation) {
+			inputVerifier = new SubversionRepositoryLocationIdValidator(
+					(SubversionRepositoryLocation) identifiableBean, component, configurationHolder);
 		}
 		else {
 			throw new RuntimeException("Unsupported identifiable bean"); // TODO
@@ -130,7 +135,7 @@ public abstract class AbstractIdValidator extends AbstractInputValidator {
 			}
 		}
 		else {
-			messages.add("Error occurred validating input");
+			messages.add("Error occurred validating input"); // TODO
 		}
 
 		return messages;

@@ -36,7 +36,7 @@ public final class PreferenceIdValidator extends AbstractIdValidator {
 	private final ConfigurationHolder configurationHolder;
 
 	/**
-	 * Instantiates a new job id validator.
+	 * Instantiates a new preference id validator.
 	 * 
 	 * @param preference the preference
 	 * @param component the component
