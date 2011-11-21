@@ -30,6 +30,7 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.beans.tasks.Task;
 
 import org.codehaus.plexus.util.FileUtils;
 import org.slf4j.Logger;
@@ -154,6 +155,27 @@ public final class ConfigurationUtils {
 			final String locationId) {
 		return (SubversionRepositoryLocation) findIdentifiableBeanById(
 				configuration.getSubversionRepositoryLocations(), locationId);
+	}
+
+	/**
+	 * Find task by id.
+	 * 
+	 * @param configuration the configuration
+	 * @param id the id
+	 * @return the task
+	 */
+	public static Task findTaskById(final Configuration configuration, final String id) {
+		Task task = null;
+
+		for (final Job job : configuration.getJobs()) {
+			task = (Task) findIdentifiableBeanById(job.getTasks(), id);
+
+			if (task != null) {
+				break;
+			}
+		}
+
+		return task;
 	}
 
 	/**

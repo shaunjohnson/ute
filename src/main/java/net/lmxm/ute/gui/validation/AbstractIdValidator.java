@@ -32,6 +32,7 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 
 import org.codehaus.plexus.util.StringUtils;
@@ -76,6 +77,9 @@ public abstract class AbstractIdValidator extends AbstractTextFieldValidator {
 		else if (identifiableBean instanceof SubversionRepositoryLocation) {
 			inputVerifier = new SubversionRepositoryLocationIdValidator(
 					(SubversionRepositoryLocation) identifiableBean, component, configurationHolder);
+		}
+		else if (identifiableBean instanceof Task) {
+			inputVerifier = new TaskIdValidator((Task) identifiableBean, component, configurationHolder);
 		}
 		else {
 			throw new RuntimeException("Unsupported identifiable bean"); // TODO
