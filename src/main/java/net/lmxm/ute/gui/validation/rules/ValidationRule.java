@@ -16,33 +16,22 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation;
+package net.lmxm.ute.gui.validation.rules;
+
+import java.util.List;
 
 import javax.swing.JComponent;
 
-import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.types.ValidatorResourceType;
-
 /**
+ * The Interface ValidationRule.
  */
-public final class PropertyValueValidator extends AbstractRequiredTextComponentValidator {
+public interface ValidationRule {
 
 	/**
-	 * Instantiates a new property value validator.
+	 * Validate.
 	 * 
 	 * @param component the component
+	 * @return the list
 	 */
-	public PropertyValueValidator(final JComponent component) {
-		super(component);
-	}
-
-	/**
-	 * Gets the object required message.
-	 * 
-	 * @return the object required message
-	 */
-	@Override
-	protected String getObjectRequiredMessage() {
-		return ResourcesUtils.getResourceMessage(ValidatorResourceType.PROPERTY_VALUE_REQUIRED);
-	}
+	List<String> validate(JComponent component);
 }

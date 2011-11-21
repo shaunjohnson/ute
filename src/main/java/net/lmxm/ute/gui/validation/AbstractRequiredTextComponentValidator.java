@@ -18,13 +18,7 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JComponent;
-import javax.swing.JTextField;
-
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * The Class AbstractRequiredTextComponentValidator.
@@ -51,21 +45,21 @@ public abstract class AbstractRequiredTextComponentValidator extends AbstractTex
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.validation.AbstractInputValidator#validate(javax.swing.JComponent)
 	 */
-	@Override
-	protected final List<String> validate(final JComponent component) {
-		final List<String> messages = new ArrayList<String>();
-
-		if (component instanceof JTextField) {
-			final String value = ((JTextField) component).getText();
-
-			if (StringUtils.isBlank(value)) {
-				messages.add(getObjectRequiredMessage());
-			}
-		}
-		else {
-			messages.add("Error occurred validating input"); // TODO
-		}
-
-		return messages;
-	}
+	// @Override
+	// protected final List<String> validate(final JComponent component) {
+	// final List<String> messages = new ArrayList<String>();
+	//
+	// if (component instanceof JTextField) {
+	// final String value = ((JTextField) component).getText();
+	//
+	// if (StringUtils.isBlank(value)) {
+	// messages.add(getObjectRequiredMessage());
+	// }
+	// }
+	// else {
+	// messages.add("Error occurred validating input"); // TODO
+	// }
+	//
+	// return messages;
+	// }
 }

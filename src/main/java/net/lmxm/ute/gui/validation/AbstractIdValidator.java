@@ -18,12 +18,8 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
 
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
@@ -34,8 +30,6 @@ import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
-
-import org.codehaus.plexus.util.StringUtils;
 
 import com.google.common.base.Preconditions;
 
@@ -129,28 +123,28 @@ public abstract class AbstractIdValidator extends AbstractTextFieldValidator {
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.validation.AbstractInputValidator#validate(javax.swing.JComponent)
 	 */
-	@Override
-	protected final List<String> validate(final JComponent component) {
-		final List<String> messages = new ArrayList<String>();
-
-		if (component instanceof JTextField) {
-			final String id = ((JTextField) component).getText();
-
-			if (StringUtils.isBlank(id)) {
-				messages.add(getObjectRequiredMessage());
-			}
-			else {
-				final IdentifiableBean existingObject = getExistingObject(id);
-
-				if (existingObject != null && object != existingObject) {
-					messages.add(getObjectInUseMessage());
-				}
-			}
-		}
-		else {
-			messages.add("Error occurred validating input"); // TODO
-		}
-
-		return messages;
-	}
+	// @Override
+	// protected final List<String> validate(final JComponent component) {
+	// final List<String> messages = new ArrayList<String>();
+	//
+	// if (component instanceof JTextField) {
+	// final String id = ((JTextField) component).getText();
+	//
+	// if (StringUtils.isBlank(id)) {
+	// messages.add(getObjectRequiredMessage());
+	// }
+	// else {
+	// final IdentifiableBean existingObject = getExistingObject(id);
+	//
+	// if (existingObject != null && object != existingObject) {
+	// messages.add(getObjectInUseMessage());
+	// }
+	// }
+	// }
+	// else {
+	// messages.add("Error occurred validating input"); // TODO
+	// }
+	//
+	// return messages;
+	// }
 }
