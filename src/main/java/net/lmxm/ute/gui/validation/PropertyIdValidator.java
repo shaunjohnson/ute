@@ -18,97 +18,61 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JComponent;
-import javax.swing.JTextField;
 
+import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
-import org.codehaus.plexus.util.StringUtils;
-
-import com.google.common.base.Preconditions;
-
 /**
  * The Class PropertyIdValidator.
  */
-public final class PropertyIdValidator extends AbstractInputValidator {
-
-	/** The Constant PROPERTY_ID_ALREADY_USED. */
-	private static final String PROPERTY_ID_ALREADY_USED = ResourcesUtils
-			.getResourceMessage(ValidatorResourceType.PROPERTY_ID_ALREADY_USED);
-
-	/** The Constant PROPERTY_ID_REQUIRED. */
-	private static final String PROPERTY_ID_REQUIRED = ResourcesUtils
-			.getResourceMessage(ValidatorResourceType.PROPERTY_ID_REQUIRED);
-
-	/**
-	 * Adds the input validator.
-	 * 
-	 * @param component the component
-	 * @param configurationHolder the configuration holder
-	 */
-	public static void addInputValidator(final Property property, final JComponent component,
-			final ConfigurationHolder configurationHolder) {
-		Preconditions.checkNotNull(property, "Property is null");
-		Preconditions.checkNotNull(component, "Component is null");
-		Preconditions.checkNotNull(configurationHolder, "Configuration holder is null");
-
-		component.setInputVerifier(new PropertyIdValidator(property, component, configurationHolder));
-	}
+public final class PropertyIdValidator extends AbstractIdValidator {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
 
-	private final Property property;
-
 	/**
 	 * Instantiates a new job id validator.
 	 * 
+	 * @param property the property
 	 * @param component the component
 	 * @param configurationHolder the configuration holder
 	 */
-	private PropertyIdValidator(final Property property, final JComponent component,
+	protected PropertyIdValidator(final Property property, final JComponent component,
 			final ConfigurationHolder configurationHolder) {
-		super(component);
+		super(property, component);
 
-		this.property = property;
 		this.configurationHolder = configurationHolder;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractInputValidator#validate(javax.swing.JComponent)
+	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getExistingObject(java.lang.String)
 	 */
 	@Override
-	protected List<String> validate(final JComponent component) {
-		final List<String> messages = new ArrayList<String>();
-
-		if (component instanceof JTextField) {
-			final String text = ((JTextField) component).getText();
-
-			if (StringUtils.isBlank(text)) {
-				messages.add(PROPERTY_ID_REQUIRED);
-			}
-			else {
-				final Property existingProperty = ConfigurationUtils.findPropertyById(
-						configurationHolder.getConfiguration(), text);
-
-				if (existingProperty != null && property != existingProperty) {
-					messages.add(PROPERTY_ID_ALREADY_USED);
-				}
-			}
-		}
-		else {
-			messages.add("Error occurred validating input");
-		}
-
-		return messages;
+	protected IdentifiableBean getExistingObject(final String id) {
+		return ConfigurationUtils.findPropertyById(configurationHolder.getConfiguration(), id);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectInUseMessage()
+	 */
+	@Override
+	protected String getObjectInUseMessage() {
+		return ResourcesUtils.getResourceMessage(ValidatorResourceType.PROPERTY_ID_ALREADY_USED);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.gui.validation.AbstractIdValidator#getObjectRequiredMessage()
+	 */
+	@Override
+	protected String getObjectRequiredMessage() {
+		return ResourcesUtils.getResourceMessage(ValidatorResourceType.PROPERTY_ID_REQUIRED);
+	}
 }
