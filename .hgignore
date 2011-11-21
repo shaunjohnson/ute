@@ -1,5 +1,4 @@
 syntax: glob
-ute-xml-schema/target
-ute/target
+target
 .idea/*
 *.iml
