@@ -4,11 +4,6 @@
 	<groupId>net.lmxm.ute</groupId>
 	<artifactId>ute</artifactId>
 	<version>0.5.0-SNAPSHOT</version>
-	<parent>
-		<groupId>net.lmxm.ute</groupId>
-		<artifactId>ute-parent</artifactId>
-		<version>0.5.0-SNAPSHOT</version>
-	</parent>
 	<name>Universal Task Executer</name>
 	<description>Universal Task Executer</description>
 	<url>http://lmxm.net/ute</url>
@@ -57,6 +52,22 @@
 			</resource>
 		</resources>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xmlbeans-maven-plugin</artifactId>
+				<version>2.3.3</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>xmlbeans</goal>
+						</goals>
+					</execution>
+				</executions>
+				<inherited>true</inherited>
+				<configuration>
+					<schemaDirectory>src/main/xsd</schemaDirectory>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -210,11 +221,7 @@
 		<dependency>
 			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.lmxm.ute</groupId>
-			<artifactId>ute-config-xml-schema</artifactId>
-			<version>0.5.0-SNAPSHOT</version>
+				<version>2.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
