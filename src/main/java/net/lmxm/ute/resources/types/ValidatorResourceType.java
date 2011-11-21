@@ -44,6 +44,8 @@ public enum ValidatorResourceType implements ResourceType {
 
 	PREFERENCE_ID_REQUIRED,
 
+	PROPERTY_VALUE_REQUIRED,
+
 	PROPERTY_ID_ALREADY_USED,
 
 	PROPERTY_ID_REQUIRED,

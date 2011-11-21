@@ -22,12 +22,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.InputVerifier;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -38,6 +41,7 @@ import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
+import net.lmxm.ute.gui.validation.AbstractInputValidator;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
 
@@ -69,6 +73,9 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 	/** The content panel. */
 	private JPanel contentPanel;
+
+	/** The input validators. */
+	private final List<AbstractInputValidator> inputValidators = new ArrayList<AbstractInputValidator>();
 
 	/** The user object. */
 	private Object userObject;
@@ -126,6 +133,12 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 */
 	protected abstract void addFields();
 
+	protected final void addInputValidator(final InputVerifier inputVerifier) {
+		if (inputVerifier instanceof AbstractInputValidator) {
+			inputValidators.add((AbstractInputValidator) inputVerifier);
+		}
+	}
+
 	/**
 	 * Adds the label.
 	 * 
@@ -161,7 +174,9 @@ public abstract class AbstractEditorPanel extends JPanel {
 	/**
 	 * Clear input validators.
 	 */
-	public abstract void clearInputValidators();
+	public final void clearInputValidators() {
+		disposeInputValidators();
+	}
 
 	/**
 	 * Creates the default combo box model.
@@ -196,6 +211,15 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 */
 	protected final JLabel createRequiredLabel(final LabelResourceType guiComponentLabel) {
 		return GuiComponentFactory.createRequiredLabel(guiComponentLabel, SwingConstants.LEADING);
+	}
+
+	/**
+	 * Dispose input validators.
+	 */
+	private void disposeInputValidators() {
+		for (final AbstractInputValidator inputValidator : inputValidators) {
+			inputValidator.clear();
+		}
 	}
 
 	/**
@@ -257,6 +281,26 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * Load data.
 	 */
 	public abstract void loadData();
+
+	/**
+	 * Removes the input validator.
+	 * 
+	 * @param component the component
+	 */
+	protected final void removeInputValidator(final JComponent component) {
+		Preconditions.checkNotNull(component, "Component is null");
+
+		final InputVerifier inputVerifier = component.getInputVerifier();
+
+		if (inputVerifier instanceof AbstractInputValidator) {
+			final AbstractInputValidator inputValidator = (AbstractInputValidator) inputVerifier;
+
+			inputValidator.clear();
+			inputValidators.remove(inputValidator);
+		}
+
+		component.setInputVerifier(null);
+	}
 
 	/**
 	 * Sets the focus to first input.

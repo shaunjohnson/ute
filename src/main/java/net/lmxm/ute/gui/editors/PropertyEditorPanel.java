@@ -21,6 +21,8 @@ package net.lmxm.ute.gui.editors;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -28,6 +30,7 @@ import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
+import net.lmxm.ute.gui.validation.PropertyValueValidator;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
@@ -95,6 +98,21 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 		contentPanel.add(getPropertyValueTextField());
 	}
 
+	/**
+	 * Adds the input validators.
+	 */
+	private void addInputValidators() {
+		if (getUserObject() instanceof Property) {
+			final JComponent component = getPropertyValueTextField();
+
+			removeInputValidator(component);
+
+			final InputVerifier inputVerifier = new PropertyValueValidator(component);
+			component.setInputVerifier(inputVerifier);
+			addInputValidator(inputVerifier);
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.gui.editors.AbstractEditorPanel#getEditedObjectClass()
@@ -144,6 +162,8 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 
 			getPropertyValueTextField().setText(property.getValue());
 		}
+
+		addInputValidators();
 
 		LOGGER.debug("{} leaving", prefix);
 	}
