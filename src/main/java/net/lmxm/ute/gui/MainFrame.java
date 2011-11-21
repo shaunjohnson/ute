@@ -58,6 +58,7 @@ import static net.lmxm.ute.enums.ActionCommand.SAVE_FILE;
 import static net.lmxm.ute.enums.ActionCommand.SAVE_FILE_AS;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -78,6 +79,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
+import javax.swing.JViewport;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.filechooser.FileFilter;
@@ -955,6 +957,24 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		getSubversionUpdateTaskEditorPanel().clearInputValidators();
 	}
 
+	/**
+	 * Clear input validators for current editor.
+	 */
+	private void clearInputValidatorsForCurrentEditor() {
+		final JScrollPane scrollPane = getJobDetailsEditorScrollPane();
+		if (scrollPane != null) {
+			final JViewport viewport = scrollPane.getViewport();
+
+			if (viewport != null) {
+				final Component view = viewport.getView();
+
+				if (view instanceof AbstractEditorPanel) {
+					((AbstractEditorPanel) view).clearInputValidators();
+				}
+			}
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()
@@ -1701,6 +1721,8 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		else {
 			// TODO
 		}
+
+		clearInputValidatorsForCurrentEditor();
 
 		if (editorPane == null) {
 			getJobDetailsEditorScrollPane().setViewportView(null);
