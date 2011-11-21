@@ -26,9 +26,9 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -42,7 +42,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * The Class AbstractInputValidator.
  */
-public abstract class AbstractInputValidator extends InputVerifier implements KeyListener {
+public abstract class AbstractInputValidator extends InputValidator implements KeyListener {
 
 	/** The input component. */
 	final JComponent inputComponent;
@@ -56,18 +56,20 @@ public abstract class AbstractInputValidator extends InputVerifier implements Ke
 	/** The messages dialog. */
 	private JDialog messagesDialog = null;
 
-	/** The validators. */
-	private final List<ValidationRule> validators = new ArrayList<ValidationRule>();
+	/** The validation rules. */
+	private final List<ValidationRule> validationRules;
 
 	/**
 	 * Instantiates a new abstract input validator.
 	 * 
 	 * @param inputComponent the input component
+	 * @param validationRules the validation rules
 	 */
-	public AbstractInputValidator(final JComponent inputComponent) {
+	public AbstractInputValidator(final JComponent inputComponent, final ValidationRule... validationRules) {
 		super();
 
 		this.inputComponent = inputComponent;
+		this.validationRules = Arrays.asList(validationRules);
 
 		inputComponent.addKeyListener(this);
 
@@ -78,6 +80,7 @@ public abstract class AbstractInputValidator extends InputVerifier implements Ke
 	/**
 	 * Clear.
 	 */
+	@Override
 	public final void clear() {
 		getMessagesDialog().dispose();
 
@@ -200,13 +203,8 @@ public abstract class AbstractInputValidator extends InputVerifier implements Ke
 	private List<String> validate(final JComponent component) {
 		final List<String> messages = new ArrayList<String>();
 
-		try {
-			for (final ValidationRule validator : validators) {
-				messages.addAll(validator.validate(component));
-			}
-		}
-		catch (final Exception e) {
-			messages.add("Unexpected occurred during validation"); // TODO
+		for (final ValidationRule inputValidator : validationRules) {
+			messages.addAll(inputValidator.validate(component));
 		}
 
 		return messages;

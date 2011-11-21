@@ -22,9 +22,9 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
 import javax.swing.InputVerifier;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.configuration.ConfigurationHolder;
@@ -103,7 +103,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 	 */
 	private void addInputValidators() {
 		if (getUserObject() instanceof Property) {
-			final JComponent component = getPropertyValueTextField();
+			final JTextComponent component = getPropertyValueTextField();
 
 			removeInputValidator(component);
 

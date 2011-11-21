@@ -18,34 +18,15 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import java.awt.Color;
-
-import javax.swing.JComponent;
-import javax.swing.UIManager;
+import javax.swing.InputVerifier;
 
 /**
- * The Class AbstractTextFieldValidator.
+ * The Class InputValidator.
  */
-public abstract class AbstractTextFieldValidator extends AbstractInputValidator {
-
-	/** The Constant TEXT_FIELD_BACKGROUND. */
-	private static final Color TEXT_FIELD_BACKGROUND = (Color) UIManager.get("TextField.background");
+public abstract class InputValidator extends InputVerifier {
 
 	/**
-	 * Instantiates a new abstract text field validator.
-	 * 
-	 * @param inputComponent the input component
+	 * Clear.
 	 */
-	public AbstractTextFieldValidator(final JComponent inputComponent) {
-		super(inputComponent);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractInputValidator#getDefaultBackgroundColor()
-	 */
-	@Override
-	protected Color getDefaultBackgroundColor() {
-		return TEXT_FIELD_BACKGROUND;
-	}
+	public abstract void clear();
 }

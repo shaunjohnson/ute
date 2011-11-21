@@ -41,7 +41,7 @@ import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.validation.AbstractInputValidator;
+import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
 
@@ -75,7 +75,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	private JPanel contentPanel;
 
 	/** The input validators. */
-	private final List<AbstractInputValidator> inputValidators = new ArrayList<AbstractInputValidator>();
+	private final List<InputValidator> inputValidators = new ArrayList<InputValidator>();
 
 	/** The user object. */
 	private Object userObject;
@@ -134,8 +134,8 @@ public abstract class AbstractEditorPanel extends JPanel {
 	protected abstract void addFields();
 
 	protected final void addInputValidator(final InputVerifier inputVerifier) {
-		if (inputVerifier instanceof AbstractInputValidator) {
-			inputValidators.add((AbstractInputValidator) inputVerifier);
+		if (inputVerifier instanceof InputValidator) {
+			inputValidators.add((InputValidator) inputVerifier);
 		}
 	}
 
@@ -217,7 +217,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * Dispose input validators.
 	 */
 	private void disposeInputValidators() {
-		for (final AbstractInputValidator inputValidator : inputValidators) {
+		for (final InputValidator inputValidator : inputValidators) {
 			inputValidator.clear();
 		}
 	}
@@ -292,8 +292,8 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 		final InputVerifier inputVerifier = component.getInputVerifier();
 
-		if (inputVerifier instanceof AbstractInputValidator) {
-			final AbstractInputValidator inputValidator = (AbstractInputValidator) inputVerifier;
+		if (inputVerifier instanceof InputValidator) {
+			final InputValidator inputValidator = (InputValidator) inputVerifier;
 
 			inputValidator.clear();
 			inputValidators.remove(inputValidator);
