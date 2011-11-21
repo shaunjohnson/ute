@@ -76,7 +76,7 @@ public abstract class AbstractInputValidator extends InputVerifier implements Ke
 	public final void clear() {
 		getMessagesDialog().dispose();
 
-		inputComponent.setBackground(Color.WHITE);
+		inputComponent.setBackground(getDefaultBackgroundColor());
 		inputComponent.removeKeyListener(this);
 	}
 
@@ -102,6 +102,13 @@ public abstract class AbstractInputValidator extends InputVerifier implements Ke
 		dialog.pack();
 		dialog.setVisible(true);
 	}
+
+	/**
+	 * Gets the default background color.
+	 * 
+	 * @return the default background color
+	 */
+	protected abstract Color getDefaultBackgroundColor();
 
 	/**
 	 * Gets the messages dialog.
@@ -194,7 +201,7 @@ public abstract class AbstractInputValidator extends InputVerifier implements Ke
 		final List<String> messages = validate(component);
 
 		if (CollectionUtils.isEmpty(messages)) {
-			component.setBackground(Color.WHITE);
+			component.setBackground(getDefaultBackgroundColor());
 
 			return true;
 		}

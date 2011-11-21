@@ -41,7 +41,7 @@ import com.google.common.base.Preconditions;
 /**
  * The Class AbstractIdValidator.
  */
-public abstract class AbstractIdValidator extends AbstractInputValidator {
+public abstract class AbstractIdValidator extends AbstractTextFieldValidator {
 
 	/**
 	 * Adds the input validator.
