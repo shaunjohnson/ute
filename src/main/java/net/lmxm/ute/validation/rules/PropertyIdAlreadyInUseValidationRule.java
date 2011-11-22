@@ -16,13 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation.rules;
+package net.lmxm.ute.validation.rules;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.configuration.Configuration;
-import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -31,9 +31,9 @@ import net.lmxm.ute.resources.types.ValidatorResourceType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * The Class TaskIdAlreadyInUseValidationRule.
+ * The Class PropertyIdAlreadyInUseValidationRule.
  */
-public final class TaskIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
+public final class PropertyIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -41,22 +41,22 @@ public final class TaskIdAlreadyInUseValidationRule extends AbstractStringValida
 	/** The error message. */
 	private final String errorMessage;
 
-	/** The task. */
-	private final Task task;
+	/** The property. */
+	private final Property property;
 
 	/**
-	 * Instantiates a new task id already in use validation rule.
+	 * Instantiates a new property id already in use validation rule.
 	 * 
-	 * @param task the task
+	 * @param property the property
 	 * @param configurationHolder the configuration holder
 	 */
-	public TaskIdAlreadyInUseValidationRule(final Task task, final ConfigurationHolder configurationHolder) {
+	public PropertyIdAlreadyInUseValidationRule(final Property property, final ConfigurationHolder configurationHolder) {
 		super();
 
-		this.task = task;
+		this.property = property;
 		this.configurationHolder = configurationHolder;
 
-		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.TASK_ID_ALREADY_USED);
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.PROPERTY_ID_ALREADY_USED);
 	}
 
 	/*
@@ -69,8 +69,8 @@ public final class TaskIdAlreadyInUseValidationRule extends AbstractStringValida
 
 		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
-			final Task existingTask = ConfigurationUtils.findTaskById(configuration, string);
-			if (existingTask != null && task != existingTask) {
+			final Property existingProperty = ConfigurationUtils.findPropertyById(configuration, string);
+			if (existingProperty != null && property != existingProperty) {
 				messages.add(errorMessage);
 			}
 		}

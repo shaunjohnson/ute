@@ -31,17 +31,17 @@ import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
-import net.lmxm.ute.gui.validation.rules.FileSystemLocationIdAlreadyInUseValidationRule;
-import net.lmxm.ute.gui.validation.rules.HttpLocationIdAlreadyInUseValidationRule;
-import net.lmxm.ute.gui.validation.rules.HttpLocationUrlTextValidationRule;
-import net.lmxm.ute.gui.validation.rules.JobIdAlreadyInUseValidationRule;
-import net.lmxm.ute.gui.validation.rules.PreferenceIdAlreadyInUseValidationRule;
-import net.lmxm.ute.gui.validation.rules.PropertyIdAlreadyInUseValidationRule;
-import net.lmxm.ute.gui.validation.rules.RequiredTextValidationRule;
-import net.lmxm.ute.gui.validation.rules.SubversionRepositoryLocationIdAlreadyInUseValidationRule;
-import net.lmxm.ute.gui.validation.rules.SubversionRepositoryUrlTextValidationRule;
-import net.lmxm.ute.gui.validation.rules.TaskIdAlreadyInUseValidationRule;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
+import net.lmxm.ute.validation.rules.FileSystemLocationIdAlreadyInUseValidationRule;
+import net.lmxm.ute.validation.rules.HttpLocationIdAlreadyInUseValidationRule;
+import net.lmxm.ute.validation.rules.HttpLocationUrlTextValidationRule;
+import net.lmxm.ute.validation.rules.JobIdAlreadyInUseValidationRule;
+import net.lmxm.ute.validation.rules.PreferenceIdAlreadyInUseValidationRule;
+import net.lmxm.ute.validation.rules.PropertyIdAlreadyInUseValidationRule;
+import net.lmxm.ute.validation.rules.RequiredTextValidationRule;
+import net.lmxm.ute.validation.rules.SubversionRepositoryLocationIdAlreadyInUseValidationRule;
+import net.lmxm.ute.validation.rules.SubversionRepositoryUrlTextValidationRule;
+import net.lmxm.ute.validation.rules.TaskIdAlreadyInUseValidationRule;
 
 /**
  * A factory for creating InputValidator objects.

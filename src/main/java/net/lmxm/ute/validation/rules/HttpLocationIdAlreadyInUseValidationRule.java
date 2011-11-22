@@ -16,33 +16,48 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation.rules;
+package net.lmxm.ute.validation.rules;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.lmxm.ute.beans.configuration.Configuration;
+import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * The Class RequiredTextValidationRule.
+ * The Class HttpLocationIdAlreadyInUseValidationRule.
  */
-public final class RequiredTextValidationRule extends AbstractStringValidationRule {
+public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
+
+	/** The configuration holder. */
+	private final ConfigurationHolder configurationHolder;
 
 	/** The error message. */
 	private final String errorMessage;
 
+	/** The http location. */
+	private final HttpLocation httpLocation;
+
 	/**
-	 * Instantiates a new required text validation rule.
+	 * Instantiates a new http location id already in use validation rule.
 	 * 
-	 * @param validatorResourceType the validator resource type
+	 * @param httpLocation the http location
+	 * @param configurationHolder the configuration holder
 	 */
-	public RequiredTextValidationRule(final ValidatorResourceType validatorResourceType) {
+	public HttpLocationIdAlreadyInUseValidationRule(final HttpLocation httpLocation,
+			final ConfigurationHolder configurationHolder) {
 		super();
 
-		errorMessage = ResourcesUtils.getResourceMessage(validatorResourceType);
+		this.httpLocation = httpLocation;
+		this.configurationHolder = configurationHolder;
+
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.HTTP_LOCATION_ID_ALREADY_USED);
 	}
 
 	/*
@@ -53,8 +68,12 @@ public final class RequiredTextValidationRule extends AbstractStringValidationRu
 	public List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (StringUtils.isBlank(string)) {
-			messages.add(errorMessage);
+		if (StringUtils.isNotBlank(string)) {
+			final Configuration configuration = configurationHolder.getConfiguration();
+			final HttpLocation existingLocation = ConfigurationUtils.findHttpLocationById(configuration, string);
+			if (existingLocation != null && httpLocation != existingLocation) {
+				messages.add(errorMessage);
+			}
 		}
 
 		return messages;

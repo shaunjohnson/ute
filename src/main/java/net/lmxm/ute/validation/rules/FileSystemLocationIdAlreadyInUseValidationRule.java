@@ -16,13 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation.rules;
+package net.lmxm.ute.validation.rules;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.lmxm.ute.beans.configuration.Configuration;
-import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -31,9 +31,9 @@ import net.lmxm.ute.resources.types.ValidatorResourceType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * The Class SubversionRepositoryLocationIdAlreadyInUseValidationRule.
+ * The Class FileSystemLocationIdAlreadyInUseValidationRule.
  */
-public final class SubversionRepositoryLocationIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
+public final class FileSystemLocationIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -41,25 +41,23 @@ public final class SubversionRepositoryLocationIdAlreadyInUseValidationRule exte
 	/** The error message. */
 	private final String errorMessage;
 
-	/** The subversion repository location. */
-	private final SubversionRepositoryLocation subversionRepositoryLocation;
+	/** The file system location. */
+	private final FileSystemLocation fileSystemLocation;
 
 	/**
-	 * Instantiates a new subversion repository location id already in use validation rule.
+	 * Instantiates a new file system location id already in use validation rule.
 	 * 
-	 * @param subversionRepositoryLocation the subversion repository location
+	 * @param fileSystemLocation the file system location
 	 * @param configurationHolder the configuration holder
 	 */
-	public SubversionRepositoryLocationIdAlreadyInUseValidationRule(
-			final SubversionRepositoryLocation subversionRepositoryLocation,
+	public FileSystemLocationIdAlreadyInUseValidationRule(final FileSystemLocation fileSystemLocation,
 			final ConfigurationHolder configurationHolder) {
 		super();
 
-		this.subversionRepositoryLocation = subversionRepositoryLocation;
+		this.fileSystemLocation = fileSystemLocation;
 		this.configurationHolder = configurationHolder;
 
-		errorMessage = ResourcesUtils
-				.getResourceMessage(ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_ID_ALREADY_USED);
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.FILE_SYSTEM_LOCATION_ID_ALREADY_USED);
 	}
 
 	/*
@@ -72,9 +70,9 @@ public final class SubversionRepositoryLocationIdAlreadyInUseValidationRule exte
 
 		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
-			final SubversionRepositoryLocation existingLocation = ConfigurationUtils
-					.findSubversionRepositoryLocationById(configuration, string);
-			if (existingLocation != null && subversionRepositoryLocation != existingLocation) {
+			final FileSystemLocation existingLocation = ConfigurationUtils.findFileSystemLocationById(configuration,
+					string);
+			if (existingLocation != null && fileSystemLocation != existingLocation) {
 				messages.add(errorMessage);
 			}
 		}

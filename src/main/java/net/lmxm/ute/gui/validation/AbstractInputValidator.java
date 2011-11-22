@@ -32,8 +32,8 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
-import net.lmxm.ute.gui.validation.rules.ValidationRule;
 import net.lmxm.ute.resources.ImageUtil;
+import net.lmxm.ute.validation.rules.ValidationRule;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

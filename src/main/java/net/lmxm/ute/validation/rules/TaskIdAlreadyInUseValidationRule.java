@@ -16,13 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation.rules;
+package net.lmxm.ute.validation.rules;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.lmxm.ute.beans.configuration.Configuration;
-import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -31,9 +31,9 @@ import net.lmxm.ute.resources.types.ValidatorResourceType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * The Class FileSystemLocationIdAlreadyInUseValidationRule.
+ * The Class TaskIdAlreadyInUseValidationRule.
  */
-public final class FileSystemLocationIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
+public final class TaskIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -41,23 +41,22 @@ public final class FileSystemLocationIdAlreadyInUseValidationRule extends Abstra
 	/** The error message. */
 	private final String errorMessage;
 
-	/** The file system location. */
-	private final FileSystemLocation fileSystemLocation;
+	/** The task. */
+	private final Task task;
 
 	/**
-	 * Instantiates a new file system location id already in use validation rule.
+	 * Instantiates a new task id already in use validation rule.
 	 * 
-	 * @param fileSystemLocation the file system location
+	 * @param task the task
 	 * @param configurationHolder the configuration holder
 	 */
-	public FileSystemLocationIdAlreadyInUseValidationRule(final FileSystemLocation fileSystemLocation,
-			final ConfigurationHolder configurationHolder) {
+	public TaskIdAlreadyInUseValidationRule(final Task task, final ConfigurationHolder configurationHolder) {
 		super();
 
-		this.fileSystemLocation = fileSystemLocation;
+		this.task = task;
 		this.configurationHolder = configurationHolder;
 
-		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.FILE_SYSTEM_LOCATION_ID_ALREADY_USED);
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.TASK_ID_ALREADY_USED);
 	}
 
 	/*
@@ -70,9 +69,8 @@ public final class FileSystemLocationIdAlreadyInUseValidationRule extends Abstra
 
 		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
-			final FileSystemLocation existingLocation = ConfigurationUtils.findFileSystemLocationById(configuration,
-					string);
-			if (existingLocation != null && fileSystemLocation != existingLocation) {
+			final Task existingTask = ConfigurationUtils.findTaskById(configuration, string);
+			if (existingTask != null && task != existingTask) {
 				messages.add(errorMessage);
 			}
 		}

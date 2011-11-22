@@ -16,34 +16,20 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation.rules;
+package net.lmxm.ute.validation.rules;
 
 import java.util.List;
 
 /**
- * The Class AbstractStringValidationRule.
+ * The Interface ValidationRule.
  */
-public abstract class AbstractStringValidationRule implements ValidationRule {
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.rules.ValidationRule#validate(java.lang.Object)
-	 */
-	@Override
-	public final List<String> validate(final Object value) {
-		if (value instanceof String) {
-			return validateString((String) value);
-		}
-		else {
-			throw new RuntimeException("The value is not an instance of String"); // TODO
-		}
-	}
+public interface ValidationRule {
 
 	/**
-	 * Validate string.
+	 * Validate.
 	 * 
-	 * @param string the string
+	 * @param value the value
 	 * @return the list
 	 */
-	public abstract List<String> validateString(String string);
+	List<String> validate(Object value);
 }

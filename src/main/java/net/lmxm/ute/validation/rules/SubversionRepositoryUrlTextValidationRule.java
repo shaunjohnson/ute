@@ -16,10 +16,8 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation.rules;
+package net.lmxm.ute.validation.rules;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,22 +25,25 @@ import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
 import org.apache.commons.lang3.StringUtils;
+import org.tmatesoft.svn.core.SVNException;
+import org.tmatesoft.svn.core.SVNURL;
 
 /**
- * The Class HttpLocationUrlTextValidationRule.
+ * The Class SubversionRepositoryUrlTextValidationRule.
  */
-public final class HttpLocationUrlTextValidationRule extends AbstractStringValidationRule {
+public final class SubversionRepositoryUrlTextValidationRule extends AbstractStringValidationRule {
 
 	/** The error message. */
 	private final String errorMessage;
 
 	/**
-	 * Instantiates a new http location url text validation rule.
+	 * Instantiates a new subversion repository url text validation rule.
 	 */
-	public HttpLocationUrlTextValidationRule() {
+	public SubversionRepositoryUrlTextValidationRule() {
 		super();
 
-		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.HTTP_LOCATION_URL_MALFORMED);
+		errorMessage = ResourcesUtils
+				.getResourceMessage(ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_URL_MALFORMED);
 	}
 
 	/*
@@ -55,9 +56,9 @@ public final class HttpLocationUrlTextValidationRule extends AbstractStringValid
 
 		if (StringUtils.isNotBlank(string)) {
 			try {
-				new URL(string);
+				SVNURL.parseURIDecoded(string);
 			}
-			catch (final MalformedURLException e) {
+			catch (final SVNException e) {
 				messages.add(errorMessage);
 			}
 		}

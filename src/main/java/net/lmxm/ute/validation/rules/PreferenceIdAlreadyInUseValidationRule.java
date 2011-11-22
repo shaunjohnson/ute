@@ -16,13 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation.rules;
+package net.lmxm.ute.validation.rules;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.configuration.Configuration;
-import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -31,9 +31,9 @@ import net.lmxm.ute.resources.types.ValidatorResourceType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * The Class HttpLocationIdAlreadyInUseValidationRule.
+ * The Class PreferenceIdAlreadyInUseValidationRule.
  */
-public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
+public final class PreferenceIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -41,23 +41,23 @@ public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractStri
 	/** The error message. */
 	private final String errorMessage;
 
-	/** The http location. */
-	private final HttpLocation httpLocation;
+	/** The preference. */
+	private final Preference preference;
 
 	/**
-	 * Instantiates a new http location id already in use validation rule.
+	 * Instantiates a new preference id already in use validation rule.
 	 * 
-	 * @param httpLocation the http location
+	 * @param preference the preference
 	 * @param configurationHolder the configuration holder
 	 */
-	public HttpLocationIdAlreadyInUseValidationRule(final HttpLocation httpLocation,
+	public PreferenceIdAlreadyInUseValidationRule(final Preference preference,
 			final ConfigurationHolder configurationHolder) {
 		super();
 
-		this.httpLocation = httpLocation;
+		this.preference = preference;
 		this.configurationHolder = configurationHolder;
 
-		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.HTTP_LOCATION_ID_ALREADY_USED);
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.PREFERENCE_ID_ALREADY_USED);
 	}
 
 	/*
@@ -70,8 +70,8 @@ public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractStri
 
 		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
-			final HttpLocation existingLocation = ConfigurationUtils.findHttpLocationById(configuration, string);
-			if (existingLocation != null && httpLocation != existingLocation) {
+			final Preference existingPreference = ConfigurationUtils.findPreferenceById(configuration, string);
+			if (existingPreference != null && preference != existingPreference) {
 				messages.add(errorMessage);
 			}
 		}

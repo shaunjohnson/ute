@@ -16,47 +16,33 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation.rules;
+package net.lmxm.ute.validation.rules;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.lmxm.ute.beans.configuration.Configuration;
-import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.configuration.ConfigurationHolder;
-import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * The Class JobIdAlreadyInUseValidationRule.
+ * The Class HttpLocationUrlTextValidationRule.
  */
-public final class JobIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
-
-	/** The configuration holder. */
-	private final ConfigurationHolder configurationHolder;
+public final class HttpLocationUrlTextValidationRule extends AbstractStringValidationRule {
 
 	/** The error message. */
 	private final String errorMessage;
 
-	/** The job. */
-	private final Job job;
-
 	/**
-	 * Instantiates a new job id already in use validation rule.
-	 * 
-	 * @param job the job
-	 * @param configurationHolder the configuration holder
+	 * Instantiates a new http location url text validation rule.
 	 */
-	public JobIdAlreadyInUseValidationRule(final Job job, final ConfigurationHolder configurationHolder) {
+	public HttpLocationUrlTextValidationRule() {
 		super();
 
-		this.job = job;
-		this.configurationHolder = configurationHolder;
-
-		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.JOB_ID_ALREADY_USED);
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.HTTP_LOCATION_URL_MALFORMED);
 	}
 
 	/*
@@ -68,9 +54,10 @@ public final class JobIdAlreadyInUseValidationRule extends AbstractStringValidat
 		final List<String> messages = new ArrayList<String>();
 
 		if (StringUtils.isNotBlank(string)) {
-			final Configuration configuration = configurationHolder.getConfiguration();
-			final Job existingJob = ConfigurationUtils.findJobById(configuration, string);
-			if (existingJob != null && job != existingJob) {
+			try {
+				new URL(string);
+			}
+			catch (final MalformedURLException e) {
 				messages.add(errorMessage);
 			}
 		}

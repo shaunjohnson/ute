@@ -16,13 +16,13 @@
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.lmxm.ute.gui.validation.rules;
+package net.lmxm.ute.validation.rules;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.configuration.Configuration;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -31,9 +31,9 @@ import net.lmxm.ute.resources.types.ValidatorResourceType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * The Class PreferenceIdAlreadyInUseValidationRule.
+ * The Class JobIdAlreadyInUseValidationRule.
  */
-public final class PreferenceIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
+public final class JobIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -41,23 +41,22 @@ public final class PreferenceIdAlreadyInUseValidationRule extends AbstractString
 	/** The error message. */
 	private final String errorMessage;
 
-	/** The preference. */
-	private final Preference preference;
+	/** The job. */
+	private final Job job;
 
 	/**
-	 * Instantiates a new preference id already in use validation rule.
+	 * Instantiates a new job id already in use validation rule.
 	 * 
-	 * @param preference the preference
+	 * @param job the job
 	 * @param configurationHolder the configuration holder
 	 */
-	public PreferenceIdAlreadyInUseValidationRule(final Preference preference,
-			final ConfigurationHolder configurationHolder) {
+	public JobIdAlreadyInUseValidationRule(final Job job, final ConfigurationHolder configurationHolder) {
 		super();
 
-		this.preference = preference;
+		this.job = job;
 		this.configurationHolder = configurationHolder;
 
-		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.PREFERENCE_ID_ALREADY_USED);
+		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.JOB_ID_ALREADY_USED);
 	}
 
 	/*
@@ -70,8 +69,8 @@ public final class PreferenceIdAlreadyInUseValidationRule extends AbstractString
 
 		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
-			final Preference existingPreference = ConfigurationUtils.findPreferenceById(configuration, string);
-			if (existingPreference != null && preference != existingPreference) {
+			final Job existingJob = ConfigurationUtils.findJobById(configuration, string);
+			if (existingJob != null && job != existingJob) {
 				messages.add(errorMessage);
 			}
 		}

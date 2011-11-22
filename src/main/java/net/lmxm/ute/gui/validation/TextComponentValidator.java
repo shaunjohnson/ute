@@ -24,7 +24,7 @@ import javax.swing.JComponent;
 import javax.swing.UIManager;
 import javax.swing.text.JTextComponent;
 
-import net.lmxm.ute.gui.validation.rules.ValidationRule;
+import net.lmxm.ute.validation.rules.ValidationRule;
 
 /**
  * The Class TextComponentValidator.
