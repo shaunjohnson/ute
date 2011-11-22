@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * The Class RequiredTextValidationRule.
  */
-public final class RequiredTextValidationRule extends AbstractTextComponentValidationRule {
+public final class RequiredTextValidationRule extends AbstractStringValidationRule {
 
 	/** The error message. */
 	private final String errorMessage;
@@ -47,13 +47,13 @@ public final class RequiredTextValidationRule extends AbstractTextComponentValid
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.rules.AbstractStringValidationRule#validateString(java.lang.String)
 	 */
 	@Override
-	public List<String> validateText(final String text) {
+	public List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (StringUtils.isBlank(text)) {
+		if (StringUtils.isBlank(string)) {
 			messages.add(errorMessage);
 		}
 

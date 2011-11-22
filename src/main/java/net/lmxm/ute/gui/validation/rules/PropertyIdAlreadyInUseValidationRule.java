@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * The Class PropertyIdAlreadyInUseValidationRule.
  */
-public final class PropertyIdAlreadyInUseValidationRule extends AbstractTextComponentValidationRule {
+public final class PropertyIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -61,15 +61,15 @@ public final class PropertyIdAlreadyInUseValidationRule extends AbstractTextComp
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.rules.AbstractStringValidationRule#validateString(java.lang.String)
 	 */
 	@Override
-	public List<String> validateText(final String text) {
+	public List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (StringUtils.isNotBlank(text)) {
+		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
-			final Property existingProperty = ConfigurationUtils.findPropertyById(configuration, text);
+			final Property existingProperty = ConfigurationUtils.findPropertyById(configuration, string);
 			if (existingProperty != null && property != existingProperty) {
 				messages.add(errorMessage);
 			}

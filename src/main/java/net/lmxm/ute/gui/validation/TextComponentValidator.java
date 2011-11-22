@@ -20,6 +20,7 @@ package net.lmxm.ute.gui.validation;
 
 import java.awt.Color;
 
+import javax.swing.JComponent;
 import javax.swing.UIManager;
 import javax.swing.text.JTextComponent;
 
@@ -49,6 +50,16 @@ public class TextComponentValidator extends AbstractInputValidator {
 	 */
 	public TextComponentValidator(final JTextComponent textComponent, final ValidationRule... validationRules) {
 		super(textComponent, validationRules);
+	}
+
+	@Override
+	protected Object getCurrentValue(final JComponent component) {
+		if (component instanceof JTextComponent) {
+			return ((JTextComponent) component).getText();
+		}
+		else {
+			throw new RuntimeException("The component instance is not a JTextComponent"); // TODO
+		}
 	}
 
 	/*

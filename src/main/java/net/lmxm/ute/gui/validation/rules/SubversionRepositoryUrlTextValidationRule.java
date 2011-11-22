@@ -31,7 +31,7 @@ import org.tmatesoft.svn.core.SVNURL;
 /**
  * The Class SubversionRepositoryUrlTextValidationRule.
  */
-public final class SubversionRepositoryUrlTextValidationRule extends AbstractTextComponentValidationRule {
+public final class SubversionRepositoryUrlTextValidationRule extends AbstractStringValidationRule {
 
 	/** The error message. */
 	private final String errorMessage;
@@ -48,15 +48,15 @@ public final class SubversionRepositoryUrlTextValidationRule extends AbstractTex
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.rules.AbstractStringValidationRule#validateString(java.lang.String)
 	 */
 	@Override
-	public List<String> validateText(final String text) {
+	public List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (StringUtils.isNotBlank(text)) {
+		if (StringUtils.isNotBlank(string)) {
 			try {
-				SVNURL.parseURIDecoded(text);
+				SVNURL.parseURIDecoded(string);
 			}
 			catch (final SVNException e) {
 				messages.add(errorMessage);

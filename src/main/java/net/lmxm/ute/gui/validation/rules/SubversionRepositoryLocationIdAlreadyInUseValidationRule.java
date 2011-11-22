@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * The Class SubversionRepositoryLocationIdAlreadyInUseValidationRule.
  */
-public final class SubversionRepositoryLocationIdAlreadyInUseValidationRule extends AbstractTextComponentValidationRule {
+public final class SubversionRepositoryLocationIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -64,16 +64,16 @@ public final class SubversionRepositoryLocationIdAlreadyInUseValidationRule exte
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.rules.AbstractStringValidationRule#validateString(java.lang.String)
 	 */
 	@Override
-	public List<String> validateText(final String text) {
+	public List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (StringUtils.isNotBlank(text)) {
+		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
 			final SubversionRepositoryLocation existingLocation = ConfigurationUtils
-					.findSubversionRepositoryLocationById(configuration, text);
+					.findSubversionRepositoryLocationById(configuration, string);
 			if (existingLocation != null && subversionRepositoryLocation != existingLocation) {
 				messages.add(errorMessage);
 			}

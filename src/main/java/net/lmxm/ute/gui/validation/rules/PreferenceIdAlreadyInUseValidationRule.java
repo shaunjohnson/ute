@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * The Class PreferenceIdAlreadyInUseValidationRule.
  */
-public final class PreferenceIdAlreadyInUseValidationRule extends AbstractTextComponentValidationRule {
+public final class PreferenceIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -62,15 +62,15 @@ public final class PreferenceIdAlreadyInUseValidationRule extends AbstractTextCo
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.rules.AbstractStringValidationRule#validateString(java.lang.String)
 	 */
 	@Override
-	public List<String> validateText(final String text) {
+	public List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (StringUtils.isNotBlank(text)) {
+		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
-			final Preference existingPreference = ConfigurationUtils.findPreferenceById(configuration, text);
+			final Preference existingPreference = ConfigurationUtils.findPreferenceById(configuration, string);
 			if (existingPreference != null && preference != existingPreference) {
 				messages.add(errorMessage);
 			}

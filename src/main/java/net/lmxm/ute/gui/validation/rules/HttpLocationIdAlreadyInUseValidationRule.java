@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * The Class HttpLocationIdAlreadyInUseValidationRule.
  */
-public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractTextComponentValidationRule {
+public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -62,15 +62,15 @@ public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractText
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.rules.AbstractStringValidationRule#validateString(java.lang.String)
 	 */
 	@Override
-	public List<String> validateText(final String text) {
+	public List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (StringUtils.isNotBlank(text)) {
+		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
-			final HttpLocation existingLocation = ConfigurationUtils.findHttpLocationById(configuration, text);
+			final HttpLocation existingLocation = ConfigurationUtils.findHttpLocationById(configuration, string);
 			if (existingLocation != null && httpLocation != existingLocation) {
 				messages.add(errorMessage);
 			}

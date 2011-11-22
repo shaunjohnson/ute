@@ -100,6 +100,7 @@ public abstract class AbstractInputValidator extends InputValidator implements K
 	 * 
 	 * @param validationRule the validation rule
 	 */
+	@Override
 	public final void addRule(final ValidationRule validationRule) {
 		validationRules.add(validationRule);
 	}
@@ -137,6 +138,14 @@ public abstract class AbstractInputValidator extends InputValidator implements K
 		dialog.pack();
 		dialog.setVisible(true);
 	}
+
+	/**
+	 * Gets the current value.
+	 * 
+	 * @param component the component
+	 * @return the current value
+	 */
+	protected abstract Object getCurrentValue(JComponent component);
 
 	/**
 	 * Gets the default background color.
@@ -229,9 +238,10 @@ public abstract class AbstractInputValidator extends InputValidator implements K
 	 */
 	private List<String> validate(final JComponent component) {
 		final List<String> messages = new ArrayList<String>();
+		final Object value = getCurrentValue(component);
 
 		for (final ValidationRule inputValidator : validationRules) {
-			messages.addAll(inputValidator.validate(component));
+			messages.addAll(inputValidator.validate(value));
 		}
 
 		return messages;

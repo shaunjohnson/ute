@@ -20,8 +20,6 @@ package net.lmxm.ute.gui.validation.rules;
 
 import java.util.List;
 
-import javax.swing.JComponent;
-
 /**
  * The Interface ValidationRule.
  */
@@ -30,8 +28,8 @@ public interface ValidationRule {
 	/**
 	 * Validate.
 	 * 
-	 * @param component the component
+	 * @param value the value
 	 * @return the list
 	 */
-	List<String> validate(JComponent component);
+	List<String> validate(Object value);
 }

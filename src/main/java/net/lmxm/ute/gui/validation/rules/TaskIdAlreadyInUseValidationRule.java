@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * The Class TaskIdAlreadyInUseValidationRule.
  */
-public final class TaskIdAlreadyInUseValidationRule extends AbstractTextComponentValidationRule {
+public final class TaskIdAlreadyInUseValidationRule extends AbstractStringValidationRule {
 
 	/** The configuration holder. */
 	private final ConfigurationHolder configurationHolder;
@@ -61,15 +61,15 @@ public final class TaskIdAlreadyInUseValidationRule extends AbstractTextComponen
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.rules.AbstractStringValidationRule#validateString(java.lang.String)
 	 */
 	@Override
-	public List<String> validateText(final String text) {
+	public List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (StringUtils.isNotBlank(text)) {
+		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
-			final Task existingTask = ConfigurationUtils.findTaskById(configuration, text);
+			final Task existingTask = ConfigurationUtils.findTaskById(configuration, string);
 			if (existingTask != null && task != existingTask) {
 				messages.add(errorMessage);
 			}

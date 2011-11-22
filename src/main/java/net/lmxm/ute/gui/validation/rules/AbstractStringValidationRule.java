@@ -20,36 +20,30 @@ package net.lmxm.ute.gui.validation.rules;
 
 import java.util.List;
 
-import javax.swing.JComponent;
-import javax.swing.text.JTextComponent;
-
-
 /**
- * The Class AbstractTextComponentValidationRule.
+ * The Class AbstractStringValidationRule.
  */
-public abstract class AbstractTextComponentValidationRule implements ValidationRule {
+public abstract class AbstractStringValidationRule implements ValidationRule {
 
-	/*
-	 */
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.ValidatorRule#validate(javax.swing.JComponent)
+	 * @see net.lmxm.ute.gui.validation.rules.ValidationRule#validate(java.lang.Object)
 	 */
 	@Override
-	public final List<String> validate(final JComponent component) {
-		if (component instanceof JTextComponent) {
-			return validateText(((JTextComponent) component).getText());
+	public final List<String> validate(final Object value) {
+		if (value instanceof String) {
+			return validateString((String) value);
 		}
 		else {
-			throw new RuntimeException("The component instance is not a JTextComponent"); // TODO
+			throw new RuntimeException("The value is not an instance of String"); // TODO
 		}
 	}
 
 	/**
-	 * Validate text.
+	 * Validate string.
 	 * 
-	 * @param text the text
+	 * @param string the string
 	 * @return the list
 	 */
-	public abstract List<String> validateText(String text);
+	public abstract List<String> validateString(String string);
 }

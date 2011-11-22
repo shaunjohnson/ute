@@ -31,7 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * The Class HttpLocationUrlTextValidationRule.
  */
-public final class HttpLocationUrlTextValidationRule extends AbstractTextComponentValidationRule {
+public final class HttpLocationUrlTextValidationRule extends AbstractStringValidationRule {
 
 	/** The error message. */
 	private final String errorMessage;
@@ -47,15 +47,15 @@ public final class HttpLocationUrlTextValidationRule extends AbstractTextCompone
 
 	/*
 	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.validation.AbstractTextComponentValidationRule#validateText(java.lang.String)
+	 * @see net.lmxm.ute.gui.validation.rules.AbstractStringValidationRule#validateString(java.lang.String)
 	 */
 	@Override
-	public List<String> validateText(final String text) {
+	public List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
-		if (StringUtils.isNotBlank(text)) {
+		if (StringUtils.isNotBlank(string)) {
 			try {
-				new URL(text);
+				new URL(string);
 			}
 			catch (final MalformedURLException e) {
 				messages.add(errorMessage);
