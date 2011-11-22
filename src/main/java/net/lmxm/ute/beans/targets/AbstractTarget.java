@@ -20,7 +20,7 @@ package net.lmxm.ute.beans.targets;
 
 import net.lmxm.ute.beans.DomainBean;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * The Class AbstractTarget.

@@ -18,7 +18,7 @@
  */
 package net.lmxm.ute.beans.locations;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * The Class SubversionRepositoryLocation.

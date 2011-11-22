@@ -26,7 +26,7 @@ import java.io.File;
 import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tmatesoft.svn.core.SVNAuthenticationException;

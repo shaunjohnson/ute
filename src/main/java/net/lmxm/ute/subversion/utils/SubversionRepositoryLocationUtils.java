@@ -24,7 +24,7 @@ import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.executers.tasks.SubversionExportTaskExecuter;
 import net.lmxm.ute.utils.PathUtils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

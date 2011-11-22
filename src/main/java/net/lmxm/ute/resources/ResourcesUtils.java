@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 import net.lmxm.ute.resources.types.ResourceType;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * The Class ResourcesUtils.

@@ -27,7 +27,7 @@ import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryLocationUtils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 /**

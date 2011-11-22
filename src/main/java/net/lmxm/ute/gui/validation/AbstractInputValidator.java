@@ -36,7 +36,7 @@ import net.lmxm.ute.gui.validation.rules.ValidationRule;
 import net.lmxm.ute.resources.ImageUtil;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * The Class AbstractInputValidator.

@@ -19,8 +19,9 @@
 package net.lmxm.ute.beans;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.base.Objects;
 
 /**
  * The Class FileReference.
@@ -41,23 +42,23 @@ public final class FileReference implements DomainBean {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(final Object obj) {
-		if (obj == null) {
+	public boolean equals(final Object object) {
+		if (object == null) {
 			return false;
 		}
 
-		if (obj == this) {
+		if (object == this) {
 			return true;
 		}
 
-		if (obj.getClass() != getClass()) {
+		if (object.getClass() != getClass()) {
 			return false;
 		}
 
-		final FileReference rhs = (FileReference) obj;
+		final FileReference rhs = (FileReference) object;
 
-		return new EqualsBuilder().appendSuper(super.equals(obj)).append(name, rhs.getName())
-				.append(targetName, rhs.getTargetName()).isEquals();
+		return new EqualsBuilder().appendSuper(super.equals(object)).append(name, rhs.name)
+				.append(targetName, rhs.targetName).isEquals();
 	}
 
 	/**
@@ -84,7 +85,7 @@ public final class FileReference implements DomainBean {
 	 */
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder(17, 37).append(name).append(targetName).toHashCode();
+		return Objects.hashCode(name, targetName);
 	}
 
 	/**

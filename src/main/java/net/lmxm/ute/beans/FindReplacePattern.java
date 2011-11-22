@@ -21,7 +21,10 @@ package net.lmxm.ute.beans;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.base.Objects;
 
 /**
  * The Class FindReplacePattern.
@@ -36,6 +39,30 @@ public class FindReplacePattern implements DomainBean {
 
 	/** The replace. */
 	private String replace;
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(final Object object) {
+		if (object == null) {
+			return false;
+		}
+
+		if (object == this) {
+			return true;
+		}
+
+		if (object.getClass() != getClass()) {
+			return false;
+		}
+
+		final FindReplacePattern rhs = (FindReplacePattern) object;
+
+		return new EqualsBuilder().appendSuper(super.equals(object)).append(find, rhs.find)
+				.append(replace, rhs.replace).isEquals();
+	}
 
 	/**
 	 * Gets the find.
@@ -53,6 +80,15 @@ public class FindReplacePattern implements DomainBean {
 	 */
 	public String getReplace() {
 		return replace;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(find, replace);
 	}
 
 	/**
