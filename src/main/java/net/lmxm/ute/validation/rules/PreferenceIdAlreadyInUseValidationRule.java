@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +56,10 @@ public final class PreferenceIdAlreadyInUseValidationRule extends AbstractString
 	public PreferenceIdAlreadyInUseValidationRule(final Preference preference,
 			final ConfigurationHolder configurationHolder) {
 		super();
+
+		checkNotNull(preference, "Preference is null");
+		checkNotNull(configurationHolder, "Configuration holder is null");
+		checkState(configurationHolder.getConfiguration() != null, "Configuration holder has a null configuration");
 
 		this.preference = preference;
 		this.configurationHolder = configurationHolder;

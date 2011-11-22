@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,20 +44,24 @@ public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractStri
 	/** The error message. */
 	private final String errorMessage;
 
-	/** The http location. */
-	private final HttpLocation httpLocation;
+	/** The location. */
+	private final HttpLocation location;
 
 	/**
 	 * Instantiates a new http location id already in use validation rule.
 	 * 
-	 * @param httpLocation the http location
+	 * @param location the location
 	 * @param configurationHolder the configuration holder
 	 */
-	public HttpLocationIdAlreadyInUseValidationRule(final HttpLocation httpLocation,
+	public HttpLocationIdAlreadyInUseValidationRule(final HttpLocation location,
 			final ConfigurationHolder configurationHolder) {
 		super();
 
-		this.httpLocation = httpLocation;
+		checkNotNull(location, "Location is null");
+		checkNotNull(configurationHolder, "Configuration holder is null");
+		checkState(configurationHolder.getConfiguration() != null, "Configuration holder has a null configuration");
+
+		this.location = location;
 		this.configurationHolder = configurationHolder;
 
 		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.HTTP_LOCATION_ID_ALREADY_USED);
@@ -71,7 +78,7 @@ public final class HttpLocationIdAlreadyInUseValidationRule extends AbstractStri
 		if (StringUtils.isNotBlank(string)) {
 			final Configuration configuration = configurationHolder.getConfiguration();
 			final HttpLocation existingLocation = ConfigurationUtils.findHttpLocationById(configuration, string);
-			if (existingLocation != null && httpLocation != existingLocation) {
+			if (existingLocation != null && location != existingLocation) {
 				messages.add(errorMessage);
 			}
 		}

@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,8 @@ public final class RequiredTextValidationRule extends AbstractStringValidationRu
 	 */
 	public RequiredTextValidationRule(final ValidatorResourceType validatorResourceType) {
 		super();
+
+		checkNotNull(validatorResourceType, "Validator resource type is null");
 
 		errorMessage = ResourcesUtils.getResourceMessage(validatorResourceType);
 	}

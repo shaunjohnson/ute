@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,21 +44,24 @@ public final class SubversionRepositoryLocationIdAlreadyInUseValidationRule exte
 	/** The error message. */
 	private final String errorMessage;
 
-	/** The subversion repository location. */
-	private final SubversionRepositoryLocation subversionRepositoryLocation;
+	/** The location. */
+	private final SubversionRepositoryLocation location;
 
 	/**
 	 * Instantiates a new subversion repository location id already in use validation rule.
 	 * 
-	 * @param subversionRepositoryLocation the subversion repository location
+	 * @param location the location
 	 * @param configurationHolder the configuration holder
 	 */
-	public SubversionRepositoryLocationIdAlreadyInUseValidationRule(
-			final SubversionRepositoryLocation subversionRepositoryLocation,
+	public SubversionRepositoryLocationIdAlreadyInUseValidationRule(final SubversionRepositoryLocation location,
 			final ConfigurationHolder configurationHolder) {
 		super();
 
-		this.subversionRepositoryLocation = subversionRepositoryLocation;
+		checkNotNull(location, "Location is null");
+		checkNotNull(configurationHolder, "Configuration holder is null");
+		checkState(configurationHolder.getConfiguration() != null, "Configuration holder has a null configuration");
+
+		this.location = location;
 		this.configurationHolder = configurationHolder;
 
 		errorMessage = ResourcesUtils
@@ -74,7 +80,7 @@ public final class SubversionRepositoryLocationIdAlreadyInUseValidationRule exte
 			final Configuration configuration = configurationHolder.getConfiguration();
 			final SubversionRepositoryLocation existingLocation = ConfigurationUtils
 					.findSubversionRepositoryLocationById(configuration, string);
-			if (existingLocation != null && subversionRepositoryLocation != existingLocation) {
+			if (existingLocation != null && location != existingLocation) {
 				messages.add(errorMessage);
 			}
 		}

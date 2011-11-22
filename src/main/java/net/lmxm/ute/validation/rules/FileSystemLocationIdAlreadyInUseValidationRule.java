@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,20 +44,24 @@ public final class FileSystemLocationIdAlreadyInUseValidationRule extends Abstra
 	/** The error message. */
 	private final String errorMessage;
 
-	/** The file system location. */
-	private final FileSystemLocation fileSystemLocation;
+	/** The location. */
+	private final FileSystemLocation location;
 
 	/**
 	 * Instantiates a new file system location id already in use validation rule.
 	 * 
-	 * @param fileSystemLocation the file system location
+	 * @param location the location
 	 * @param configurationHolder the configuration holder
 	 */
-	public FileSystemLocationIdAlreadyInUseValidationRule(final FileSystemLocation fileSystemLocation,
+	public FileSystemLocationIdAlreadyInUseValidationRule(final FileSystemLocation location,
 			final ConfigurationHolder configurationHolder) {
 		super();
 
-		this.fileSystemLocation = fileSystemLocation;
+		checkNotNull(location, "Location is null");
+		checkNotNull(configurationHolder, "Configuration holder is null");
+		checkState(configurationHolder.getConfiguration() != null, "Configuration holder has a null configuration");
+
+		this.location = location;
 		this.configurationHolder = configurationHolder;
 
 		errorMessage = ResourcesUtils.getResourceMessage(ValidatorResourceType.FILE_SYSTEM_LOCATION_ID_ALREADY_USED);
@@ -72,7 +79,7 @@ public final class FileSystemLocationIdAlreadyInUseValidationRule extends Abstra
 			final Configuration configuration = configurationHolder.getConfiguration();
 			final FileSystemLocation existingLocation = ConfigurationUtils.findFileSystemLocationById(configuration,
 					string);
-			if (existingLocation != null && fileSystemLocation != existingLocation) {
+			if (existingLocation != null && location != existingLocation) {
 				messages.add(errorMessage);
 			}
 		}

@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +55,10 @@ public final class PropertyIdAlreadyInUseValidationRule extends AbstractStringVa
 	 */
 	public PropertyIdAlreadyInUseValidationRule(final Property property, final ConfigurationHolder configurationHolder) {
 		super();
+
+		checkNotNull(property, "Property is null");
+		checkNotNull(configurationHolder, "Configuration holder is null");
+		checkState(configurationHolder.getConfiguration() != null, "Configuration holder has a null configuration");
 
 		this.property = property;
 		this.configurationHolder = configurationHolder;
