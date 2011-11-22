@@ -28,12 +28,15 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
+import net.lmxm.ute.gui.validation.InputValidator;
+import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.ButtonResourceType;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -108,6 +111,22 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 		addRequiredLabel(LabelResourceType.PATH);
 		contentPanel.add(getPathPanel());
+	}
+
+	/**
+	 * Adds the input validators.
+	 */
+	private void addInputValidators() {
+		if (getUserObject() instanceof FileSystemLocation) {
+			final JTextComponent component = getPathTextField();
+			removeInputValidator(component);
+
+			final InputValidator inputValidator = InputValidatorFactory
+					.createFileSystemLocationPathValidator(component);
+
+			component.setInputVerifier(inputValidator);
+			addInputValidator(inputValidator);
+		}
 	}
 
 	/**
@@ -207,6 +226,8 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 			getPathTextField().setText(fileSystemLocation.getPath());
 		}
+
+		addInputValidators();
 
 		LOGGER.debug("{} leaving", prefix);
 	}

@@ -48,6 +48,14 @@ import com.google.common.base.Preconditions;
  */
 public final class InputValidatorFactory {
 
+	/**
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @param configurationHolder the configuration holder
+	 * @param location the location
+	 * @return the input validator
+	 */
 	private static InputValidator createFileSystemLocationIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final FileSystemLocation location) {
 		final InputValidator validator = new TextComponentValidator(component);
@@ -59,6 +67,26 @@ public final class InputValidatorFactory {
 	}
 
 	/**
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @return the input validator
+	 */
+	public static InputValidator createFileSystemLocationPathValidator(final JTextComponent component) {
+		final InputValidator validator = new TextComponentValidator(component);
+
+		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.FILE_SYSTEM_LOCATION_PATH_REQUIRED));
+
+		return validator;
+	}
+
+	/**
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @param configurationHolder the configuration holder
+	 * @param location the location
+	 * @return the input validator
 	 */
 	private static InputValidator createHttpLocationIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final HttpLocation location) {
@@ -85,6 +113,14 @@ public final class InputValidatorFactory {
 		return validator;
 	}
 
+	/**
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @param configurationHolder the configuration holder
+	 * @param identifiableBean the identifiable bean
+	 * @return the input validator
+	 */
 	public static InputValidator createIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final IdentifiableBean identifiableBean) {
 		Preconditions.checkNotNull(identifiableBean, "IdentifiableBean is null");
@@ -123,6 +159,14 @@ public final class InputValidatorFactory {
 		return inputValidator;
 	}
 
+	/**
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @param configurationHolder the configuration holder
+	 * @param job the job
+	 * @return the input validator
+	 */
 	private static InputValidator createJobIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final Job job) {
 		final InputValidator validator = new TextComponentValidator(component);
@@ -134,7 +178,12 @@ public final class InputValidatorFactory {
 	}
 
 	/**
-
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @param configurationHolder the configuration holder
+	 * @param preference the preference
+	 * @return the input validator
 	 */
 	private static InputValidator createPreferenceIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final Preference preference) {
@@ -147,7 +196,12 @@ public final class InputValidatorFactory {
 	}
 
 	/**
-
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @param configurationHolder the configuration holder
+	 * @param property the property
+	 * @return the input validator
 	 */
 	private static InputValidator createPropertyIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final Property property) {
@@ -160,7 +214,10 @@ public final class InputValidatorFactory {
 	}
 
 	/**
-
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @return the input validator
 	 */
 	public static InputValidator createPropertyValueValidator(final JTextComponent component) {
 		final InputValidator validator = new TextComponentValidator(component);
@@ -170,6 +227,14 @@ public final class InputValidatorFactory {
 		return validator;
 	}
 
+	/**
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @param configurationHolder the configuration holder
+	 * @param location the location
+	 * @return the input validator
+	 */
 	private static InputValidator createSubversionRepositoryLocationIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final SubversionRepositoryLocation location) {
 		final InputValidator validator = new TextComponentValidator(component);
@@ -181,6 +246,12 @@ public final class InputValidatorFactory {
 		return validator;
 	}
 
+	/**
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @return the input validator
+	 */
 	public static InputValidator createSubversionRepositoryLocationUrlValidator(final JTextComponent component) {
 		final InputValidator validator = new TextComponentValidator(component);
 
@@ -191,6 +262,14 @@ public final class InputValidatorFactory {
 		return validator;
 	}
 
+	/**
+	 * Creates a new InputValidator object.
+	 * 
+	 * @param component the component
+	 * @param configurationHolder the configuration holder
+	 * @param task the task
+	 * @return the input validator
+	 */
 	private static InputValidator createTaskIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final Task task) {
 		final InputValidator validator = new TextComponentValidator(component);
