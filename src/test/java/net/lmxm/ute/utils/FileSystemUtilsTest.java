@@ -30,8 +30,9 @@ import java.util.List;
 
 import net.lmxm.ute.beans.FileReference;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+
+import com.google.common.io.Files;
 
 /**
  * The Class FileSystemUtilsTest.
@@ -53,11 +54,11 @@ public class FileSystemUtilsTest {
 	public void testConvertToFileObjects() throws IOException {
 		// Create temp file that we can locate
 		final File tempFile1 = File.createTempFile("UTE", ".TESTFILE");
-		FileUtils.touch(tempFile1);
+		Files.touch(tempFile1);
 		tempFile1.deleteOnExit();
 
 		final File tempFile2 = File.createTempFile("ute", ".testfile");
-		FileUtils.touch(tempFile2);
+		Files.touch(tempFile2);
 		tempFile2.deleteOnExit();
 
 		// Run the test
