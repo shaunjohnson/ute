@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.components;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -47,8 +49,6 @@ import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.gui.menus.StatusOutputTabPopupMenu;
 import net.lmxm.ute.resources.ImageUtil;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class StatusOutputTab.
@@ -250,8 +250,8 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 	public StatusOutputTab(final JTabbedPane tabbedPane, final String titleText) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-		Preconditions.checkNotNull(tabbedPane, "Tabbed pane may not be null");
-		Preconditions.checkNotNull(titleText, "Title text may not be null");
+		checkNotNull(tabbedPane, "Tabbed pane may not be null");
+		checkNotNull(titleText, "Title text may not be null");
 
 		this.tabbedPane = tabbedPane;
 		this.titleText = titleText;

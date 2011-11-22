@@ -18,11 +18,12 @@
  */
 package net.lmxm.ute.beans;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class PatternWrapper.
@@ -47,9 +48,9 @@ public class PatternWrapper implements Comparable<PatternWrapper>, DomainBean {
 	public PatternWrapper(final Pattern pattern, final String replacement) {
 		super();
 
-		Preconditions.checkNotNull(pattern, "Pattern may not be null");
-		Preconditions.checkNotNull(replacement, "Pattern may not be null");
-		Preconditions.checkArgument(StringUtils.isNotBlank(replacement), "Pattern may not be blank");
+		checkNotNull(pattern, "Pattern may not be null");
+		checkNotNull(replacement, "Pattern may not be null");
+		checkArgument(StringUtils.isNotBlank(replacement), "Pattern may not be blank");
 
 		this.pattern = pattern;
 		this.replacement = replacement;

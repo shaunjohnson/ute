@@ -18,14 +18,13 @@
  */
 package net.lmxm.ute.utils;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class FileSystemTargetUtils.
@@ -47,13 +46,13 @@ public final class FileSystemTargetUtils {
 
 		LOGGER.debug("{} entered, target={}", prefix, target);
 
-		Preconditions.checkNotNull(target, "Target may not be null");
+		checkNotNull(target, "Target may not be null");
 
 		final FileSystemLocation location = target.getLocation();
-		Preconditions.checkNotNull(location, "Target location may not be null");
+		checkNotNull(location, "Target location may not be null");
 
 		final String path = StringUtils.trimToNull(location.getPath());
-		Preconditions.checkNotNull(path, "Target location path may not be blank");
+		checkNotNull(path, "Target location path may not be blank");
 
 		final String relativePath = target.getRelativePath();
 		// Relative path may be null, StringUtils.join() will treat null values as empty strings

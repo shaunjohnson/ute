@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.subversion.utils;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,8 +49,6 @@ import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.io.ISVNReporterBaton;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class SubversionUtils.
@@ -131,13 +131,14 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 			LOGGER.debug("{} files={}", prefix, files);
 		}
 
-		Preconditions.checkNotNull(urlString, "URL must not be null");
-		Preconditions.checkNotNull(destinationPath, "Destination path must not be null");
+		checkNotNull(urlString, "URL must not be null");
+		checkNotNull(destinationPath, "Destination path must not be null");
 
 		try {
 			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_STARTED);
 
-			getStatusChangeHelper().info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE, urlString, destinationPath);
+			getStatusChangeHelper().info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE, urlString,
+					destinationPath);
 
 			final SVNURL url = SVNURL.parseURIEncoded(urlString);
 			final File exportDirectory = new File(destinationPath);
@@ -216,12 +217,13 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 						contents.close();
 
 						if (StringUtils.isBlank(targetName)) {
-							getStatusChangeHelper().info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED,
-									fileName);
+							getStatusChangeHelper().info(this,
+									StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED, fileName);
 						}
 						else {
-							getStatusChangeHelper().info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED_AS,
-									fileName, targetName);
+							getStatusChangeHelper().info(this,
+									StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED_AS, fileName,
+									targetName);
 						}
 					}
 					catch (final FileNotFoundException e) {
@@ -249,7 +251,8 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 
 			LOGGER.debug("{} finished exporting files", prefix);
 
-			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FINISHED, revisionToExport);
+			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FINISHED,
+					revisionToExport);
 		}
 		catch (final SVNAuthenticationException e) {
 			LOGGER.error("SVNAuthenticationException caught exporting a file", e);

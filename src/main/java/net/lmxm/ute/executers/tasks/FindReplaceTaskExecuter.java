@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,8 +41,6 @@ import org.codehaus.plexus.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Preconditions;
-
 /**
  * The Class FindReplaceTaskExecuter.
  */
@@ -61,7 +61,7 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 	public FindReplaceTaskExecuter(final FindReplaceTask task, final StatusChangeHelper statusChangeHelper) {
 		super(statusChangeHelper);
 
-		Preconditions.checkNotNull(task, "Task may not be null");
+		checkNotNull(task, "Task may not be null");
 
 		this.task = task;
 	}
@@ -85,7 +85,7 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 	 */
 	protected List<PatternWrapper> convertFindReplacePatternsToRegexPatterns(
 			final List<FindReplacePattern> findReplacePatterns) {
-		Preconditions.checkNotNull(findReplacePatterns, "Find replace patterns list may not be null");
+		checkNotNull(findReplacePatterns, "Find replace patterns list may not be null");
 
 		final List<PatternWrapper> patterns = new ArrayList<PatternWrapper>();
 

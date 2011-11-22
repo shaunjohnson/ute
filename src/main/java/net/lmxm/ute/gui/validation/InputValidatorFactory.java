@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.validation;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import javax.swing.text.JTextComponent;
 
 import net.lmxm.ute.beans.IdentifiableBean;
@@ -40,8 +42,6 @@ import net.lmxm.ute.gui.validation.rules.SubversionRepositoryLocationIdAlreadyIn
 import net.lmxm.ute.gui.validation.rules.SubversionRepositoryUrlTextValidationRule;
 import net.lmxm.ute.gui.validation.rules.TaskIdAlreadyInUseValidationRule;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
-
-import com.google.common.base.Preconditions;
 
 /**
  * A factory for creating InputValidator objects.
@@ -123,9 +123,9 @@ public final class InputValidatorFactory {
 	 */
 	public static InputValidator createIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final IdentifiableBean identifiableBean) {
-		Preconditions.checkNotNull(identifiableBean, "IdentifiableBean is null");
-		Preconditions.checkNotNull(component, "Component is null");
-		Preconditions.checkNotNull(configurationHolder, "Configuration holder is null");
+		checkNotNull(identifiableBean, "IdentifiableBean is null");
+		checkNotNull(component, "Component is null");
+		checkNotNull(configurationHolder, "Configuration holder is null");
 
 		final InputValidator inputValidator;
 		if (identifiableBean instanceof FileSystemLocation) {

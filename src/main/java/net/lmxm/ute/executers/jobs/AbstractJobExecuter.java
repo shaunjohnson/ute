@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.executers.jobs;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +29,6 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.executers.AbstractExecuter;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class AbstractJobExecuter.
@@ -51,8 +51,8 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
 	 * @param propertiesHolder the properties holder
 	 */
 	public AbstractJobExecuter(final Job job, final PropertiesHolder propertiesHolder) {
-		Preconditions.checkNotNull(job, "Job may not be null");
-		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
+		checkNotNull(job, "Job may not be null");
+		checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 
 		this.job = job;
 		this.propertiesHolder = propertiesHolder;

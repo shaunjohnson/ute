@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executers.jobs;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
@@ -28,8 +29,6 @@ import net.lmxm.ute.resources.types.ExceptionResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * A factory for creating JobExecuter objects.
@@ -54,8 +53,8 @@ public final class JobExecuterFactory implements ExecuterFactory {
 			LOGGER.debug("{} job={}", prefix, job);
 		}
 
-		Preconditions.checkNotNull(job, "Job may not be null");
-		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
+		checkNotNull(job, "Job may not be null");
+		checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 
 		JobExecuter executer = null;
 

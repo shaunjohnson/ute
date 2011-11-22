@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 
@@ -38,8 +39,6 @@ import net.lmxm.ute.utils.FileSystemUtils;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class GroovyTaskExecuter.
@@ -66,8 +65,8 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
 			final StatusChangeHelper statusChangeHelper) {
 		super(statusChangeHelper);
 
-		Preconditions.checkNotNull(task, "Task may not be null");
-		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
+		checkNotNull(task, "Task may not be null");
+		checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 
 		this.propertiesHolder = propertiesHolder;
 		this.task = task;

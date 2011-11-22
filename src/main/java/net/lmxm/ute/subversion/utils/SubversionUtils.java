@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.subversion.utils;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,8 +28,6 @@ import java.util.Date;
 import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class SubversionUtils.
@@ -53,7 +54,7 @@ public final class SubversionUtils {
 
 		LOGGER.debug("{} entered. date={}", prefix, date);
 
-		Preconditions.checkNotNull(date, "Date is null");
+		checkNotNull(date, "Date is null");
 
 		final StringBuilder dateStringBuilder = new StringBuilder();
 		dateStringBuilder.append("{");
@@ -106,7 +107,7 @@ public final class SubversionUtils {
 
 		LOGGER.debug("{} entered. dateString={}", prefix, dateString);
 
-		Preconditions.checkArgument(isRevisionDate(dateString), "Date string is not a valid revision date");
+		checkArgument(isRevisionDate(dateString), "Date string is not a valid revision date");
 
 		Date date = null;
 

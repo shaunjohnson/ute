@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.configuration;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -82,8 +85,6 @@ import org.apache.xmlbeans.XmlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Preconditions;
-
 /**
  * The Class ConfigurationReader.
  */
@@ -103,8 +104,8 @@ public final class ConfigurationReader {
 	public ConfigurationReader(final File configurationFile) {
 		super();
 
-		Preconditions.checkNotNull(configurationFile, "Configuration file is null");
-		Preconditions.checkArgument(configurationFile.exists(), "Configuration file does not exist");
+		checkNotNull(configurationFile, "Configuration file is null");
+		checkArgument(configurationFile.exists(), "Configuration file does not exist");
 
 		this.configurationFile = configurationFile;
 	}

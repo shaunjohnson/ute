@@ -18,14 +18,13 @@
  */
 package net.lmxm.ute.utils;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class HttpUtils.
@@ -46,13 +45,13 @@ public class HttpUtils {
 
 		LOGGER.debug("{} entered", prefix);
 
-		Preconditions.checkNotNull(source, "Source may not be null");
+		checkNotNull(source, "Source may not be null");
 
 		final HttpLocation location = source.getLocation();
-		Preconditions.checkNotNull(location, "Source location may not be null");
+		checkNotNull(location, "Source location may not be null");
 
 		final String url = StringUtils.trimToNull(location.getUrl());
-		Preconditions.checkNotNull(url, "Source location url may not be blank");
+		checkNotNull(url, "Source location url may not be blank");
 
 		final String relativePath = source.getRelativePath();
 		// Relative path may be null, StringUtils.join() will treat null values as empty strings

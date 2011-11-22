@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.editors;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -44,8 +46,6 @@ import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class AbstractEditor.
@@ -92,8 +92,8 @@ public abstract class AbstractEditorPanel extends JPanel {
 			final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
 		super();
 
-		Preconditions.checkNotNull(actionListener, "Action listener may not be null");
-		Preconditions.checkNotNull(configurationHolder, "Configuration holder may not be null");
+		checkNotNull(actionListener, "Action listener may not be null");
+		checkNotNull(configurationHolder, "Configuration holder may not be null");
 
 		this.actionListener = actionListener;
 		this.configurationHolder = configurationHolder;
@@ -291,7 +291,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param component the component
 	 */
 	protected final void removeInputValidator(final JComponent component) {
-		Preconditions.checkNotNull(component, "Component is null");
+		checkNotNull(component, "Component is null");
 
 		final InputVerifier inputVerifier = component.getInputVerifier();
 

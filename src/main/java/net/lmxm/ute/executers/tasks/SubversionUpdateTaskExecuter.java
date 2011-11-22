@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.event.StatusChangeHelper;
@@ -26,8 +27,6 @@ import net.lmxm.ute.utils.FileSystemTargetUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class SubversionUpdateTaskExecuter.
@@ -49,7 +48,7 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 	public SubversionUpdateTaskExecuter(final SubversionUpdateTask task, final StatusChangeHelper statusChangeHelper) {
 		super(statusChangeHelper);
 
-		Preconditions.checkNotNull(task, "Task may not be null");
+		checkNotNull(task, "Task may not be null");
 
 		this.task = task;
 	}

@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.utils;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +30,6 @@ import org.apache.commons.lang.StringUtils;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class FileSystemUtils.
@@ -54,7 +54,7 @@ public final class FileSystemUtils {
 
 		LOGGER.debug("{} entered, path={}", prefix, path);
 
-		Preconditions.checkArgument(StringUtils.isNotBlank(path), "Path may not be blank or null");
+		checkArgument(StringUtils.isNotBlank(path), "Path may not be blank or null");
 
 		final List<File> files = new ArrayList<File>();
 
@@ -119,7 +119,7 @@ public final class FileSystemUtils {
 
 		LOGGER.debug("{} entered", prefix);
 
-		Preconditions.checkArgument(StringUtils.isNotBlank(path), "Path may not be blank or null");
+		checkArgument(StringUtils.isNotBlank(path), "Path may not be blank or null");
 
 		final File directory = new File(path);
 

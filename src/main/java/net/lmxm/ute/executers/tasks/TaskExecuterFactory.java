@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
@@ -34,8 +35,6 @@ import net.lmxm.ute.resources.types.ExceptionResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * A factory for creating TaskExecuter objects.
@@ -63,9 +62,9 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 			LOGGER.debug("{} statusChangeHelper={}", prefix, statusChangeHelper);
 		}
 
-		Preconditions.checkNotNull(task, "Task may not be null");
-		Preconditions.checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
-		Preconditions.checkNotNull(statusChangeHelper, "StatusChangeHelper may not be null");
+		checkNotNull(task, "Task may not be null");
+		checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
+		checkNotNull(statusChangeHelper, "StatusChangeHelper may not be null");
 
 		Executer executer;
 

@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.workers;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +36,6 @@ import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class ExecuteJobWorker.
@@ -66,7 +66,7 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 	public ExecuteJobWorker(final Job job, final PropertiesHolder propertiesHolder) {
 		super();
 
-		Preconditions.checkNotNull(job, "Job may not be null");
+		checkNotNull(job, "Job may not be null");
 
 		this.job = job;
 		this.jobExecuter = JobExecuterFactory.create(job, propertiesHolder);

@@ -18,11 +18,12 @@
  */
 package net.lmxm.ute.event;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.EventObject;
 
 import org.apache.commons.lang.StringUtils;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class StatusChangeEvent.
@@ -48,9 +49,9 @@ public final class StatusChangeEvent extends EventObject {
 	public StatusChangeEvent(final Object source, final StatusChangeEventType eventType, final String message) {
 		super(source);
 
-		Preconditions.checkNotNull(eventType, "Event type may not be null");
-		Preconditions.checkNotNull(message, "Message may not be null");
-		Preconditions.checkArgument(StringUtils.isNotBlank(message), "Message may not be blank");
+		checkNotNull(eventType, "Event type may not be null");
+		checkNotNull(message, "Message may not be null");
+		checkArgument(StringUtils.isNotBlank(message), "Message may not be blank");
 
 		this.eventType = eventType;
 		this.message = message;

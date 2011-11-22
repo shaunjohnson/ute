@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.configuration;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,8 +55,6 @@ import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class ConfigurationInterpolator.
@@ -127,7 +127,7 @@ public class ConfigurationInterpolator {
 
 		LOGGER.debug("{} entered, files={}", prefix, files);
 
-		Preconditions.checkNotNull(files, "Files may not be null");
+		checkNotNull(files, "Files may not be null");
 
 		for (final FileReference fileReference : files) {
 			final String name = fileReference.getName();
@@ -322,7 +322,7 @@ public class ConfigurationInterpolator {
 
 		LOGGER.debug("{} entered, patterns={}", prefix, patterns);
 
-		Preconditions.checkNotNull(patterns, "Patterns may not be null");
+		checkNotNull(patterns, "Patterns may not be null");
 
 		for (final FindReplacePattern pattern : patterns) {
 			final String find = pattern.getFind();

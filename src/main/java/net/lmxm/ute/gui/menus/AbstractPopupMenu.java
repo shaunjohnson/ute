@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.menus;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.awt.Component;
 import java.awt.event.ActionListener;
 
@@ -27,8 +29,6 @@ import javax.swing.JPopupMenu;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 import net.lmxm.ute.resources.types.MenuResourceType;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class AbstractPopupMenu.
@@ -49,7 +49,7 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 	public AbstractPopupMenu(final ActionListener actionListener) {
 		super();
 
-		Preconditions.checkNotNull(actionListener, "Action listener may not be null");
+		checkNotNull(actionListener, "Action listener may not be null");
 
 		this.actionListener = actionListener;
 	}

@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Date;
 import java.util.List;
 
@@ -34,8 +36,6 @@ import net.lmxm.ute.utils.FileSystemTargetUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class SubversionExportTaskExecuter.
@@ -57,7 +57,7 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 	public SubversionExportTaskExecuter(final SubversionExportTask task, final StatusChangeHelper statusChangeHelper) {
 		super(statusChangeHelper);
 
-		Preconditions.checkNotNull(task, "Task may not be null");
+		checkNotNull(task, "Task may not be null");
 
 		this.task = task;
 	}

@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.configuration;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -79,8 +82,6 @@ import org.apache.xmlbeans.XmlOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Preconditions;
-
 /**
  * The Class ConfigurationWriter.
  */
@@ -98,7 +99,7 @@ public class ConfigurationWriter {
 	public ConfigurationWriter(final Configuration configuration) {
 		super();
 
-		Preconditions.checkNotNull(configuration, "Configuration is null");
+		checkNotNull(configuration, "Configuration is null");
 
 		this.configuration = configuration;
 	}
@@ -115,8 +116,8 @@ public class ConfigurationWriter {
 
 		final File configurationFile = configuration.getConfigurationFile();
 
-		Preconditions.checkState(configurationFile != null, "Configuration file is null");
-		Preconditions.checkState(configurationFile.exists(), "Configuration file does not exist");
+		checkState(configurationFile != null, "Configuration file is null");
+		checkState(configurationFile.exists(), "Configuration file does not exist");
 
 		configuration.removeEmptyObjects();
 

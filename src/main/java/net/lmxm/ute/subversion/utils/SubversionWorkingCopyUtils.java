@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.subversion.utils;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.io.File;
 
 import net.lmxm.ute.event.StatusChangeHelper;
@@ -34,8 +37,6 @@ import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc.SVNUpdateClient;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
-
-import com.google.common.base.Preconditions;
 
 /**
  * The Class SubversionWorkingCopyUtils.
@@ -99,13 +100,14 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 
 		final String pathTrimmed = StringUtils.trimToNull(path);
 
-		Preconditions.checkNotNull(pathTrimmed, "Path must not be blank");
-		Preconditions.checkState(isWorkingCopy(pathTrimmed), "Path must be a working copy root");
+		checkNotNull(pathTrimmed, "Path must not be blank");
+		checkState(isWorkingCopy(pathTrimmed), "Path must be a working copy root");
 
 		try {
 			LOGGER.debug("{} start updating working copy", prefix);
 
-			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_STARTED, pathTrimmed);
+			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_STARTED,
+					pathTrimmed);
 
 			final DefaultSVNOptions options = SVNWCUtil.createDefaultOptions(true);
 			final SVNClientManager clientManager = SVNClientManager.newInstance(options);
@@ -115,7 +117,8 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 			updateClient.setEventHandler(new EventHandler(getStatusChangeHelper()));
 			updateClient.doUpdate(new File(pathTrimmed), SVNRevision.HEAD, SVNDepth.INFINITY, true, false);
 
-			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_FINISHED, pathTrimmed);
+			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_FINISHED,
+					pathTrimmed);
 
 			LOGGER.debug("{} finished updating working copy", prefix);
 		}
