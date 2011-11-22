@@ -113,8 +113,8 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 		if (getUserObject() instanceof IdentifiableBean) {
 			removeInputValidator(getIdTextField());
 
-			final InputValidator inputValidator = InputValidatorFactory.createIdValidator(
-					(IdentifiableBean) getUserObject(), getIdTextField(), getConfigurationHolder());
+			final InputValidator inputValidator = InputValidatorFactory.createIdValidator(getIdTextField(),
+					getConfigurationHolder(), (IdentifiableBean) getUserObject());
 
 			getIdTextField().setInputVerifier(inputValidator);
 			addInputValidator(inputValidator);

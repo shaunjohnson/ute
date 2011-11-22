@@ -18,9 +18,6 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.text.JTextComponent;
 
 import net.lmxm.ute.beans.IdentifiableBean;
@@ -42,7 +39,6 @@ import net.lmxm.ute.gui.validation.rules.RequiredTextValidationRule;
 import net.lmxm.ute.gui.validation.rules.SubversionRepositoryLocationIdAlreadyInUseValidationRule;
 import net.lmxm.ute.gui.validation.rules.SubversionRepositoryUrlTextValidationRule;
 import net.lmxm.ute.gui.validation.rules.TaskIdAlreadyInUseValidationRule;
-import net.lmxm.ute.gui.validation.rules.ValidationRule;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
 import com.google.common.base.Preconditions;
@@ -52,40 +48,26 @@ import com.google.common.base.Preconditions;
  */
 public final class InputValidatorFactory {
 
-	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param fileSystemLocation the file system location
-	 * @param component the component
-	 * @param configurationHolder the configuration holder
-	 * @return the input validator
-	 */
-	private static InputValidator createFileSystemLocationIdValidator(final FileSystemLocation fileSystemLocation,
-			final JTextComponent component, final ConfigurationHolder configurationHolder) {
-		final List<ValidationRule> rules = new ArrayList<ValidationRule>();
+	private static InputValidator createFileSystemLocationIdValidator(final JTextComponent component,
+			final ConfigurationHolder configurationHolder, final FileSystemLocation location) {
+		final InputValidator validator = new TextComponentValidator(component);
 
-		rules.add(new RequiredTextValidationRule(ValidatorResourceType.FILE_SYSTEM_LOCATION_ID_REQUIRED));
-		rules.add(new FileSystemLocationIdAlreadyInUseValidationRule(fileSystemLocation, configurationHolder));
+		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.FILE_SYSTEM_LOCATION_ID_REQUIRED));
+		validator.addRule(new FileSystemLocationIdAlreadyInUseValidationRule(location, configurationHolder));
 
-		return new TextComponentValidator(component, rules.toArray(new ValidationRule[0]));
+		return validator;
 	}
 
 	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param httpLocation the http location
-	 * @param component the component
-	 * @param configurationHolder the configuration holder
-	 * @return the input validator
 	 */
-	private static InputValidator createHttpLocationIdValidator(final HttpLocation httpLocation,
-			final JTextComponent component, final ConfigurationHolder configurationHolder) {
-		final List<ValidationRule> rules = new ArrayList<ValidationRule>();
+	private static InputValidator createHttpLocationIdValidator(final JTextComponent component,
+			final ConfigurationHolder configurationHolder, final HttpLocation location) {
+		final InputValidator validator = new TextComponentValidator(component);
 
-		rules.add(new RequiredTextValidationRule(ValidatorResourceType.HTTP_LOCATION_ID_REQUIRED));
-		rules.add(new HttpLocationIdAlreadyInUseValidationRule(httpLocation, configurationHolder));
+		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.HTTP_LOCATION_ID_REQUIRED));
+		validator.addRule(new HttpLocationIdAlreadyInUseValidationRule(location, configurationHolder));
 
-		return new TextComponentValidator(component, rules.toArray(new ValidationRule[0]));
+		return validator;
 	}
 
 	/**
@@ -95,48 +77,44 @@ public final class InputValidatorFactory {
 	 * @return the input validator
 	 */
 	public static InputValidator createHttpLocationUrlValidator(final JTextComponent component) {
-		return new TextComponentValidator(component, new RequiredTextValidationRule(
-				ValidatorResourceType.HTTP_LOCATION_URL_REQUIRED), new HttpLocationUrlTextValidationRule());
+		final InputValidator validator = new TextComponentValidator(component);
+
+		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.HTTP_LOCATION_URL_REQUIRED));
+		validator.addRule(new HttpLocationUrlTextValidationRule());
+
+		return validator;
 	}
 
-	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param identifiableBean the identifiable bean
-	 * @param component the component
-	 * @param configurationHolder the configuration holder
-	 * @return the input verifier
-	 */
-	public static InputValidator createIdValidator(final IdentifiableBean identifiableBean,
-			final JTextComponent component, final ConfigurationHolder configurationHolder) {
+	public static InputValidator createIdValidator(final JTextComponent component,
+			final ConfigurationHolder configurationHolder, final IdentifiableBean identifiableBean) {
 		Preconditions.checkNotNull(identifiableBean, "IdentifiableBean is null");
 		Preconditions.checkNotNull(component, "Component is null");
 		Preconditions.checkNotNull(configurationHolder, "Configuration holder is null");
 
 		final InputValidator inputValidator;
 		if (identifiableBean instanceof FileSystemLocation) {
-			inputValidator = createFileSystemLocationIdValidator((FileSystemLocation) identifiableBean, component,
-					configurationHolder);
+			inputValidator = createFileSystemLocationIdValidator(component, configurationHolder,
+					(FileSystemLocation) identifiableBean);
 		}
 		else if (identifiableBean instanceof HttpLocation) {
-			inputValidator = createHttpLocationIdValidator((HttpLocation) identifiableBean, component,
-					configurationHolder);
+			inputValidator = createHttpLocationIdValidator(component, configurationHolder,
+					(HttpLocation) identifiableBean);
 		}
 		else if (identifiableBean instanceof Job) {
-			inputValidator = createJobIdValidator((Job) identifiableBean, component, configurationHolder);
+			inputValidator = createJobIdValidator(component, configurationHolder, (Job) identifiableBean);
 		}
 		else if (identifiableBean instanceof Preference) {
-			inputValidator = createPreferenceIdValidator((Preference) identifiableBean, component, configurationHolder);
+			inputValidator = createPreferenceIdValidator(component, configurationHolder, (Preference) identifiableBean);
 		}
 		else if (identifiableBean instanceof Property) {
-			inputValidator = createPropertyIdValidator((Property) identifiableBean, component, configurationHolder);
+			inputValidator = createPropertyIdValidator(component, configurationHolder, (Property) identifiableBean);
 		}
 		else if (identifiableBean instanceof SubversionRepositoryLocation) {
-			inputValidator = createSubversionRepositoryLocationIdValidator(
-					(SubversionRepositoryLocation) identifiableBean, component, configurationHolder);
+			inputValidator = createSubversionRepositoryLocationIdValidator(component, configurationHolder,
+					(SubversionRepositoryLocation) identifiableBean);
 		}
 		else if (identifiableBean instanceof Task) {
-			inputValidator = createTaskIdValidator((Task) identifiableBean, component, configurationHolder);
+			inputValidator = createTaskIdValidator(component, configurationHolder, (Task) identifiableBean);
 		}
 		else {
 			throw new RuntimeException("Unsupported identifiable bean"); // TODO
@@ -145,112 +123,81 @@ public final class InputValidatorFactory {
 		return inputValidator;
 	}
 
-	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param job the job
-	 * @param component the component
-	 * @param configurationHolder the configuration holder
-	 * @return the input validator
-	 */
-	private static InputValidator createJobIdValidator(final Job job, final JTextComponent component,
-			final ConfigurationHolder configurationHolder) {
-		final List<ValidationRule> rules = new ArrayList<ValidationRule>();
+	private static InputValidator createJobIdValidator(final JTextComponent component,
+			final ConfigurationHolder configurationHolder, final Job job) {
+		final InputValidator validator = new TextComponentValidator(component);
 
-		rules.add(new RequiredTextValidationRule(ValidatorResourceType.JOB_ID_REQUIRED));
-		rules.add(new JobIdAlreadyInUseValidationRule(job, configurationHolder));
+		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.JOB_ID_REQUIRED));
+		validator.addRule(new JobIdAlreadyInUseValidationRule(job, configurationHolder));
 
-		return new TextComponentValidator(component, rules.toArray(new ValidationRule[0]));
+		return validator;
 	}
 
 	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param preference the preference
-	 * @param component the component
-	 * @param configurationHolder the configuration holder
-	 * @return the input validator
+
 	 */
-	private static InputValidator createPreferenceIdValidator(final Preference preference,
-			final JTextComponent component, final ConfigurationHolder configurationHolder) {
-		final List<ValidationRule> rules = new ArrayList<ValidationRule>();
+	private static InputValidator createPreferenceIdValidator(final JTextComponent component,
+			final ConfigurationHolder configurationHolder, final Preference preference) {
+		final InputValidator validator = new TextComponentValidator(component);
 
-		rules.add(new RequiredTextValidationRule(ValidatorResourceType.PREFERENCE_ID_REQUIRED));
-		rules.add(new PreferenceIdAlreadyInUseValidationRule(preference, configurationHolder));
+		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.PREFERENCE_ID_REQUIRED));
+		validator.addRule(new PreferenceIdAlreadyInUseValidationRule(preference, configurationHolder));
 
-		return new TextComponentValidator(component, rules.toArray(new ValidationRule[0]));
+		return validator;
 	}
 
 	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param property the property
-	 * @param component the component
-	 * @param configurationHolder the configuration holder
-	 * @return the input validator
+
 	 */
-	private static InputValidator createPropertyIdValidator(final Property property, final JTextComponent component,
-			final ConfigurationHolder configurationHolder) {
-		final List<ValidationRule> rules = new ArrayList<ValidationRule>();
+	private static InputValidator createPropertyIdValidator(final JTextComponent component,
+			final ConfigurationHolder configurationHolder, final Property property) {
+		final InputValidator validator = new TextComponentValidator(component);
 
-		rules.add(new RequiredTextValidationRule(ValidatorResourceType.PROPERTY_ID_REQUIRED));
-		rules.add(new PropertyIdAlreadyInUseValidationRule(property, configurationHolder));
+		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.PROPERTY_ID_REQUIRED));
+		validator.addRule(new PropertyIdAlreadyInUseValidationRule(property, configurationHolder));
 
-		return new TextComponentValidator(component, rules.toArray(new ValidationRule[0]));
+		return validator;
 	}
 
 	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param component the component
-	 * @return the input verifier
+
 	 */
 	public static InputValidator createPropertyValueValidator(final JTextComponent component) {
-		return new TextComponentValidator(component, new RequiredTextValidationRule(
-				ValidatorResourceType.PROPERTY_VALUE_REQUIRED));
+		final InputValidator validator = new TextComponentValidator(component);
+
+		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.PROPERTY_VALUE_REQUIRED));
+
+		return validator;
 	}
 
-	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param subversionRepositoryLocation the subversion repository location
-	 * @param component the component
-	 * @param configurationHolder the configuration holder
-	 * @return the input validator
-	 */
-	private static InputValidator createSubversionRepositoryLocationIdValidator(
-			final SubversionRepositoryLocation subversionRepositoryLocation, final JTextComponent component,
-			final ConfigurationHolder configurationHolder) {
-		final List<ValidationRule> rules = new ArrayList<ValidationRule>();
+	private static InputValidator createSubversionRepositoryLocationIdValidator(final JTextComponent component,
+			final ConfigurationHolder configurationHolder, final SubversionRepositoryLocation location) {
+		final InputValidator validator = new TextComponentValidator(component);
 
-		rules.add(new RequiredTextValidationRule(ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_ID_REQUIRED));
-		rules.add(new SubversionRepositoryLocationIdAlreadyInUseValidationRule(subversionRepositoryLocation,
-				configurationHolder));
+		validator.addRule(new RequiredTextValidationRule(
+				ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_ID_REQUIRED));
+		validator.addRule(new SubversionRepositoryLocationIdAlreadyInUseValidationRule(location, configurationHolder));
 
-		return new TextComponentValidator(component, rules.toArray(new ValidationRule[0]));
+		return validator;
 	}
 
 	public static InputValidator createSubversionRepositoryLocationUrlValidator(final JTextComponent component) {
-		return new TextComponentValidator(component, new RequiredTextValidationRule(
-				ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_URL_REQUIRED),
-				new SubversionRepositoryUrlTextValidationRule());
+		final InputValidator validator = new TextComponentValidator(component);
+
+		validator.addRule(new RequiredTextValidationRule(
+				ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_URL_REQUIRED));
+		validator.addRule(new SubversionRepositoryUrlTextValidationRule());
+
+		return validator;
 	}
 
-	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param task the task
-	 * @param component the component
-	 * @param configurationHolder the configuration holder
-	 * @return the input validator
-	 */
-	private static InputValidator createTaskIdValidator(final Task task, final JTextComponent component,
-			final ConfigurationHolder configurationHolder) {
-		final List<ValidationRule> rules = new ArrayList<ValidationRule>();
+	private static InputValidator createTaskIdValidator(final JTextComponent component,
+			final ConfigurationHolder configurationHolder, final Task task) {
+		final InputValidator validator = new TextComponentValidator(component);
 
-		rules.add(new RequiredTextValidationRule(ValidatorResourceType.TASK_ID_REQUIRED));
-		rules.add(new TaskIdAlreadyInUseValidationRule(task, configurationHolder));
+		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.TASK_ID_REQUIRED));
+		validator.addRule(new TaskIdAlreadyInUseValidationRule(task, configurationHolder));
 
-		return new TextComponentValidator(component, rules.toArray(new ValidationRule[0]));
+		return validator;
 	}
 }

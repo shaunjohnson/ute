@@ -20,10 +20,19 @@ package net.lmxm.ute.gui.validation;
 
 import javax.swing.InputVerifier;
 
+import net.lmxm.ute.gui.validation.rules.ValidationRule;
+
 /**
  * The Class InputValidator.
  */
 public abstract class InputValidator extends InputVerifier {
+
+	/**
+	 * Adds the rule.
+	 * 
+	 * @param validationRule the validation rule
+	 */
+	public abstract void addRule(final ValidationRule validationRule);
 
 	/**
 	 * Clear.

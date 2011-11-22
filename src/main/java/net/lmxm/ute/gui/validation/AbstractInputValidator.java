@@ -26,7 +26,6 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -57,7 +56,23 @@ public abstract class AbstractInputValidator extends InputValidator implements K
 	private JDialog messagesDialog = null;
 
 	/** The validation rules. */
-	private final List<ValidationRule> validationRules;
+	private final List<ValidationRule> validationRules = new ArrayList<ValidationRule>();
+
+	/**
+	 * Instantiates a new abstract input validator.
+	 * 
+	 * @param inputComponent the input component
+	 */
+	public AbstractInputValidator(final JComponent inputComponent) {
+		super();
+
+		this.inputComponent = inputComponent;
+
+		inputComponent.addKeyListener(this);
+
+		// Preload GUI components
+		getMessagesDialog();
+	}
 
 	/**
 	 * Instantiates a new abstract input validator.
@@ -69,12 +84,24 @@ public abstract class AbstractInputValidator extends InputValidator implements K
 		super();
 
 		this.inputComponent = inputComponent;
-		this.validationRules = Arrays.asList(validationRules);
+
+		for (final ValidationRule validationRule : validationRules) {
+			addRule(validationRule);
+		}
 
 		inputComponent.addKeyListener(this);
 
 		// Preload GUI components
 		getMessagesDialog();
+	}
+
+	/**
+	 * Adds the validation rule.
+	 * 
+	 * @param validationRule the validation rule
+	 */
+	public final void addRule(final ValidationRule validationRule) {
+		validationRules.add(validationRule);
 	}
 
 	/**

@@ -35,6 +35,15 @@ public class TextComponentValidator extends AbstractInputValidator {
 	/**
 	 * Instantiates a new text component validator.
 	 * 
+	 * @param textComponent the text component
+	 */
+	public TextComponentValidator(final JTextComponent textComponent) {
+		super(textComponent);
+	}
+
+	/**
+	 * Instantiates a new text component validator.
+	 * 
 	 * @param textComponent the input component
 	 * @param validationRules the validation rules
 	 */
