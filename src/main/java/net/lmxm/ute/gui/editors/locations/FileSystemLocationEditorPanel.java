@@ -35,7 +35,7 @@ import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
-import net.lmxm.ute.gui.validation.InputValidator;
+import net.lmxm.ute.gui.validation.Validator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.ButtonResourceType;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -121,7 +121,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 			final JTextComponent component = getPathTextField();
 			removeInputValidator(component);
 
-			final InputValidator inputValidator = InputValidatorFactory
+			final Validator inputValidator = InputValidatorFactory
 					.createFileSystemLocationPathValidator(component);
 
 			component.setInputVerifier(inputValidator);

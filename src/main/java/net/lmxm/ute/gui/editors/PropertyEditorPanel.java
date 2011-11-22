@@ -29,7 +29,7 @@ import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
-import net.lmxm.ute.gui.validation.InputValidator;
+import net.lmxm.ute.gui.validation.Validator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -107,7 +107,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 
 			removeInputValidator(component);
 
-			final InputValidator inputValidator = InputValidatorFactory.createPropertyValueValidator(component);
+			final Validator inputValidator = InputValidatorFactory.createPropertyValueValidator(component);
 			component.setInputVerifier(inputValidator);
 			addInputValidator(inputValidator);
 		}

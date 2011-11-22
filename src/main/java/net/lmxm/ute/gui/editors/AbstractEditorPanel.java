@@ -43,7 +43,7 @@ import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
-import net.lmxm.ute.gui.validation.InputValidator;
+import net.lmxm.ute.gui.validation.Validator;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
 
@@ -75,7 +75,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	private JPanel contentPanel;
 
 	/** The input validators. */
-	private final List<InputValidator> inputValidators = new ArrayList<InputValidator>();
+	private final List<Validator> inputValidators = new ArrayList<Validator>();
 
 	/** The user object. */
 	private Object userObject;
@@ -138,7 +138,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * 
 	 * @param inputValidator the input validator
 	 */
-	protected final void addInputValidator(final InputValidator inputValidator) {
+	protected final void addInputValidator(final Validator inputValidator) {
 		inputValidators.add(inputValidator);
 	}
 
@@ -220,7 +220,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * Dispose input validators.
 	 */
 	private void disposeInputValidators() {
-		for (final InputValidator inputValidator : inputValidators) {
+		for (final Validator inputValidator : inputValidators) {
 			inputValidator.clear();
 		}
 	}
@@ -295,8 +295,8 @@ public abstract class AbstractEditorPanel extends JPanel {
 
 		final InputVerifier inputVerifier = component.getInputVerifier();
 
-		if (inputVerifier instanceof InputValidator) {
-			final InputValidator inputValidator = (InputValidator) inputVerifier;
+		if (inputVerifier instanceof Validator) {
+			final Validator inputValidator = (Validator) inputVerifier;
 
 			inputValidator.clear();
 			inputValidators.remove(inputValidator);
