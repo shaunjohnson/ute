@@ -27,6 +27,8 @@ import javax.swing.JToolBar;
 import javax.swing.text.JTextComponent;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
+import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.validation.InputValidator;
@@ -71,13 +73,25 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 		contentPanel.add(getUrlTextField());
 	}
 
+	/**
+	 * Adds the input validators.
+	 */
 	private void addInputValidators() {
 		if (getUserObject() instanceof AbstractHttpLocation) {
 			final JTextComponent component = getUrlTextField();
-
 			removeInputValidator(component);
 
-			final InputValidator inputValidator = InputValidatorFactory.createHttpUrlValidator(component);
+			final InputValidator inputValidator;
+			if (getUserObject() instanceof HttpLocation) {
+				inputValidator = InputValidatorFactory.createHttpLocationUrlValidator(component);
+			}
+			else if (getUserObject() instanceof SubversionRepositoryLocation) {
+				inputValidator = InputValidatorFactory.createSubversionRepositoryLocationUrlValidator(component);
+			}
+			else {
+				throw new RuntimeException("Unsupported HTTP Location type"); // TODO
+			}
+
 			component.setInputVerifier(inputValidator);
 			addInputValidator(inputValidator);
 		}

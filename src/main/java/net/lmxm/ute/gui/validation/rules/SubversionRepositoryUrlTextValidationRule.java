@@ -18,8 +18,6 @@
  */
 package net.lmxm.ute.gui.validation.rules;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,24 +25,25 @@ import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 
 import org.codehaus.plexus.util.StringUtils;
+import org.tmatesoft.svn.core.SVNException;
+import org.tmatesoft.svn.core.SVNURL;
 
 /**
- * The Class HttpUrlTextValidationRule.
+ * The Class SubversionRepositoryUrlTextValidationRule.
  */
-public final class HttpUrlTextValidationRule extends AbstractTextComponentValidationRule {
+public final class SubversionRepositoryUrlTextValidationRule extends AbstractTextComponentValidationRule {
 
 	/** The error message. */
 	private final String errorMessage;
 
 	/**
-	 * Instantiates a new http url text validation rule.
-	 * 
-	 * @param validatorResourceType the validator resource type
+	 * Instantiates a new subversion repository url text validation rule.
 	 */
-	public HttpUrlTextValidationRule(final ValidatorResourceType validatorResourceType) {
+	public SubversionRepositoryUrlTextValidationRule() {
 		super();
 
-		errorMessage = ResourcesUtils.getResourceMessage(validatorResourceType);
+		errorMessage = ResourcesUtils
+				.getResourceMessage(ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_URL_MALFORMED);
 	}
 
 	/*
@@ -57,9 +56,9 @@ public final class HttpUrlTextValidationRule extends AbstractTextComponentValida
 
 		if (StringUtils.isNotBlank(text)) {
 			try {
-				new URL(text);
+				SVNURL.parseURIDecoded(text);
 			}
-			catch (final MalformedURLException e) {
+			catch (final SVNException e) {
 				messages.add(errorMessage);
 			}
 		}

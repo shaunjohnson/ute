@@ -34,12 +34,13 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.validation.rules.FileSystemLocationIdAlreadyInUseValidationRule;
 import net.lmxm.ute.gui.validation.rules.HttpLocationIdAlreadyInUseValidationRule;
-import net.lmxm.ute.gui.validation.rules.HttpUrlTextValidationRule;
+import net.lmxm.ute.gui.validation.rules.HttpLocationUrlTextValidationRule;
 import net.lmxm.ute.gui.validation.rules.JobIdAlreadyInUseValidationRule;
 import net.lmxm.ute.gui.validation.rules.PreferenceIdAlreadyInUseValidationRule;
 import net.lmxm.ute.gui.validation.rules.PropertyIdAlreadyInUseValidationRule;
 import net.lmxm.ute.gui.validation.rules.RequiredTextValidationRule;
 import net.lmxm.ute.gui.validation.rules.SubversionRepositoryLocationIdAlreadyInUseValidationRule;
+import net.lmxm.ute.gui.validation.rules.SubversionRepositoryUrlTextValidationRule;
 import net.lmxm.ute.gui.validation.rules.TaskIdAlreadyInUseValidationRule;
 import net.lmxm.ute.gui.validation.rules.ValidationRule;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
@@ -93,8 +94,9 @@ public final class InputValidatorFactory {
 	 * @param component the component
 	 * @return the input validator
 	 */
-	public static InputValidator createHttpUrlValidator(final JTextComponent component) {
-		return new TextComponentValidator(component, new HttpUrlTextValidationRule(ValidatorResourceType.URL_MALFORMED));
+	public static InputValidator createHttpLocationUrlValidator(final JTextComponent component) {
+		return new TextComponentValidator(component, new RequiredTextValidationRule(
+				ValidatorResourceType.HTTP_LOCATION_URL_REQUIRED), new HttpLocationUrlTextValidationRule());
 	}
 
 	/**
@@ -226,6 +228,12 @@ public final class InputValidatorFactory {
 				configurationHolder));
 
 		return new TextComponentValidator(component, rules.toArray(new ValidationRule[0]));
+	}
+
+	public static InputValidator createSubversionRepositoryLocationUrlValidator(final JTextComponent component) {
+		return new TextComponentValidator(component, new RequiredTextValidationRule(
+				ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_URL_REQUIRED),
+				new SubversionRepositoryUrlTextValidationRule());
 	}
 
 	/**
