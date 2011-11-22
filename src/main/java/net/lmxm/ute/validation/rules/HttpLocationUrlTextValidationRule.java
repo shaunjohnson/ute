@@ -50,7 +50,7 @@ public final class HttpLocationUrlTextValidationRule extends AbstractStringValid
 	 * @see net.lmxm.ute.gui.validation.rules.AbstractStringValidationRule#validateString(java.lang.String)
 	 */
 	@Override
-	public List<String> validateString(final String string) {
+	protected List<String> validateString(final String string) {
 		final List<String> messages = new ArrayList<String>();
 
 		if (StringUtils.isNotBlank(string)) {

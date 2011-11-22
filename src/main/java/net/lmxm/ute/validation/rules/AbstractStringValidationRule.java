@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
 
 /**
@@ -31,12 +34,10 @@ public abstract class AbstractStringValidationRule implements ValidationRule {
 	 */
 	@Override
 	public final List<String> validate(final Object value) {
-		if (value instanceof String) {
-			return validateString((String) value);
-		}
-		else {
-			throw new RuntimeException("The value is not an instance of String"); // TODO
-		}
+		checkNotNull(value, "Value is null");
+		checkArgument(value instanceof String, "Value %s is not a string", value);
+
+		return validateString((String) value);
 	}
 
 	/**
@@ -45,5 +46,5 @@ public abstract class AbstractStringValidationRule implements ValidationRule {
 	 * @param string the string
 	 * @return the list
 	 */
-	public abstract List<String> validateString(String string);
+	protected abstract List<String> validateString(String string);
 }
