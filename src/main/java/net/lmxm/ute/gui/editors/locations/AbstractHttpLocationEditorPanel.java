@@ -31,7 +31,7 @@ import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
-import net.lmxm.ute.gui.validation.Validator;
+import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -81,7 +81,7 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 			final JTextComponent component = getUrlTextField();
 			removeInputValidator(component);
 
-			final Validator inputValidator;
+			final InputValidator inputValidator;
 			if (getUserObject() instanceof HttpLocation) {
 				inputValidator = InputValidatorFactory.createHttpLocationUrlValidator(component);
 			}

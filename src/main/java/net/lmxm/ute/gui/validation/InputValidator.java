@@ -23,9 +23,9 @@ import javax.swing.InputVerifier;
 import net.lmxm.ute.validation.rules.ValidationRule;
 
 /**
- * The Class Validator.
+ * The Class InputValidator.
  */
-public abstract class Validator extends InputVerifier {
+public abstract class InputValidator extends InputVerifier {
 
 	/**
 	 * Adds the rule.

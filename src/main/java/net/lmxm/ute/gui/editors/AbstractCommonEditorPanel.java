@@ -35,7 +35,7 @@ import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
-import net.lmxm.ute.gui.validation.Validator;
+import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -113,7 +113,7 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 		if (getUserObject() instanceof IdentifiableBean) {
 			removeInputValidator(getIdTextField());
 
-			final Validator inputValidator = InputValidatorFactory.createIdValidator(getIdTextField(),
+			final InputValidator inputValidator = InputValidatorFactory.createIdValidator(getIdTextField(),
 					getConfigurationHolder(), (IdentifiableBean) getUserObject());
 
 			getIdTextField().setInputVerifier(inputValidator);
