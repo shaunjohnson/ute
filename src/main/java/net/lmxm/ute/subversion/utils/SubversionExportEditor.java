@@ -24,8 +24,8 @@ import java.io.OutputStream;
 
 import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
-import net.lmxm.ute.utils.FileSystemUtils;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tmatesoft.svn.core.SVNCommitInfo;
@@ -162,7 +162,7 @@ public class SubversionExportEditor implements ISVNEditor {
 		if (file.exists()) {
 			LOGGER.debug("{} file {} already exists, deleting it before continuing", prefix, file.getAbsolutePath());
 
-			FileSystemUtils.deleteQuietly(file);
+			FileUtils.deleteQuietly(file);
 		}
 
 		try {

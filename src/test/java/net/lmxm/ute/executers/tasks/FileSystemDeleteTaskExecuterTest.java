@@ -32,10 +32,9 @@ import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.event.StatusChangeHelper;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.google.common.io.Files;
 
 /**
  * The Class FileSystemDeleteTaskExecuterTest.
@@ -83,7 +82,7 @@ public class FileSystemDeleteTaskExecuterTest {
 
 			final File file = new File(directory, "UTE.TEST");
 			file.deleteOnExit();
-			Files.touch(file);
+			FileUtils.touch(file);
 
 			assertTrue(file.exists());
 
@@ -148,7 +147,7 @@ public class FileSystemDeleteTaskExecuterTest {
 		try {
 			final File file = File.createTempFile("UTE", ".TEST");
 			file.deleteOnExit();
-			Files.touch(file);
+			FileUtils.touch(file);
 
 			assertTrue(file.exists());
 

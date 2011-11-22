@@ -28,7 +28,6 @@ import net.lmxm.ute.beans.FileReference;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.DirectoryScanner;
-import org.codehaus.plexus.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,35 +90,6 @@ public final class FileSystemUtils {
 		LOGGER.debug("{} returning {} files", prefix, files.size());
 
 		return files;
-	}
-
-	/**
-	 * Delete quietly.
-	 * 
-	 * @param file the file
-	 * @return true, if successful
-	 */
-	public static boolean deleteQuietly(final File file) {
-		if (file == null) {
-			return false;
-		}
-
-		if (!file.exists()) {
-			return false;
-		}
-
-		try {
-			if (file.isDirectory()) {
-				FileUtils.deleteDirectory(file);
-				return true;
-			}
-			else {
-				return file.delete();
-			}
-		}
-		catch (final Exception e) {
-			return false;
-		}
 	}
 
 	/**

@@ -33,8 +33,8 @@ import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.plexus.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
