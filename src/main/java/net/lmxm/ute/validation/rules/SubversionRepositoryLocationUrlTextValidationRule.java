@@ -31,7 +31,7 @@ import org.tmatesoft.svn.core.SVNURL;
 /**
  * The Class SubversionRepositoryUrlTextValidationRule.
  */
-public final class SubversionRepositoryUrlTextValidationRule extends AbstractStringValidationRule {
+public final class SubversionRepositoryLocationUrlTextValidationRule extends AbstractStringValidationRule {
 
 	/** The error message. */
 	private final String errorMessage;
@@ -39,7 +39,7 @@ public final class SubversionRepositoryUrlTextValidationRule extends AbstractStr
 	/**
 	 * Instantiates a new subversion repository url text validation rule.
 	 */
-	public SubversionRepositoryUrlTextValidationRule() {
+	public SubversionRepositoryLocationUrlTextValidationRule() {
 		super();
 
 		errorMessage = ResourcesUtils

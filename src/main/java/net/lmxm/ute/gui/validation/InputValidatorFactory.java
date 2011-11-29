@@ -40,7 +40,7 @@ import net.lmxm.ute.validation.rules.PreferenceIdAlreadyInUseValidationRule;
 import net.lmxm.ute.validation.rules.PropertyIdAlreadyInUseValidationRule;
 import net.lmxm.ute.validation.rules.RequiredTextValidationRule;
 import net.lmxm.ute.validation.rules.SubversionRepositoryLocationIdAlreadyInUseValidationRule;
-import net.lmxm.ute.validation.rules.SubversionRepositoryUrlTextValidationRule;
+import net.lmxm.ute.validation.rules.SubversionRepositoryLocationUrlTextValidationRule;
 import net.lmxm.ute.validation.rules.TaskIdAlreadyInUseValidationRule;
 
 /**
@@ -257,7 +257,7 @@ public final class InputValidatorFactory {
 
 		validator.addRule(new RequiredTextValidationRule(
 				ValidatorResourceType.SUBVERSION_REPOSITORY_LOCATION_URL_REQUIRED));
-		validator.addRule(new SubversionRepositoryUrlTextValidationRule());
+		validator.addRule(new SubversionRepositoryLocationUrlTextValidationRule());
 
 		return validator;
 	}
