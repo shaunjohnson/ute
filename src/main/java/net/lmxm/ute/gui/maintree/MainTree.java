@@ -422,12 +422,12 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	 * 
 	 * @param parentTreePath the parent tree path
 	 */
+	@SuppressWarnings("rawtypes")
 	private void collapseAll(final TreePath parentTreePath) {
 		final TreeNode parentTreeNode = (TreeNode) parentTreePath.getLastPathComponent();
 
 		if (parentTreeNode.getChildCount() >= 0) {
-			for (@SuppressWarnings("rawtypes")
-			final Enumeration enumeration = parentTreeNode.children(); enumeration.hasMoreElements();) {
+			for (final Enumeration enumeration = parentTreeNode.children(); enumeration.hasMoreElements();) {
 				final TreeNode treeNode = (TreeNode) enumeration.nextElement();
 				final TreePath path = parentTreePath.pathByAddingChild(treeNode);
 
@@ -534,12 +534,12 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	 * 
 	 * @param parentTreePath the parent tree path
 	 */
+	@SuppressWarnings("rawtypes")
 	private void expandAll(final TreePath parentTreePath) {
 		final TreeNode parentTreeNode = (TreeNode) parentTreePath.getLastPathComponent();
 
 		if (parentTreeNode.getChildCount() >= 0) {
-			for (@SuppressWarnings("rawtypes")
-			final Enumeration enumeration = parentTreeNode.children(); enumeration.hasMoreElements();) {
+			for (final Enumeration enumeration = parentTreeNode.children(); enumeration.hasMoreElements();) {
 				final TreeNode treeNode = (TreeNode) enumeration.nextElement();
 				final TreePath path = parentTreePath.pathByAddingChild(treeNode);
 
