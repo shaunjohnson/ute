@@ -42,7 +42,17 @@ public abstract class AbstractFilesTask extends AbstractTask implements FilesTas
 	 * @param job the job
 	 */
 	public AbstractFilesTask(final Job job) {
-		super(job);
+		this(null, job);
+	}
+
+	/**
+	 * Instantiates a new abstract files task.
+	 * 
+	 * @param id the id
+	 * @param job the job
+	 */
+	public AbstractFilesTask(final String id, final Job job) {
+		super(id, job);
 
 		files = new ArrayList<FileReference>();
 	}

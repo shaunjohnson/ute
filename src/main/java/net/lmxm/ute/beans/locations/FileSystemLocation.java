@@ -33,6 +33,22 @@ public final class FileSystemLocation extends IdentifiableDomainBean {
 	/** The path. */
 	private String path;
 
+	/**
+	 * Instantiates a new file system location.
+	 */
+	public FileSystemLocation() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new file system location.
+	 * 
+	 * @param id the id
+	 */
+	public FileSystemLocation(final String id) {
+		super(id);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()

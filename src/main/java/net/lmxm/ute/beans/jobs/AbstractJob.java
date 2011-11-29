@@ -41,6 +41,15 @@ public abstract class AbstractJob extends IdentifiableDomainBean implements Job 
 	}
 
 	/**
+	 * Instantiates a new abstract job.
+	 * 
+	 * @param id the id
+	 */
+	public AbstractJob(final String id) {
+		super(id);
+	}
+
+	/**
 	 * Gets the description.
 	 * 
 	 * @return the description

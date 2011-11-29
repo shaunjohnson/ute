@@ -34,6 +34,24 @@ public abstract class IdentifiableDomainBean implements DomainBean, Identifiable
 	/** The id. */
 	private String id;
 
+	/**
+	 * Instantiates a new identifiable domain bean.
+	 */
+	public IdentifiableDomainBean() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new identifiable domain bean.
+	 * 
+	 * @param id the id
+	 */
+	public IdentifiableDomainBean(final String id) {
+		super();
+
+		this.id = id;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)

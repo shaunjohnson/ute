@@ -42,7 +42,17 @@ public final class FileSystemDeleteTask extends AbstractFilesTask implements Fil
 	 * @param job the job
 	 */
 	public FileSystemDeleteTask(final Job job) {
-		super(job);
+		this(null, job);
+	}
+
+	/**
+	 * Instantiates a new file system delete task.
+	 * 
+	 * @param id the id
+	 * @param job the job
+	 */
+	public FileSystemDeleteTask(final String id, final Job job) {
+		super(id, job);
 
 		stopOnError = false;
 		target = new FileSystemTarget();

@@ -34,6 +34,22 @@ public abstract class AbstractHttpLocation extends IdentifiableDomainBean {
 	private String url;
 
 	/**
+	 * Instantiates a new abstract http location.
+	 */
+	public AbstractHttpLocation() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new abstract http location.
+	 * 
+	 * @param id the id
+	 */
+	public AbstractHttpLocation(final String id) {
+		super(id);
+	}
+
+	/**
 	 * Gets the url.
 	 * 
 	 * @return the url

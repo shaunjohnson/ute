@@ -34,6 +34,22 @@ public final class SubversionRepositoryLocation extends AbstractHttpLocation {
 	/** The username. */
 	private String username;
 
+	/**
+	 * Instantiates a new subversion repository location.
+	 */
+	public SubversionRepositoryLocation() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new subversion repository location.
+	 * 
+	 * @param id the id
+	 */
+	public SubversionRepositoryLocation(final String id) {
+		super(id);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()

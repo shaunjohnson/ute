@@ -32,6 +32,22 @@ public final class Preference extends IdentifiableDomainBean {
 	/** The value. */
 	private String value;
 
+	/**
+	 * Instantiates a new preference.
+	 */
+	public Preference() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new preference.
+	 * 
+	 * @param id the id
+	 */
+	public Preference(final String id) {
+		super(id);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)

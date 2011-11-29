@@ -33,6 +33,22 @@ public final class Property extends IdentifiableDomainBean {
 	/** The value. */
 	private String value;
 
+	/**
+	 * Instantiates a new property.
+	 */
+	public Property() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new property.
+	 * 
+	 * @param id the id
+	 */
+	public Property(final String id) {
+		super(id);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)

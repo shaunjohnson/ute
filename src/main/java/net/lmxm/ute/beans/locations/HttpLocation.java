@@ -26,6 +26,22 @@ public class HttpLocation extends AbstractHttpLocation {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5630560714898896877L;
 
+	/**
+	 * Instantiates a new http location.
+	 */
+	public HttpLocation() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new http location.
+	 * 
+	 * @param id the id
+	 */
+	public HttpLocation(final String id) {
+		super(id);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()

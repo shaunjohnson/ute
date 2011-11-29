@@ -47,7 +47,17 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	 * @param job the job
 	 */
 	public AbstractTask(final Job job) {
-		super();
+		this(null, job);
+	}
+
+	/**
+	 * Instantiates a new abstract task.
+	 * 
+	 * @param id the id
+	 * @param job the job
+	 */
+	public AbstractTask(final String id, final Job job) {
+		super(id);
 
 		this.enabled = true;
 		this.job = job;
@@ -80,6 +90,10 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 		return enabled;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.lmxm.ute.beans.tasks.Task#getJob()
+	 */
 	@Override
 	public final Job getJob() {
 		return job;

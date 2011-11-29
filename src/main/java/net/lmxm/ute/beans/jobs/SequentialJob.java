@@ -39,7 +39,16 @@ public final class SequentialJob extends AbstractJob {
 	 * Instantiates a new sequential job.
 	 */
 	public SequentialJob() {
-		super();
+		this(null);
+	}
+
+	/**
+	 * Instantiates a new sequential job.
+	 * 
+	 * @param id the id
+	 */
+	public SequentialJob(final String id) {
+		super(id);
 
 		tasks = new ArrayList<Task>();
 	}
