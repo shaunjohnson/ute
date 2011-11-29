@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.event;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -43,7 +46,10 @@ public abstract class DocumentAdapter implements DocumentListener {
 	 * @param documentEvent the document event
 	 * @return the text
 	 */
-	private String getText(final DocumentEvent documentEvent) {
+	protected String getText(final DocumentEvent documentEvent) {
+		checkNotNull(documentEvent, "Document event is null");
+		checkState(documentEvent.getDocument() != null, "Document is null");
+
 		String text = null;
 
 		try {
