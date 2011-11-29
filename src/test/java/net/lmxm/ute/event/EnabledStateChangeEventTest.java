@@ -21,53 +21,40 @@ package net.lmxm.ute.event;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import net.lmxm.ute.TestJob;
-import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.TestTask;
+import net.lmxm.ute.beans.EnabledStateBean;
 
 import org.junit.Test;
 
 /**
- * The Class IdChangeEventTest.
  */
-public class IdChangeEventTest {
+public class EnabledStateChangeEventTest {
 
-	/**
-	 * Test get identifiable bean.
-	 */
-	@Test
-	public void testGetIdentifiableBean() {
-		final IdentifiableBean bean = new TestJob();
-
-		final IdChangeEvent changeEvent = new IdChangeEvent(this, bean);
-
-		assertNotNull(changeEvent.getSource());
-		assertEquals(bean, changeEvent.getIdentifiableBean());
+	@Test(expected = NullPointerException.class)
+	public void testEnabledStateChangeEventNullIdentifiableBean() {
+		new EnabledStateChangeEvent(this, null);
 	}
 
-	/**
-	 * Test get source.
-	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testEnabledStateChangeEventNullSource() {
+		new EnabledStateChangeEvent(null, new TestTask());
+	}
+
+	@Test
+	public void testGetEnabledStateBean() {
+		final EnabledStateBean bean = new TestTask();
+
+		final EnabledStateChangeEvent changeEvent = new EnabledStateChangeEvent(this, bean);
+
+		assertNotNull(changeEvent.getSource());
+		assertEquals(bean, changeEvent.getEnabledStateBean());
+	}
+
 	@Test
 	public void testGetSource() {
-		final IdChangeEvent changeEvent = new IdChangeEvent(this, new TestJob());
+		final EnabledStateChangeEvent changeEvent = new EnabledStateChangeEvent(this, new TestTask());
 
 		assertNotNull(changeEvent.getSource());
 		assertSame(this, changeEvent.getSource());
-	}
-
-	/**
-	 * Test id change event null identifiable bean.
-	 */
-	@Test(expected = NullPointerException.class)
-	public void testIdChangeEventNullIdentifiableBean() {
-		new IdChangeEvent(this, null);
-	}
-
-	/**
-	 * Test id change event null source.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testIdChangeEventNullSource() {
-		new IdChangeEvent(null, new TestJob());
 	}
 }

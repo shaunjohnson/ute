@@ -35,10 +35,10 @@ public class StatusChangeEventTest {
 	 */
 	@Test
 	public void testGetEventType() {
-		final StatusChangeEvent statusChangeEvent = new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Test");
+		final StatusChangeEvent changeEvent = new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Test");
 
-		assertNotNull(statusChangeEvent.getEventType());
-		assertEquals(StatusChangeEventType.ERROR, statusChangeEvent.getEventType());
+		assertNotNull(changeEvent.getEventType());
+		assertEquals(StatusChangeEventType.ERROR, changeEvent.getEventType());
 	}
 
 	/**
@@ -46,10 +46,10 @@ public class StatusChangeEventTest {
 	 */
 	@Test
 	public void testGetMessage() {
-		final StatusChangeEvent statusChangeEvent = new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Test");
+		final StatusChangeEvent changeEvent = new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Test");
 
-		assertNotNull(statusChangeEvent.getMessage());
-		assertEquals("Test", statusChangeEvent.getMessage());
+		assertNotNull(changeEvent.getMessage());
+		assertEquals("Test", changeEvent.getMessage());
 	}
 
 	/**
@@ -57,10 +57,10 @@ public class StatusChangeEventTest {
 	 */
 	@Test
 	public void testGetSource() {
-		final StatusChangeEvent statusChangeEvent = new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Test");
+		final StatusChangeEvent changeEvent = new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Test");
 
-		assertNotNull(statusChangeEvent.getSource());
-		assertSame(this, statusChangeEvent.getSource());
+		assertNotNull(changeEvent.getSource());
+		assertSame(this, changeEvent.getSource());
 	}
 
 	/**
@@ -100,10 +100,10 @@ public class StatusChangeEventTest {
 	 */
 	@Test
 	public void testToString() {
-		final StatusChangeEvent statusChangeEvent = new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Test");
+		final StatusChangeEvent changeEvent = new StatusChangeEvent(this, StatusChangeEventType.ERROR, "Test");
 
-		assertNotNull(statusChangeEvent.toString());
-		assertTrue(statusChangeEvent.toString().contains(StatusChangeEventType.ERROR.toString()));
-		assertTrue(statusChangeEvent.toString().contains("Test"));
+		assertNotNull(changeEvent.toString());
+		assertTrue(changeEvent.toString().contains(StatusChangeEventType.ERROR.toString()));
+		assertTrue(changeEvent.toString().contains("Test"));
 	}
 }

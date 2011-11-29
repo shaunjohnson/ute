@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.event;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.EventObject;
 
 import net.lmxm.ute.beans.EnabledStateBean;
@@ -42,7 +44,7 @@ public class EnabledStateChangeEvent extends EventObject {
 	public EnabledStateChangeEvent(final Object source, final EnabledStateBean enabledStateBean) {
 		super(source);
 
-		this.enabledStateBean = enabledStateBean;
+		this.enabledStateBean = checkNotNull(enabledStateBean, "Enabled state bean is null");
 	}
 
 	/**
@@ -53,5 +55,4 @@ public class EnabledStateChangeEvent extends EventObject {
 	public EnabledStateBean getEnabledStateBean() {
 		return enabledStateBean;
 	}
-
 }
