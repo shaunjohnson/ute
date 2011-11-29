@@ -20,6 +20,8 @@ package net.lmxm.ute.validation.rules;
 
 import static junit.framework.Assert.assertNotNull;
 import static net.lmxm.ute.UteTestAssert.assertEmpty;
+import static net.lmxm.ute.UteTestAssert.assertNotBlank;
+import static net.lmxm.ute.UteTestAssert.assertNotEmpty;
 
 import java.util.List;
 
@@ -40,6 +42,17 @@ public class HttpLocationUrlTextValidationRuleTest {
 	@Before
 	public void setup() {
 		rule = new HttpLocationUrlTextValidationRule();
+	}
+
+	/**
+	 * Test validate.
+	 */
+	@Test
+	public void testValidate() {
+		final List<String> messages = rule.validate("foobar");
+		assertNotNull(messages);
+		assertNotEmpty(messages);
+		assertNotBlank(messages.get(0));
 	}
 
 	/**
