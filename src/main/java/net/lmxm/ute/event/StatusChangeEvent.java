@@ -49,12 +49,10 @@ public final class StatusChangeEvent extends EventObject {
 	protected StatusChangeEvent(final Object source, final StatusChangeEventType eventType, final String message) {
 		super(source);
 
-		checkNotNull(eventType, "Event type may not be null");
-		checkNotNull(message, "Message may not be null");
-		checkArgument(StringUtils.isNotBlank(message), "Message may not be blank");
+		this.eventType = checkNotNull(eventType, "Event type may not be null");
+		this.message = checkNotNull(message, "Message may not be null");
 
-		this.eventType = eventType;
-		this.message = message;
+		checkArgument(StringUtils.isNotBlank(message), "Message may not be blank");
 	}
 
 	/**

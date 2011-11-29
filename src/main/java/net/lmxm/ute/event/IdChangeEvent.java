@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.event;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.EventObject;
 
 import net.lmxm.ute.beans.IdentifiableBean;
@@ -42,7 +44,7 @@ public class IdChangeEvent extends EventObject {
 	public IdChangeEvent(final Object source, final IdentifiableBean identifiableBean) {
 		super(source);
 
-		this.identifiableBean = identifiableBean;
+		this.identifiableBean = checkNotNull(identifiableBean, "Identifiable bean is null");
 	}
 
 	/**
@@ -53,5 +55,4 @@ public class IdChangeEvent extends EventObject {
 	public IdentifiableBean getIdentifiableBean() {
 		return identifiableBean;
 	}
-
 }
