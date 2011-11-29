@@ -46,7 +46,7 @@ public final class StatusChangeEvent extends EventObject {
 	 * @param eventType the event type
 	 * @param message the message
 	 */
-	public StatusChangeEvent(final Object source, final StatusChangeEventType eventType, final String message) {
+	protected StatusChangeEvent(final Object source, final StatusChangeEventType eventType, final String message) {
 		super(source);
 
 		checkNotNull(eventType, "Event type may not be null");

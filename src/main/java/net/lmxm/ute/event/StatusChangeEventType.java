@@ -22,29 +22,22 @@ package net.lmxm.ute.event;
  * The Enum StatusChangeEventType.
  */
 public enum StatusChangeEventType {
-	/** The ERROR. */
 	ERROR(StatusChangeEventTypeCategory.ERROR),
 
-	/** The FATAL. */
 	FATAL(StatusChangeEventTypeCategory.ERROR),
 
-	/** The HEADING. */
 	HEADING(StatusChangeEventTypeCategory.INFO),
 
-	/** The IMPORTANT. */
 	IMPORTANT(StatusChangeEventTypeCategory.INFO),
 
-	/** The INFO. */
 	INFO(StatusChangeEventTypeCategory.INFO);
 
 	/**
 	 * The Enum StatusChangeEventTypeCategory.
 	 */
 	private enum StatusChangeEventTypeCategory {
-		/** The ERROR. */
 		ERROR,
 
-		/** The INFO. */
 		INFO;
 	}
 

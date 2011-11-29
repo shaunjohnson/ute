@@ -23,9 +23,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import net.lmxm.ute.event.StatusChangeEvent;
-import net.lmxm.ute.event.StatusChangeEventType;
-
 import org.junit.Test;
 
 /**
@@ -66,21 +63,33 @@ public class StatusChangeEventTest {
 		assertSame(this, statusChangeEvent.getSource());
 	}
 
+	/**
+	 * Test status change event empty message.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testStatusChangeEventEmptyMessage() {
 		new StatusChangeEvent(this, StatusChangeEventType.ERROR, "");
 	}
 
+	/**
+	 * Test status change event null event type.
+	 */
 	@Test(expected = NullPointerException.class)
 	public void testStatusChangeEventNullEventType() {
 		new StatusChangeEvent(this, null, "Test");
 	}
 
+	/**
+	 * Test status change event null message.
+	 */
 	@Test(expected = NullPointerException.class)
 	public void testStatusChangeEventNullMessage() {
 		new StatusChangeEvent(this, StatusChangeEventType.ERROR, null);
 	}
 
+	/**
+	 * Test status change event null source.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testStatusChangeEventNullSource() {
 		new StatusChangeEvent(null, StatusChangeEventType.ERROR, "Test");
