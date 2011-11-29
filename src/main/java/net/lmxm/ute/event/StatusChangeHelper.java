@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.event;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,8 @@ public class StatusChangeHelper {
 	 * @param statusChangeListener the status change listener
 	 */
 	public final void addStatusChangeListener(final StatusChangeListener statusChangeListener) {
+		checkNotNull(statusChangeListener, "Status change listener is null");
+
 		statusChangeListeners.add(statusChangeListener);
 	}
 
@@ -44,29 +48,44 @@ public class StatusChangeHelper {
 	 * Error.
 	 * 
 	 * @param source the source
-	 * @param message the message
+	 * @param statusChangeMessage the status change message
+	 * @param arguments the arguments
 	 */
 	public final void error(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
-		final String message = formatMessage(statusChangeMessage, arguments);
-
-		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
-			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.ERROR, message));
-		}
+		fireEvent(source, StatusChangeEventType.ERROR, statusChangeMessage, arguments);
 	}
 
 	/**
 	 * Fatal.
 	 * 
 	 * @param source the source
-	 * @param message the message
+	 * @param statusChangeMessage the status change message
+	 * @param arguments the arguments
 	 */
 	public final void fatal(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
+		fireEvent(source, StatusChangeEventType.FATAL, statusChangeMessage, arguments);
+	}
+
+	/**
+	 * Fire event.
+	 * 
+	 * @param source the source
+	 * @param eventType the event type
+	 * @param statusChangeMessage the status change message
+	 * @param arguments the arguments
+	 */
+	protected void fireEvent(final Object source, final StatusChangeEventType eventType,
+			final StatusChangeMessageResourceType statusChangeMessage, final Object... arguments) {
+		checkNotNull(source, "Source is null");
+		checkNotNull(eventType, "Status change event type is null");
+		checkNotNull(statusChangeMessage, "Status change message resource type is null");
+
 		final String message = formatMessage(statusChangeMessage, arguments);
 
 		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
-			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.FATAL, message));
+			statusChangeListener.statusChange(new StatusChangeEvent(source, eventType, message));
 		}
 	}
 
@@ -85,44 +104,35 @@ public class StatusChangeHelper {
 	 * Heading.
 	 * 
 	 * @param source the source
-	 * @param message the message
+	 * @param statusChangeMessage the status change message
+	 * @param arguments the arguments
 	 */
 	public final void heading(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
-		final String message = formatMessage(statusChangeMessage, arguments);
-
-		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
-			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.HEADING, message));
-		}
+		fireEvent(source, StatusChangeEventType.HEADING, statusChangeMessage, arguments);
 	}
 
 	/**
 	 * Important.
 	 * 
 	 * @param source the source
-	 * @param message the message
+	 * @param statusChangeMessage the status change message
+	 * @param arguments the arguments
 	 */
 	public final void important(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
-		final String message = formatMessage(statusChangeMessage, arguments);
-
-		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
-			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.IMPORTANT, message));
-		}
+		fireEvent(source, StatusChangeEventType.IMPORTANT, statusChangeMessage, arguments);
 	}
 
 	/**
 	 * Info.
 	 * 
 	 * @param source the source
-	 * @param message the message
+	 * @param statusChangeMessage the status change message
+	 * @param arguments the arguments
 	 */
 	public final void info(final Object source, final StatusChangeMessageResourceType statusChangeMessage,
 			final Object... arguments) {
-		final String message = formatMessage(statusChangeMessage, arguments);
-
-		for (final StatusChangeListener statusChangeListener : statusChangeListeners) {
-			statusChangeListener.statusChange(new StatusChangeEvent(source, StatusChangeEventType.INFO, message));
-		}
+		fireEvent(source, StatusChangeEventType.INFO, statusChangeMessage, arguments);
 	}
 }
