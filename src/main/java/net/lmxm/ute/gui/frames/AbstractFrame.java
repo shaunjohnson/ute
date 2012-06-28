@@ -44,7 +44,7 @@ public class AbstractFrame extends JFrame {
 	 */
 	protected void displayError(final Throwable throwable) {
         LOGGER.error("Error occurred.", throwable);
-        
+
 		// TODO handle AbstractRuntimeException and other errors differently.
 		final String message = throwable.getMessage();
 		final String title = ResourcesUtils.getResourceTitle(ApplicationResourceType.ERROR_OCCURRED);

@@ -190,6 +190,9 @@ public class ConfigurationInterpolator {
 		if (source == null) {
 			LOGGER.debug("{} skipping, source is null", prefix);
 		}
+        else if (source.getQueryParams() == null) {
+            LOGGER.debug("{} skipping, query params is null", prefix);
+        }
 		else {
 			final Map<String, String> queryParams = new HashMap<String, String>();
 
