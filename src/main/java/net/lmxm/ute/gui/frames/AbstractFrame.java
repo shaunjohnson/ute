@@ -23,6 +23,8 @@ import javax.swing.JOptionPane;
 
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ApplicationResourceType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class AbstractFrame.
@@ -32,12 +34,17 @@ public class AbstractFrame extends JFrame {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2742976937617347846L;
 
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractFrame.class);
+
 	/**
 	 * Generic error message dialog.
 	 * 
-	 * @param exception the exception
+	 * @param throwable the throwable/exception that occurred
 	 */
 	protected void displayError(final Throwable throwable) {
+        LOGGER.error("Error occurred.", throwable);
+        
 		// TODO handle AbstractRuntimeException and other errors differently.
 		final String message = throwable.getMessage();
 		final String title = ResourcesUtils.getResourceTitle(ApplicationResourceType.ERROR_OCCURRED);

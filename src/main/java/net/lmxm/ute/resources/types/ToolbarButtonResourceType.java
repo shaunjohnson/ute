@@ -42,7 +42,7 @@ public enum ToolbarButtonResourceType implements ResourceType {
 	ADD_SUBVERSION_REPOSITORY_LOCATION(ImageUtil.ADD_SUBVERSION_REPOSITORY_LOCATION_ICON,
 			ActionCommand.ADD_SUBVERSION_REPOSITORY_LOCATION),
 
-	ADD_TASK(null, null),
+	ADD_TASK(null, ActionCommand.ADD_TASK),
 
 	COLLAPSE(ImageUtil.COLLAPSE_ICON, ActionCommand.COLLAPSE),
 

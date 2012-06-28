@@ -19,43 +19,7 @@
 package net.lmxm.ute.gui;
 
 import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
-import static net.lmxm.ute.enums.ActionCommand.ABOUT;
-import static net.lmxm.ute.enums.ActionCommand.ADD_FILE_SYSTEM_DELETE_TASK;
-import static net.lmxm.ute.enums.ActionCommand.ADD_FILE_SYSTEM_LOCATION;
-import static net.lmxm.ute.enums.ActionCommand.ADD_FIND_REPLACE_TASK;
-import static net.lmxm.ute.enums.ActionCommand.ADD_GROOVY_TASK;
-import static net.lmxm.ute.enums.ActionCommand.ADD_HTTP_DOWNLOAD_TASK;
-import static net.lmxm.ute.enums.ActionCommand.ADD_HTTP_LOCATION;
-import static net.lmxm.ute.enums.ActionCommand.ADD_JOB;
-import static net.lmxm.ute.enums.ActionCommand.ADD_PREFERENCE;
-import static net.lmxm.ute.enums.ActionCommand.ADD_PROPERTY;
-import static net.lmxm.ute.enums.ActionCommand.ADD_SUBVERSION_EXPORT_TASK;
-import static net.lmxm.ute.enums.ActionCommand.ADD_SUBVERSION_REPOSITORY_LOCATION;
-import static net.lmxm.ute.enums.ActionCommand.ADD_SUBVERSION_UPDATE_TASK;
-import static net.lmxm.ute.enums.ActionCommand.CLONE_FILE_SYSTEM_LOCATION;
-import static net.lmxm.ute.enums.ActionCommand.CLONE_HTTP_LOCATION;
-import static net.lmxm.ute.enums.ActionCommand.CLONE_JOB;
-import static net.lmxm.ute.enums.ActionCommand.CLONE_PREFERENCE;
-import static net.lmxm.ute.enums.ActionCommand.CLONE_PROPERTY;
-import static net.lmxm.ute.enums.ActionCommand.CLONE_SUBVERSION_REPOSITORY_LOCATION;
-import static net.lmxm.ute.enums.ActionCommand.CLONE_TASK;
-import static net.lmxm.ute.enums.ActionCommand.COLLAPSE;
-import static net.lmxm.ute.enums.ActionCommand.DELETE_FILE_SYSTEM_LOCATION;
-import static net.lmxm.ute.enums.ActionCommand.DELETE_HTTP_LOCATION;
-import static net.lmxm.ute.enums.ActionCommand.DELETE_JOB;
-import static net.lmxm.ute.enums.ActionCommand.DELETE_PREFERENCE;
-import static net.lmxm.ute.enums.ActionCommand.DELETE_PROPERTY;
-import static net.lmxm.ute.enums.ActionCommand.DELETE_SUBVERSION_REPOSITORY_LOCATION;
-import static net.lmxm.ute.enums.ActionCommand.DELETE_TASK;
-import static net.lmxm.ute.enums.ActionCommand.EDIT_PREFERENCES;
-import static net.lmxm.ute.enums.ActionCommand.EXECUTE;
-import static net.lmxm.ute.enums.ActionCommand.EXIT;
-import static net.lmxm.ute.enums.ActionCommand.EXPAND;
-import static net.lmxm.ute.enums.ActionCommand.NEW_FILE;
-import static net.lmxm.ute.enums.ActionCommand.OPEN_FILE;
-import static net.lmxm.ute.enums.ActionCommand.RELOAD_FILE;
-import static net.lmxm.ute.enums.ActionCommand.SAVE_FILE;
-import static net.lmxm.ute.enums.ActionCommand.SAVE_FILE_AS;
+import static net.lmxm.ute.enums.ActionCommand.*;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -385,6 +349,13 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private void actionAddSubversionUpdateTask() {
 		addNewTask(new SubversionUpdateTask(getCurrentJob()));
 	}
+
+    /**
+     * Action add task.
+     */
+    private void actionAddTask() {
+        // Do nothing for now
+    }
 
 	/**
 	 * Action clone file system location.
@@ -769,6 +740,9 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			else if (actionCommand == ADD_SUBVERSION_UPDATE_TASK) {
 				actionAddSubversionUpdateTask();
 			}
+            else if (actionCommand == ADD_TASK) {
+                actionAddTask();
+            }
 			else if (actionCommand == CLONE_FILE_SYSTEM_LOCATION) {
 				actionCloneFileSystemLocation();
 			}
