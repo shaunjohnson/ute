@@ -78,7 +78,7 @@ public final class ConsoleApplication extends GenericApplication {
 
 		loadAndValidatePreferencesAreSet(configuration, null);
 		final List<Job> jobs = loadJobs(configuration, consoleArguments.getJobId(), consoleArguments.getTaskId());
-		executeJobs(jobs, configuration);
+		executeJobs(jobs, configuration, new ConsoleJobStatusListener(), new ConsoleStatusChangeListener());
 
 		LOGGER.debug("{} leaving", prefix);
 	}

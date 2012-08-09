@@ -26,8 +26,8 @@ import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationInterpolator;
 import net.lmxm.ute.configuration.ConfigurationUtils;
-import net.lmxm.ute.console.ConsoleJobStatusListener;
-import net.lmxm.ute.console.ConsoleStatusChangeListener;
+import net.lmxm.ute.event.JobStatusListener;
+import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import org.slf4j.Logger;
@@ -37,7 +37,9 @@ import java.util.*;
 
 public abstract class GenericApplication {
 
-    /** The Constant LOGGER. */
+    /**
+     * The Constant LOGGER.
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericApplication.class);
 
     public abstract void execute();
@@ -45,10 +47,13 @@ public abstract class GenericApplication {
     /**
      * Execute jobs.
      *
-     * @param jobs the jobs
-     * @param configuration the configuration
+     * @param jobs                 the jobs
+     * @param configuration        the configuration
+     * @param jobStatusListener    Job Status listener to use during job execution
+     * @param statusChangeListener Status change listener to use during job execution
      */
-    protected final void executeJobs(final List<Job> jobs, final Configuration configuration) {
+    protected final void executeJobs(final List<Job> jobs, final Configuration configuration,
+            JobStatusListener jobStatusListener, StatusChangeListener statusChangeListener) {
         final String prefix = "executeJobs() :";
 
         LOGGER.debug("{} entered", prefix);
@@ -61,8 +66,8 @@ public abstract class GenericApplication {
             job.removeEmptyObjects();
 
             final JobExecuter jobExecuter = JobExecuterFactory.create(jobInterpolated, configuration);
-            jobExecuter.addJobStatusListener(new ConsoleJobStatusListener());
-            jobExecuter.addStatusChangeListener(new ConsoleStatusChangeListener());
+            jobExecuter.addJobStatusListener(jobStatusListener);
+            jobExecuter.addStatusChangeListener(statusChangeListener);
             jobExecuter.execute();
         }
 
@@ -73,7 +78,7 @@ public abstract class GenericApplication {
      * Load and validate preferences are set.
      *
      * @param configuration the configuration
-     * @param preferences Preference values that override preferences loaded from disk.
+     * @param preferences   Preference values that override preferences loaded from disk.
      */
     protected final void loadAndValidatePreferencesAreSet(final Configuration configuration, List<Preference> preferences) {
         final String prefix = "loadAndValidatePreferencesAreSet() :";
@@ -103,11 +108,11 @@ public abstract class GenericApplication {
      * original list are ignored.
      *
      * @param preferencesToBeUpdated List of Preference objects to be updated
-     * @param overridePreferences List of Preference objects used to override the original Preference values
+     * @param overridePreferences    List of Preference objects used to override the original Preference values
      */
     private void overridePreferences(List<Preference> preferencesToBeUpdated, List<Preference> overridePreferences) {
         for (Preference originalPreference : preferencesToBeUpdated) {
-            for (Preference overridePreference: overridePreferences) {
+            for (Preference overridePreference : overridePreferences) {
                 if (originalPreference.getId().equals(overridePreference.getId())) {
                     originalPreference.setValue(overridePreference.getValue());
                 }
@@ -119,8 +124,8 @@ public abstract class GenericApplication {
      * Load jobs.
      *
      * @param configuration the configuration
-     * @param jobId ID of the job to load
-     * @param taskId ID of task to load
+     * @param jobId         ID of the job to load
+     * @param taskId        ID of task to load
      * @return List of loaded Jobs
      */
     protected final List<Job> loadJobs(final Configuration configuration, String jobId, String taskId) {

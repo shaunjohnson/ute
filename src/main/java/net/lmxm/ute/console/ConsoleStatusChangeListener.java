@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  * the consoleStatusChange event occurs, that object's appropriate
  * method is invoked.
  * 
- * @see ConsoleStatusChangeEvent
+ * @see StatusChangeEvent
  */
 public final class ConsoleStatusChangeListener implements StatusChangeListener {
 
