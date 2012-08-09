@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute;
 
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.configuration.ApplicationPreferences;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
@@ -32,8 +33,7 @@ import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class GenericApplication {
 
@@ -69,14 +69,13 @@ public abstract class GenericApplication {
         LOGGER.debug("{} leaving", prefix);
     }
 
-
-
     /**
      * Load and validate preferences are set.
      *
      * @param configuration the configuration
+     * @param preferences Preference values that override preferences loaded from disk.
      */
-    protected final void loadAndValidatePreferencesAreSet(final Configuration configuration) {
+    protected final void loadAndValidatePreferencesAreSet(final Configuration configuration, List<Preference> preferences) {
         final String prefix = "loadAndValidatePreferencesAreSet() :";
 
         LOGGER.debug("{} entered", prefix);
@@ -84,6 +83,8 @@ public abstract class GenericApplication {
         final ApplicationPreferences applicationPreferences = new ApplicationPreferences(
                 configuration.getConfigurationFile());
         applicationPreferences.loadPreferenceValues(configuration.getPreferences());
+
+        overridePreferences(configuration.getPreferences(), preferences);
 
         if (applicationPreferences.hasAllPreferences(configuration.getPreferences())) {
             LOGGER.debug("{} all preferences have values", prefix);
@@ -94,6 +95,24 @@ public abstract class GenericApplication {
         }
 
         LOGGER.debug("{} leaving", prefix);
+    }
+
+    /**
+     * Override preference values in the original list with values from the override list. This method modifies the
+     * values in the original preferences list. Override preferences that do not match any existing preferences in the
+     * original list are ignored.
+     *
+     * @param preferencesToBeUpdated List of Preference objects to be updated
+     * @param overridePreferences List of Preference objects used to override the original Preference values
+     */
+    private void overridePreferences(List<Preference> preferencesToBeUpdated, List<Preference> overridePreferences) {
+        for (Preference originalPreference : preferencesToBeUpdated) {
+            for (Preference overridePreference: overridePreferences) {
+                if (originalPreference.getId().equals(overridePreference.getId())) {
+                    originalPreference.setValue(overridePreference.getValue());
+                }
+            }
+        }
     }
 
     /**

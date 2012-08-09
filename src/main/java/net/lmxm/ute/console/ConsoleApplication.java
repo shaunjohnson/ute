@@ -76,7 +76,7 @@ public final class ConsoleApplication extends GenericApplication {
 		final File inputFile = consoleArguments.getInputFile();
 		final Configuration configuration = new ConfigurationReader(inputFile).read();
 
-		loadAndValidatePreferencesAreSet(configuration);
+		loadAndValidatePreferencesAreSet(configuration, null);
 		final List<Job> jobs = loadJobs(configuration, consoleArguments.getJobId(), consoleArguments.getTaskId());
 		executeJobs(jobs, configuration);
 

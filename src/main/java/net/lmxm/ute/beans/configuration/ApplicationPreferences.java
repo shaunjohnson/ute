@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executer.
- * 
+ *
  * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.exceptions.ConfigurationException;
@@ -49,7 +50,7 @@ public final class ApplicationPreferences {
 
 	/**
 	 * Instantiates a new application preferences.
-	 * 
+	 *
 	 * @param configurationFile the configuration file
 	 */
 	public ApplicationPreferences(final File configurationFile) {
@@ -86,7 +87,7 @@ public final class ApplicationPreferences {
 
 	/**
 	 * Creates the empty preferences file.
-	 * 
+	 *
 	 * @param preferencesFile the preferences file
 	 */
 	private void createEmptyPreferencesFile(final File preferencesFile) {
@@ -117,7 +118,7 @@ public final class ApplicationPreferences {
 
 	/**
 	 * Checks for all preferences.
-	 * 
+	 *
 	 * @param preferences the preferences
 	 * @return true, if successful
 	 */
@@ -136,7 +137,7 @@ public final class ApplicationPreferences {
 
 	/**
 	 * Checks for preference.
-	 * 
+	 *
 	 * @param key the key
 	 * @return true, if successful
 	 */
@@ -146,7 +147,7 @@ public final class ApplicationPreferences {
 
 	/**
 	 * Load preference values.
-	 * 
+	 *
 	 * @param preferences the preferences
 	 */
 	public void loadPreferenceValues(final List<Preference> preferences) {
@@ -157,7 +158,7 @@ public final class ApplicationPreferences {
 
 	/**
 	 * Save preference values.
-	 * 
+	 *
 	 * @param preferences the preferences
 	 */
 	public void savePreferenceValues(final List<Preference> preferences) {
