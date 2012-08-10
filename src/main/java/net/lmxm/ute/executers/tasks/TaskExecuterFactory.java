@@ -20,13 +20,7 @@ package net.lmxm.ute.executers.tasks;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.PropertiesHolder;
-import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.beans.tasks.SubversionExportTask;
-import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.executers.Executer;
@@ -87,6 +81,11 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 			LOGGER.debug("{} task is HttpDownloadTask", prefix);
 
 			executer = new HttpDownloadTaskExecuter((HttpDownloadTask) task, statusChangeHelper);
+		}
+		else if (task instanceof MavenRepositoryDownloadTask) {
+			LOGGER.debug("{} task is MavenRepositoryDownloadTask", prefix);
+
+			executer = new MavenRepositoryDownloadTaskExecuter((MavenRepositoryDownloadTask) task, statusChangeHelper);
 		}
 		else if (task instanceof SubversionExportTask) {
 			LOGGER.debug("{} task is SubversionExportTask", prefix);

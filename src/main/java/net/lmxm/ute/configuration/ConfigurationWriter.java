@@ -34,48 +34,18 @@ import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
+import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
-import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.beans.tasks.SubversionExportTask;
-import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.subversion.utils.SubversionUtils;
-import noNamespace.FileSystemDeleteTaskType;
-import noNamespace.FileSystemLocationType;
-import noNamespace.FileSystemTargetType;
-import noNamespace.FileType;
-import noNamespace.FilesType;
-import noNamespace.FindReplaceTaskType;
-import noNamespace.GroovyTaskType;
-import noNamespace.HttpDownloadTaskType;
-import noNamespace.HttpLocationType;
-import noNamespace.HttpSourceType;
-import noNamespace.JobType;
-import noNamespace.JobsType;
-import noNamespace.LocationsType;
-import noNamespace.PatternType;
-import noNamespace.PatternsType;
-import noNamespace.PreferenceType;
-import noNamespace.PreferencesType;
-import noNamespace.PropertiesType;
-import noNamespace.PropertyType;
-import noNamespace.SubversionExportTaskType;
-import noNamespace.SubversionRepositorySourceType;
-import noNamespace.SubversionRespositoryLocationType;
-import noNamespace.SubversionUpdateTaskType;
-import noNamespace.TaskType;
-import noNamespace.TasksType;
-import noNamespace.UteConfigurationDocument;
-import noNamespace.UteConfigurationType;
+import noNamespace.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.XmlOptions;
@@ -106,8 +76,6 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write.
-	 * 
-	 * @param configuration the configuration
 	 */
 	public void write() {
 		final String prefix = "write() :";
@@ -482,11 +450,104 @@ public class ConfigurationWriter {
 
 			writeFileSystemLocations(locationsType, configuration);
 			writeHttpLocations(locationsType, configuration);
+			writeMavenRepositoryLocations(locationsType, configuration);
 			writeSubversionRepositoryLocations(locationsType, configuration);
 		}
 
 		LOGGER.debug("{} exiting", prefix);
 	}
+
+    /**
+     * Write Maven repository download task.
+     *
+     * @param taskType the task type
+     * @param task the task
+     */
+    private void writeMavenRepositoryDownloadTask(final TaskType taskType, final Task task) {
+        final String prefix = "writeMavenRepositoryDownloadTask() :";
+
+        LOGGER.debug("{} entered", prefix);
+
+        final MavenRepositoryDownloadTask mavenRepositoryDownloadTask= (MavenRepositoryDownloadTask) task;
+
+        final MavenRepositoryDownloadTaskType mavenRepositoryDownloadTaskType = taskType.addNewMavenRepositoryDownloadTask();
+
+        final MavenRepositorySourceType mavenRepositorySourceType = mavenRepositoryDownloadTaskType.addNewMavenRepositorySource();
+        writeMavenRepositorySource(mavenRepositorySourceType, mavenRepositoryDownloadTask.getSource());
+
+        final FileSystemTargetType fileSystemTargetType = mavenRepositoryDownloadTaskType.addNewFileSystemTarget();
+        writeFileSystemTarget(fileSystemTargetType, mavenRepositoryDownloadTask.getTarget());
+
+        mavenRepositoryDownloadTaskType.setArtifactCoordinates(mavenRepositoryDownloadTask.getArtifactCoordinates());
+
+        LOGGER.debug("{} leaving", prefix);
+    }
+
+    /**
+     * Write Maven repository location.
+     *
+     * @param locationsType the locations type
+     * @param mavenRepositoryLocation the Maven repository location
+     */
+    private void writeMavenRepositoryLocation(final LocationsType locationsType,
+                                              final MavenRepositoryLocation mavenRepositoryLocation) {
+        final String prefix = "writeMavenRepositoryLocation() :";
+
+        LOGGER.debug("{} entered", prefix);
+
+        final MavenRepositoryLocationType mavenRepositoryLocationType = locationsType
+                .addNewMavenRepositoryLocation();
+
+        mavenRepositoryLocationType.setId(mavenRepositoryLocation.getId());
+        mavenRepositoryLocationType.setUrl(mavenRepositoryLocation.getUrl());
+
+        LOGGER.debug("{} leaving", prefix);
+    }
+
+    /**
+     * Write Maven repository locations.
+     *
+     * @param locationsType the locations type
+     * @param configuration the configuration
+     */
+    private void writeMavenRepositoryLocations(final LocationsType locationsType, final Configuration configuration) {
+        final List<MavenRepositoryLocation> mavenRepositoryLocations = configuration
+                .getMavenRepositoryLocations();
+        final String prefix = "writeMavenRepositoryLocations() :";
+
+        LOGGER.debug("{} entered", prefix);
+
+        if (mavenRepositoryLocations.isEmpty()) {
+            return;
+        }
+
+        for (final MavenRepositoryLocation mavenRepositoryLocation : mavenRepositoryLocations) {
+            writeMavenRepositoryLocation(locationsType, mavenRepositoryLocation);
+        }
+
+        LOGGER.debug("{} leaving", prefix);
+    }
+
+    /**
+     * Write Maven repository source.
+     *
+     * @param mavenRepositorySourceType the Maven repository source type
+     * @param mavenRepositorySource the Maven repository source
+     */
+    private void writeMavenRepositorySource(final MavenRepositorySourceType mavenRepositorySourceType,
+                                                 final MavenRepositorySource mavenRepositorySource) {
+        final String prefix = "writeMavenRepositorySource() :";
+
+        LOGGER.debug("{} entered", prefix);
+
+        mavenRepositorySourceType.setLocationId(mavenRepositorySource.getLocation().getId());
+
+        if (StringUtils.isNotBlank(mavenRepositorySource.getRelativePath())) {
+            mavenRepositorySourceType.setRelativePath(mavenRepositorySource.getRelativePath());
+        }
+
+        LOGGER.debug("{} leaving", prefix);
+    }
 
 	/**
 	 * Write pattern.
@@ -689,7 +750,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write subversion repository locations.
-	 * 
+	 *
 	 * @param locationsType the locations type
 	 * @param configuration the configuration
 	 */
@@ -828,6 +889,9 @@ public class ConfigurationWriter {
 			}
 			else if (task instanceof HttpDownloadTask) {
 				writeHttpDownloadTask(taskType, task);
+			}
+			else if (task instanceof MavenRepositoryDownloadTask) {
+                writeMavenRepositoryDownloadTask(taskType, task);
 			}
 			else if (task instanceof SubversionExportTask) {
 				writeSubversionExportTask(taskType, task);

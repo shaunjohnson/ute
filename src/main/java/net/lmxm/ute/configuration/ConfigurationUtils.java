@@ -29,6 +29,7 @@ import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
 
@@ -121,6 +122,19 @@ public final class ConfigurationUtils {
 	public static Job findJobById(final Configuration configuration, final String id) {
 		return (Job) findIdentifiableBeanById(configuration.getJobs(), id);
 	}
+
+    /**
+     * Find Maven repository location by id.
+     *
+     * @param configuration the configuration
+     * @param locationId the location id
+     * @return the Maven repository location
+     */
+    public static MavenRepositoryLocation findMavenRepositoryLocationById(final Configuration configuration,
+                                                                                    final String locationId) {
+        return (MavenRepositoryLocation) findIdentifiableBeanById(
+                configuration.getMavenRepositoryLocations(), locationId);
+    }
 
 	/**
 	 * Find preference by id.

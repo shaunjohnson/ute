@@ -36,18 +36,13 @@ import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
+import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
-import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.beans.tasks.FileSystemTargetTask;
-import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.beans.tasks.SubversionExportTask;
-import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 
@@ -287,6 +282,12 @@ public class ConfigurationInterpolator {
 				interpolateFileSystemTarget(httpDownloadTask.getTarget(), propertyNames, propertyValues);
 				interpolateFiles(httpDownloadTask.getFiles(), propertyNames, propertyValues);
 			}
+			else if (task instanceof MavenRepositoryDownloadTask) {
+				final MavenRepositoryDownloadTask mavenRepositoryDownloadTask = (MavenRepositoryDownloadTask) task;
+
+				interpolateMavenRepositorySource(mavenRepositoryDownloadTask.getSource(), propertyNames, propertyValues);
+				interpolateFileSystemTarget(mavenRepositoryDownloadTask.getTarget(), propertyNames, propertyValues);
+			}
 			else if (task instanceof SubversionExportTask) {
 				final SubversionExportTask subversionExportTask = (SubversionExportTask) task;
 
@@ -311,6 +312,38 @@ public class ConfigurationInterpolator {
 
 		return job;
 	}
+
+    /**
+     * Interpolate Maven repository source.
+     *
+     * @param source the source
+     * @param propertyNames the property names
+     * @param propertyValues the property values
+     */
+    private static void interpolateMavenRepositorySource(final MavenRepositorySource source, final String[] propertyNames,
+                                              final String[] propertyValues) {
+        final String prefix = "interpolateMavenRepositorySource() :";
+
+        LOGGER.debug("{} entered, source={}", prefix, source);
+
+        if (source == null) {
+            LOGGER.debug("{} skipping, source is null", prefix);
+        }
+        else {
+            final MavenRepositoryLocation location = source.getLocation();
+
+            if (location == null) {
+                LOGGER.debug("{} skipping, source is null", prefix);
+            }
+            else {
+                location.setUrl(interpolateProperties(location.getUrl(), propertyNames, propertyValues));
+            }
+
+            source.setRelativePath(interpolateProperties(source.getRelativePath(), propertyNames, propertyValues));
+        }
+
+        LOGGER.debug("{} leaving", prefix);
+    }
 
 	/**
 	 * Interpolate patterns.

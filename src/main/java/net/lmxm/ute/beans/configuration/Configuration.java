@@ -29,6 +29,7 @@ import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.utils.DomainBeanUtils;
 
@@ -51,6 +52,9 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	/** The http locations. */
 	private List<HttpLocation> httpLocations;
 
+	/** The Maven repository locations. */
+	private List<MavenRepositoryLocation> mavenRepositoryLocations;
+
 	/** The jobs. */
 	private List<Job> jobs;
 
@@ -72,6 +76,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 		jobs = new ArrayList<Job>();
 		fileSystemLocations = new ArrayList<FileSystemLocation>();
 		httpLocations = new ArrayList<HttpLocation>();
+        mavenRepositoryLocations = new ArrayList<MavenRepositoryLocation>();
 		preferences = new ArrayList<Preference>();
 		properties = new ArrayList<Property>();
 		subversionRepositoryLocations = new ArrayList<SubversionRepositoryLocation>();
@@ -113,6 +118,15 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 		return jobs;
 	}
 
+    /**
+     * Gets the Maven repository locations.
+     *
+     * @return the Maven repository locations
+     */
+    public List<MavenRepositoryLocation> getMavenRepositoryLocations() {
+        return mavenRepositoryLocations;
+    }
+
 	/**
 	 * Gets the preferences.
 	 * 
@@ -135,7 +149,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 
 	/**
 	 * Gets the subversion repository locations.
-	 * 
+	 *
 	 * @return the subversion repository locations
 	 */
 	public List<SubversionRepositoryLocation> getSubversionRepositoryLocations() {
@@ -150,8 +164,8 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	public boolean isEmpty() {
 		return configurationFile == null && DomainBeanUtils.isEmpty(fileSystemLocations)
 				&& DomainBeanUtils.isEmpty(httpLocations) && DomainBeanUtils.isEmpty(jobs)
-				&& DomainBeanUtils.isEmpty(preferences) && DomainBeanUtils.isEmpty(properties)
-				&& DomainBeanUtils.isEmpty(subversionRepositoryLocations);
+				&& DomainBeanUtils.isEmpty(mavenRepositoryLocations) && DomainBeanUtils.isEmpty(preferences)
+                && DomainBeanUtils.isEmpty(properties) && DomainBeanUtils.isEmpty(subversionRepositoryLocations);
 	}
 
 	/**
@@ -161,7 +175,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	 */
 	public boolean isLocationsEmpty() {
 		return CollectionUtils.isEmpty(fileSystemLocations) && CollectionUtils.isEmpty(httpLocations)
-				&& CollectionUtils.isEmpty(subversionRepositoryLocations);
+				&& CollectionUtils.isEmpty(mavenRepositoryLocations) && CollectionUtils.isEmpty(subversionRepositoryLocations);
 	}
 
 	/**
@@ -172,6 +186,7 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 		DomainBeanUtils.removeEmptyObjects(fileSystemLocations);
 		DomainBeanUtils.removeEmptyObjects(httpLocations);
 		DomainBeanUtils.removeEmptyObjects(jobs);
+		DomainBeanUtils.removeEmptyObjects(mavenRepositoryLocations);
 		DomainBeanUtils.removeEmptyObjects(preferences);
 		DomainBeanUtils.removeEmptyObjects(properties);
 		DomainBeanUtils.removeEmptyObjects(subversionRepositoryLocations);
@@ -212,6 +227,15 @@ public final class Configuration implements DomainBean, PropertiesHolder {
 	public void setJobs(final List<Job> jobs) {
 		this.jobs = jobs;
 	}
+
+    /**
+     * Sets the Maven repository locations.
+     *
+     * @param mavenRepositoryLocations the new Maven repository locations
+     */
+    public void setMavenRepositoryLocations(final List<MavenRepositoryLocation> mavenRepositoryLocations) {
+        this.mavenRepositoryLocations = mavenRepositoryLocations;
+    }
 
 	/**
 	 * Sets the preferences.
