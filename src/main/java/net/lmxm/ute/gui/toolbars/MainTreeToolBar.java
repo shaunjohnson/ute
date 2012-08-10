@@ -42,6 +42,7 @@ public class MainTreeToolBar extends AbstractToolBar {
 		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_JOB);
 		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_FILE_SYSTEM_LOCATION);
 		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_HTTP_LOCATION);
+		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_MAVEN_REPOSITORY_LOCATION);
 		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_SUBVERSION_REPOSITORY_LOCATION);
 		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_PROPERTY);
 		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_PREFERENCE);

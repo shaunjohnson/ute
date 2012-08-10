@@ -28,20 +28,13 @@ import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
+import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
-import net.lmxm.ute.validation.rules.FileSystemLocationIdAlreadyInUseValidationRule;
-import net.lmxm.ute.validation.rules.HttpLocationIdAlreadyInUseValidationRule;
-import net.lmxm.ute.validation.rules.HttpLocationUrlTextValidationRule;
-import net.lmxm.ute.validation.rules.JobIdAlreadyInUseValidationRule;
-import net.lmxm.ute.validation.rules.PreferenceIdAlreadyInUseValidationRule;
-import net.lmxm.ute.validation.rules.PropertyIdAlreadyInUseValidationRule;
-import net.lmxm.ute.validation.rules.RequiredTextValidationRule;
-import net.lmxm.ute.validation.rules.SubversionRepositoryLocationIdAlreadyInUseValidationRule;
-import net.lmxm.ute.validation.rules.SubversionRepositoryLocationUrlTextValidationRule;
-import net.lmxm.ute.validation.rules.TaskIdAlreadyInUseValidationRule;
+import net.lmxm.ute.validation.rules.*;
 
 /**
  * A factory for creating InputValidator objects.
@@ -98,20 +91,35 @@ public final class InputValidatorFactory {
 		return validator;
 	}
 
-	/**
-	 * Creates a new InputValidator object.
-	 * 
-	 * @param component the component
-	 * @return the input validator
-	 */
-	public static InputValidator createHttpLocationUrlValidator(final JTextComponent component) {
-		final InputValidator validator = new TextComponentValidator(component);
+    /**
+     * Creates a new InputValidator object.
+     *
+     * @param component the component
+     * @return the input validator
+     */
+    public static InputValidator createHttpLocationUrlValidator(final JTextComponent component) {
+        final InputValidator validator = new TextComponentValidator(component);
 
-		validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.HTTP_LOCATION_URL_REQUIRED));
-		validator.addRule(new HttpLocationUrlTextValidationRule());
+        validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.HTTP_LOCATION_URL_REQUIRED));
+        validator.addRule(new HttpLocationUrlTextValidationRule());
 
-		return validator;
-	}
+        return validator;
+    }
+
+    /**
+     * Creates a new InputValidator object.
+     *
+     * @param component the component
+     * @return the input validator
+     */
+    public static InputValidator createMavenArtifactCoordinatesValidator(final JTextComponent component) {
+        final InputValidator validator = new TextComponentValidator(component);
+
+        validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.MAVEN_ARTIFACT_COORDINATES_REQUIRED));
+        validator.addRule(new MavenArtifactCoordinatesTextValidationRule());
+
+        return validator;
+    }
 
 	/**
 	 * Creates a new InputValidator object.
@@ -139,6 +147,10 @@ public final class InputValidatorFactory {
 		else if (identifiableBean instanceof Job) {
 			inputValidator = createJobIdValidator(component, configurationHolder, (Job) identifiableBean);
 		}
+        else if (identifiableBean instanceof MavenRepositoryLocation) {
+            inputValidator = createMavenRepositoryLocationIdValidator(component, configurationHolder,
+                    (MavenRepositoryLocation) identifiableBean);
+        }
 		else if (identifiableBean instanceof Preference) {
 			inputValidator = createPreferenceIdValidator(component, configurationHolder, (Preference) identifiableBean);
 		}
@@ -147,7 +159,7 @@ public final class InputValidatorFactory {
 		}
 		else if (identifiableBean instanceof SubversionRepositoryLocation) {
 			inputValidator = createSubversionRepositoryLocationIdValidator(component, configurationHolder,
-					(SubversionRepositoryLocation) identifiableBean);
+                    (SubversionRepositoryLocation) identifiableBean);
 		}
 		else if (identifiableBean instanceof Task) {
 			inputValidator = createTaskIdValidator(component, configurationHolder, (Task) identifiableBean);
@@ -176,6 +188,39 @@ public final class InputValidatorFactory {
 
 		return validator;
 	}
+
+    /**
+     * Creates a new InputValidator object.
+     *
+     * @param component the component
+     * @param configurationHolder the configuration holder
+     * @param location the location
+     * @return the input validator
+     */
+    private static InputValidator createMavenRepositoryLocationIdValidator(final JTextComponent component,
+                                                                           final ConfigurationHolder configurationHolder, final MavenRepositoryLocation location) {
+        final InputValidator validator = new TextComponentValidator(component);
+
+        validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.MAVEN_REPOSITORY_LOCATION_ID_REQUIRED));
+        validator.addRule(new MavenRepositoryLocationIdAlreadyInUseValidationRule(location, configurationHolder));
+
+        return validator;
+    }
+
+    /**
+     * Creates a new InputValidator object.
+     *
+     * @param component the component
+     * @return the input validator
+     */
+    public static InputValidator createMavenRepositoryLocationUrlValidator(final JTextComponent component) {
+        final InputValidator validator = new TextComponentValidator(component);
+
+        validator.addRule(new RequiredTextValidationRule(ValidatorResourceType.MAVEN_REPOSITORY_LOCATION_URL_REQUIRED));
+        validator.addRule(new MavenRepositoryLocationUrlTextValidationRule());
+
+        return validator;
+    }
 
 	/**
 	 * Creates a new InputValidator object.

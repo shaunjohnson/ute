@@ -32,16 +32,11 @@ import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
-import net.lmxm.ute.gui.maintree.nodes.FileSystemLocationsRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.HttpLocationsRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.IdentifiableBeanTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.JobsRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.PreferencesRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.PropertiesRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.SubversionRepositoryLocationsRootTreeNode;
+import net.lmxm.ute.gui.maintree.nodes.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,32 +57,35 @@ public class MainTreeModel extends DefaultTreeModel {
 
 	/** The file system locations node. */
 	private final DefaultMutableTreeNode fileSystemLocationsNode;
-
 	private final TreePath fileSystemLocationsNodePath;
 
 	/** The http locations node. */
 	private final DefaultMutableTreeNode httpLocationsNode;
-
 	private final TreePath httpLocationsNodePath;
 
 	/** The jobs node. */
 	private final DefaultMutableTreeNode jobsNode;
-
 	private final TreePath jobsNodePath;
+
+    /** The Maven repository locations node. */
+    private final DefaultMutableTreeNode mavenRepositoryLocationsNode;
+    private final TreePath mavenRepositoryLocationsNodePath;
 
 	/** The preferences node. */
 	private final DefaultMutableTreeNode preferencesNode;
-
 	private final TreePath preferencesNodePath;
 
 	/** The properties node. */
 	private final DefaultMutableTreeNode propertiesNode;
+
 	private final TreePath propertiesNodePath;
-	/** The root node. */
+
+    /** The root node. */
 	private final DefaultMutableTreeNode rootNode;
-	/** The subversion locations node. */
+
+    /** The subversion locations node. */
 	private final DefaultMutableTreeNode subversionRepositoryLocationsNode;
-	private final TreePath subversionRepositoryLocationsNodePath;
+    private final TreePath subversionRepositoryLocationsNodePath;
 
 	/**
 	 * Instantiates a new main tree model.
@@ -115,6 +113,10 @@ public class MainTreeModel extends DefaultTreeModel {
 		httpLocationsNode = new DefaultMutableTreeNode(new HttpLocationsRootTreeNode(configurationHolder));
 		rootNode.add(httpLocationsNode);
 		httpLocationsNodePath = new TreePath(rootNode).pathByAddingChild(httpLocationsNode);
+
+        mavenRepositoryLocationsNode = new DefaultMutableTreeNode(new MavenRepositoryLocationsRootTreeNode(configurationHolder));
+		rootNode.add(mavenRepositoryLocationsNode);
+		mavenRepositoryLocationsNodePath = new TreePath(rootNode).pathByAddingChild(mavenRepositoryLocationsNode);
 
 		subversionRepositoryLocationsNode = new DefaultMutableTreeNode(new SubversionRepositoryLocationsRootTreeNode(
 				configurationHolder));
@@ -180,6 +182,20 @@ public class MainTreeModel extends DefaultTreeModel {
 
 		return jobsNodePath.pathByAddingChild(jobNode);
 	}
+
+    /**
+     * Adds the Maven repository location.
+     *
+     * @param mavenRepositoryLocation the Maven repository location
+     * @return the tree path
+     */
+    protected TreePath addMavenRepositoryLocationLocation(final MavenRepositoryLocation mavenRepositoryLocation) {
+        final DefaultMutableTreeNode mavenRepositoryLocationNode = new IdentifiableBeanTreeNode(mavenRepositoryLocation);
+
+        insertNodeInto(mavenRepositoryLocationNode, mavenRepositoryLocationsNode, 0);
+
+        return mavenRepositoryLocationsNodePath.pathByAddingChild(mavenRepositoryLocationNode);
+    }
 
 	/**
 	 * Adds the preference.
@@ -295,6 +311,25 @@ public class MainTreeModel extends DefaultTreeModel {
 
 		return selectPath;
 	}
+
+    /**
+     * Delete http location.
+     *
+     * @param mavenRepositoryLocation the Maven repository location
+     * @return the tree path
+     */
+    protected TreePath deleteMavenRepositoryLocation(final MavenRepositoryLocation mavenRepositoryLocation) {
+        final DefaultMutableTreeNode mavenRepositoryLocationNode = findMavenRepositoryLocationNode(mavenRepositoryLocation);
+        if (mavenRepositoryLocationNode == null) {
+            throw new RuntimeException("MavenRepositoryLocation node does not exist"); // TODO Use proper exception
+        }
+
+        final TreePath selectPath = getSiblingOrParentPath(mavenRepositoryLocationNode, mavenRepositoryLocationsNodePath);
+
+        removeNodeFromParent(mavenRepositoryLocationNode);
+
+        return selectPath;
+    }
 
 	/**
 	 * Delete preference.
@@ -427,6 +462,16 @@ public class MainTreeModel extends DefaultTreeModel {
 	private DefaultMutableTreeNode findJobNode(final Job job) {
 		return findChildNodeByUserObject(jobsNode, job);
 	}
+
+    /**
+     * Find Maven repository location node.
+     *
+     * @param mavenRepositoryLocation the Maven repository location
+     * @return the default mutable tree node
+     */
+    private DefaultMutableTreeNode findMavenRepositoryLocationNode(final MavenRepositoryLocation mavenRepositoryLocation) {
+        return findChildNodeByUserObject(mavenRepositoryLocationsNode, mavenRepositoryLocation);
+    }
 
 	/**
 	 * Find preference node.
@@ -571,6 +616,23 @@ public class MainTreeModel extends DefaultTreeModel {
 		LOGGER.debug("{} leaving");
 	}
 
+    /**
+     * Load Maven repository locations.
+     */
+    private void loadMavenRepositoryLocations() {
+        final String prefix = "loadMavenRepositoryLocations() :";
+
+        final List<MavenRepositoryLocation> mavenRepositoryLocations = getConfiguration().getMavenRepositoryLocations();
+
+        LOGGER.debug("{} entered, loading {} locations", prefix, mavenRepositoryLocations.size());
+
+        for (final MavenRepositoryLocation mavenRepositoryLocation : mavenRepositoryLocations) {
+            mavenRepositoryLocationsNode.add(new IdentifiableBeanTreeNode(mavenRepositoryLocation));
+        }
+
+        LOGGER.debug("{} leaving");
+    }
+
 	/**
 	 * Load preferences.
 	 */
@@ -676,6 +738,7 @@ public class MainTreeModel extends DefaultTreeModel {
 		loadJobs();
 		loadFileSystemLocations();
 		loadHttpLocations();
+        loadMavenRepositoryLocations();
 		loadSubversionLocations();
 		loadProperties();
 		loadPreferences();
@@ -703,12 +766,21 @@ public class MainTreeModel extends DefaultTreeModel {
 
 	/**
 	 * Refresh job.
-	 * 
+	 *
 	 * @param job the job
 	 */
 	protected void refreshJob(final Job job) {
 		nodeChanged(findJobNode(job));
 	}
+
+    /**
+     * Refresh Maven repository location.
+     *
+     * @param mavenRepositoryLocation the Maven repository location
+     */
+    protected void refreshMavenRepositoryLocation(final MavenRepositoryLocation mavenRepositoryLocation) {
+        nodeChanged(findMavenRepositoryLocationNode(mavenRepositoryLocation));
+    }
 
 	/**
 	 * Refresh preference.
@@ -753,6 +825,7 @@ public class MainTreeModel extends DefaultTreeModel {
 		jobsNode.removeAllChildren();
 		fileSystemLocationsNode.removeAllChildren();
 		httpLocationsNode.removeAllChildren();
+        mavenRepositoryLocationsNode.removeAllChildren();
 		subversionRepositoryLocationsNode.removeAllChildren();
 		propertiesNode.removeAllChildren();
 		preferencesNode.removeAllChildren();

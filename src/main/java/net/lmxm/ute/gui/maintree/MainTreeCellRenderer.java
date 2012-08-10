@@ -40,14 +40,9 @@ import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.beans.tasks.SubversionExportTask;
-import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.gui.maintree.nodes.RootTreeNode;
 import net.lmxm.ute.resources.ImageUtil;
 
@@ -156,6 +151,19 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 
 			setIcon(ImageUtil.NETWORK_HUB_ICON);
 			setText(httpLocation.getId());
+		}
+        else if (userObject instanceof MavenRepositoryDownloadTask) {
+            final MavenRepositoryDownloadTask mavenRepositoryDownloadTask = (MavenRepositoryDownloadTask) userObject;
+
+            setIcon(mavenRepositoryDownloadTask.getEnabled() ? ImageUtil.MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON
+                    : ImageUtil.MAVEN_REPOSITORY_DOWNLOAD_TASK_DISABLED_ICON);
+            setText(mavenRepositoryDownloadTask.getId());
+        }
+        else if (userObject instanceof MavenRepositoryLocation) {
+			final MavenRepositoryLocation mavenRepositoryLocation = (MavenRepositoryLocation) userObject;
+
+			setIcon(ImageUtil.MAVEN_REPOSITORY_LOCATION_ICON);
+			setText(mavenRepositoryLocation.getId());
 		}
 		else if (userObject instanceof Preference) {
 			final Preference preference = (Preference) userObject;

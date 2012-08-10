@@ -33,6 +33,8 @@ public enum TreeNodeResourceType implements ResourceType {
 
 	JOBS,
 
+    MAVEN_REPOSITORY_LOCATIONS,
+
 	PREFERENCES,
 
 	PROPERTIES,

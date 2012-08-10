@@ -73,6 +73,7 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_FIND_REPLACE_TASK, actionListener));
 		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_GROOVY_TASK, actionListener));
 		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_HTTP_DOWNLOAD_TASK, actionListener));
+		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_MAVEN_REPOSITORY_DOWNLOAD_TASK, actionListener));
 		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_SUBVERSION_EXPORT_TASK, actionListener));
 		menu.add(GuiComponentFactory.createMenuItem(MenuItemResourceType.ADD_SUBVERSION_UPDATE_TASK, actionListener));
 

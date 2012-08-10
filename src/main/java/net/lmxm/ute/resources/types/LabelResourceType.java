@@ -28,6 +28,10 @@ import net.lmxm.ute.resources.ResourceCategory;
  */
 public enum LabelResourceType implements ResourceType {
 
+    ARTIFACT_COORDINATES,
+
+    ARTIFACTS,
+
 	CURRENT_VALUE,
 
 	DEPTH,
@@ -65,6 +69,12 @@ public enum LabelResourceType implements ResourceType {
 	JOBS,
 
 	LOCATION,
+
+    MAVEN_REPOSITORY_DOWNLOAD_TASK,
+
+    MAVEN_REPOSITORY_LOCATION,
+
+    MAVEN_REPOSITORY_LOCATIONS,
 
 	OPTIONS,
 

@@ -28,6 +28,7 @@ import javax.swing.text.JTextComponent;
 
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
@@ -84,6 +85,9 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 			final InputValidator inputValidator;
 			if (getUserObject() instanceof HttpLocation) {
 				inputValidator = InputValidatorFactory.createHttpLocationUrlValidator(component);
+			}
+			else if (getUserObject() instanceof MavenRepositoryLocation) {
+				inputValidator = InputValidatorFactory.createMavenRepositoryLocationUrlValidator(component);
 			}
 			else if (getUserObject() instanceof SubversionRepositoryLocation) {
 				inputValidator = InputValidatorFactory.createSubversionRepositoryLocationUrlValidator(component);

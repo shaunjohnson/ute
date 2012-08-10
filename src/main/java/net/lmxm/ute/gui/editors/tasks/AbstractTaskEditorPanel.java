@@ -41,17 +41,13 @@ import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
+import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
-import net.lmxm.ute.beans.tasks.FileSystemTargetTask;
-import net.lmxm.ute.beans.tasks.FilesTask;
-import net.lmxm.ute.beans.tasks.HttpSourceTask;
-import net.lmxm.ute.beans.tasks.RenameFilesTask;
-import net.lmxm.ute.beans.tasks.StopOnErrorTask;
-import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
-import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.EnabledStateChangeEvent;
@@ -95,6 +91,9 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 
 	/** The http location target combo box. */
 	private JComboBox httpLocationTargetComboBox = null;
+
+	/** The Maven repository location target combo box. */
+	private JComboBox mavenRepositoryLocationTargetComboBox = null;
 
 	/** The monospace font. */
 	private Font monospaceFont = null;
@@ -195,6 +194,21 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		}
 	}
 
+    /**
+     * Adds the Maven repository source fields.
+     */
+    protected final void addMavenRepositorySourceFields() {
+        if (MavenRepositorySourceTask.class.isInstance(getEditedObjectClass())) {
+            final JPanel contentPanel = getContentPanel();
+
+            addRequiredLabel(LabelResourceType.SERVER);
+            contentPanel.add(getMavenRepositoryLocationSourceComboBox());
+
+            addLabel(LabelResourceType.PATH);
+            contentPanel.add(getSourceRelativePathTextField());
+        }
+    }
+
 	/**
 	 * Adds the source fields.
 	 */
@@ -203,6 +217,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			addSeparator(LabelResourceType.SOURCE);
 
 			addHttpSourceFields();
+            addMavenRepositorySourceFields();
 			addSubversionRepositorySourceFields();
 		}
 	}
@@ -325,27 +340,27 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (fileSystemLocationTargetComboBox == null) {
 			fileSystemLocationTargetComboBox = new JComboBox();
 			fileSystemLocationTargetComboBox.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent actionEvent) {
-					if (getUserObject() instanceof FileSystemTargetTask) {
-						final FileSystemTarget target = ((FileSystemTargetTask) getUserObject()).getTarget();
+                @Override
+                public void actionPerformed(final ActionEvent actionEvent) {
+                    if (getUserObject() instanceof FileSystemTargetTask) {
+                        final FileSystemTarget target = ((FileSystemTargetTask) getUserObject()).getTarget();
 
-						if (target == null) {
-							LOGGER.error("File system target is null");
-							throw new IllegalStateException("File system target is null"); // TODO
-						}
+                        if (target == null) {
+                            LOGGER.error("File system target is null");
+                            throw new IllegalStateException("File system target is null"); // TODO
+                        }
 
-						if (fileSystemLocationTargetComboBox.getSelectedIndex() == -1) {
-							target.setLocation(null);
-						}
-						else {
-							final FileSystemLocation location = (FileSystemLocation) fileSystemLocationTargetComboBox
-									.getSelectedItem();
-							target.setLocation(location);
-						}
-					}
-				}
-			});
+                        if (fileSystemLocationTargetComboBox.getSelectedIndex() == -1) {
+                            target.setLocation(null);
+                        }
+                        else {
+                            final FileSystemLocation location = (FileSystemLocation) fileSystemLocationTargetComboBox
+                                    .getSelectedItem();
+                            target.setLocation(location);
+                        }
+                    }
+                }
+            });
 		}
 
 		return fileSystemLocationTargetComboBox;
@@ -386,11 +401,45 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	}
 
 	/**
+	 * Gets the Maven repository location source combo box.
+	 *
+	 * @return the Maven repository location source combo box
+	 */
+	private JComboBox getMavenRepositoryLocationSourceComboBox() {
+		if (mavenRepositoryLocationTargetComboBox == null) {
+            mavenRepositoryLocationTargetComboBox = new JComboBox();
+            mavenRepositoryLocationTargetComboBox.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent actionEvent) {
+					if (getUserObject() instanceof MavenRepositorySourceTask) {
+						final MavenRepositorySource source = ((MavenRepositorySourceTask) getUserObject()).getSource();
+
+						if (source == null) {
+							LOGGER.error("Maven Repository source is null");
+							throw new IllegalStateException("Maven Repository source is null"); // TODO
+						}
+
+						if (mavenRepositoryLocationTargetComboBox.getSelectedIndex() == -1) {
+							source.setLocation(null);
+						}
+						else {
+							final MavenRepositoryLocation location = (MavenRepositoryLocation) mavenRepositoryLocationTargetComboBox.getSelectedItem();
+							source.setLocation(location);
+						}
+					}
+				}
+			});
+		}
+
+		return mavenRepositoryLocationTargetComboBox;
+	}
+
+	/**
 	 * Gets the monospace font.
 	 * 
 	 * @return the monospace font
 	 */
-	private Font getMonospaceFont() {
+	protected final Font getMonospaceFont() {
 		return monospaceFont;
 	}
 
@@ -519,6 +568,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		final Object editedObject = getEditedObjectClass();
 
 		return HttpSourceTask.class.isInstance(editedObject)
+                || MavenRepositoryDownloadTask.class.isInstance(editedObject)
 				|| SubversionRepositorySourceTask.class.isInstance(editedObject);
 	}
 
@@ -544,6 +594,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		getFileSystemLocationTargetComboBox().setModel(
 				createDefaultComboBoxModel(configuration.getFileSystemLocations()));
 		getHttpLocationSourceComboBox().setModel(createDefaultComboBoxModel(configuration.getHttpLocations()));
+		getMavenRepositoryLocationSourceComboBox().setModel(createDefaultComboBoxModel(configuration.getMavenRepositoryLocations()));
 		getSubversionRepositoryLocationSourceComboBox().setModel(
 				createDefaultComboBoxModel(configuration.getSubversionRepositoryLocations()));
 	}
@@ -551,7 +602,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	/**
 	 * Load common data.
 	 */
-	private final void loadCommonData() {
+	private void loadCommonData() {
 		final String prefix = "loadTaskCommonFieldData(): ";
 
 		LOGGER.debug("{} entered", prefix);
@@ -583,6 +634,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 
 		// Load Source Fields
 		loadHttpSourceFieldData();
+        loadMavenRepositorySourceFieldData();
 		loadSubversionRepositorySourceFieldData();
 
 		// Load Target Fields
@@ -612,7 +664,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * Load file system target field data.
 	 * 
 	 */
-	private final void loadFileSystemTargetFieldData() {
+	private void loadFileSystemTargetFieldData() {
 		final String prefix = "loadFileSystemTargetFieldData(): ";
 
 		LOGGER.debug("{} entered");
@@ -631,7 +683,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	 * Load http source field data.
 	 * 
 	 */
-	private final void loadHttpSourceFieldData() {
+	private void loadHttpSourceFieldData() {
 		final String prefix = "loadHttpSourceFieldData(): ";
 
 		LOGGER.debug("{} entered");
@@ -647,9 +699,28 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	}
 
 	/**
+	 * Load Maven repository source field data.
+	 */
+	private void loadMavenRepositorySourceFieldData() {
+		final String prefix = "loadMavenRepositorySourceFieldData(): ";
+
+		LOGGER.debug("{} entered");
+
+		if (getUserObject() instanceof MavenRepositorySourceTask) {
+			final MavenRepositorySource mavenRepositorySource = ((MavenRepositorySourceTask) getUserObject())
+					.getSource();
+
+			getMavenRepositoryLocationSourceComboBox().setSelectedItem(mavenRepositorySource.getLocation());
+			getSourceRelativePathTextField().setText(mavenRepositorySource.getRelativePath());
+		}
+
+		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
 	 * Load subversion repository source field data.
 	 */
-	private final void loadSubversionRepositorySourceFieldData() {
+	private void loadSubversionRepositorySourceFieldData() {
 		final String prefix = "loadSubversionRepositorySourceFieldData(): ";
 
 		LOGGER.debug("{} entered");
@@ -664,5 +735,4 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 
 		LOGGER.debug("{} leaving", prefix);
 	}
-
 }

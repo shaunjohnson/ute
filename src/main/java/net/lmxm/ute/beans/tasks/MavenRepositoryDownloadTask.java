@@ -27,6 +27,9 @@ public final class MavenRepositoryDownloadTask extends AbstractTask implements F
 
     public MavenRepositoryDownloadTask(final Job job) {
         super(job);
+
+        source = new MavenRepositorySource();
+        target = new FileSystemTarget();
     }
 
     public String getArtifactCoordinates() {

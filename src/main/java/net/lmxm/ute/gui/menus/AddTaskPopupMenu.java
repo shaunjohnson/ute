@@ -42,6 +42,7 @@ public final class AddTaskPopupMenu extends AbstractPopupMenu {
 		addMenuItem(MenuItemResourceType.ADD_FIND_REPLACE_TASK);
 		addMenuItem(MenuItemResourceType.ADD_GROOVY_TASK);
 		addMenuItem(MenuItemResourceType.ADD_HTTP_DOWNLOAD_TASK);
+		addMenuItem(MenuItemResourceType.ADD_MAVEN_REPOSITORY_DOWNLOAD_TASK);
 		addMenuItem(MenuItemResourceType.ADD_SUBVERSION_EXPORT_TASK);
 		addMenuItem(MenuItemResourceType.ADD_SUBVERSION_UPDATE_TASK);
 	}

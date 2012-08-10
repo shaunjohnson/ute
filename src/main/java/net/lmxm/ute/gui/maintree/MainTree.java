@@ -41,6 +41,7 @@ import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
+import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
@@ -49,25 +50,8 @@ import net.lmxm.ute.event.EnabledStateChangeEvent;
 import net.lmxm.ute.event.EnabledStateChangeListener;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
-import net.lmxm.ute.gui.maintree.nodes.FileSystemLocationsRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.HttpLocationsRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.JobsRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.PreferencesRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.PropertiesRootTreeNode;
-import net.lmxm.ute.gui.maintree.nodes.SubversionRepositoryLocationsRootTreeNode;
-import net.lmxm.ute.gui.menus.FileSystemLocationPopupMenu;
-import net.lmxm.ute.gui.menus.FileSystemLocationsRootPopupMenu;
-import net.lmxm.ute.gui.menus.HttpLocationPopupMenu;
-import net.lmxm.ute.gui.menus.HttpLocationsRootPopupMenu;
-import net.lmxm.ute.gui.menus.JobPopupMenu;
-import net.lmxm.ute.gui.menus.JobsRootPopupMenu;
-import net.lmxm.ute.gui.menus.PreferencePopupMenu;
-import net.lmxm.ute.gui.menus.PreferencesRootPopupMenu;
-import net.lmxm.ute.gui.menus.PropertiesRootPopupMenu;
-import net.lmxm.ute.gui.menus.PropertyPopupMenu;
-import net.lmxm.ute.gui.menus.SubversionRepositoryLocationPopupMenu;
-import net.lmxm.ute.gui.menus.SubversionRepositoryLocationsRootPopupMenu;
-import net.lmxm.ute.gui.menus.TaskPopupMenu;
+import net.lmxm.ute.gui.maintree.nodes.*;
+import net.lmxm.ute.gui.menus.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,8 +67,6 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	 * component's <code>addMainTreeKeyListener<code> method. When
 	 * the mainTreeKey event occurs, that object's appropriate
 	 * method is invoked.
-	 * 
-	 * @see MainTreeKeyEvent
 	 */
 	private class MainTreeKeyListener extends KeyAdapter {
 
@@ -117,6 +99,9 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 				else if (userObject instanceof Job) {
 					actionEvent = createActionEvent(ActionCommand.DELETE_JOB.name());
 				}
+                else if (userObject instanceof MavenRepositoryLocation) {
+                    actionEvent = createActionEvent(ActionCommand.DELETE_MAVEN_REPOSITORY_LOCATION.name());
+                }
 				else if (userObject instanceof Preference) {
 					actionEvent = createActionEvent(ActionCommand.DELETE_PREFERENCE.name());
 				}
@@ -146,8 +131,6 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	 * component using the component's <code>addMainTreeMouseListener<code> method. When
 	 * the mainTreeMouse event occurs, that object's appropriate
 	 * method is invoked.
-	 * 
-	 * @see MainTreeMouseEvent
 	 */
 	private class MainTreeMouseListener extends MouseAdapter {
 
@@ -172,6 +155,8 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 				if (object != null) {
 					JPopupMenu popupMenu = null;
 
+                    LOGGER.debug("{} Selected tree object is of type: {}", prefix, object.getClass().getName());
+
 					// Find popup menu appropriate to the item selected
 					if (object instanceof JobsRootTreeNode) {
 						popupMenu = getJobsRootPopupMenu();
@@ -194,6 +179,12 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 					else if (object instanceof HttpLocation) {
 						popupMenu = getHttpLocationPopupMenu();
 					}
+                    else if (object instanceof MavenRepositoryLocationsRootTreeNode) {
+                        popupMenu = getMavenRepositoryLocationsRootPopupMenu();
+                    }
+                    else if (object instanceof MavenRepositoryLocation) {
+                        popupMenu = getMavenRepositoryLocationPopupMenu();
+                    }
 					else if (object instanceof SubversionRepositoryLocationsRootTreeNode) {
 						popupMenu = getSubversionRepositoryLocationsRootPopupMenu();
 					}
@@ -290,6 +281,12 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	/** The jobs root popup menu. */
 	private JobsRootPopupMenu jobsRootPopupMenu = null;
 
+    /** The Maven repository location popup menu. */
+    private MavenRepositoryLocationPopupMenu mavenRepositoryLocationPopupMenu = null;
+
+    /** The Maven repository locations root popup menu. */
+    private MavenRepositoryLocationsRootPopupMenu mavenRepositoryLocationsRootPopupMenu = null;
+
 	/** The main tree model. */
 	private final MainTreeModel mainTreeModel;
 
@@ -369,6 +366,15 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	public void addJob(final Job job) {
 		showSelectedPath(mainTreeModel.addJob(job));
 	}
+
+    /**
+     * Adds the Maven repository location.
+     *
+     * @param mavenRepositoryLocation the Maven repository location
+     */
+    public void addMavenRepositoryLocation(final MavenRepositoryLocation mavenRepositoryLocation) {
+        showSelectedPath(mainTreeModel.addMavenRepositoryLocationLocation(mavenRepositoryLocation));
+    }
 
 	/**
 	 * Adds the preference.
@@ -465,6 +471,15 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	public void deleteJob(final Job job) {
 		showSelectedPath(mainTreeModel.deleteJob(job));
 	}
+
+    /**
+     * Delete http location.
+     *
+     * @param mavenRepositoryLocation the Maven repository location
+     */
+    public void deleteMavenRepositoryLocation(final MavenRepositoryLocation mavenRepositoryLocation) {
+        showSelectedPath(mainTreeModel.deleteMavenRepositoryLocation(mavenRepositoryLocation));
+    }
 
 	/**
 	 * Delete preference.
@@ -638,6 +653,32 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 		return jobsRootPopupMenu;
 	}
 
+    /**
+     * Gets the Maven repository location popup menu.
+     *
+     * @return the Maven repository location popup menu
+     */
+    protected MavenRepositoryLocationPopupMenu getMavenRepositoryLocationPopupMenu() {
+        if (mavenRepositoryLocationPopupMenu == null) {
+            mavenRepositoryLocationPopupMenu = new MavenRepositoryLocationPopupMenu(getActionListener());
+        }
+
+        return mavenRepositoryLocationPopupMenu;
+    }
+
+    /**
+     * Gets the Maven repository locations root popup menu.
+     *
+     * @return the Maven repository locations root popup menu
+     */
+    protected MavenRepositoryLocationsRootPopupMenu getMavenRepositoryLocationsRootPopupMenu() {
+        if (mavenRepositoryLocationsRootPopupMenu == null) {
+            mavenRepositoryLocationsRootPopupMenu = new MavenRepositoryLocationsRootPopupMenu(getActionListener());
+        }
+
+        return mavenRepositoryLocationsRootPopupMenu;
+    }
+
 	/**
 	 * Gets the preference popup menu.
 	 * 
@@ -768,6 +809,9 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 		else if (identifiableBean instanceof HttpLocation) {
 			mainTreeModel.refreshHttpLocation((HttpLocation) identifiableBean);
 		}
+        else if (identifiableBean instanceof MavenRepositoryLocation) {
+            mainTreeModel.refreshMavenRepositoryLocation((MavenRepositoryLocation) identifiableBean);
+        }
 		else if (identifiableBean instanceof Preference) {
 			mainTreeModel.refreshPreference((Preference) identifiableBean);
 		}

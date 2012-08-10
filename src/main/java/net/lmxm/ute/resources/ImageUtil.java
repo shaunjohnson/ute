@@ -56,6 +56,12 @@ public final class ImageUtil {
 	/** The Constant ADD_JOB_ICON. */
 	public static final Icon ADD_JOB_ICON;
 
+	/** The Constant ADD_MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON. */
+	public static final Icon ADD_MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON;
+
+    /** The Constant ADD_MAVEN_REPOSITORY_LOCATION_ICON. */
+    public static final Icon ADD_MAVEN_REPOSITORY_LOCATION_ICON;
+
 	/** The Constant ADD_PREFERENCE_ICON. */
 	public static final Icon ADD_PREFERENCE_ICON;
 
@@ -74,8 +80,23 @@ public final class ImageUtil {
 	/** The Constant APPLICATION_ICON_IMAGE. */
 	public static final Image APPLICATION_ICON_IMAGE;
 
-	/** The Constant CLEAR_ICON. */
+    /** The Constant CLONE_JOB_ICON. */
+    public static final Icon CLONE_JOB_ICON;
+
+    /** The Constant CLEAR_ICON. */
 	public static final Icon CLEAR_ICON;
+
+    /** The Constant CLONE_LOCATION_ICON. */
+    public static final Icon CLONE_LOCATION_ICON;
+
+    /** The Constant CLONE_PREFERENCE_ICON. */
+    public static final Icon CLONE_PREFERENCE_ICON;
+
+    /** The Constant CLONE_PROPERTY_ICON. */
+    public static final Icon CLONE_PROPERTY_ICON;
+
+	/** The Constant CLONE_TASK_ICON. */
+    public static final Icon CLONE_TASK_ICON;
 
 	/** The Constant COLLAPSE_ICON. */
 	public static final Icon COLLAPSE_ICON;
@@ -88,6 +109,9 @@ public final class ImageUtil {
 
 	/** The Constant DELETE_JOB_ICON. */
 	public static final Icon DELETE_JOB_ICON;
+
+	/** The Constant DELETE_MAVEN_REPOSITORY_LOCATION_ICON. */
+	public static final Icon DELETE_MAVEN_REPOSITORY_LOCATION_ICON;
 
 	/** The Constant DELETE_PREFERENCE_ICON. */
 	public static final Icon DELETE_PREFERENCE_ICON;
@@ -146,6 +170,15 @@ public final class ImageUtil {
 	/** The Constant LOADER_ICON. */
 	public static final Icon LOADER_ICON;
 
+	/** The Constant MAVEN_REPOSITORY_DOWNLOAD_TASK_DISABLED_ICON. */
+	public static final Icon MAVEN_REPOSITORY_DOWNLOAD_TASK_DISABLED_ICON;
+
+	/** The Constant MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON. */
+	public static final Icon MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON;
+
+	/** The Constant MAVEN_REPOSITORY_LOCATION_ICON. */
+	public static final Icon MAVEN_REPOSITORY_LOCATION_ICON;
+
 	/** The Constant NETWORK_HUB_ICON. */
 	public static final Icon NETWORK_HUB_ICON;
 
@@ -199,18 +232,24 @@ public final class ImageUtil {
 		ADD_JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-task--plus.png"));
 		ADD_FILE_SYSTEM_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/drive--plus.png"));
 		ADD_HTTP_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/network-hub--plus.png"));
+        ADD_MAVEN_REPOSITORY_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/database--plus.png"));
 		ADD_PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/script-text--plus.png"));
 		ADD_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/property--plus.png"));
 		ADD_SUBVERSION_REPOSITORY_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/subversion--plus.png"));
 		CLEAR_ICON = new ImageIcon(thisClass.getResource("/images/eraser.png"));
+        CLONE_JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-view.png"));
+        CLONE_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/document-view.png"));
+        CLONE_PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/document-view.png"));
+        CLONE_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/document-view.png"));
+		CLONE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/document-view.png"));
 		COLLAPSE_ICON = new ImageIcon(thisClass.getResource("/images/toggle.png"));
 		DELETE_JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-task--minus.png"));
 		DELETE_FILE_SYSTEM_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/drive--minus.png"));
 		DELETE_HTTP_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/network-hub--minus.png"));
-		DELETE_PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/script-text--minus.png"));
+        DELETE_MAVEN_REPOSITORY_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/database--minus.png"));
+        DELETE_PREFERENCE_ICON = new ImageIcon(thisClass.getResource("/images/script-text--minus.png"));
 		DELETE_PROPERTY_ICON = new ImageIcon(thisClass.getResource("/images/property--minus.png"));
-		DELETE_SUBVERSION_REPOSITORY_LOCATION_ICON = new ImageIcon(
-				thisClass.getResource("/images/subversion--minus.png"));
+		DELETE_SUBVERSION_REPOSITORY_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/subversion--minus.png"));
 		DRIVE_ICON = new ImageIcon(thisClass.getResource("/images/drive.png"));
 		EDIT_PREFERENCES_ICON = new ImageIcon(thisClass.getResource("/images/property.png"));
 		ERROR_ICON = new ImageIcon(thisClass.getResource("/images/cross-circle.png"));
@@ -219,6 +258,7 @@ public final class ImageUtil {
 		EXPAND_ICON = new ImageIcon(thisClass.getResource("/images/toggle-expand.png"));
 		JOB_ICON = new ImageIcon(thisClass.getResource("/images/document-task.png"));
 		LOADER_ICON = new ImageIcon(thisClass.getResource("/images/loader.gif"));
+        MAVEN_REPOSITORY_LOCATION_ICON = new ImageIcon(thisClass.getResource("/images/database.png"));
 		NETWORK_HUB_ICON = new ImageIcon(thisClass.getResource("/images/network-hub.png"));
 		NEW_FILE_ICON = new ImageIcon(thisClass.getResource("/images/document.png"));
 		OPEN_FILE_ICON = new ImageIcon(thisClass.getResource("/images/folder-open-document.png"));
@@ -235,6 +275,7 @@ public final class ImageUtil {
 		ADD_FIND_REPLACE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
 		ADD_GROOVY_TASK_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
 		ADD_HTTP_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
+        ADD_MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/download-cloud.png"));
 		ADD_SUBVERSION_EXPORT_TASK_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
 		ADD_SUBVERSION_UPDATE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
 
@@ -242,6 +283,7 @@ public final class ImageUtil {
 		FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
 		GROOVY_TASK_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
 		HTTP_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
+        MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/download-cloud.png"));
 		SUBVERSION_EXPORT_TASK_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
 		SUBVERSION_UPDATE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
 
@@ -250,6 +292,7 @@ public final class ImageUtil {
 		FIND_REPLACE_DISABLED_ICON = createDisabledImage((ImageIcon) FIND_REPLACE_ICON);
 		GROOVY_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) GROOVY_TASK_ICON);
 		HTTP_DOWNLOAD_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) HTTP_DOWNLOAD_TASK_ICON);
+        MAVEN_REPOSITORY_DOWNLOAD_TASK_DISABLED_ICON = createDisabledImage((ImageIcon)MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON);
 		SUBVERSION_EXPORT_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) SUBVERSION_EXPORT_TASK_ICON);
 		SUBVERSION_UPDATE_TASK_DISABLED_ICON = createDisabledImage((ImageIcon) SUBVERSION_UPDATE_TASK_ICON);
 	}
