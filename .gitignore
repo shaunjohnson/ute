@@ -1,4 +1,4 @@
 /target
 /.hgignore
-/
+/*.iml
 /.idea
