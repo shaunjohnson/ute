@@ -98,8 +98,9 @@ public final class AetherResolveUtils {
      * @param artifactCoordinates  Maven coordinates (GAV) of the artifact to download (groupId:artifactId:version)
      * @param destinationDirectory Directory where the artifact will be copied when done. This file must exist and must
      *                             be a directory.
+     * @param targetName           Optional target name for the downlaoded artifact.
      */
-    public void resolveArtifact(String artifactCoordinates, File destinationDirectory) {
+    public void resolveArtifact(final String artifactCoordinates, final File destinationDirectory, final String targetName) {
         final File localRepositoryBaseDirectory = createLocalRepositoryBaseDirectory();
 
         try {
@@ -111,10 +112,16 @@ public final class AetherResolveUtils {
             final ArtifactResult artifactResult = system.resolveArtifact(session, artifactRequest);
             final Artifact artifact = artifactResult.getArtifact();
 
-            FileUtils.copyFileToDirectory(artifact.getFile(), destinationDirectory);
+            if (targetName == null) {
+                FileUtils.copyFileToDirectory(artifact.getFile(), destinationDirectory);
+            }
+            else {
+                FileUtils.copyFile(artifact.getFile(), new File(destinationDirectory, targetName));
+            }
         }
         catch (Exception e) {
             // TODO
+            e.printStackTrace();
         }
         finally {
             try {

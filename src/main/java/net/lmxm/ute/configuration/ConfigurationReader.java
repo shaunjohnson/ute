@@ -28,10 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.FindReplacePattern;
-import net.lmxm.ute.beans.Preference;
-import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.*;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
@@ -497,6 +494,71 @@ public final class ConfigurationReader {
 	}
 
     /**
+     * Parses the Maven artifact.
+     *
+     * @param mavenArtifactType the Maven artifact type
+     *
+     * @return the file
+     */
+    private MavenArtifact parseMavenArtifact(final MavenArtifactType mavenArtifactType) {
+        final String prefix = "parseMavenArtifact() :";
+
+        LOGGER.debug("{} entered", prefix);
+
+        MavenArtifact mavenArtifact = new MavenArtifact();
+
+        mavenArtifact.setCoordinates(StringUtils.trim(mavenArtifactType.getCoordinates()));
+        mavenArtifact.setTargetName(StringUtils.trim(mavenArtifactType.getTargetName()));
+
+        if (mavenArtifact.isEmpty()) {
+            mavenArtifact = null;
+        }
+
+        LOGGER.debug("{} returning {}", prefix, mavenArtifact);
+
+        return mavenArtifact;
+    }
+
+    /**
+     * Parses the Maven artifacts.
+     *
+     * @param task the task
+     * @param taskType the task type
+     */
+    private void parseMavenArtifacts(final MavenRepositoryDownloadTask task, final MavenRepositoryDownloadTaskType taskType) {
+        final String prefix = "parseMavenArtifacts() :";
+
+        LOGGER.debug("{} entered", prefix);
+
+        if (taskType == null) {
+            LOGGER.debug("{} filesType is null, exiting", prefix);
+
+            return;
+        }
+
+        final List<MavenArtifact> artifacts = task.getArtifacts();
+        final MavenArtifactType[] mavenArtifactTypes = taskType.getArtifacts().getArtifactArray();
+
+        if (ArrayUtils.isEmpty(mavenArtifactTypes)) {
+            LOGGER.debug("{} fileArray is empty is null, exiting", prefix);
+
+            return;
+        }
+
+        LOGGER.debug("{} parsing {} Maven artifact types", prefix, mavenArtifactTypes.length);
+
+        for (final MavenArtifactType artifactType : mavenArtifactTypes) {
+            final MavenArtifact artifact = parseMavenArtifact(artifactType);
+
+            if (artifact != null) {
+                artifacts.add(artifact);
+            }
+        }
+
+        LOGGER.debug("{} exiting", prefix);
+    }
+
+    /**
      * Parses the Maven repository download task.
      *
      * @param taskType the task type
@@ -515,7 +577,7 @@ public final class ConfigurationReader {
         task.setSource(parseMavenRepositorySource(taskType.getMavenRepositorySource(), configuration));
         task.setTarget(parseFileSystemTarget(taskType.getFileSystemTarget(), configuration));
 
-        task.setArtifactCoordinates(StringUtils.trim(taskType.getArtifactCoordinates()));
+        parseMavenArtifacts(task, taskType);
 
         LOGGER.debug("{} returning {}", prefix, task);
 

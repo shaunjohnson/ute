@@ -26,10 +26,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.FindReplacePattern;
-import net.lmxm.ute.beans.Preference;
-import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.*;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -458,6 +455,27 @@ public class ConfigurationWriter {
 	}
 
     /**
+     * Write Maven artifacts.
+     *
+     * @param mavenArtifactsType the Maven artifacts type
+     * @param mavenArtifacts the Maven artifacts
+     */
+    private void writeMavenArtifacts(final MavenArtifactsType mavenArtifactsType, final List<MavenArtifact> mavenArtifacts) {
+        final String prefix = "writeMavenArtifacts() :";
+
+        LOGGER.debug("{} entered", prefix);
+
+        for (final MavenArtifact mavenArtifact : mavenArtifacts) {
+            final MavenArtifactType mavenArtifactType = mavenArtifactsType.addNewArtifact();
+
+            mavenArtifactType.setCoordinates(mavenArtifact.getCoordinates());
+            mavenArtifactType.setTargetName(mavenArtifact.getTargetName());
+        }
+
+        LOGGER.debug("{} leaving", prefix);
+    }
+
+    /**
      * Write Maven repository download task.
      *
      * @param taskType the task type
@@ -478,7 +496,11 @@ public class ConfigurationWriter {
         final FileSystemTargetType fileSystemTargetType = mavenRepositoryDownloadTaskType.addNewFileSystemTarget();
         writeFileSystemTarget(fileSystemTargetType, mavenRepositoryDownloadTask.getTarget());
 
-        mavenRepositoryDownloadTaskType.setArtifactCoordinates(mavenRepositoryDownloadTask.getArtifactCoordinates());
+        final List<MavenArtifact> mavenArtifacts = mavenRepositoryDownloadTask.getArtifacts();
+        if (!mavenArtifacts.isEmpty()) {
+            final MavenArtifactsType mavenArtifactsType = mavenRepositoryDownloadTaskType.addNewArtifacts();
+            writeMavenArtifacts(mavenArtifactsType, mavenArtifacts);
+        }
 
         LOGGER.debug("{} leaving", prefix);
     }

@@ -139,11 +139,20 @@
 			<xs:element name="subversion-respository-location" type="subversion-respository-location-type"/>
 		</xs:choice>
 	</xs:complexType>
+    <xs:complexType name="maven-artifact-type">
+        <xs:attribute name="coordinates" type="xs:string" use="required"/>
+        <xs:attribute name="targetName" type="xs:string" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="maven-artifacts-type">
+        <xs:sequence>
+            <xs:element name="artifact" type="maven-artifact-type" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
     <xs:complexType name="maven-repository-download-task-type">
         <xs:sequence>
             <xs:element name="maven-repository-source" type="maven-repository-source-type"/>
             <xs:element name="file-system-target" type="file-system-target-type"/>
-            <xs:element name="artifact-coordinates" type="xs:string"/>
+            <xs:element name="artifacts" type="maven-artifacts-type" minOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="maven-repository-location-type">

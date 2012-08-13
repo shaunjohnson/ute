@@ -32,6 +32,8 @@ public enum TableColumnResourceType implements ResourceType {
 
 	FIND,
 
+    MAVEN_ARTIFACT_COORDINATES,
+
 	REPLACEMENT,
 
 	TARGET_FILE_NAME;

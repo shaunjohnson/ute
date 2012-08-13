@@ -23,6 +23,7 @@ import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
+import net.lmxm.ute.gui.components.MavenArtifactsTableModel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
@@ -63,8 +64,11 @@ public final class MavenRepositoryDownloadTaskEditorPanel extends AbstractTaskEd
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(MavenRepositoryDownloadTaskEditorPanel.class);
 
-    /** The artifact coordinates text field. */
-    private JTextField artifactCoordinatesTextField = null;
+    private JPanel artifactsPane = null;
+
+    private JScrollPane artifactsScrollPane = null;
+
+    private JTable artifactsTable = null;
 
 	/**
 	 * Instantiates a new Maven repository download task editor panel.
@@ -80,6 +84,50 @@ public final class MavenRepositoryDownloadTaskEditorPanel extends AbstractTaskEd
 		addFields();
 	}
 
+    /**
+     * Gets the artifacts pane.
+     *
+     * @return the artifacts pane
+     */
+    private JPanel getArtifactsPane() {
+        if (artifactsPane == null) {
+            artifactsPane = new JPanel();
+            artifactsPane.setLayout(new BorderLayout());
+            artifactsPane.add(getArtifactsScrollPane(), BorderLayout.CENTER);
+            artifactsPane.setMaximumSize(new Dimension(400, 100));
+        }
+
+        return artifactsPane;
+    }
+
+    /**
+     * Gets the artifacts scroll pane.
+     *
+     * @return the artifacts scroll pane
+     */
+    private JScrollPane getArtifactsScrollPane() {
+        if (artifactsScrollPane == null) {
+            artifactsScrollPane = new JScrollPane(getArtifactsTable());
+            artifactsScrollPane.setMaximumSize(new Dimension(400, 100));
+        }
+
+        return artifactsScrollPane;
+    }
+
+    /**
+     * Gets the artifacts table.
+     *
+     * @return the artifacts table
+     */
+    private JTable getArtifactsTable() {
+        if (artifactsTable == null) {
+            artifactsTable = new JTable();
+            artifactsTable.setFillsViewportHeight(true);
+        }
+
+        return artifactsTable;
+    }
+
     /*
       * (non-Javadoc)
       * @see net.lmxm.ute.gui.editors.tasks.AbstractTaskEditorPanel#addFields()
@@ -91,45 +139,19 @@ public final class MavenRepositoryDownloadTaskEditorPanel extends AbstractTaskEd
         addSeparator(LabelResourceType.ARTIFACTS);
 
         addRequiredLabel(LabelResourceType.ARTIFACT_COORDINATES);
-        getContentPanel().add(getArtifactCoordinatesTextField());
+        getContentPanel().add(getArtifactsPane());
     }
 
     private void addInputValidators() {
         if (getUserObject() instanceof MavenRepositoryDownloadTask) {
-            removeInputValidator(getArtifactCoordinatesTextField());
-
-            final InputValidator inputValidator = InputValidatorFactory.createMavenArtifactCoordinatesValidator(
-                    getArtifactCoordinatesTextField());
-
-            getArtifactCoordinatesTextField().setInputVerifier(inputValidator);
-            addInputValidator(inputValidator);
+//            removeInputValidator(getArtifactCoordinatesTextField());
+//
+//            final InputValidator inputValidator = InputValidatorFactory.createMavenArtifactCoordinatesValidator(
+//                    getArtifactCoordinatesTextField());
+//
+//            getArtifactCoordinatesTextField().setInputVerifier(inputValidator);
+//            addInputValidator(inputValidator);
         }
-    }
-
-    /**
-     * Gets the source relative path text field.
-     *
-     * @return the source relative path text field
-     */
-    private JTextField getArtifactCoordinatesTextField() {
-        if (artifactCoordinatesTextField == null) {
-            artifactCoordinatesTextField = new JTextField();
-            artifactCoordinatesTextField.setFont(getMonospaceFont());
-            artifactCoordinatesTextField.setMinimumSize(new Dimension(400, (int) artifactCoordinatesTextField.getSize()
-                    .getHeight()));
-            artifactCoordinatesTextField.setDragEnabled(true);
-            artifactCoordinatesTextField.getDocument().addDocumentListener(new DocumentAdapter() {
-                @Override
-                public void valueChanged(final String newValue) {
-                    if (getUserObject() instanceof MavenRepositoryDownloadTask) {
-                        final MavenRepositoryDownloadTask mavenRepositoryDownloadTask = (MavenRepositoryDownloadTask) getUserObject();
-                        mavenRepositoryDownloadTask.setArtifactCoordinates(newValue);
-                    }
-                }
-            });
-        }
-
-        return artifactCoordinatesTextField;
     }
 
 	/*
@@ -156,7 +178,7 @@ public final class MavenRepositoryDownloadTaskEditorPanel extends AbstractTaskEd
         if (getUserObject() instanceof MavenRepositoryDownloadTask) {
             final MavenRepositoryDownloadTask mavenRepositoryDownloadTask = (MavenRepositoryDownloadTask) getUserObject();
 
-            getArtifactCoordinatesTextField().setText(mavenRepositoryDownloadTask.getArtifactCoordinates());
+            getArtifactsTable().setModel(new MavenArtifactsTableModel(mavenRepositoryDownloadTask.getArtifacts()));
         }
 
         addInputValidators();

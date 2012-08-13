@@ -1,10 +1,14 @@
 package net.lmxm.ute.beans.tasks;
 
+import net.lmxm.ute.beans.MavenArtifact;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.utils.DomainBeanUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class MavenRepositoryDownloadTask extends AbstractTask implements FileSystemTargetTask, MavenRepositorySourceTask {
 
@@ -21,23 +25,24 @@ public final class MavenRepositoryDownloadTask extends AbstractTask implements F
     private FileSystemTarget target;
 
     /**
-     * Maven Coordinates (GAV) of the artifact to download.
+     * List of artifacts to download.
      */
-    private String artifactCoordinates;
+    private List<MavenArtifact> artifacts;
 
     public MavenRepositoryDownloadTask(final Job job) {
         super(job);
 
         source = new MavenRepositorySource();
         target = new FileSystemTarget();
+        artifacts = new ArrayList<MavenArtifact>();
     }
 
-    public String getArtifactCoordinates() {
-        return artifactCoordinates;
+    public List<MavenArtifact> getArtifacts() {
+        return artifacts;
     }
 
-    public void setArtifactCoordinates(String artifactCoordinates) {
-        this.artifactCoordinates = artifactCoordinates;
+    public void setArtifact(List<MavenArtifact> artifacts) {
+        this.artifacts = artifacts;
     }
 
     @Override
@@ -65,7 +70,8 @@ public final class MavenRepositoryDownloadTask extends AbstractTask implements F
      */
     @Override
     public boolean isEmpty() {
-        return super.isEmpty() && StringUtils.isBlank(artifactCoordinates) && DomainBeanUtils.isEmpty(source) && DomainBeanUtils.isEmpty(target);
+        return super.isEmpty() && DomainBeanUtils.isEmpty(artifacts) && DomainBeanUtils.isEmpty(source) &&
+                DomainBeanUtils.isEmpty(target);
     }
 
     /**

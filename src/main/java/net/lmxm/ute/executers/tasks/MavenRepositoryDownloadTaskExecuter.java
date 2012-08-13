@@ -1,5 +1,6 @@
 package net.lmxm.ute.executers.tasks;
 
+import net.lmxm.ute.beans.MavenArtifact;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
@@ -83,7 +84,11 @@ public final class MavenRepositoryDownloadTaskExecuter extends AbstractTaskExecu
             final String mavenRepositoryUrl = getFullUrl(task.getSource());
             final File destinationDirectory = new File(FileSystemTargetUtils.getFullPath(task.getTarget()));
             final AetherResolveUtils aetherResolveUtils = new AetherResolveUtils(mavenRepositoryUrl, getStatusChangeHelper());
-            aetherResolveUtils.resolveArtifact(task.getArtifactCoordinates(), destinationDirectory);
+
+            for (MavenArtifact mavenArtifact : task.getArtifacts()) {
+                aetherResolveUtils.resolveArtifact(mavenArtifact.getCoordinates(), destinationDirectory,
+                        mavenArtifact.getTargetName());
+            }
         }
         catch (Exception e) {
             getStatusChangeHelper().error(this, StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_FAILED);
