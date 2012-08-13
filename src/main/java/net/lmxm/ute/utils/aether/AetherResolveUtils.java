@@ -1,5 +1,8 @@
 package net.lmxm.ute.utils.aether;
 
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_FAILED;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_UNABLE_TO_DELETE_LOCAL_REPOSITORY;
+
 import net.lmxm.ute.event.StatusChangeHelper;
 import org.apache.maven.repository.internal.MavenRepositorySystemSession;
 import org.codehaus.plexus.DefaultPlexusContainer;
@@ -121,14 +124,14 @@ public final class AetherResolveUtils {
             }
         }
         catch (Exception e) {
-            // TODO
-            e.printStackTrace();
+            statusChangeHelper.error(this, MAVEN_REPOSITORY_DOWNLOAD_FAILED);
         }
         finally {
             try {
                 FileUtils.deleteDirectory(localRepositoryBaseDirectory);
             }
             catch (IOException e) {
+                statusChangeHelper.error(this, MAVEN_REPOSITORY_DOWNLOAD_UNABLE_TO_DELETE_LOCAL_REPOSITORY, e.getMessage());
                 System.err.println("Unable to delete " + localRepositoryBaseDirectory);
             }
         }

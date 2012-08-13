@@ -56,14 +56,14 @@ public class AetherTransferListener implements TransferListener {
         }
     }
 
-    private void pad(StringBuilder buffer, int spaces) {
-        String block = "                                        ";
-        while (spaces > 0) {
-            int n = Math.min(spaces, block.length());
-            buffer.append(block, 0, n);
-            spaces -= n;
-        }
-    }
+//    private void pad(StringBuilder buffer, int spaces) {
+//        String block = "                                        ";
+//        while (spaces > 0) {
+//            int n = Math.min(spaces, block.length());
+//            buffer.append(block, 0, n);
+//            spaces -= n;
+//        }
+//    }
 
     protected long toKB(long bytes) {
         return (bytes + 1023) / 1024;
@@ -71,11 +71,11 @@ public class AetherTransferListener implements TransferListener {
 
     private void transferCompleted(TransferEvent event) {
         downloads.remove(event.getResource());
-
-        final StringBuilder buffer = new StringBuilder(64);
-        pad(buffer, lastLength);
-
-        statusChangeHelper.info(this, MAVEN_REPOSITORY_TRANSFER_COMPLETED, buffer.toString());
+//
+//        final StringBuilder buffer = new StringBuilder(64);
+//        pad(buffer, lastLength);
+//
+//        statusChangeHelper.info(this, MAVEN_REPOSITORY_TRANSFER_COMPLETED, buffer.toString());
     }
 
     @Override
@@ -88,17 +88,22 @@ public class AetherTransferListener implements TransferListener {
     public void transferInitiated(TransferEvent event) throws TransferCancelledException {
         final StatusChangeMessageResourceType type = event.getRequestType() == TransferEvent.RequestType.PUT ?
                 MAVEN_REPOSITORY_UPLOAD_INITIATED : MAVEN_REPOSITORY_DOWNLOAD_INITIATED;
-
         final TransferResource resource = event.getResource();
         statusChangeHelper.info(this, type, resource.getRepositoryUrl(), resource.getResourceName());
     }
 
+    /**
+     * Transfer of the artifact has started. Reported to the user along with current progress.
+     *
+     * @param event Information about the transfer event
+     * @throws TransferCancelledException Thrown if the transfer should be cancelled
+     */
     @Override
     public void transferStarted(TransferEvent event) throws TransferCancelledException {
         final TransferResource resource = event.getResource();
         downloads.put(resource, event.getTransferredBytes());
 
-        final StringBuilder buffer = new StringBuilder(64);
+        final StringBuilder buffer = new StringBuilder();
 
         for (Map.Entry<TransferResource, Long> entry : downloads.entrySet()) {
             final long total = entry.getKey().getContentLength();
@@ -107,19 +112,25 @@ public class AetherTransferListener implements TransferListener {
             buffer.append(getStatus(complete, total)).append("  ");
         }
 
-        int pad = lastLength - buffer.length();
-        lastLength = buffer.length();
-        pad(buffer, pad);
+//        final int pad = lastLength - buffer.length();
+//        lastLength = buffer.length();
+//        pad(buffer, pad);
 
         statusChangeHelper.info(this, MAVEN_REPOSITORY_TRANSFER_STARTED, buffer);
     }
 
+    /**
+     * Transfer of the artifact has progressed. Reported current progress to the user.
+     *
+     * @param event Information about the transfer event
+     * @throws TransferCancelledException Thrown if the transfer should be cancelled
+     */
     @Override
     public void transferProgressed(TransferEvent event) throws TransferCancelledException {
         final TransferResource resource = event.getResource();
         downloads.put(resource, event.getTransferredBytes());
 
-        final StringBuilder buffer = new StringBuilder(64);
+        final StringBuilder buffer = new StringBuilder();
 
         for (Map.Entry<TransferResource, Long> entry : downloads.entrySet()) {
             final long total = entry.getKey().getContentLength();
@@ -127,10 +138,10 @@ public class AetherTransferListener implements TransferListener {
 
             buffer.append(getStatus(complete, total)).append("  ");
         }
-
-        int pad = lastLength - buffer.length();
-        lastLength = buffer.length();
-        pad(buffer, pad);
+//
+//        int pad = lastLength - buffer.length();
+//        lastLength = buffer.length();
+//        pad(buffer, pad);
 
         statusChangeHelper.info(this, MAVEN_REPOSITORY_TRANSFER_PROGRESSED, buffer);
     }

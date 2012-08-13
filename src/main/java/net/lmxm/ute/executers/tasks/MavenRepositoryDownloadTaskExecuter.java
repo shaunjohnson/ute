@@ -1,11 +1,14 @@
 package net.lmxm.ute.executers.tasks;
 
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_STARTED;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_FAILED;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_COMPLETED;
+
 import net.lmxm.ute.beans.MavenArtifact;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
 import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 import net.lmxm.ute.utils.aether.AetherResolveUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.PathUtils;
@@ -86,12 +89,16 @@ public final class MavenRepositoryDownloadTaskExecuter extends AbstractTaskExecu
             final AetherResolveUtils aetherResolveUtils = new AetherResolveUtils(mavenRepositoryUrl, getStatusChangeHelper());
 
             for (MavenArtifact mavenArtifact : task.getArtifacts()) {
+                getStatusChangeHelper().important(this, MAVEN_REPOSITORY_DOWNLOAD_STARTED, mavenArtifact.getCoordinates());
+
                 aetherResolveUtils.resolveArtifact(mavenArtifact.getCoordinates(), destinationDirectory,
                         mavenArtifact.getTargetName());
+
+                getStatusChangeHelper().important(this, MAVEN_REPOSITORY_DOWNLOAD_COMPLETED, mavenArtifact.getCoordinates());
             }
         }
         catch (Exception e) {
-            getStatusChangeHelper().error(this, StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_FAILED);
+            getStatusChangeHelper().error(this, MAVEN_REPOSITORY_DOWNLOAD_FAILED);
         }
 
         LOGGER.debug("{} returning", prefix);
