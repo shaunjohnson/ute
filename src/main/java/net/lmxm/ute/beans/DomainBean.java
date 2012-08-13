@@ -21,19 +21,20 @@ package net.lmxm.ute.beans;
 import java.io.Serializable;
 
 /**
- * The Interface DomainBeanIF.
+ * A domain bean is an object within UTE that can be tested for emptiness and can be updated to remove all empty
+ * child objects.
  */
 public interface DomainBean extends Serializable {
 
 	/**
-	 * Checks if is empty.
+	 * Checks if the domain object is empty.
 	 * 
 	 * @return true, if is empty
 	 */
 	boolean isEmpty();
 
 	/**
-	 * Removes the empty objects.
+	 * Removes all empty child objects.
 	 */
 	void removeEmptyObjects();
 }

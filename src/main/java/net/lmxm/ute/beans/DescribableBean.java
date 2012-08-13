@@ -19,18 +19,18 @@
 package net.lmxm.ute.beans;
 
 /**
- * The Interface DescribableBean.
+ * A describable bean is an object that contains a description field that may be set or retrieved.
  */
 public interface DescribableBean {
 	/**
-	 * Gets the description.
+	 * Gets the description of the object.
 	 * 
 	 * @return the description
 	 */
 	String getDescription();
 
 	/**
-	 * Sets the description.
+	 * Sets the description description of the object.
 	 * 
 	 * @param description the new description
 	 */

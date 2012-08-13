@@ -27,84 +27,70 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.base.Objects;
 
 /**
- * The Class FindReplacePattern.
+ * A Find/Replace pattern represents a pair of values used to find and replace text. The find value represents a
+ * regular expression value stored as a String. The value is not stored as an instance of Pattern as the user must be
+ * able to modify the value to make it a valid regular expression. The replace string represents the value that is
+ * used to replace all matching values.
  */
-public class FindReplacePattern implements DomainBean {
+public final class FindReplacePattern implements DomainBean {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -124788145989938819L;
 
-	/** The find. */
+	/** The regular expression used to find a match, as a String. */
 	private String find;
 
-	/** The replace. */
+	/** The replacement text. */
 	private String replace;
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(final Object object) {
-		if (object == null) {
-			return false;
-		}
+        if (object instanceof FindReplacePattern) {
+            final FindReplacePattern that = (FindReplacePattern) object;
 
-		if (object == this) {
-			return true;
-		}
-
-		if (object.getClass() != getClass()) {
-			return false;
-		}
-
-		final FindReplacePattern rhs = (FindReplacePattern) object;
-
-		return new EqualsBuilder().appendSuper(super.equals(object)).append(find, rhs.find)
-				.append(replace, rhs.replace).isEquals();
+            return Objects.equal(find, that.find) && Objects.equal(replace, that.replace);
+        }
+        else {
+            return false;
+        }
 	}
 
 	/**
-	 * Gets the find.
+	 * Gets the regular expression used to find a match, as a String.
 	 * 
-	 * @return the find
+	 * @return the find expression
 	 */
 	public String getFind() {
 		return find;
 	}
 
 	/**
-	 * Gets the replace.
+	 * Gets the replacement text.
 	 * 
-	 * @return the replace
+	 * @return the replacement text
 	 */
 	public String getReplace() {
 		return replace;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(find, replace);
 	}
 
-	/**
-	 * Checks if is empty.
-	 * 
-	 * @return true, if is empty
-	 */
-	@Override
+    /**
+     * Checks if the domain object is empty.
+     *
+     * @return true, if is empty
+     */
 	public boolean isEmpty() {
 		return StringUtils.isBlank(find) && StringUtils.isBlank(replace);
 	}
 
 	/**
-	 * Checks if is valid.
+	 * Checks if the find regular expression is a valid regular expression.
 	 * 
-	 * @return true, if is valid
+	 * @return true, if is find is a valid regular expression, otherwise false
 	 */
 	public boolean isValid() {
 		try {
@@ -119,30 +105,33 @@ public class FindReplacePattern implements DomainBean {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.beans.DomainBean#removeEmptyObjects()
-	 */
-	@Override
+    /**
+     * Removes all empty child objects.
+     */
 	public void removeEmptyObjects() {
 		// No children objects
 	}
 
 	/**
-	 * Sets the find.
+     * Sets the regular expression used to find a match, as a String.
 	 * 
-	 * @param find the new find
+	 * @param find the new find expression
 	 */
 	public void setFind(final String find) {
 		this.find = find;
 	}
 
 	/**
-	 * Sets the replace.
+	 * Sets the replacement text.
 	 * 
-	 * @param replace the new replace
+	 * @param replace the new replacement text
 	 */
 	public void setReplace(final String replace) {
 		this.replace = replace;
 	}
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("find", find).add("replace", replace).toString();
+    }
 }

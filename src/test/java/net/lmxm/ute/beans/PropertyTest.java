@@ -13,13 +13,18 @@ public class PropertyTest {
     }
 
     @Test
+    public void testGetDisplayText() {
+        assertEquals("propertyId", new Property("propertyId").getDisplayText());
+    }
+
+    @Test
     public void testIsEmptyNewInstance() {
         final Property property = new Property();
         assertTrue(property.isEmpty());
     }
 
     @Test
-    public void testIsEmptyCoordinatesSet() {
+    public void testIsEmptyIdSet() {
         final Property property = new Property();
         property.setId("propertyId");
         assertFalse(property.isEmpty());

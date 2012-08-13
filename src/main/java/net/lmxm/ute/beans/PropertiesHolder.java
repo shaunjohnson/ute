@@ -21,19 +21,19 @@ package net.lmxm.ute.beans;
 import java.util.List;
 
 /**
- * The Interface PropertiesHolder.
+ * A properties holder is an object that contains retrievable lists of preferences and properties.
  */
 public interface PropertiesHolder {
 
 	/**
-	 * Gets the preferences.
+	 * Gets a List of Preference objects.
 	 * 
 	 * @return the preferences
 	 */
 	List<Preference> getPreferences();
 
 	/**
-	 * Gets the properties.
+	 * Gets a List of Property objects.
 	 * 
 	 * @return the properties
 	 */

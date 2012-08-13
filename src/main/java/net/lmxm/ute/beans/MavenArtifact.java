@@ -36,27 +36,27 @@ public final class MavenArtifact implements DomainBean {
 	/** The target name. */
 	private String targetName;
 
+    /**
+     * Initializes a new, empty MavenArtifact instance.
+     */
+    public MavenArtifact() {
+        super();
+    }
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(final Object object) {
-		if (object == null) {
-			return false;
-		}
+        if (object instanceof MavenArtifact) {
+            final MavenArtifact that = (MavenArtifact) object;
 
-		if (object == this) {
-			return true;
-		}
-
-		if (object.getClass() != getClass()) {
-			return false;
-		}
-
-		final MavenArtifact rhs = (MavenArtifact) object;
-
-		return new EqualsBuilder().append(coordinates, rhs.coordinates).append(targetName, rhs.targetName).isEquals();
+            return Objects.equal(coordinates, that.coordinates) && Objects.equal(targetName, that.targetName);
+        }
+        else {
+            return false;
+        }
 	}
 
 	/**

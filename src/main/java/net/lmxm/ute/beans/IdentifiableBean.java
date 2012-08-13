@@ -21,28 +21,29 @@ package net.lmxm.ute.beans;
 import java.io.Serializable;
 
 /**
- * The Interface IdentifiableBean.
+ * An identifiable bean is a serializable bean that contains an ID field that may be set, retrieved, as well as
+ * include a method for generating user friendly text that may be used in a GUI to present to the user.
  */
 public interface IdentifiableBean extends Comparable<IdentifiableBean>, Serializable {
 
 	/**
-	 * Gets the display text.
-	 * 
-	 * @return the display text
+     * Generates user friendly display text that may be used in the GUI.
+	 *
+     * @return User friendly text
 	 */
 	String getDisplayText();
 
 	/**
-	 * Gets the id.
+	 * Gets the current ID of the object.
 	 * 
-	 * @return the id
+	 * @return the ID
 	 */
 	String getId();
 
 	/**
-	 * Sets the id.
+	 * Sets the ID of the object.
 	 * 
-	 * @param id the new id
+	 * @param id the new ID
 	 */
 	void setId(String id);
 }

@@ -19,20 +19,21 @@
 package net.lmxm.ute.beans;
 
 /**
- * The Interface EnabledState.
+ * An Enabled State is a bean that has a state field named "enabled" that may be set or retrieved. An example of an
+ * enabled state bean is a Task, which may be enabled or disabled.
  */
 public interface EnabledStateBean {
 	/**
-	 * Gets the enabled.
+	 * Gets the value of the enabled flag. A true value indicates that the object is enabled, otherwise it is disabled.
 	 * 
-	 * @return the enabled
+	 * @return the current value of the enabled flag
 	 */
 	boolean getEnabled();
 
 	/**
-	 * Sets the enabled.
+	 * Sets the enabled flag to the provided value. This allows a caller to enable/disable the object.
 	 * 
-	 * @param enabled the enabled
+	 * @param enabled the new value of enabled.
 	 */
 	void setEnabled(boolean enabled);
 }
