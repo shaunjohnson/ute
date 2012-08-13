@@ -4,58 +4,56 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class PropertyTest {
     @Test
     public void testEqualsObject() {
-        EqualsVerifier.forClass(MavenArtifact.class).suppress(Warning.NONFINAL_FIELDS).verify();
+        EqualsVerifier.forClass(Property.class).suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
     @Test
     public void testIsEmptyNewInstance() {
-        final MavenArtifact mavenArtifact = new MavenArtifact();
-        assertTrue(mavenArtifact.isEmpty());
+        final Property property = new Property();
+        assertTrue(property.isEmpty());
     }
 
     @Test
     public void testIsEmptyCoordinatesSet() {
-        final MavenArtifact mavenArtifact = new MavenArtifact();
-        mavenArtifact.setCoordinates("junit:junit:4.10");
-        assertFalse(mavenArtifact.isEmpty());
+        final Property property = new Property();
+        property.setId("propertyId");
+        assertFalse(property.isEmpty());
     }
 
     @Test
     public void testIsEmptyTargetNameSet() {
-        final MavenArtifact mavenArtifact = new MavenArtifact();
-        mavenArtifact.setTargetName("junit.jar");
-        assertFalse(mavenArtifact.isEmpty());
+        final Property property = new Property();
+        property.setValue("propertyValue");
+        assertFalse(property.isEmpty());
     }
 
     @Test
     public void testToString() {
-        final MavenArtifact mavenArtifact = new MavenArtifact();
-        mavenArtifact.setCoordinates("junit:junit:4.10");
-        mavenArtifact.setTargetName("junit.jar");
+        final Property property = new Property();
+        property.setId("propertyId");
+        property.setValue("propertyValue");
 
-        assertTrue(mavenArtifact.toString().contains("junit:junit:4.10"));
-        assertTrue(mavenArtifact.toString().contains("junit.jar"));
+        assertTrue(property.toString().contains("propertyId"));
+        assertTrue(property.toString().contains("propertyValue"));
     }
 
     @Test
     public void testRemoveEmptyObjects() {
-        final MavenArtifact mavenArtifact1 = new MavenArtifact();
-        mavenArtifact1.setCoordinates("junit:junit:4.10");
-        mavenArtifact1.setTargetName("junit.jar");
+        final Property property1 = new Property();
+        property1.setId("propertyId");
+        property1.setValue("propertyValue");
 
-        final MavenArtifact mavenArtifact2 = new MavenArtifact();
-        mavenArtifact2.setCoordinates("junit:junit:4.10");
-        mavenArtifact2.setTargetName("junit.jar");
+        final Property property2 = new Property();
+        property2.setId("propertyId");
+        property2.setValue("propertyValue");
 
-        assertEquals(mavenArtifact1, mavenArtifact2);
-        mavenArtifact1.removeEmptyObjects();
-        assertEquals(mavenArtifact1, mavenArtifact2);
+        assertEquals(property1, property2);
+        property1.removeEmptyObjects();
+        assertEquals(property1, property2);
     }
 }

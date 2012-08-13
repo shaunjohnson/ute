@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans;
 
+import com.google.common.base.Objects;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.StringUtils;
@@ -126,4 +127,9 @@ public final class Property extends IdentifiableDomainBean {
 	public void setValue(final String value) {
 		this.value = value;
 	}
+
+    @Override
+     public String toString() {
+        return Objects.toStringHelper(this).add("id", getId()).add("value", value).toString();
+    }
 }

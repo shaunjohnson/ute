@@ -81,7 +81,7 @@ public abstract class IdentifiableDomainBean implements DomainBean, Identifiable
 
 		final IdentifiableDomainBean rhs = (IdentifiableDomainBean) obj;
 
-		return new EqualsBuilder().appendSuper(super.equals(obj)).append(id, rhs.getId()).isEquals();
+		return new EqualsBuilder().append(id, rhs.getId()).isEquals();
 	}
 
 	/**

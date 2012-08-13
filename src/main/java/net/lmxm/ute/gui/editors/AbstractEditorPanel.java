@@ -39,7 +39,7 @@ import javax.swing.JSeparator;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
-import net.lmxm.ute.beans.IdentifiableDomainBean;
+import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
@@ -187,7 +187,7 @@ public abstract class AbstractEditorPanel extends JPanel {
 	 * @param list the list
 	 * @return the combo box model
 	 */
-	protected final ComboBoxModel createDefaultComboBoxModel(final List<? extends IdentifiableDomainBean> list) {
+	protected final ComboBoxModel createDefaultComboBoxModel(final List<? extends IdentifiableBean> list) {
 		if (list == null) {
 			return new DefaultComboBoxModel();
 		}
