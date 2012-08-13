@@ -274,7 +274,7 @@ public final class ImageUtil {
 		ADD_FILE_SYSTEM_DELETE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
 		ADD_FIND_REPLACE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
 		ADD_GROOVY_TASK_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
-		ADD_HTTP_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
+		ADD_HTTP_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/drive-download.png"));
         ADD_MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/download-cloud.png"));
 		ADD_SUBVERSION_EXPORT_TASK_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
 		ADD_SUBVERSION_UPDATE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
@@ -282,7 +282,7 @@ public final class ImageUtil {
 		FILE_SYSTEM_DELETE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/cross-small.png"));
 		FIND_REPLACE_ICON = new ImageIcon(thisClass.getResource("/images/edit-replace.png"));
 		GROOVY_TASK_ICON = new ImageIcon(thisClass.getResource("/images/ConsoleIcon.png"));
-		HTTP_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/folder-import.png"));
+		HTTP_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/drive-download.png"));
         MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON = new ImageIcon(thisClass.getResource("/images/download-cloud.png"));
 		SUBVERSION_EXPORT_TASK_ICON = new ImageIcon(thisClass.getResource("/images/export-icon.png"));
 		SUBVERSION_UPDATE_TASK_ICON = new ImageIcon(thisClass.getResource("/images/checkout-icon.png"));
