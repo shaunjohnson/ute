@@ -439,9 +439,11 @@ public final class ConfigurationReader {
 
 		LOGGER.debug("{} parsing {} tasks", prefix, tasks.size());
 
-		for (final TaskType taskType : jobType.getTasks().getTaskArray()) {
-			tasks.add(parseTask(taskType, job, configuration));
-		}
+        if (jobType.getTasks() != null) {
+            for (final TaskType taskType : jobType.getTasks().getTaskArray()) {
+                tasks.add(parseTask(taskType, job, configuration));
+            }
+        }
 
 		LOGGER.debug("{} returning {}", prefix, job);
 
