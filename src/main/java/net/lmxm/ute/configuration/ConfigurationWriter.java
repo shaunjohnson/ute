@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executor.
- * 
+ *
  * Universal Task Executor is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executor is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -116,7 +116,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write files.
-	 * 
+	 *
 	 * @param filesType the files type
 	 * @param files the files
 	 */
@@ -137,7 +137,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write file system delete task.
-	 * 
+	 *
 	 * @param taskType the task type
 	 * @param task the task
 	 */
@@ -166,7 +166,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write file system location.
-	 * 
+	 *
 	 * @param locationsType the locations type
 	 * @param fileSystemLocation the file system location
 	 */
@@ -185,7 +185,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write file system locations.
-	 * 
+	 *
 	 * @param locationsType the locations type
 	 * @param configuration the configuration
 	 */
@@ -209,7 +209,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write file system target.
-	 * 
+	 *
 	 * @param fileSystemTargetType the file system target type
 	 * @param fileSystemTarget the file system target
 	 */
@@ -219,18 +219,21 @@ public class ConfigurationWriter {
 
 		LOGGER.debug("{} entered", prefix);
 
-		fileSystemTargetType.setLocationId(fileSystemTarget.getLocation().getId());
+        final FileSystemLocation fileSystemLocation = fileSystemTarget.getLocation();
+        if (fileSystemLocation != null) {
+            fileSystemTargetType.setLocationId(fileSystemLocation.getId());
+        }
 
-		if (StringUtils.isNotBlank(fileSystemTarget.getRelativePath())) {
-			fileSystemTargetType.setRelativePath(fileSystemTarget.getRelativePath());
-		}
+        if (StringUtils.isNotBlank(fileSystemTarget.getRelativePath())) {
+            fileSystemTargetType.setRelativePath(fileSystemTarget.getRelativePath());
+        }
 
 		LOGGER.debug("{} leaving", prefix);
 	}
 
 	/**
 	 * Write find replace task.
-	 * 
+	 *
 	 * @param taskType the task type
 	 * @param task the task
 	 */
@@ -261,7 +264,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write groovy task.
-	 * 
+	 *
 	 * @param taskType the task type
 	 * @param task the task
 	 */
@@ -290,7 +293,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write http download task.
-	 * 
+	 *
 	 * @param taskType the task type
 	 * @param task the task
 	 */
@@ -320,7 +323,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write http location.
-	 * 
+	 *
 	 * @param locationsType the locations type
 	 * @param httpLocation the http location
 	 */
@@ -339,7 +342,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write http locations.
-	 * 
+	 *
 	 * @param locationsType the locations type
 	 * @param configuration the configuration
 	 */
@@ -363,7 +366,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write http source.
-	 * 
+	 *
 	 * @param httpSourceType the http source type
 	 * @param httpSource the http source
 	 */
@@ -383,7 +386,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write job.
-	 * 
+	 *
 	 * @param jobsType the jobs type
 	 * @param job the job
 	 */
@@ -407,7 +410,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write jobs.
-	 * 
+	 *
 	 * @param configurationType the configuration type
 	 * @param configuration the configuration
 	 */
@@ -433,7 +436,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write locations.
-	 * 
+	 *
 	 * @param configurationType the configuration type
 	 * @param configuration the configuration
 	 */
@@ -466,10 +469,12 @@ public class ConfigurationWriter {
         LOGGER.debug("{} entered", prefix);
 
         for (final MavenArtifact mavenArtifact : mavenArtifacts) {
-            final MavenArtifactType mavenArtifactType = mavenArtifactsType.addNewArtifact();
+            if (StringUtils.isNotEmpty(mavenArtifact.getCoordinates())) {
+                final MavenArtifactType mavenArtifactType = mavenArtifactsType.addNewArtifact();
 
-            mavenArtifactType.setCoordinates(mavenArtifact.getCoordinates());
-            mavenArtifactType.setTargetName(mavenArtifact.getTargetName());
+                mavenArtifactType.setCoordinates(mavenArtifact.getCoordinates());
+                mavenArtifactType.setTargetName(mavenArtifact.getTargetName());
+            }
         }
 
         LOGGER.debug("{} leaving", prefix);
@@ -562,7 +567,10 @@ public class ConfigurationWriter {
 
         LOGGER.debug("{} entered", prefix);
 
-        mavenRepositorySourceType.setLocationId(mavenRepositorySource.getLocation().getId());
+        final MavenRepositoryLocation mavenRepositoryLocation = mavenRepositorySource.getLocation();
+        if (mavenRepositoryLocation != null) {
+            mavenRepositorySourceType.setLocationId(mavenRepositoryLocation.getId());
+        }
 
         if (StringUtils.isNotBlank(mavenRepositorySource.getRelativePath())) {
             mavenRepositorySourceType.setRelativePath(mavenRepositorySource.getRelativePath());
@@ -573,7 +581,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write pattern.
-	 * 
+	 *
 	 * @param patternsType the patterns type
 	 * @param pattern the pattern
 	 */
@@ -592,7 +600,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write patterns.
-	 * 
+	 *
 	 * @param findReplaceTaskType the find replace task type
 	 * @param patterns the patterns
 	 */
@@ -616,7 +624,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write preference.
-	 * 
+	 *
 	 * @param preferencesType the preferences type
 	 * @param preference the preference
 	 */
@@ -634,7 +642,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write preferences.
-	 * 
+	 *
 	 * @param configurationType the configuration type
 	 * @param configuration the configuration
 	 */
@@ -660,7 +668,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write properties.
-	 * 
+	 *
 	 * @param configurationType the configuration type
 	 * @param configuration the configuration
 	 */
@@ -686,7 +694,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write property.
-	 * 
+	 *
 	 * @param propertiesType the properties type
 	 * @param property the property
 	 */
@@ -705,7 +713,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write subversion export task.
-	 * 
+	 *
 	 * @param taskType the task type
 	 * @param task the task
 	 */
@@ -741,7 +749,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write subversion repository location.
-	 * 
+	 *
 	 * @param locationsType the locations type
 	 * @param subversionRepositoryLocation the subversion repository location
 	 */
@@ -796,7 +804,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write subversion repository source.
-	 * 
+	 *
 	 * @param subversionRepositorySourceType the subversion repository source type
 	 * @param subversionRepositorySource the subversion repository source
 	 */
@@ -817,7 +825,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write subversion revision.
-	 * 
+	 *
 	 * @param subversionExportTaskType the subversion export task type
 	 * @param subversionExportTask the subversion export task
 	 */
@@ -843,7 +851,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write subversion update task.
-	 * 
+	 *
 	 * @param taskType the task type
 	 * @param task the task
 	 */
@@ -870,7 +878,7 @@ public class ConfigurationWriter {
 
 	/**
 	 * Write tasks.
-	 * 
+	 *
 	 * @param jobType the job type
 	 * @param job the job
 	 */
@@ -888,6 +896,11 @@ public class ConfigurationWriter {
 		final TasksType tasksType = jobType.addNewTasks();
 
 		for (final Task task : tasks) {
+            if (StringUtils.isEmpty(task.getId())) {
+                LOGGER.warn("{} Skipping {} task with empty ID", prefix, task.getClass());
+                continue;
+            }
+
 			final TaskType taskType = tasksType.addNewTask();
 
 			if (StringUtils.isNotBlank(task.getDescription())) {
