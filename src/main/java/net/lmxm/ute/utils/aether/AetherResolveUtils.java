@@ -4,6 +4,7 @@ import net.lmxm.ute.event.StatusChangeHelper;
 import org.apache.maven.repository.internal.MavenRepositorySystemSession;
 import org.codehaus.plexus.DefaultPlexusContainer;
 import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.StringUtils;
 import org.sonatype.aether.RepositorySystem;
 import org.sonatype.aether.RepositorySystemSession;
 import org.sonatype.aether.artifact.Artifact;
@@ -112,7 +113,7 @@ public final class AetherResolveUtils {
             final ArtifactResult artifactResult = system.resolveArtifact(session, artifactRequest);
             final Artifact artifact = artifactResult.getArtifact();
 
-            if (targetName == null) {
+            if (StringUtils.isEmpty(targetName)) {
                 FileUtils.copyFileToDirectory(artifact.getFile(), destinationDirectory);
             }
             else {
