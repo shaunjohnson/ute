@@ -8,11 +8,30 @@
 	<description>Universal Task Executer</description>
 	<url>http://lmxm.net/ute</url>
 	<inceptionYear>2011</inceptionYear>
+    <organization>
+        <name>LMXM LLC</name>
+        <url>http://lmxm.net</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License, Version 3</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
 	<issueManagement>
+        <system>Github</system>
+        <url>https://github.com/shaunjohnson/ute/issues</url>
 	</issueManagement>
+
 	<ciManagement>
+        <system>Travis CI</system>
+        <url>http://travis-ci.org/#!/shaunjohnson/ute</url>
 	</ciManagement>
-	<developers>
+
+    <developers>
 		<developer>
 			<id>shaun</id>
 			<name>Shaun Johnson</name>
@@ -24,13 +43,14 @@
 			</roles>
 		</developer>
 	</developers>
-	<scm>
-	</scm>
-	<organization>
-		<name>LMXM LLC</name>
-		<url>http://lmxm.net</url>
-	</organization>
-	<build>
+
+    <scm>
+        <connection>scm:git:git@github.com:shaunjohnson/ute.git</connection>
+        <url>scm:git:git@github.com:shaunjohnson/ute.git</url>
+        <developerConnection>scm:git:git@github.com:shaunjohnson/ute.git</developerConnection>
+    </scm>
+
+    <build>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
