@@ -24,8 +24,11 @@
 			</roles>
 		</developer>
 	</developers>
-	<scm>
-	</scm>
+    <scm>
+        <connection>scm:git:git@github.com:shaunjohnson/ute.git</connection>
+        <url>scm:git:git@github.com:shaunjohnson/ute.git</url>
+        <developerConnection>scm:git:git@github.com:shaunjohnson/ute.git</developerConnection>
+    </scm>
 	<organization>
 		<name>LMXM LLC</name>
 		<url>http://lmxm.net</url>

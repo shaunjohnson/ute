@@ -114,7 +114,7 @@ public abstract class GenericApplication {
         if (overridePreferences == null) {
             return;
         }
-        
+
         for (Preference originalPreference : preferencesToBeUpdated) {
             for (Preference overridePreference : overridePreferences) {
                 if (originalPreference.getId().equals(overridePreference.getId())) {
