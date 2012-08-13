@@ -50,7 +50,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.lmxm.ute.beans.IdentifiableBean;
-import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.configuration.ApplicationPreferences;
@@ -371,7 +370,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			return;
 		}
 
-		final FileSystemLocation fileSystemLocation = (FileSystemLocation) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		final FileSystemLocation fileSystemLocation = (FileSystemLocation) cloneIdentifiableBean((IdentifiableBean) userObject);
 		configuration.getFileSystemLocations().add(fileSystemLocation);
 		mainTree.addFileSystemLocation(fileSystemLocation);
 	}
@@ -385,7 +384,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			return;
 		}
 
-		final HttpLocation httpLocation = (HttpLocation) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		final HttpLocation httpLocation = (HttpLocation) cloneIdentifiableBean((IdentifiableBean) userObject);
 		configuration.getHttpLocations().add(httpLocation);
 		mainTree.addHttpLocation(httpLocation);
 	}
@@ -399,7 +398,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			return;
 		}
 
-		final Job job = (Job) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		final Job job = (Job) cloneIdentifiableBean((IdentifiableBean) userObject);
 		configuration.getJobs().add(job);
 		mainTree.addJob(job);
 	}
@@ -413,7 +412,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
             return;
         }
 
-        final MavenRepositoryLocation mavenRepositoryLocation = (MavenRepositoryLocation) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+        final MavenRepositoryLocation mavenRepositoryLocation = (MavenRepositoryLocation) cloneIdentifiableBean((IdentifiableBean) userObject);
         configuration.getMavenRepositoryLocations().add(mavenRepositoryLocation);
         mainTree.addMavenRepositoryLocation(mavenRepositoryLocation);
     }
@@ -427,7 +426,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			return;
 		}
 
-		final Preference preference = (Preference) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		final Preference preference = (Preference) cloneIdentifiableBean((IdentifiableBean) userObject);
 		configuration.getPreferences().add(preference);
 		mainTree.addPreference(preference);
 	}
@@ -441,7 +440,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			return;
 		}
 
-		final Property property = (Property) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		final Property property = (Property) cloneIdentifiableBean((IdentifiableBean) userObject);
 		configuration.getProperties().add(property);
 		mainTree.addProperty(property);
 	}
@@ -455,7 +454,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			return;
 		}
 
-		final SubversionRepositoryLocation subversionRepositoryLocation = (SubversionRepositoryLocation) cloneIdentifiableBean((IdentifiableDomainBean) userObject);
+		final SubversionRepositoryLocation subversionRepositoryLocation = (SubversionRepositoryLocation) cloneIdentifiableBean((IdentifiableBean) userObject);
 		configuration.getSubversionRepositoryLocations().add(subversionRepositoryLocation);
 		mainTree.addSubversionRepositoryLocation(subversionRepositoryLocation);
 	}

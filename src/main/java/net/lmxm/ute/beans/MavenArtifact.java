@@ -56,8 +56,7 @@ public final class MavenArtifact implements DomainBean {
 
 		final MavenArtifact rhs = (MavenArtifact) object;
 
-		return new EqualsBuilder().appendSuper(super.equals(object)).append(coordinates, rhs.coordinates)
-				.append(targetName, rhs.targetName).isEquals();
+		return new EqualsBuilder().append(coordinates, rhs.coordinates).append(targetName, rhs.targetName).isEquals();
 	}
 
 	/**
@@ -123,4 +122,9 @@ public final class MavenArtifact implements DomainBean {
 	public void setTargetName(final String targetName) {
 		this.targetName = targetName;
 	}
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("coordinates", coordinates).add("targetName", targetName).toString();
+    }
 }
