@@ -111,6 +111,10 @@ public abstract class GenericApplication {
      * @param overridePreferences    List of Preference objects used to override the original Preference values
      */
     private void overridePreferences(List<Preference> preferencesToBeUpdated, List<Preference> overridePreferences) {
+        if (overridePreferences == null) {
+            return;
+        }
+        
         for (Preference originalPreference : preferencesToBeUpdated) {
             for (Preference overridePreference : overridePreferences) {
                 if (originalPreference.getId().equals(overridePreference.getId())) {
