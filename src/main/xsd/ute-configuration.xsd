@@ -27,11 +27,11 @@
 			<xs:field xpath="@id"/>
 		</xs:key>
 		<xs:key name="subversion-repository-location-id-key">
-			<xs:selector xpath="./locations/subversion-respository-location"/>
+			<xs:selector xpath="./locations/subversion-repository-location"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
 		<xs:key name="maven-repository-location-id-key">
-			<xs:selector xpath="./locations/maven-respository-location"/>
+			<xs:selector xpath="./locations/maven-repository-location"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
 		<xs:keyref name="source-subversion-repository-location-id-key-ref" refer="subversion-repository-location-id-key">
@@ -136,7 +136,7 @@
 			<xs:element name="file-system-location" type="file-system-location-type"/>
 			<xs:element name="http-location" type="http-location-type"/>
 			<xs:element name="maven-repository-location" type="maven-repository-location-type"/>
-			<xs:element name="subversion-respository-location" type="subversion-respository-location-type"/>
+			<xs:element name="subversion-repository-location" type="subversion-repository-location-type"/>
 		</xs:choice>
 	</xs:complexType>
     <xs:complexType name="maven-artifact-type">
@@ -225,7 +225,7 @@
 		<xs:attribute name="depth" type="subversion-depth-type" use="optional" default="infinity"/>
 		<xs:attribute name="revision" type="xs:string" use="optional" default="HEAD"/>
 	</xs:complexType>
-	<xs:complexType name="subversion-respository-location-type">
+	<xs:complexType name="subversion-repository-location-type">
 		<xs:sequence>
 			<xs:element name="username" type="xs:string" minOccurs="0"/>
 			<xs:element name="password" type="xs:string" minOccurs="0"/>

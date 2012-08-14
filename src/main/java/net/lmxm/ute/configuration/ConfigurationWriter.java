@@ -759,8 +759,8 @@ public class ConfigurationWriter {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final SubversionRespositoryLocationType subversionRepositoryLocationType = locationsType
-				.addNewSubversionRespositoryLocation();
+		final SubversionRepositoryLocationType subversionRepositoryLocationType = locationsType
+				.addNewSubversionRepositoryLocation();
 
 		subversionRepositoryLocationType.setId(subversionRepositoryLocation.getId());
 		subversionRepositoryLocationType.setUrl(subversionRepositoryLocation.getUrl());

@@ -856,7 +856,7 @@ public final class ConfigurationReader {
 	 * @return the subversion repository location
 	 */
 	private SubversionRepositoryLocation parseSubversionRepositoryLocation(
-			final SubversionRespositoryLocationType locationType, final Configuration configuration) {
+			final SubversionRepositoryLocationType locationType, final Configuration configuration) {
 		final String prefix = "parseSubversionRepositoryLocation() :";
 
 		LOGGER.debug("{} entered", prefix);
@@ -886,12 +886,12 @@ public final class ConfigurationReader {
 
 		final List<SubversionRepositoryLocation> locations = configuration.getSubversionRepositoryLocations();
 
-		final SubversionRespositoryLocationType[] locationTypeArray = locationsType
-				.getSubversionRespositoryLocationArray();
+		final SubversionRepositoryLocationType[] locationTypeArray = locationsType
+				.getSubversionRepositoryLocationArray();
 
 		LOGGER.debug("{} parsing {} Subversion repository locations", prefix, locationTypeArray.length);
 
-		for (final SubversionRespositoryLocationType subversionRepositoryLocationType : locationTypeArray) {
+		for (final SubversionRepositoryLocationType subversionRepositoryLocationType : locationTypeArray) {
 			locations.add(parseSubversionRepositoryLocation(subversionRepositoryLocationType, configuration));
 		}
 
