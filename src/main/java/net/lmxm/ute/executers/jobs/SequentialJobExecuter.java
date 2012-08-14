@@ -91,7 +91,7 @@ public final class SequentialJobExecuter extends AbstractJobExecuter {
 			jobCompleted();
 		}
 		catch (final Exception e) {
-			LOGGER.debug("Exception caught executing job", e);
+			LOGGER.error("Exception caught executing job", e);
 			jobAborted();
 		}
 
