@@ -124,7 +124,7 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 		}
 		catch (final SVNAuthenticationException e) {
 			LOGGER.error("SVNAuthenticationException caught exporting a file", e);
-			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.SUBVERSION_AUTHENCITAION_FAILED);
+			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.SUBVERSION_AUTHENTICATION_FAILED);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 		catch (final SVNException e) {
