@@ -30,8 +30,6 @@ public enum SubversionDepthResourceType implements ResourceType {
 
 	EMPTY,
 
-	EXCLUDE,
-
 	FILES,
 
 	IMMEDIATES,

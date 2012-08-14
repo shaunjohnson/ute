@@ -86,9 +86,6 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 		if (depth == SubversionDepth.EMPTY) {
 			svnDepth = SVNDepth.EMPTY;
 		}
-		else if (depth == SubversionDepth.EXCLUDE) {
-			svnDepth = SVNDepth.EXCLUDE;
-		}
 		else if (depth == SubversionDepth.FILES) {
 			svnDepth = SVNDepth.FILES;
 		}

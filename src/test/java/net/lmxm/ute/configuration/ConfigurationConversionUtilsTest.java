@@ -73,8 +73,6 @@ public class ConfigurationConversionUtilsTest {
 	public void testConvertSubversionDepthToSubversionDepthType() {
 		assertEquals(SubversionDepthType.EMPTY,
 				ConfigurationConversionUtils.convertSubversionDepthToSubversionDepthType(SubversionDepth.EMPTY));
-		assertEquals(SubversionDepthType.EXCLUDE,
-				ConfigurationConversionUtils.convertSubversionDepthToSubversionDepthType(SubversionDepth.EXCLUDE));
 		assertEquals(SubversionDepthType.FILES,
 				ConfigurationConversionUtils.convertSubversionDepthToSubversionDepthType(SubversionDepth.FILES));
 		assertEquals(SubversionDepthType.IMMEDIATES,
@@ -98,8 +96,6 @@ public class ConfigurationConversionUtilsTest {
 	public void testConvertSubversionDepthTypeToSubversionDepth() {
 		assertEquals(SubversionDepth.EMPTY,
 				ConfigurationConversionUtils.convertSubversionDepthTypeToSubversionDepth(SubversionDepthType.EMPTY));
-		assertEquals(SubversionDepth.EXCLUDE,
-				ConfigurationConversionUtils.convertSubversionDepthTypeToSubversionDepth(SubversionDepthType.EXCLUDE));
 		assertEquals(SubversionDepth.FILES,
 				ConfigurationConversionUtils.convertSubversionDepthTypeToSubversionDepth(SubversionDepthType.FILES));
 		assertEquals(SubversionDepth.IMMEDIATES,

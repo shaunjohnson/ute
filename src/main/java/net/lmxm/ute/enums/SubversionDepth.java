@@ -28,8 +28,6 @@ public enum SubversionDepth {
 
 	EMPTY(ResourcesUtils.getResourceText(SubversionDepthResourceType.EMPTY)),
 
-	EXCLUDE(ResourcesUtils.getResourceText(SubversionDepthResourceType.EXCLUDE)),
-
 	FILES(ResourcesUtils.getResourceText(SubversionDepthResourceType.FILES)),
 
 	IMMEDIATES(ResourcesUtils.getResourceText(SubversionDepthResourceType.IMMEDIATES)),

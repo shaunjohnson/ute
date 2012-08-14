@@ -104,9 +104,6 @@ public final class ConfigurationConversionUtils {
 		if (depth == SubversionDepth.EMPTY) {
 			subversionDepthType = SubversionDepthType.EMPTY;
 		}
-		else if (depth == SubversionDepth.EXCLUDE) {
-			subversionDepthType = SubversionDepthType.EXCLUDE;
-		}
 		else if (depth == SubversionDepth.FILES) {
 			subversionDepthType = SubversionDepthType.FILES;
 		}
@@ -138,9 +135,6 @@ public final class ConfigurationConversionUtils {
 
 		if (subversionDepthType == SubversionDepthType.EMPTY) {
 			subversionDepth = SubversionDepth.EMPTY;
-		}
-		else if (subversionDepthType == SubversionDepthType.EXCLUDE) {
-			subversionDepth = SubversionDepth.EXCLUDE;
 		}
 		else if (subversionDepthType == SubversionDepthType.FILES) {
 			subversionDepth = SubversionDepth.FILES;
