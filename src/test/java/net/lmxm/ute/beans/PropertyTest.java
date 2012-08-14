@@ -18,6 +18,20 @@ public class PropertyTest {
     }
 
     @Test
+    public void testGetId() {
+        final Property property = new Property();
+        property.setId("id");
+        assertEquals("id", property.getId());
+    }
+
+    @Test
+    public void testGetValue() {
+        final Property property = new Property();
+        property.setValue("value");
+        assertEquals("value", property.getValue());
+    }
+
+    @Test
     public void testIsEmptyNewInstance() {
         final Property property = new Property();
         assertTrue(property.isEmpty());

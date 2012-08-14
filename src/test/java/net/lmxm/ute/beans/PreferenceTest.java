@@ -18,9 +18,30 @@ public class PreferenceTest {
     }
 
     @Test
+    public void testGetId() {
+        final Preference preference = new Preference();
+        preference.setId("id");
+        assertEquals("id", preference.getId());
+    }
+
+    @Test
+    public void testGetValue() {
+        final Preference preference = new Preference();
+        preference.setValue("value");
+        assertEquals("value", preference.getValue());
+    }
+
+    @Test
     public void testIsEmptyNewInstance() {
         final Preference preference = new Preference();
         assertTrue(preference.isEmpty());
+    }
+
+    @Test
+    public void testConstructor() {
+        final Preference preference = new Preference("id", "value");
+        assertEquals("id", preference.getId());
+        assertEquals("value", preference.getValue());
     }
 
     @Test

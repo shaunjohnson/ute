@@ -15,6 +15,20 @@ public class MavenArtifactTest {
     }
 
     @Test
+    public void testGetCoordinates() {
+        final MavenArtifact mavenArtifact = new MavenArtifact();
+        mavenArtifact.setCoordinates("coordinates");
+        assertEquals("coordinates", mavenArtifact.getCoordinates());
+    }
+
+    @Test
+    public void testGetTargetName() {
+        final MavenArtifact mavenArtifact = new MavenArtifact();
+        mavenArtifact.setTargetName("targetName");
+        assertEquals("targetName", mavenArtifact.getTargetName());
+    }
+
+    @Test
     public void testIsEmptyNewInstance() {
         final MavenArtifact mavenArtifact = new MavenArtifact();
         assertTrue(mavenArtifact.isEmpty());

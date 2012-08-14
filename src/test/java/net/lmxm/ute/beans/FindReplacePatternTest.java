@@ -13,6 +13,20 @@ public class FindReplacePatternTest {
     }
 
     @Test
+    public void testGetFind() {
+        final FindReplacePattern findReplacePattern = new FindReplacePattern();
+        findReplacePattern.setFind("find");
+        assertEquals("find", findReplacePattern.getFind());
+    }
+
+    @Test
+    public void testGetReplace() {
+        final FindReplacePattern findReplacePattern = new FindReplacePattern();
+        findReplacePattern.setReplace("replace");
+        assertEquals("replace", findReplacePattern.getReplace());
+    }
+
+    @Test
     public void testIsEmptyNewInstance() {
         final FindReplacePattern findReplacePattern = new FindReplacePattern();
         assertTrue(findReplacePattern.isEmpty());

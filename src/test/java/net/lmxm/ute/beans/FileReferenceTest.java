@@ -13,6 +13,20 @@ public class FileReferenceTest {
     }
 
     @Test
+    public void testGetName() {
+        final FileReference fileReference = new FileReference();
+        fileReference.setName("name");
+        assertEquals("name", fileReference.getName());
+    }
+
+    @Test
+    public void testGetTargetName() {
+        final FileReference fileReference = new FileReference();
+        fileReference.setTargetName("targetName");
+        assertEquals("targetName", fileReference.getTargetName());
+    }
+
+    @Test
     public void testIsEmptyNewInstance() {
         final FileReference fileReference = new FileReference();
         assertTrue(fileReference.isEmpty());
