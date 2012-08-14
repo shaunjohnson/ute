@@ -26,6 +26,10 @@
 			<xs:selector xpath="./locations/file-system-location"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
+		<xs:key name="http-location-id-key">
+			<xs:selector xpath="./locations/http-location"/>
+			<xs:field xpath="@id"/>
+		</xs:key>
 		<xs:key name="subversion-repository-location-id-key">
 			<xs:selector xpath="./locations/subversion-repository-location"/>
 			<xs:field xpath="@id"/>
@@ -34,6 +38,15 @@
 			<xs:selector xpath="./locations/maven-repository-location"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
+
+        <xs:keyref name="source-http-location-id-key-ref" refer="http-location-id-key">
+            <xs:selector xpath="./jobs/job/tasks/task/*/http-source"/>
+            <xs:field xpath="@location-id"/>
+        </xs:keyref>
+		<xs:keyref name="source-maven-repository-location-id-key-ref" refer="maven-repository-location-id-key">
+			<xs:selector xpath="./jobs/job/tasks/task/*/maven-repository-source"/>
+			<xs:field xpath="@location-id"/>
+		</xs:keyref>
 		<xs:keyref name="source-subversion-repository-location-id-key-ref" refer="subversion-repository-location-id-key">
 			<xs:selector xpath="./jobs/job/tasks/task/*/subversion-repository-source"/>
 			<xs:field xpath="@location-id"/>
