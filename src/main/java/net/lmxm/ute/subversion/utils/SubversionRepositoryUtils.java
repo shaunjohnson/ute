@@ -186,7 +186,7 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 						getStatusChangeHelper());
 				final SVNDepth svnDepth = convertSubversionDepthToSvnDepth(depth);
 
-				repository.update(revisionToExport, null, svnDepth, true, reporterBaton, exportEditor);
+				repository.update(revisionToExport, null, svnDepth, false, reporterBaton, exportEditor);
 			}
 			else {
 				LOGGER.debug("{} files list contains entries, exporting {} individual files", prefix, files.size());
