@@ -19,6 +19,8 @@
  */
 package net.lmxm.ute.resources.types;
 
+import static net.lmxm.ute.resources.types.ResourceValueType.MESSAGE;
+
 import javax.swing.Icon;
 
 import net.lmxm.ute.enums.ActionCommand;
@@ -111,30 +113,21 @@ public enum StatusChangeMessageResourceType implements ResourceType {
 	SUBVERSION_UPDATE_FINISHED,
 	SUBVERSION_UPDATE_STARTED;
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.resources.ResourceType#getActionCommand()
-	 */
-	@Override
+    private final ResourceValueType[] types = {MESSAGE};
+
 	public ActionCommand getActionCommand() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.resources.ResourceType#getIcon()
-	 */
-	@Override
 	public Icon getIcon() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.resources.ResourceType#getResourceCategory()
-	 */
-	@Override
 	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.STATUS_CHANGE_MESSAGE;
 	}
+
+    public ResourceValueType[] getResourceValueTypes() {
+        return types;
+    }
 }

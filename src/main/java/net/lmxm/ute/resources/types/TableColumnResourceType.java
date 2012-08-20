@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.resources.types;
 
+import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
+
 import javax.swing.Icon;
 
 import net.lmxm.ute.enums.ActionCommand;
@@ -29,39 +31,26 @@ import net.lmxm.ute.resources.ResourceCategory;
 public enum TableColumnResourceType implements ResourceType {
 
 	FILE_NAME,
-
 	FIND,
-
     MAVEN_ARTIFACT_COORDINATES,
-
 	REPLACEMENT,
-
 	TARGET_FILE_NAME;
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
-	 */
-	@Override
+    private final ResourceValueType[] types = {TEXT};
+
 	public ActionCommand getActionCommand() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
-	 */
-	@Override
 	public Icon getIcon() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
-	 */
-	@Override
 	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.TABLE_COLUMN;
 	}
+
+    public ResourceValueType[] getResourceValueTypes() {
+        return types;
+    }
 }

@@ -18,65 +18,44 @@
  */
 package net.lmxm.ute.resources.types;
 
+import static net.lmxm.ute.resources.types.ResourceValueType.MESSAGE;
+
 import javax.swing.Icon;
 
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
-/**
- */
 public enum ExceptionResourceType implements ResourceType {
 
 	ERROR_CREATING_PREFERENCES_FILE,
-
 	ERROR_LOADING_CONFIGURATION_FILE,
-
 	ERROR_LOADING_PREFERENCES_FILE,
-
 	ERROR_SAVING_CONFIGURATION_FILE,
-
 	INVALID_CONFIGURATION_FILE,
-
 	INVALID_PATTERN,
-
 	PREFERENCES_FILE_ALREADY_EXISTS,
-
 	UNSUPPORTED_JOB_TYPE,
-
 	UNSUPPORTED_SCOPE,
-
 	UNSUPPORTED_SCOPE_TYPE,
-
 	UNSUPPORTED_SUBVERSION_DEPTH,
-
 	UNSUPPORTED_SUBVERSION_DEPTH_TYPE,
-
 	UNSUPPORTED_TASK_TYPE;
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
-	 */
-	@Override
+    private final ResourceValueType[] types = {MESSAGE};
+
 	public ActionCommand getActionCommand() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
-	 */
-	@Override
 	public Icon getIcon() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
-	 */
-	@Override
 	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.EXCEPTION;
 	}
+
+    public ResourceValueType[] getResourceValueTypes() {
+        return types;
+    }
 }

@@ -23,39 +23,31 @@ import javax.swing.Icon;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
+import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
+
 /**
  * The Enum ScopeResourceType.
  */
 public enum ScopeResourceType implements ResourceType {
 
 	FILE,
-
 	LINE;
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
-	 */
-	@Override
+    private final ResourceValueType[] types = {TEXT};
+
 	public ActionCommand getActionCommand() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
-	 */
-	@Override
 	public Icon getIcon() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
-	 */
-	@Override
 	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.SCOPE;
 	}
+
+    public ResourceValueType[] getResourceValueTypes() {
+        return types;
+    }
 }

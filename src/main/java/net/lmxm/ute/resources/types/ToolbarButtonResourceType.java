@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.resources.types;
 
+import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
+import static net.lmxm.ute.resources.types.ResourceValueType.TOOLTIP_TEXT;
+
 import javax.swing.Icon;
 
 import net.lmxm.ute.enums.ActionCommand;
@@ -83,11 +86,11 @@ public enum ToolbarButtonResourceType implements ResourceType {
 
 	SAVE_FILE_AS(ImageUtil.SAVE_FILE_AS_ICON, ActionCommand.SAVE_FILE_AS);
 
-	/** The action command. */
 	private final ActionCommand actionCommand;
 
-	/** The icon. */
 	private final Icon icon;
+
+    private final ResourceValueType[] types = {TEXT, TOOLTIP_TEXT};
 
 	/**
 	 * Instantiates a new gui component button.
@@ -100,30 +103,19 @@ public enum ToolbarButtonResourceType implements ResourceType {
 		this.actionCommand = actionCommand;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
-	 */
-	@Override
 	public ActionCommand getActionCommand() {
 		return actionCommand;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
-	 */
-	@Override
 	public Icon getIcon() {
 		return icon;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
-	 */
-	@Override
 	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.TOOLBAR_BUTTON;
 	}
+
+    public ResourceValueType[] getResourceValueTypes() {
+        return types;
+    }
 }

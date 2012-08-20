@@ -18,6 +18,11 @@
  */
 package net.lmxm.ute.resources.types;
 
+import static net.lmxm.ute.resources.ImageUtil.*;
+import static net.lmxm.ute.resources.types.ResourceValueType.ACCELERATOR;
+import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
+import static net.lmxm.ute.resources.types.ResourceValueType.TOOLTIP_TEXT;
+
 import javax.swing.Icon;
 
 import net.lmxm.ute.enums.ActionCommand;
@@ -115,11 +120,11 @@ public enum MenuItemResourceType implements ResourceType {
 
 	SAVE_FILE_AS(ImageUtil.SAVE_FILE_AS_ICON, ActionCommand.SAVE_FILE_AS);
 
-	/** The action command. */
 	private final ActionCommand actionCommand;
 
-	/** The icon. */
 	private final Icon icon;
+
+    private final ResourceValueType[] types = {ACCELERATOR, TEXT, TOOLTIP_TEXT};
 
 	/**
 	 * Instantiates a new gui component menu item.
@@ -132,30 +137,19 @@ public enum MenuItemResourceType implements ResourceType {
 		this.actionCommand = actionCommand;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
-	 */
-	@Override
 	public ActionCommand getActionCommand() {
 		return actionCommand;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
-	 */
-	@Override
 	public Icon getIcon() {
 		return icon;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
-	 */
-	@Override
 	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.MENU_ITEM;
 	}
+
+    public ResourceValueType[] getResourceValueTypes() {
+        return types;
+    }
 }

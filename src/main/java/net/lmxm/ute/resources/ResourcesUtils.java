@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 
 import net.lmxm.ute.resources.types.ResourceType;
 
+import net.lmxm.ute.resources.types.ResourceValueType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -82,13 +83,42 @@ public final class ResourcesUtils {
 		return string == null ? null : string.charAt(0);
 	}
 
+    /**
+     * Gets the resource value of the provided value type.
+     *
+     * @param resourceType the resource type to load
+     * @param resourceValueType the resource value type to load
+     * @return the resource value
+     */
+    public static String getResource(final ResourceType resourceType, ResourceValueType resourceValueType) {
+        if (resourceValueType == ResourceValueType.ACCELERATOR) {
+            final Character accelerator = getResourceAccelerator(resourceType);
+            return accelerator == null ? null : accelerator.toString();
+        }
+        else if (resourceValueType == ResourceValueType.MESSAGE) {
+            return getResourceMessage(resourceType);
+        }
+        else if (resourceValueType == ResourceValueType.TEXT) {
+            return getResourceText(resourceType);
+        }
+        else if (resourceValueType == ResourceValueType.TITLE) {
+            return getResourceTitle(resourceType);
+        }
+        else if (resourceValueType == ResourceValueType.TOOLTIP_TEXT) {
+            return getResourceToolTipText(resourceType);
+        }
+        else {
+            throw new IllegalArgumentException("Unsupported resource value type: " + resourceValueType);
+        }
+    }
+
 	/**
 	 * Gets the resource accelerator.
 	 * 
 	 * @param resourceType the resource type
 	 * @return the resource accelerator
 	 */
-	public static final Character getResourceAccelerator(final ResourceType resourceType) {
+	public static Character getResourceAccelerator(final ResourceType resourceType) {
 		return getResourceCharacter(resourceType, ACCELERATOR_SUFFIX);
 	}
 
@@ -99,7 +129,7 @@ public final class ResourcesUtils {
 	 * @param suffix the suffix
 	 * @return the resource character
 	 */
-	private static final Character getResourceCharacter(final ResourceType guiComponentType, final String suffix) {
+	private static Character getResourceCharacter(final ResourceType guiComponentType, final String suffix) {
 		return getCharacter(buildResourcePrefix(guiComponentType) + suffix);
 	}
 
@@ -109,7 +139,7 @@ public final class ResourcesUtils {
 	 * @param resourceType the resource type
 	 * @return the resource message
 	 */
-	public static final String getResourceMessage(final ResourceType resourceType) {
+	public static String getResourceMessage(final ResourceType resourceType) {
 		return getResourceString(resourceType, MESSAGE_SUFFIX);
 	}
 
@@ -120,7 +150,7 @@ public final class ResourcesUtils {
 	 * @param suffix the suffix
 	 * @return the resource string
 	 */
-	private static final String getResourceString(final ResourceType resourceType, final String suffix) {
+	private static String getResourceString(final ResourceType resourceType, final String suffix) {
 		final String key = buildResourcePrefix(resourceType) + suffix;
 
 		return StringUtils.trimToNull(bundle.getString(key));
@@ -132,7 +162,7 @@ public final class ResourcesUtils {
 	 * @param resourceType the resource type
 	 * @return the resource text
 	 */
-	public static final String getResourceText(final ResourceType resourceType) {
+	public static String getResourceText(final ResourceType resourceType) {
 		return getResourceString(resourceType, TEXT_SUFFIX);
 	}
 
@@ -142,7 +172,7 @@ public final class ResourcesUtils {
 	 * @param resourceType the resource type
 	 * @return the resource title
 	 */
-	public static final String getResourceTitle(final ResourceType resourceType) {
+	public static String getResourceTitle(final ResourceType resourceType) {
 		return getResourceString(resourceType, TITLE_SUFFIX);
 	}
 
@@ -152,7 +182,7 @@ public final class ResourcesUtils {
 	 * @param resourceType the resource type
 	 * @return the resource tool tip text
 	 */
-	public static final String getResourceToolTipText(final ResourceType resourceType) {
+	public static String getResourceToolTipText(final ResourceType resourceType) {
 		return getResourceString(resourceType, TOOL_TIP_TEXT_SUFFIX);
 	}
 

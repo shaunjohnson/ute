@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.resources.types;
 
+import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
+
 import javax.swing.Icon;
 
 import net.lmxm.ute.enums.ActionCommand;
@@ -28,43 +30,28 @@ import net.lmxm.ute.resources.ResourceCategory;
 public enum TreeNodeResourceType implements ResourceType {
 
 	FILE_SYSTEM_LOCATIONS,
-
 	HTTP_LOCATIONS,
-
 	JOBS,
-
     MAVEN_REPOSITORY_LOCATIONS,
-
 	PREFERENCES,
-
 	PROPERTIES,
-
 	SUBVERSION_REPOSITORY_LOCATIONS;
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getActionCommand()
-	 */
-	@Override
+    private final ResourceValueType[] types = {TEXT};
+
 	public ActionCommand getActionCommand() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getIcon()
-	 */
-	@Override
 	public Icon getIcon() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponent#getGuiComponentCategory()
-	 */
-	@Override
 	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.TREE_NODE;
 	}
+
+    public ResourceValueType[] getResourceValueTypes() {
+        return types;
+    }
 }

@@ -23,43 +23,34 @@ import javax.swing.Icon;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
+import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
+import static net.lmxm.ute.resources.types.ResourceValueType.TOOLTIP_TEXT;
+
 /**
  * The Enum MenuResourceType.
  */
 public enum MenuResourceType implements ResourceType {
 
 	ADD_TASK,
-
 	EDIT,
-
 	FILE,
-
 	HELP;
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getActionCommand()
-	 */
-	@Override
+    private final ResourceValueType[] types = {TEXT, TOOLTIP_TEXT};
+
 	public ActionCommand getActionCommand() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getIcon()
-	 */
-	@Override
 	public Icon getIcon() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.gui.components.GuiComponentType#getGuiComponentCategory()
-	 */
-	@Override
 	public ResourceCategory getResourceCategory() {
 		return ResourceCategory.MENU;
 	}
+
+    public ResourceValueType[] getResourceValueTypes() {
+        return types;
+    }
 }

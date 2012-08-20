@@ -49,6 +49,13 @@ public interface ResourceType {
 	 */
 	ResourceCategory getResourceCategory();
 
+    /**
+     * Gets the resource value types.
+     *
+     * @return the resource value types
+     */
+    ResourceValueType[] getResourceValueTypes();
+
 	/**
 	 * Name.
 	 * 
