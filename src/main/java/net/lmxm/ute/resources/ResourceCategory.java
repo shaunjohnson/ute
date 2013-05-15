@@ -24,34 +24,19 @@ package net.lmxm.ute.resources;
 public enum ResourceCategory {
 
 	APPLICATION,
-
 	BUTTON,
-
 	CONFIRMATION,
-
 	EXCEPTION,
-
 	LABEL,
-
 	MENU,
-
 	MENU_ITEM,
-
 	SCOPE,
-
 	STATUS_CHANGE_MESSAGE,
-
 	SUBVERSION_DEPTH,
-
 	SUBVERSION_EVENT,
-
 	SUBVERSION_REVISION,
-
 	TABLE_COLUMN,
-
 	TOOLBAR_BUTTON,
-
 	TREE_NODE,
-
 	VALIDATOR;
 }
