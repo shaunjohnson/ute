@@ -39,10 +39,13 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
+import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.event.StatusChangeListener;
+import net.lmxm.ute.executers.jobs.JobStatusEvent;
+import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
 import net.lmxm.ute.resources.ImageUtil;
 
@@ -53,7 +56,7 @@ import org.slf4j.LoggerFactory;
  * The Class StatusOutputPanel.
  */
 @SuppressWarnings("serial")
-public class StatusOutputPanel extends JPanel implements JobStatusListener, StatusChangeListener {
+public class StatusOutputPanel extends JPanel implements StatusChangeListener {
 
 	/** The Constant ERROR. */
 	private static final String ERROR = "ERROR";
@@ -200,15 +203,6 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 	}
 
 	/**
-	 * Gets the job status listener.
-	 * 
-	 * @return the job status listener
-	 */
-	public JobStatusListener getJobStatusListener() {
-		return this;
-	}
-
-	/**
 	 * Gets the output button tool bar.
 	 * 
 	 * @return the output button tool bar
@@ -304,23 +298,16 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 		return stopJobButton;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobAborted()
-	 */
-	@Override
-	public void jobAborted() {
-		jobIsNolongerRunning();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobCompleted()
-	 */
-	@Override
-	public void jobCompleted() {
-		jobIsNolongerRunning();
-	}
+    @Subscribe
+    public void handleJobStatusChange(final JobStatusEvent jobStatusEvent) {
+        JobStatusEvent.JobStatusEventType eventType = jobStatusEvent.getEventType();
+        if (eventType == JobAborted || eventType == JobCompleted || eventType == JobStopped) {
+            jobIsNolongerRunning();
+        }
+        else if (eventType == TaskCompleted || eventType == TaskSkipped) {
+            getJobProgressBar().setValue(getJobProgressBar().getValue() + 1);
+        }
+    }
 
 	/**
 	 * Job is nolonger running.
@@ -334,51 +321,6 @@ public class StatusOutputPanel extends JPanel implements JobStatusListener, Stat
 			getStopJobButton().setEnabled(false);
 			getJobProgressBar().setVisible(false);
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStarted()
-	 */
-	@Override
-	public void jobStarted() {
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStopped()
-	 */
-	@Override
-	public void jobStopped() {
-		jobIsNolongerRunning();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskCompleted()
-	 */
-	@Override
-	public void jobTaskCompleted() {
-		getJobProgressBar().setValue(getJobProgressBar().getValue() + 1);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskSkipped()
-	 */
-	@Override
-	public void jobTaskSkipped() {
-		getJobProgressBar().setValue(getJobProgressBar().getValue() + 1);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskStarted()
-	 */
-	@Override
-	public void jobTaskStarted() {
-
 	}
 
 	/**

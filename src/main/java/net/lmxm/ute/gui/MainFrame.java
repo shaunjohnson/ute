@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executer.
- * 
+ *
  * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -68,6 +68,7 @@ import net.lmxm.ute.configuration.ConfigurationReader;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.configuration.ConfigurationWriter;
 import net.lmxm.ute.enums.ActionCommand;
+import net.lmxm.ute.executers.jobs.JobStatusEventBus;
 import net.lmxm.ute.gui.components.OptionPaneFactory;
 import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.components.StatusOutputTab;
@@ -647,8 +648,9 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			final StatusOutputTab statusOutputTab = new StatusOutputTab(tabbedPane, job.getId());
 
 			final ExecuteJobWorker jobWorker = new ExecuteJobWorker(job, configuration);
-			jobWorker.addJobStatusListener(statusOutputPanel);
-			jobWorker.addJobStatusListener(statusOutputTab);
+
+            JobStatusEventBus.register(statusOutputPanel, statusOutputTab);
+
 			jobWorker.addStatusChangeListener(statusOutputPanel);
 			jobWorker.addStatusChangeListener(statusOutputTab);
 
@@ -930,7 +932,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Adds the task to job.
-	 * 
+	 *
 	 * @param task the task
 	 */
 	private void addNewTask(final Task task) {
@@ -1007,7 +1009,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Clone identifiable bean.
-	 * 
+	 *
 	 * @param bean the bean
 	 * @return the identifiable bean
 	 */
@@ -1021,7 +1023,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the bottom panel.
-	 * 
+	 *
 	 * @return the bottom panel
 	 */
 	private JTabbedPane getBottomPanel() {
@@ -1033,7 +1035,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the configuration.
-	 * 
+	 *
 	 * @return the configuration
 	 */
 	@Override
@@ -1043,7 +1045,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the current directory.
-	 * 
+	 *
 	 * @return the current directory
 	 */
 	private String getCurrentDirectory() {
@@ -1064,7 +1066,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the current job.
-	 * 
+	 *
 	 * @return the current job
 	 */
 	private Job getCurrentJob() {
@@ -1082,7 +1084,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the current task.
-	 * 
+	 *
 	 * @return the current task
 	 */
 	private Task getCurrentTask() {
@@ -1097,7 +1099,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the file filter.
-	 * 
+	 *
 	 * @return the file filter
 	 */
 	private FileFilter getFileFilter() {
@@ -1107,7 +1109,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the file system delete task editor panel.
-	 * 
+	 *
 	 * @return the file system delete task editor panel
 	 */
 	private FileSystemDeleteTaskEditorPanel getFileSystemDeleteTaskEditorPanel() {
@@ -1121,7 +1123,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the file system location editor panel.
-	 * 
+	 *
 	 * @return the file system location editor panel
 	 */
 	private FileSystemLocationEditorPanel getFileSystemLocationEditorPanel() {
@@ -1135,7 +1137,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the file system locations editor panel.
-	 * 
+	 *
 	 * @return the file system locations editor panel
 	 */
 	private FileSystemLocationsEditorPanel getFileSystemLocationsEditorPanel() {
@@ -1148,7 +1150,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the file tool bar.
-	 * 
+	 *
 	 * @return the file tool bar
 	 */
 	private JToolBar getFileToolBar() {
@@ -1160,7 +1162,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the find replace editor panel.
-	 * 
+	 *
 	 * @return the find replace editor panel
 	 */
 	private FindReplaceTaskEditorPanel getFindReplaceTaskEditorPanel() {
@@ -1174,7 +1176,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the groovy task editor panel.
-	 * 
+	 *
 	 * @return the groovy task editor panel
 	 */
 	private GroovyTaskEditorPanel getGroovyTaskEditorPanel() {
@@ -1188,7 +1190,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the http download task editor panel.
-	 * 
+	 *
 	 * @return the http download task editor panel
 	 */
 	private HttpDownloadTaskEditorPanel getHttpDownloadTaskEditorPanel() {
@@ -1216,7 +1218,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the http location editor panel.
-	 * 
+	 *
 	 * @return the http location editor panel
 	 */
 	private HttpLocationEditorPanel getHttpLocationEditorPanel() {
@@ -1230,7 +1232,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the http locations editor panel.
-	 * 
+	 *
 	 * @return the http locations editor panel
 	 */
 	private HttpLocationsEditorPanel getHttpLocationsEditorPanel() {
@@ -1243,7 +1245,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the j content pane.
-	 * 
+	 *
 	 * @return the j content pane
 	 */
 	private JPanel getJContentPane() {
@@ -1269,7 +1271,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the job details editor scroll pane.
-	 * 
+	 *
 	 * @return the job details editor scroll pane
 	 */
 	private JScrollPane getJobDetailsEditorScrollPane() {
@@ -1282,7 +1284,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the jobs editor panel.
-	 * 
+	 *
 	 * @return the jobs editor panel
 	 */
 	private JobsEditorPanel getJobsEditorPanel() {
@@ -1295,7 +1297,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the jobs split pane.
-	 * 
+	 *
 	 * @return the jobs split pane
 	 */
 	protected JSplitPane getJobsSplitPane() {
@@ -1314,7 +1316,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the jobs tree pane.
-	 * 
+	 *
 	 * @return the jobs tree pane
 	 */
 	private JPanel getJobsTreePane() {
@@ -1331,7 +1333,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the jobs tree scroll pane.
-	 * 
+	 *
 	 * @return the jobs tree scroll pane
 	 */
 	private JScrollPane getJobsTreeScrollPane() {
@@ -1348,7 +1350,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the main menu bar.
-	 * 
+	 *
 	 * @return the main menu bar
 	 */
 	private MainMenuBar getMainMenuBar() {
@@ -1360,7 +1362,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the main split pane.
-	 * 
+	 *
 	 * @return the main split pane
 	 */
 	protected JSplitPane getMainSplitPane() {
@@ -1381,7 +1383,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the main tree.
-	 * 
+	 *
 	 * @return the main tree
 	 */
 	private MainTree getMainTree() {
@@ -1395,7 +1397,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the main tree tool bar.
-	 * 
+	 *
 	 * @return the main tree tool bar
 	 */
 	private JToolBar getMainTreeToolBar() {
@@ -1434,7 +1436,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the preference editor panel.
-	 * 
+	 *
 	 * @return the preference editor panel
 	 */
 	private PreferenceEditorPanel getPreferenceEditorPanel() {
@@ -1448,7 +1450,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the preferences editor panel.
-	 * 
+	 *
 	 * @return the preferences editor panel
 	 */
 	private PreferencesEditorPanel getPreferencesEditorPanel() {
@@ -1461,7 +1463,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the properties editor panel.
-	 * 
+	 *
 	 * @return the properties editor panel
 	 */
 	private PropertiesEditorPanel getPropertiesEditorPanel() {
@@ -1474,7 +1476,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the property editor panel.
-	 * 
+	 *
 	 * @return the property editor panel
 	 */
 	private PropertyEditorPanel getPropertyEditorPanel() {
@@ -1488,7 +1490,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the sequential job editor panel.
-	 * 
+	 *
 	 * @return the sequential job editor panel
 	 */
 	private SequentialJobEditorPanel getSequentialJobEditorPanel() {
@@ -1502,7 +1504,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the subversion export task editor panel.
-	 * 
+	 *
 	 * @return the subversion export task editor panel
 	 */
 	private SubversionExportTaskEditorPanel getSubversionExportTaskEditorPanel() {
@@ -1516,7 +1518,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the subversion repository location editor panel.
-	 * 
+	 *
 	 * @return the subversion repository location editor panel
 	 */
 	private SubversionRepositoryLocationEditorPanel getSubversionRepositoryLocationEditorPanel() {
@@ -1530,7 +1532,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the subversion repository locations editor panel.
-	 * 
+	 *
 	 * @return the subversion repository locations editor panel
 	 */
 	private SubversionRepositoryLocationsEditorPanel getSubversionRepositoryLocationsEditorPanel() {
@@ -1543,7 +1545,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Gets the subversion update task editor panel.
-	 * 
+	 *
 	 * @return the subversion update task editor panel
 	 */
 	private SubversionUpdateTaskEditorPanel getSubversionUpdateTaskEditorPanel() {
@@ -1630,7 +1632,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/**
 	 * Load and validate preferences.
-	 * 
+	 *
 	 * @param configurationFile the configuration file
 	 */
 	private void loadAndValidatePreferences(final File configurationFile) {

@@ -26,10 +26,4 @@ import net.lmxm.ute.executers.Executer;
  */
 public interface JobExecuter extends Executer {
 
-	/**
-	 * Adds the job status listener.
-	 * 
-	 * @param jobStatusListener the job status listener
-	 */
-	void addJobStatusListener(JobStatusListener jobStatusListener);
 }

@@ -52,11 +52,10 @@ public abstract class GenericApplication {
      *
      * @param jobs                 the jobs
      * @param configuration        the configuration
-     * @param jobStatusListener    Job Status listener to use during job execution
      * @param statusChangeListener Status change listener to use during job execution
      */
     protected final void executeJobs(final List<Job> jobs, final Configuration configuration,
-            JobStatusListener jobStatusListener, StatusChangeListener statusChangeListener) {
+            final StatusChangeListener statusChangeListener) {
         final String prefix = "executeJobs() :";
 
         LOGGER.debug("{} entered", prefix);
@@ -69,7 +68,6 @@ public abstract class GenericApplication {
             job.removeEmptyObjects();
 
             final JobExecuter jobExecuter = JobExecuterFactory.create(jobInterpolated, configuration);
-            jobExecuter.addJobStatusListener(jobStatusListener);
             jobExecuter.addStatusChangeListener(statusChangeListener);
             jobExecuter.execute();
         }

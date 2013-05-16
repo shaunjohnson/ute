@@ -32,6 +32,8 @@ import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
+import net.lmxm.ute.executers.jobs.JobStatusEvent;
+import net.lmxm.ute.executers.jobs.JobStatusEventBus;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 
 import org.slf4j.Logger;
@@ -51,9 +53,6 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 	/** The job executer. */
 	private final JobExecuter jobExecuter;
 
-	/** The job status listeners. */
-	private final List<JobStatusListener> jobStatusListeners = new ArrayList<JobStatusListener>();
-
 	/** The status change helper. */
 	private final StatusChangeHelper statusChangeHelper = new StatusChangeHelper();
 
@@ -70,16 +69,6 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 
 		this.job = job;
 		this.jobExecuter = JobExecuterFactory.create(job, propertiesHolder);
-	}
-
-	/**
-	 * Adds the job status listener.
-	 * 
-	 * @param jobStatusListener the job status listener
-	 */
-	public void addJobStatusListener(final JobStatusListener jobStatusListener) {
-		jobExecuter.addJobStatusListener(jobStatusListener);
-		jobStatusListeners.add(jobStatusListener);
 	}
 
 	/**
@@ -124,9 +113,7 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 			statusChangeHelper.heading(this, StatusChangeMessageResourceType.JOB_STOPPED, job.getId());
 		}
 
-		for (final JobStatusListener jobStatusListener : jobStatusListeners) {
-			jobStatusListener.jobStopped();
-		}
+        JobStatusEventBus.post(new JobStatusEvent(JobStatusEvent.JobStatusEventType.JobStopped, job));
 
 		LOGGER.debug("{} leaving", prefix);
 

@@ -19,6 +19,8 @@
 package net.lmxm.ute.gui.components;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
+import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.TaskSkipped;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -43,10 +45,12 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.event.StatusChangeListener;
+import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.gui.menus.StatusOutputTabPopupMenu;
 import net.lmxm.ute.resources.ImageUtil;
 
@@ -54,7 +58,7 @@ import net.lmxm.ute.resources.ImageUtil;
  * The Class StatusOutputTab.
  */
 @SuppressWarnings("serial")
-public class StatusOutputTab extends JPanel implements ActionListener, JobStatusListener, StatusChangeListener {
+public class StatusOutputTab extends JPanel implements ActionListener, StatusChangeListener {
 
 	/**
 	 * The Class CloseTabButton.
@@ -135,8 +139,6 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 	 * component's <code>addTabMouseListener<code> method. When
 	 * the tabMouse event occurs, that object's appropriate
 	 * method is invoked.
-	 * 
-	 * @see TabMouseEvent
 	 */
 	private class TabMouseListener extends MouseAdapter {
 
@@ -371,23 +373,16 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 		return jobRunning;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobAborted()
-	 */
-	@Override
-	public void jobAborted() {
-		jobIsNotRunning();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobCompleted()
-	 */
-	@Override
-	public void jobCompleted() {
-		jobIsNotRunning();
-	}
+    @Subscribe
+    public void handleJobStatusChange(final JobStatusEvent jobStatusEvent) {
+        JobStatusEvent.JobStatusEventType eventType = jobStatusEvent.getEventType();
+        if (eventType == JobAborted || eventType == JobCompleted || eventType == JobStopped) {
+            jobIsNotRunning();
+        }
+        else if (eventType == JobStarted) {
+            jobIsRunning();
+        }
+    }
 
 	/**
 	 * Job is not running.
@@ -405,51 +400,6 @@ public class StatusOutputTab extends JPanel implements ActionListener, JobStatus
 		jobRunning = true;
 		getLoaderIcon().setVisible(true);
 		getCloseButton().setVisible(false);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStarted()
-	 */
-	@Override
-	public void jobStarted() {
-		jobIsRunning();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobStopped()
-	 */
-	@Override
-	public void jobStopped() {
-		jobIsNotRunning();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskCompleted()
-	 */
-	@Override
-	public void jobTaskCompleted() {
-		// Do nothing
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskSkipped()
-	 */
-	@Override
-	public void jobTaskSkipped() {
-		// Do nothing
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.JobStatusListener#jobTaskStarted()
-	 */
-	@Override
-	public void jobTaskStarted() {
-		// Do nothing
 	}
 
 	/*
