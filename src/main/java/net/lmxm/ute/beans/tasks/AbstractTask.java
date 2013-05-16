@@ -114,7 +114,7 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	 */
 	@Override
 	public void removeEmptyObjects() {
-		// Do nothing;
+		// Do nothing
 	}
 
 	/*

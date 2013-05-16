@@ -1,15 +1,5 @@
 package net.lmxm.ute.utils.aether;
 
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_INITIATED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_SUCCEEDED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_TRANSFER_COMPLETED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_TRANSFER_FAILED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_TRANSFER_CORRUPTED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_TRANSFER_PROGRESSED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_TRANSFER_STARTED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_UPLOAD_INITIATED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_UPLOAD_SUCCEEDED;
-
 import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -24,11 +14,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
+
 public class AetherTransferListener implements TransferListener {
 
     private Map<TransferResource, Long> downloads = new ConcurrentHashMap<TransferResource, Long>();
-
-    private int lastLength;
 
     private String getStatus(long complete, long total) {
         if (total >= 1024) {
@@ -45,26 +35,12 @@ public class AetherTransferListener implements TransferListener {
         }
     }
 
-//    private void pad(StringBuilder buffer, int spaces) {
-//        String block = "                                        ";
-//        while (spaces > 0) {
-//            int n = Math.min(spaces, block.length());
-//            buffer.append(block, 0, n);
-//            spaces -= n;
-//        }
-//    }
-
     protected long toKB(long bytes) {
         return (bytes + 1023) / 1024;
     }
 
     private void transferCompleted(TransferEvent event) {
         downloads.remove(event.getResource());
-//
-//        final StringBuilder buffer = new StringBuilder(64);
-//        pad(buffer, lastLength);
-//
-//        statusChangeHelper.info(this, MAVEN_REPOSITORY_TRANSFER_COMPLETED, buffer.toString());
     }
 
     @Override
@@ -100,10 +76,6 @@ public class AetherTransferListener implements TransferListener {
             buffer.append(getStatus(complete, total)).append("  ");
         }
 
-//        final int pad = lastLength - buffer.length();
-//        lastLength = buffer.length();
-//        pad(buffer, pad);
-
         StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_STARTED, buffer);
     }
 
@@ -126,10 +98,6 @@ public class AetherTransferListener implements TransferListener {
 
             buffer.append(getStatus(complete, total)).append("  ");
         }
-//
-//        int pad = lastLength - buffer.length();
-//        lastLength = buffer.length();
-//        pad(buffer, pad);
 
         StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_PROGRESSED, buffer);
     }

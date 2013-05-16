@@ -1665,11 +1665,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 * Refresh jobs tree.
 	 */
 	private void refreshJobsTree() {
-		// final TreeModel treeModel = GuiUtils.loadJobDetailsTreeModel(configuration);
-		//
-		// getMainTree().setModel(treeModel);
-		// getMainTree().expandPath(mainTree.getNextMatch("Job", 0, Position.Bias.Forward));
-
 		getMainTree().refresh();
 	}
 

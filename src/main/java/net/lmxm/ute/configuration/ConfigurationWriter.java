@@ -96,13 +96,6 @@ public class ConfigurationWriter {
 		writeLocations(configurationType, configuration);
 		writeJobs(configurationType, configuration);
 
-		// Create a backup of the existing file
-		/*
-		 * if (file.exists()) { final File backupFile = new File(file.getAbsolutePath() + ".bak"); // Delete existing
-		 * backup if (backupFile.exists()) { FileUtils.deleteQuietly(backupFile); } FileUtils.moveFile(file,
-		 * backupFile); }
-		 */
-
 		try {
 			document.save(configurationFile, new XmlOptions().setSavePrettyPrint().setSavePrettyPrintIndent(4));
 		}
