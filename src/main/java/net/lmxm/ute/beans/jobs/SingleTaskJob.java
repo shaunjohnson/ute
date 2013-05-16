@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.utils.DomainBeanUtils;
 
@@ -51,10 +52,7 @@ public final class SingleTaskJob extends AbstractJob {
 		setDescription(task.getDescription());
 
 		this.task = task;
-
-		final List<Task> tasks = new ArrayList<Task>(1);
-		tasks.add(task);
-		this.tasks = Collections.unmodifiableList(tasks);
+		this.tasks = new ImmutableList.Builder<Task>().add(task).build();
 	}
 
 	/*

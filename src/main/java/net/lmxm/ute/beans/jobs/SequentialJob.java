@@ -33,25 +33,7 @@ public final class SequentialJob extends AbstractJob {
 	private static final long serialVersionUID = 7969957264452664969L;
 
 	/** The tasks. */
-	private List<Task> tasks;
-
-	/**
-	 * Instantiates a new sequential job.
-	 */
-	public SequentialJob() {
-		this(null);
-	}
-
-	/**
-	 * Instantiates a new sequential job.
-	 * 
-	 * @param id the id
-	 */
-	public SequentialJob(final String id) {
-		super(id);
-
-		tasks = new ArrayList<Task>();
-	}
+	private final List<Task> tasks = new ArrayList<Task>();
 
 	/*
 	 * (non-Javadoc)
@@ -89,14 +71,5 @@ public final class SequentialJob extends AbstractJob {
 	public void removeEmptyObjects() {
 		super.removeEmptyObjects();
 		DomainBeanUtils.removeEmptyObjects(tasks);
-	}
-
-	/**
-	 * Sets the tasks.
-	 * 
-	 * @param tasks the new tasks
-	 */
-	public final void setTasks(final List<Task> tasks) {
-		this.tasks = tasks;
 	}
 }
