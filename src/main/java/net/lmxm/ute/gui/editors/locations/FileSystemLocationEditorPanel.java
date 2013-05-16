@@ -153,9 +153,6 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 								getPathTextField().setText(file.getAbsolutePath());
 							}
-							else {
-								// TODO Canceled by user
-							}
 						}
 					});
 		}
