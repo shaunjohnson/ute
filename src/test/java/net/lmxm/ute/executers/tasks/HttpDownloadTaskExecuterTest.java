@@ -27,6 +27,7 @@ import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 
+import net.lmxm.ute.exceptions.TaskExecuterException;
 import org.junit.Test;
 
 /**
@@ -58,7 +59,7 @@ public class HttpDownloadTaskExecuterTest {
 	/**
 	 * Test download files empty files.
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = TaskExecuterException.class)
 	public void testDownloadFilesEmptyFiles() {
 		TEST_EXECUTER.downloadFiles(URL, QUERY_PARAMS, EXISTING_DIRECTORY, EMPTY_FILE_LIST);
 	}
@@ -74,7 +75,7 @@ public class HttpDownloadTaskExecuterTest {
 	/**
 	 * Test download files null files.
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = TaskExecuterException.class)
 	public void testDownloadFilesNullFiles() {
 		TEST_EXECUTER.downloadFiles(URL, QUERY_PARAMS, EXISTING_DIRECTORY, null);
 	}
