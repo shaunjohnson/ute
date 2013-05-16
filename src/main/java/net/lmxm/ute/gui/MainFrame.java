@@ -861,8 +861,8 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 				actionSaveFileAs();
 			}
 		}
-		catch (final Throwable throwable) {
-			displayError(throwable);
+		catch (final Exception exception) {
+			displayError(exception);
 		}
 	}
 
@@ -1798,7 +1798,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
                     editorPane = getSubversionUpdateTaskEditorPanel();
                 }
                 else {
-                    // TODO
+                    LOGGER.debug("{} Unsupported tree object type: {}", prefix, userObject.getClass().getName());
                 }
             }
             else {
