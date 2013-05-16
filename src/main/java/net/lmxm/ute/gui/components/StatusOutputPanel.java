@@ -25,6 +25,7 @@ import net.lmxm.ute.event.StatusChangeEventType;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
 import net.lmxm.ute.resources.ImageUtil;
+import net.miginfocom.swing.MigLayout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,15 +112,11 @@ public final class StatusOutputPanel extends JPanel {
     public StatusOutputPanel(final Job job) {
         super();
 
-        setLayout(new BorderLayout());
-        add(getOutputButtonToolBar(), BorderLayout.NORTH);
-        add(getOutputScrollPane(), BorderLayout.CENTER);
-        setBorder(BorderFactory.createEmptyBorder());
+        setLayout(new MigLayout());
+        add(getOutputButtonToolBar(), "dock north");
+        add(getOutputScrollPane(), "dock center");
 
-        final JProgressBar progressBar = getJobProgressBar();
-        progressBar.setVisible(true);
-        progressBar.setValue(0);
-        progressBar.setMaximum(job.getTasks().size());
+        getJobProgressBar().setMaximum(job.getTasks().size());
     }
 
     /**
@@ -189,11 +186,7 @@ public final class StatusOutputPanel extends JPanel {
      */
     private JProgressBar getJobProgressBar() {
         if (jobProgressBar == null) {
-            jobProgressBar = new JProgressBar(SwingConstants.HORIZONTAL) {
-                {
-                    setVisible(false);
-                }
-            };
+            jobProgressBar = new JProgressBar(SwingConstants.HORIZONTAL);
         }
 
         return jobProgressBar;
