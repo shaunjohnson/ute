@@ -168,7 +168,12 @@ public final class StatusOutputPanel extends JPanel {
                     addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(final ActionEvent e) {
-                            getOutputPane().setText("");
+                            SwingUtilities.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getOutputPane().setText("");
+                                }
+                            });
                         }
                     });
                 }
@@ -264,15 +269,18 @@ public final class StatusOutputPanel extends JPanel {
                     addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(final ActionEvent e) {
-                            synchronized (jobWorkerMutex) {
-                                if (jobWorker != null) {
-                                    final String prefix = "getStopJobButton().actionPerformed() :";
-
-                                    LOGGER.debug("{} Sending cancel to job worker thread", prefix);
-
-                                    jobWorker.cancel(true);
+                            SwingUtilities.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    synchronized (jobWorkerMutex) {
+                                        if (jobWorker != null) {
+                                            final String prefix = "getStopJobButton().actionPerformed() :";
+                                            LOGGER.debug("{} Sending cancel to job worker thread", prefix);
+                                            jobWorker.cancel(true);
+                                        }
+                                    }
                                 }
-                            }
+                            });
                         }
                     });
                 }
@@ -288,38 +296,57 @@ public final class StatusOutputPanel extends JPanel {
             jobIsNolongerRunning();
         }
         else if (eventType == TaskCompleted || eventType == TaskSkipped) {
-            getJobProgressBar().setValue(getJobProgressBar().getValue() + 1);
+            incrementProgressBar();
         }
     }
 
     @Subscribe
     public void handleStatusChange(final StatusChangeEvent statusChangeEvent) {
-        final JTextPane outputPane = getOutputPane();
-        final Document document = outputPane.getDocument();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                final JTextPane outputPane = getOutputPane();
+                final Document document = outputPane.getDocument();
 
-        try {
-            final Style style = styleContext.getStyle(statusChangeEvent.getEventType().name());
-            document.insertString(document.getLength(), statusChangeEvent.getMessage() + "\n", style);
-        }
-        catch (final BadLocationException e) {
-            e.printStackTrace();
-        }
+                try {
+                    final Style style = styleContext.getStyle(statusChangeEvent.getEventType().name());
+                    document.insertString(document.getLength(), statusChangeEvent.getMessage() + "\n", style);
+                }
+                catch (final BadLocationException e) {
+                    e.printStackTrace();
+                }
 
-        outputPane.setCaretPosition(document.getLength());
+                outputPane.setCaretPosition(document.getLength());
+            }
+        });
+    }
+
+    private void incrementProgressBar() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                getJobProgressBar().setValue(getJobProgressBar().getValue() + 1);
+            }
+        });
     }
 
     /**
      * Job is nolonger running.
      */
     private void jobIsNolongerRunning() {
-        synchronized (jobWorkerMutex) {
-            // Clear connection to worker thread
-            jobWorker = null;
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (jobWorkerMutex) {
+                    // Clear connection to worker thread
+                    jobWorker = null;
 
-            // Update GUI
-            getStopJobButton().setEnabled(false);
-            getJobProgressBar().setVisible(false);
-        }
+                    // Update GUI
+                    getStopJobButton().setEnabled(false);
+                    getJobProgressBar().setVisible(false);
+                }
+            }
+        });
     }
 
     /**
