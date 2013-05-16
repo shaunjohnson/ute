@@ -30,6 +30,8 @@ import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.gui.maintree.nodes.IdentifiableBeanTreeNode;
@@ -37,7 +39,7 @@ import net.lmxm.ute.gui.maintree.nodes.IdentifiableBeanTreeNode;
 /**
  * The Class MainTreeTransferHandler.
  */
-class MainTreeTransferHandler extends TransferHandler {
+public class MainTreeTransferHandler extends TransferHandler {
 
 	/**
 	 * The Class NodesTransferable.
@@ -45,7 +47,7 @@ class MainTreeTransferHandler extends TransferHandler {
 	public class NodesTransferable implements Transferable {
 
 		/** The tree nodes. */
-		private final IdentifiableBeanTreeNode[] treeNodes;
+		private final List<IdentifiableBeanTreeNode> treeNodes;
 
 		/**
 		 * Instantiates a new nodes transferable.
@@ -55,7 +57,7 @@ class MainTreeTransferHandler extends TransferHandler {
 		public NodesTransferable(final IdentifiableBeanTreeNode[] treeNodes) {
 			super();
 
-			this.treeNodes = treeNodes;
+			this.treeNodes = ImmutableList.copyOf(treeNodes);
 		}
 
 		/*
@@ -308,10 +310,10 @@ class MainTreeTransferHandler extends TransferHandler {
 		}
 
 		// Extract transfer data.
-		IdentifiableBeanTreeNode[] nodes = null;
+        List<IdentifiableBeanTreeNode> nodes = null;
 		try {
 			final Transferable transferable = support.getTransferable();
-			nodes = (IdentifiableBeanTreeNode[]) transferable.getTransferData(nodesFlavor);
+			nodes = (List<IdentifiableBeanTreeNode>) transferable.getTransferData(nodesFlavor);
 		}
 		catch (final UnsupportedFlavorException e) {
 			System.out.println("UnsupportedFlavor: " + e.getMessage());
