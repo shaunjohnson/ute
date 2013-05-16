@@ -28,10 +28,7 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.FindReplacePattern;
-import net.lmxm.ute.beans.Preference;
-import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.*;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -130,6 +127,32 @@ public class ConfigurationInterpolator {
 
 			fileReference.setName(interpolateProperties(name, propertyNames, propertyValues));
 			fileReference.setTargetName(interpolateProperties(targetName, propertyNames, propertyValues));
+		}
+
+		LOGGER.debug("{} leaving", prefix);
+	}
+
+	/**
+	 * Interpolate Maven artifacts.
+	 *
+	 * @param artifacts the artifacts
+	 * @param propertyNames the property names
+	 * @param propertyValues the property values
+	 */
+	private static void interpolateMavenArtifacts(final List<MavenArtifact> artifacts, final String[] propertyNames,
+			final String[] propertyValues) {
+		final String prefix = "interpolateMavenArtifacts() :";
+
+		LOGGER.debug("{} entered, artifacts={}", prefix, artifacts);
+
+		checkNotNull(artifacts, "Artifacts may not be null");
+
+		for (final MavenArtifact artifact : artifacts) {
+            final String coordinates = artifact.getCoordinates();
+			final String targetName = artifact.getTargetName();
+
+            artifact.setCoordinates(interpolateProperties(coordinates, propertyNames, propertyValues));
+            artifact.setTargetName(interpolateProperties(targetName, propertyNames, propertyValues));
 		}
 
 		LOGGER.debug("{} leaving", prefix);
@@ -287,6 +310,7 @@ public class ConfigurationInterpolator {
 
 				interpolateMavenRepositorySource(mavenRepositoryDownloadTask.getSource(), propertyNames, propertyValues);
 				interpolateFileSystemTarget(mavenRepositoryDownloadTask.getTarget(), propertyNames, propertyValues);
+                interpolateMavenArtifacts(mavenRepositoryDownloadTask.getArtifacts(), propertyNames, propertyValues);
 			}
 			else if (task instanceof SubversionExportTask) {
 				final SubversionExportTask subversionExportTask = (SubversionExportTask) task;
