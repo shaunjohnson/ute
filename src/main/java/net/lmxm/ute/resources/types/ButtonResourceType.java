@@ -33,6 +33,7 @@ import net.lmxm.ute.resources.ResourceCategory;
 public enum ButtonResourceType implements ResourceType {
 
     CLOSE_DIALOG(null, null),
+    CLOSE_TAB(null, null),
     DIRECTORY_BROWSE(null, null);
 
     private final ResourceValueType[] types = {TEXT, TOOLTIP_TEXT};

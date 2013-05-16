@@ -18,17 +18,18 @@
  */
 package net.lmxm.ute.gui.components;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
-import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.TaskSkipped;
+import com.google.common.eventbus.Subscribe;
+import net.lmxm.ute.enums.ActionCommand;
+import net.lmxm.ute.event.StatusChangeEvent;
+import net.lmxm.ute.executers.jobs.JobStatusEvent;
+import net.lmxm.ute.gui.menus.StatusOutputTabPopupMenu;
+import net.lmxm.ute.resources.ImageUtil;
+import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.types.ButtonResourceType;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicButtonUI;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -38,15 +39,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicButtonUI;
-
-import com.google.common.eventbus.Subscribe;
-import net.lmxm.ute.enums.ActionCommand;
-import net.lmxm.ute.event.StatusChangeEvent;
-import net.lmxm.ute.executers.jobs.JobStatusEvent;
-import net.lmxm.ute.gui.menus.StatusOutputTabPopupMenu;
-import net.lmxm.ute.resources.ImageUtil;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
 
 /**
  * The Class StatusOutputTab.
@@ -72,7 +66,7 @@ public final class StatusOutputTab extends JPanel implements ActionListener {
             setContentAreaFilled(false);
             setFocusable(false);
             setPreferredSize(new Dimension(17, 17));
-            setToolTipText("Close this tab");
+            setToolTipText(ResourcesUtils.getResourceToolTipText(ButtonResourceType.CLOSE_TAB));
             setUI(new BasicButtonUI());
 
             setBorder(BorderFactory.createEtchedBorder());
