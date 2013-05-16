@@ -52,8 +52,7 @@ public final class ConsoleApplication extends GenericApplication {
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleApplication.class);
 
-	/** The args. */
-	private final String[] args;
+    private final ConsoleArguments consoleArguments;
 
 	/**
 	 * Instantiates a new console application.
@@ -63,7 +62,7 @@ public final class ConsoleApplication extends GenericApplication {
 	public ConsoleApplication(final String[] args) {
 		super();
 
-		this.args = args;
+        consoleArguments = getConsoleArguments(args);
 	}
 
 	/**
@@ -74,7 +73,6 @@ public final class ConsoleApplication extends GenericApplication {
 
 		LOGGER.debug("{} entered", prefix);
 
-		final ConsoleArguments consoleArguments = getConsoleArguments();
 		final File inputFile = consoleArguments.getInputFile();
 		final Configuration configuration = new ConfigurationReader(inputFile).read();
 
@@ -91,7 +89,7 @@ public final class ConsoleApplication extends GenericApplication {
 	 *
 	 * @return the console arguments
 	 */
-	private ConsoleArguments getConsoleArguments() {
+	private static ConsoleArguments getConsoleArguments(final String[] args) {
 		final String prefix = "getConsoleArguments() :";
 
 		LOGGER.debug("{} entered", prefix);
