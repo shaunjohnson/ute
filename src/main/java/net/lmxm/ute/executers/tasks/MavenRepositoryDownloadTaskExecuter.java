@@ -89,16 +89,16 @@ public final class MavenRepositoryDownloadTaskExecuter extends AbstractTaskExecu
             final AetherResolveUtils aetherResolveUtils = new AetherResolveUtils(mavenRepositoryUrl, getStatusChangeHelper());
 
             for (MavenArtifact mavenArtifact : task.getArtifacts()) {
-                getStatusChangeHelper().important(this, MAVEN_REPOSITORY_DOWNLOAD_STARTED, mavenArtifact.getCoordinates());
+                important(MAVEN_REPOSITORY_DOWNLOAD_STARTED, mavenArtifact.getCoordinates());
 
                 aetherResolveUtils.resolveArtifact(mavenArtifact.getCoordinates(), destinationDirectory,
                         mavenArtifact.getTargetName());
 
-                getStatusChangeHelper().important(this, MAVEN_REPOSITORY_DOWNLOAD_COMPLETED, mavenArtifact.getCoordinates());
+                important(MAVEN_REPOSITORY_DOWNLOAD_COMPLETED, mavenArtifact.getCoordinates());
             }
         }
         catch (Exception e) {
-            getStatusChangeHelper().error(this, MAVEN_REPOSITORY_DOWNLOAD_FAILED);
+            error(MAVEN_REPOSITORY_DOWNLOAD_FAILED);
         }
 
         LOGGER.debug("{} returning", prefix);

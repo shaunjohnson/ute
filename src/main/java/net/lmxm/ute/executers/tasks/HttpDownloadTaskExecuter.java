@@ -20,6 +20,7 @@ package net.lmxm.ute.executers.tasks;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,7 +32,6 @@ import java.util.Map;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 import net.lmxm.ute.utils.HttpUtils;
@@ -115,8 +115,7 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 			if (statusCode != HttpStatus.SC_OK) {
 				LOGGER.debug("HTTP status code {} returned", statusCode);
 
-				getStatusChangeHelper().error(this, StatusChangeMessageResourceType.HTTP_DOWNLOAD_STATUS_ERROR,
-						sourceUrl, statusCode);
+				error(HTTP_DOWNLOAD_STATUS_ERROR,						sourceUrl, statusCode);
 
 				throw new RuntimeException(); // TODO Use appropriate exception
 			}
@@ -124,7 +123,7 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 			final HttpEntity entity = response.getEntity();
 
 			if (entity == null) {
-				getStatusChangeHelper().error(this, StatusChangeMessageResourceType.HTTP_DOWNLOAD_NO_RESPONSE_ERROR);
+				error(HTTP_DOWNLOAD_NO_RESPONSE_ERROR);
 
 				throw new RuntimeException(); // TODO Use appropriate exception
 			}
@@ -140,26 +139,22 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 
 				out.close();
 
-				getStatusChangeHelper().info(this, StatusChangeMessageResourceType.HTTP_DOWNLOAD_FINISHED, sourceUrl,
-						destinationFilePath);
+				info(HTTP_DOWNLOAD_FINISHED, sourceUrl,						destinationFilePath);
 			}
 		}
 		catch (final ClientProtocolException e) {
 			LOGGER.debug("ClientProtocolException caught", e);
-			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.HTTP_DOWNLOAD_ERROR, sourceUrl,
-					destinationFilePath);
+			error(HTTP_DOWNLOAD_ERROR, sourceUrl,					destinationFilePath);
 			throw new RuntimeException(); // TODO Use appropriate exception
 		}
 		catch (final IOException e) {
 			LOGGER.debug("IOException caught", e);
-			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.HTTP_DOWNLOAD_ERROR, sourceUrl,
-					destinationFilePath);
+			error(HTTP_DOWNLOAD_ERROR, sourceUrl,					destinationFilePath);
 			throw new RuntimeException(); // TODO Use appropriate exception
 		}
 		catch (final Exception e) {
 			LOGGER.debug("Exception caught", e);
-			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.HTTP_DOWNLOAD_ERROR, sourceUrl,
-					destinationFilePath);
+			error(HTTP_DOWNLOAD_ERROR, sourceUrl,					destinationFilePath);
 			throw new RuntimeException(); // TODO Use appropriate exception
 		}
 
@@ -188,7 +183,7 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 		if (files == null || files.size() == 0) {
 			LOGGER.error("{} downloadFiles", prefix);
 
-			getStatusChangeHelper().fatal(this, StatusChangeMessageResourceType.HTTP_DOWNLOAD_FILE_LIST_EMPTY);
+			fatal(HTTP_DOWNLOAD_FILE_LIST_EMPTY);
 
 			throw new IllegalArgumentException("List of files is empty"); // TODO Use appropriate exception
 		}

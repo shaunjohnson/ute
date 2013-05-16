@@ -1,24 +1,25 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executer.
- * 
+ *
  * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.executers.tasks;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +33,6 @@ import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 
@@ -46,210 +46,212 @@ import org.slf4j.LoggerFactory;
  */
 public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(FindReplaceTaskExecuter.class);
+    /**
+     * The Constant LOGGER.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(FindReplaceTaskExecuter.class);
 
-	/** The task. */
-	private final FindReplaceTask task;
+    /**
+     * The task.
+     */
+    private final FindReplaceTask task;
 
-	/**
-	 * Instantiates a new find replace task executer.
-	 * 
-	 * @param task the task
-	 * @param statusChangeHelper the status change helper
-	 */
-	public FindReplaceTaskExecuter(final FindReplaceTask task, final StatusChangeHelper statusChangeHelper) {
-		super(statusChangeHelper);
+    /**
+     * Instantiates a new find replace task executer.
+     *
+     * @param task               the task
+     * @param statusChangeHelper the status change helper
+     */
+    public FindReplaceTaskExecuter(final FindReplaceTask task, final StatusChangeHelper statusChangeHelper) {
+        super(statusChangeHelper);
 
-		checkNotNull(task, "Task may not be null");
+        checkNotNull(task, "Task may not be null");
 
-		this.task = task;
-	}
+        this.task = task;
+    }
 
-	/**
-	 * Apply pattern.
-	 * 
-	 * @param text the text
-	 * @param pattern the pattern
-	 * @return the string
-	 */
-	protected String applyPattern(final String text, final PatternWrapper pattern) {
-		return pattern.getPattern().matcher(text).replaceAll(pattern.getReplacement());
-	}
+    /**
+     * Apply pattern.
+     *
+     * @param text    the text
+     * @param pattern the pattern
+     * @return the string
+     */
+    protected String applyPattern(final String text, final PatternWrapper pattern) {
+        return pattern.getPattern().matcher(text).replaceAll(pattern.getReplacement());
+    }
 
-	/**
-	 * Convert patterns to matchers.
-	 * 
-	 * @param findReplacePatterns the find replace patterns
-	 * @return the list
-	 */
-	protected List<PatternWrapper> convertFindReplacePatternsToRegexPatterns(
-			final List<FindReplacePattern> findReplacePatterns) {
-		checkNotNull(findReplacePatterns, "Find replace patterns list may not be null");
+    /**
+     * Convert patterns to matchers.
+     *
+     * @param findReplacePatterns the find replace patterns
+     * @return the list
+     */
+    protected List<PatternWrapper> convertFindReplacePatternsToRegexPatterns(
+            final List<FindReplacePattern> findReplacePatterns) {
+        checkNotNull(findReplacePatterns, "Find replace patterns list may not be null");
 
-		final List<PatternWrapper> patterns = new ArrayList<PatternWrapper>();
+        final List<PatternWrapper> patterns = new ArrayList<PatternWrapper>();
 
-		for (final FindReplacePattern findReplacePattern : findReplacePatterns) {
-			final Pattern regexPattern = Pattern.compile(findReplacePattern.getFind());
-			final String replacement = StringUtils.trimToEmpty(findReplacePattern.getReplace());
+        for (final FindReplacePattern findReplacePattern : findReplacePatterns) {
+            final Pattern regexPattern = Pattern.compile(findReplacePattern.getFind());
+            final String replacement = StringUtils.trimToEmpty(findReplacePattern.getReplace());
 
-			patterns.add(new PatternWrapper(regexPattern, replacement));
-		}
+            patterns.add(new PatternWrapper(regexPattern, replacement));
+        }
 
-		return patterns;
-	}
+        return patterns;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.executers.ExecuterIF#execute()
-	 */
-	@Override
-	public void execute() {
-		final String prefix = "execute() :";
+    /*
+     * (non-Javadoc)
+     * @see net.lmxm.ute.executers.ExecuterIF#execute()
+     */
+    @Override
+    public void execute() {
+        final String prefix = "execute() :";
 
-		LOGGER.debug("{} entered", prefix);
+        LOGGER.debug("{} entered", prefix);
 
-		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
-		final List<FileReference> files = task.getFiles();
-		final List<FindReplacePattern> patterns = task.getPatterns();
-		final Scope scope = task.getScope();
+        final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
+        final List<FileReference> files = task.getFiles();
+        final List<FindReplacePattern> patterns = task.getPatterns();
+        final Scope scope = task.getScope();
 
-		findReplaceInFiles(path, files, patterns, scope);
+        findReplaceInFiles(path, files, patterns, scope);
 
-		LOGGER.debug("{} returning", prefix);
-	}
+        LOGGER.debug("{} returning", prefix);
+    }
 
-	/**
-	 * Find replace content.
-	 * 
-	 * @param file the file
-	 * @param patterns the patterns
-	 * @param scope the scope
-	 */
-	protected void findReplaceContent(final File file, final List<PatternWrapper> patterns, final Scope scope) {
-		final String prefix = "findReplaceContent() :";
+    /**
+     * Find replace content.
+     *
+     * @param file     the file
+     * @param patterns the patterns
+     * @param scope    the scope
+     */
+    protected void findReplaceContent(final File file, final List<PatternWrapper> patterns, final Scope scope) {
+        final String prefix = "findReplaceContent() :";
 
-		LOGGER.debug("{} entered, scope={}", prefix, scope);
+        LOGGER.debug("{} entered, scope={}", prefix, scope);
 
-		if (scope == Scope.FILE) {
-			findReplaceFileContent(file, patterns);
-		}
-		else if (scope == Scope.LINE) {
-			findReplaceFileLineContent(file, patterns);
-		}
-		else {
-			LOGGER.error("{} unsupported scope {}", prefix, scope);
+        if (scope == Scope.FILE) {
+            findReplaceFileContent(file, patterns);
+        }
+        else if (scope == Scope.LINE) {
+            findReplaceFileLineContent(file, patterns);
+        }
+        else {
+            LOGGER.error("{} unsupported scope {}", prefix, scope);
 
-			throw new IllegalArgumentException("Unsupported scope");
-		}
+            throw new IllegalArgumentException("Unsupported scope");
+        }
 
-		LOGGER.debug("{} leaving", prefix);
-	}
+        LOGGER.debug("{} leaving", prefix);
+    }
 
-	/**
-	 * Find replace file content.
-	 * 
-	 * @param file the file
-	 * @param patterns the patterns
-	 */
-	protected void findReplaceFileContent(final File file, final List<PatternWrapper> patterns) {
-		final String prefix = "findReplaceFileContent() :";
+    /**
+     * Find replace file content.
+     *
+     * @param file     the file
+     * @param patterns the patterns
+     */
+    protected void findReplaceFileContent(final File file, final List<PatternWrapper> patterns) {
+        final String prefix = "findReplaceFileContent() :";
 
-		LOGGER.debug("{} entered, file={}", prefix, file);
+        LOGGER.debug("{} entered, file={}", prefix, file);
 
-		try {
-			String fileContents = FileUtils.fileRead(file);
+        try {
+            String fileContents = FileUtils.fileRead(file);
 
-			for (final PatternWrapper pattern : patterns) {
-				fileContents = applyPattern(fileContents, pattern);
-			}
+            for (final PatternWrapper pattern : patterns) {
+                fileContents = applyPattern(fileContents, pattern);
+            }
 
-			FileUtils.fileWrite(file, fileContents);
-		}
-		catch (final IOException e) {
-			LOGGER.error("{} Unable to read file {}", prefix, file);
+            FileUtils.fileWrite(file, fileContents);
+        }
+        catch (final IOException e) {
+            LOGGER.error("{} Unable to read file {}", prefix, file);
 
-			throw new RuntimeException("Unable to read file " + file.getAbsolutePath(), e);
-		}
+            throw new RuntimeException("Unable to read file " + file.getAbsolutePath(), e);
+        }
 
-		LOGGER.debug("{} leaving", prefix);
-	}
+        LOGGER.debug("{} leaving", prefix);
+    }
 
-	/**
-	 * Find replace file line content.
-	 * 
-	 * @param file the file
-	 * @param patterns the patterns
-	 */
-	protected void findReplaceFileLineContent(final File file, final List<PatternWrapper> patterns) {
-		final String prefix = "findReplaceFileLineContent() :";
+    /**
+     * Find replace file line content.
+     *
+     * @param file     the file
+     * @param patterns the patterns
+     */
+    protected void findReplaceFileLineContent(final File file, final List<PatternWrapper> patterns) {
+        final String prefix = "findReplaceFileLineContent() :";
 
-		LOGGER.debug("{} entered, file={}", prefix, file);
+        LOGGER.debug("{} entered, file={}", prefix, file);
 
-		try {
-			final String fileContents = FileUtils.fileRead(file);
-			final String[] fileLines = fileContents.split("(\r\n)|(\n\r)|(\r)|(\n)");
+        try {
+            final String fileContents = FileUtils.fileRead(file);
+            final String[] fileLines = fileContents.split("(\r\n)|(\n\r)|(\r)|(\n)");
 
-			for (int i = 0; i < fileLines.length; i++) {
-				String fileLine = fileLines[i];
+            for (int i = 0; i < fileLines.length; i++) {
+                String fileLine = fileLines[i];
 
-				for (final PatternWrapper pattern : patterns) {
-					fileLine = applyPattern(fileLine, pattern);
-				}
+                for (final PatternWrapper pattern : patterns) {
+                    fileLine = applyPattern(fileLine, pattern);
+                }
 
-				fileLines[i] = fileLine;
-			}
+                fileLines[i] = fileLine;
+            }
 
-			FileUtils.fileWrite(file, StringUtils.join(fileLines, System.getProperty("line.separator")));
-		}
-		catch (final IOException e) {
-			LOGGER.error("{} Unable to read file {}", prefix, file);
+            FileUtils.fileWrite(file, StringUtils.join(fileLines, System.getProperty("line.separator")));
+        }
+        catch (final IOException e) {
+            LOGGER.error("{} Unable to read file {}", prefix, file);
 
-			throw new RuntimeException("Unable to read file " + file.getAbsolutePath(), e);
-		}
+            throw new RuntimeException("Unable to read file " + file.getAbsolutePath(), e);
+        }
 
-		LOGGER.debug("{} leaving", prefix);
-	}
+        LOGGER.debug("{} leaving", prefix);
+    }
 
-	/**
-	 * Find replace in files.
-	 * 
-	 * @param path the path
-	 * @param fileReferences the file references
-	 * @param findReplacePatterns the find replace patterns
-	 * @param scope the scope
-	 */
-	protected void findReplaceInFiles(final String path, final List<FileReference> fileReferences,
-			final List<FindReplacePattern> findReplacePatterns, final Scope scope) {
-		final String prefix = "findReplaceInFiles() :";
+    /**
+     * Find replace in files.
+     *
+     * @param path                the path
+     * @param fileReferences      the file references
+     * @param findReplacePatterns the find replace patterns
+     * @param scope               the scope
+     */
+    protected void findReplaceInFiles(final String path, final List<FileReference> fileReferences,
+                                      final List<FindReplacePattern> findReplacePatterns, final Scope scope) {
+        final String prefix = "findReplaceInFiles() :";
 
-		LOGGER.debug("{} entered, path={}", prefix, path);
+        LOGGER.debug("{} entered, path={}", prefix, path);
 
-		final List<File> files = FileSystemUtils.convertToFileObjects(path, fileReferences);
-		final List<PatternWrapper> patterns = convertFindReplacePatternsToRegexPatterns(findReplacePatterns);
+        final List<File> files = FileSystemUtils.convertToFileObjects(path, fileReferences);
+        final List<PatternWrapper> patterns = convertFindReplacePatternsToRegexPatterns(findReplacePatterns);
 
-		if (files.isEmpty()) {
-			LOGGER.debug("{} No matching files found at", prefix);
+        if (files.isEmpty()) {
+            LOGGER.debug("{} No matching files found at", prefix);
 
-			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.FIND_REPLACE_NO_MATCHING_FILES);
-		}
-		else {
-			for (final File file : files) {
-				if (file.isFile()) {
-					findReplaceContent(file, patterns, scope);
+            error(FIND_REPLACE_NO_MATCHING_FILES);
+        }
+        else {
+            for (final File file : files) {
+                if (file.isFile()) {
+                    findReplaceContent(file, patterns, scope);
 
-					getStatusChangeHelper().info(this, StatusChangeMessageResourceType.FIND_REPLACE_EXECUTION_FINISHED,
-							file.getAbsolutePath());
-				}
-				else {
-					LOGGER.debug("{} The file at {} is \not a file; skipping", prefix, file);
+                    info(FIND_REPLACE_EXECUTION_FINISHED, file.getAbsolutePath());
+                }
+                else {
+                    LOGGER.debug("{} The file at {} is \not a file; skipping", prefix, file);
 
-					getStatusChangeHelper().error(this, StatusChangeMessageResourceType.FIND_REPLACE_NOT_FILE_ERROR,
-							file.getAbsolutePath());
-				}
-			}
-		}
+                    error(FIND_REPLACE_NOT_FILE_ERROR, file.getAbsolutePath());
+                }
+            }
+        }
 
-		LOGGER.debug("{} leaving", prefix);
-	}
+        LOGGER.debug("{} leaving", prefix);
+    }
 }

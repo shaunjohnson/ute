@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executer.
- * 
+ *
  * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,6 +20,7 @@ package net.lmxm.ute.executers.tasks;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +30,6 @@ import java.util.List;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -43,181 +43,163 @@ import org.slf4j.LoggerFactory;
  */
 public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemDeleteTaskExecuter.class);
+    /**
+     * The Constant LOGGER.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemDeleteTaskExecuter.class);
 
-	/** The task. */
-	private final FileSystemDeleteTask task;
+    /**
+     * The task.
+     */
+    private final FileSystemDeleteTask task;
 
-	/**
-	 * Instantiates a new file system delete task executer.
-	 * 
-	 * @param task the task
-	 * @param statusChangeHelper the status change helper
-	 */
-	public FileSystemDeleteTaskExecuter(final FileSystemDeleteTask task, final StatusChangeHelper statusChangeHelper) {
-		super(statusChangeHelper);
+    /**
+     * Instantiates a new file system delete task executer.
+     *
+     * @param task               the task
+     * @param statusChangeHelper the status change helper
+     */
+    public FileSystemDeleteTaskExecuter(final FileSystemDeleteTask task, final StatusChangeHelper statusChangeHelper) {
+        super(statusChangeHelper);
 
-		checkNotNull(task, "Task may not be null");
+        checkNotNull(task, "Task may not be null");
 
-		this.task = task;
-	}
+        this.task = task;
+    }
 
-	/**
-	 * Delete files.
-	 * 
-	 * @param path the path
-	 * @param files the files
-	 * @param stopOnError the stop on error
-	 */
-	protected void deleteFiles(final String path, final List<FileReference> files, final boolean stopOnError) {
-		final String prefix = "execute() :";
+    /**
+     * Delete files.
+     *
+     * @param path        the path
+     * @param files       the files
+     * @param stopOnError the stop on error
+     */
+    protected void deleteFiles(final String path, final List<FileReference> files, final boolean stopOnError) {
+        final String prefix = "execute() :";
 
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("{} entered", prefix);
-			LOGGER.debug("{} path={}", prefix, path);
-			LOGGER.debug("{} files={}", prefix, files);
-			LOGGER.debug("{} stopOnError={}", prefix, stopOnError);
-		}
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("{} entered", prefix);
+            LOGGER.debug("{} path={}", prefix, path);
+            LOGGER.debug("{} files={}", prefix, files);
+            LOGGER.debug("{} stopOnError={}", prefix, stopOnError);
+        }
 
-		final String pathTrimmed = StringUtils.trimToNull(path);
+        final String pathTrimmed = StringUtils.trimToNull(path);
 
-		checkArgument(pathTrimmed != null, "Path may not be blank");
+        checkArgument(pathTrimmed != null, "Path may not be blank");
 
-		final File pathFile = new File(pathTrimmed);
+        final File pathFile = new File(pathTrimmed);
 
-		if (!pathFile.exists()) {
-			LOGGER.debug("{} path does not exist, returning", prefix);
+        if (!pathFile.exists()) {
+            LOGGER.debug("{} path does not exist, returning", prefix);
+            info(FILE_DELETE_PATH_DOES_NOT_EXIST_ERROR, pathFile.getAbsolutePath());
+            return;
+        }
 
-			getStatusChangeHelper().info(this, StatusChangeMessageResourceType.FILE_DELETE_PATH_DOES_NOT_EXIST_ERROR,
-					pathFile.getAbsolutePath());
+        if (pathFile.isFile()) {
+            LOGGER.debug("{} deleting file {}", prefix, pathFile.getName());
 
-			return;
-		}
+            info(FILE_DELETE_FILE_DELETE_STARTED, pathFile.getAbsolutePath());
 
-		if (pathFile.isFile()) {
-			LOGGER.debug("{} deleting file {}", prefix, pathFile.getName());
+            if (forceDelete(pathFile, stopOnError)) {
+                info(FILE_DELETE_FILE_DELETE_FINISHED, pathFile.getAbsolutePath());
+            }
+        }
+        else if (pathFile.isDirectory()) {
+            LOGGER.debug("{} path is a directory", prefix);
 
-			getStatusChangeHelper().info(this, StatusChangeMessageResourceType.FILE_DELETE_FILE_DELETE_STARTED,
-					pathFile.getAbsolutePath());
+            if (CollectionUtils.isEmpty(files)) {
+                LOGGER.debug("{} deleting directory {}", prefix, pathFile.getName());
 
-			if (forceDelete(pathFile, stopOnError)) {
-				getStatusChangeHelper().info(this, StatusChangeMessageResourceType.FILE_DELETE_FILE_DELETE_FINISHED,
-						pathFile.getAbsolutePath());
-			}
-		}
-		else if (pathFile.isDirectory()) {
-			LOGGER.debug("{} path is a directory", prefix);
+                info(FILE_DELETE_DIRECTORY_DELETE_STARTED, pathFile.getAbsolutePath());
 
-			if (CollectionUtils.isEmpty(files)) {
-				LOGGER.debug("{} deleting directory {}", prefix, pathFile.getName());
+                if (forceDelete(pathFile, stopOnError)) {
+                    info(FILE_DELETE_DIRECTORY_DELETE_FINISHED, pathFile.getAbsolutePath());
+                }
+            }
+            else {
+                LOGGER.debug("{} deleting {} files in a directory", prefix, prefix);
 
-				getStatusChangeHelper().info(this,
-						StatusChangeMessageResourceType.FILE_DELETE_DIRECTORY_DELETE_STARTED,
-						pathFile.getAbsolutePath());
+                for (final FileReference file : files) {
+                    final String fileName = file.getName();
 
-				if (forceDelete(pathFile, stopOnError)) {
-					getStatusChangeHelper().info(this,
-							StatusChangeMessageResourceType.FILE_DELETE_DIRECTORY_DELETE_FINISHED,
-							pathFile.getAbsolutePath());
-				}
-			}
-			else {
-				LOGGER.debug("{} deleting {} files in a directory", prefix, prefix);
+                    LOGGER.debug("{} deleting file {}", prefix, fileName);
 
-				for (final FileReference file : files) {
-					final String fileName = file.getName();
+                    info(FILE_DELETE_FILE_DELETE_STARTED, fileName);
 
-					LOGGER.debug("{} deleting file {}", prefix, fileName);
+                    if (forceDelete(new File(pathFile, fileName), stopOnError)) {
+                        info(FILE_DELETE_FILE_DELETE_FINISHED, fileName);
+                    }
+                }
+            }
+        }
+        else {
+            LOGGER.error("{} path is not a file or directory, returning", prefix);
+        }
 
-					getStatusChangeHelper().info(this, StatusChangeMessageResourceType.FILE_DELETE_FILE_DELETE_STARTED,
-							fileName);
+        LOGGER.debug("{} leaving", prefix);
+    }
 
-					if (forceDelete(new File(pathFile, fileName), stopOnError)) {
-						getStatusChangeHelper().info(this,
-								StatusChangeMessageResourceType.FILE_DELETE_FILE_DELETE_FINISHED, fileName);
-					}
-				}
-			}
-		}
-		else {
-			LOGGER.error("{} path is not a file or directory, returning", prefix);
-		}
+    /*
+     * (non-Javadoc)
+     * @see net.lmxm.ute.executers.ExecuterIF#execute()
+     */
+    @Override
+    public void execute() {
+        final String prefix = "execute() :";
 
-		LOGGER.debug("{} leaving", prefix);
-	}
+        LOGGER.debug("{} entered", prefix);
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.executers.ExecuterIF#execute()
-	 */
-	@Override
-	public void execute() {
-		final String prefix = "execute() :";
+        final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
+        final List<FileReference> files = task.getFiles();
+        final boolean stopOnError = task.getStopOnError();
 
-		LOGGER.debug("{} entered", prefix);
+        deleteFiles(path, files, stopOnError);
 
-		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());
-		final List<FileReference> files = task.getFiles();
-		final boolean stopOnError = task.getStopOnError();
+        LOGGER.debug("{} returning", prefix);
+    }
 
-		deleteFiles(path, files, stopOnError);
+    /**
+     * Force delete.
+     *
+     * @param pathFile    the path file
+     * @param stopOnError the stop on error
+     * @return true, if successful
+     */
+    protected boolean forceDelete(final File pathFile, final boolean stopOnError) {
+        final String prefix = "forceDelete() :";
 
-		LOGGER.debug("{} returning", prefix);
-	}
+        boolean successful = false;
 
-	/**
-	 * Force delete.
-	 * 
-	 * @param pathFile the path file
-	 * @param stopOnError the stop on error
-	 * @return true, if successful
-	 */
-	protected boolean forceDelete(final File pathFile, final boolean stopOnError) {
-		final String prefix = "forceDelete() :";
+        try {
+            FileUtils.forceDelete(pathFile);
 
-		boolean successful = false;
+            successful = true;
+        }
+        catch (final FileNotFoundException e) {
+            if (stopOnError) {
+                LOGGER.error(prefix + " file not found " + pathFile.getName(), e);
+                error(FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR, pathFile.getAbsolutePath());
+                throw new RuntimeException();
+            }
+            else {
+                LOGGER.debug("{} ignoring error deleting file", prefix);
 
-		try {
-			FileUtils.forceDelete(pathFile);
+                info(FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR, pathFile.getAbsolutePath());
+            }
+        }
+        catch (final IOException e) {
+            if (stopOnError) {
+                LOGGER.error(prefix + " error deleting file " + pathFile.getName(), e);
+                error(FILE_DELETE_ERROR, pathFile.getAbsolutePath());
+                throw new RuntimeException();
+            }
+            else {
+                LOGGER.debug("{} ignoring error deleting file", prefix);
+                info(FILE_DELETE_ERROR, pathFile.getAbsolutePath());
+            }
+        }
 
-			successful = true;
-		}
-		catch (final FileNotFoundException e) {
-			if (stopOnError) {
-				LOGGER.error(prefix + " file not found " + pathFile.getName(), e);
-
-				getStatusChangeHelper().error(this,
-						StatusChangeMessageResourceType.FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR,
-						pathFile.getAbsolutePath());
-
-				throw new RuntimeException();
-			}
-			else {
-				LOGGER.debug("{} ignoring error deleting file", prefix);
-
-				getStatusChangeHelper().info(this,
-						StatusChangeMessageResourceType.FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR,
-						pathFile.getAbsolutePath());
-			}
-		}
-		catch (final IOException e) {
-			if (stopOnError) {
-				LOGGER.error(prefix + " error deleting file " + pathFile.getName(), e);
-
-				getStatusChangeHelper().error(this, StatusChangeMessageResourceType.FILE_DELETE_ERROR,
-						pathFile.getAbsolutePath());
-
-				throw new RuntimeException();
-			}
-			else {
-				LOGGER.debug("{} ignoring error deleting file", prefix);
-
-				getStatusChangeHelper().info(this, StatusChangeMessageResourceType.FILE_DELETE_ERROR,
-						pathFile.getAbsolutePath());
-			}
-		}
-
-		return successful;
-	}
+        return successful;
+    }
 }

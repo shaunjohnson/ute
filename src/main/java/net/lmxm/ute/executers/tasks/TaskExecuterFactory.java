@@ -60,8 +60,7 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 		checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 		checkNotNull(statusChangeHelper, "StatusChangeHelper may not be null");
 
-		Executer executer;
-
+		final Executer executer;
 		if (task instanceof FileSystemDeleteTask) {
 			LOGGER.debug("{} task is FileSystemDeleteTask", prefix);
 
