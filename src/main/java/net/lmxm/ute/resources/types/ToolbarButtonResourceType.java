@@ -31,8 +31,7 @@ import net.lmxm.ute.resources.ResourceCategory;
  * The Enum ToolbarButtonResourceType.
  */
 public enum ToolbarButtonResourceType implements ResourceType {
-
-	ADD_FILE_SYSTEM_LOCATION(ImageUtil.ADD_FILE_SYSTEM_LOCATION_ICON, ActionCommand.ADD_FILE_SYSTEM_LOCATION),
+    ADD_FILE_SYSTEM_LOCATION(ImageUtil.ADD_FILE_SYSTEM_LOCATION_ICON, ActionCommand.ADD_FILE_SYSTEM_LOCATION),
 
 	ADD_HTTP_LOCATION(ImageUtil.ADD_HTTP_LOCATION_ICON, ActionCommand.ADD_HTTP_LOCATION),
 
@@ -48,6 +47,8 @@ public enum ToolbarButtonResourceType implements ResourceType {
 			ActionCommand.ADD_SUBVERSION_REPOSITORY_LOCATION),
 
 	ADD_TASK(null, ActionCommand.ADD_TASK),
+
+    CLEAR(ImageUtil.CLEAR_ICON, null),
 
 	COLLAPSE(ImageUtil.COLLAPSE_ICON, ActionCommand.COLLAPSE),
 
@@ -84,7 +85,9 @@ public enum ToolbarButtonResourceType implements ResourceType {
 
 	SAVE_FILE(ImageUtil.SAVE_FILE_ICON, ActionCommand.SAVE_FILE),
 
-	SAVE_FILE_AS(ImageUtil.SAVE_FILE_AS_ICON, ActionCommand.SAVE_FILE_AS);
+	SAVE_FILE_AS(ImageUtil.SAVE_FILE_AS_ICON, ActionCommand.SAVE_FILE_AS),
+
+    STOP_JOB(ImageUtil.STOP_JOB_ICON, null);
 
 	private final ActionCommand actionCommand;
 

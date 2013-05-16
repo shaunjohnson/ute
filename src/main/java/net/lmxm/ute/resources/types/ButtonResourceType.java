@@ -24,6 +24,7 @@ import static net.lmxm.ute.resources.types.ResourceValueType.TOOLTIP_TEXT;
 import javax.swing.Icon;
 
 import net.lmxm.ute.enums.ActionCommand;
+import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourceCategory;
 
 /**

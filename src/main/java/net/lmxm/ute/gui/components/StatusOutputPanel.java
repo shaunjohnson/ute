@@ -24,13 +24,13 @@ import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.event.StatusChangeEventType;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
-import net.lmxm.ute.resources.ImageUtil;
+import net.lmxm.ute.resources.types.ButtonResourceType;
+import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 import net.miginfocom.swing.MigLayout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -53,11 +53,6 @@ public final class StatusOutputPanel extends JPanel {
      * The Constant serialVersionUID.
      */
     private static final long serialVersionUID = -1701575052922365046L;
-
-    /**
-     * The Constant TOOLBAR_BORDER.
-     */
-    private static final Border TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 0, 0, 10);
 
     /**
      * The clear output button.
@@ -157,24 +152,17 @@ public final class StatusOutputPanel extends JPanel {
      */
     private JButton getClearOutputButton() {
         if (clearOutputButton == null) {
-            clearOutputButton = new JButton() {
-                {
-                    setIcon(ImageUtil.CLEAR_ICON);
-                    setText("Clear");
-
-                    addActionListener(new ActionListener() {
+            clearOutputButton = GuiComponentFactory.createToolbarButton(ToolbarButtonResourceType.CLEAR, new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    SwingUtilities.invokeLater(new Runnable() {
                         @Override
-                        public void actionPerformed(final ActionEvent e) {
-                            SwingUtilities.invokeLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    getOutputPane().setText("");
-                                }
-                            });
+                        public void run() {
+                            getOutputPane().setText("");
                         }
                     });
                 }
-            };
+            });
         }
         return clearOutputButton;
     }
@@ -201,7 +189,7 @@ public final class StatusOutputPanel extends JPanel {
         if (outputButtonToolBar == null) {
             outputButtonToolBar = new JToolBar() {
                 {
-                    setBorder(TOOLBAR_BORDER);
+                    setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 
                     add(getStopJobButton());
                     add(getClearOutputButton());
@@ -244,6 +232,7 @@ public final class StatusOutputPanel extends JPanel {
                 }
             };
         }
+
         return outputScrollPane;
     }
 
@@ -254,37 +243,31 @@ public final class StatusOutputPanel extends JPanel {
      */
     private JButton getStopJobButton() {
         if (stopJobButton == null) {
-            stopJobButton = new JButton() {
-                {
-                    setText("Stop");
-                    setIcon(ImageUtil.STOP_JOB_ICON);
-
-                    addActionListener(new ActionListener() {
+            stopJobButton = GuiComponentFactory.createToolbarButton(ToolbarButtonResourceType.STOP_JOB, new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    SwingUtilities.invokeLater(new Runnable() {
                         @Override
-                        public void actionPerformed(final ActionEvent e) {
-                            SwingUtilities.invokeLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    synchronized (jobWorkerMutex) {
-                                        if (jobWorker != null) {
-                                            final String prefix = "getStopJobButton().actionPerformed() :";
-                                            LOGGER.debug("{} Sending cancel to job worker thread", prefix);
-                                            jobWorker.cancel(true);
-                                        }
-                                    }
+                        public void run() {
+                            synchronized (jobWorkerMutex) {
+                                if (jobWorker != null) {
+                                    final String prefix = "getStopJobButton().actionPerformed() :";
+                                    LOGGER.debug("{} Sending cancel to job worker thread", prefix);
+                                    jobWorker.cancel(true);
                                 }
-                            });
+                            }
                         }
                     });
                 }
-            };
+            });
         }
+
         return stopJobButton;
     }
 
     @Subscribe
     public void handleJobStatusChange(final JobStatusEvent jobStatusEvent) {
-        JobStatusEvent.JobStatusEventType eventType = jobStatusEvent.getEventType();
+        final JobStatusEvent.JobStatusEventType eventType = jobStatusEvent.getEventType();
         if (eventType == JobAborted || eventType == JobCompleted || eventType == JobStopped) {
             jobIsNolongerRunning();
         }
