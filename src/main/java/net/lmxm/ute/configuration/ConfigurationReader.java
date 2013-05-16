@@ -173,11 +173,9 @@ public final class ConfigurationReader {
 	 * Parses the file system location.
 	 * 
 	 * @param locationType the location type
-	 * @param configuration the configuration
 	 * @return the file system location
 	 */
-	private FileSystemLocation parseFileSystemLocation(final FileSystemLocationType locationType,
-			final Configuration configuration) {
+	private FileSystemLocation parseFileSystemLocation(final FileSystemLocationType locationType) {
 		final String prefix = "parseFileSystemLocation() :";
 
 		LOGGER.debug("{} entered", prefix);
@@ -208,7 +206,7 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} parsing {} file system locations", prefix, locations.size());
 
 		for (final FileSystemLocationType locationType : locationsType.getFileSystemLocationArray()) {
-			locations.add(parseFileSystemLocation(locationType, configuration));
+			locations.add(parseFileSystemLocation(locationType));
 		}
 
 		Collections.sort(locations);

@@ -72,7 +72,7 @@ public final class StatusOutputTab extends JPanel implements ActionListener {
             setBorder(BorderFactory.createEtchedBorder());
             setBorderPainted(false);
 
-            addActionListener(closeButtonActionListener);
+            addActionListener(actionListener);
             addMouseListener(new TabMouseListener());
 
             setRolloverEnabled(true);
@@ -310,7 +310,7 @@ public final class StatusOutputTab extends JPanel implements ActionListener {
      */
     private JButton getCloseButton() {
         if (closeButton == null) {
-            closeButton = new CloseTabButton(this) {
+            closeButton = new CloseTabButton(closeButtonActionListener) {
                 {
                     setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
                     setVisible(false);
