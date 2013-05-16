@@ -92,11 +92,6 @@ public final class SequentialJobEditorPanel extends AbstractCommonEditorPanel {
 
 		super.loadData();
 
-		if (getUserObject() instanceof SequentialJob) {
-			// final SequentialJob sequentialJob = (SequentialJob) getUserObject();
-			// TODO
-		}
-
 		LOGGER.debug("{} leaving", prefix);
 	}
 }
