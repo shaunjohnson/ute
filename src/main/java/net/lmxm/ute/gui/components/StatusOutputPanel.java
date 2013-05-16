@@ -1,291 +1,285 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executor.
- * 
+ *
  * Universal Task Executor is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executor is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.gui.components;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.Document;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
-
 import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.event.StatusChangeEvent;
+import net.lmxm.ute.event.StatusChangeEventType;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
-import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
 import net.lmxm.ute.resources.ImageUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.text.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
 
 /**
  * The Class StatusOutputPanel.
  */
 @SuppressWarnings("serial")
-public class StatusOutputPanel extends JPanel {
+public final class StatusOutputPanel extends JPanel {
 
-	/** The Constant ERROR. */
-	private static final String ERROR = "ERROR";
+    /**
+     * The Constant LOGGER.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatusOutputPanel.class);
 
-	/** The Constant FATAL. */
-	private static final String FATAL = "FATAL";
+    /**
+     * The Constant serialVersionUID.
+     */
+    private static final long serialVersionUID = -1701575052922365046L;
 
-	/** The Constant HEADING. */
-	private static final String HEADING = "HEADING";
+    /**
+     * The Constant TOOLBAR_BORDER.
+     */
+    private static final Border TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 0, 0, 10);
 
-	/** The Constant IMPORTANT. */
-	private static final String IMPORTANT = "IMPORTANT";
+    /**
+     * The clear output button.
+     */
+    private JButton clearOutputButton = null;
 
-	/** The Constant INFO. */
-	private static final String INFO = "INFO";
+    /**
+     * The job progress bar.
+     */
+    private JProgressBar jobProgressBar = null;
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(StatusOutputPanel.class);
+    /**
+     * The job worker.
+     */
+    private ExecuteJobWorker jobWorker = null;
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -1701575052922365046L;
+    /**
+     * The job worker mutex.
+     */
+    private final Object jobWorkerMutex = new Object();
 
-	/** The Constant TOOLBAR_BORDER. */
-	private static final Border TOOLBAR_BORDER = BorderFactory.createEmptyBorder(0, 0, 0, 10);
+    /**
+     * The output button tool bar.
+     */
+    private JToolBar outputButtonToolBar = null;
 
-	/** The clear output button. */
-	private JButton clearOutputButton = null;
+    /**
+     * The output pane.
+     */
+    private JTextPane outputPane = null;
 
-	/** The job progress bar. */
-	private JProgressBar jobProgressBar = null;
+    /**
+     * The output scroll pane.
+     */
+    private JScrollPane outputScrollPane = null;
 
-	/** The job worker. */
-	private ExecuteJobWorker jobWorker = null;
+    /**
+     * The stop job button.
+     */
+    private JButton stopJobButton = null;
 
-	/** The job worker mutex. */
-	private final Object jobWorkerMutex = new Object();
+    /**
+     * The style context.
+     */
+    private final StyleContext styleContext = createStyleContext();
 
-	/** The output button tool bar. */
-	private JToolBar outputButtonToolBar = null;
+    /**
+     * Instantiates a new status output panel.
+     *
+     * @param job the job
+     */
+    public StatusOutputPanel(final Job job) {
+        super();
 
-	/** The output pane. */
-	private JTextPane outputPane = null;
+        setLayout(new BorderLayout());
+        add(getOutputButtonToolBar(), BorderLayout.NORTH);
+        add(getOutputScrollPane(), BorderLayout.CENTER);
+        setBorder(BorderFactory.createEmptyBorder());
 
-	/** The output scroll pane. */
-	private JScrollPane outputScrollPane = null;
+        final JProgressBar progressBar = getJobProgressBar();
+        progressBar.setVisible(true);
+        progressBar.setValue(0);
+        progressBar.setMaximum(job.getTasks().size());
+    }
 
-	/** The stop job button. */
-	private JButton stopJobButton = null;
+    /**
+     * Creates the style context.
+     *
+     * @return the style context
+     */
+    protected static StyleContext createStyleContext() {
+        final StyleContext styleContext = new StyleContext();
+        final Style defaultStyle = styleContext.getStyle(StyleContext.DEFAULT_STYLE);
 
-	/** The style context. */
-	private final StyleContext styleContext;
+        final Style errorStyle = styleContext.addStyle(StatusChangeEventType.ERROR.name(), defaultStyle);
+        StyleConstants.setForeground(errorStyle, Color.RED);
 
-	/**
-	 * Instantiates a new status output panel.
-	 * 
-	 * @param job the job
-	 */
-	public StatusOutputPanel(final Job job) {
-		super();
+        final Style fatalStyle = styleContext.addStyle(StatusChangeEventType.FATAL.name(), defaultStyle);
+        StyleConstants.setBold(fatalStyle, true);
+        StyleConstants.setForeground(fatalStyle, Color.RED);
 
-		styleContext = createStyleContext();
+        final Style headingStyle = styleContext.addStyle(StatusChangeEventType.HEADING.name(), defaultStyle);
+        StyleConstants.setBold(headingStyle, true);
+        StyleConstants.setFontSize(headingStyle, 16);
+        StyleConstants.setSpaceAbove(headingStyle, 20);
+        StyleConstants.setSpaceBelow(headingStyle, 10);
 
-		setLayout(new BorderLayout());
-		add(getOutputButtonToolBar(), BorderLayout.NORTH);
-		add(getOutputScrollPane(), BorderLayout.CENTER);
-		setBorder(BorderFactory.createEmptyBorder());
+        final Style importantStyle = styleContext.addStyle(StatusChangeEventType.IMPORTANT.name(), defaultStyle);
+        StyleConstants.setBold(importantStyle, true);
 
-		final JProgressBar progressBar = getJobProgressBar();
-		progressBar.setVisible(true);
-		progressBar.setValue(0);
-		progressBar.setMaximum(job.getTasks().size());
-	}
+        final Style infoStyle = styleContext.addStyle(StatusChangeEventType.INFO.name(), defaultStyle);
+        StyleConstants.setLeftIndent(infoStyle, 10);
 
-	/**
-	 * Creates the style context.
-	 * 
-	 * @return the style context
-	 */
-	private StyleContext createStyleContext() {
-		final StyleContext styleContext = new StyleContext();
-		final Style defaultStyle = styleContext.getStyle(StyleContext.DEFAULT_STYLE);
+        return styleContext;
+    }
 
-		final Style errorStyle = styleContext.addStyle(ERROR, defaultStyle);
-		StyleConstants.setForeground(errorStyle, Color.RED);
+    /**
+     * Gets the clear output button.
+     *
+     * @return the clear output button
+     */
+    private JButton getClearOutputButton() {
+        if (clearOutputButton == null) {
+            clearOutputButton = new JButton() {
+                {
+                    setIcon(ImageUtil.CLEAR_ICON);
+                    setText("Clear");
 
-		final Style fatalStyle = styleContext.addStyle(FATAL, defaultStyle);
-		StyleConstants.setBold(fatalStyle, true);
-		StyleConstants.setForeground(fatalStyle, Color.RED);
+                    addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(final ActionEvent e) {
+                            getOutputPane().setText("");
+                        }
+                    });
+                }
+            };
+        }
+        return clearOutputButton;
+    }
 
-		final Style headingStyle = styleContext.addStyle(HEADING, defaultStyle);
-		StyleConstants.setBold(headingStyle, true);
-		StyleConstants.setFontSize(headingStyle, 16);
-		StyleConstants.setSpaceAbove(headingStyle, 20);
-		StyleConstants.setSpaceBelow(headingStyle, 10);
+    /**
+     * Gets the job progress bar.
+     *
+     * @return the job progress bar
+     */
+    private JProgressBar getJobProgressBar() {
+        if (jobProgressBar == null) {
+            jobProgressBar = new JProgressBar(SwingConstants.HORIZONTAL) {
+                {
+                    setVisible(false);
+                }
+            };
+        }
 
-		final Style importantStyle = styleContext.addStyle(IMPORTANT, defaultStyle);
-		StyleConstants.setBold(importantStyle, true);
+        return jobProgressBar;
+    }
 
-		final Style infoStyle = styleContext.addStyle(INFO, defaultStyle);
-		StyleConstants.setLeftIndent(infoStyle, 10);
+    /**
+     * Gets the output button tool bar.
+     *
+     * @return the output button tool bar
+     */
+    private JToolBar getOutputButtonToolBar() {
+        if (outputButtonToolBar == null) {
+            outputButtonToolBar = new JToolBar() {
+                {
+                    setBorder(TOOLBAR_BORDER);
 
-		return styleContext;
-	}
+                    add(getStopJobButton());
+                    add(getClearOutputButton());
+                    add(getJobProgressBar());
+                }
+            };
+        }
+        return outputButtonToolBar;
+    }
 
-	/**
-	 * Gets the clear output button.
-	 * 
-	 * @return the clear output button
-	 */
-	private JButton getClearOutputButton() {
-		if (clearOutputButton == null) {
-			clearOutputButton = new JButton() {
-				{
-					setIcon(ImageUtil.CLEAR_ICON);
-					setText("Clear");
+    /**
+     * Instantiates a new status output pane.
+     *
+     * @return the output pane
+     */
+    public JTextPane getOutputPane() {
+        if (outputPane == null) {
+            outputPane = new JTextPane(new DefaultStyledDocument(styleContext)) {
+                {
+                    setEditable(false);
+                }
+            };
+        }
 
-					addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(final ActionEvent e) {
-							getOutputPane().setText("");
-						}
-					});
-				}
-			};
-		}
-		return clearOutputButton;
-	}
+        return outputPane;
+    }
 
-	/**
-	 * Gets the job progress bar.
-	 * 
-	 * @return the job progress bar
-	 */
-	private JProgressBar getJobProgressBar() {
-		if (jobProgressBar == null) {
-			jobProgressBar = new JProgressBar(SwingConstants.HORIZONTAL) {
-				{
-					setVisible(false);
-				}
-			};
-		}
+    /**
+     * Gets the output scroll pane.
+     *
+     * @return the output scroll pane
+     */
+    private JScrollPane getOutputScrollPane() {
+        if (outputScrollPane == null) {
+            outputScrollPane = new JScrollPane() {
+                {
+                    setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                    setViewportView(getOutputPane());
+                    setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                }
+            };
+        }
+        return outputScrollPane;
+    }
 
-		return jobProgressBar;
-	}
+    /**
+     * Gets the stop job button.
+     *
+     * @return the stop job button
+     */
+    private JButton getStopJobButton() {
+        if (stopJobButton == null) {
+            stopJobButton = new JButton() {
+                {
+                    setText("Stop");
+                    setIcon(ImageUtil.STOP_JOB_ICON);
 
-	/**
-	 * Gets the output button tool bar.
-	 * 
-	 * @return the output button tool bar
-	 */
-	private JToolBar getOutputButtonToolBar() {
-		if (outputButtonToolBar == null) {
-			outputButtonToolBar = new JToolBar() {
-				{
-					setBorder(TOOLBAR_BORDER);
+                    addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(final ActionEvent e) {
+                            synchronized (jobWorkerMutex) {
+                                if (jobWorker != null) {
+                                    final String prefix = "getStopJobButton().actionPerformed() :";
 
-					add(getStopJobButton());
-					add(getClearOutputButton());
-					add(getJobProgressBar());
-				}
-			};
-		}
-		return outputButtonToolBar;
-	}
+                                    LOGGER.debug("{} Sending cancel to job worker thread", prefix);
 
-	/**
-	 * Instantiates a new status output pane.
-	 * 
-	 * @return the output pane
-	 */
-	public JTextPane getOutputPane() {
-		if (outputPane == null) {
-			outputPane = new JTextPane(new DefaultStyledDocument(styleContext)) {
-				{
-					setEditable(false);
-				}
-			};
-		}
-
-		return outputPane;
-	}
-
-	/**
-	 * Gets the output scroll pane.
-	 * 
-	 * @return the output scroll pane
-	 */
-	private JScrollPane getOutputScrollPane() {
-		if (outputScrollPane == null) {
-			outputScrollPane = new JScrollPane() {
-				{
-					setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-					setViewportView(getOutputPane());
-					setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-				}
-			};
-		}
-		return outputScrollPane;
-	}
-
-	/**
-	 * Gets the stop job button.
-	 * 
-	 * @return the stop job button
-	 */
-	private JButton getStopJobButton() {
-		if (stopJobButton == null) {
-			stopJobButton = new JButton() {
-				{
-					setText("Stop");
-					setIcon(ImageUtil.STOP_JOB_ICON);
-
-					addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(final ActionEvent e) {
-							synchronized (jobWorkerMutex) {
-								if (jobWorker != null) {
-									final String prefix = "getStopJobButton().actionPerformed() :";
-
-									LOGGER.debug("{} Sending cancel to job worker thread", prefix);
-
-									jobWorker.cancel(true);
-								}
-							}
-						}
-					});
-				}
-			};
-		}
-		return stopJobButton;
-	}
+                                    jobWorker.cancel(true);
+                                }
+                            }
+                        }
+                    });
+                }
+            };
+        }
+        return stopJobButton;
+    }
 
     @Subscribe
     public void handleJobStatusChange(final JobStatusEvent jobStatusEvent) {
@@ -300,34 +294,12 @@ public class StatusOutputPanel extends JPanel {
 
     @Subscribe
     public void handleStatusChange(final StatusChangeEvent statusChangeEvent) {
-        final String styleName;
-
-        switch (statusChangeEvent.getEventType()) {
-            case ERROR:
-                styleName = ERROR;
-                break;
-            case FATAL:
-                styleName = FATAL;
-                break;
-            case HEADING:
-                styleName = HEADING;
-                break;
-            case IMPORTANT:
-                styleName = IMPORTANT;
-                break;
-            case INFO:
-                styleName = INFO;
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported event type " + statusChangeEvent.getEventType());
-        }
-
         final JTextPane outputPane = getOutputPane();
         final Document document = outputPane.getDocument();
 
         try {
-            document.insertString(document.getLength(), statusChangeEvent.getMessage() + "\n",
-                    styleContext.getStyle(styleName));
+            final Style style = styleContext.getStyle(statusChangeEvent.getEventType().name());
+            document.insertString(document.getLength(), statusChangeEvent.getMessage() + "\n", style);
         }
         catch (final BadLocationException e) {
             e.printStackTrace();
@@ -336,28 +308,28 @@ public class StatusOutputPanel extends JPanel {
         outputPane.setCaretPosition(document.getLength());
     }
 
-	/**
-	 * Job is nolonger running.
-	 */
-	private void jobIsNolongerRunning() {
-		synchronized (jobWorkerMutex) {
-			// Clear connection to worker thread
-			jobWorker = null;
+    /**
+     * Job is nolonger running.
+     */
+    private void jobIsNolongerRunning() {
+        synchronized (jobWorkerMutex) {
+            // Clear connection to worker thread
+            jobWorker = null;
 
-			// Update GUI
-			getStopJobButton().setEnabled(false);
-			getJobProgressBar().setVisible(false);
-		}
-	}
+            // Update GUI
+            getStopJobButton().setEnabled(false);
+            getJobProgressBar().setVisible(false);
+        }
+    }
 
-	/**
-	 * Sets the job worker.
-	 * 
-	 * @param jobWorker the new job worker
-	 */
-	public void setJobWorker(final ExecuteJobWorker jobWorker) {
-		synchronized (jobWorkerMutex) {
-			this.jobWorker = jobWorker;
-		}
-	}
+    /**
+     * Sets the job worker.
+     *
+     * @param jobWorker the new job worker
+     */
+    public void setJobWorker(final ExecuteJobWorker jobWorker) {
+        synchronized (jobWorkerMutex) {
+            this.jobWorker = jobWorker;
+        }
+    }
 }
