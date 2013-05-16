@@ -26,8 +26,10 @@ import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationInterpolator;
 import net.lmxm.ute.configuration.ConfigurationUtils;
+import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,7 +94,7 @@ public abstract class GenericApplication {
         }
         else {
             LOGGER.error("{} at least one preference does not have a value", prefix);
-            throw new RuntimeException("Preferences must be assigned values before continuing");
+            throw new ConfigurationException(ExceptionResourceType.PREFERENCES_MUST_BE_ASSIGNED_VALUES);
         }
 
         LOGGER.debug("{} leaving", prefix);
