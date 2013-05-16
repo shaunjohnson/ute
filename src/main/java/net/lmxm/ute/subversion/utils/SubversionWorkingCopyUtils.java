@@ -23,8 +23,8 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.io.File;
 
-import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
+import net.lmxm.ute.event.StatusChangeEventBus;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -81,11 +81,9 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 	 * 
 	 * @param username the username
 	 * @param password the password
-	 * @param statusChangeHelper the status change helper
 	 */
-	public SubversionWorkingCopyUtils(final String username, final String password,
-			final StatusChangeHelper statusChangeHelper) {
-		super(username, password, statusChangeHelper);
+	public SubversionWorkingCopyUtils(final String username, final String password) {
+		super(username, password);
 	}
 
 	/**
@@ -106,30 +104,28 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
 		try {
 			LOGGER.debug("{} start updating working copy", prefix);
 
-			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_STARTED,
-					pathTrimmed);
+			StatusChangeEventBus.important(SUBVERSION_UPDATE_STARTED, pathTrimmed);
 
 			final DefaultSVNOptions options = SVNWCUtil.createDefaultOptions(true);
 			final SVNClientManager clientManager = SVNClientManager.newInstance(options);
 			clientManager.setAuthenticationManager(getAuthenticationManager());
 
 			final SVNUpdateClient updateClient = clientManager.getUpdateClient();
-			updateClient.setEventHandler(new EventHandler(getStatusChangeHelper()));
+			updateClient.setEventHandler(new EventHandler());
 			updateClient.doUpdate(new File(pathTrimmed), SVNRevision.HEAD, SVNDepth.INFINITY, true, false);
 
-			getStatusChangeHelper().important(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_FINISHED,
-					pathTrimmed);
+			StatusChangeEventBus.important(SUBVERSION_UPDATE_FINISHED, pathTrimmed);
 
 			LOGGER.debug("{} finished updating working copy", prefix);
 		}
 		catch (final SVNAuthenticationException e) {
 			LOGGER.error("SVNAuthenticationException caught exporting a file", e);
-			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.SUBVERSION_AUTHENTICATION_FAILED);
+			StatusChangeEventBus.error(SUBVERSION_AUTHENTICATION_FAILED);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 		catch (final SVNException e) {
 			LOGGER.error("SVNException caught while updating working copy", e);
-			getStatusChangeHelper().error(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_ERROR, pathTrimmed);
+			StatusChangeEventBus.error(SUBVERSION_UPDATE_ERROR, pathTrimmed);
 			throw new RuntimeException(e); // TODO Use appropriate exception
 		}
 

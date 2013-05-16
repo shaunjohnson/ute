@@ -21,7 +21,6 @@ package net.lmxm.ute.executers.tasks;
 import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.subversion.utils.SubversionWorkingCopyUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 
@@ -43,11 +42,8 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 	 * Instantiates a new subversion update task executer.
 	 * 
 	 * @param task the task
-	 * @param statusChangeHelper the status change helper
 	 */
-	public SubversionUpdateTaskExecuter(final SubversionUpdateTask task, final StatusChangeHelper statusChangeHelper) {
-		super(statusChangeHelper);
-
+	public SubversionUpdateTaskExecuter(final SubversionUpdateTask task) {
 		checkNotNull(task, "Task may not be null");
 
 		this.task = task;
@@ -69,8 +65,7 @@ public final class SubversionUpdateTaskExecuter extends AbstractTaskExecuter {
 		final String username = location.getUsername();
 		final String password = location.getPassword();
 
-		final SubversionWorkingCopyUtils subversionWorkingCopyUtils = new SubversionWorkingCopyUtils(username,
-				password, getStatusChangeHelper());
+		final SubversionWorkingCopyUtils subversionWorkingCopyUtils = new SubversionWorkingCopyUtils(username, password);
 		subversionWorkingCopyUtils.updateWorkingCopy(path);
 
 		LOGGER.debug("{} returning", prefix);

@@ -18,8 +18,6 @@
  */
 package net.lmxm.ute.executers;
 
-import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 
 /**
@@ -27,86 +25,4 @@ import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
  */
 public abstract class AbstractExecuter implements Executer {
 
-    /**
-     * The status change helper.
-     */
-    private final StatusChangeHelper statusChangeHelper;
-
-    /**
-     * Instantiates a new abstract executer.
-     */
-    public AbstractExecuter() {
-        super();
-
-        statusChangeHelper = new StatusChangeHelper();
-    }
-
-    /**
-     * Instantiates a new abstract executer.
-     *
-     * @param statusChangeHelper the status change helper
-     */
-    public AbstractExecuter(final StatusChangeHelper statusChangeHelper) {
-        super();
-
-        this.statusChangeHelper = statusChangeHelper;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see net.lmxm.ute.executers.Executer#addStatusChangeListener(net.lmxm.ute.listeners.StatusChangeListener)
-     */
-    @Override
-    public void addStatusChangeListener(final StatusChangeListener statusChangeListener) {
-        statusChangeHelper.addStatusChangeListener(statusChangeListener);
-    }
-
-    /**
-     * Gets the status change helper.
-     *
-     * @return the status change helper
-     */
-    protected final StatusChangeHelper getStatusChangeHelper() {
-        return statusChangeHelper;
-    }
-
-    /**
-     * Fires an error status change message.
-     *
-     * @param statusChangeMessage Status change message type
-     * @param arguments Message arguments
-     */
-    protected final void error(final StatusChangeMessageResourceType statusChangeMessage, final Object... arguments) {
-        getStatusChangeHelper().error(this, statusChangeMessage, arguments);
-    }
-
-    /**
-     * Fires a fatal status change message.
-     *
-     * @param statusChangeMessage Status change message type
-     * @param arguments Message arguments
-     */
-    protected final void fatal(final StatusChangeMessageResourceType statusChangeMessage, final Object... arguments) {
-        getStatusChangeHelper().fatal(this, statusChangeMessage, arguments);
-    }
-
-    /**
-     * Fires an important status change message.
-     *
-     * @param statusChangeMessage Status change message type
-     * @param arguments Message arguments
-     */
-    protected final void important(final StatusChangeMessageResourceType statusChangeMessage, final Object... arguments) {
-        getStatusChangeHelper().info(this, statusChangeMessage, arguments);
-    }
-
-    /**
-     * Fires an info status change message.
-     *
-     * @param statusChangeMessage Status change message type
-     * @param arguments Message arguments
-     */
-    protected final void info(final StatusChangeMessageResourceType statusChangeMessage, final Object... arguments) {
-        getStatusChangeHelper().info(this, statusChangeMessage, arguments);
-    }
 }

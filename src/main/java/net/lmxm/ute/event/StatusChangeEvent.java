@@ -28,11 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * The Class StatusChangeEvent.
  */
-public final class StatusChangeEvent extends EventObject {
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 911482339505974104L;
-
+public final class StatusChangeEvent {
 	/** The event type. */
 	private final StatusChangeEventType eventType;
 
@@ -42,13 +38,10 @@ public final class StatusChangeEvent extends EventObject {
 	/**
 	 * Instantiates a new status change event.
 	 * 
-	 * @param source the source
 	 * @param eventType the event type
 	 * @param message the message
 	 */
-	protected StatusChangeEvent(final Object source, final StatusChangeEventType eventType, final String message) {
-		super(source);
-
+	protected StatusChangeEvent(final StatusChangeEventType eventType, final String message) {
 		this.eventType = checkNotNull(eventType, "Event type may not be null");
 		this.message = checkNotNull(message, "Message may not be null");
 

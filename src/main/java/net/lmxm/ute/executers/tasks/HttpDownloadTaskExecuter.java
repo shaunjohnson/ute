@@ -31,7 +31,7 @@ import java.util.Map;
 
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.event.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 import net.lmxm.ute.utils.HttpUtils;
@@ -64,11 +64,8 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 	 * Instantiates a new http download task executer.
 	 * 
 	 * @param task the task
-	 * @param statusChangeHelper the status change helper
 	 */
-	public HttpDownloadTaskExecuter(final HttpDownloadTask task, final StatusChangeHelper statusChangeHelper) {
-		super(statusChangeHelper);
-
+	public HttpDownloadTaskExecuter(final HttpDownloadTask task) {
 		checkNotNull(task, "Task may not be null");
 
 		this.task = task;
@@ -115,7 +112,7 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 			if (statusCode != HttpStatus.SC_OK) {
 				LOGGER.debug("HTTP status code {} returned", statusCode);
 
-				error(HTTP_DOWNLOAD_STATUS_ERROR,						sourceUrl, statusCode);
+                StatusChangeEventBus.error(HTTP_DOWNLOAD_STATUS_ERROR, sourceUrl, statusCode);
 
 				throw new RuntimeException(); // TODO Use appropriate exception
 			}
@@ -123,7 +120,7 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 			final HttpEntity entity = response.getEntity();
 
 			if (entity == null) {
-				error(HTTP_DOWNLOAD_NO_RESPONSE_ERROR);
+                StatusChangeEventBus.error(HTTP_DOWNLOAD_NO_RESPONSE_ERROR);
 
 				throw new RuntimeException(); // TODO Use appropriate exception
 			}
@@ -139,22 +136,22 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 
 				out.close();
 
-				info(HTTP_DOWNLOAD_FINISHED, sourceUrl,						destinationFilePath);
+                StatusChangeEventBus.info(HTTP_DOWNLOAD_FINISHED, sourceUrl, destinationFilePath);
 			}
 		}
 		catch (final ClientProtocolException e) {
 			LOGGER.debug("ClientProtocolException caught", e);
-			error(HTTP_DOWNLOAD_ERROR, sourceUrl,					destinationFilePath);
+            StatusChangeEventBus.error(HTTP_DOWNLOAD_ERROR, sourceUrl, destinationFilePath);
 			throw new RuntimeException(); // TODO Use appropriate exception
 		}
 		catch (final IOException e) {
 			LOGGER.debug("IOException caught", e);
-			error(HTTP_DOWNLOAD_ERROR, sourceUrl,					destinationFilePath);
+            StatusChangeEventBus.error(HTTP_DOWNLOAD_ERROR, sourceUrl, destinationFilePath);
 			throw new RuntimeException(); // TODO Use appropriate exception
 		}
 		catch (final Exception e) {
 			LOGGER.debug("Exception caught", e);
-			error(HTTP_DOWNLOAD_ERROR, sourceUrl,					destinationFilePath);
+            StatusChangeEventBus.error(HTTP_DOWNLOAD_ERROR, sourceUrl, destinationFilePath);
 			throw new RuntimeException(); // TODO Use appropriate exception
 		}
 
@@ -183,7 +180,7 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 		if (files == null || files.size() == 0) {
 			LOGGER.error("{} downloadFiles", prefix);
 
-			fatal(HTTP_DOWNLOAD_FILE_LIST_EMPTY);
+            StatusChangeEventBus.fatal(HTTP_DOWNLOAD_FILE_LIST_EMPTY);
 
 			throw new IllegalArgumentException("List of files is empty"); // TODO Use appropriate exception
 		}

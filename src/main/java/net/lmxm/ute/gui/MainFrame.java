@@ -68,6 +68,7 @@ import net.lmxm.ute.configuration.ConfigurationReader;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.configuration.ConfigurationWriter;
 import net.lmxm.ute.enums.ActionCommand;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.executers.jobs.JobStatusEventBus;
 import net.lmxm.ute.gui.components.OptionPaneFactory;
 import net.lmxm.ute.gui.components.StatusOutputPanel;
@@ -650,9 +651,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			final ExecuteJobWorker jobWorker = new ExecuteJobWorker(job, configuration);
 
             JobStatusEventBus.register(statusOutputPanel, statusOutputTab);
-
-			jobWorker.addStatusChangeListener(statusOutputPanel);
-			jobWorker.addStatusChangeListener(statusOutputTab);
+            StatusChangeEventBus.register(statusOutputPanel, statusOutputTab);
 
 			statusOutputPanel.setJobWorker(jobWorker);
 

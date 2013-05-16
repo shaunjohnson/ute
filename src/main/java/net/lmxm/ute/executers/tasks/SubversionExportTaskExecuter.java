@@ -29,7 +29,6 @@ import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
-import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryLocationUtils;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
@@ -52,11 +51,8 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 	 * Instantiates a new subversion export task executer.
 	 * 
 	 * @param task the task
-	 * @param statusChangeHelper the status change helper
 	 */
-	public SubversionExportTaskExecuter(final SubversionExportTask task, final StatusChangeHelper statusChangeHelper) {
-		super(statusChangeHelper);
-
+	public SubversionExportTaskExecuter(final SubversionExportTask task) {
 		checkNotNull(task, "Task may not be null");
 
 		this.task = task;
@@ -77,8 +73,7 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 		final String username = location.getUsername();
 		final String password = location.getPassword();
 
-		final SubversionRepositoryUtils subversionRepositoryUtils = new SubversionRepositoryUtils(username, password,
-				getStatusChangeHelper());
+		final SubversionRepositoryUtils subversionRepositoryUtils = new SubversionRepositoryUtils(username, password);
 
 		final String url = SubversionRepositoryLocationUtils.getFullUrl(source);
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());

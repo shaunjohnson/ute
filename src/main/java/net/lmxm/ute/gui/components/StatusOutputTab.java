@@ -47,9 +47,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.enums.ActionCommand;
-import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.event.StatusChangeEvent;
-import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.gui.menus.StatusOutputTabPopupMenu;
 import net.lmxm.ute.resources.ImageUtil;
@@ -58,7 +56,7 @@ import net.lmxm.ute.resources.ImageUtil;
  * The Class StatusOutputTab.
  */
 @SuppressWarnings("serial")
-public class StatusOutputTab extends JPanel implements ActionListener, StatusChangeListener {
+public class StatusOutputTab extends JPanel implements ActionListener {
 
 	/**
 	 * The Class CloseTabButton.
@@ -364,15 +362,6 @@ public class StatusOutputTab extends JPanel implements ActionListener, StatusCha
 		return titleLabel;
 	}
 
-	/**
-	 * Checks if is job running.
-	 * 
-	 * @return true, if is job running
-	 */
-	public boolean isJobRunning() {
-		return jobRunning;
-	}
-
     @Subscribe
     public void handleJobStatusChange(final JobStatusEvent jobStatusEvent) {
         JobStatusEvent.JobStatusEventType eventType = jobStatusEvent.getEventType();
@@ -383,6 +372,22 @@ public class StatusOutputTab extends JPanel implements ActionListener, StatusCha
             jobIsRunning();
         }
     }
+
+    @Subscribe
+    public void handleStatusChange(final StatusChangeEvent statusChangeEvent) {
+        if (statusChangeEvent.getEventType().isErrorType()) {
+            getTitleLabel().setForeground(Color.RED);
+        }
+    }
+
+	/**
+	 * Checks if is job running.
+	 * 
+	 * @return true, if is job running
+	 */
+	public boolean isJobRunning() {
+		return jobRunning;
+	}
 
 	/**
 	 * Job is not running.
@@ -400,16 +405,5 @@ public class StatusOutputTab extends JPanel implements ActionListener, StatusCha
 		jobRunning = true;
 		getLoaderIcon().setVisible(true);
 		getCloseButton().setVisible(false);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.StatusChangeListener#statusChange(net.lmxm.ute.listeners.StatusChangeEvent)
-	 */
-	@Override
-	public void statusChange(final StatusChangeEvent statusChangeEvent) {
-		if (statusChangeEvent.getEventType().isErrorType()) {
-			getTitleLabel().setForeground(Color.RED);
-		}
 	}
 }

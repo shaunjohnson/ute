@@ -22,8 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
+import net.lmxm.ute.event.StatusChangeEventBus;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -51,21 +51,16 @@ public class SubversionExportEditor implements ISVNEditor {
 	/** the local directory where the node tree is to be exported into. */
 	private final File root;
 
-	/** The status change helper. */
-	private final StatusChangeHelper statusChangeHelper;
-
 	/**
 	 * Instantiates a new subversion export editor.
 	 * 
 	 * @param root the root
-	 * @param statusChangeHelper the status change helper
 	 */
-	public SubversionExportEditor(final File root, final StatusChangeHelper statusChangeHelper) {
+	public SubversionExportEditor(final File root) {
 		super();
 
 		this.root = root;
 		this.deltaProcessor = new SVNDeltaProcessor();
-		this.statusChangeHelper = statusChangeHelper;
 	}
 
 	/*
@@ -132,7 +127,7 @@ public class SubversionExportEditor implements ISVNEditor {
 			}
 		}
 
-		statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_DIRECTORY_ADDED, path);
+        StatusChangeEventBus.info(SUBVERSION_EXPORT_DIRECTORY_ADDED, path);
 
 		LOGGER.debug("{} leaving", prefix);
 	}
@@ -270,7 +265,7 @@ public class SubversionExportEditor implements ISVNEditor {
 	 */
 	@Override
 	public void closeFile(final String path, final String textChecksum) throws SVNException {
-		statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED, path);
+        StatusChangeEventBus.info(SUBVERSION_EXPORT_FILE_ADDED, path);
 	}
 
 	/**

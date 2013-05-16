@@ -41,9 +41,7 @@ import javax.swing.text.StyleContext;
 
 import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.event.JobStatusListener;
 import net.lmxm.ute.event.StatusChangeEvent;
-import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
@@ -56,7 +54,7 @@ import org.slf4j.LoggerFactory;
  * The Class StatusOutputPanel.
  */
 @SuppressWarnings("serial")
-public class StatusOutputPanel extends JPanel implements StatusChangeListener {
+public class StatusOutputPanel extends JPanel {
 
 	/** The Constant ERROR. */
 	private static final String ERROR = "ERROR";
@@ -258,15 +256,6 @@ public class StatusOutputPanel extends JPanel implements StatusChangeListener {
 	}
 
 	/**
-	 * Gets the status change listener.
-	 * 
-	 * @return the status change listener
-	 */
-	public StatusChangeListener getStatusChangeListener() {
-		return this;
-	}
-
-	/**
 	 * Gets the stop job button.
 	 * 
 	 * @return the stop job button
@@ -309,6 +298,44 @@ public class StatusOutputPanel extends JPanel implements StatusChangeListener {
         }
     }
 
+    @Subscribe
+    public void handleStatusChange(final StatusChangeEvent statusChangeEvent) {
+        final String styleName;
+
+        switch (statusChangeEvent.getEventType()) {
+            case ERROR:
+                styleName = ERROR;
+                break;
+            case FATAL:
+                styleName = FATAL;
+                break;
+            case HEADING:
+                styleName = HEADING;
+                break;
+            case IMPORTANT:
+                styleName = IMPORTANT;
+                break;
+            case INFO:
+                styleName = INFO;
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported event type " + statusChangeEvent.getEventType());
+        }
+
+        final JTextPane outputPane = getOutputPane();
+        final Document document = outputPane.getDocument();
+
+        try {
+            document.insertString(document.getLength(), statusChangeEvent.getMessage() + "\n",
+                    styleContext.getStyle(styleName));
+        }
+        catch (final BadLocationException e) {
+            e.printStackTrace();
+        }
+
+        outputPane.setCaretPosition(document.getLength());
+    }
+
 	/**
 	 * Job is nolonger running.
 	 */
@@ -332,47 +359,5 @@ public class StatusOutputPanel extends JPanel implements StatusChangeListener {
 		synchronized (jobWorkerMutex) {
 			this.jobWorker = jobWorker;
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.StatusChangeListener#statusChange(net.lmxm.ute.listeners .StatusChangeEvent)
-	 */
-	@Override
-	public void statusChange(final StatusChangeEvent statusChangeEvent) {
-		final String styleName;
-
-		switch (statusChangeEvent.getEventType()) {
-			case ERROR:
-				styleName = ERROR;
-				break;
-			case FATAL:
-				styleName = FATAL;
-				break;
-			case HEADING:
-				styleName = HEADING;
-				break;
-			case IMPORTANT:
-				styleName = IMPORTANT;
-				break;
-			case INFO:
-				styleName = INFO;
-				break;
-			default:
-				throw new IllegalArgumentException("Unsupported event type " + statusChangeEvent.getEventType());
-		}
-
-		final JTextPane outputPane = getOutputPane();
-		final Document document = outputPane.getDocument();
-
-		try {
-			document.insertString(document.getLength(), statusChangeEvent.getMessage() + "\n",
-					styleContext.getStyle(styleName));
-		}
-		catch (final BadLocationException e) {
-			e.printStackTrace();
-		}
-
-		outputPane.setCaretPosition(document.getLength());
 	}
 }

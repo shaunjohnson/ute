@@ -10,7 +10,7 @@ import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN
 import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_UPLOAD_INITIATED;
 import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_UPLOAD_SUCCEEDED;
 
-import net.lmxm.ute.event.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.sonatype.aether.transfer.TransferCancelledException;
@@ -29,17 +29,6 @@ public class AetherTransferListener implements TransferListener {
     private Map<TransferResource, Long> downloads = new ConcurrentHashMap<TransferResource, Long>();
 
     private int lastLength;
-
-    /**
-     * Status change helper used to relay changes of status to the caller.
-     */
-    private final StatusChangeHelper statusChangeHelper;
-
-    public AetherTransferListener(final StatusChangeHelper statusChangeHelper) {
-        super();
-
-        this.statusChangeHelper = statusChangeHelper;
-    }
 
     private String getStatus(long complete, long total) {
         if (total >= 1024) {
@@ -80,8 +69,7 @@ public class AetherTransferListener implements TransferListener {
 
     @Override
     public void transferCorrupted(TransferEvent event) throws TransferCancelledException {
-        statusChangeHelper.info(this, MAVEN_REPOSITORY_TRANSFER_CORRUPTED,
-                ExceptionUtils.getFullStackTrace(event.getException()));
+        StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_CORRUPTED, ExceptionUtils.getFullStackTrace(event.getException()));
     }
 
     @Override
@@ -89,7 +77,7 @@ public class AetherTransferListener implements TransferListener {
         final StatusChangeMessageResourceType type = event.getRequestType() == TransferEvent.RequestType.PUT ?
                 MAVEN_REPOSITORY_UPLOAD_INITIATED : MAVEN_REPOSITORY_DOWNLOAD_INITIATED;
         final TransferResource resource = event.getResource();
-        statusChangeHelper.info(this, type, resource.getRepositoryUrl(), resource.getResourceName());
+        StatusChangeEventBus.info(type, resource.getRepositoryUrl(), resource.getResourceName());
     }
 
     /**
@@ -116,7 +104,7 @@ public class AetherTransferListener implements TransferListener {
 //        lastLength = buffer.length();
 //        pad(buffer, pad);
 
-        statusChangeHelper.info(this, MAVEN_REPOSITORY_TRANSFER_STARTED, buffer);
+        StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_STARTED, buffer);
     }
 
     /**
@@ -143,7 +131,7 @@ public class AetherTransferListener implements TransferListener {
 //        lastLength = buffer.length();
 //        pad(buffer, pad);
 
-        statusChangeHelper.info(this, MAVEN_REPOSITORY_TRANSFER_PROGRESSED, buffer);
+        StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_PROGRESSED, buffer);
     }
 
     @Override
@@ -168,7 +156,7 @@ public class AetherTransferListener implements TransferListener {
                 throughput = "";
             }
 
-            statusChangeHelper.info(this, type, resource.getRepositoryUrl(), resource.getResourceName(), len, throughput);
+            StatusChangeEventBus.info(type, resource.getRepositoryUrl(), resource.getResourceName(), len, throughput);
         }
     }
 
@@ -176,7 +164,6 @@ public class AetherTransferListener implements TransferListener {
     public void transferFailed(TransferEvent event) {
         transferCompleted(event);
 
-        statusChangeHelper.info(this, MAVEN_REPOSITORY_TRANSFER_FAILED,
-                ExceptionUtils.getFullStackTrace(event.getException()));
+        StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_FAILED, ExceptionUtils.getFullStackTrace(event.getException()));
     }
 }

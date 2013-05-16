@@ -26,8 +26,6 @@ import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationInterpolator;
 import net.lmxm.ute.configuration.ConfigurationUtils;
-import net.lmxm.ute.event.JobStatusListener;
-import net.lmxm.ute.event.StatusChangeListener;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import org.slf4j.Logger;
@@ -52,10 +50,8 @@ public abstract class GenericApplication {
      *
      * @param jobs                 the jobs
      * @param configuration        the configuration
-     * @param statusChangeListener Status change listener to use during job execution
      */
-    protected final void executeJobs(final List<Job> jobs, final Configuration configuration,
-            final StatusChangeListener statusChangeListener) {
+    protected final void executeJobs(final List<Job> jobs, final Configuration configuration) {
         final String prefix = "executeJobs() :";
 
         LOGGER.debug("{} entered", prefix);
@@ -65,10 +61,9 @@ public abstract class GenericApplication {
             LOGGER.debug("{} executing job {}", prefix, job.getId());
 
             final Job jobInterpolated = ConfigurationInterpolator.interpolateJobValues(job, configuration);
-            job.removeEmptyObjects();
+            job.removeEmptyObjects(); // TODO Should this be called on jobInterpolated?
 
             final JobExecuter jobExecuter = JobExecuterFactory.create(jobInterpolated, configuration);
-            jobExecuter.addStatusChangeListener(statusChangeListener);
             jobExecuter.execute();
         }
 

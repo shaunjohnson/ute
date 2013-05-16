@@ -20,21 +20,16 @@ package net.lmxm.ute.gui.workers;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.SwingWorker;
 
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.event.JobStatusListener;
-import net.lmxm.ute.event.StatusChangeHelper;
-import net.lmxm.ute.event.StatusChangeListener;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.executers.jobs.JobStatusEventBus;
-import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,9 +48,6 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 	/** The job executer. */
 	private final JobExecuter jobExecuter;
 
-	/** The status change helper. */
-	private final StatusChangeHelper statusChangeHelper = new StatusChangeHelper();
-
 	/**
 	 * Instantiates a new execute job worker.
 	 * 
@@ -69,16 +61,6 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 
 		this.job = job;
 		this.jobExecuter = JobExecuterFactory.create(job, propertiesHolder);
-	}
-
-	/**
-	 * Adds the status change listener.
-	 * 
-	 * @param statusChangeListener the status change listener
-	 */
-	public void addStatusChangeListener(final StatusChangeListener statusChangeListener) {
-		jobExecuter.addStatusChangeListener(statusChangeListener);
-		statusChangeHelper.addStatusChangeListener(statusChangeListener);
 	}
 
 	/**
@@ -110,7 +92,7 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 		LOGGER.debug("{} entered", prefix);
 
 		if (isCancelled()) {
-			statusChangeHelper.heading(this, StatusChangeMessageResourceType.JOB_STOPPED, job.getId());
+            StatusChangeEventBus.heading(JOB_STOPPED, job.getId());
 		}
 
         JobStatusEventBus.post(new JobStatusEvent(JobStatusEvent.JobStatusEventType.JobStopped, job));

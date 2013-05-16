@@ -8,7 +8,7 @@ import net.lmxm.ute.beans.MavenArtifact;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
-import net.lmxm.ute.event.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.utils.aether.AetherResolveUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.PathUtils;
@@ -36,11 +36,8 @@ public final class MavenRepositoryDownloadTaskExecuter extends AbstractTaskExecu
      * Instantiates a new file system delete task executer.
      *
      * @param task               the task
-     * @param statusChangeHelper the status change helper
      */
-    public MavenRepositoryDownloadTaskExecuter(final MavenRepositoryDownloadTask task, final StatusChangeHelper statusChangeHelper) {
-        super(statusChangeHelper);
-
+    public MavenRepositoryDownloadTaskExecuter(final MavenRepositoryDownloadTask task) {
         checkNotNull(task, "Task may not be null");
 
         this.task = task;
@@ -86,19 +83,19 @@ public final class MavenRepositoryDownloadTaskExecuter extends AbstractTaskExecu
         try {
             final String mavenRepositoryUrl = getFullUrl(task.getSource());
             final File destinationDirectory = new File(FileSystemTargetUtils.getFullPath(task.getTarget()));
-            final AetherResolveUtils aetherResolveUtils = new AetherResolveUtils(mavenRepositoryUrl, getStatusChangeHelper());
+            final AetherResolveUtils aetherResolveUtils = new AetherResolveUtils(mavenRepositoryUrl);
 
             for (MavenArtifact mavenArtifact : task.getArtifacts()) {
-                important(MAVEN_REPOSITORY_DOWNLOAD_STARTED, mavenArtifact.getCoordinates());
+                StatusChangeEventBus.important(MAVEN_REPOSITORY_DOWNLOAD_STARTED, mavenArtifact.getCoordinates());
 
                 aetherResolveUtils.resolveArtifact(mavenArtifact.getCoordinates(), destinationDirectory,
                         mavenArtifact.getTargetName());
 
-                important(MAVEN_REPOSITORY_DOWNLOAD_COMPLETED, mavenArtifact.getCoordinates());
+                StatusChangeEventBus.important(MAVEN_REPOSITORY_DOWNLOAD_COMPLETED, mavenArtifact.getCoordinates());
             }
         }
         catch (Exception e) {
-            error(MAVEN_REPOSITORY_DOWNLOAD_FAILED);
+            StatusChangeEventBus.error(MAVEN_REPOSITORY_DOWNLOAD_FAILED);
         }
 
         LOGGER.debug("{} returning", prefix);

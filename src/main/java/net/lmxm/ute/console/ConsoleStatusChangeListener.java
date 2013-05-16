@@ -18,9 +18,9 @@
  */
 package net.lmxm.ute.console;
 
+import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.event.StatusChangeEventType;
-import net.lmxm.ute.event.StatusChangeListener;
 
 import java.io.PrintStream;
 
@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @see StatusChangeEvent
  */
-public final class ConsoleStatusChangeListener implements StatusChangeListener {
+public final class ConsoleStatusChangeListener {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleStatusChangeListener.class);
@@ -51,8 +51,8 @@ public final class ConsoleStatusChangeListener implements StatusChangeListener {
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.listeners.StatusChangeListener#statusChange(net.lmxm.ute.listeners.StatusChangeEvent)
 	 */
-	@Override
-	public void statusChange(final StatusChangeEvent changeEvent) {
+	@Subscribe
+	public void handleStatusChange(final StatusChangeEvent changeEvent) {
 		final String logPrefix = "statusChange() :";
 		final StatusChangeEventType eventType = changeEvent.getEventType();
 

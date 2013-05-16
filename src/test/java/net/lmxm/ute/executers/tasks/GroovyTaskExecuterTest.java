@@ -22,7 +22,6 @@ import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.event.StatusChangeHelper;
 
 import org.junit.Test;
 
@@ -37,12 +36,9 @@ public class GroovyTaskExecuterTest {
 	/** The Constant PROPERTIES_HOLDER. */
 	private static final PropertiesHolder PROPERTIES_HOLDER = new Configuration();
 
-	/** The Constant STATUS_CHANGE_HELPER. */
-	private static final StatusChangeHelper STATUS_CHANGE_HELPER = new StatusChangeHelper();
-
 	/** The Constant EXECUTER. */
 	private static final GroovyTaskExecuter TEST_EXECUTER = new GroovyTaskExecuter(new GroovyTask(new TestJob()),
-			new Configuration(), STATUS_CHANGE_HELPER);
+			new Configuration());
 
 	/** The Constant TMP_DIR. */
 	private static final String TMP_DIR = System.getProperty("java.io.tmpdir");

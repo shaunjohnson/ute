@@ -32,6 +32,7 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationInterpolator;
 import net.lmxm.ute.configuration.ConfigurationReader;
 import net.lmxm.ute.configuration.ConfigurationUtils;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.executers.jobs.JobStatusEventBus;
@@ -79,7 +80,8 @@ public final class ConsoleApplication extends GenericApplication {
 
 		loadAndValidatePreferencesAreSet(configuration, null);
 		final List<Job> jobs = loadJobs(configuration, consoleArguments.getJobId(), consoleArguments.getTaskId());
-		executeJobs(jobs, configuration, new ConsoleStatusChangeListener());
+        StatusChangeEventBus.register(new ConsoleStatusChangeListener());
+		executeJobs(jobs, configuration);
 
 		LOGGER.debug("{} leaving", prefix);
 	}

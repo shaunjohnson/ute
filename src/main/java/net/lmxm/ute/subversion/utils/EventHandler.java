@@ -18,9 +18,9 @@
  */
 package net.lmxm.ute.subversion.utils;
 
-import net.lmxm.ute.event.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 import net.lmxm.ute.resources.types.SubversionEventResourceType;
 
 import org.slf4j.Logger;
@@ -82,20 +82,6 @@ public final class EventHandler implements ISVNEventHandler {
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(EventHandler.class);
 
-	/** The status change helper. */
-	private final StatusChangeHelper statusChangeHelper;
-
-	/**
-	 * Instantiates a new event handler.
-	 * 
-	 * @param statusChangeHelper the status change helper
-	 */
-	public EventHandler(final StatusChangeHelper statusChangeHelper) {
-		super();
-
-		this.statusChangeHelper = statusChangeHelper;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * @see org.tmatesoft.svn.core.ISVNCanceller#checkCancelled()
@@ -126,39 +112,32 @@ public final class EventHandler implements ISVNEventHandler {
 			handlePathChange(event, UpdateChangeType.DELETED);
 		}
 		else if (action == SVNEventAction.UPDATE_NONE) {
-			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_UPDATE_NONE, event.getFile()
+			StatusChangeEventBus.info(SUBVERSION_UPDATE_EVENT_UPDATE_NONE, event.getFile()
 					.getAbsolutePath());
 		}
 		else if (action == SVNEventAction.UPDATE_UPDATE) {
 			handleUpdateEvent(event);
 		}
 		else if (action == SVNEventAction.UPDATE_EXTERNAL) {
-			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_UPDATE_EXTERNAL,
-					event.getRevision(), event.getFile().getAbsolutePath());
+			StatusChangeEventBus.info(SUBVERSION_UPDATE_EVENT_UPDATE_EXTERNAL, event.getRevision(), event.getFile().getAbsolutePath());
 		}
 		else if (action == SVNEventAction.UPDATE_COMPLETED) {
-			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_UPDATE_COMPLETED,
-					event.getRevision());
+			StatusChangeEventBus.info(SUBVERSION_UPDATE_EVENT_UPDATE_COMPLETED, event.getRevision());
 		}
 		else if (action == SVNEventAction.ADD) {
-			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_ADD, event.getFile()
-					.getAbsolutePath());
+			StatusChangeEventBus.info(SUBVERSION_UPDATE_EVENT_ADD, event.getFile().getAbsolutePath());
 		}
 		else if (action == SVNEventAction.DELETE) {
-			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_DELETE, event.getFile()
-					.getAbsolutePath());
+			StatusChangeEventBus.info(SUBVERSION_UPDATE_EVENT_DELETE, event.getFile().getAbsolutePath());
 		}
 		else if (action == SVNEventAction.LOCKED) {
-			statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_LOCKED, event.getFile()
-					.getAbsolutePath());
+			StatusChangeEventBus.info(SUBVERSION_UPDATE_EVENT_LOCKED, event.getFile().getAbsolutePath());
 		}
 		else if (action == SVNEventAction.LOCK_FAILED) {
-			statusChangeHelper.error(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_LOCK_FAILED, event.getFile()
-					.getAbsolutePath());
+			StatusChangeEventBus.error(SUBVERSION_UPDATE_EVENT_LOCK_FAILED, event.getFile().getAbsolutePath());
 		}
 		else if (action == SVNEventAction.FAILED_EXTERNAL) {
-			statusChangeHelper.error(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_FAILED_EXTERNAL, event.getFile()
-					.getAbsolutePath());
+			StatusChangeEventBus.error(SUBVERSION_UPDATE_EVENT_FAILED_EXTERNAL, event.getFile().getAbsolutePath());
 		}
 		else {
 			LOGGER.error("{} unsupported action {}", prefix, action);
@@ -197,7 +176,7 @@ public final class EventHandler implements ISVNEventHandler {
 		final String lockLabel = isUnlocked(event) ? ResourcesUtils
 				.getResourceText(SubversionEventResourceType.LOCK_STATUS_UNLOCKED) : "";
 
-		statusChangeHelper.info(this, StatusChangeMessageResourceType.SUBVERSION_UPDATE_EVENT_UPDATE, updateChangeString,
+		StatusChangeEventBus.info(SUBVERSION_UPDATE_EVENT_UPDATE, updateChangeString,
 				propertyChangeString, lockLabel, event.getFile().getAbsolutePath());
 
 		LOGGER.debug("{} leaving", prefix);

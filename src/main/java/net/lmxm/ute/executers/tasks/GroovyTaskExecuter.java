@@ -33,7 +33,7 @@ import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.event.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 
@@ -66,12 +66,8 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
      *
      * @param task               the task
      * @param propertiesHolder   the properties holder
-     * @param statusChangeHelper the status change helper
      */
-    public GroovyTaskExecuter(final GroovyTask task, final PropertiesHolder propertiesHolder,
-                              final StatusChangeHelper statusChangeHelper) {
-        super(statusChangeHelper);
-
+    public GroovyTaskExecuter(final GroovyTask task, final PropertiesHolder propertiesHolder) {
         checkNotNull(task, "Task may not be null");
         checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
 
@@ -149,24 +145,24 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
         binding.setVariable("properties", convertPropertiesToMap(propertiesHolder));
         binding.setVariable("preferences", convertPreferencesToMap(propertiesHolder));
 
-        info(GROOVY_EXECUTION_STARTED);
+        StatusChangeEventBus.info(GROOVY_EXECUTION_STARTED);
 
         try {
             final Object returnValue = new GroovyShell(binding).evaluate(script);
 
-            info(GROOVY_EXECUTION_FINISHED, returnValue);
+            StatusChangeEventBus.info(GROOVY_EXECUTION_FINISHED, returnValue);
         }
         catch (final CompilationFailedException e) {
             LOGGER.error(prefix + " Script compilation failed", e);
 
-            error(GROOVY_COMPILATION_ERROR);
+            StatusChangeEventBus.error(GROOVY_COMPILATION_ERROR);
 
             throw new RuntimeException("Script compilation failed");
         }
         catch (final Exception e) {
             LOGGER.error(prefix + " Script execution failed", e);
 
-            error(GROOVY_EXECUTION_ERROR);
+            StatusChangeEventBus.error(GROOVY_EXECUTION_ERROR);
 
             throw new RuntimeException("Script execution failed");
         }

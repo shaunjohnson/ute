@@ -26,7 +26,6 @@ import java.util.Map;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.event.StatusChangeHelper;
 
 import org.junit.Test;
 
@@ -45,12 +44,9 @@ public class HttpDownloadTaskExecuterTest {
 	/** The Constant QUERY_PARAMS. */
 	private static final Map<String, String> QUERY_PARAMS = new HashMap<String, String>();
 
-	/** The Constant STATUS_CHANGE_HELPER. */
-	private static final StatusChangeHelper STATUS_CHANGE_HELPER = new StatusChangeHelper();
-
 	/** The Constant TEST_EXECUTER. */
 	private static final HttpDownloadTaskExecuter TEST_EXECUTER = new HttpDownloadTaskExecuter(new HttpDownloadTask(
-			new TestJob()), STATUS_CHANGE_HELPER);
+			new TestJob()));
 
 	/** The Constant URL. */
 	private static final String URL = "http://google.com";

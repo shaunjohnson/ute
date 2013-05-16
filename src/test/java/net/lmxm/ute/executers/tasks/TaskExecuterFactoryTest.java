@@ -30,7 +30,6 @@ import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
-import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.executers.Executer;
 
@@ -40,36 +39,23 @@ import org.junit.Test;
  * The Class TaskExecuterFactoryTest.
  */
 public class TaskExecuterFactoryTest {
-
-	/** The Constant STATUS_CHANGE_HELPER. */
-	private static final StatusChangeHelper STATUS_CHANGE_HELPER = new StatusChangeHelper();
-
 	/**
 	 * Test create.
 	 */
 	@Test
 	public void testCreate() {
-		// Null task, properties holder and listener
+		// Null task and properties holder
 		try {
-			TaskExecuterFactory.create(null, null, null);
+			TaskExecuterFactory.create(null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
 			assertNotNull(e.getMessage());
 		}
 
-		// Null properties holder and listener
+		// Null properties holder
 		try {
-			TaskExecuterFactory.create(new TestTask(), null, null);
-			fail();
-		}
-		catch (final NullPointerException e) {
-			assertNotNull(e.getMessage());
-		}
-
-		// Null listener
-		try {
-			TaskExecuterFactory.create(new TestTask(), new Configuration(), null);
+			TaskExecuterFactory.create(new TestTask(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -78,7 +64,7 @@ public class TaskExecuterFactoryTest {
 
 		// Null task
 		try {
-			TaskExecuterFactory.create(null, new Configuration(), STATUS_CHANGE_HELPER);
+			TaskExecuterFactory.create(null, new Configuration());
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -87,7 +73,7 @@ public class TaskExecuterFactoryTest {
 
 		// Unsupported task type
 		try {
-			TaskExecuterFactory.create(new TestTask(), new Configuration(), STATUS_CHANGE_HELPER);
+			TaskExecuterFactory.create(new TestTask(), new Configuration());
 			fail();
 		}
 		catch (final TaskExecuterException e) {
@@ -99,42 +85,42 @@ public class TaskExecuterFactoryTest {
 
 		// Test file system delete task
 		final Executer fileSystemDeleteTaskExecuter = TaskExecuterFactory.create(
-				new FileSystemDeleteTask(new TestJob()), new Configuration(), STATUS_CHANGE_HELPER);
+				new FileSystemDeleteTask(new TestJob()), new Configuration());
 
 		assertNotNull(fileSystemDeleteTaskExecuter);
 		assertTrue(fileSystemDeleteTaskExecuter instanceof FileSystemDeleteTaskExecuter);
 
 		// Test find replace task
 		final Executer findReplaceTaskExecuter = TaskExecuterFactory.create(new FindReplaceTask(new TestJob()),
-				new Configuration(), STATUS_CHANGE_HELPER);
+				new Configuration());
 
 		assertNotNull(findReplaceTaskExecuter);
 		assertTrue(findReplaceTaskExecuter instanceof FindReplaceTaskExecuter);
 
 		// Test groovy task
 		final Executer groovyTaskExecuter = TaskExecuterFactory.create(new GroovyTask(new TestJob()),
-				new Configuration(), STATUS_CHANGE_HELPER);
+				new Configuration());
 
 		assertNotNull(groovyTaskExecuter);
 		assertTrue(groovyTaskExecuter instanceof GroovyTaskExecuter);
 
 		// Test HTTP download task
 		final Executer httpDownloadTaskExecuter = TaskExecuterFactory.create(new HttpDownloadTask(new TestJob()),
-				new Configuration(), STATUS_CHANGE_HELPER);
+				new Configuration());
 
 		assertNotNull(httpDownloadTaskExecuter);
 		assertTrue(httpDownloadTaskExecuter instanceof HttpDownloadTaskExecuter);
 
 		// Test Subversion export task
 		final Executer subversionExportTaskExecuter = TaskExecuterFactory.create(
-				new SubversionExportTask(new TestJob()), new Configuration(), STATUS_CHANGE_HELPER);
+				new SubversionExportTask(new TestJob()), new Configuration());
 
 		assertNotNull(subversionExportTaskExecuter);
 		assertTrue(subversionExportTaskExecuter instanceof SubversionExportTaskExecuter);
 
 		// Test Subversion update task
 		final Executer subversionUpdateTaskExecuter = TaskExecuterFactory.create(
-				new SubversionUpdateTask(new TestJob()), new Configuration(), STATUS_CHANGE_HELPER);
+				new SubversionUpdateTask(new TestJob()), new Configuration());
 
 		assertNotNull(subversionUpdateTaskExecuter);
 		assertTrue(subversionUpdateTaskExecuter instanceof SubversionUpdateTaskExecuter);

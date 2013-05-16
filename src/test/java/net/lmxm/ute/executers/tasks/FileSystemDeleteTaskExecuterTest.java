@@ -30,7 +30,6 @@ import java.util.List;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.event.StatusChangeHelper;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
@@ -40,9 +39,6 @@ import org.junit.Test;
  * The Class FileSystemDeleteTaskExecuterTest.
  */
 public class FileSystemDeleteTaskExecuterTest {
-	/** The Constant STATUS_CHANGE_HELPER. */
-	private static final StatusChangeHelper STATUS_CHANGE_HELPER = new StatusChangeHelper();
-
 	/** The Constant STOP_ON_ERROR. */
 	private static final boolean STOP_ON_ERROR = false;
 
@@ -59,7 +55,7 @@ public class FileSystemDeleteTaskExecuterTest {
 	public void setup() {
 		final FileSystemDeleteTask task = new FileSystemDeleteTask(new TestJob());
 
-		executer = new FileSystemDeleteTaskExecuter(task, STATUS_CHANGE_HELPER);
+		executer = new FileSystemDeleteTaskExecuter(task);
 	}
 
 	/**

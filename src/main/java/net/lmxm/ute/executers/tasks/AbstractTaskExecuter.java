@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import net.lmxm.ute.event.StatusChangeHelper;
 import net.lmxm.ute.executers.AbstractExecuter;
 
 /**
@@ -26,12 +25,4 @@ import net.lmxm.ute.executers.AbstractExecuter;
  */
 public abstract class AbstractTaskExecuter extends AbstractExecuter {
 
-	/**
-	 * Instantiates a new abstract task executer.
-	 * 
-	 * @param statusChangeHelper the status change helper
-	 */
-	public AbstractTaskExecuter(final StatusChangeHelper statusChangeHelper) {
-		super(statusChangeHelper);
-	}
 }

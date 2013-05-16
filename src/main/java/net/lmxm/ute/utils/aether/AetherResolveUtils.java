@@ -3,7 +3,7 @@ package net.lmxm.ute.utils.aether;
 import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_FAILED;
 import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_UNABLE_TO_DELETE_LOCAL_REPOSITORY;
 
-import net.lmxm.ute.event.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import org.apache.maven.repository.internal.MavenRepositorySystemSession;
 import org.codehaus.plexus.DefaultPlexusContainer;
 import org.codehaus.plexus.util.FileUtils;
@@ -41,11 +41,6 @@ public final class AetherResolveUtils {
     private final RemoteRepository remoteRepository;
 
     /**
-     * Status change helper used to relay changes of status to the caller.
-     */
-    private final StatusChangeHelper statusChangeHelper;
-
-    /**
      * Remove Maven repository system handle.
      */
     private final RepositorySystem system;
@@ -56,12 +51,11 @@ public final class AetherResolveUtils {
      * @param repositoryUrl URL of the Maven repository to work with
      * @throws Exception Error occurred during initialization of Aether
      */
-    public AetherResolveUtils(final String repositoryUrl, final StatusChangeHelper statusChangeHelper) throws Exception {
+    public AetherResolveUtils(final String repositoryUrl) throws Exception {
         super();
 
         remoteRepository = new RemoteRepository(REPOSITORY_ID, REPOSITORY_TYPE, repositoryUrl);
         system = new DefaultPlexusContainer().lookup(RepositorySystem.class);
-        this.statusChangeHelper = statusChangeHelper;
     }
 
     /**
@@ -88,8 +82,8 @@ public final class AetherResolveUtils {
 
         final LocalRepository localRepository = new LocalRepository(localRepositoryBaseDirectory);
         session.setLocalRepositoryManager(system.newLocalRepositoryManager(localRepository));
-        session.setTransferListener(new AetherTransferListener(statusChangeHelper));
-        session.setRepositoryListener(new AetherRepositoryListener(statusChangeHelper));
+        session.setTransferListener(new AetherTransferListener());
+        session.setRepositoryListener(new AetherRepositoryListener());
 
         return session;
     }
@@ -124,14 +118,14 @@ public final class AetherResolveUtils {
             }
         }
         catch (Exception e) {
-            statusChangeHelper.error(this, MAVEN_REPOSITORY_DOWNLOAD_FAILED);
+            StatusChangeEventBus.error(MAVEN_REPOSITORY_DOWNLOAD_FAILED);
         }
         finally {
             try {
                 FileUtils.deleteDirectory(localRepositoryBaseDirectory);
             }
             catch (IOException e) {
-                statusChangeHelper.error(this, MAVEN_REPOSITORY_DOWNLOAD_UNABLE_TO_DELETE_LOCAL_REPOSITORY, e.getMessage());
+                StatusChangeEventBus.error(MAVEN_REPOSITORY_DOWNLOAD_UNABLE_TO_DELETE_LOCAL_REPOSITORY, e.getMessage());
                 System.err.println("Unable to delete " + localRepositoryBaseDirectory);
             }
         }

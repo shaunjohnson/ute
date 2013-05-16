@@ -32,7 +32,7 @@ import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
-import net.lmxm.ute.event.StatusChangeHelper;
+import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 
@@ -60,11 +60,8 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
      * Instantiates a new find replace task executer.
      *
      * @param task               the task
-     * @param statusChangeHelper the status change helper
      */
-    public FindReplaceTaskExecuter(final FindReplaceTask task, final StatusChangeHelper statusChangeHelper) {
-        super(statusChangeHelper);
-
+    public FindReplaceTaskExecuter(final FindReplaceTask task) {
         checkNotNull(task, "Task may not be null");
 
         this.task = task;
@@ -235,19 +232,19 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
         if (files.isEmpty()) {
             LOGGER.debug("{} No matching files found at", prefix);
 
-            error(FIND_REPLACE_NO_MATCHING_FILES);
+            StatusChangeEventBus.error(FIND_REPLACE_NO_MATCHING_FILES);
         }
         else {
             for (final File file : files) {
                 if (file.isFile()) {
                     findReplaceContent(file, patterns, scope);
 
-                    info(FIND_REPLACE_EXECUTION_FINISHED, file.getAbsolutePath());
+                    StatusChangeEventBus.info(FIND_REPLACE_EXECUTION_FINISHED, file.getAbsolutePath());
                 }
                 else {
                     LOGGER.debug("{} The file at {} is \not a file; skipping", prefix, file);
 
-                    error(FIND_REPLACE_NOT_FILE_ERROR, file.getAbsolutePath());
+                    StatusChangeEventBus.error(FIND_REPLACE_NOT_FILE_ERROR, file.getAbsolutePath());
                 }
             }
         }
