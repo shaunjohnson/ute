@@ -35,6 +35,22 @@ public final class SequentialJob extends AbstractJob {
 	/** The tasks. */
 	private final List<Task> tasks = new ArrayList<Task>();
 
+    /**
+     * Instantiates a new job.
+     */
+    public SequentialJob() {
+        super();
+    }
+
+    /**
+     * Instantiates a new sequential job.
+     *
+     * @param id the id
+     */
+    public SequentialJob(final String id) {
+        super(id);
+    }
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.lmxm.ute.beans.IdentifiableBean#getDisplayText()
