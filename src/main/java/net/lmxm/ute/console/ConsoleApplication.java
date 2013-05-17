@@ -109,7 +109,8 @@ public final class ConsoleApplication extends GenericApplication {
 		catch (final RuntimeException e) {
 			LOGGER.error(prefix + " error occurred parsing arguments");
 
-			System.out.println(e.getMessage() + "\n");
+            // Legitimate use of System.err.println() to respond to user on command line
+			System.err.println(e.getMessage() + "\n");
 			jCommander.usage();
 			System.exit(-1);
 		}

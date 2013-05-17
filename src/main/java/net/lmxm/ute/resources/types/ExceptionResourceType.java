@@ -26,7 +26,7 @@ import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 public enum ExceptionResourceType implements ResourceType {
-
+    DRAG_AND_DROP_ERROR,
 	ERROR_CREATING_PREFERENCES_FILE,
 	ERROR_LOADING_CONFIGURATION_FILE,
 	ERROR_LOADING_PREFERENCES_FILE,
