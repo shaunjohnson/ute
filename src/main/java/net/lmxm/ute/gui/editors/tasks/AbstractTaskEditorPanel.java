@@ -52,6 +52,7 @@ import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.EnabledStateChangeEvent;
 import net.lmxm.ute.event.EnabledStateChangeListener;
+import net.lmxm.ute.gui.GuiContants;
 import net.lmxm.ute.gui.components.FilesTableModel;
 import net.lmxm.ute.gui.components.RenameFilesTableModel;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
@@ -122,7 +123,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
 		super(guiComponentLabel, toolBar, configurationHolder, actionListener);
 
-		monospaceFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+		monospaceFont = new Font(Font.MONOSPACED, Font.PLAIN, GuiContants.DEFAULT_FONT_SIZE);
 	}
 
 	/**
@@ -160,7 +161,7 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			final JPanel contentPanel = getContentPanel();
 
 			addLabel(LabelResourceType.FILES);
-			contentPanel.add(getFilesPane());
+			contentPanel.add(getFilesPane(), "height max(200)");
 		}
 	}
 
@@ -297,7 +298,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 			filesPane = new JPanel();
 			filesPane.setLayout(new BorderLayout());
 			filesPane.add(getFilesScrollPane(), BorderLayout.CENTER);
-			filesPane.setMaximumSize(new Dimension(400, 100));
 		}
 
 		return filesPane;
@@ -311,7 +311,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 	private JScrollPane getFilesScrollPane() {
 		if (filesScrollPane == null) {
 			filesScrollPane = new JScrollPane(getFilesTable());
-			filesScrollPane.setMaximumSize(new Dimension(400, 100));
 		}
 
 		return filesScrollPane;
@@ -452,8 +451,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (sourceRelativePathTextField == null) {
 			sourceRelativePathTextField = new JTextField();
 			sourceRelativePathTextField.setFont(getMonospaceFont());
-			sourceRelativePathTextField.setMinimumSize(new Dimension(400, (int) sourceRelativePathTextField.getSize()
-					.getHeight()));
 			sourceRelativePathTextField.setDragEnabled(true);
 			sourceRelativePathTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
@@ -542,8 +539,6 @@ public abstract class AbstractTaskEditorPanel extends AbstractCommonEditorPanel 
 		if (targetRelativePathTextField == null) {
 			targetRelativePathTextField = new JTextField();
 			targetRelativePathTextField.setFont(getMonospaceFont());
-			targetRelativePathTextField.setMinimumSize(new Dimension(400, (int) targetRelativePathTextField.getSize()
-					.getHeight()));
 			targetRelativePathTextField.setDragEnabled(true);
 			targetRelativePathTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
