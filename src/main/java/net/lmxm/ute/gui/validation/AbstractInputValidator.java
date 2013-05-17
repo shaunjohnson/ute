@@ -44,7 +44,7 @@ import org.apache.commons.lang3.StringUtils;
 public abstract class AbstractInputValidator extends InputValidator implements KeyListener {
 
 	/** The input component. */
-	final JComponent inputComponent;
+	private final JComponent inputComponent;
 
 	/** The message icon. */
 	private JLabel messageIcon = null;
