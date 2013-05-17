@@ -97,9 +97,6 @@ public final class FindReplacePattern implements DomainBean {
 			Pattern.compile(find);
 			return true;
 		}
-		catch (final NullPointerException e) {
-			return false;
-		}
 		catch (final PatternSyntaxException e) {
 			return false;
 		}
