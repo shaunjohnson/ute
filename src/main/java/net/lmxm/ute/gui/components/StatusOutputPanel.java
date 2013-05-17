@@ -22,9 +22,11 @@ import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.event.StatusChangeEventType;
+import net.lmxm.ute.exceptions.GuiException;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
 import net.lmxm.ute.resources.types.ButtonResourceType;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 import net.miginfocom.swing.MigLayout;
 import org.slf4j.Logger;
@@ -281,18 +283,18 @@ public final class StatusOutputPanel extends JPanel {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                final JTextPane outputPane = getOutputPane();
-                final Document document = outputPane.getDocument();
+                final JTextPane theOutputPane = getOutputPane();
+                final Document document = theOutputPane.getDocument();
 
                 try {
                     final Style style = styleContext.getStyle(statusChangeEvent.getEventType().name());
                     document.insertString(document.getLength(), statusChangeEvent.getMessage() + "\n", style);
                 }
                 catch (final BadLocationException e) {
-                    e.printStackTrace();
+                    throw new GuiException(ExceptionResourceType.UNEXPECTED_ERROR, e);
                 }
 
-                outputPane.setCaretPosition(document.getLength());
+                theOutputPane.setCaretPosition(document.getLength());
             }
         });
     }
