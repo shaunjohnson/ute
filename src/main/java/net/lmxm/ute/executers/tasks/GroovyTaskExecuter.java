@@ -34,6 +34,8 @@ import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.event.StatusChangeEventBus;
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 
@@ -154,17 +156,13 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
         }
         catch (final CompilationFailedException e) {
             LOGGER.error(prefix + " Script compilation failed", e);
-
             StatusChangeEventBus.error(GROOVY_COMPILATION_ERROR);
-
-            throw new RuntimeException("Script compilation failed");
+            throw new TaskExecuterException(ExceptionResourceType.GROOVY_SCRIPT_COMPILATION_FAILED, e);
         }
         catch (final Exception e) {
             LOGGER.error(prefix + " Script execution failed", e);
-
             StatusChangeEventBus.error(GROOVY_EXECUTION_ERROR);
-
-            throw new RuntimeException("Script execution failed");
+            throw new TaskExecuterException(ExceptionResourceType.GROOVY_SCRIPT_EXECUTION_FAILED, e);
         }
 
         LOGGER.debug("{} leaving", prefix);
