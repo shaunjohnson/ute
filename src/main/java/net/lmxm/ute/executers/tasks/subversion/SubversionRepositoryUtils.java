@@ -23,6 +23,7 @@ import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.event.JobStatusChangeEventBus;
 import net.lmxm.ute.exceptions.ConfigurationException;
+import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -127,46 +128,15 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
 
         try {
             getJobStatusChangeEventBus().important(SUBVERSION_EXPORT_STARTED);
-
             getJobStatusChangeEventBus().info(SUBVERSION_EXPORT_FILE, urlString, destinationPath);
 
-            final SVNURL url = SVNURL.parseURIEncoded(urlString);
             final File exportDirectory = new File(destinationPath);
+            createExportDirectory(exportDirectory);
 
-            if (exportDirectory.exists()) {
-                LOGGER.debug("{} export directory already exists", prefix);
-            }
-            else {
-                if (exportDirectory.mkdirs()) {
-                    LOGGER.debug("{} successfully created export directories", prefix);
-                }
-                else {
-                    LOGGER.error("{} unable to create export directories", prefix);
-
-                    throw new RuntimeException("Unable to create export directories"); // TODO Use appropriate exception
-                }
-            }
-
+            final SVNURL url = SVNURL.parseURIEncoded(urlString);
             final SVNRepository repository = SVNRepositoryFactory.create(url);
-
             repository.setAuthenticationManager(getAuthenticationManager());
-
-            final SVNNodeKind nodeKind = repository.checkPath("", -1);
-
-            if (nodeKind == SVNNodeKind.NONE) {
-                LOGGER.error("{} No entry at URL {}", prefix, url);
-
-                final SVNErrorMessage err = SVNErrorMessage
-                        .create(SVNErrorCode.UNKNOWN, "No entry at URL ''{0}''", url);
-                throw new SVNException(err);
-            }
-            else if (nodeKind == SVNNodeKind.FILE) {
-                LOGGER.error("{} Entry at URL {} is a file while directory was expected", prefix, url);
-
-                final SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.UNKNOWN,
-                        "Entry at URL ''{0}'' is a file while directory was expected", url);
-                throw new SVNException(err);
-            }
+            validateNodeIsDirectory(repository, url);
 
             final long revisionToExport = resolveRevision(repository, revision, revisionDate, revisionNumber);
 
@@ -182,55 +152,10 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
             else {
                 LOGGER.debug("{} files list contains entries, exporting {} individual files", prefix, files.size());
 
-                final File directory = new File(destinationPath);
+                final File targetDirectory = new File(destinationPath);
 
                 for (final FileReference fileReference : files) {
-                    final String fileName = fileReference.getName();
-                    final String targetName = fileReference.getTargetName();
-                    final String targetFileName = StringUtils.isBlank(targetName) ? fileName : targetName;
-
-                    LOGGER.debug("{} exporting file {}", prefix, fileName);
-
-                    FileOutputStream contents = null;
-
-                    try {
-                        final File destinationFile = new File(directory, targetFileName);
-
-                        if (destinationFile.exists()) {
-                            LOGGER.debug("{} destination file {} exists, deleting", prefix, targetFileName);
-                        }
-
-                        contents = new FileOutputStream(destinationFile);
-                        repository.getFile(fileName, revisionToExport, null, contents);
-                        contents.close();
-
-                        if (StringUtils.isBlank(targetName)) {
-                            getJobStatusChangeEventBus().info(SUBVERSION_EXPORT_FILE_ADDED, fileName);
-                        }
-                        else {
-                            getJobStatusChangeEventBus().info(SUBVERSION_EXPORT_FILE_ADDED_AS, fileName, targetName);
-                        }
-                    }
-                    catch (final FileNotFoundException e) {
-                        LOGGER.error("FileNotFoundException caught exporting a file", e);
-
-                        throw new RuntimeException(e);
-                    }
-                    catch (final IOException e) {
-                        LOGGER.error("IOException caught exporting a file", e);
-
-                        throw new RuntimeException(e);
-                    }
-                    finally {
-                        if (contents != null) {
-                            try {
-                                contents.close();
-                            }
-                            catch (final Exception e) {
-                                LOGGER.error("Exception caught closing the destination file", e);
-                            }
-                        }
-                    }
+                    exportFile(repository, targetDirectory, fileReference, revisionToExport);
                 }
             }
 
@@ -241,12 +166,101 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
         catch (final SVNAuthenticationException e) {
             LOGGER.error("SVNAuthenticationException caught exporting a file", e);
             getJobStatusChangeEventBus().error(SUBVERSION_AUTHENTICATION_FAILED);
-            throw new RuntimeException(e); // TODO Use appropriate exception
+            throw new TaskExecuterException(ExceptionResourceType.SUBVERSION_AUTHENTICATION_FAILED, e);
         }
         catch (final SVNException e) {
             LOGGER.error("SVNException caught exporting a file", e);
             getJobStatusChangeEventBus().error(SUBVERSION_EXPORT_ERROR);
-            throw new RuntimeException(e); // TODO Use appropriate exception
+            throw new TaskExecuterException(ExceptionResourceType.SUBVERSION_EXPORT_ERROR, e);
+        }
+    }
+
+    private void exportFile(final SVNRepository repository, final File targetDirectory, final FileReference fileReference,
+                            final long revisionToExport) throws SVNException {
+        final String prefix = "exportFile() : ";
+
+        final String fileName = fileReference.getName();
+        final String targetName = fileReference.getTargetName();
+        final String targetFileName = StringUtils.isBlank(targetName) ? fileName : targetName;
+
+        LOGGER.debug("{} exporting file {}", prefix, fileName);
+
+        FileOutputStream contents = null;
+
+        try {
+            final File destinationFile = new File(targetDirectory, targetFileName);
+
+            if (destinationFile.exists()) {
+                LOGGER.debug("{} destination file {} exists, deleting", prefix, targetFileName);
+            }
+
+            contents = new FileOutputStream(destinationFile);
+            repository.getFile(fileName, revisionToExport, null, contents);
+            contents.close();
+
+            if (StringUtils.isBlank(targetName)) {
+                getJobStatusChangeEventBus().info(SUBVERSION_EXPORT_FILE_ADDED, fileName);
+            }
+            else {
+                getJobStatusChangeEventBus().info(SUBVERSION_EXPORT_FILE_ADDED_AS, fileName, targetName);
+            }
+        }
+        catch (final FileNotFoundException e) {
+            LOGGER.error("FileNotFoundException caught exporting a file", e);
+            throw new TaskExecuterException(ExceptionResourceType.UNEXPECTED_ERROR, e);
+        }
+        catch (final IOException e) {
+            LOGGER.error("IOException caught exporting a file", e);
+            throw new TaskExecuterException(ExceptionResourceType.UNEXPECTED_ERROR, e);
+        }
+        finally {
+            if (contents != null) {
+                try {
+                    contents.close();
+                }
+                catch (final Exception e) {
+                    LOGGER.error("Exception caught closing the destination file", e);
+                }
+            }
+        }
+    }
+
+    private void validateNodeIsDirectory(final SVNRepository repository, final SVNURL url) throws SVNException {
+        final String prefix = "validateNodeIsDirectory() :";
+
+        final SVNNodeKind nodeKind = repository.checkPath("", -1);
+
+        if (nodeKind == SVNNodeKind.NONE) {
+            LOGGER.error("{} No entry at URL {}", prefix, url);
+
+            final SVNErrorMessage err = SVNErrorMessage
+                    .create(SVNErrorCode.UNKNOWN, "No entry at URL ''{0}''", url);
+            throw new SVNException(err);
+        }
+        else if (nodeKind == SVNNodeKind.FILE) {
+            LOGGER.error("{} Entry at URL {} is a file while directory was expected", prefix, url);
+
+            final SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.UNKNOWN,
+                    "Entry at URL ''{0}'' is a file while directory was expected", url);
+            throw new SVNException(err);
+        }
+    }
+
+    private void createExportDirectory(final File exportDirectory) {
+        final String prefix = "createExportDirectory() :";
+
+        if (exportDirectory.exists()) {
+            LOGGER.debug("{} export directory already exists", prefix);
+        }
+        else {
+            if (exportDirectory.mkdirs()) {
+                LOGGER.debug("{} successfully created export directories", prefix);
+            }
+            else {
+                LOGGER.error("{} unable to create export directories", prefix);
+                throw new TaskExecuterException(ExceptionResourceType.UNABLE_TO_CREATE_DIRECTORY,
+                        exportDirectory.getAbsoluteFile());
+            }
         }
     }
 
@@ -279,7 +293,7 @@ public final class SubversionRepositoryUtils extends AbstractSubversionUtils {
         }
         else {
             LOGGER.error("{} unsupported revision type {}", prefix, revision);
-            throw new RuntimeException("Unsupported revision type"); // TODO
+            throw new TaskExecuterException(ExceptionResourceType.INVALID_SUBVERSION_REVISION_VALUE, revision);
         }
 
         LOGGER.debug("{} returning {}", prefix, revisionToExport);

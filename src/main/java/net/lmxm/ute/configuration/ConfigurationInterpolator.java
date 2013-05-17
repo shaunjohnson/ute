@@ -56,11 +56,7 @@ public final class ConfigurationInterpolator {
 	 * The Enum PropertyType.
 	 */
 	private enum PropertyType {
-
-		/** The NAME. */
-		NAME,
-		/** The VALUE. */
-		VALUE
+		NAME, VALUE
 	}
 
 	/** The Constant LOGGER. */
@@ -466,8 +462,7 @@ public final class ConfigurationInterpolator {
 
 		if (matcher.find()) {
 			LOGGER.error("{} undefined property with name \"{}\"", prefix, matcher.group(3));
-
-			throw new RuntimeException("Undefined property with name \"" + matcher.group(3) + "\""); // TODO
+            throw new ConfigurationException(ExceptionResourceType.UNDEFINED_PROPERTY, matcher.group(3));
 		}
 		else {
 			LOGGER.debug("{} no property references found", prefix);

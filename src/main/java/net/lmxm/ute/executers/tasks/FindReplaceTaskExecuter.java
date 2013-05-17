@@ -25,6 +25,8 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.event.StatusChangeEventBus;
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -169,9 +171,8 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
             FileUtils.fileWrite(file, fileContents);
         }
         catch (final IOException e) {
-            LOGGER.error("{} Unable to read file {}", prefix, file);
-
-            throw new RuntimeException("Unable to read file " + file.getAbsolutePath(), e);
+            LOGGER.error("{} Unable to read/write file {}", prefix, file);
+            throw new TaskExecuterException(ExceptionResourceType.FILE_READ_WRITE_ERROR, file.getAbsoluteFile());
         }
 
         LOGGER.debug("{} leaving", prefix);
@@ -206,8 +207,7 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
         }
         catch (final IOException e) {
             LOGGER.error("{} Unable to read file {}", prefix, file);
-
-            throw new RuntimeException("Unable to read file " + file.getAbsolutePath(), e);
+            throw new TaskExecuterException(ExceptionResourceType.FILE_READ_WRITE_ERROR, file.getAbsoluteFile());
         }
 
         LOGGER.debug("{} leaving", prefix);

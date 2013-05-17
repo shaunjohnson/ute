@@ -22,6 +22,8 @@ import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.event.StatusChangeEventBus;
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
@@ -177,11 +179,10 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
             if (stopOnError) {
                 LOGGER.error(prefix + " file not found " + pathFile.getName(), e);
                 StatusChangeEventBus.error(FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR, getJob(), pathFile.getAbsolutePath());
-                throw new RuntimeException();
+                throw new TaskExecuterException(ExceptionResourceType.FILE_NOT_FOUND, pathFile.getAbsoluteFile());
             }
             else {
                 LOGGER.debug("{} ignoring error deleting file", prefix);
-
                 StatusChangeEventBus.info(FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR, getJob(), pathFile.getAbsolutePath());
             }
         }
@@ -189,7 +190,7 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
             if (stopOnError) {
                 LOGGER.error(prefix + " error deleting file " + pathFile.getName(), e);
                 StatusChangeEventBus.error(FILE_DELETE_ERROR, getJob(), pathFile.getAbsolutePath());
-                throw new RuntimeException();
+                throw new TaskExecuterException(ExceptionResourceType.FILE_DELETE_ERROR, pathFile.getAbsoluteFile());
             }
             else {
                 LOGGER.debug("{} ignoring error deleting file", prefix);

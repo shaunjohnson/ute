@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executer.
- * 
+ *
  * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,67 +33,76 @@ import java.util.List;
  */
 public final class SequentialJobExecuter extends AbstractJobExecuter {
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SequentialJobExecuter.class);
+    /**
+     * The Constant LOGGER.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(SequentialJobExecuter.class);
 
-	/**
-	 * Instantiates a new sequential job executer.
-	 * 
-	 * @param job the job
-	 * @param propertiesHolder the properties holder
-	 */
-	protected SequentialJobExecuter(final Job job, final PropertiesHolder propertiesHolder) {
-		super(job, propertiesHolder);
-	}
+    private static class JobInterruptedException extends RuntimeException {
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.executers.ExecuterIF#execute()
-	 */
-	@Override
-	public void execute() {
-		final String prefix = "execute() :";
+    /**
+     * Instantiates a new sequential job executer.
+     *
+     * @param job              the job
+     * @param propertiesHolder the properties holder
+     */
+    protected SequentialJobExecuter(final Job job, final PropertiesHolder propertiesHolder) {
+        super(job, propertiesHolder);
+    }
 
-		LOGGER.debug("{} entered", prefix);
+    /*
+     * (non-Javadoc)
+     * @see net.lmxm.ute.executers.ExecuterIF#execute()
+     */
+    @Override
+    public void execute() {
+        final String prefix = "execute() :";
 
-		final SequentialJob job = (SequentialJob) getJob();
+        LOGGER.debug("{} entered", prefix);
 
-		try {
-			jobStarted();
+        final SequentialJob job = (SequentialJob) getJob();
 
-			final List<Task> tasks = job.getTasks();
+        try {
+            jobStarted();
 
-			if (tasks == null) {
-				LOGGER.debug("{} there are no tasks to execute", prefix);
-			}
-			else {
-				LOGGER.debug("{} executing {} tasks", prefix, tasks.size());
+            final List<Task> tasks = job.getTasks();
 
-				for (final Task task : job.getTasks()) {
-					if (Thread.currentThread().isInterrupted()) {
-						LOGGER.debug("{} thread was interrupted, stopping job execution", prefix);
-						throw new RuntimeException("Job is being stopped"); // TODO Use appropriate exception
-					}
+            if (tasks == null) {
+                LOGGER.debug("{} there are no tasks to execute", prefix);
+            }
+            else {
+                LOGGER.debug("{} executing {} tasks", prefix, tasks.size());
 
-					if (task.getEnabled()) {
-						taskStarted(task);
-						TaskExecuterFactory.create(job, task, getPropertiesHolder()).execute();
-						taskCompleted(task);
-					}
-					else {
-						LOGGER.debug("{} Task \"{}\" is disabled and will be skipped", prefix, task);
-						taskSkipped(task);
-					}
-				}
-			}
+                for (final Task task : job.getTasks()) {
+                    if (Thread.currentThread().isInterrupted()) {
+                        LOGGER.debug("{} thread was interrupted, stopping job execution", prefix);
+                        throw new JobInterruptedException();
+                    }
 
-			jobCompleted();
-		}
-		catch (final Exception e) {
-			LOGGER.error("Exception caught executing job", e);
-			jobAborted();
-		}
+                    if (task.getEnabled()) {
+                        taskStarted(task);
+                        TaskExecuterFactory.create(job, task, getPropertiesHolder()).execute();
+                        taskCompleted(task);
+                    }
+                    else {
+                        LOGGER.debug("{} Task \"{}\" is disabled and will be skipped", prefix, task);
+                        taskSkipped(task);
+                    }
+                }
+            }
 
-		LOGGER.debug("{} returning", prefix);
-	}
+            jobCompleted();
+        }
+        catch (final JobInterruptedException e) {
+            LOGGER.debug("Job was stopped by the user");
+            jobAborted();
+        }
+        catch (final Exception e) {
+            LOGGER.error("Exception caught executing job", e);
+            jobAborted();
+        }
+
+        LOGGER.debug("{} returning", prefix);
+    }
 }

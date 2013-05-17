@@ -25,7 +25,10 @@ import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.event.DocumentAdapter;
+import net.lmxm.ute.exceptions.GuiException;
+import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.miginfocom.swing.MigLayout;
 import org.apache.commons.lang3.StringUtils;
@@ -181,6 +184,8 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	 * @return the revision action listener
 	 */
 	private ActionListener getRevisionActionListener() {
+        final String prefix = "getRevisionActionListener() : ";
+
 		if (revisionActionListener == null) {
 			revisionActionListener = new ActionListener() {
 				@Override
@@ -199,7 +204,8 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 							subversionExportTask.setRevision(SubversionRevision.NUMBERED);
 						}
 						else {
-							throw new RuntimeException("Unsupported revision"); // TODO
+							LOGGER.error("{} Unsupported revision", prefix);
+                            throw new GuiException(ExceptionResourceType.INVALID_SUBVERSION_REVISION_VALUE);
 						}
 
 						updateRevisionFields(subversionExportTask.getRevision());
@@ -364,7 +370,8 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 				getNumberedRevisionRadioButton().setSelected(true);
 			}
 			else {
-				throw new RuntimeException("Unsupported revision"); // TODO
+                LOGGER.error("{} Unsupported revision", prefix);
+                throw new GuiException(ExceptionResourceType.INVALID_SUBVERSION_REVISION_VALUE, revision);
 			}
 
 			final Date revisionDate = subversionExportTask.getRevisionDate();
@@ -385,6 +392,8 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	 * @param revision the revision
 	 */
 	private void updateRevisionFields(final SubversionRevision revision) {
+        final String prefix = "updateRevisionFields(): ";
+
 		if (revision == SubversionRevision.HEAD) {
 			getRevisionDateTextField().setEnabled(false);
 			getRevisionNumberTextField().setEnabled(false);
@@ -398,7 +407,8 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 			getRevisionNumberTextField().setEnabled(true);
 		}
 		else {
-			throw new RuntimeException("Unsupported revision"); // TODO
+            LOGGER.error("{} Unsupported revision", prefix);
+            throw new GuiException(ExceptionResourceType.INVALID_SUBVERSION_REVISION_VALUE, revision);
 		}
 	}
 }

@@ -837,7 +837,7 @@ public class ConfigurationWriter {
 			subversionExportTaskType.setRevision(subversionExportTask.getRevisionNumber().toString());
 		}
 		else {
-			throw new RuntimeException("Unsupported revision type"); // TODO
+            throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_SUBVERSION_REVISION, revision);
 		}
 	}
 

@@ -19,6 +19,8 @@
 package net.lmxm.ute.executers.tasks.subversion;
 
 import net.lmxm.ute.event.JobStatusChangeEventBus;
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,12 +124,12 @@ public final class SubversionWorkingCopyUtils extends AbstractSubversionUtils {
         catch (final SVNAuthenticationException e) {
             LOGGER.error("SVNAuthenticationException caught exporting a file", e);
             getJobStatusChangeEventBus().error(SUBVERSION_AUTHENTICATION_FAILED);
-            throw new RuntimeException(e); // TODO Use appropriate exception
+            throw new TaskExecuterException(ExceptionResourceType.SUBVERSION_AUTHENTICATION_FAILED, e);
         }
         catch (final SVNException e) {
             LOGGER.error("SVNException caught while updating working copy", e);
             getJobStatusChangeEventBus().error(SUBVERSION_UPDATE_ERROR, pathTrimmed);
-            throw new RuntimeException(e); // TODO Use appropriate exception
+            throw new TaskExecuterException(ExceptionResourceType.SUBVERSION_UPDATE_ERROR, e);
         }
 
         LOGGER.debug("{} leaving", prefix);
