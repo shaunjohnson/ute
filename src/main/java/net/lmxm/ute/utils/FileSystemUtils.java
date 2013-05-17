@@ -19,6 +19,9 @@
 package net.lmxm.ute.utils;
 
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.exceptions.GuiException;
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.slf4j.Logger;
@@ -131,8 +134,7 @@ public final class FileSystemUtils {
 			}
 			else {
 				LOGGER.debug("{} failed to create directory", prefix);
-
-				throw new RuntimeException("directory already exists"); // TODO Use appropriate exception
+                throw new TaskExecuterException(ExceptionResourceType.DIRECTORY_ALREADY_EXISTS, directory.getAbsoluteFile());
 			}
 		}
 

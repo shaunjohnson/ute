@@ -24,9 +24,13 @@ import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
+import net.lmxm.ute.exceptions.GuiException;
 import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.resources.types.LabelResourceType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -40,6 +44,9 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6846533044393594400L;
+
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHttpLocationEditorPanel.class);
 
 	/** The url text field. */
 	private JTextField urlTextField = null;
@@ -75,6 +82,8 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 	 * Adds the input validators.
 	 */
 	private void addInputValidators() {
+        final String prefix = "addInputValidators() : ";
+
 		if (getUserObject() instanceof AbstractHttpLocation) {
 			final JTextComponent component = getUrlTextField();
 			removeInputValidator(component);
@@ -90,7 +99,8 @@ public abstract class AbstractHttpLocationEditorPanel extends AbstractLocationEd
 				inputValidator = InputValidatorFactory.createSubversionRepositoryLocationUrlValidator(component);
 			}
 			else {
-				throw new RuntimeException("Unsupported HTTP Location type"); // TODO
+                LOGGER.error("{} Unsupported HTTP location type", prefix);
+                throw new GuiException(ExceptionResourceType.UNSUPPORTED_HTTP_LOCATION_TYPE);
 			}
 
 			component.setInputVerifier(inputValidator);

@@ -26,6 +26,7 @@ import javax.swing.*;
 import static net.lmxm.ute.resources.types.ResourceValueType.MESSAGE;
 
 public enum ExceptionResourceType implements ResourceType {
+    DIRECTORY_ALREADY_EXISTS,
     DRAG_AND_DROP_ERROR,
 	ERROR_CREATING_PREFERENCES_FILE,
 	ERROR_LOADING_CONFIGURATION_FILE,
@@ -61,6 +62,7 @@ public enum ExceptionResourceType implements ResourceType {
     UNABLE_TO_CREATE_DIRECTORY,
     UNDEFINED_PROPERTY,
     UNEXPECTED_ERROR,
+    UNSUPPORTED_HTTP_LOCATION_TYPE,
 	UNSUPPORTED_JOB_TYPE,
 	UNSUPPORTED_SCOPE,
 	UNSUPPORTED_SCOPE_TYPE,

@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.executers.tasks.subversion;
 
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,15 +111,14 @@ public final class SubversionUtils {
 
 		checkArgument(isRevisionDate(dateString), "Date string is not a valid revision date");
 
-		Date date = null;
-
+        final String choppedRevision = dateString.substring(1, dateString.length() - 1);
+        Date date = null;
 		try {
-			final String choppedRevision = dateString.substring(1, dateString.length() - 1);
 			date = new SimpleDateFormat(REVISION_DATE_FORMAT).parse(choppedRevision);
 		}
 		catch (final ParseException e) {
 			LOGGER.error("{} Invalid revision value", prefix);
-			throw new RuntimeException("Invalid revision value"); // TODO
+            throw new TaskExecuterException(ExceptionResourceType.INVALID_SUBVERSION_REVISION_VALUE, e, choppedRevision);
 		}
 
 		LOGGER.debug("{} returning {}", prefix, date);
