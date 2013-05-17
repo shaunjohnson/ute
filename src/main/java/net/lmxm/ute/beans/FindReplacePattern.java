@@ -24,6 +24,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 /**
  * A Find/Replace pattern represents a pair of values used to find and replace text. The find value represents a
  * regular expression value stored as a String. The value is not stored as an instance of Pattern as the user must be
@@ -82,7 +84,7 @@ public final class FindReplacePattern implements DomainBean {
      * @return true, if is empty
      */
 	public boolean isEmpty() {
-		return StringUtils.isBlank(find) && StringUtils.isBlank(replace);
+		return isBlank(find) && isBlank(replace);
 	}
 
 	/**
@@ -91,6 +93,10 @@ public final class FindReplacePattern implements DomainBean {
 	 * @return true, if is find is a valid regular expression, otherwise false
 	 */
 	public boolean isValid() {
+        if (isBlank(find)) {
+            return false;
+        }
+
 		try {
 			Pattern.compile(find);
 			return true;
