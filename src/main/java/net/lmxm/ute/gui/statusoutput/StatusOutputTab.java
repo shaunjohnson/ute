@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.statusoutput;
 
 import com.google.common.eventbus.Subscribe;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
@@ -217,6 +218,11 @@ public final class StatusOutputTab extends JPanel implements ActionListener {
     };
 
     /**
+     * The job being monitored.
+     */
+    private final Job job;
+
+    /**
      * The job running.
      */
     private boolean jobRunning = false;
@@ -249,17 +255,15 @@ public final class StatusOutputTab extends JPanel implements ActionListener {
     /**
      * Instantiates a new status output tab.
      *
+     * @param job the job being executed
      * @param tabbedPane the tabbed pane
-     * @param titleText  the title
      */
-    public StatusOutputTab(final JTabbedPane tabbedPane, final String titleText) {
+    public StatusOutputTab(final Job job, final JTabbedPane tabbedPane) {
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        checkNotNull(tabbedPane, "Tabbed pane may not be null");
-        checkNotNull(titleText, "Title text may not be null");
-
-        this.tabbedPane = tabbedPane;
-        this.titleText = titleText;
+        this.job = checkNotNull(job, "Job not be null");
+        this.tabbedPane = checkNotNull(tabbedPane, "Tabbed pane may not be null");
+        this.titleText = job.getId();
 
         setOpaque(false);
 
@@ -375,12 +379,14 @@ public final class StatusOutputTab extends JPanel implements ActionListener {
 
     @Subscribe
     public void handleJobStatusChange(final JobStatusEvent jobStatusEvent) {
-        JobStatusEvent.JobStatusEventType eventType = jobStatusEvent.getEventType();
-        if (eventType == JobAborted || eventType == JobCompleted || eventType == JobStopped) {
-            jobIsNotRunning();
-        }
-        else if (eventType == JobStarted) {
-            jobIsRunning();
+        if (jobStatusEvent.getJob().equals(job)) {
+            JobStatusEvent.JobStatusEventType eventType = jobStatusEvent.getEventType();
+            if (eventType == JobAborted || eventType == JobCompleted || eventType == JobStopped) {
+                jobIsNotRunning();
+            }
+            else if (eventType == JobStarted) {
+                jobIsRunning();
+            }
         }
     }
 

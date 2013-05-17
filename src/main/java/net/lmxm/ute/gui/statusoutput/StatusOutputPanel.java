@@ -62,6 +62,11 @@ public final class StatusOutputPanel extends JPanel {
     private JButton clearOutputButton = null;
 
     /**
+     * The job being monitored.
+     */
+    private final Job job;
+
+    /**
      * The job progress bar.
      */
     private JProgressBar jobProgressBar = null;
@@ -108,6 +113,8 @@ public final class StatusOutputPanel extends JPanel {
      */
     public StatusOutputPanel(final Job job) {
         super();
+
+        this.job = job;
 
         setLayout(new MigLayout());
         add(getOutputButtonToolBar(), "dock north");
@@ -269,12 +276,14 @@ public final class StatusOutputPanel extends JPanel {
 
     @Subscribe
     public void handleJobStatusChange(final JobStatusEvent jobStatusEvent) {
-        final JobStatusEvent.JobStatusEventType eventType = jobStatusEvent.getEventType();
-        if (eventType == JobAborted || eventType == JobCompleted || eventType == JobStopped) {
-            jobIsNolongerRunning();
-        }
-        else if (eventType == TaskCompleted || eventType == TaskSkipped) {
-            incrementProgressBar();
+        if (jobStatusEvent.getJob().equals(job)) {
+            final JobStatusEvent.JobStatusEventType eventType = jobStatusEvent.getEventType();
+            if (eventType == JobAborted || eventType == JobCompleted || eventType == JobStopped) {
+                jobIsNolongerRunning();
+            }
+            else if (eventType == TaskCompleted || eventType == TaskSkipped) {
+                incrementProgressBar();
+            }
         }
     }
 

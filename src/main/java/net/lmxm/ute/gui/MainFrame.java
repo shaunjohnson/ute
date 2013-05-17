@@ -620,7 +620,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 			final JTabbedPane tabbedPane = getBottomPanel();
 			final StatusOutputPanel statusOutputPanel = new StatusOutputPanel(job);
-			final StatusOutputTab statusOutputTab = new StatusOutputTab(tabbedPane, job.getId());
+			final StatusOutputTab statusOutputTab = new StatusOutputTab(job, tabbedPane);
 
 			final ExecuteJobWorker jobWorker = new ExecuteJobWorker(job, configuration);
 
