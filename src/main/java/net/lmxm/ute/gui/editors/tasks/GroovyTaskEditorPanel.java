@@ -110,7 +110,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the script pane
 	 */
-	private final JScrollPane getScriptPane() {
+	private JScrollPane getScriptPane() {
 		if (scriptPane == null) {
 			scriptPane = new RTextScrollPane(getScriptTextArea());
 		}
@@ -123,7 +123,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the script text area
 	 */
-	private final RSyntaxTextArea getScriptTextArea() {
+	private RSyntaxTextArea getScriptTextArea() {
 		if (scriptTextArea == null) {
 			scriptTextArea = new RSyntaxTextArea();
 			scriptTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_GROOVY);

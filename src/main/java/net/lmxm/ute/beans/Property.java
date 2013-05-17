@@ -98,7 +98,7 @@ public final class Property implements DomainBean, IdentifiableBean {
      *
      * @return the current ID
      */
-    public final String getId() {
+    public String getId() {
         return id;
     }
 
@@ -136,7 +136,7 @@ public final class Property implements DomainBean, IdentifiableBean {
      * @param id the new ID
      */
     @Override
-    public final void setId(final String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 

@@ -66,7 +66,7 @@ public final class SequentialJob extends AbstractJob {
 	 * @return the tasks
 	 */
 	@Override
-	public final List<Task> getTasks() {
+	public List<Task> getTasks() {
 		return tasks;
 	}
 

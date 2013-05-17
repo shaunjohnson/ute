@@ -109,7 +109,7 @@ public final class Preference implements DomainBean, IdentifiableBean {
      * @return the current ID
      */
     @Override
-    public final String getId() {
+    public String getId() {
         return id;
     }
 
@@ -147,7 +147,7 @@ public final class Preference implements DomainBean, IdentifiableBean {
      * @param id the new ID
      */
     @Override
-    public final void setId(final String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 

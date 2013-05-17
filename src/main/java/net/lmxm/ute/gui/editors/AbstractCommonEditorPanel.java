@@ -139,7 +139,7 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 	 * 
 	 * @return the description pane
 	 */
-	private final JScrollPane getDescriptionPane() {
+	private JScrollPane getDescriptionPane() {
 		if (descriptionPane == null) {
 			descriptionPane = new JScrollPane(getDescriptionTextArea());
 		}
@@ -152,7 +152,7 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 	 * 
 	 * @return the description text area
 	 */
-	private final JTextArea getDescriptionTextArea() {
+	private JTextArea getDescriptionTextArea() {
 		if (descriptionTextArea == null) {
 			descriptionTextArea = new JTextArea();
 			descriptionTextArea.setColumns(40);
@@ -177,7 +177,7 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 	 * 
 	 * @return the id text field
 	 */
-	private final JTextField getIdTextField() {
+	private JTextField getIdTextField() {
 		if (idTextField == null) {
 			idTextField = new JTextField();
 			idTextField.setMinimumSize(new Dimension(400, (int) idTextField.getSize().getHeight()));
