@@ -179,7 +179,7 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
             if (stopOnError) {
                 LOGGER.error(prefix + " file not found " + pathFile.getName(), e);
                 StatusChangeEventBus.error(FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR, getJob(), pathFile.getAbsolutePath());
-                throw new TaskExecuterException(ExceptionResourceType.FILE_NOT_FOUND, pathFile.getAbsoluteFile());
+                throw new TaskExecuterException(ExceptionResourceType.FILE_NOT_FOUND, e, pathFile.getAbsoluteFile());
             }
             else {
                 LOGGER.debug("{} ignoring error deleting file", prefix);
@@ -190,7 +190,7 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
             if (stopOnError) {
                 LOGGER.error(prefix + " error deleting file " + pathFile.getName(), e);
                 StatusChangeEventBus.error(FILE_DELETE_ERROR, getJob(), pathFile.getAbsolutePath());
-                throw new TaskExecuterException(ExceptionResourceType.FILE_DELETE_ERROR, pathFile.getAbsoluteFile());
+                throw new TaskExecuterException(ExceptionResourceType.FILE_DELETE_ERROR, e, pathFile.getAbsoluteFile());
             }
             else {
                 LOGGER.debug("{} ignoring error deleting file", prefix);

@@ -172,7 +172,7 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
         }
         catch (final IOException e) {
             LOGGER.error("{} Unable to read/write file {}", prefix, file);
-            throw new TaskExecuterException(ExceptionResourceType.FILE_READ_WRITE_ERROR, file.getAbsoluteFile());
+            throw new TaskExecuterException(ExceptionResourceType.FILE_READ_WRITE_ERROR, e, file.getAbsoluteFile());
         }
 
         LOGGER.debug("{} leaving", prefix);
@@ -207,7 +207,7 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
         }
         catch (final IOException e) {
             LOGGER.error("{} Unable to read file {}", prefix, file);
-            throw new TaskExecuterException(ExceptionResourceType.FILE_READ_WRITE_ERROR, file.getAbsoluteFile());
+            throw new TaskExecuterException(ExceptionResourceType.FILE_READ_WRITE_ERROR, e, file.getAbsoluteFile());
         }
 
         LOGGER.debug("{} leaving", prefix);
