@@ -298,13 +298,10 @@ public class MainTreeTransferHandler extends TransferHandler {
 		for (int i = 1; i < selRows.length; i++) {
 			path = tree.getPathForRow(selRows[i]);
 			final IdentifiableBeanTreeNode next = (IdentifiableBeanTreeNode) path.getLastPathComponent();
-			if (first.isNodeChild(next)) {
-				// Found a child of first.
-				if (childCount > selRows.length - 1) {
-					// Not all children of first are selected.
-					return false;
-				}
-			}
+			if (first.isNodeChild(next) && childCount > selRows.length - 1) {
+                // Not all children of first are selected.
+                return false;
+            }
 		}
 
 		return true;
