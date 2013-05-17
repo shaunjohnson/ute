@@ -58,4 +58,11 @@ public final class Application {
 
         LOGGER.info("{} Application ended", prefix);
     }
+
+    /**
+     * Prevent instantiation.
+     */
+    private Application() {
+        throw new AssertionError("Cannot be instantiated");
+    }
 }

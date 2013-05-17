@@ -62,4 +62,11 @@ public class HttpUtils {
 
 		return fullUrl;
 	}
+
+    /**
+     * Prevent instantiation.
+     */
+    private HttpUtils() {
+        throw new AssertionError("Cannot be instantiated");
+    }
 }

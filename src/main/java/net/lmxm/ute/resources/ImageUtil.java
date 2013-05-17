@@ -311,4 +311,11 @@ public final class ImageUtil {
 
 		return new ImageIcon(grayImage);
 	}
+
+    /**
+     * Prevent instantiation.
+     */
+    private ImageUtil() {
+        throw new AssertionError("Cannot be instantiated");
+    }
 }

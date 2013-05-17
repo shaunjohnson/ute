@@ -324,4 +324,11 @@ public final class InputValidatorFactory {
 
 		return validator;
 	}
+
+    /**
+     * Prevent instantiation.
+     */
+    private InputValidatorFactory() {
+        throw new AssertionError("Cannot be instantiated");
+    }
 }

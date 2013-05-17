@@ -64,4 +64,11 @@ public final class GuiUtils {
 
 		return child;
 	}
+
+    /**
+     * Prevent instantiation.
+     */
+    private GuiUtils() {
+        throw new AssertionError("Cannot be instantiated");
+    }
 }
