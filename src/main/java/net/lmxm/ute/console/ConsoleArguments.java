@@ -41,7 +41,7 @@ public final class ConsoleArguments {
 		 * @see com.beust.jcommander.IParameterValidator#validate(java.lang.String, java.lang.String)
 		 */
 		@Override
-		public void validate(final String name, final String value) throws ParameterException {
+		public void validate(final String name, final String value) {
 			if (!new File(value).exists()) {
 				throw new ParameterException("Input file does not exist");
 			}
