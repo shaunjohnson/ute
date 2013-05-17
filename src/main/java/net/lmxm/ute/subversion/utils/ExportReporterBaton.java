@@ -19,14 +19,14 @@
 package net.lmxm.ute.subversion.utils;
 
 import net.lmxm.ute.event.StatusChangeEventBus;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.io.ISVNReporter;
 import org.tmatesoft.svn.core.io.ISVNReporterBaton;
+
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.SUBVERSION_EXPORT_REPORT_ERROR;
 
 /**
  * The Class ExportReporterBaton.

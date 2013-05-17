@@ -18,21 +18,6 @@
  */
 package net.lmxm.ute.gui.maintree;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JLabel;
-import javax.swing.JTree;
-import javax.swing.UIManager;
-import javax.swing.border.LineBorder;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreeCellRenderer;
-
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.Preference;
@@ -45,6 +30,16 @@ import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.gui.maintree.nodes.RootTreeNode;
 import net.lmxm.ute.resources.ImageUtil;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeCellRenderer;
+import java.awt.*;
+import java.awt.font.TextAttribute;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The Class MainTreeCellRenderer.

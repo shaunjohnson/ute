@@ -18,10 +18,6 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import javax.swing.text.JTextComponent;
-
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
@@ -30,11 +26,14 @@ import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 import net.lmxm.ute.validation.rules.*;
+
+import javax.swing.text.JTextComponent;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A factory for creating InputValidator objects.

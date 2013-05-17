@@ -19,7 +19,6 @@
 package net.lmxm.ute.validation.rules;
 
 import net.lmxm.ute.beans.configuration.Configuration;
-import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.configuration.ConfigurationUtils;

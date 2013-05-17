@@ -18,14 +18,6 @@
  */
 package net.lmxm.ute.gui.editors.locations;
 
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
-import javax.swing.text.JTextComponent;
-
 import net.lmxm.ute.beans.locations.AbstractHttpLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
@@ -35,6 +27,11 @@ import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * The Class AbstractHttpLocationEditorPanel.

@@ -25,7 +25,6 @@ import net.lmxm.ute.event.StatusChangeEventType;
 import net.lmxm.ute.exceptions.GuiException;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
-import net.lmxm.ute.resources.types.ButtonResourceType;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 import net.miginfocom.swing.MigLayout;

@@ -18,9 +18,9 @@
  */
 package net.lmxm.ute.gui.maintree.nodes;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import net.lmxm.ute.beans.IdentifiableBean;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * The Class IdentifiableBeanTreeNode.

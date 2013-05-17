@@ -18,16 +18,15 @@
  */
 package net.lmxm.ute.executers.jobs;
 
-import java.util.List;
-
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executers.tasks.TaskExecuterFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * The Class SequentialJobExecuter.

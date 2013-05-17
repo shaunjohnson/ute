@@ -18,18 +18,17 @@
  */
 package net.lmxm.ute.utils;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import net.lmxm.ute.beans.FileReference;
+import org.apache.commons.lang3.StringUtils;
+import org.codehaus.plexus.util.DirectoryScanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.lmxm.ute.beans.FileReference;
-
-import org.apache.commons.lang3.StringUtils;
-import org.codehaus.plexus.util.DirectoryScanner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * The Class FileSystemUtils.

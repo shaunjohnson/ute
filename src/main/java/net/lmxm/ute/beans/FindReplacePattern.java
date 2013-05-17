@@ -18,13 +18,11 @@
  */
 package net.lmxm.ute.beans;
 
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
+import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.common.base.Objects;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * A Find/Replace pattern represents a pair of values used to find and replace text. The find value represents a

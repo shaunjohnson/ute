@@ -18,8 +18,6 @@
  */
 package net.lmxm.ute.executers;
 
-import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
-
 /**
  * The Class AbstractExecuter.
  */

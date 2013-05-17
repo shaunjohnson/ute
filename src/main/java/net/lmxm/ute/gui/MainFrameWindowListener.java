@@ -18,12 +18,11 @@
  */
 package net.lmxm.ute.gui;
 
+import net.lmxm.ute.preferences.UserPreferences;
+
+import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import javax.swing.JFrame;
-
-import net.lmxm.ute.preferences.UserPreferences;
 
 /**
  * The listener interface for receiving mainFrameWindow events. The class that is interested in processing a

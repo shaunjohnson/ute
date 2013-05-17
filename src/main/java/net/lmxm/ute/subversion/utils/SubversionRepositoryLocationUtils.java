@@ -18,15 +18,15 @@
  */
 package net.lmxm.ute.subversion.utils;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.executers.tasks.SubversionExportTaskExecuter;
 import net.lmxm.ute.utils.PathUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Class SubversionRepositoryLocationUtils.

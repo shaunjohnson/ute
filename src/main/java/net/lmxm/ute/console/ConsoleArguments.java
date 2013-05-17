@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.console;
 
-import java.io.File;
-
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
+
+import java.io.File;
 
 /**
  * The Class ConsoleArguments.

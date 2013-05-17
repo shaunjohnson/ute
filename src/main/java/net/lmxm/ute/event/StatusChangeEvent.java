@@ -18,12 +18,10 @@
  */
 package net.lmxm.ute.event;
 
+import org.apache.commons.lang3.StringUtils;
+
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.EventObject;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * The Class StatusChangeEvent.

@@ -18,16 +18,16 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.executers.Executer;
 import net.lmxm.ute.executers.ExecuterFactory;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A factory for creating TaskExecuter objects.

@@ -18,9 +18,9 @@
  */
 package net.lmxm.ute.gui.menus;
 
-import java.awt.event.ActionListener;
-
 import net.lmxm.ute.resources.types.MenuItemResourceType;
+
+import java.awt.event.ActionListener;
 
 /**
  * The Class HttpLocationPopupMenu.

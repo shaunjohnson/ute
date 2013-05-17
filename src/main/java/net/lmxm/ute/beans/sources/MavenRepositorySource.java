@@ -18,12 +18,9 @@
  */
 package net.lmxm.ute.beans.sources;
 
-import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.utils.DomainBeanUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-
-import java.util.Map;
 
 /**
  * The Class MavenRepositorySource.

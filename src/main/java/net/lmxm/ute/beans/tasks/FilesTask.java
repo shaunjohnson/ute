@@ -18,9 +18,9 @@
  */
 package net.lmxm.ute.beans.tasks;
 
-import java.util.List;
-
 import net.lmxm.ute.beans.FileReference;
+
+import java.util.List;
 
 /**
  * The Interface FilesTask.

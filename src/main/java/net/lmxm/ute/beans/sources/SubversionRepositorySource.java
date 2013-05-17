@@ -20,7 +20,6 @@ package net.lmxm.ute.beans.sources;
 
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.utils.DomainBeanUtils;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**

@@ -18,14 +18,10 @@
  */
 package net.lmxm.ute.resources;
 
-import java.awt.Image;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageProducer;
-
-import javax.swing.GrayFilter;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 /**
  * The Class ImageUtil.

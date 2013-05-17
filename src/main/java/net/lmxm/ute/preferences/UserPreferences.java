@@ -18,12 +18,10 @@
  */
 package net.lmxm.ute.preferences;
 
-import java.awt.Dimension;
-import java.awt.Point;
-
-import javax.swing.JFrame;
-
 import net.lmxm.ute.gui.GuiContants;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Retrieves and persists user settings stored using java Preferences.

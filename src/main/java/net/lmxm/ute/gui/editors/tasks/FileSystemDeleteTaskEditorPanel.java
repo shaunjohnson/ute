@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
-import java.awt.event.ActionListener;
-
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
+
+import java.awt.event.ActionListener;
 
 /**
  * The Class FileSystemDeleteTaskEditorPanel.

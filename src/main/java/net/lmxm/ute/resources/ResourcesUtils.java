@@ -18,12 +18,11 @@
  */
 package net.lmxm.ute.resources;
 
-import java.util.ResourceBundle;
-
 import net.lmxm.ute.resources.types.ResourceType;
-
 import net.lmxm.ute.resources.types.ResourceValueType;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.ResourceBundle;
 
 /**
  * The Class ResourcesUtils.

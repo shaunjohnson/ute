@@ -18,13 +18,11 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import java.awt.Color;
-
-import javax.swing.JComponent;
-import javax.swing.UIManager;
-import javax.swing.text.JTextComponent;
-
 import net.lmxm.ute.validation.rules.ValidationRule;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
 
 /**
  * The Class TextComponentValidator.

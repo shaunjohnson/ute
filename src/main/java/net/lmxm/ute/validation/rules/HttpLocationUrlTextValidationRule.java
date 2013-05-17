@@ -18,15 +18,14 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.types.ValidatorResourceType;
+import org.apache.commons.lang3.StringUtils;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.types.ValidatorResourceType;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * The Class HttpLocationUrlTextValidationRule.

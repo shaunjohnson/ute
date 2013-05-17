@@ -18,37 +18,6 @@
  */
 package net.lmxm.ute.gui;
 
-import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
-import static net.lmxm.ute.enums.ActionCommand.*;
-
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
-import javax.swing.JViewport;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
@@ -62,11 +31,7 @@ import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.*;
-import net.lmxm.ute.configuration.ConfigurationHolder;
-import net.lmxm.ute.configuration.ConfigurationInterpolator;
-import net.lmxm.ute.configuration.ConfigurationReader;
-import net.lmxm.ute.configuration.ConfigurationUtils;
-import net.lmxm.ute.configuration.ConfigurationWriter;
+import net.lmxm.ute.configuration.*;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.executers.jobs.JobStatusEventBus;
@@ -75,13 +40,7 @@ import net.lmxm.ute.gui.components.StatusOutputPanel;
 import net.lmxm.ute.gui.components.StatusOutputTab;
 import net.lmxm.ute.gui.dialogs.AboutDialog;
 import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
-import net.lmxm.ute.gui.editors.AbstractEditorPanel;
-import net.lmxm.ute.gui.editors.JobsEditorPanel;
-import net.lmxm.ute.gui.editors.PreferenceEditorPanel;
-import net.lmxm.ute.gui.editors.PreferencesEditorPanel;
-import net.lmxm.ute.gui.editors.PropertiesEditorPanel;
-import net.lmxm.ute.gui.editors.PropertyEditorPanel;
-import net.lmxm.ute.gui.editors.SequentialJobEditorPanel;
+import net.lmxm.ute.gui.editors.*;
 import net.lmxm.ute.gui.editors.locations.*;
 import net.lmxm.ute.gui.editors.tasks.*;
 import net.lmxm.ute.gui.frames.AbstractFrame;
@@ -98,10 +57,25 @@ import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ApplicationResourceType;
 import net.lmxm.ute.resources.types.ConfirmationResourceType;
 import net.lmxm.ute.utils.FileSystemUtils;
-
 import org.apache.commons.lang.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
+import static net.lmxm.ute.enums.ActionCommand.*;
 
 /**
  * The Class MainFrame.

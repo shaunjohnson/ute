@@ -1,17 +1,13 @@
 package net.lmxm.ute.executers.tasks;
 
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_STARTED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_FAILED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_DOWNLOAD_COMPLETED;
-
 import net.lmxm.ute.beans.MavenArtifact;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
 import net.lmxm.ute.event.StatusChangeEventBus;
-import net.lmxm.ute.utils.aether.AetherResolveUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.PathUtils;
+import net.lmxm.ute.utils.aether.AetherResolveUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 public final class MavenRepositoryDownloadTaskExecuter extends AbstractTaskExecuter {
 

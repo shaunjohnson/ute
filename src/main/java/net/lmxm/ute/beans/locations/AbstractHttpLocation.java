@@ -19,7 +19,6 @@
 package net.lmxm.ute.beans.locations;
 
 import net.lmxm.ute.beans.IdentifiableDomainBean;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**

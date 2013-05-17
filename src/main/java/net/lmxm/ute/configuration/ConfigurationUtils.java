@@ -18,10 +18,6 @@
  */
 package net.lmxm.ute.configuration;
 
-import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
-
-import java.util.List;
-
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
@@ -32,10 +28,13 @@ import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
-
 import org.codehaus.plexus.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
+import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
 
 /**
  * The Class ConfigurationUtils.

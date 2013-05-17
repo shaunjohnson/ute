@@ -18,11 +18,11 @@
  */
 package net.lmxm.ute.event;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import net.lmxm.ute.beans.EnabledStateBean;
 
 import java.util.EventObject;
 
-import net.lmxm.ute.beans.EnabledStateBean;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Class EnabledStateChangeEvent.

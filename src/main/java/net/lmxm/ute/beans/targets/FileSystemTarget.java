@@ -20,7 +20,6 @@ package net.lmxm.ute.beans.targets;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.utils.DomainBeanUtils;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**

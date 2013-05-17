@@ -18,11 +18,6 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.Date;
-import java.util.List;
-
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
@@ -32,9 +27,13 @@ import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryLocationUtils;
 import net.lmxm.ute.subversion.utils.SubversionRepositoryUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Class SubversionExportTaskExecuter.

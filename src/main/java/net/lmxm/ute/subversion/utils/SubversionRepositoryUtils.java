@@ -18,7 +18,20 @@
  */
 package net.lmxm.ute.subversion.utils;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.enums.SubversionDepth;
+import net.lmxm.ute.enums.SubversionRevision;
+import net.lmxm.ute.event.StatusChangeEventBus;
+import net.lmxm.ute.exceptions.ConfigurationException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.tmatesoft.svn.core.*;
+import org.tmatesoft.svn.core.io.ISVNReporterBaton;
+import org.tmatesoft.svn.core.io.SVNRepository;
+import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,28 +40,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.enums.SubversionDepth;
-import net.lmxm.ute.enums.SubversionRevision;
-import net.lmxm.ute.event.StatusChangeEventBus;
-import net.lmxm.ute.exceptions.ConfigurationException;
-import net.lmxm.ute.resources.types.ExceptionResourceType;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.tmatesoft.svn.core.SVNAuthenticationException;
-import org.tmatesoft.svn.core.SVNDepth;
-import org.tmatesoft.svn.core.SVNErrorCode;
-import org.tmatesoft.svn.core.SVNErrorMessage;
-import org.tmatesoft.svn.core.SVNException;
-import org.tmatesoft.svn.core.SVNNodeKind;
-import org.tmatesoft.svn.core.SVNURL;
-import org.tmatesoft.svn.core.io.ISVNReporterBaton;
-import org.tmatesoft.svn.core.io.SVNRepository;
-import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 
 /**
  * The Class SubversionUtils.

@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.beans.tasks;
 
-import java.io.Serializable;
-
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.DomainBean;
 import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.jobs.Job;
+
+import java.io.Serializable;
 
 /**
  * The Interface Task.

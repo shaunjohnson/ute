@@ -1,7 +1,6 @@
 package net.lmxm.ute.event;
 
 import com.google.common.eventbus.EventBus;
-import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 

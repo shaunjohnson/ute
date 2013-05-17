@@ -18,10 +18,6 @@
  */
 package net.lmxm.ute.beans.configuration;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.lmxm.ute.beans.DomainBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.PropertiesHolder;
@@ -32,8 +28,11 @@ import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.utils.DomainBeanUtils;
-
 import org.apache.commons.collections.CollectionUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class Configuration.

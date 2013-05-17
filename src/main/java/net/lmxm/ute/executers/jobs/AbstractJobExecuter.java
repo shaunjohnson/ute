@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.executers.jobs;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.executers.AbstractExecuter;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 /**

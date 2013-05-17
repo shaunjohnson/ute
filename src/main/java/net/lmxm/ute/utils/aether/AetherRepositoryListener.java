@@ -1,23 +1,10 @@
 package net.lmxm.ute.utils.aether;
 
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_ARTIFACT_DEPLOYED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_ARTIFACT_DEPLOYING;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_ARTIFACT_DOWNLOADED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_ARTIFACT_DOWNLOADING;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_ARTIFACT_INVALID_DESCRIPTOR;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_ARTIFACT_MISSING_DESCRIPTOR;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_ARTIFACT_RESOLVED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_ARTIFACT_RESOLVING;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_METADATA_DEPLOYED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_METADATA_DEPLOYING;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_METADATA_RESOLVED;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.MAVEN_REPOSITORY_METADATA_RESOLVING;
-
 import net.lmxm.ute.event.StatusChangeEventBus;
 import org.sonatype.aether.AbstractRepositoryListener;
 import org.sonatype.aether.RepositoryEvent;
 
-import java.io.PrintStream;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 /**
  * A simplistic repository listener that logs events to the console.

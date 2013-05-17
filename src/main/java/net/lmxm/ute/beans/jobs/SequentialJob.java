@@ -18,11 +18,11 @@
  */
 package net.lmxm.ute.beans.jobs;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.utils.DomainBeanUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class SequentialJob.

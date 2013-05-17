@@ -18,21 +18,7 @@
  */
 package net.lmxm.ute.gui.maintree;
 
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JTree;
-import javax.swing.TransferHandler;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.exceptions.GuiException;
@@ -40,6 +26,16 @@ import net.lmxm.ute.gui.maintree.nodes.IdentifiableBeanTreeNode;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class MainTreeTransferHandler.

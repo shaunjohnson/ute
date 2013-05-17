@@ -20,9 +20,7 @@ package net.lmxm.ute.subversion.utils;
 
 import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.resources.ResourcesUtils;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 import net.lmxm.ute.resources.types.SubversionEventResourceType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tmatesoft.svn.core.SVNCancelException;
@@ -31,6 +29,8 @@ import org.tmatesoft.svn.core.wc.ISVNEventHandler;
 import org.tmatesoft.svn.core.wc.SVNEvent;
 import org.tmatesoft.svn.core.wc.SVNEventAction;
 import org.tmatesoft.svn.core.wc.SVNStatusType;
+
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 /**
  * The Class EventHandler.

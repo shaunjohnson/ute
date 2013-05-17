@@ -18,12 +18,12 @@
  */
 package net.lmxm.ute.beans.tasks;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.utils.DomainBeanUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class AbstractFilesTask.

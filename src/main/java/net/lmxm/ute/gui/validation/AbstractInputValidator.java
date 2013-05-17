@@ -18,25 +18,17 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Point;
+import net.lmxm.ute.resources.ImageUtil;
+import net.lmxm.ute.validation.rules.ValidationRule;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-
-import net.lmxm.ute.resources.ImageUtil;
-import net.lmxm.ute.validation.rules.ValidationRule;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * The Class AbstractInputValidator.

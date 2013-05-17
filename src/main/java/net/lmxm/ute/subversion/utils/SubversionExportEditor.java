@@ -18,24 +18,21 @@
  */
 package net.lmxm.ute.subversion.utils;
 
+import net.lmxm.ute.event.StatusChangeEventBus;
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.tmatesoft.svn.core.*;
+import org.tmatesoft.svn.core.io.ISVNEditor;
+import org.tmatesoft.svn.core.io.diff.SVNDeltaProcessor;
+import org.tmatesoft.svn.core.io.diff.SVNDiffWindow;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import net.lmxm.ute.event.StatusChangeEventBus;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
-
-import org.apache.commons.io.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.tmatesoft.svn.core.SVNCommitInfo;
-import org.tmatesoft.svn.core.SVNErrorCode;
-import org.tmatesoft.svn.core.SVNErrorMessage;
-import org.tmatesoft.svn.core.SVNException;
-import org.tmatesoft.svn.core.SVNPropertyValue;
-import org.tmatesoft.svn.core.io.ISVNEditor;
-import org.tmatesoft.svn.core.io.diff.SVNDeltaProcessor;
-import org.tmatesoft.svn.core.io.diff.SVNDiffWindow;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.SUBVERSION_EXPORT_DIRECTORY_ADDED;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED;
 
 /**
  * The Class SubversionExportEditor.

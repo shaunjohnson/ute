@@ -21,11 +21,10 @@ package net.lmxm.ute.console;
 import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.event.StatusChangeEventType;
-
-import java.io.PrintStream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.PrintStream;
 
 /**
  * The listener interface for receiving consoleStatusChange events. The class that is interested in processing a

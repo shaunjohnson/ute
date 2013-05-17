@@ -18,16 +18,8 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
-
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.PropertiesHolder;
@@ -38,10 +30,16 @@ import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
-
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 /**
  * The Class GroovyTaskExecuter.

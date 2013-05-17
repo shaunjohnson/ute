@@ -18,25 +18,6 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.AbstractButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
@@ -57,9 +38,17 @@ import net.lmxm.ute.gui.components.FilesTableModel;
 import net.lmxm.ute.gui.components.RenameFilesTableModel;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 import net.lmxm.ute.resources.types.LabelResourceType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class AbstractTaskEditorPanel.

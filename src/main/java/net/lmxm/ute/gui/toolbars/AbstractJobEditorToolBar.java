@@ -18,10 +18,10 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * The Class AbstractJobEditorToolBar.

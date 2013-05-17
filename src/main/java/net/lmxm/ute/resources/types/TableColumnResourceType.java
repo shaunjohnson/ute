@@ -18,12 +18,12 @@
  */
 package net.lmxm.ute.resources.types;
 
-import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
-
-import javax.swing.Icon;
-
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
+
+import javax.swing.*;
+
+import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
 
 /**
  * The Enum TableColumnResourceType.

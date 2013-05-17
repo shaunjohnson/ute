@@ -18,25 +18,13 @@
  */
 package net.lmxm.ute.gui.components;
 
-import java.awt.Font;
-import java.awt.Toolkit;
+import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.types.*;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-
-import javax.swing.AbstractButton;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
-
-import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.types.ButtonResourceType;
-import net.lmxm.ute.resources.types.LabelResourceType;
-import net.lmxm.ute.resources.types.MenuItemResourceType;
-import net.lmxm.ute.resources.types.MenuResourceType;
-import net.lmxm.ute.resources.types.ResourceType;
-import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
 /**
  * A factory for creating GuiComponent objects.

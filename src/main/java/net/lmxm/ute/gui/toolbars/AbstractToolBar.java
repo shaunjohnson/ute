@@ -18,13 +18,12 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-
-import javax.swing.JToolBar;
-
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 /**
  * The Class AbstractToolBar.

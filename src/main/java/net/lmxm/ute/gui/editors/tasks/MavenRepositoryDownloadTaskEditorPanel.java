@@ -19,14 +19,10 @@
 package net.lmxm.ute.gui.editors.tasks;
 
 import net.lmxm.ute.beans.jobs.SequentialJob;
-import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
-import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.components.MavenArtifactsTableModel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
-import net.lmxm.ute.gui.validation.InputValidator;
-import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

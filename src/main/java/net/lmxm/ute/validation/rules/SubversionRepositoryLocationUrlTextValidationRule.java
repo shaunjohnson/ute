@@ -18,15 +18,14 @@
  */
 package net.lmxm.ute.validation.rules;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
-
 import org.apache.commons.lang3.StringUtils;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class SubversionRepositoryUrlTextValidationRule.

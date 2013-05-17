@@ -18,31 +18,20 @@
  */
 package net.lmxm.ute.console;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.beust.jcommander.JCommander;
 import net.lmxm.ute.GenericApplication;
-import net.lmxm.ute.beans.configuration.ApplicationPreferences;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.beans.jobs.SingleTaskJob;
-import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.configuration.ConfigurationInterpolator;
 import net.lmxm.ute.configuration.ConfigurationReader;
-import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.event.StatusChangeEventBus;
-import net.lmxm.ute.executers.jobs.JobExecuter;
-import net.lmxm.ute.executers.jobs.JobExecuterFactory;
-import net.lmxm.ute.executers.jobs.JobStatusEventBus;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ApplicationResourceType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.beust.jcommander.JCommander;
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The Class ConsoleApplication.

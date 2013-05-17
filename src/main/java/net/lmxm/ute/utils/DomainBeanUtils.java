@@ -18,10 +18,10 @@
  */
 package net.lmxm.ute.utils;
 
+import net.lmxm.ute.beans.DomainBean;
+
 import java.util.Iterator;
 import java.util.List;
-
-import net.lmxm.ute.beans.DomainBean;
 
 /**
  * The Class DomainBeanUtils.
