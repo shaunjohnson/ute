@@ -65,7 +65,7 @@ public final class SingleTaskJobExecuter extends AbstractJobExecuter {
 
 			if (task.getEnabled()) {
 				taskStarted(task);
-				TaskExecuterFactory.create(task, getPropertiesHolder()).execute();
+				TaskExecuterFactory.create(job, task, getPropertiesHolder()).execute();
 				taskCompleted(task);
 			}
 			else {

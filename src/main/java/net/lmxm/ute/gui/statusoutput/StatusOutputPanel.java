@@ -289,23 +289,25 @@ public final class StatusOutputPanel extends JPanel {
 
     @Subscribe
     public void handleStatusChange(final StatusChangeEvent statusChangeEvent) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                final JTextPane theOutputPane = getOutputPane();
-                final Document document = theOutputPane.getDocument();
+        if (statusChangeEvent.getJob().equals(job)) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    final JTextPane theOutputPane = getOutputPane();
+                    final Document document = theOutputPane.getDocument();
 
-                try {
-                    final Style style = styleContext.getStyle(statusChangeEvent.getEventType().name());
-                    document.insertString(document.getLength(), statusChangeEvent.getMessage() + "\n", style);
-                }
-                catch (final BadLocationException e) {
-                    throw new GuiException(ExceptionResourceType.UNEXPECTED_ERROR, e);
-                }
+                    try {
+                        final Style style = styleContext.getStyle(statusChangeEvent.getEventType().name());
+                        document.insertString(document.getLength(), statusChangeEvent.getMessage() + "\n", style);
+                    }
+                    catch (final BadLocationException e) {
+                        throw new GuiException(ExceptionResourceType.UNEXPECTED_ERROR, e);
+                    }
 
-                theOutputPane.setCaretPosition(document.getLength());
-            }
-        });
+                    theOutputPane.setCaretPosition(document.getLength());
+                }
+            });
+        }
     }
 
     private void incrementProgressBar() {

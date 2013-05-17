@@ -1,9 +1,11 @@
 package net.lmxm.ute.executers.tasks;
 
 import net.lmxm.ute.beans.MavenArtifact;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
+import net.lmxm.ute.event.JobStatusChangeEventBus;
 import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.PathUtils;
@@ -32,12 +34,13 @@ public final class MavenRepositoryDownloadTaskExecuter extends AbstractTaskExecu
     /**
      * Instantiates a new file system delete task executer.
      *
-     * @param task               the task
+     * @param job  the job
+     * @param task the task
      */
-    public MavenRepositoryDownloadTaskExecuter(final MavenRepositoryDownloadTask task) {
-        checkNotNull(task, "Task may not be null");
+    public MavenRepositoryDownloadTaskExecuter(final Job job, final MavenRepositoryDownloadTask task) {
+        super(job);
 
-        this.task = task;
+        this.task = checkNotNull(task, "Task may not be null");
     }
 
     /**
@@ -80,19 +83,20 @@ public final class MavenRepositoryDownloadTaskExecuter extends AbstractTaskExecu
         try {
             final String mavenRepositoryUrl = getFullUrl(task.getSource());
             final File destinationDirectory = new File(FileSystemTargetUtils.getFullPath(task.getTarget()));
-            final AetherResolveUtils aetherResolveUtils = new AetherResolveUtils(mavenRepositoryUrl);
+            final AetherResolveUtils aetherResolveUtils = new AetherResolveUtils(new JobStatusChangeEventBus(getJob()),
+                    mavenRepositoryUrl);
 
             for (MavenArtifact mavenArtifact : task.getArtifacts()) {
-                StatusChangeEventBus.important(MAVEN_REPOSITORY_DOWNLOAD_STARTED, mavenArtifact.getCoordinates());
+                StatusChangeEventBus.important(MAVEN_REPOSITORY_DOWNLOAD_STARTED, getJob(), mavenArtifact.getCoordinates());
 
                 aetherResolveUtils.resolveArtifact(mavenArtifact.getCoordinates(), destinationDirectory,
                         mavenArtifact.getTargetName());
 
-                StatusChangeEventBus.important(MAVEN_REPOSITORY_DOWNLOAD_COMPLETED, mavenArtifact.getCoordinates());
+                StatusChangeEventBus.important(MAVEN_REPOSITORY_DOWNLOAD_COMPLETED, getJob(), mavenArtifact.getCoordinates());
             }
         }
         catch (Exception e) {
-            StatusChangeEventBus.error(MAVEN_REPOSITORY_DOWNLOAD_FAILED);
+            StatusChangeEventBus.error(MAVEN_REPOSITORY_DOWNLOAD_FAILED, getJob());
         }
 
         LOGGER.debug("{} returning", prefix);

@@ -392,7 +392,7 @@ public final class StatusOutputTab extends JPanel implements ActionListener {
 
     @Subscribe
     public void handleStatusChange(final StatusChangeEvent statusChangeEvent) {
-        if (statusChangeEvent.getEventType().isErrorType()) {
+        if (statusChangeEvent.getJob().equals(job) && statusChangeEvent.getEventType().isErrorType()) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {

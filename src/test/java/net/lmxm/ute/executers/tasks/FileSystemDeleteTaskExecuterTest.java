@@ -29,6 +29,7 @@ import java.util.List;
 
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 
 import org.apache.commons.io.FileUtils;
@@ -53,9 +54,10 @@ public class FileSystemDeleteTaskExecuterTest {
 	 */
 	@Before
 	public void setup() {
-		final FileSystemDeleteTask task = new FileSystemDeleteTask(new TestJob());
+        final Job job = new TestJob();
+		final FileSystemDeleteTask task = new FileSystemDeleteTask(job);
 
-		executer = new FileSystemDeleteTaskExecuter(task);
+		executer = new FileSystemDeleteTaskExecuter(job, task);
 	}
 
 	/**

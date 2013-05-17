@@ -18,7 +18,7 @@
  */
 package net.lmxm.ute.executers.tasks.subversion;
 
-import net.lmxm.ute.event.StatusChangeEventBus;
+import net.lmxm.ute.event.JobStatusChangeEventBus;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import static com.google.inject.internal.util.$Preconditions.checkNotNull;
 import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.SUBVERSION_EXPORT_DIRECTORY_ADDED;
 import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.SUBVERSION_EXPORT_FILE_ADDED;
 
@@ -45,6 +46,8 @@ public class SubversionExportEditor implements ISVNEditor {
 	/** The my delta processor. */
 	private final SVNDeltaProcessor deltaProcessor;
 
+    private final JobStatusChangeEventBus jobStatusChangeEventBus;
+
 	/** the local directory where the node tree is to be exported into. */
 	private final File root;
 
@@ -53,9 +56,10 @@ public class SubversionExportEditor implements ISVNEditor {
 	 * 
 	 * @param root the root
 	 */
-	public SubversionExportEditor(final File root) {
+	public SubversionExportEditor(final JobStatusChangeEventBus jobStatusChangeEventBus, final File root) {
 		super();
 
+        this.jobStatusChangeEventBus = checkNotNull(jobStatusChangeEventBus, "Job status change listener may not be null");
 		this.root = root;
 		this.deltaProcessor = new SVNDeltaProcessor();
 	}
@@ -124,7 +128,7 @@ public class SubversionExportEditor implements ISVNEditor {
 			}
 		}
 
-        StatusChangeEventBus.info(SUBVERSION_EXPORT_DIRECTORY_ADDED, path);
+        jobStatusChangeEventBus.info(SUBVERSION_EXPORT_DIRECTORY_ADDED, path);
 
 		LOGGER.debug("{} leaving", prefix);
 	}
@@ -262,7 +266,7 @@ public class SubversionExportEditor implements ISVNEditor {
 	 */
 	@Override
 	public void closeFile(final String path, final String textChecksum) throws SVNException {
-        StatusChangeEventBus.info(SUBVERSION_EXPORT_FILE_ADDED, path);
+        jobStatusChangeEventBus.info(SUBVERSION_EXPORT_FILE_ADDED, path);
 	}
 
 	/**

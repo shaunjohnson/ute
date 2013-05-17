@@ -21,6 +21,7 @@ package net.lmxm.ute.executers.tasks;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.event.StatusChangeEventBus;
@@ -58,12 +59,13 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
     /**
      * Instantiates a new find replace task executer.
      *
-     * @param task               the task
+     * @param job  The associated job
+     * @param task The task
      */
-    public FindReplaceTaskExecuter(final FindReplaceTask task) {
-        checkNotNull(task, "Task may not be null");
+    public FindReplaceTaskExecuter(final Job job, final FindReplaceTask task) {
+        super(job);
 
-        this.task = task;
+        this.task = checkNotNull(task, "Task may not be null");
     }
 
     /**
@@ -231,19 +233,19 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
         if (files.isEmpty()) {
             LOGGER.debug("{} No matching files found at", prefix);
 
-            StatusChangeEventBus.error(FIND_REPLACE_NO_MATCHING_FILES);
+            StatusChangeEventBus.error(FIND_REPLACE_NO_MATCHING_FILES, getJob());
         }
         else {
             for (final File file : files) {
                 if (file.isFile()) {
                     findReplaceContent(file, patterns, scope);
 
-                    StatusChangeEventBus.info(FIND_REPLACE_EXECUTION_FINISHED, file.getAbsolutePath());
+                    StatusChangeEventBus.info(FIND_REPLACE_EXECUTION_FINISHED, getJob(), file.getAbsolutePath());
                 }
                 else {
                     LOGGER.debug("{} The file at {} is \not a file; skipping", prefix, file);
 
-                    StatusChangeEventBus.error(FIND_REPLACE_NOT_FILE_ERROR, file.getAbsolutePath());
+                    StatusChangeEventBus.error(FIND_REPLACE_NOT_FILE_ERROR, getJob(), file.getAbsolutePath());
                 }
             }
         }

@@ -91,7 +91,7 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 		LOGGER.debug("{} entered", prefix);
 
 		if (isCancelled()) {
-            StatusChangeEventBus.heading(JOB_STOPPED, job.getId());
+            StatusChangeEventBus.heading(JOB_STOPPED, job, job.getId());
 		}
 
         JobStatusEventBus.post(new JobStatusEvent(JobStatusEvent.JobStatusEventType.JobStopped, job));

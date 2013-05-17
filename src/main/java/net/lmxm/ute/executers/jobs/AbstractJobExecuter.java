@@ -78,7 +78,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
      * Job aborted.
      */
     protected final void jobAborted() {
-        StatusChangeEventBus.heading(JOB_ABORTED, job.getId());
+        StatusChangeEventBus.heading(JOB_ABORTED, job, job.getId());
         JobStatusEventBus.post(new JobStatusEvent(JobStatusEvent.JobStatusEventType.JobAborted, job));
     }
 
@@ -86,7 +86,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
      * Job completed.
      */
     protected final void jobCompleted() {
-        StatusChangeEventBus.heading(JOB_FINISHED, job.getId());
+        StatusChangeEventBus.heading(JOB_FINISHED, job, job.getId());
         JobStatusEventBus.post(new JobStatusEvent(JobStatusEvent.JobStatusEventType.JobCompleted, job));
     }
 
@@ -94,7 +94,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
      * Job started.
      */
     protected final void jobStarted() {
-        StatusChangeEventBus.heading(JOB_STARTED, job.getId());
+        StatusChangeEventBus.heading(JOB_STARTED, job, job.getId());
         JobStatusEventBus.post(new JobStatusEvent(JobStatusEvent.JobStatusEventType.JobStarted, job));
     }
 
@@ -113,7 +113,7 @@ public abstract class AbstractJobExecuter extends AbstractExecuter implements Jo
      * @param task the task
      */
     protected final void taskSkipped(final Task task) {
-        StatusChangeEventBus.info(DISABLED_TASK_SKIPPED, task.getId());
+        StatusChangeEventBus.info(DISABLED_TASK_SKIPPED, job, task.getId());
         JobStatusEventBus.post(new JobStatusEvent(JobStatusEvent.JobStatusEventType.TaskSkipped, task));
     }
 

@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.executers.tasks.subversion;
 
+import net.lmxm.ute.event.JobStatusChangeEventBus;
 import org.apache.commons.lang3.StringUtils;
 import org.tmatesoft.svn.core.auth.BasicAuthenticationManager;
 import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
@@ -25,6 +26,8 @@ import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
+
+import static com.google.inject.internal.util.$Preconditions.checkNotNull;
 
 /**
  * The Class AbstractSubversionUtils.
@@ -34,14 +37,19 @@ public abstract class AbstractSubversionUtils {
 	/** The authentication manager. */
 	private final ISVNAuthenticationManager authenticationManager;
 
+    /** The job status change listener. */
+    private final JobStatusChangeEventBus jobStatusChangeEventBus;
+
 	/**
 	 * Instantiates a new abstract subversion utils.
 	 * 
 	 * @param username the username
 	 * @param password the password
 	 */
-	public AbstractSubversionUtils(final String username, final String password) {
+	public AbstractSubversionUtils(final JobStatusChangeEventBus jobStatusChangeEventBus, final String username, final String password) {
 		super();
+
+        this.jobStatusChangeEventBus = checkNotNull(jobStatusChangeEventBus, "Job status change listener may not be null");
 
 		initialize();
 
@@ -75,4 +83,13 @@ public abstract class AbstractSubversionUtils {
 		// For using over file:///
 		FSRepositoryFactory.setup();
 	}
+
+    /**
+     * Gets the associated job status change listener.
+     *
+     * @return The associated job statu change listener
+     */
+    protected final JobStatusChangeEventBus getJobStatusChangeEventBus() {
+        return jobStatusChangeEventBus;
+    }
 }

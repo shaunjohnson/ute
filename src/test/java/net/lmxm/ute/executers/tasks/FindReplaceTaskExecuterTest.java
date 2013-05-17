@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 
 import org.junit.Before;
@@ -48,9 +49,10 @@ public class FindReplaceTaskExecuterTest {
 	 */
 	@Before
 	public void setup() {
-		final FindReplaceTask task = new FindReplaceTask(new TestJob());
+        final Job job = new TestJob();
+		final FindReplaceTask task = new FindReplaceTask(job);
 
-		executer = new FindReplaceTaskExecuter(task);
+		executer = new FindReplaceTaskExecuter(job, task);
 	}
 
 	/**

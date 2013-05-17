@@ -23,6 +23,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import net.lmxm.ute.TestJob;
+import net.lmxm.ute.beans.jobs.Job;
 import org.junit.Test;
 
 /**
@@ -30,12 +32,14 @@ import org.junit.Test;
  */
 public class StatusChangeEventTest {
 
+    private static final Job JOB = new TestJob();
+
 	/**
 	 * Test get event type.
 	 */
 	@Test
 	public void testGetEventType() {
-		final StatusChangeEvent changeEvent = new StatusChangeEvent(StatusChangeEventType.ERROR, "Test");
+		final StatusChangeEvent changeEvent = new StatusChangeEvent(StatusChangeEventType.ERROR, JOB, "Test");
 
 		assertNotNull(changeEvent.getEventType());
 		assertEquals(StatusChangeEventType.ERROR, changeEvent.getEventType());
@@ -46,7 +50,7 @@ public class StatusChangeEventTest {
 	 */
 	@Test
 	public void testGetMessage() {
-		final StatusChangeEvent changeEvent = new StatusChangeEvent(StatusChangeEventType.ERROR, "Test");
+		final StatusChangeEvent changeEvent = new StatusChangeEvent(StatusChangeEventType.ERROR, JOB, "Test");
 
 		assertNotNull(changeEvent.getMessage());
 		assertEquals("Test", changeEvent.getMessage());
@@ -57,7 +61,7 @@ public class StatusChangeEventTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testStatusChangeEventEmptyMessage() {
-		new StatusChangeEvent(StatusChangeEventType.ERROR, "");
+		new StatusChangeEvent(StatusChangeEventType.ERROR, JOB, "");
 	}
 
 	/**
@@ -65,7 +69,7 @@ public class StatusChangeEventTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testStatusChangeEventNullEventType() {
-		new StatusChangeEvent(null, "Test");
+		new StatusChangeEvent(null, JOB, "Test");
 	}
 
 	/**
@@ -73,7 +77,7 @@ public class StatusChangeEventTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testStatusChangeEventNullMessage() {
-		new StatusChangeEvent(StatusChangeEventType.ERROR, null);
+		new StatusChangeEvent(StatusChangeEventType.ERROR, JOB, null);
 	}
 
 	/**
@@ -81,7 +85,7 @@ public class StatusChangeEventTest {
 	 */
 	@Test
 	public void testToString() {
-		final StatusChangeEvent changeEvent = new StatusChangeEvent(StatusChangeEventType.ERROR, "Test");
+		final StatusChangeEvent changeEvent = new StatusChangeEvent(StatusChangeEventType.ERROR, JOB, "Test");
 
 		assertNotNull(changeEvent.toString());
 		assertTrue(changeEvent.toString().contains(StatusChangeEventType.ERROR.toString()));
