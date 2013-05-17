@@ -22,8 +22,10 @@ import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.enums.Scope;
+import net.lmxm.ute.exceptions.GuiException;
 import net.lmxm.ute.gui.components.FindReplacePatternsTableModel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -215,7 +217,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 							findReplaceTask.setScope(Scope.LINE);
 						}
 						else {
-							throw new RuntimeException("Unsupported scope"); // TODO
+							throw new GuiException(ExceptionResourceType.UNSUPPORTED_SCOPE);
 						}
 					}
 				}
@@ -269,7 +271,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 				getFileScopeRadioButton().setSelected(true);
 			}
 			else {
-				throw new RuntimeException("Unsupported scope"); // TODO
+                throw new GuiException(ExceptionResourceType.UNSUPPORTED_SCOPE);
 			}
 		}
 
