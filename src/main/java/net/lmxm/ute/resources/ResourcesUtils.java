@@ -33,8 +33,8 @@ public final class ResourcesUtils {
 	/** The Constant ACCELERATOR_SUFFIX. */
 	private static final String ACCELERATOR_SUFFIX = "accelerator";
 
-	/** The Constant bundle. */
-	private static final ResourceBundle bundle;
+	/** The Constant RESOURCE_BUNDLE. */
+	private static final ResourceBundle RESOURCE_BUNDLE;
 
 	/** The Constant MESSAGE_SUFFIX. */
 	private static final String MESSAGE_SUFFIX = "message";
@@ -52,7 +52,7 @@ public final class ResourcesUtils {
 	 * Instantiates a new resources utils.
 	 */
 	static {
-		bundle = ResourceBundle.getBundle("resources");
+		RESOURCE_BUNDLE = ResourceBundle.getBundle("resources");
 	}
 
 	/**
@@ -78,7 +78,7 @@ public final class ResourcesUtils {
 	 * @return the character
 	 */
 	public static Character getCharacter(final String key) {
-		final String string = StringUtils.trimToNull(bundle.getString(key));
+		final String string = StringUtils.trimToNull(RESOURCE_BUNDLE.getString(key));
 
 		return string == null ? null : string.charAt(0);
 	}
@@ -153,7 +153,7 @@ public final class ResourcesUtils {
 	private static String getResourceString(final ResourceType resourceType, final String suffix) {
 		final String key = buildResourcePrefix(resourceType) + suffix;
 
-		return StringUtils.trimToNull(bundle.getString(key));
+		return StringUtils.trimToNull(RESOURCE_BUNDLE.getString(key));
 	}
 
 	/**
