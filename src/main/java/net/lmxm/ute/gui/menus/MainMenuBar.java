@@ -30,7 +30,7 @@ import net.lmxm.ute.resources.types.MenuResourceType;
 /**
  * The Class MainMenuBar.
  */
-public class MainMenuBar extends AbstractMenuBar {
+public final class MainMenuBar extends AbstractMenuBar {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1523852524013333901L;
@@ -47,7 +47,6 @@ public class MainMenuBar extends AbstractMenuBar {
 	/**
 	 * Instantiates a new main menu bar.
 	 * 
-	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
 	public MainMenuBar(final ActionListener actionListener) {

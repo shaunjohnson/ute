@@ -26,7 +26,7 @@ import net.lmxm.ute.beans.DomainBean;
 /**
  * The Class DomainBeanUtils.
  */
-public class DomainBeanUtils {
+public final class DomainBeanUtils {
 
 	/**
 	 * Checks if is empty.

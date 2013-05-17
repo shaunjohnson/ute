@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class ConfigurationInterpolator.
  */
-public class ConfigurationInterpolator {
+public final class ConfigurationInterpolator {
 
 	/**
 	 * The Enum PropertyType.

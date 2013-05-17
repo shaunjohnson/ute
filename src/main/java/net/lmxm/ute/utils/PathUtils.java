@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class PathUtils.
  */
-public class PathUtils {
+public final class PathUtils {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(PathUtils.class);
