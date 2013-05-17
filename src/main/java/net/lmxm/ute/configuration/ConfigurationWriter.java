@@ -33,7 +33,7 @@ import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
-import net.lmxm.ute.subversion.utils.SubversionUtils;
+import net.lmxm.ute.executers.tasks.subversion.SubversionUtils;
 import noNamespace.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.XmlOptions;
