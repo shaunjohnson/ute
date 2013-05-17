@@ -54,11 +54,11 @@ public final class ConsoleArguments {
 
 	/** The job id. */
 	@Parameter(names = { "-j", "--job-id" }, descriptionKey = "PARAMETER.JOB_ID.description", required = true)
-	private final String jobId = null;
+	private String jobId;
 
 	/** The task id. */
 	@Parameter(names = { "-t", "--task-id" }, descriptionKey = "PARAMETER.TASK_ID.description")
-	private final String taskId = null;
+	private String taskId;
 
 	/**
 	 * Gets the input file.
