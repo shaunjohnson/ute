@@ -105,107 +105,7 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 		setFont(tree.getFont());
 		Color foregroundColor = tree.getForeground();
 
-		// Set tree cell icon and text
-		if (userObject instanceof Job) {
-			final Job job = (Job) userObject;
-			final List<Task> tasks = job.getTasks();
-			final int taskCount = tasks == null ? 0 : tasks.size();
-
-			setIcon(ImageUtil.JOB_ICON);
-			setText(job.getId() + " (" + taskCount + ")");
-		}
-		else if (userObject instanceof FileSystemDeleteTask) {
-			final FileSystemDeleteTask fileSystemDeleteTask = (FileSystemDeleteTask) userObject;
-
-			setIcon(fileSystemDeleteTask.getEnabled() ? ImageUtil.FILE_SYSTEM_DELETE_TASK_ICON
-					: ImageUtil.FILE_SYSTEM_DELETE_TASK_DISABLED_ICON);
-			setText(fileSystemDeleteTask.getId());
-		}
-		else if (userObject instanceof FileSystemLocation) {
-			final FileSystemLocation fileSystemLocation = (FileSystemLocation) userObject;
-
-			setIcon(ImageUtil.DRIVE_ICON);
-			setText(fileSystemLocation.getId());
-		}
-		else if (userObject instanceof FindReplaceTask) {
-			final FindReplaceTask findReplaceTask = (FindReplaceTask) userObject;
-
-			setIcon(findReplaceTask.getEnabled() ? ImageUtil.FIND_REPLACE_ICON : ImageUtil.FIND_REPLACE_DISABLED_ICON);
-			setText(findReplaceTask.getId());
-		}
-		else if (userObject instanceof GroovyTask) {
-			final GroovyTask groovyTask = (GroovyTask) userObject;
-
-			setIcon(groovyTask.getEnabled() ? ImageUtil.GROOVY_TASK_ICON : ImageUtil.GROOVY_TASK_DISABLED_ICON);
-			setText(groovyTask.getId());
-		}
-		else if (userObject instanceof HttpDownloadTask) {
-			final HttpDownloadTask httpDownloadTask = (HttpDownloadTask) userObject;
-
-			setIcon(httpDownloadTask.getEnabled() ? ImageUtil.HTTP_DOWNLOAD_TASK_ICON
-					: ImageUtil.HTTP_DOWNLOAD_TASK_DISABLED_ICON);
-			setText(httpDownloadTask.getId());
-		}
-		else if (userObject instanceof HttpLocation) {
-			final HttpLocation httpLocation = (HttpLocation) userObject;
-
-			setIcon(ImageUtil.NETWORK_HUB_ICON);
-			setText(httpLocation.getId());
-		}
-        else if (userObject instanceof MavenRepositoryDownloadTask) {
-            final MavenRepositoryDownloadTask mavenRepositoryDownloadTask = (MavenRepositoryDownloadTask) userObject;
-
-            setIcon(mavenRepositoryDownloadTask.getEnabled() ? ImageUtil.MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON
-                    : ImageUtil.MAVEN_REPOSITORY_DOWNLOAD_TASK_DISABLED_ICON);
-            setText(mavenRepositoryDownloadTask.getId());
-        }
-        else if (userObject instanceof MavenRepositoryLocation) {
-			final MavenRepositoryLocation mavenRepositoryLocation = (MavenRepositoryLocation) userObject;
-
-			setIcon(ImageUtil.MAVEN_REPOSITORY_LOCATION_ICON);
-			setText(mavenRepositoryLocation.getId());
-		}
-		else if (userObject instanceof Preference) {
-			final Preference preference = (Preference) userObject;
-
-			setIcon(ImageUtil.PREFERENCE_ICON);
-			setText(preference.getId());
-		}
-		else if (userObject instanceof Property) {
-			final Property property = (Property) userObject;
-
-			setIcon(ImageUtil.PROPERTY_ICON);
-			setText(property.getId());
-		}
-		else if (userObject instanceof SubversionExportTask) {
-			final SubversionExportTask subversionExportTask = (SubversionExportTask) userObject;
-
-			setIcon(subversionExportTask.getEnabled() ? ImageUtil.SUBVERSION_EXPORT_TASK_ICON
-					: ImageUtil.SUBVERSION_EXPORT_TASK_DISABLED_ICON);
-			setText(subversionExportTask.getId());
-		}
-		else if (userObject instanceof SubversionRepositoryLocation) {
-			final SubversionRepositoryLocation subversionRepositoryLocation = (SubversionRepositoryLocation) userObject;
-
-			setIcon(ImageUtil.SUBVERSION_REPOSITORY_LOCATION_ICON);
-			setText(subversionRepositoryLocation.getId());
-		}
-		else if (userObject instanceof SubversionUpdateTask) {
-			final SubversionUpdateTask subversionUpdateTask = (SubversionUpdateTask) userObject;
-
-			setIcon(subversionUpdateTask.getEnabled() ? ImageUtil.SUBVERSION_UPDATE_TASK_ICON
-					: ImageUtil.SUBVERSION_UPDATE_TASK_DISABLED_ICON);
-			setText(subversionUpdateTask.getId());
-		}
-		else if (userObject instanceof RootTreeNode) {
-			setFont(boldFont);
-			setIcon(null);
-			setText(value.toString());
-		}
-		else {
-			setIcon(null);
-			setText(value.toString());
-		}
+		setTextAndIcon(userObject, value);
 
 		// Apply disabled bean styles
 		if (isDisabled(userObject)) {
@@ -248,7 +148,116 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
 		return this;
 	}
 
-	/**
+    /**
+     * Set tree cell icon and text based on the user object and value.
+     *
+     * @param userObject
+     * @param value
+     */
+    private void setTextAndIcon(final Object userObject, final Object value) {
+        if (userObject instanceof Job) {
+            final Job job = (Job) userObject;
+            final List<Task> tasks = job.getTasks();
+            final int taskCount = tasks == null ? 0 : tasks.size();
+
+            setIcon(ImageUtil.JOB_ICON);
+            setText(job.getId() + " (" + taskCount + ")");
+        }
+        else if (userObject instanceof FileSystemDeleteTask) {
+            final FileSystemDeleteTask fileSystemDeleteTask = (FileSystemDeleteTask) userObject;
+
+            setIcon(fileSystemDeleteTask.getEnabled() ? ImageUtil.FILE_SYSTEM_DELETE_TASK_ICON
+                    : ImageUtil.FILE_SYSTEM_DELETE_TASK_DISABLED_ICON);
+            setText(fileSystemDeleteTask.getId());
+        }
+        else if (userObject instanceof FileSystemLocation) {
+            final FileSystemLocation fileSystemLocation = (FileSystemLocation) userObject;
+
+            setIcon(ImageUtil.DRIVE_ICON);
+            setText(fileSystemLocation.getId());
+        }
+        else if (userObject instanceof FindReplaceTask) {
+            final FindReplaceTask findReplaceTask = (FindReplaceTask) userObject;
+
+            setIcon(findReplaceTask.getEnabled() ? ImageUtil.FIND_REPLACE_ICON : ImageUtil.FIND_REPLACE_DISABLED_ICON);
+            setText(findReplaceTask.getId());
+        }
+        else if (userObject instanceof GroovyTask) {
+            final GroovyTask groovyTask = (GroovyTask) userObject;
+
+            setIcon(groovyTask.getEnabled() ? ImageUtil.GROOVY_TASK_ICON : ImageUtil.GROOVY_TASK_DISABLED_ICON);
+            setText(groovyTask.getId());
+        }
+        else if (userObject instanceof HttpDownloadTask) {
+            final HttpDownloadTask httpDownloadTask = (HttpDownloadTask) userObject;
+
+            setIcon(httpDownloadTask.getEnabled() ? ImageUtil.HTTP_DOWNLOAD_TASK_ICON
+                    : ImageUtil.HTTP_DOWNLOAD_TASK_DISABLED_ICON);
+            setText(httpDownloadTask.getId());
+        }
+        else if (userObject instanceof HttpLocation) {
+            final HttpLocation httpLocation = (HttpLocation) userObject;
+
+            setIcon(ImageUtil.NETWORK_HUB_ICON);
+            setText(httpLocation.getId());
+        }
+        else if (userObject instanceof MavenRepositoryDownloadTask) {
+            final MavenRepositoryDownloadTask mavenRepositoryDownloadTask = (MavenRepositoryDownloadTask) userObject;
+
+            setIcon(mavenRepositoryDownloadTask.getEnabled() ? ImageUtil.MAVEN_REPOSITORY_DOWNLOAD_TASK_ICON
+                    : ImageUtil.MAVEN_REPOSITORY_DOWNLOAD_TASK_DISABLED_ICON);
+            setText(mavenRepositoryDownloadTask.getId());
+        }
+        else if (userObject instanceof MavenRepositoryLocation) {
+            final MavenRepositoryLocation mavenRepositoryLocation = (MavenRepositoryLocation) userObject;
+
+            setIcon(ImageUtil.MAVEN_REPOSITORY_LOCATION_ICON);
+            setText(mavenRepositoryLocation.getId());
+        }
+        else if (userObject instanceof Preference) {
+            final Preference preference = (Preference) userObject;
+
+            setIcon(ImageUtil.PREFERENCE_ICON);
+            setText(preference.getId());
+        }
+        else if (userObject instanceof Property) {
+            final Property property = (Property) userObject;
+
+            setIcon(ImageUtil.PROPERTY_ICON);
+            setText(property.getId());
+        }
+        else if (userObject instanceof SubversionExportTask) {
+            final SubversionExportTask subversionExportTask = (SubversionExportTask) userObject;
+
+            setIcon(subversionExportTask.getEnabled() ? ImageUtil.SUBVERSION_EXPORT_TASK_ICON
+                    : ImageUtil.SUBVERSION_EXPORT_TASK_DISABLED_ICON);
+            setText(subversionExportTask.getId());
+        }
+        else if (userObject instanceof SubversionRepositoryLocation) {
+            final SubversionRepositoryLocation subversionRepositoryLocation = (SubversionRepositoryLocation) userObject;
+
+            setIcon(ImageUtil.SUBVERSION_REPOSITORY_LOCATION_ICON);
+            setText(subversionRepositoryLocation.getId());
+        }
+        else if (userObject instanceof SubversionUpdateTask) {
+            final SubversionUpdateTask subversionUpdateTask = (SubversionUpdateTask) userObject;
+
+            setIcon(subversionUpdateTask.getEnabled() ? ImageUtil.SUBVERSION_UPDATE_TASK_ICON
+                    : ImageUtil.SUBVERSION_UPDATE_TASK_DISABLED_ICON);
+            setText(subversionUpdateTask.getId());
+        }
+        else if (userObject instanceof RootTreeNode) {
+            setFont(boldFont);
+            setIcon(null);
+            setText(value.toString());
+        }
+        else {
+            setIcon(null);
+            setText(value.toString());
+        }
+    }
+
+    /**
 	 * Checks if is disabled.
 	 * 
 	 * @param userObject the user object
