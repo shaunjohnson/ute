@@ -18,10 +18,6 @@
  */
 package net.lmxm.ute.gui.workers;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import javax.swing.SwingWorker;
-
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.event.StatusChangeEventBus;
@@ -29,10 +25,13 @@ import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.executers.jobs.JobStatusEventBus;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.JOB_STOPPED;
 
 /**
  * The Class ExecuteJobWorker.
@@ -92,7 +91,7 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 		LOGGER.debug("{} entered", prefix);
 
 		if (isCancelled()) {
-            StatusChangeEventBus.heading(JOB_STOPPED, job.getId());
+            StatusChangeEventBus.heading(JOB_STOPPED, job, job.getId());
 		}
 
         JobStatusEventBus.post(new JobStatusEvent(JobStatusEvent.JobStatusEventType.JobStopped, job));

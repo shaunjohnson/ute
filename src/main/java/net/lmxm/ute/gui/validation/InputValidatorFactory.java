@@ -18,10 +18,6 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import javax.swing.text.JTextComponent;
-
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
@@ -30,16 +26,26 @@ import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.exceptions.GuiException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.resources.types.ValidatorResourceType;
 import net.lmxm.ute.validation.rules.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.text.JTextComponent;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A factory for creating InputValidator objects.
  */
 public final class InputValidatorFactory {
+
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(InputValidatorFactory.class);
 
 	/**
 	 * Creates a new InputValidator object.
@@ -131,6 +137,8 @@ public final class InputValidatorFactory {
 	 */
 	public static InputValidator createIdValidator(final JTextComponent component,
 			final ConfigurationHolder configurationHolder, final IdentifiableBean identifiableBean) {
+        final String prefix = "createIdValidator() : ";
+
 		checkNotNull(identifiableBean, "IdentifiableBean is null");
 		checkNotNull(component, "Component is null");
 		checkNotNull(configurationHolder, "Configuration holder is null");
@@ -165,7 +173,8 @@ public final class InputValidatorFactory {
 			inputValidator = createTaskIdValidator(component, configurationHolder, (Task) identifiableBean);
 		}
 		else {
-			throw new RuntimeException("Unsupported identifiable bean"); // TODO
+            LOGGER.error("{} Unsupported identifiable bean", prefix);
+            throw new GuiException(ExceptionResourceType.UNEXPECTED_ERROR);
 		}
 
 		return inputValidator;
@@ -324,4 +333,11 @@ public final class InputValidatorFactory {
 
 		return validator;
 	}
+
+    /**
+     * Prevent instantiation.
+     */
+    private InputValidatorFactory() {
+        throw new AssertionError("Cannot be instantiated");
+    }
 }

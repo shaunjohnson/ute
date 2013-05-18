@@ -18,28 +18,29 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
-
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.Preference;
+import net.lmxm.ute.beans.PropertiesHolder;
+import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.tasks.GroovyTask;
+import net.lmxm.ute.event.StatusChangeEventBus;
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
+import net.lmxm.ute.utils.FileSystemTargetUtils;
+import net.lmxm.ute.utils.FileSystemUtils;
+import org.codehaus.groovy.control.CompilationFailedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.Preference;
-import net.lmxm.ute.beans.PropertiesHolder;
-import net.lmxm.ute.beans.Property;
-import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.event.StatusChangeEventBus;
-import net.lmxm.ute.utils.FileSystemTargetUtils;
-import net.lmxm.ute.utils.FileSystemUtils;
-
-import org.codehaus.groovy.control.CompilationFailedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 /**
  * The Class GroovyTaskExecuter.
@@ -64,15 +65,15 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
     /**
      * Instantiates a new groovy task executer.
      *
+     * @param job                the job
      * @param task               the task
      * @param propertiesHolder   the properties holder
      */
-    public GroovyTaskExecuter(final GroovyTask task, final PropertiesHolder propertiesHolder) {
-        checkNotNull(task, "Task may not be null");
-        checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
+    public GroovyTaskExecuter(final Job job, final GroovyTask task, final PropertiesHolder propertiesHolder) {
+        super(job);
 
-        this.propertiesHolder = propertiesHolder;
-        this.task = task;
+        this.task = checkNotNull(task, "Task may not be null");
+        this.propertiesHolder = checkNotNull(propertiesHolder, "PropertiesHolder may not be null");
     }
 
     /**
@@ -145,26 +146,22 @@ public final class GroovyTaskExecuter extends AbstractTaskExecuter {
         binding.setVariable("properties", convertPropertiesToMap(propertiesHolder));
         binding.setVariable("preferences", convertPreferencesToMap(propertiesHolder));
 
-        StatusChangeEventBus.info(GROOVY_EXECUTION_STARTED);
+        StatusChangeEventBus.info(GROOVY_EXECUTION_STARTED, getJob());
 
         try {
             final Object returnValue = new GroovyShell(binding).evaluate(script);
 
-            StatusChangeEventBus.info(GROOVY_EXECUTION_FINISHED, returnValue);
+            StatusChangeEventBus.info(GROOVY_EXECUTION_FINISHED, getJob(), returnValue);
         }
         catch (final CompilationFailedException e) {
             LOGGER.error(prefix + " Script compilation failed", e);
-
-            StatusChangeEventBus.error(GROOVY_COMPILATION_ERROR);
-
-            throw new RuntimeException("Script compilation failed");
+            StatusChangeEventBus.error(GROOVY_COMPILATION_ERROR, getJob());
+            throw new TaskExecuterException(ExceptionResourceType.GROOVY_SCRIPT_COMPILATION_FAILED, e);
         }
         catch (final Exception e) {
             LOGGER.error(prefix + " Script execution failed", e);
-
-            StatusChangeEventBus.error(GROOVY_EXECUTION_ERROR);
-
-            throw new RuntimeException("Script execution failed");
+            StatusChangeEventBus.error(GROOVY_EXECUTION_ERROR, getJob());
+            throw new TaskExecuterException(ExceptionResourceType.GROOVY_SCRIPT_EXECUTION_FAILED, e);
         }
 
         LOGGER.debug("{} leaving", prefix);

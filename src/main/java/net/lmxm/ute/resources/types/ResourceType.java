@@ -18,10 +18,10 @@
  */
 package net.lmxm.ute.resources.types;
 
-import javax.swing.Icon;
-
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
+
+import javax.swing.*;
 
 /**
  * The Interface ResourceType.

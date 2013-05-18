@@ -25,6 +25,7 @@ import java.util.Map;
 
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 
 import net.lmxm.ute.exceptions.TaskExecuterException;
@@ -36,18 +37,20 @@ import org.junit.Test;
 public class HttpDownloadTaskExecuterTest {
 	/** The Constant EMPTY_FILE_LIST. */
 	private static final List<FileReference> EMPTY_FILE_LIST = new ArrayList<FileReference>();
+
 	/** The Constant EXISTING_DIRECTORY. */
 	private static final String EXISTING_DIRECTORY = System.getProperty("java.io.tmpdir");
 
 	/** The Constant FILE_LIST. */
 	private static final List<FileReference> FILE_LIST = new ArrayList<FileReference>(1);
 
+    private static final Job JOB = new TestJob();
+
 	/** The Constant QUERY_PARAMS. */
 	private static final Map<String, String> QUERY_PARAMS = new HashMap<String, String>();
 
 	/** The Constant TEST_EXECUTER. */
-	private static final HttpDownloadTaskExecuter TEST_EXECUTER = new HttpDownloadTaskExecuter(new HttpDownloadTask(
-			new TestJob()));
+	private static final HttpDownloadTaskExecuter TEST_EXECUTER = new HttpDownloadTaskExecuter(JOB, new HttpDownloadTask(JOB));
 
 	/** The Constant URL. */
 	private static final String URL = "http://google.com";

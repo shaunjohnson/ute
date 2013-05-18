@@ -18,13 +18,6 @@
  */
 package net.lmxm.ute.gui.editors;
 
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
-
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
@@ -33,9 +26,13 @@ import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * The Class PropertyEditor.

@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.gui.editors.locations;
 
-import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;

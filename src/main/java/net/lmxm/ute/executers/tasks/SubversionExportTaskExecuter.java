@@ -18,23 +18,24 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.Date;
-import java.util.List;
-
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.tasks.SubversionExportTask;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
-import net.lmxm.ute.subversion.utils.SubversionRepositoryLocationUtils;
-import net.lmxm.ute.subversion.utils.SubversionRepositoryUtils;
+import net.lmxm.ute.event.JobStatusChangeEventBus;
+import net.lmxm.ute.executers.tasks.subversion.SubversionRepositoryLocationUtils;
+import net.lmxm.ute.executers.tasks.subversion.SubversionRepositoryUtils;
 import net.lmxm.ute.utils.FileSystemTargetUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Class SubversionExportTaskExecuter.
@@ -49,13 +50,14 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 
 	/**
 	 * Instantiates a new subversion export task executer.
-	 * 
+	 *
+     * @param job the job
 	 * @param task the task
 	 */
-	public SubversionExportTaskExecuter(final SubversionExportTask task) {
-		checkNotNull(task, "Task may not be null");
+	public SubversionExportTaskExecuter(final Job job, final SubversionExportTask task) {
+        super(job);
 
-		this.task = task;
+		this.task = checkNotNull(task, "Task may not be null");
 	}
 
 	/*
@@ -73,7 +75,8 @@ public final class SubversionExportTaskExecuter extends AbstractTaskExecuter {
 		final String username = location.getUsername();
 		final String password = location.getPassword();
 
-		final SubversionRepositoryUtils subversionRepositoryUtils = new SubversionRepositoryUtils(username, password);
+		final SubversionRepositoryUtils subversionRepositoryUtils = new SubversionRepositoryUtils(
+                new JobStatusChangeEventBus(getJob()), username, password);
 
 		final String url = SubversionRepositoryLocationUtils.getFullUrl(source);
 		final String path = FileSystemTargetUtils.getFullPath(task.getTarget());

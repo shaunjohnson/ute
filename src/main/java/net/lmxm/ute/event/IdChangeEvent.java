@@ -18,11 +18,11 @@
  */
 package net.lmxm.ute.event;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import net.lmxm.ute.beans.IdentifiableBean;
 
 import java.util.EventObject;
 
-import net.lmxm.ute.beans.IdentifiableBean;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Class IdChangeEvent.

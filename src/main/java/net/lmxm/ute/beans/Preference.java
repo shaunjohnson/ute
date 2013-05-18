@@ -20,8 +20,6 @@ package net.lmxm.ute.beans;
 
 import com.google.common.base.Objects;
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -109,7 +107,7 @@ public final class Preference implements DomainBean, IdentifiableBean {
      * @return the current ID
      */
     @Override
-    public final String getId() {
+    public String getId() {
         return id;
     }
 
@@ -147,7 +145,7 @@ public final class Preference implements DomainBean, IdentifiableBean {
      * @param id the new ID
      */
     @Override
-    public final void setId(final String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 

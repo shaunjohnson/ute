@@ -18,12 +18,12 @@
  */
 package net.lmxm.ute.beans;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Class PatternWrapper.

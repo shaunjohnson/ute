@@ -18,13 +18,11 @@
  */
 package net.lmxm.ute.gui.menus;
 
-import java.awt.event.ActionListener;
-
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  * The Class AbstractMenuBar.

@@ -18,8 +18,21 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
+import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.FindReplacePattern;
+import net.lmxm.ute.beans.PatternWrapper;
+import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.tasks.FindReplaceTask;
+import net.lmxm.ute.enums.Scope;
+import net.lmxm.ute.event.StatusChangeEventBus;
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
+import net.lmxm.ute.utils.FileSystemTargetUtils;
+import net.lmxm.ute.utils.FileSystemUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.codehaus.plexus.util.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,19 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.FindReplacePattern;
-import net.lmxm.ute.beans.PatternWrapper;
-import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.enums.Scope;
-import net.lmxm.ute.event.StatusChangeEventBus;
-import net.lmxm.ute.utils.FileSystemTargetUtils;
-import net.lmxm.ute.utils.FileSystemUtils;
-
-import org.apache.commons.lang3.StringUtils;
-import org.codehaus.plexus.util.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 /**
  * The Class FindReplaceTaskExecuter.
@@ -59,12 +61,13 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
     /**
      * Instantiates a new find replace task executer.
      *
-     * @param task               the task
+     * @param job  The associated job
+     * @param task The task
      */
-    public FindReplaceTaskExecuter(final FindReplaceTask task) {
-        checkNotNull(task, "Task may not be null");
+    public FindReplaceTaskExecuter(final Job job, final FindReplaceTask task) {
+        super(job);
 
-        this.task = task;
+        this.task = checkNotNull(task, "Task may not be null");
     }
 
     /**
@@ -168,9 +171,8 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
             FileUtils.fileWrite(file, fileContents);
         }
         catch (final IOException e) {
-            LOGGER.error("{} Unable to read file {}", prefix, file);
-
-            throw new RuntimeException("Unable to read file " + file.getAbsolutePath(), e);
+            LOGGER.error("{} Unable to read/write file {}", prefix, file);
+            throw new TaskExecuterException(ExceptionResourceType.FILE_READ_WRITE_ERROR, e, file.getAbsoluteFile());
         }
 
         LOGGER.debug("{} leaving", prefix);
@@ -205,8 +207,7 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
         }
         catch (final IOException e) {
             LOGGER.error("{} Unable to read file {}", prefix, file);
-
-            throw new RuntimeException("Unable to read file " + file.getAbsolutePath(), e);
+            throw new TaskExecuterException(ExceptionResourceType.FILE_READ_WRITE_ERROR, e, file.getAbsoluteFile());
         }
 
         LOGGER.debug("{} leaving", prefix);
@@ -232,19 +233,19 @@ public final class FindReplaceTaskExecuter extends AbstractTaskExecuter {
         if (files.isEmpty()) {
             LOGGER.debug("{} No matching files found at", prefix);
 
-            StatusChangeEventBus.error(FIND_REPLACE_NO_MATCHING_FILES);
+            StatusChangeEventBus.error(FIND_REPLACE_NO_MATCHING_FILES, getJob());
         }
         else {
             for (final File file : files) {
                 if (file.isFile()) {
                     findReplaceContent(file, patterns, scope);
 
-                    StatusChangeEventBus.info(FIND_REPLACE_EXECUTION_FINISHED, file.getAbsolutePath());
+                    StatusChangeEventBus.info(FIND_REPLACE_EXECUTION_FINISHED, getJob(), file.getAbsolutePath());
                 }
                 else {
                     LOGGER.debug("{} The file at {} is \not a file; skipping", prefix, file);
 
-                    StatusChangeEventBus.error(FIND_REPLACE_NOT_FILE_ERROR, file.getAbsolutePath());
+                    StatusChangeEventBus.error(FIND_REPLACE_NOT_FILE_ERROR, getJob(), file.getAbsolutePath());
                 }
             }
         }

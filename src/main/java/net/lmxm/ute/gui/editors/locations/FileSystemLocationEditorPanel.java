@@ -18,18 +18,6 @@
  */
 package net.lmxm.ute.gui.editors.locations;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
-
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
@@ -41,9 +29,15 @@ import net.lmxm.ute.resources.types.ButtonResourceType;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 import net.miginfocom.swing.MigLayout;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * The Class FileSystemLocationEditorPanel.

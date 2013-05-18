@@ -18,25 +18,27 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
+import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import net.lmxm.ute.event.StatusChangeEventBus;
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
+import net.lmxm.ute.utils.FileSystemTargetUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.event.StatusChangeEventBus;
-import net.lmxm.ute.utils.FileSystemTargetUtils;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 /**
  * The Class FileSystemDeleteTaskExecuter.
@@ -58,10 +60,10 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
      *
      * @param task               the task
      */
-    public FileSystemDeleteTaskExecuter(final FileSystemDeleteTask task) {
-        checkNotNull(task, "Task may not be null");
+    public FileSystemDeleteTaskExecuter(final Job job, final FileSystemDeleteTask task) {
+        super(job);
 
-        this.task = task;
+        this.task = checkNotNull(task, "Task may not be null");
     }
 
     /**
@@ -89,17 +91,17 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
 
         if (!pathFile.exists()) {
             LOGGER.debug("{} path does not exist, returning", prefix);
-            StatusChangeEventBus.info(FILE_DELETE_PATH_DOES_NOT_EXIST_ERROR, pathFile.getAbsolutePath());
+            StatusChangeEventBus.info(FILE_DELETE_PATH_DOES_NOT_EXIST_ERROR, getJob(), pathFile.getAbsolutePath());
             return;
         }
 
         if (pathFile.isFile()) {
             LOGGER.debug("{} deleting file {}", prefix, pathFile.getName());
 
-            StatusChangeEventBus.info(FILE_DELETE_FILE_DELETE_STARTED, pathFile.getAbsolutePath());
+            StatusChangeEventBus.info(FILE_DELETE_FILE_DELETE_STARTED, getJob(), pathFile.getAbsolutePath());
 
             if (forceDelete(pathFile, stopOnError)) {
-                StatusChangeEventBus.info(FILE_DELETE_FILE_DELETE_FINISHED, pathFile.getAbsolutePath());
+                StatusChangeEventBus.info(FILE_DELETE_FILE_DELETE_FINISHED, getJob(), pathFile.getAbsolutePath());
             }
         }
         else if (pathFile.isDirectory()) {
@@ -108,10 +110,10 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
             if (CollectionUtils.isEmpty(files)) {
                 LOGGER.debug("{} deleting directory {}", prefix, pathFile.getName());
 
-                StatusChangeEventBus.info(FILE_DELETE_DIRECTORY_DELETE_STARTED, pathFile.getAbsolutePath());
+                StatusChangeEventBus.info(FILE_DELETE_DIRECTORY_DELETE_STARTED, getJob(), pathFile.getAbsolutePath());
 
                 if (forceDelete(pathFile, stopOnError)) {
-                    StatusChangeEventBus.info(FILE_DELETE_DIRECTORY_DELETE_FINISHED, pathFile.getAbsolutePath());
+                    StatusChangeEventBus.info(FILE_DELETE_DIRECTORY_DELETE_FINISHED, getJob(), pathFile.getAbsolutePath());
                 }
             }
             else {
@@ -122,10 +124,10 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
 
                     LOGGER.debug("{} deleting file {}", prefix, fileName);
 
-                    StatusChangeEventBus.info(FILE_DELETE_FILE_DELETE_STARTED, fileName);
+                    StatusChangeEventBus.info(FILE_DELETE_FILE_DELETE_STARTED, getJob(), fileName);
 
                     if (forceDelete(new File(pathFile, fileName), stopOnError)) {
-                        StatusChangeEventBus.info(FILE_DELETE_FILE_DELETE_FINISHED, fileName);
+                        StatusChangeEventBus.info(FILE_DELETE_FILE_DELETE_FINISHED, getJob(), fileName);
                     }
                 }
             }
@@ -176,24 +178,23 @@ public final class FileSystemDeleteTaskExecuter extends AbstractTaskExecuter {
         catch (final FileNotFoundException e) {
             if (stopOnError) {
                 LOGGER.error(prefix + " file not found " + pathFile.getName(), e);
-                StatusChangeEventBus.error(FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR, pathFile.getAbsolutePath());
-                throw new RuntimeException();
+                StatusChangeEventBus.error(FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR, getJob(), pathFile.getAbsolutePath());
+                throw new TaskExecuterException(ExceptionResourceType.FILE_NOT_FOUND, e, pathFile.getAbsoluteFile());
             }
             else {
                 LOGGER.debug("{} ignoring error deleting file", prefix);
-
-                StatusChangeEventBus.info(FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR, pathFile.getAbsolutePath());
+                StatusChangeEventBus.info(FILE_DELETE_FILE_DOES_NOT_EXIST_ERROR, getJob(), pathFile.getAbsolutePath());
             }
         }
         catch (final IOException e) {
             if (stopOnError) {
                 LOGGER.error(prefix + " error deleting file " + pathFile.getName(), e);
-                StatusChangeEventBus.error(FILE_DELETE_ERROR, pathFile.getAbsolutePath());
-                throw new RuntimeException();
+                StatusChangeEventBus.error(FILE_DELETE_ERROR, getJob(), pathFile.getAbsolutePath());
+                throw new TaskExecuterException(ExceptionResourceType.FILE_DELETE_ERROR, e, pathFile.getAbsoluteFile());
             }
             else {
                 LOGGER.debug("{} ignoring error deleting file", prefix);
-                StatusChangeEventBus.info(FILE_DELETE_ERROR, pathFile.getAbsolutePath());
+                StatusChangeEventBus.info(FILE_DELETE_ERROR, getJob(), pathFile.getAbsolutePath());
             }
         }
 

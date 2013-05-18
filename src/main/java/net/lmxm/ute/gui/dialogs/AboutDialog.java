@@ -18,27 +18,17 @@
  */
 package net.lmxm.ute.gui.dialogs;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
-
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ApplicationResourceType;
 import net.lmxm.ute.resources.types.ButtonResourceType;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The Class AboutDialog.

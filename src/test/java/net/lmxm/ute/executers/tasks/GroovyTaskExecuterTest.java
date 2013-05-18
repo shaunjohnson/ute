@@ -21,6 +21,7 @@ package net.lmxm.ute.executers.tasks;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.configuration.Configuration;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 
 import org.junit.Test;
@@ -36,8 +37,10 @@ public class GroovyTaskExecuterTest {
 	/** The Constant PROPERTIES_HOLDER. */
 	private static final PropertiesHolder PROPERTIES_HOLDER = new Configuration();
 
+    private static final Job JOB = new TestJob();
+
 	/** The Constant EXECUTER. */
-	private static final GroovyTaskExecuter TEST_EXECUTER = new GroovyTaskExecuter(new GroovyTask(new TestJob()),
+	private static final GroovyTaskExecuter TEST_EXECUTER = new GroovyTaskExecuter(JOB, new GroovyTask(JOB),
 			new Configuration());
 
 	/** The Constant TMP_DIR. */

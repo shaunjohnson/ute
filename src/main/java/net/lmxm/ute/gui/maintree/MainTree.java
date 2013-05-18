@@ -18,22 +18,6 @@
  */
 package net.lmxm.ute.gui.maintree;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Enumeration;
-
-import javax.swing.DropMode;
-import javax.swing.JPopupMenu;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
-
 import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
@@ -52,9 +36,16 @@ import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
 import net.lmxm.ute.gui.maintree.nodes.*;
 import net.lmxm.ute.gui.menus.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
+import java.awt.event.*;
+import java.util.Enumeration;
 
 /**
  * The Class MainTree.

@@ -18,18 +18,24 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import java.awt.Color;
-
-import javax.swing.JComponent;
-import javax.swing.UIManager;
-import javax.swing.text.JTextComponent;
-
+import net.lmxm.ute.exceptions.GuiException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.validation.rules.ValidationRule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
 
 /**
  * The Class TextComponentValidator.
  */
 public class TextComponentValidator extends AbstractInputValidator {
+
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(TextComponentValidator.class);
+
 	/** The Constant TEXT_FIELD_BACKGROUND. */
 	private static final Color TEXT_FIELD_BACKGROUND = (Color) UIManager.get("TextField.background");
 
@@ -54,11 +60,14 @@ public class TextComponentValidator extends AbstractInputValidator {
 
 	@Override
 	protected Object getCurrentValue(final JComponent component) {
+        final String prefix = "getCurrentValue() : ";
+
 		if (component instanceof JTextComponent) {
 			return ((JTextComponent) component).getText();
 		}
 		else {
-			throw new RuntimeException("The component instance is not a JTextComponent"); // TODO
+            LOGGER.error("{} The component instance is not a JTextComponent", prefix);
+            throw new GuiException(ExceptionResourceType.UNEXPECTED_ERROR);
 		}
 	}
 

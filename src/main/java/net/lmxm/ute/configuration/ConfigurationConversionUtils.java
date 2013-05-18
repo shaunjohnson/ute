@@ -24,7 +24,6 @@ import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 import noNamespace.ScopeType;
 import noNamespace.SubversionDepthType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

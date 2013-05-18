@@ -21,7 +21,6 @@ package net.lmxm.ute.beans.tasks;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.utils.DomainBeanUtils;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**

@@ -1,5 +1,6 @@
 package net.lmxm.ute.utils.aether;
 
+import net.lmxm.ute.event.JobStatusChangeEventBus;
 import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -14,11 +15,18 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.google.inject.internal.util.$Preconditions.checkNotNull;
 import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 public class AetherTransferListener implements TransferListener {
 
-    private Map<TransferResource, Long> downloads = new ConcurrentHashMap<TransferResource, Long>();
+    private final Map<TransferResource, Long> downloads = new ConcurrentHashMap<TransferResource, Long>();
+
+    private final JobStatusChangeEventBus jobStatusChangeEventBus;
+
+    public AetherTransferListener(final JobStatusChangeEventBus jobStatusChangeEventBus) {
+        this.jobStatusChangeEventBus = checkNotNull(jobStatusChangeEventBus, "Job status change event bus may not be null");
+    }
 
     private String getStatus(long complete, long total) {
         if (total >= 1024) {
@@ -45,7 +53,7 @@ public class AetherTransferListener implements TransferListener {
 
     @Override
     public void transferCorrupted(TransferEvent event) throws TransferCancelledException {
-        StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_CORRUPTED, ExceptionUtils.getFullStackTrace(event.getException()));
+        jobStatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_CORRUPTED, ExceptionUtils.getFullStackTrace(event.getException()));
     }
 
     @Override
@@ -53,7 +61,7 @@ public class AetherTransferListener implements TransferListener {
         final StatusChangeMessageResourceType type = event.getRequestType() == TransferEvent.RequestType.PUT ?
                 MAVEN_REPOSITORY_UPLOAD_INITIATED : MAVEN_REPOSITORY_DOWNLOAD_INITIATED;
         final TransferResource resource = event.getResource();
-        StatusChangeEventBus.info(type, resource.getRepositoryUrl(), resource.getResourceName());
+        jobStatusChangeEventBus.info(type, resource.getRepositoryUrl(), resource.getResourceName());
     }
 
     /**
@@ -76,7 +84,7 @@ public class AetherTransferListener implements TransferListener {
             buffer.append(getStatus(complete, total)).append("  ");
         }
 
-        StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_STARTED, buffer);
+        jobStatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_STARTED, buffer);
     }
 
     /**
@@ -99,7 +107,7 @@ public class AetherTransferListener implements TransferListener {
             buffer.append(getStatus(complete, total)).append("  ");
         }
 
-        StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_PROGRESSED, buffer);
+        jobStatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_PROGRESSED, buffer);
     }
 
     @Override
@@ -124,7 +132,7 @@ public class AetherTransferListener implements TransferListener {
                 throughput = "";
             }
 
-            StatusChangeEventBus.info(type, resource.getRepositoryUrl(), resource.getResourceName(), len, throughput);
+            jobStatusChangeEventBus.info(type, resource.getRepositoryUrl(), resource.getResourceName(), len, throughput);
         }
     }
 
@@ -132,6 +140,6 @@ public class AetherTransferListener implements TransferListener {
     public void transferFailed(TransferEvent event) {
         transferCompleted(event);
 
-        StatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_FAILED, ExceptionUtils.getFullStackTrace(event.getException()));
+        jobStatusChangeEventBus.info(MAVEN_REPOSITORY_TRANSFER_FAILED, ExceptionUtils.getFullStackTrace(event.getException()));
     }
 }

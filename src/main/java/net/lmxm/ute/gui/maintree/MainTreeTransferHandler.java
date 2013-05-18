@@ -18,28 +18,34 @@
  */
 package net.lmxm.ute.gui.maintree;
 
+import com.google.common.collect.ImmutableList;
+import net.lmxm.ute.beans.IdentifiableBean;
+import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.exceptions.GuiException;
+import net.lmxm.ute.gui.maintree.nodes.IdentifiableBeanTreeNode;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JTree;
-import javax.swing.TransferHandler;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import net.lmxm.ute.beans.IdentifiableBean;
-import net.lmxm.ute.beans.tasks.Task;
-import net.lmxm.ute.gui.maintree.nodes.IdentifiableBeanTreeNode;
 
 /**
  * The Class MainTreeTransferHandler.
  */
 public class MainTreeTransferHandler extends TransferHandler {
+
+    /**
+     * The LOGGER handle.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainTreeTransferHandler.class);
 
 	/**
 	 * The Class NodesTransferable.
@@ -117,7 +123,8 @@ public class MainTreeTransferHandler extends TransferHandler {
 			dataFlavors[0] = nodesFlavor;
 		}
 		catch (final ClassNotFoundException e) {
-			throw new RuntimeException("Unable to configure tree drag and drop", e); // TODO
+            LOGGER.error("Unable to configure tree drag and drop", e);
+            throw new GuiException(ExceptionResourceType.UNEXPECTED_ERROR, e);
 		}
 	}
 
@@ -287,13 +294,10 @@ public class MainTreeTransferHandler extends TransferHandler {
 		for (int i = 1; i < selRows.length; i++) {
 			path = tree.getPathForRow(selRows[i]);
 			final IdentifiableBeanTreeNode next = (IdentifiableBeanTreeNode) path.getLastPathComponent();
-			if (first.isNodeChild(next)) {
-				// Found a child of first.
-				if (childCount > selRows.length - 1) {
-					// Not all children of first are selected.
-					return false;
-				}
-			}
+			if (first.isNodeChild(next) && childCount > selRows.length - 1) {
+                // Not all children of first are selected.
+                return false;
+            }
 		}
 
 		return true;
@@ -316,12 +320,10 @@ public class MainTreeTransferHandler extends TransferHandler {
 			nodes = (List<IdentifiableBeanTreeNode>) transferable.getTransferData(nodesFlavor);
 		}
 		catch (final UnsupportedFlavorException e) {
-			System.out.println("UnsupportedFlavor: " + e.getMessage());
-			return false;
+            throw new GuiException(ExceptionResourceType.DRAG_AND_DROP_ERROR, e);
 		}
-		catch (final java.io.IOException e) {
-			System.out.println("I/O error: " + e.getMessage());
-			return false;
+		catch (final IOException e) {
+            throw new GuiException(ExceptionResourceType.DRAG_AND_DROP_ERROR, e);
 		}
 
 		// Get drop location info.

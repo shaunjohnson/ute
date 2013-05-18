@@ -23,7 +23,6 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SingleTaskJob;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.executers.tasks.TaskExecuterFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,7 +65,7 @@ public final class SingleTaskJobExecuter extends AbstractJobExecuter {
 
 			if (task.getEnabled()) {
 				taskStarted(task);
-				TaskExecuterFactory.create(task, getPropertiesHolder()).execute();
+				TaskExecuterFactory.create(job, task, getPropertiesHolder()).execute();
 				taskCompleted(task);
 			}
 			else {

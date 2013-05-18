@@ -18,28 +18,22 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.enums.Scope;
+import net.lmxm.ute.exceptions.GuiException;
 import net.lmxm.ute.gui.components.FindReplacePatternsTableModel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.resources.types.LabelResourceType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The Class FindReplaceTaskEditorPanel.
@@ -223,7 +217,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 							findReplaceTask.setScope(Scope.LINE);
 						}
 						else {
-							throw new RuntimeException("Unsupported scope"); // TODO
+							throw new GuiException(ExceptionResourceType.UNSUPPORTED_SCOPE);
 						}
 					}
 				}
@@ -277,7 +271,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 				getFileScopeRadioButton().setSelected(true);
 			}
 			else {
-				throw new RuntimeException("Unsupported scope"); // TODO
+                throw new GuiException(ExceptionResourceType.UNSUPPORTED_SCOPE);
 			}
 		}
 

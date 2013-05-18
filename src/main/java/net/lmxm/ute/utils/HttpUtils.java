@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.utils;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Class HttpUtils.
@@ -62,4 +62,11 @@ public class HttpUtils {
 
 		return fullUrl;
 	}
+
+    /**
+     * Prevent instantiation.
+     */
+    private HttpUtils() {
+        throw new AssertionError("Cannot be instantiated");
+    }
 }

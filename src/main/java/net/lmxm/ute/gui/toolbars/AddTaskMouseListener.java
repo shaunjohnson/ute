@@ -18,13 +18,12 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
+import net.lmxm.ute.gui.menus.AddTaskPopupMenu;
+
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.JPopupMenu;
-
-import net.lmxm.ute.gui.menus.AddTaskPopupMenu;
 
 /**
  * The listener interface for receiving addTaskMouse events. The class that is interested in processing a addTaskMouse

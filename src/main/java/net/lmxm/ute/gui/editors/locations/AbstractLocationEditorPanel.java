@@ -18,13 +18,12 @@
  */
 package net.lmxm.ute.gui.editors.locations;
 
-import java.awt.event.ActionListener;
-
-import javax.swing.JToolBar;
-
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.gui.editors.AbstractCommonEditorPanel;
 import net.lmxm.ute.resources.types.LabelResourceType;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  * The Class AbstractLocationEditorPanel.

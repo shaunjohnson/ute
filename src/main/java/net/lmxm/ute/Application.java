@@ -18,13 +18,12 @@
  */
 package net.lmxm.ute;
 
-import java.awt.GraphicsEnvironment;
-
 import net.lmxm.ute.console.ConsoleApplication;
 import net.lmxm.ute.gui.GuiApplication;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.awt.*;
 
 /**
  * Application is the main entry-point into the UTE application. If the application is executed on a headless machine
@@ -57,5 +56,12 @@ public final class Application {
         }
 
         LOGGER.info("{} Application ended", prefix);
+    }
+
+    /**
+     * Prevent instantiation.
+     */
+    private Application() {
+        throw new AssertionError("Cannot be instantiated");
     }
 }

@@ -18,16 +18,17 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import net.lmxm.ute.beans.PropertiesHolder;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.executers.Executer;
 import net.lmxm.ute.executers.ExecuterFactory;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A factory for creating TaskExecuter objects.
@@ -39,16 +40,18 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 
 	/**
 	 * Creates the.
-	 * 
+	 *
+     * @param job the job
 	 * @param task the task
 	 * @param propertiesHolder the properties holder
 	 * @return the executer if
 	 */
-	public static Executer create(final Task task, final PropertiesHolder propertiesHolder) {
+	public static Executer create(final Job job, final Task task, final PropertiesHolder propertiesHolder) {
 		final String prefix = "create(Task,StatusChangeHelper) :";
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("{} entered", prefix);
+			LOGGER.debug("{} job={}", prefix, job);
 			LOGGER.debug("{} task={}", prefix, task);
 		}
 
@@ -58,42 +61,34 @@ public final class TaskExecuterFactory implements ExecuterFactory {
 		final Executer executer;
 		if (task instanceof FileSystemDeleteTask) {
 			LOGGER.debug("{} task is FileSystemDeleteTask", prefix);
-
-			executer = new FileSystemDeleteTaskExecuter((FileSystemDeleteTask) task);
+			executer = new FileSystemDeleteTaskExecuter(job, (FileSystemDeleteTask) task);
 		}
 		else if (task instanceof FindReplaceTask) {
 			LOGGER.debug("{} task is FindReplaceTask", prefix);
-
-			executer = new FindReplaceTaskExecuter((FindReplaceTask) task);
+			executer = new FindReplaceTaskExecuter(job, (FindReplaceTask) task);
 		}
 		else if (task instanceof GroovyTask) {
 			LOGGER.debug("{} task is GroovyTask", prefix);
-
-			executer = new GroovyTaskExecuter((GroovyTask) task, propertiesHolder);
+			executer = new GroovyTaskExecuter(job, (GroovyTask) task, propertiesHolder);
 		}
 		else if (task instanceof HttpDownloadTask) {
 			LOGGER.debug("{} task is HttpDownloadTask", prefix);
-
-			executer = new HttpDownloadTaskExecuter((HttpDownloadTask) task);
+			executer = new HttpDownloadTaskExecuter(job, (HttpDownloadTask) task);
 		}
 		else if (task instanceof MavenRepositoryDownloadTask) {
 			LOGGER.debug("{} task is MavenRepositoryDownloadTask", prefix);
-
-			executer = new MavenRepositoryDownloadTaskExecuter((MavenRepositoryDownloadTask) task);
+			executer = new MavenRepositoryDownloadTaskExecuter(job, (MavenRepositoryDownloadTask) task);
 		}
 		else if (task instanceof SubversionExportTask) {
 			LOGGER.debug("{} task is SubversionExportTask", prefix);
-
-			executer = new SubversionExportTaskExecuter((SubversionExportTask) task);
+			executer = new SubversionExportTaskExecuter(job, (SubversionExportTask) task);
 		}
 		else if (task instanceof SubversionUpdateTask) {
 			LOGGER.debug("{} task is SubversionUpdateTask", prefix);
-
-			executer = new SubversionUpdateTaskExecuter((SubversionUpdateTask) task);
+			executer = new SubversionUpdateTaskExecuter(job, (SubversionUpdateTask) task);
 		}
 		else {
 			LOGGER.error("{} unsupported task type {}", prefix, task.getClass());
-
 			throw new TaskExecuterException(ExceptionResourceType.UNSUPPORTED_TASK_TYPE, task.getClass());
 		}
 

@@ -1,6 +1,7 @@
-package net.lmxm.ute.gui.components;
+package net.lmxm.ute.gui.statusoutput;
 
 import net.lmxm.ute.event.StatusChangeEventType;
+import net.lmxm.ute.gui.statusoutput.StatusOutputPanel;
 import org.junit.Test;
 
 import javax.swing.text.StyleContext;

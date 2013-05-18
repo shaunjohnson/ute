@@ -18,15 +18,14 @@
  */
 package net.lmxm.ute.gui.components;
 
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.List;
-
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.resources.types.TableColumnResourceType;
-
 import org.apache.commons.lang.ObjectUtils;
+
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * The Class FindReplacePatternsTableModel.

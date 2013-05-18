@@ -18,9 +18,9 @@
  */
 package net.lmxm.ute.gui.validation;
 
-import javax.swing.InputVerifier;
-
 import net.lmxm.ute.validation.rules.ValidationRule;
+
+import javax.swing.*;
 
 /**
  * The Class InputValidator.

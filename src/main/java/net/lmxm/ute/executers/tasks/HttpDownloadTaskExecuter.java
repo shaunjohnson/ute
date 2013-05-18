@@ -18,18 +18,8 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-import java.util.Map;
-
 import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.exceptions.TaskExecuterException;
@@ -38,7 +28,6 @@ import net.lmxm.ute.utils.FileSystemTargetUtils;
 import net.lmxm.ute.utils.FileSystemUtils;
 import net.lmxm.ute.utils.HttpUtils;
 import net.lmxm.ute.utils.PathUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -50,6 +39,17 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.resources.types.StatusChangeMessageResourceType.*;
 
 /**
  * The Class HttpDownloadTaskExecuter.
@@ -64,13 +64,14 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 
 	/**
 	 * Instantiates a new http download task executer.
-	 * 
+	 *
+     * @param job the job
 	 * @param task the task
 	 */
-	public HttpDownloadTaskExecuter(final HttpDownloadTask task) {
-		checkNotNull(task, "Task may not be null");
+	public HttpDownloadTaskExecuter(final Job job, final HttpDownloadTask task) {
+        super(job);
 
-		this.task = task;
+		this.task = checkNotNull(task, "Task may not be null");
 	}
 
 	/**
@@ -113,14 +114,14 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 
 			if (statusCode != HttpStatus.SC_OK) {
 				LOGGER.debug("HTTP status code {} returned", statusCode);
-                StatusChangeEventBus.error(HTTP_DOWNLOAD_STATUS_ERROR, sourceUrl, statusCode);
+                StatusChangeEventBus.error(HTTP_DOWNLOAD_STATUS_ERROR, getJob(), sourceUrl, statusCode);
                 throw new TaskExecuterException(ExceptionResourceType.HTTP_DOWNLOAD_STATUS_ERROR, statusCode);
 			}
 
 			final HttpEntity entity = response.getEntity();
 
 			if (entity == null) {
-                StatusChangeEventBus.error(HTTP_DOWNLOAD_NO_RESPONSE_ERROR);
+                StatusChangeEventBus.error(HTTP_DOWNLOAD_NO_RESPONSE_ERROR, getJob());
                 throw new TaskExecuterException(ExceptionResourceType.HTTP_DOWNLOAD_NO_RESPONSE);
 			}
 			else {
@@ -135,22 +136,22 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 
 				out.close();
 
-                StatusChangeEventBus.info(HTTP_DOWNLOAD_FINISHED, sourceUrl, destinationFilePath);
+                StatusChangeEventBus.info(HTTP_DOWNLOAD_FINISHED, getJob(), sourceUrl, destinationFilePath);
 			}
 		}
 		catch (final ClientProtocolException e) {
 			LOGGER.debug("ClientProtocolException caught", e);
-            StatusChangeEventBus.error(HTTP_DOWNLOAD_ERROR, sourceUrl, destinationFilePath);
+            StatusChangeEventBus.error(HTTP_DOWNLOAD_ERROR, getJob(), sourceUrl, destinationFilePath);
             throw new TaskExecuterException(ExceptionResourceType.HTTP_DOWNLOAD_ERROR, e);
 		}
 		catch (final IOException e) {
 			LOGGER.debug("IOException caught", e);
-            StatusChangeEventBus.error(HTTP_DOWNLOAD_ERROR, sourceUrl, destinationFilePath);
+            StatusChangeEventBus.error(HTTP_DOWNLOAD_ERROR, getJob(), sourceUrl, destinationFilePath);
             throw new TaskExecuterException(ExceptionResourceType.HTTP_DOWNLOAD_ERROR, e);
 		}
 		catch (final Exception e) {
 			LOGGER.debug("Exception caught", e);
-            StatusChangeEventBus.error(HTTP_DOWNLOAD_ERROR, sourceUrl, destinationFilePath);
+            StatusChangeEventBus.error(HTTP_DOWNLOAD_ERROR, getJob(), sourceUrl, destinationFilePath);
             throw new TaskExecuterException(ExceptionResourceType.HTTP_DOWNLOAD_ERROR, e);
 		}
 
@@ -178,7 +179,7 @@ public final class HttpDownloadTaskExecuter extends AbstractTaskExecuter {
 
 		if (files == null || files.size() == 0) {
 			LOGGER.error("{} downloadFiles", prefix);
-            StatusChangeEventBus.fatal(HTTP_DOWNLOAD_FILE_LIST_EMPTY);
+            StatusChangeEventBus.fatal(HTTP_DOWNLOAD_FILE_LIST_EMPTY, getJob());
             throw new TaskExecuterException(ExceptionResourceType.HTTP_DOWNLOAD_FILE_LIST_EMPTY);
 		}
 

@@ -18,10 +18,7 @@
  */
 package net.lmxm.ute.gui.utils;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Toolkit;
+import java.awt.*;
 
 /**
  * GUI related utility methods.
@@ -64,4 +61,11 @@ public final class GuiUtils {
 
 		return child;
 	}
+
+    /**
+     * Prevent instantiation.
+     */
+    private GuiUtils() {
+        throw new AssertionError("Cannot be instantiated");
+    }
 }

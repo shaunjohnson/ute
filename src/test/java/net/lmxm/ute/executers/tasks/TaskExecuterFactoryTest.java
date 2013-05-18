@@ -46,7 +46,7 @@ public class TaskExecuterFactoryTest {
 	public void testCreate() {
 		// Null task and properties holder
 		try {
-			TaskExecuterFactory.create(null, null);
+			TaskExecuterFactory.create(new TestJob(), null, null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -55,7 +55,7 @@ public class TaskExecuterFactoryTest {
 
 		// Null properties holder
 		try {
-			TaskExecuterFactory.create(new TestTask(), null);
+			TaskExecuterFactory.create(new TestJob(), new TestTask(), null);
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -64,7 +64,7 @@ public class TaskExecuterFactoryTest {
 
 		// Null task
 		try {
-			TaskExecuterFactory.create(null, new Configuration());
+			TaskExecuterFactory.create(new TestJob(), null, new Configuration());
 			fail();
 		}
 		catch (final NullPointerException e) {
@@ -73,7 +73,7 @@ public class TaskExecuterFactoryTest {
 
 		// Unsupported task type
 		try {
-			TaskExecuterFactory.create(new TestTask(), new Configuration());
+			TaskExecuterFactory.create(new TestJob(), new TestTask(), new Configuration());
 			fail();
 		}
 		catch (final TaskExecuterException e) {
@@ -85,42 +85,42 @@ public class TaskExecuterFactoryTest {
 
 		// Test file system delete task
 		final Executer fileSystemDeleteTaskExecuter = TaskExecuterFactory.create(
-				new FileSystemDeleteTask(new TestJob()), new Configuration());
+                new TestJob(), new FileSystemDeleteTask(new TestJob()), new Configuration());
 
 		assertNotNull(fileSystemDeleteTaskExecuter);
 		assertTrue(fileSystemDeleteTaskExecuter instanceof FileSystemDeleteTaskExecuter);
 
 		// Test find replace task
-		final Executer findReplaceTaskExecuter = TaskExecuterFactory.create(new FindReplaceTask(new TestJob()),
+		final Executer findReplaceTaskExecuter = TaskExecuterFactory.create(new TestJob(), new FindReplaceTask(new TestJob()),
 				new Configuration());
 
 		assertNotNull(findReplaceTaskExecuter);
 		assertTrue(findReplaceTaskExecuter instanceof FindReplaceTaskExecuter);
 
 		// Test groovy task
-		final Executer groovyTaskExecuter = TaskExecuterFactory.create(new GroovyTask(new TestJob()),
+		final Executer groovyTaskExecuter = TaskExecuterFactory.create(new TestJob(), new GroovyTask(new TestJob()),
 				new Configuration());
 
 		assertNotNull(groovyTaskExecuter);
 		assertTrue(groovyTaskExecuter instanceof GroovyTaskExecuter);
 
 		// Test HTTP download task
-		final Executer httpDownloadTaskExecuter = TaskExecuterFactory.create(new HttpDownloadTask(new TestJob()),
+		final Executer httpDownloadTaskExecuter = TaskExecuterFactory.create(new TestJob(), new HttpDownloadTask(new TestJob()),
 				new Configuration());
 
 		assertNotNull(httpDownloadTaskExecuter);
 		assertTrue(httpDownloadTaskExecuter instanceof HttpDownloadTaskExecuter);
 
 		// Test Subversion export task
-		final Executer subversionExportTaskExecuter = TaskExecuterFactory.create(
-				new SubversionExportTask(new TestJob()), new Configuration());
+		final Executer subversionExportTaskExecuter = TaskExecuterFactory.create(new TestJob(),
+                new SubversionExportTask(new TestJob()), new Configuration());
 
 		assertNotNull(subversionExportTaskExecuter);
 		assertTrue(subversionExportTaskExecuter instanceof SubversionExportTaskExecuter);
 
 		// Test Subversion update task
-		final Executer subversionUpdateTaskExecuter = TaskExecuterFactory.create(
-				new SubversionUpdateTask(new TestJob()), new Configuration());
+		final Executer subversionUpdateTaskExecuter = TaskExecuterFactory.create(new TestJob(),
+                new SubversionUpdateTask(new TestJob()), new Configuration());
 
 		assertNotNull(subversionUpdateTaskExecuter);
 		assertTrue(subversionUpdateTaskExecuter instanceof SubversionUpdateTaskExecuter);

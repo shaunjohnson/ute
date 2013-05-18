@@ -18,16 +18,6 @@
  */
 package net.lmxm.ute.configuration;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import net.lmxm.ute.beans.*;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
@@ -42,26 +32,31 @@ import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
-
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * The Class ConfigurationInterpolator.
  */
-public class ConfigurationInterpolator {
+public final class ConfigurationInterpolator {
 
 	/**
 	 * The Enum PropertyType.
 	 */
 	private enum PropertyType {
-
-		/** The NAME. */
-		NAME,
-		/** The VALUE. */
-		VALUE
+		NAME, VALUE
 	}
 
 	/** The Constant LOGGER. */
@@ -467,8 +462,7 @@ public class ConfigurationInterpolator {
 
 		if (matcher.find()) {
 			LOGGER.error("{} undefined property with name \"{}\"", prefix, matcher.group(3));
-
-			throw new RuntimeException("Undefined property with name \"" + matcher.group(3) + "\""); // TODO
+            throw new ConfigurationException(ExceptionResourceType.UNDEFINED_PROPERTY, matcher.group(3));
 		}
 		else {
 			LOGGER.debug("{} no property references found", prefix);

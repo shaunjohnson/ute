@@ -18,14 +18,13 @@
  */
 package net.lmxm.ute.preferences;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.awt.*;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 /**
  * The Class AbstractPreferences.

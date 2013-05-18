@@ -27,13 +27,15 @@ import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationInterpolator;
 import net.lmxm.ute.configuration.ConfigurationUtils;
 import net.lmxm.ute.exceptions.ConfigurationException;
+import net.lmxm.ute.exceptions.JobExecuterException;
 import net.lmxm.ute.executers.jobs.JobExecuter;
 import net.lmxm.ute.executers.jobs.JobExecuterFactory;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -140,7 +142,7 @@ public abstract class GenericApplication {
         final Job job = ConfigurationUtils.findJobById(configuration, jobId);
         if (job == null) {
             LOGGER.error("{} job with id \"{}\" does not exist", prefix, jobId);
-            throw new RuntimeException("Job with id \"" + jobId + "\" does not exist");
+            throw new JobExecuterException(ExceptionResourceType.JOB_NOT_FOUND, jobId);
         }
 
         if (taskId == null) {
@@ -158,7 +160,7 @@ public abstract class GenericApplication {
 
             if (singleTaskJob == null) {
                 LOGGER.error("{} task with id \"{}\" does not exist", prefix, taskId);
-                throw new RuntimeException("Task with id \"" + taskId + "\" does not exist");
+                throw new JobExecuterException(ExceptionResourceType.JOB_NOT_FOUND, taskId);
             }
 
             jobs.add(singleTaskJob);

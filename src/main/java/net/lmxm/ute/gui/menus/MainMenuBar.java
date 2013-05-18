@@ -18,19 +18,17 @@
  */
 package net.lmxm.ute.gui.menus;
 
-import java.awt.event.ActionListener;
-
-import javax.swing.JMenu;
-import javax.swing.JSeparator;
-
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 import net.lmxm.ute.resources.types.MenuResourceType;
 
+import javax.swing.*;
+import java.awt.event.ActionListener;
+
 /**
  * The Class MainMenuBar.
  */
-public class MainMenuBar extends AbstractMenuBar {
+public final class MainMenuBar extends AbstractMenuBar {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1523852524013333901L;
@@ -47,7 +45,6 @@ public class MainMenuBar extends AbstractMenuBar {
 	/**
 	 * Instantiates a new main menu bar.
 	 * 
-	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
 	public MainMenuBar(final ActionListener actionListener) {

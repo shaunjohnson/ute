@@ -18,14 +18,13 @@
  */
 package net.lmxm.ute.gui.components;
 
+import net.lmxm.ute.resources.ResourcesUtils;
+import net.lmxm.ute.resources.types.TableColumnResourceType;
+
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-
-import javax.swing.table.AbstractTableModel;
-
-import net.lmxm.ute.resources.ResourcesUtils;
-import net.lmxm.ute.resources.types.TableColumnResourceType;
 
 /**
  * The Class AbstractEditableTableModel.

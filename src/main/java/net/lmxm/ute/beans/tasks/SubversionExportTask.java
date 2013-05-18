@@ -18,14 +18,14 @@
  */
 package net.lmxm.ute.beans.tasks;
 
-import java.util.Date;
-
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.utils.DomainBeanUtils;
+
+import java.util.Date;
 
 /**
  * The Class SubversionExportTask.

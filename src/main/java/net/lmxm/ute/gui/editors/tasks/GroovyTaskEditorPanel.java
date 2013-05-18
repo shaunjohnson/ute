@@ -18,22 +18,20 @@
  */
 package net.lmxm.ute.gui.editors.tasks;
 
-import java.awt.event.ActionListener;
-
-import javax.swing.JScrollPane;
-
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.GroovyTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
-
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  * The Class GroovyTaskEditorPanel.
@@ -110,7 +108,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the script pane
 	 */
-	private final JScrollPane getScriptPane() {
+	private JScrollPane getScriptPane() {
 		if (scriptPane == null) {
 			scriptPane = new RTextScrollPane(getScriptTextArea());
 		}
@@ -123,7 +121,7 @@ public final class GroovyTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * 
 	 * @return the script text area
 	 */
-	private final RSyntaxTextArea getScriptTextArea() {
+	private RSyntaxTextArea getScriptTextArea() {
 		if (scriptTextArea == null) {
 			scriptTextArea = new RSyntaxTextArea();
 			scriptTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_GROOVY);

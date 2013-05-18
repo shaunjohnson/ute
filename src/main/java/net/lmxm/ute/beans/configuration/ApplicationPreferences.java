@@ -18,21 +18,19 @@
  */
 package net.lmxm.ute.beans.configuration;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
-
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * The Class ApplicationPreferences.

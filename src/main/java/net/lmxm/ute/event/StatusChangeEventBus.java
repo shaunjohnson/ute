@@ -1,7 +1,7 @@
 package net.lmxm.ute.event;
 
 import com.google.common.eventbus.EventBus;
-import net.lmxm.ute.executers.jobs.JobStatusEvent;
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 
@@ -63,39 +63,43 @@ public final class StatusChangeEventBus {
      * Error.
      *
      * @param statusChangeMessage the status change message
+     * @param job the associated job
      * @param arguments the arguments
      */
-    public static void error(final StatusChangeMessageResourceType statusChangeMessage,
+    public static void error(final StatusChangeMessageResourceType statusChangeMessage, final Job job,
                             final Object... arguments) {
-        fireEvent(StatusChangeEventType.ERROR, statusChangeMessage, arguments);
+        fireEvent(StatusChangeEventType.ERROR, job, statusChangeMessage, arguments);
     }
 
     /**
      * Fatal.
      *
      * @param statusChangeMessage the status change message
+     * @param job the associated job
      * @param arguments the arguments
      */
-    public static void fatal(final StatusChangeMessageResourceType statusChangeMessage,
+    public static void fatal(final StatusChangeMessageResourceType statusChangeMessage, final Job job,
                             final Object... arguments) {
-        fireEvent(StatusChangeEventType.FATAL, statusChangeMessage, arguments);
+        fireEvent(StatusChangeEventType.FATAL, job, statusChangeMessage, arguments);
     }
 
     /**
      * Fire event.
      *
      * @param eventType the event type
+     * @param job the associated job
      * @param statusChangeMessage the status change message
      * @param arguments the arguments
      */
-    protected static void fireEvent(final StatusChangeEventType eventType,
+    protected static void fireEvent(final StatusChangeEventType eventType, final Job job,
                              final StatusChangeMessageResourceType statusChangeMessage, final Object... arguments) {
         checkNotNull(eventType, "Status change event type is null");
+        checkNotNull(job, "Job is null");
         checkNotNull(statusChangeMessage, "Status change message resource type is null");
 
         final String message = formatMessage(statusChangeMessage, arguments);
 
-        StatusChangeEventBus.post(new StatusChangeEvent(eventType, message));
+        StatusChangeEventBus.post(new StatusChangeEvent(eventType, job, message));
     }
 
     /**
@@ -113,32 +117,35 @@ public final class StatusChangeEventBus {
      * Heading.
      *
      * @param statusChangeMessage the status change message
+     * @param job the associated job
      * @param arguments the arguments
      */
-    public static void heading(final StatusChangeMessageResourceType statusChangeMessage,
+    public static void heading(final StatusChangeMessageResourceType statusChangeMessage, final Job job,
                               final Object... arguments) {
-        fireEvent( StatusChangeEventType.HEADING, statusChangeMessage, arguments);
+        fireEvent( StatusChangeEventType.HEADING, job, statusChangeMessage, arguments);
     }
 
     /**
      * Important.
      *
      * @param statusChangeMessage the status change message
+     * @param job the associated job
      * @param arguments the arguments
      */
-    public static void important(final StatusChangeMessageResourceType statusChangeMessage,
+    public static void important(final StatusChangeMessageResourceType statusChangeMessage, final Job job,
                                 final Object... arguments) {
-        fireEvent( StatusChangeEventType.IMPORTANT, statusChangeMessage, arguments);
+        fireEvent( StatusChangeEventType.IMPORTANT, job, statusChangeMessage, arguments);
     }
 
     /**
      * Info.
      *
      * @param statusChangeMessage the status change message
+     * @param job the associated job
      * @param arguments the arguments
      */
-    public static void info(final StatusChangeMessageResourceType statusChangeMessage,
+    public static void info(final StatusChangeMessageResourceType statusChangeMessage, final Job job,
                            final Object... arguments) {
-        fireEvent( StatusChangeEventType.INFO, statusChangeMessage, arguments);
+        fireEvent( StatusChangeEventType.INFO, job, statusChangeMessage, arguments);
     }
 }

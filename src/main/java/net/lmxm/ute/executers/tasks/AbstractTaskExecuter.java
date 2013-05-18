@@ -18,11 +18,31 @@
  */
 package net.lmxm.ute.executers.tasks;
 
+import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.executers.AbstractExecuter;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Class AbstractTaskExecuter.
  */
 public abstract class AbstractTaskExecuter extends AbstractExecuter {
 
+    /**
+     * Associated job object.
+     */
+    private final Job job;
+
+    public AbstractTaskExecuter(Job job) {
+        this.job = checkNotNull(job, "Job may not be null");
+    }
+
+    /**
+     * Gets the associated job.
+     *
+     * @return Associated job object
+     */
+    protected final Job getJob() {
+        return job;
+    }
 }

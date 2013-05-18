@@ -18,10 +18,8 @@
  */
 package net.lmxm.ute.beans;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang3.StringUtils;
-
 import com.google.common.base.Objects;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A File Reference refers to a single file by name. A file consists of its current name and an optional target name

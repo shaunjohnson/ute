@@ -56,4 +56,15 @@ public final class GuiException extends AbstractRuntimeException {
 	public GuiException(final ExceptionResourceType type, final Throwable cause) {
 		super(type, cause);
 	}
+
+	/**
+	 * Instantiates a new task executer exception.
+	 *
+	 * @param type the type
+	 * @param cause the cause
+     * @param args the args
+	 */
+	public GuiException(final ExceptionResourceType type, final Throwable cause, final Object... args) {
+		super(type, cause, args);
+	}
 }

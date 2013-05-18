@@ -18,11 +18,11 @@
  */
 package net.lmxm.ute.beans.jobs;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.utils.DomainBeanUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class SequentialJob.
@@ -66,7 +66,7 @@ public final class SequentialJob extends AbstractJob {
 	 * @return the tasks
 	 */
 	@Override
-	public final List<Task> getTasks() {
+	public List<Task> getTasks() {
 		return tasks;
 	}
 

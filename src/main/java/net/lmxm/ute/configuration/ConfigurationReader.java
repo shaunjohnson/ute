@@ -18,16 +18,6 @@
  */
 package net.lmxm.ute.configuration;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import net.lmxm.ute.beans.*;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
@@ -44,14 +34,23 @@ import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
-import net.lmxm.ute.subversion.utils.SubversionUtils;
+import net.lmxm.ute.executers.tasks.subversion.SubversionUtils;
 import noNamespace.*;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.XmlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Class ConfigurationReader.
@@ -322,10 +321,9 @@ public final class ConfigurationReader {
 	 * Parses the http location.
 	 * 
 	 * @param locationType the location type
-	 * @param configuration the configuration
 	 * @return the http location
 	 */
-	private HttpLocation parseHttpLocation(final HttpLocationType locationType, final Configuration configuration) {
+	private HttpLocation parseHttpLocation(final HttpLocationType locationType) {
 		final String prefix = "parseHttpLocation() :";
 
 		LOGGER.debug("{} entered", prefix);
@@ -357,7 +355,7 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} parsing {} HTTP locations", prefix, locationTypeArray.length);
 
 		for (final HttpLocationType httpLocationType : locationTypeArray) {
-			locations.add(parseHttpLocation(httpLocationType, configuration));
+			locations.add(parseHttpLocation(httpLocationType));
 		}
 
 		Collections.sort(locations);
@@ -588,11 +586,9 @@ public final class ConfigurationReader {
      * Parses the Maven repository location.
      *
      * @param locationType the location type
-     * @param configuration the configuration
      * @return the Maven repository location
      */
-    private MavenRepositoryLocation parseMavenRepositoryLocation(
-            final MavenRepositoryLocationType locationType, final Configuration configuration) {
+    private MavenRepositoryLocation parseMavenRepositoryLocation(final MavenRepositoryLocationType locationType) {
         final String prefix = "parseMavenRepositoryLocation() :";
 
         LOGGER.debug("{} entered", prefix);
@@ -626,7 +622,7 @@ public final class ConfigurationReader {
         LOGGER.debug("{} parsing {} Subversion repository locations", prefix, locationTypeArray.length);
 
         for (final MavenRepositoryLocationType mavenRepositoryLocationType : locationTypeArray) {
-            locations.add(parseMavenRepositoryLocation(mavenRepositoryLocationType, configuration));
+            locations.add(parseMavenRepositoryLocation(mavenRepositoryLocationType));
         }
 
         Collections.sort(locations);
@@ -850,11 +846,9 @@ public final class ConfigurationReader {
 	 * Parses the subversion repository location.
 	 * 
 	 * @param locationType the location type
-	 * @param configuration the configuration
 	 * @return the subversion repository location
 	 */
-	private SubversionRepositoryLocation parseSubversionRepositoryLocation(
-			final SubversionRepositoryLocationType locationType, final Configuration configuration) {
+	private SubversionRepositoryLocation parseSubversionRepositoryLocation(final SubversionRepositoryLocationType locationType) {
 		final String prefix = "parseSubversionRepositoryLocation() :";
 
 		LOGGER.debug("{} entered", prefix);
@@ -890,7 +884,7 @@ public final class ConfigurationReader {
 		LOGGER.debug("{} parsing {} Subversion repository locations", prefix, locationTypeArray.length);
 
 		for (final SubversionRepositoryLocationType subversionRepositoryLocationType : locationTypeArray) {
-			locations.add(parseSubversionRepositoryLocation(subversionRepositoryLocationType, configuration));
+			locations.add(parseSubversionRepositoryLocation(subversionRepositoryLocationType));
 		}
 
 		Collections.sort(locations);
@@ -949,8 +943,8 @@ public final class ConfigurationReader {
 			task.setRevisionDate(SubversionUtils.parseRevisionDate(trimmedRevision));
 		}
 		else {
-			LOGGER.error("{} Invalid revision value", prefix);
-			throw new RuntimeException("Invalid revision value"); // TODO
+			LOGGER.error("{} Invalid revision value: {}", prefix, trimmedRevision);
+            throw new ConfigurationException(ExceptionResourceType.INVALID_SUBVERSION_REVISION_VALUE, trimmedRevision);
 		}
 
 		LOGGER.debug("{} returning", prefix);
@@ -994,8 +988,7 @@ public final class ConfigurationReader {
 
 		LOGGER.debug("{} entered", prefix);
 
-		AbstractTask task = null;
-
+		final AbstractTask task;
 		if (taskType.isSetFileSystemDeleteTask()) {
 			task = parseFileSystemDeleteTask(taskType.getFileSystemDeleteTask(), job, configuration);
 		}

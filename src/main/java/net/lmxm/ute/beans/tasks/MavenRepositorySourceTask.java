@@ -18,7 +18,6 @@
  */
 package net.lmxm.ute.beans.tasks;
 
-import net.lmxm.ute.beans.sources.HttpSource;
 import net.lmxm.ute.beans.sources.MavenRepositorySource;
 
 /**

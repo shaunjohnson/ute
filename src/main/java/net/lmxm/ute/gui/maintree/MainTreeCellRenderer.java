@@ -1,37 +1,22 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executer.
- * 
+ *
  * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.gui.maintree;
-
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JLabel;
-import javax.swing.JTree;
-import javax.swing.UIManager;
-import javax.swing.border.LineBorder;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreeCellRenderer;
 
 import net.lmxm.ute.beans.DescribableBean;
 import net.lmxm.ute.beans.EnabledStateBean;
@@ -46,115 +31,142 @@ import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.gui.maintree.nodes.RootTreeNode;
 import net.lmxm.ute.resources.ImageUtil;
 
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeCellRenderer;
+import java.awt.*;
+import java.awt.font.TextAttribute;
+import java.util.List;
+import java.util.Map;
+
 /**
  * The Class MainTreeCellRenderer.
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class MainTreeCellRenderer extends JLabel implements TreeCellRenderer {
 
-	/** The bold font. */
-	private static final Font boldFont;
-
-	/** The Constant disabledFont. */
-	private static final Font disabledFont;
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -3104743001619688388L;
-
-	static {
-		// Setup fonts
-		boldFont = new Font(Font.DIALOG, Font.BOLD, 14);
-
-		final Font defaultFont = UIManager.getDefaults().getFont("Tree.font");
-
-		final Map attributes = defaultFont.getAttributes();
-		attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
-		disabledFont = new Font(attributes);
-	}
-
-	/**
-	 * Copy of default tree cell renderer. Used for reference.
-	 */
-	private DefaultTreeCellRenderer render = null;
-
-	/**
-	 * Default constructor.
-	 */
-	public MainTreeCellRenderer() {
-		super();
-
-		render = new DefaultTreeCellRenderer();
-	}
-
-	/**
-	 * Renders tree cells.
-	 * 
-	 * @param tree Tree where the cell resides
-	 * @param value Value of the cell
-	 * @param isSelected Indicates whether the cell is selected
-	 * @param expanded Indicates whether the cell is expanded
-	 * @param leaf Indicates whether this is a leaf
-	 * @param row Row number
-	 * @param hasFocus Indicates whether the cell has focus
-	 * @return the tree cell renderer component
-	 */
-	@Override
-	public Component getTreeCellRendererComponent(final JTree tree, final Object value, final boolean isSelected,
-			final boolean expanded, final boolean leaf, final int row, final boolean hasFocus) {
-		final Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
-		setFont(tree.getFont());
-		Color foregroundColor = tree.getForeground();
-
-		setTextAndIcon(userObject, value);
-
-		// Apply disabled bean styles
-		if (isDisabled(userObject)) {
-			foregroundColor = Color.LIGHT_GRAY;
-			setFont(disabledFont);
-		}
-
-		// Set tree cell tooltip text
-		if (userObject instanceof DescribableBean) {
-			final DescribableBean describableBean = (DescribableBean) userObject;
-
-			setToolTipText(describableBean.getDescription());
-		}
-
-		// Set tree cell colors
-		if (isSelected && hasFocus) {
-			setBackground(render.getBackgroundSelectionColor());
-			setForeground(render.getTextSelectionColor());
-			setBorder(new LineBorder(render.getBackgroundSelectionColor()));
-		}
-		else if (isSelected && !hasFocus) {
-			setBackground(tree.getBackground());
-			setForeground(foregroundColor);
-			setBorder(new LineBorder(render.getBackgroundSelectionColor()));
-		}
-		else if (!isSelected && hasFocus) {
-			setBackground(tree.getBackground());
-			setForeground(foregroundColor);
-			setBorder(new LineBorder(render.getBackgroundSelectionColor()));
-		}
-		else {
-			setBackground(tree.getBackground());
-			setForeground(foregroundColor);
-			setBorder(new LineBorder(tree.getBackground()));
-		}
-
-		setEnabled(tree.isEnabled());
-		setOpaque(true);
-
-		return this;
-	}
+    /**
+     * The bold font.
+     */
+    private static final Font BOLD_FONT;
 
     /**
-     * Set tree cell icon and text based on the user object and value.
-     *
-     * @param userObject
-     * @param value
+     * The disabled font.
      */
-    private void setTextAndIcon(final Object userObject, final Object value) {
+    private static final Font DISABLED_FONT;
+
+    /**
+     * The Constant serialVersionUID.
+     */
+    private static final long serialVersionUID = -3104743001619688388L;
+
+    static {
+        // Setup fonts
+        BOLD_FONT = new Font(Font.DIALOG, Font.BOLD, 14);
+
+        final Font defaultFont = UIManager.getDefaults().getFont("Tree.font");
+
+        final Map attributes = defaultFont.getAttributes();
+        attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+        DISABLED_FONT = new Font(attributes);
+    }
+
+    /**
+     * Copy of default tree cell renderer. Used for reference.
+     */
+    private DefaultTreeCellRenderer render = null;
+
+    /**
+     * Default constructor.
+     */
+    public MainTreeCellRenderer() {
+        super();
+
+        render = new DefaultTreeCellRenderer();
+    }
+
+    /**
+     * Renders tree cells.
+     *
+     * @param tree       Tree where the cell resides
+     * @param value      Value of the cell
+     * @param isSelected Indicates whether the cell is selected
+     * @param expanded   Indicates whether the cell is expanded
+     * @param leaf       Indicates whether this is a leaf
+     * @param row        Row number
+     * @param hasFocus   Indicates whether the cell has focus
+     * @return the tree cell renderer component
+     */
+    @Override
+    public Component getTreeCellRendererComponent(final JTree tree, final Object value, final boolean isSelected,
+                                                  final boolean expanded, final boolean leaf, final int row, final boolean hasFocus) {
+        final Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
+        setFont(tree.getFont());
+        Color foregroundColor = tree.getForeground();
+
+        // Set tree cell icon and text
+        setTextAndAction(userObject);
+
+        // Apply disabled bean styles
+        if (isDisabled(userObject)) {
+            foregroundColor = Color.LIGHT_GRAY;
+            setFont(DISABLED_FONT);
+        }
+
+        // Set tree cell tooltip text
+        if (userObject instanceof DescribableBean) {
+            final DescribableBean describableBean = (DescribableBean) userObject;
+
+            setToolTipText(describableBean.getDescription());
+        }
+
+        // Set tree cell colors
+        if (isSelected && hasFocus) {
+            setBackground(render.getBackgroundSelectionColor());
+            setForeground(render.getTextSelectionColor());
+            setBorder(new LineBorder(render.getBackgroundSelectionColor()));
+        }
+        else if (isSelected && !hasFocus) {
+            setBackground(tree.getBackground());
+            setForeground(foregroundColor);
+            setBorder(new LineBorder(render.getBackgroundSelectionColor()));
+        }
+        else if (!isSelected && hasFocus) {
+            setBackground(tree.getBackground());
+            setForeground(foregroundColor);
+            setBorder(new LineBorder(render.getBackgroundSelectionColor()));
+        }
+        else {
+            setBackground(tree.getBackground());
+            setForeground(foregroundColor);
+            setBorder(new LineBorder(tree.getBackground()));
+        }
+
+        setEnabled(tree.isEnabled());
+        setOpaque(true);
+
+        return this;
+    }
+
+    /**
+     * Checks if is disabled.
+     *
+     * @param userObject the user object
+     * @return true, if is disabled
+     */
+    private boolean isDisabled(final Object userObject) {
+        if (userObject instanceof EnabledStateBean) {
+            return !((EnabledStateBean) userObject).getEnabled();
+        }
+        else {
+            return false;
+        }
+    }
+
+    private void setTextAndAction(final Object userObject) {
+
         if (userObject instanceof Job) {
             final Job job = (Job) userObject;
             final List<Task> tasks = job.getTasks();
@@ -247,28 +259,13 @@ public final class MainTreeCellRenderer extends JLabel implements TreeCellRender
             setText(subversionUpdateTask.getId());
         }
         else if (userObject instanceof RootTreeNode) {
-            setFont(boldFont);
+            setFont(BOLD_FONT);
             setIcon(null);
-            setText(value.toString());
+            setText(userObject.toString());
         }
         else {
             setIcon(null);
-            setText(value.toString());
+            setText(userObject.toString());
         }
     }
-
-    /**
-	 * Checks if is disabled.
-	 * 
-	 * @param userObject the user object
-	 * @return true, if is disabled
-	 */
-	private boolean isDisabled(final Object userObject) {
-		if (userObject instanceof EnabledStateBean) {
-			return !((EnabledStateBean) userObject).getEnabled();
-		}
-		else {
-			return false;
-		}
-	}
 }

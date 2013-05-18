@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.console;
 
-import java.io.File;
-
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
+
+import java.io.File;
 
 /**
  * The Class ConsoleArguments.
@@ -41,7 +41,7 @@ public final class ConsoleArguments {
 		 * @see com.beust.jcommander.IParameterValidator#validate(java.lang.String, java.lang.String)
 		 */
 		@Override
-		public void validate(final String name, final String value) throws ParameterException {
+		public void validate(final String name, final String value) {
 			if (!new File(value).exists()) {
 				throw new ParameterException("Input file does not exist");
 			}
@@ -54,11 +54,11 @@ public final class ConsoleArguments {
 
 	/** The job id. */
 	@Parameter(names = { "-j", "--job-id" }, descriptionKey = "PARAMETER.JOB_ID.description", required = true)
-	private final String jobId = null;
+	private String jobId;
 
 	/** The task id. */
 	@Parameter(names = { "-t", "--task-id" }, descriptionKey = "PARAMETER.TASK_ID.description")
-	private final String taskId = null;
+	private String taskId;
 
 	/**
 	 * Gets the input file.

@@ -18,14 +18,6 @@
  */
 package net.lmxm.ute.configuration;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
 import net.lmxm.ute.beans.*;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
@@ -41,13 +33,20 @@ import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
-import net.lmxm.ute.subversion.utils.SubversionUtils;
+import net.lmxm.ute.executers.tasks.subversion.SubversionUtils;
 import noNamespace.*;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.XmlOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * The Class ConfigurationWriter.
@@ -838,7 +837,7 @@ public class ConfigurationWriter {
 			subversionExportTaskType.setRevision(subversionExportTask.getRevisionNumber().toString());
 		}
 		else {
-			throw new RuntimeException("Unsupported revision type"); // TODO
+            throw new ConfigurationException(ExceptionResourceType.UNSUPPORTED_SUBVERSION_REVISION, revision);
 		}
 	}
 

@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.beans;
 
+import com.google.common.base.Objects;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang3.StringUtils;
-
-import com.google.common.base.Objects;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * A Find/Replace pattern represents a pair of values used to find and replace text. The find value represents a
@@ -84,7 +84,7 @@ public final class FindReplacePattern implements DomainBean {
      * @return true, if is empty
      */
 	public boolean isEmpty() {
-		return StringUtils.isBlank(find) && StringUtils.isBlank(replace);
+		return isBlank(find) && isBlank(replace);
 	}
 
 	/**
@@ -93,12 +93,13 @@ public final class FindReplacePattern implements DomainBean {
 	 * @return true, if is find is a valid regular expression, otherwise false
 	 */
 	public boolean isValid() {
+        if (isBlank(find)) {
+            return false;
+        }
+
 		try {
 			Pattern.compile(find);
 			return true;
-		}
-		catch (final NullPointerException e) {
-			return false;
 		}
 		catch (final PatternSyntaxException e) {
 			return false;

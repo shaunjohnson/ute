@@ -18,12 +18,11 @@
  */
 package net.lmxm.ute.gui.components;
 
-import java.awt.Component;
-
-import javax.swing.JOptionPane;
-
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ConfirmationResourceType;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A factory for creating OptionPane objects.
