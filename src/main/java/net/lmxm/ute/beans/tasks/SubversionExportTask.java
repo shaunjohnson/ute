@@ -85,7 +85,7 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 	 * @return the revision date
 	 */
 	public Date getRevisionDate() {
-		return revisionDate;
+		return revisionDate == null ? null : (Date)revisionDate.clone();
 	}
 
 	/**

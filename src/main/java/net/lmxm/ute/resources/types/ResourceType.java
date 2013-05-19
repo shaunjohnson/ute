@@ -22,6 +22,7 @@ import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 import javax.swing.*;
+import java.util.Set;
 
 /**
  * The Interface ResourceType.
@@ -54,7 +55,7 @@ public interface ResourceType {
      *
      * @return the resource value types
      */
-    ResourceValueType[] getResourceValueTypes();
+    Set<ResourceValueType> getResourceValueTypes();
 
 	/**
 	 * Name.

@@ -18,10 +18,13 @@
  */
 package net.lmxm.ute.resources.types;
 
+import com.google.common.collect.ImmutableSet;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 import javax.swing.*;
+
+import java.util.Set;
 
 import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
 import static net.lmxm.ute.resources.types.ResourceValueType.TITLE;
@@ -41,10 +44,10 @@ public enum ApplicationResourceType implements ResourceType {
     SAVE_FILE_AS(TITLE),
     VERSION(TEXT);
 
-    private final ResourceValueType[] types;
+    private final Set<ResourceValueType> types;
 
     ApplicationResourceType(final ResourceValueType... types) {
-        this.types = types;
+        this.types = ImmutableSet.copyOf(types);
     }
 
     public ActionCommand getActionCommand() {
@@ -59,7 +62,7 @@ public enum ApplicationResourceType implements ResourceType {
         return ResourceCategory.APPLICATION;
     }
 
-    public ResourceValueType[] getResourceValueTypes() {
+    public Set<ResourceValueType> getResourceValueTypes() {
         return types;
     }
 }

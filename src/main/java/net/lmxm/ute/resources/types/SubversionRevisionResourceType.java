@@ -18,10 +18,13 @@
  */
 package net.lmxm.ute.resources.types;
 
+import com.google.common.collect.ImmutableSet;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 import javax.swing.*;
+
+import java.util.Set;
 
 import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
 
@@ -34,7 +37,7 @@ public enum SubversionRevisionResourceType implements ResourceType {
 	HEAD,
 	NUMBERED;
 
-    private final ResourceValueType[] types = {TEXT};
+    private final Set<ResourceValueType> types = ImmutableSet.of(TEXT);
 
 	public ActionCommand getActionCommand() {
 		return null;
@@ -48,7 +51,7 @@ public enum SubversionRevisionResourceType implements ResourceType {
 		return ResourceCategory.SUBVERSION_REVISION;
 	}
 
-    public ResourceValueType[] getResourceValueTypes() {
+    public Set<ResourceValueType> getResourceValueTypes() {
         return types;
     }
 }

@@ -18,11 +18,14 @@
  */
 package net.lmxm.ute.resources.types;
 
+import com.google.common.collect.ImmutableSet;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourceCategory;
 
 import javax.swing.*;
+
+import java.util.Set;
 
 import static net.lmxm.ute.resources.types.ResourceValueType.*;
 
@@ -121,7 +124,7 @@ public enum MenuItemResourceType implements ResourceType {
 
 	private final Icon icon;
 
-    private final ResourceValueType[] types = {ACCELERATOR, TEXT, TOOLTIP_TEXT};
+    private final Set<ResourceValueType> types = ImmutableSet.of(ACCELERATOR, TEXT, TOOLTIP_TEXT);
 
 	/**
 	 * Instantiates a new gui component menu item.
@@ -146,7 +149,7 @@ public enum MenuItemResourceType implements ResourceType {
 		return ResourceCategory.MENU_ITEM;
 	}
 
-    public ResourceValueType[] getResourceValueTypes() {
+    public Set<ResourceValueType> getResourceValueTypes() {
         return types;
     }
 }

@@ -18,10 +18,13 @@
  */
 package net.lmxm.ute.resources.types;
 
+import com.google.common.collect.ImmutableSet;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 import javax.swing.*;
+
+import java.util.Set;
 
 import static net.lmxm.ute.resources.types.ResourceValueType.MESSAGE;
 
@@ -71,7 +74,7 @@ public enum ExceptionResourceType implements ResourceType {
     UNSUPPORTED_SUBVERSION_REVISION,
 	UNSUPPORTED_TASK_TYPE;
 
-    private final ResourceValueType[] types = {MESSAGE};
+    private final Set<ResourceValueType> types = ImmutableSet.of(MESSAGE);
 
 	public ActionCommand getActionCommand() {
 		return null;
@@ -85,7 +88,7 @@ public enum ExceptionResourceType implements ResourceType {
 		return ResourceCategory.EXCEPTION;
 	}
 
-    public ResourceValueType[] getResourceValueTypes() {
+    public Set<ResourceValueType> getResourceValueTypes() {
         return types;
     }
 }

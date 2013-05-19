@@ -18,11 +18,14 @@
  */
 package net.lmxm.ute.resources.types;
 
+import com.google.common.collect.ImmutableSet;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourceCategory;
 
 import javax.swing.*;
+
+import java.util.Set;
 
 import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
 import static net.lmxm.ute.resources.types.ResourceValueType.TOOLTIP_TEXT;
@@ -93,7 +96,7 @@ public enum ToolbarButtonResourceType implements ResourceType {
 
 	private final Icon icon;
 
-    private final ResourceValueType[] types = {TEXT, TOOLTIP_TEXT};
+    private final Set<ResourceValueType> types = ImmutableSet.of(TEXT, TOOLTIP_TEXT);
 
 	/**
 	 * Instantiates a new gui component button.
@@ -118,7 +121,7 @@ public enum ToolbarButtonResourceType implements ResourceType {
 		return ResourceCategory.TOOLBAR_BUTTON;
 	}
 
-    public ResourceValueType[] getResourceValueTypes() {
+    public Set<ResourceValueType> getResourceValueTypes() {
         return types;
     }
 }

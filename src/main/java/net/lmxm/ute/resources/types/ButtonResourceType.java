@@ -18,10 +18,13 @@
  */
 package net.lmxm.ute.resources.types;
 
+import com.google.common.collect.ImmutableSet;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.resources.ResourceCategory;
 
 import javax.swing.*;
+
+import java.util.Set;
 
 import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
 import static net.lmxm.ute.resources.types.ResourceValueType.TOOLTIP_TEXT;
@@ -35,7 +38,7 @@ public enum ButtonResourceType implements ResourceType {
     CLOSE_TAB(null, null),
     DIRECTORY_BROWSE(null, ActionCommand.DIRECTORY_BROWSE);
 
-    private final ResourceValueType[] types = {TEXT, TOOLTIP_TEXT};
+    private final Set<ResourceValueType> types = ImmutableSet.of(TEXT, TOOLTIP_TEXT);
 
     private final ActionCommand actionCommand;
 
@@ -64,7 +67,7 @@ public enum ButtonResourceType implements ResourceType {
         return ResourceCategory.BUTTON;
     }
 
-    public ResourceValueType[] getResourceValueTypes() {
+    public Set<ResourceValueType> getResourceValueTypes() {
         return types;
     }
 }
