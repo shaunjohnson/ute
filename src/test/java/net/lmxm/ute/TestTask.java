@@ -21,7 +21,6 @@ package net.lmxm.ute;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
-
 import org.junit.Ignore;
 
 /**

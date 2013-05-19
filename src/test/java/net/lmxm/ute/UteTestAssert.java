@@ -18,11 +18,11 @@
  */
 package net.lmxm.ute;
 
-import static junit.framework.Assert.assertTrue;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
 
-import org.apache.commons.lang3.StringUtils;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * The Class UteTestAssert.

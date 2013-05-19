@@ -18,12 +18,12 @@
  */
 package net.lmxm.ute.gui.workers;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.SequentialJob;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 /**
  * The Class ExecuteJobWorkerTest.

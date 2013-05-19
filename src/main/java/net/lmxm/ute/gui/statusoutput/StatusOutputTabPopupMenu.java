@@ -22,8 +22,6 @@ import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.menus.AbstractPopupMenu;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 
-import java.awt.event.ActionListener;
-
 /**
  * The Class StatusOutputTabPopupMenu.
  */

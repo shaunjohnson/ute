@@ -18,13 +18,12 @@
  */
 package net.lmxm.ute;
 
-import java.util.List;
-
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
-
 import org.junit.Ignore;
+
+import java.util.List;
 
 /**
  * The Class TestJob.

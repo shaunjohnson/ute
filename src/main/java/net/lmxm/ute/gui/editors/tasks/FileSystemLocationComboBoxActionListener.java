@@ -1,11 +1,8 @@
 package net.lmxm.ute.gui.editors.tasks;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
-import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.sources.SubversionRepositorySource;
 import net.lmxm.ute.beans.targets.FileSystemTarget;
 import net.lmxm.ute.beans.tasks.FileSystemTargetTask;
-import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.exceptions.GuiException;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;
 import net.lmxm.ute.resources.types.ExceptionResourceType;

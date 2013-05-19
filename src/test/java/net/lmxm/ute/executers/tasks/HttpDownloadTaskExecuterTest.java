@@ -18,18 +18,17 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FileReference;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-
 import net.lmxm.ute.exceptions.TaskExecuterException;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The Class HttpDownloadTaskExecuterTest.

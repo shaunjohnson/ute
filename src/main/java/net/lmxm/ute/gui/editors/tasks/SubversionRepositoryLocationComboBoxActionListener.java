@@ -1,10 +1,7 @@
 package net.lmxm.ute.gui.editors.tasks;
 
-import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.sources.MavenRepositorySource;
 import net.lmxm.ute.beans.sources.SubversionRepositorySource;
-import net.lmxm.ute.beans.tasks.MavenRepositorySourceTask;
 import net.lmxm.ute.beans.tasks.SubversionRepositorySourceTask;
 import net.lmxm.ute.exceptions.GuiException;
 import net.lmxm.ute.gui.editors.AbstractEditorPanel;

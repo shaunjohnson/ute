@@ -21,8 +21,8 @@ package net.lmxm.ute.resources;
 import net.lmxm.ute.resources.types.*;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 public class ResourcesUtilsTest {
     private String generateResourceId(final ResourceType resourceType, final ResourceValueType resourceValueType) {

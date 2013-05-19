@@ -22,7 +22,6 @@ import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 /**
  * The Class FileToolBar.

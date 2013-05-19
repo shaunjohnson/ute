@@ -19,7 +19,6 @@
 package net.lmxm.ute.utils.testimpl;
 
 import net.lmxm.ute.preferences.AbstractPreferences;
-
 import org.junit.Ignore;
 
 /**

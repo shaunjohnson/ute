@@ -1,7 +1,6 @@
 package net.lmxm.ute.event;
 
 import com.google.common.eventbus.EventBus;
-import net.lmxm.ute.executers.jobs.JobStatusEvent;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

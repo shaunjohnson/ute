@@ -18,9 +18,9 @@
  */
 package net.lmxm.ute.utils;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * The Class PathUtilsTest.

@@ -19,7 +19,6 @@
 package net.lmxm.ute.beans;
 
 import com.google.common.base.Objects;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;

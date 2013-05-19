@@ -18,14 +18,11 @@
  */
 package net.lmxm.ute.event;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.jobs.Job;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * The Class StatusChangeEventTest.

@@ -19,8 +19,6 @@
 package net.lmxm.ute.executers.tasks.subversion;
 
 import net.lmxm.ute.event.JobStatusChangeEventBus;
-import net.lmxm.ute.event.StatusChangeEventBus;
-import net.lmxm.ute.executers.jobs.JobStatusEvent;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.SubversionEventResourceType;
 import org.slf4j.Logger;

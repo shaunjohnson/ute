@@ -18,10 +18,10 @@
  */
 package net.lmxm.ute.event;
 
+import org.junit.Test;
+
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
 
 /**
  * The Class StatusChangeEventTypeTest.

@@ -18,15 +18,13 @@
  */
 package net.lmxm.ute.validation.rules;
 
-import static junit.framework.Assert.assertNotNull;
-import static net.lmxm.ute.UteTestAssert.assertEmpty;
-import static net.lmxm.ute.UteTestAssert.assertNotBlank;
-import static net.lmxm.ute.UteTestAssert.assertNotEmpty;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import static junit.framework.Assert.assertNotNull;
+import static net.lmxm.ute.UteTestAssert.*;
 
 /**
  * The Class SubversionRepositoryLocationUrlTextValidationRuleTest.

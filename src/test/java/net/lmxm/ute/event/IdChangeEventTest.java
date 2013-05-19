@@ -18,13 +18,11 @@
  */
 package net.lmxm.ute.event;
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.IdentifiableBean;
-
 import org.junit.Test;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * The Class IdChangeEventTest.

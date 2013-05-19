@@ -18,19 +18,16 @@
  */
 package net.lmxm.ute.validation.rules;
 
-import static junit.framework.Assert.assertNotNull;
-import static net.lmxm.ute.UteTestAssert.assertEmpty;
-import static net.lmxm.ute.UteTestAssert.assertNotBlank;
-import static net.lmxm.ute.UteTestAssert.assertNotEmpty;
-
-import java.util.List;
-
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
+import static junit.framework.Assert.assertNotNull;
+import static net.lmxm.ute.UteTestAssert.*;
 
 /**
  * The Class FileSystemLocationIdAlreadyInUseValidationRuleTest.

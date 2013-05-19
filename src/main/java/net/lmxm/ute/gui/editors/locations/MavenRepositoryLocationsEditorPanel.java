@@ -25,8 +25,6 @@ import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
-import java.awt.event.ActionListener;
-
 /**
  * The Class MavenRepositoryLocationsEditorPanel.
  */

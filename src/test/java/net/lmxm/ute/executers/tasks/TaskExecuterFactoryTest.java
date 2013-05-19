@@ -18,22 +18,15 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.TestTask;
 import net.lmxm.ute.beans.configuration.Configuration;
-import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-import net.lmxm.ute.beans.tasks.FindReplaceTask;
-import net.lmxm.ute.beans.tasks.GroovyTask;
-import net.lmxm.ute.beans.tasks.HttpDownloadTask;
-import net.lmxm.ute.beans.tasks.SubversionExportTask;
-import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
+import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.executers.Executer;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * The Class TaskExecuterFactoryTest.

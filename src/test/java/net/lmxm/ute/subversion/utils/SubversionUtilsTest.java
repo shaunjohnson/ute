@@ -1,16 +1,13 @@
 package net.lmxm.ute.subversion.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import net.lmxm.ute.executers.tasks.subversion.SubversionUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import net.lmxm.ute.executers.tasks.subversion.SubversionUtils;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class SubversionUtilsTest {
 

@@ -18,19 +18,14 @@
  */
 package net.lmxm.ute.preferences;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.Dimension;
-import java.awt.Point;
-
 import net.lmxm.ute.utils.testimpl.TestPreferences;
-
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * The Class AbstractPreferencesTest.

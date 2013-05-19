@@ -18,20 +18,16 @@
  */
 package net.lmxm.ute.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import net.lmxm.ute.beans.FileReference;
+import org.apache.commons.io.FileUtils;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.lmxm.ute.beans.FileReference;
-
-import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * The Class FileSystemUtilsTest.

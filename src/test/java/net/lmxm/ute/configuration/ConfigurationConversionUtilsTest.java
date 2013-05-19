@@ -18,14 +18,14 @@
  */
 package net.lmxm.ute.configuration;
 
-import static org.junit.Assert.assertEquals;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.exceptions.ConfigurationException;
 import noNamespace.ScopeType;
 import noNamespace.SubversionDepthType;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * The Class ConfigurationConversionUtilsTest.

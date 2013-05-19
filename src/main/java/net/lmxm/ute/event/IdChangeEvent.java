@@ -20,8 +20,6 @@ package net.lmxm.ute.event;
 
 import net.lmxm.ute.beans.IdentifiableBean;
 
-import java.util.EventObject;
-
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**

@@ -18,13 +18,13 @@
  */
 package net.lmxm.ute.event;
 
+import net.lmxm.ute.TestTask;
+import net.lmxm.ute.beans.EnabledStateBean;
+import org.junit.Test;
+
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import net.lmxm.ute.TestTask;
-import net.lmxm.ute.beans.EnabledStateBean;
-
-import org.junit.Test;
 
 /**
  */

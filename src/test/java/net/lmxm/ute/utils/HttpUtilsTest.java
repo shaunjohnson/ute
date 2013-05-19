@@ -18,13 +18,11 @@
  */
 package net.lmxm.ute.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.sources.HttpSource;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * The Class HttpUtilsTest.

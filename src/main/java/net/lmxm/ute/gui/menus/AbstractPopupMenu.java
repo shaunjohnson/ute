@@ -25,7 +25,6 @@ import net.lmxm.ute.resources.types.MenuResourceType;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

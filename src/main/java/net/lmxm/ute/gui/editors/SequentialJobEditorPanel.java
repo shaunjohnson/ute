@@ -26,8 +26,6 @@ import net.lmxm.ute.resources.types.LabelResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.event.ActionListener;
-
 /**
  * The Class SequentialJobEditorPanel.
  */

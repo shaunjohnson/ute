@@ -18,22 +18,21 @@
  */
 package net.lmxm.ute.utils;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static net.lmxm.ute.UteTestAssert.assertEmpty;
-import static net.lmxm.ute.UteTestAssert.assertNotEmpty;
-import static org.junit.Assert.assertTrue;
+import net.lmxm.ute.beans.DomainBean;
+import net.lmxm.ute.beans.configuration.Configuration;
+import net.lmxm.ute.beans.locations.FileSystemLocation;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.lmxm.ute.beans.DomainBean;
-import net.lmxm.ute.beans.configuration.Configuration;
-import net.lmxm.ute.beans.locations.FileSystemLocation;
-
-import org.junit.Test;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static net.lmxm.ute.UteTestAssert.assertEmpty;
+import static net.lmxm.ute.UteTestAssert.assertNotEmpty;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The Class DomainBeanUtilsTest.

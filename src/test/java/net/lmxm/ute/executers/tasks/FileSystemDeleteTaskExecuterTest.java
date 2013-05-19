@@ -18,23 +18,20 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import net.lmxm.ute.TestJob;
+import net.lmxm.ute.beans.FileReference;
+import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
+import org.apache.commons.io.FileUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.lmxm.ute.TestJob;
-import net.lmxm.ute.beans.FileReference;
-import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
-
-import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * The Class FileSystemDeleteTaskExecuterTest.

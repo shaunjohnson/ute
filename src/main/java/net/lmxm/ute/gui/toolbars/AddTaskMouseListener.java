@@ -22,7 +22,6 @@ import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.menus.AddTaskPopupMenu;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

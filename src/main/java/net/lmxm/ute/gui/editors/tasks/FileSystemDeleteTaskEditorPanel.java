@@ -25,8 +25,6 @@ import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
-import java.awt.event.ActionListener;
-
 /**
  * The Class FileSystemDeleteTaskEditorPanel.
  */

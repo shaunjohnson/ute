@@ -1,7 +1,6 @@
 package net.lmxm.ute.utils.aether;
 
 import net.lmxm.ute.event.JobStatusChangeEventBus;
-import net.lmxm.ute.event.StatusChangeEventBus;
 import org.sonatype.aether.AbstractRepositoryListener;
 import org.sonatype.aether.RepositoryEvent;
 

@@ -1,7 +1,6 @@
 package net.lmxm.ute.utils.aether;
 
 import net.lmxm.ute.event.JobStatusChangeEventBus;
-import net.lmxm.ute.event.StatusChangeEventBus;
 import org.apache.maven.repository.internal.MavenRepositorySystemSession;
 import org.codehaus.plexus.DefaultPlexusContainer;
 import org.codehaus.plexus.util.FileUtils;

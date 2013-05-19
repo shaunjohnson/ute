@@ -1,14 +1,11 @@
 package net.lmxm.ute.gui.statusoutput;
 
 import net.lmxm.ute.event.StatusChangeEventType;
-import net.lmxm.ute.gui.statusoutput.StatusOutputPanel;
 import org.junit.Test;
 
 import javax.swing.text.StyleContext;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 /**

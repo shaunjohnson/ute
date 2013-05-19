@@ -1,7 +1,6 @@
 package net.lmxm.ute.utils.aether;
 
 import net.lmxm.ute.event.JobStatusChangeEventBus;
-import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.resources.types.StatusChangeMessageResourceType;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.sonatype.aether.transfer.TransferCancelledException;

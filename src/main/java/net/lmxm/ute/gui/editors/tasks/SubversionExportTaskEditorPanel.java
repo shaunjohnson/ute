@@ -26,7 +26,6 @@ import net.lmxm.ute.enums.SubversionDepth;
 import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.exceptions.GuiException;
-import net.lmxm.ute.exceptions.TaskExecuterException;
 import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.ExceptionResourceType;

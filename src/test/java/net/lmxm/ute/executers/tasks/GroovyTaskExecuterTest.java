@@ -23,7 +23,6 @@ import net.lmxm.ute.beans.PropertiesHolder;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.GroovyTask;
-
 import org.junit.Test;
 
 /**

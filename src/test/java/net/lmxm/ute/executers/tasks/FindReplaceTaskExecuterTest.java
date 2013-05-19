@@ -18,23 +18,19 @@
  */
 package net.lmxm.ute.executers.tasks;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import net.lmxm.ute.TestJob;
 import net.lmxm.ute.beans.FindReplacePattern;
 import net.lmxm.ute.beans.PatternWrapper;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.FindReplaceTask;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import static org.junit.Assert.*;
 
 /**
  * The Class FindReplaceTaskExecuterTest.

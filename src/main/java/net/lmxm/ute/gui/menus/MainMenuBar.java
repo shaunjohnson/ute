@@ -24,7 +24,6 @@ import net.lmxm.ute.resources.types.MenuItemResourceType;
 import net.lmxm.ute.resources.types.MenuResourceType;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 /**
  * The Class MainMenuBar.
