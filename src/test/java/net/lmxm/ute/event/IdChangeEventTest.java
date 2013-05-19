@@ -50,12 +50,4 @@ public class IdChangeEventTest {
 	public void testIdChangeEventNullIdentifiableBean() {
 		new IdChangeEvent(null);
 	}
-
-	/**
-	 * Test id change event null source.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testIdChangeEventNullSource() {
-		new IdChangeEvent(new TestJob());
-	}
 }

@@ -1252,7 +1252,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
     private void initializeTreeNodeEditorMap() {
         final ConfigurationHolder configurationHolder = this;
         final UteActionListener actionListener = this;
-        
+
         treeNodeEditorMap.put(FileSystemDeleteTask.class,
                 new FileSystemDeleteTaskEditorPanel(configurationHolder, actionListener));
         treeNodeEditorMap.put(FileSystemLocation.class,
