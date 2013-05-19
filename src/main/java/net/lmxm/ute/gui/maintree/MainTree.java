@@ -30,12 +30,10 @@ import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.Task;
 import net.lmxm.ute.configuration.ConfigurationHolder;
-import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.EnabledStateChangeEvent;
 import net.lmxm.ute.event.EnabledStateChangeListener;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.gui.UteActionListener;
-import net.lmxm.ute.gui.maintree.nodes.*;
 import net.lmxm.ute.gui.menus.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +43,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import java.awt.event.*;
 import java.util.Enumeration;
 
 /**
@@ -53,200 +50,7 @@ import java.util.Enumeration;
  */
 public class MainTree extends JTree implements EnabledStateChangeListener {
 
-	/**
-	 * The listener interface for receiving mainTreeKey events. The class that is interested in processing a mainTreeKey
-	 * event implements this interface, and the object created with that class is registered with a component using the
-	 * component's <code>addMainTreeKeyListener<code> method. When
-	 * the mainTreeKey event occurs, that object's appropriate
-	 * method is invoked.
-	 */
-	private class MainTreeKeyListener extends KeyAdapter {
-
-		/**
-		 * Creates the action event.
-		 * 
-		 * @param actionCommand the action command
-		 * @return the action event
-		 */
-		private ActionEvent createActionEvent(final String actionCommand) {
-			return new ActionEvent(this, ActionEvent.ACTION_PERFORMED, actionCommand);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see java.awt.event.KeyAdapter#keyPressed(java.awt.event.KeyEvent)
-		 */
-		@Override
-		public void keyPressed(final KeyEvent keyEvent) {
-			if (keyEvent.getKeyCode() == KeyEvent.VK_DELETE) {
-				final Object userObject = getSelectedTreeObject();
-				final ActionEvent actionEvent;
-
-				if (userObject instanceof FileSystemLocation) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_FILE_SYSTEM_LOCATION.name());
-				}
-				else if (userObject instanceof HttpLocation) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_HTTP_LOCATION.name());
-				}
-				else if (userObject instanceof Job) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_JOB.name());
-				}
-                else if (userObject instanceof MavenRepositoryLocation) {
-                    actionEvent = createActionEvent(ActionCommand.DELETE_MAVEN_REPOSITORY_LOCATION.name());
-                }
-				else if (userObject instanceof Preference) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_PREFERENCE.name());
-				}
-				else if (userObject instanceof Property) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_PROPERTY.name());
-				}
-				else if (userObject instanceof SubversionRepositoryLocation) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_SUBVERSION_REPOSITORY_LOCATION.name());
-				}
-				else if (userObject instanceof Task) {
-					actionEvent = createActionEvent(ActionCommand.DELETE_TASK.name());
-				}
-				else {
-					actionEvent = null;
-				}
-
-				if (actionEvent != null) {
-					actionListener.actionPerformed(actionEvent);
-				}
-			}
-		}
-	}
-
-	/**
-	 * The listener interface for receiving mainTreeMouse events. The class that is interested in processing a
-	 * mainTreeMouse event implements this interface, and the object created with that class is registered with a
-	 * component using the component's <code>addMainTreeMouseListener<code> method. When
-	 * the mainTreeMouse event occurs, that object's appropriate
-	 * method is invoked.
-	 */
-	private class MainTreeMouseListener extends MouseAdapter {
-
-		/**
-		 * Handle popup trigger.
-		 * 
-		 * @param mouseEvent the mouse event
-		 */
-		public void handlePopupTrigger(final MouseEvent mouseEvent) {
-			final String prefix = "mouseClicked() :";
-
-			LOGGER.debug("{} entered", prefix);
-
-			if (mouseEvent.isPopupTrigger()) {
-				final int x = mouseEvent.getX();
-				final int y = mouseEvent.getY();
-
-				selectTreeObjectAtLocation(x, y);
-
-				final Object object = getSelectedTreeObject();
-
-				if (object != null) {
-					JPopupMenu popupMenu = null;
-
-                    LOGGER.debug("{} Selected tree object is of type: {}", prefix, object.getClass().getName());
-
-					// Find popup menu appropriate to the item selected
-					if (object instanceof JobsRootTreeNode) {
-						popupMenu = getJobsRootPopupMenu();
-					}
-					else if (object instanceof Job) {
-						popupMenu = getJobPopupMenu();
-					}
-					else if (object instanceof Task) {
-						popupMenu = getTaskPopupMenu();
-					}
-					else if (object instanceof FileSystemLocationsRootTreeNode) {
-						popupMenu = getFileSystemLocationsRootPopupMenu();
-					}
-					else if (object instanceof FileSystemLocation) {
-						popupMenu = getFileSystemLocationPopupMenu();
-					}
-					else if (object instanceof HttpLocationsRootTreeNode) {
-						popupMenu = getHttpLocationsRootPopupMenu();
-					}
-					else if (object instanceof HttpLocation) {
-						popupMenu = getHttpLocationPopupMenu();
-					}
-                    else if (object instanceof MavenRepositoryLocationsRootTreeNode) {
-                        popupMenu = getMavenRepositoryLocationsRootPopupMenu();
-                    }
-                    else if (object instanceof MavenRepositoryLocation) {
-                        popupMenu = getMavenRepositoryLocationPopupMenu();
-                    }
-					else if (object instanceof SubversionRepositoryLocationsRootTreeNode) {
-						popupMenu = getSubversionRepositoryLocationsRootPopupMenu();
-					}
-					else if (object instanceof SubversionRepositoryLocation) {
-						popupMenu = getSubversionRepositoryLocationPopupMenu();
-					}
-					else if (object instanceof PreferencesRootTreeNode) {
-						popupMenu = getPreferencesRootPopupMenu();
-					}
-					else if (object instanceof Preference) {
-						popupMenu = getPreferencePopupMenu();
-					}
-					else if (object instanceof PropertiesRootTreeNode) {
-						popupMenu = getPropertiesRootPopupMenu();
-					}
-					else if (object instanceof Property) {
-						popupMenu = getPropertyPopupMenu();
-					}
-					else {
-						LOGGER.debug("{} unsupported object; no popup will be displayed", prefix);
-					}
-
-					// Display the popup menu if a match was found
-					if (popupMenu != null) {
-						popupMenu.show(mouseEvent.getComponent(), x, y);
-					}
-					else {
-						LOGGER.debug("{} no matching popup found", prefix);
-					}
-				}
-				else {
-					LOGGER.debug("{} no object selected", prefix);
-				}
-			}
-			else {
-				LOGGER.debug("{} not a popup trigger", prefix);
-			}
-
-			LOGGER.debug("{} leaving", prefix);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-		 */
-		@Override
-		public void mouseClicked(final MouseEvent mouseEvent) {
-			handlePopupTrigger(mouseEvent);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
-		 */
-		@Override
-		public void mousePressed(final MouseEvent mouseEvent) {
-			handlePopupTrigger(mouseEvent);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
-		 */
-		@Override
-		public void mouseReleased(final MouseEvent mouseEvent) {
-			handlePopupTrigger(mouseEvent);
-		}
-	}
-
-	/** The Constant LOGGER. */
+    /** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MainTree.class);
 
 	/** The Constant serialVersionUID. */
@@ -324,8 +128,8 @@ public class MainTree extends JTree implements EnabledStateChangeListener {
 		setAutoscrolls(true);
 		setShowsRootHandles(true);
 
-		addKeyListener(new MainTreeKeyListener());
-		addMouseListener(new MainTreeMouseListener());
+		addKeyListener(new MainTreeKeyListener(this, actionListener));
+		addMouseListener(new MainTreeMouseListener(this));
 
 		setDragEnabled(true);
 		setDropMode(DropMode.INSERT);
@@ -624,7 +428,7 @@ public class MainTree extends JTree implements EnabledStateChangeListener {
 	 * 
 	 * @return the job popup menu
 	 */
-	private JobPopupMenu getJobPopupMenu() {
+	protected JobPopupMenu getJobPopupMenu() {
 		if (jobPopupMenu == null) {
 			jobPopupMenu = new JobPopupMenu(getActionListener());
 		}
@@ -637,7 +441,7 @@ public class MainTree extends JTree implements EnabledStateChangeListener {
 	 * 
 	 * @return the jobs root popup menu
 	 */
-	private JobsRootPopupMenu getJobsRootPopupMenu() {
+	protected JobsRootPopupMenu getJobsRootPopupMenu() {
 		if (jobsRootPopupMenu == null) {
 			jobsRootPopupMenu = new JobsRootPopupMenu(getActionListener());
 		}
