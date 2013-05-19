@@ -20,6 +20,7 @@ package net.lmxm.ute.gui.frames;
 
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ApplicationResourceType;
+import net.lmxm.ute.resources.types.ResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,15 +42,33 @@ public class AbstractFrame extends JFrame {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractFrame.class);
 
     /**
-     * Generic error message dialog.
+     * Display an error message to the user, for the provided exception.
      *
      * @param throwable the throwable/exception that occurred
      */
-    protected void displayError(final Throwable throwable) {
+    protected final void displayError(final Throwable throwable) {
         LOGGER.error("Error occurred.", throwable);
 
-        // TODO handle AbstractRuntimeException and other errors differently?
-        final String message = throwable.getMessage();
+        displayError(throwable.getMessage());
+    }
+
+    /**
+     * Display an error message to the user.
+     *
+     * @param resourceType Resource type used to load error message text
+     */
+    protected final void displayError(final ResourceType resourceType) {
+        LOGGER.error("Error occurred: {}", resourceType);
+
+        displayError(ResourcesUtils.getResourceText(resourceType));
+    }
+
+    /**
+     * Display error message implementation.
+     *
+     * @param message Localized message to display to the user
+     */
+    private void displayError(final String message) {
         final String title = ResourcesUtils.getResourceTitle(ApplicationResourceType.ERROR_OCCURRED);
 
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);

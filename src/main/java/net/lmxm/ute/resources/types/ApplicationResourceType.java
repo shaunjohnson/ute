@@ -37,6 +37,7 @@ public enum ApplicationResourceType implements ResourceType {
     FILE_DESCRIPTION(TEXT),
     NAME(TEXT),
     NEW_FILE(TEXT),
+    PREFERENCES_MUST_BE_SET(TEXT),
     SAVE_FILE_AS(TITLE),
     VERSION(TEXT);
 

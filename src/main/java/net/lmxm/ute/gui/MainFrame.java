@@ -1373,8 +1373,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		else {
 			LOGGER.debug("{} at least one preference does not have a value", prefix);
 
-			JOptionPane.showMessageDialog(this, "Preferences must be assigned values before continuing", "Error",
-					JOptionPane.ERROR_MESSAGE);
+            displayError(ApplicationResourceType.PREFERENCES_MUST_BE_SET);
 		}
 
 		LOGGER.debug("{} leaving", prefix);
