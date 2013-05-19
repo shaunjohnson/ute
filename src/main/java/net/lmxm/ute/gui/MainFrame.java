@@ -820,15 +820,9 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 */
 	private void actionSaveFile() {
 		if (configuration.getConfigurationFile() == null) {
-			final JFileChooser fcSave = new JFileChooser(getCurrentDirectory());
+			final JFileChooser fcSave = new SaveFileChooser(getCurrentDirectory());
 
-			fcSave.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			fcSave.setDialogType(JFileChooser.SAVE_DIALOG);
-			fcSave.setFileFilter(getFileFilter());
-
-			final int returnVal = fcSave.showSaveDialog(this);
-
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
+			if (fcSave.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
 				final String path = fcSave.getSelectedFile().getAbsolutePath();
 
 				configuration.setConfigurationFile(new File(ConfigurationUtils.appendFileExtension(path)));
@@ -846,16 +840,9 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 * Action save file as.
 	 */
 	private void actionSaveFileAs() {
-		final JFileChooser fcSaveAs = new JFileChooser(getCurrentDirectory());
+		final JFileChooser fcSaveAs = new SaveAsFileChooser(getCurrentDirectory());
 
-		fcSaveAs.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		fcSaveAs.setDialogType(JFileChooser.SAVE_DIALOG);
-		fcSaveAs.setFileFilter(getFileFilter());
-		fcSaveAs.setDialogTitle(ResourcesUtils.getResourceTitle(ApplicationResourceType.SAVE_FILE_AS));
-
-		final int returnVal = fcSaveAs.showSaveDialog(this);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
+		if (fcSaveAs.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
 			final String path = fcSaveAs.getSelectedFile().getAbsolutePath();
 
 			configuration.setConfigurationFile(new File(ConfigurationUtils.appendFileExtension(path)));
@@ -947,6 +934,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		if (bottomPanel == null) {
 			bottomPanel = new JTabbedPane(JTabbedPane.TOP);
 		}
+
 		return bottomPanel;
 	}
 
@@ -1033,6 +1021,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		if (fileToolBar == null) {
 			fileToolBar = new FileToolBar(this);
 		}
+
 		return fileToolBar;
 	}
 
@@ -1072,6 +1061,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			jobDetailsEditorScrollPane = new JScrollPane();
 			jobDetailsEditorScrollPane.setViewport(null);
 		}
+
 		return jobDetailsEditorScrollPane;
 	}
 
@@ -1091,6 +1081,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 				}
 			};
 		}
+
 		return jobsSplitPane;
 	}
 
@@ -1108,6 +1099,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 				}
 			};
 		}
+
 		return jobsTreePane;
 	}
 
@@ -1137,6 +1129,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		if (mainMenuBar == null) {
 			mainMenuBar = new MainMenuBar(this);
         }
+
 		return mainMenuBar;
 	}
 
@@ -1186,6 +1179,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		if (mainTreeToolBar == null) {
 			mainTreeToolBar = new MainTreeToolBar(this);
 		}
+
 		return mainTreeToolBar;
 	}
 
@@ -1312,13 +1306,11 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 */
 	private void loadUserPreferences() {
 		final Dimension windowSize = userPreferences.getWindowSize();
-
 		if (windowSize != null) {
 			setSize(windowSize);
 		}
 
 		final Point location = userPreferences.getWindowLocation();
-
 		if (location != null) {
 			setLocation(location);
 		}
