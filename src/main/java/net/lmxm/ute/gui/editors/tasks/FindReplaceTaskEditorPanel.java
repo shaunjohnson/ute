@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executer.
- * 
+ *
  * Universal Task Executer is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executer is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executer. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,29 +35,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 /**
  * The Class FindReplaceTaskEditorPanel.
  */
 public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
-
-	/**
-	 * The Class FindReplaceTaskEditorToolBar.
-	 */
-	private static class FindReplaceTaskEditorToolBar extends AbstractTaskEditorToolBar {
-
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = -4652716534538899767L;
-
-		/**
-		 * Instantiates a new find replace task editor tool bar.
-		 * 
-		 * @param actionListener the action listener
-		 */
-		public FindReplaceTaskEditorToolBar(final UteActionListener actionListener) {
-			super(actionListener);
-		}
-	}
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FindReplaceTaskEditorPanel.class);
@@ -81,14 +64,14 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	private JTable patternsTable = null;
 
 	/** The scope action listener. */
-	private ActionListener scopeActionListener = null;
+	private ActionListener scopeActionListener = new ScopeActionListener();
 
 	/** The scope pane. */
 	private JPanel scopePane = null;
 
 	/**
 	 * Instantiates a new find replace task editor panel.
-	 * 
+	 *
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
@@ -127,13 +110,13 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Gets the file scope radio button.
-	 * 
+	 *
 	 * @return the file scope radio button
 	 */
 	private JRadioButton getFileScopeRadioButton() {
 		if (fileScopeRadioButton == null) {
 			fileScopeRadioButton = new JRadioButton(Scope.FILE.toString());
-			fileScopeRadioButton.addActionListener(getScopeActionListener());
+			fileScopeRadioButton.addActionListener(scopeActionListener);
 		}
 
 		return fileScopeRadioButton;
@@ -141,13 +124,13 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Gets the line scope radio button.
-	 * 
+	 *
 	 * @return the line scope radio button
 	 */
 	private JRadioButton getLineScopeRadioButton() {
 		if (lineScopeRadioButton == null) {
 			lineScopeRadioButton = new JRadioButton(Scope.LINE.toString());
-			lineScopeRadioButton.addActionListener(getScopeActionListener());
+			lineScopeRadioButton.addActionListener(scopeActionListener);
 		}
 
 		return lineScopeRadioButton;
@@ -155,7 +138,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Gets the patterns pane.
-	 * 
+	 *
 	 * @return the patterns pane
 	 */
 	private JPanel getPatternsPane() {
@@ -171,7 +154,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Gets the patterns scroll pane.
-	 * 
+	 *
 	 * @return the patterns scroll pane
 	 */
 	private JScrollPane getPatternsScrollPane() {
@@ -185,7 +168,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 	/**
 	 * Gets the patterns table.
-	 * 
+	 *
 	 * @return the patterns table
 	 */
 	private JTable getPatternsTable() {
@@ -198,39 +181,8 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	}
 
 	/**
-	 * Gets the scope action listener.
-	 * 
-	 * @return the scope action listener
-	 */
-	private ActionListener getScopeActionListener() {
-		if (scopeActionListener == null) {
-			scopeActionListener = new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent actionEvent) {
-					if (getUserObject() instanceof FindReplaceTask) {
-						final FindReplaceTask findReplaceTask = (FindReplaceTask) getUserObject();
-
-						final Object source = actionEvent.getSource();
-						if (source.equals(getFileScopeRadioButton())) {
-							findReplaceTask.setScope(Scope.FILE);
-						}
-						else if (source.equals(getLineScopeRadioButton())) {
-							findReplaceTask.setScope(Scope.LINE);
-						}
-						else {
-							throw new GuiException(ExceptionResourceType.UNSUPPORTED_SCOPE);
-						}
-					}
-				}
-			};
-		}
-
-		return scopeActionListener;
-	}
-
-	/**
 	 * Gets the scope pane.
-	 * 
+	 *
 	 * @return the scope pane
 	 */
 	private JPanel getScopePane() {
@@ -278,4 +230,42 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 
 		LOGGER.debug("{} leaving", prefix);
 	}
+
+	/**
+	 * The Class FindReplaceTaskEditorToolBar.
+	 */
+	private static class FindReplaceTaskEditorToolBar extends AbstractTaskEditorToolBar {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -4652716534538899767L;
+
+		/**
+		 * Instantiates a new find replace task editor tool bar.
+		 *
+		 * @param actionListener the action listener
+		 */
+		public FindReplaceTaskEditorToolBar(final UteActionListener actionListener) {
+			super(actionListener);
+		}
+	}
+
+    private class ScopeActionListener implements ActionListener, Serializable {
+        @Override
+        public void actionPerformed(final ActionEvent actionEvent) {
+            if (getUserObject() instanceof FindReplaceTask) {
+                final FindReplaceTask findReplaceTask = (FindReplaceTask) getUserObject();
+
+                final Object source = actionEvent.getSource();
+                if (source.equals(getFileScopeRadioButton())) {
+                    findReplaceTask.setScope(Scope.FILE);
+                }
+                else if (source.equals(getLineScopeRadioButton())) {
+                    findReplaceTask.setScope(Scope.LINE);
+                }
+                else {
+                    throw new GuiException(ExceptionResourceType.UNSUPPORTED_SCOPE);
+                }
+            }
+        }
+    }
 }

@@ -41,6 +41,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.SortedSet;
 
@@ -83,7 +84,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	private JRadioButton numberedRevisionRadioButton = null;
 
 	/** The revision action listener. */
-	private ActionListener revisionActionListener = null;
+	private ActionListener revisionActionListener = new RevisionActionListener();
 
 	/** The revision date text field. */
 	private JXDatePicker revisionDateTextField = null;
@@ -135,7 +136,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	private JRadioButton getDateRevisionRadioButton() {
 		if (dateRevisionRadioButton == null) {
 			dateRevisionRadioButton = new JRadioButton(SubversionRevision.DATE.toString());
-			dateRevisionRadioButton.addActionListener(getRevisionActionListener());
+			dateRevisionRadioButton.addActionListener(revisionActionListener);
 		}
 
 		return dateRevisionRadioButton;
@@ -158,7 +159,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	private JRadioButton getHeadRevisionRadioButton() {
 		if (headRevisionRadioButton == null) {
 			headRevisionRadioButton = new JRadioButton(SubversionRevision.HEAD.toString());
-			headRevisionRadioButton.addActionListener(getRevisionActionListener());
+			headRevisionRadioButton.addActionListener(revisionActionListener);
 		}
 
 		return headRevisionRadioButton;
@@ -172,49 +173,10 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	private JRadioButton getNumberedRevisionRadioButton() {
 		if (numberedRevisionRadioButton == null) {
 			numberedRevisionRadioButton = new JRadioButton(SubversionRevision.NUMBERED.toString());
-			numberedRevisionRadioButton.addActionListener(getRevisionActionListener());
+			numberedRevisionRadioButton.addActionListener(revisionActionListener);
 		}
 
 		return numberedRevisionRadioButton;
-	}
-
-	/**
-	 * Gets the revision action listener.
-	 * 
-	 * @return the revision action listener
-	 */
-	private ActionListener getRevisionActionListener() {
-        final String prefix = "getRevisionActionListener() : ";
-
-		if (revisionActionListener == null) {
-			revisionActionListener = new ActionListener() {
-				@Override
-				public void actionPerformed(final ActionEvent actionEvent) {
-					if (getUserObject() instanceof SubversionExportTask) {
-						final SubversionExportTask subversionExportTask = (SubversionExportTask) getUserObject();
-
-						final Object source = actionEvent.getSource();
-						if (source.equals(getHeadRevisionRadioButton())) {
-							subversionExportTask.setRevision(SubversionRevision.HEAD);
-						}
-						else if (source.equals(getDateRevisionRadioButton())) {
-							subversionExportTask.setRevision(SubversionRevision.DATE);
-						}
-						else if (source.equals(getNumberedRevisionRadioButton())) {
-							subversionExportTask.setRevision(SubversionRevision.NUMBERED);
-						}
-						else {
-							LOGGER.error("{} Unsupported revision", prefix);
-                            throw new GuiException(ExceptionResourceType.INVALID_SUBVERSION_REVISION_VALUE);
-						}
-
-						updateRevisionFields(subversionExportTask.getRevision());
-					}
-				}
-			};
-		}
-
-		return revisionActionListener;
 	}
 
 	/**
@@ -411,4 +373,32 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
             throw new GuiException(ExceptionResourceType.INVALID_SUBVERSION_REVISION_VALUE, revision);
 		}
 	}
+
+    private class RevisionActionListener implements ActionListener, Serializable {
+        @Override
+        public void actionPerformed(final ActionEvent actionEvent) {
+            final String prefix = "actionPerformed(): ";
+
+            if (getUserObject() instanceof SubversionExportTask) {
+                final SubversionExportTask subversionExportTask = (SubversionExportTask) getUserObject();
+
+                final Object source = actionEvent.getSource();
+                if (source.equals(getHeadRevisionRadioButton())) {
+                    subversionExportTask.setRevision(SubversionRevision.HEAD);
+                }
+                else if (source.equals(getDateRevisionRadioButton())) {
+                    subversionExportTask.setRevision(SubversionRevision.DATE);
+                }
+                else if (source.equals(getNumberedRevisionRadioButton())) {
+                    subversionExportTask.setRevision(SubversionRevision.NUMBERED);
+                }
+                else {
+                    LOGGER.error("{} Unsupported revision", prefix);
+                    throw new GuiException(ExceptionResourceType.INVALID_SUBVERSION_REVISION_VALUE);
+                }
+
+                updateRevisionFields(subversionExportTask.getRevision());
+            }
+        }
+    }
 }

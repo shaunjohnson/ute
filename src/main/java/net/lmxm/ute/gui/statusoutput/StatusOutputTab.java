@@ -33,6 +33,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
@@ -112,6 +113,16 @@ public final class StatusOutputTab extends JPanel {
         @Override
         public void updateUI() {
             // Not used
+        }
+    }
+
+    private class CloseButtonActionListener implements ActionListener, Serializable {
+        @Override
+        public void actionPerformed(final ActionEvent e) {
+            final int i = tabbedPane.indexOfTabComponent(StatusOutputTab.this);
+            if (i != -1) {
+                tabbedPane.remove(i);
+            }
         }
     }
 
@@ -200,15 +211,7 @@ public final class StatusOutputTab extends JPanel {
     /**
      * The close button action listener.
      */
-    private final ActionListener closeButtonActionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(final ActionEvent e) {
-            final int i = tabbedPane.indexOfTabComponent(StatusOutputTab.this);
-            if (i != -1) {
-                tabbedPane.remove(i);
-            }
-        }
-    };
+    private final ActionListener closeButtonActionListener = new CloseButtonActionListener() ;
 
     /**
      * The job being monitored.
