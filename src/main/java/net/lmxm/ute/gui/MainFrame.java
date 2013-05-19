@@ -69,12 +69,13 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
 import static net.lmxm.ute.enums.ActionCommand.*;
@@ -119,41 +120,16 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	/** The configuration. */
 	private Configuration configuration;
 
-	/** The file system delete task editor panel. */
-	private FileSystemDeleteTaskEditorPanel fileSystemDeleteTaskEditorPanel = null;
-
-	/** The file system location editor panel. */
-	private FileSystemLocationEditorPanel fileSystemLocationEditorPanel = null;
-
-	/** The file system locations editor panel. */
-	private FileSystemLocationsEditorPanel fileSystemLocationsEditorPanel = null;
+    private final Map<Class, AbstractEditorPanel> treeNodeEditorMap = new HashMap<Class, AbstractEditorPanel>();
 
 	/** The file tool bar. */
 	private FileToolBar fileToolBar = null;
-
-	/** The find replace task editor panel. */
-	private FindReplaceTaskEditorPanel findReplaceTaskEditorPanel = null;
-
-	/** The groovy task editor panel. */
-	private GroovyTaskEditorPanel groovyTaskEditorPanel = null;
-
-	/** The http download task editor panel. */
-	private HttpDownloadTaskEditorPanel httpDownloadTaskEditorPanel = null;
-
-	/** The http location editor panel. */
-	private HttpLocationEditorPanel httpLocationEditorPanel = null;
-
-	/** The http locations editor panel. */
-	private HttpLocationsEditorPanel httpLocationsEditorPanel = null;
 
 	/** The j content pane. */
 	private JPanel jContentPane = null;
 
 	/** The job details editor scroll pane. */
 	private JScrollPane jobDetailsEditorScrollPane = null;
-
-	/** The jobs editor panel. */
-	private JobsEditorPanel jobsEditorPanel = null;
 
 	/** The jobs split pane. */
 	private JSplitPane jobsSplitPane = null;
@@ -170,47 +146,11 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
     /** The main split pane. */
 	private JSplitPane mainSplitPane = null;
 
-    /** The Maven repository download task editor panel */
-    private MavenRepositoryDownloadTaskEditorPanel mavenRepositoryDownloadTaskEditorPanel = null;
-
 	/** The main tree. */
 	private MainTree mainTree = null;
 
 	/** The main tree tool bar. */
 	private MainTreeToolBar mainTreeToolBar = null;
-
-    /** The Maven repository location editor panel. */
-    private MavenRepositoryLocationEditorPanel mavenRepositoryLocationEditorPanel = null;
-
-    /** The Maven repository locations editor panel. */
-    private MavenRepositoryLocationsEditorPanel mavenRepositoryLocationsEditorPanel = null;
-
-	/** The preference editor panel. */
-	private PreferenceEditorPanel preferenceEditorPanel = null;
-
-	/** The preferences editor panel. */
-	private PreferencesEditorPanel preferencesEditorPanel;
-
-	/** The properties editor panel. */
-	private PropertiesEditorPanel propertiesEditorPanel = null;
-
-	/** The property editor panel. */
-	private PropertyEditorPanel propertyEditorPanel = null;
-
-	/** The sequential job editor panel. */
-	private SequentialJobEditorPanel sequentialJobEditorPanel = null;
-
-	/** The subversion export task editor panel. */
-	private SubversionExportTaskEditorPanel subversionExportTaskEditorPanel = null;
-
-	/** The subversion repository location editor panel. */
-	private SubversionRepositoryLocationEditorPanel subversionRepositoryLocationEditorPanel = null;
-
-	/** The subversion repository locations editor panel. */
-	private SubversionRepositoryLocationsEditorPanel subversionRepositoryLocationsEditorPanel = null;
-
-	/** The subversion update task editor panel. */
-	private SubversionUpdateTaskEditorPanel subversionUpdateTaskEditorPanel = null;
 
 	/** The user preferences. */
 	private final UserPreferences userPreferences = new UserPreferences();
@@ -952,27 +892,9 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 * Clear input validators.
 	 */
 	public void clearInputValidators() {
-		getSequentialJobEditorPanel().clearInputValidators();
-		getFileSystemDeleteTaskEditorPanel().clearInputValidators();
-		getFileSystemLocationEditorPanel().clearInputValidators();
-		getFileSystemLocationsEditorPanel().clearInputValidators();
-		getFindReplaceTaskEditorPanel().clearInputValidators();
-		getGroovyTaskEditorPanel().clearInputValidators();
-		getHttpDownloadTaskEditorPanel().clearInputValidators();
-		getHttpLocationEditorPanel().clearInputValidators();
-		getHttpLocationsEditorPanel().clearInputValidators();
-		getJobsEditorPanel().clearInputValidators();
-        getMavenRepositoryDownloadTaskEditorPanel().clearInputValidators();
-        getMavenRepositoryLocationEditorPanel().clearInputValidators();
-        getMavenRepositoryLocationsEditorPanel().clearInputValidators();
-		getPreferenceEditorPanel().clearInputValidators();
-		getPreferencesEditorPanel().clearInputValidators();
-		getPropertiesEditorPanel().clearInputValidators();
-		getPropertyEditorPanel().clearInputValidators();
-		getSubversionExportTaskEditorPanel().clearInputValidators();
-		getSubversionRepositoryLocationEditorPanel().clearInputValidators();
-		getSubversionRepositoryLocationsEditorPanel().clearInputValidators();
-		getSubversionUpdateTaskEditorPanel().clearInputValidators();
+        for (AbstractEditorPanel editorPanel : treeNodeEditorMap.values()) {
+            editorPanel.clearInputValidators();
+        }
 	}
 
 	/**
@@ -1103,45 +1025,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	}
 
 	/**
-	 * Gets the file system delete task editor panel.
-	 *
-	 * @return the file system delete task editor panel
-	 */
-	private FileSystemDeleteTaskEditorPanel getFileSystemDeleteTaskEditorPanel() {
-		if (fileSystemDeleteTaskEditorPanel == null) {
-			fileSystemDeleteTaskEditorPanel = new FileSystemDeleteTaskEditorPanel(this, this);
-		}
-
-		return fileSystemDeleteTaskEditorPanel;
-	}
-
-	/**
-	 * Gets the file system location editor panel.
-	 *
-	 * @return the file system location editor panel
-	 */
-	private FileSystemLocationEditorPanel getFileSystemLocationEditorPanel() {
-		if (fileSystemLocationEditorPanel == null) {
-			fileSystemLocationEditorPanel = new FileSystemLocationEditorPanel(this, this);
-		}
-
-		return fileSystemLocationEditorPanel;
-	}
-
-	/**
-	 * Gets the file system locations editor panel.
-	 *
-	 * @return the file system locations editor panel
-	 */
-	private FileSystemLocationsEditorPanel getFileSystemLocationsEditorPanel() {
-		if (fileSystemLocationsEditorPanel == null) {
-			fileSystemLocationsEditorPanel = new FileSystemLocationsEditorPanel(this, this);
-		}
-
-		return fileSystemLocationsEditorPanel;
-	}
-
-	/**
 	 * Gets the file tool bar.
 	 *
 	 * @return the file tool bar
@@ -1151,84 +1034,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			fileToolBar = new FileToolBar(this);
 		}
 		return fileToolBar;
-	}
-
-	/**
-	 * Gets the find replace editor panel.
-	 *
-	 * @return the find replace editor panel
-	 */
-	private FindReplaceTaskEditorPanel getFindReplaceTaskEditorPanel() {
-		if (findReplaceTaskEditorPanel == null) {
-			findReplaceTaskEditorPanel = new FindReplaceTaskEditorPanel(this, this);
-		}
-
-		return findReplaceTaskEditorPanel;
-	}
-
-	/**
-	 * Gets the groovy task editor panel.
-	 *
-	 * @return the groovy task editor panel
-	 */
-	private GroovyTaskEditorPanel getGroovyTaskEditorPanel() {
-		if (groovyTaskEditorPanel == null) {
-			groovyTaskEditorPanel = new GroovyTaskEditorPanel(this, this);
-		}
-
-		return groovyTaskEditorPanel;
-	}
-
-	/**
-	 * Gets the http download task editor panel.
-	 *
-	 * @return the http download task editor panel
-	 */
-	private HttpDownloadTaskEditorPanel getHttpDownloadTaskEditorPanel() {
-		if (httpDownloadTaskEditorPanel == null) {
-			httpDownloadTaskEditorPanel = new HttpDownloadTaskEditorPanel(this, this);
-		}
-
-		return httpDownloadTaskEditorPanel;
-	}
-
-	/**
-	 * Gets the http download task editor panel.
-	 *
-	 * @return the http download task editor panel
-	 */
-	private MavenRepositoryDownloadTaskEditorPanel getMavenRepositoryDownloadTaskEditorPanel() {
-		if (mavenRepositoryDownloadTaskEditorPanel == null) {
-            mavenRepositoryDownloadTaskEditorPanel = new MavenRepositoryDownloadTaskEditorPanel(this, this);
-		}
-
-		return mavenRepositoryDownloadTaskEditorPanel;
-	}
-
-	/**
-	 * Gets the http location editor panel.
-	 *
-	 * @return the http location editor panel
-	 */
-	private HttpLocationEditorPanel getHttpLocationEditorPanel() {
-		if (httpLocationEditorPanel == null) {
-			httpLocationEditorPanel = new HttpLocationEditorPanel(this, this);
-		}
-
-		return httpLocationEditorPanel;
-	}
-
-	/**
-	 * Gets the http locations editor panel.
-	 *
-	 * @return the http locations editor panel
-	 */
-	private HttpLocationsEditorPanel getHttpLocationsEditorPanel() {
-		if (httpLocationsEditorPanel == null) {
-			httpLocationsEditorPanel = new HttpLocationsEditorPanel(this, this);
-		}
-
-		return httpLocationsEditorPanel;
 	}
 
 	/**
@@ -1268,19 +1073,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			jobDetailsEditorScrollPane.setViewport(null);
 		}
 		return jobDetailsEditorScrollPane;
-	}
-
-	/**
-	 * Gets the jobs editor panel.
-	 *
-	 * @return the jobs editor panel
-	 */
-	private JobsEditorPanel getJobsEditorPanel() {
-		if (jobsEditorPanel == null) {
-			jobsEditorPanel = new JobsEditorPanel(this, this);
-		}
-
-		return jobsEditorPanel;
 	}
 
 	/**
@@ -1397,149 +1189,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		return mainTreeToolBar;
 	}
 
-    /**
-     * Gets the Maven repository location editor panel.
-     *
-     * @return the Maven repository location editor panel
-     */
-    private MavenRepositoryLocationEditorPanel getMavenRepositoryLocationEditorPanel() {
-        if (mavenRepositoryLocationEditorPanel == null) {
-            mavenRepositoryLocationEditorPanel = new MavenRepositoryLocationEditorPanel(this, this);
-        }
-
-        return mavenRepositoryLocationEditorPanel;
-    }
-
-    /**
-     * Gets the Maven repository locations editor panel.
-     *
-     * @return the Maven repository locations editor panel
-     */
-    private MavenRepositoryLocationsEditorPanel getMavenRepositoryLocationsEditorPanel() {
-        if (mavenRepositoryLocationsEditorPanel == null) {
-            mavenRepositoryLocationsEditorPanel = new MavenRepositoryLocationsEditorPanel(this, this);
-        }
-
-        return mavenRepositoryLocationsEditorPanel;
-    }
-
-	/**
-	 * Gets the preference editor panel.
-	 *
-	 * @return the preference editor panel
-	 */
-	private PreferenceEditorPanel getPreferenceEditorPanel() {
-		if (preferenceEditorPanel == null) {
-			preferenceEditorPanel = new PreferenceEditorPanel(this, this);
-		}
-
-		return preferenceEditorPanel;
-	}
-
-	/**
-	 * Gets the preferences editor panel.
-	 *
-	 * @return the preferences editor panel
-	 */
-	private PreferencesEditorPanel getPreferencesEditorPanel() {
-		if (preferencesEditorPanel == null) {
-			preferencesEditorPanel = new PreferencesEditorPanel(this, this);
-		}
-
-		return preferencesEditorPanel;
-	}
-
-	/**
-	 * Gets the properties editor panel.
-	 *
-	 * @return the properties editor panel
-	 */
-	private PropertiesEditorPanel getPropertiesEditorPanel() {
-		if (propertiesEditorPanel == null) {
-			propertiesEditorPanel = new PropertiesEditorPanel(this, this);
-		}
-
-		return propertiesEditorPanel;
-	}
-
-	/**
-	 * Gets the property editor panel.
-	 *
-	 * @return the property editor panel
-	 */
-	private PropertyEditorPanel getPropertyEditorPanel() {
-		if (propertyEditorPanel == null) {
-			propertyEditorPanel = new PropertyEditorPanel(this, this);
-		}
-
-		return propertyEditorPanel;
-	}
-
-	/**
-	 * Gets the sequential job editor panel.
-	 *
-	 * @return the sequential job editor panel
-	 */
-	private SequentialJobEditorPanel getSequentialJobEditorPanel() {
-		if (sequentialJobEditorPanel == null) {
-			sequentialJobEditorPanel = new SequentialJobEditorPanel(this, this);
-		}
-
-		return sequentialJobEditorPanel;
-	}
-
-	/**
-	 * Gets the subversion export task editor panel.
-	 *
-	 * @return the subversion export task editor panel
-	 */
-	private SubversionExportTaskEditorPanel getSubversionExportTaskEditorPanel() {
-		if (subversionExportTaskEditorPanel == null) {
-			subversionExportTaskEditorPanel = new SubversionExportTaskEditorPanel(this, this);
-		}
-
-		return subversionExportTaskEditorPanel;
-	}
-
-	/**
-	 * Gets the subversion repository location editor panel.
-	 *
-	 * @return the subversion repository location editor panel
-	 */
-	private SubversionRepositoryLocationEditorPanel getSubversionRepositoryLocationEditorPanel() {
-		if (subversionRepositoryLocationEditorPanel == null) {
-			subversionRepositoryLocationEditorPanel = new SubversionRepositoryLocationEditorPanel(this, this);
-		}
-
-		return subversionRepositoryLocationEditorPanel;
-	}
-
-	/**
-	 * Gets the subversion repository locations editor panel.
-	 *
-	 * @return the subversion repository locations editor panel
-	 */
-	private SubversionRepositoryLocationsEditorPanel getSubversionRepositoryLocationsEditorPanel() {
-		if (subversionRepositoryLocationsEditorPanel == null) {
-			subversionRepositoryLocationsEditorPanel = new SubversionRepositoryLocationsEditorPanel(this, this);
-		}
-
-		return subversionRepositoryLocationsEditorPanel;
-	}
-
-	/**
-	 * Gets the subversion update task editor panel.
-	 *
-	 * @return the subversion update task editor panel
-	 */
-	private SubversionUpdateTaskEditorPanel getSubversionUpdateTaskEditorPanel() {
-		if (subversionUpdateTaskEditorPanel == null) {
-			subversionUpdateTaskEditorPanel = new SubversionUpdateTaskEditorPanel(this, this);
-		}
-
-		return subversionUpdateTaskEditorPanel;
-	}
-
 	/**
 	 * Initialize.
 	 */
@@ -1586,26 +1235,10 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		setMinimumSize(new Dimension(600, 500));
 		setContentPane(getJContentPane());
 
-		// Preload editors
-		getJobsEditorPanel();
-		getSequentialJobEditorPanel();
-		getFileSystemDeleteTaskEditorPanel();
-		getHttpDownloadTaskEditorPanel();
-		getHttpLocationEditorPanel();
-		getHttpLocationsEditorPanel();
-        getMavenRepositoryDownloadTaskEditorPanel();
-		getSubversionExportTaskEditorPanel();
-		getSubversionUpdateTaskEditorPanel();
-		getFileSystemLocationEditorPanel();
-		getFileSystemLocationsEditorPanel();
-		getSubversionRepositoryLocationEditorPanel();
-		getSubversionRepositoryLocationsEditorPanel();
-		getPreferenceEditorPanel();
-		getPreferencesEditorPanel();
-		getPropertyEditorPanel();
-		getPropertiesEditorPanel();
+		// Load editor mapping
+        initializeTreeNodeEditorMap();
 
-		pack();
+        pack();
 
 		// Load preferences, including window size, location and state
 		loadUserPreferences();
@@ -1613,7 +1246,58 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		LOGGER.debug("{} leaving", prefix);
 	}
 
-	/**
+    /**
+     * Initializes the tree node editor map.
+     */
+    private void initializeTreeNodeEditorMap() {
+        final ConfigurationHolder configurationHolder = this;
+        final UteActionListener actionListener = this;
+        
+        treeNodeEditorMap.put(FileSystemDeleteTask.class,
+                new FileSystemDeleteTaskEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(FileSystemLocation.class,
+                new FileSystemLocationEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(FileSystemLocationsRootTreeNode.class,
+                new FileSystemLocationsEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(FindReplaceTask.class,
+                new FindReplaceTaskEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(GroovyTask.class,
+                new GroovyTaskEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(HttpDownloadTask.class,
+                new HttpDownloadTaskEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(HttpLocation.class,
+                new HttpLocationEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(HttpLocationsRootTreeNode.class,
+                new HttpLocationsEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(JobsRootTreeNode.class,
+                new JobsEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(MavenRepositoryDownloadTask.class,
+                new MavenRepositoryDownloadTaskEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(MavenRepositoryLocation.class,
+                new MavenRepositoryLocationEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(MavenRepositoryLocationsRootTreeNode.class,
+                new MavenRepositoryLocationsEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(Preference.class,
+                new PreferenceEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(PreferencesRootTreeNode.class,
+                new PreferencesEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(PropertiesRootTreeNode.class,
+                new PropertiesEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(Property.class,
+                new PropertyEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(SequentialJob.class,
+                new SequentialJobEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(SubversionExportTask.class,
+                new SubversionExportTaskEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(SubversionRepositoryLocation.class,
+                new SubversionRepositoryLocationEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(SubversionRepositoryLocationsRootTreeNode.class,
+                new SubversionRepositoryLocationsEditorPanel(configurationHolder, actionListener));
+        treeNodeEditorMap.put(SubversionUpdateTask.class,
+                new SubversionUpdateTaskEditorPanel(configurationHolder, actionListener));
+    }
+
+    /**
 	 * Load and validate preferences.
 	 *
 	 * @param configurationFile the configuration file
@@ -1713,70 +1397,9 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
             if (userObject != null) {
                 LOGGER.debug("{} Selected tree object is of type: {}", prefix, userObject.getClass().getName());
 
-                if (userObject instanceof SequentialJob) {
-                    editorPane = getSequentialJobEditorPanel();
-                }
-                else if (userObject instanceof FileSystemDeleteTask) {
-                    editorPane = getFileSystemDeleteTaskEditorPanel();
-                }
-                else if (userObject instanceof FileSystemLocation) {
-                    editorPane = getFileSystemLocationEditorPanel();
-                }
-                else if (userObject instanceof FileSystemLocationsRootTreeNode) {
-                    editorPane = getFileSystemLocationsEditorPanel();
-                }
-                else if (userObject instanceof FindReplaceTask) {
-                    editorPane = getFindReplaceTaskEditorPanel();
-                }
-                else if (userObject instanceof GroovyTask) {
-                    editorPane = getGroovyTaskEditorPanel();
-                }
-                else if (userObject instanceof HttpDownloadTask) {
-                    editorPane = getHttpDownloadTaskEditorPanel();
-                }
-                else if (userObject instanceof HttpLocation) {
-                    editorPane = getHttpLocationEditorPanel();
-                }
-                else if (userObject instanceof HttpLocationsRootTreeNode) {
-                    editorPane = getHttpLocationsEditorPanel();
-                }
-                else if (userObject instanceof JobsRootTreeNode) {
-                    editorPane = getJobsEditorPanel();
-                }
-                else if (userObject instanceof MavenRepositoryDownloadTask) {
-                    editorPane = getMavenRepositoryDownloadTaskEditorPanel();
-                }
-                else if (userObject instanceof MavenRepositoryLocation) {
-                    editorPane = getMavenRepositoryLocationEditorPanel();
-                }
-                else if (userObject instanceof MavenRepositoryLocationsRootTreeNode) {
-                    editorPane = getMavenRepositoryLocationsEditorPanel();
-                }
-                else if (userObject instanceof Preference) {
-                    editorPane = getPreferenceEditorPanel();
-                }
-                else if (userObject instanceof PreferencesRootTreeNode) {
-                    editorPane = getPreferencesEditorPanel();
-                }
-                else if (userObject instanceof PropertiesRootTreeNode) {
-                    editorPane = getPropertiesEditorPanel();
-                }
-                else if (userObject instanceof Property) {
-                    editorPane = getPropertyEditorPanel();
-                }
-                else if (userObject instanceof SubversionExportTask) {
-                    editorPane = getSubversionExportTaskEditorPanel();
-                }
-                else if (userObject instanceof SubversionRepositoryLocation) {
-                    editorPane = getSubversionRepositoryLocationEditorPanel();
-                }
-                else if (userObject instanceof SubversionRepositoryLocationsRootTreeNode) {
-                    editorPane = getSubversionRepositoryLocationsEditorPanel();
-                }
-                else if (userObject instanceof SubversionUpdateTask) {
-                    editorPane = getSubversionUpdateTaskEditorPanel();
-                }
-                else {
+                editorPane = treeNodeEditorMap.get(userObject.getClass());
+
+                if (editorPane == null) {
                     LOGGER.debug("{} Unsupported tree object type: {}", prefix, userObject.getClass().getName());
                 }
             }
