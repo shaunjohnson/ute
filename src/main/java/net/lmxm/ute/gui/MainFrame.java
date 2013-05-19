@@ -34,11 +34,7 @@ import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.configuration.*;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.IdChangeEventBus;
-import net.lmxm.ute.event.StatusChangeEventBus;
-import net.lmxm.ute.executers.jobs.JobStatusEventBus;
 import net.lmxm.ute.gui.components.OptionPaneFactory;
-import net.lmxm.ute.gui.statusoutput.StatusOutputPanel;
-import net.lmxm.ute.gui.statusoutput.StatusOutputTab;
 import net.lmxm.ute.gui.dialogs.AboutDialog;
 import net.lmxm.ute.gui.dialogs.EditPreferencesDialog;
 import net.lmxm.ute.gui.editors.*;
@@ -48,6 +44,7 @@ import net.lmxm.ute.gui.frames.AbstractFrame;
 import net.lmxm.ute.gui.maintree.MainTree;
 import net.lmxm.ute.gui.maintree.nodes.*;
 import net.lmxm.ute.gui.menus.MainMenuBar;
+import net.lmxm.ute.gui.statusoutput.StatusOutputTabbedPane;
 import net.lmxm.ute.gui.toolbars.FileToolBar;
 import net.lmxm.ute.gui.toolbars.MainTreeToolBar;
 import net.lmxm.ute.gui.utils.GuiUtils;
@@ -115,7 +112,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private ApplicationPreferences applicationPreferences = null;
 
 	/** The bottom panel. */
-	private JTabbedPane bottomPanel = null;
+	private StatusOutputTabbedPane bottomPanel = null;
 
 	/** The configuration. */
 	private Configuration configuration;
@@ -575,20 +572,8 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			job = ConfigurationInterpolator.interpolateJobValues(job, configuration);
 			job.removeEmptyObjects();
 
-			final JTabbedPane tabbedPane = getBottomPanel();
-			final StatusOutputPanel statusOutputPanel = new StatusOutputPanel(job);
-			final StatusOutputTab statusOutputTab = new StatusOutputTab(job, tabbedPane);
-
-			final ExecuteJobWorker jobWorker = new ExecuteJobWorker(job, configuration);
-
-            JobStatusEventBus.register(statusOutputPanel, statusOutputTab);
-            StatusChangeEventBus.register(statusOutputPanel, statusOutputTab);
-
-			statusOutputPanel.setJobWorker(jobWorker);
-
-			tabbedPane.insertTab("", null, statusOutputPanel, null, 0);
-			tabbedPane.setSelectedIndex(0);
-			tabbedPane.setTabComponentAt(0, statusOutputTab);
+            final ExecuteJobWorker jobWorker = new ExecuteJobWorker(job, configuration);
+            getBottomPanel().addTab(jobWorker);
 
 			jobWorker.execute();
 		}
@@ -930,9 +915,9 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 *
 	 * @return the bottom panel
 	 */
-	private JTabbedPane getBottomPanel() {
+	private StatusOutputTabbedPane getBottomPanel() {
 		if (bottomPanel == null) {
-			bottomPanel = new JTabbedPane(JTabbedPane.TOP);
+			bottomPanel = new StatusOutputTabbedPane();
 		}
 
 		return bottomPanel;

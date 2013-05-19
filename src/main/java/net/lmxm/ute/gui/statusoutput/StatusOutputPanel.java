@@ -38,8 +38,8 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
 
 /**
@@ -69,14 +69,14 @@ public final class StatusOutputPanel extends JPanel {
     private final Job job;
 
     /**
+     * The job worker thread.
+     */
+    private ExecuteJobWorker jobWorker;
+
+    /**
      * The job progress bar.
      */
     private JProgressBar jobProgressBar = null;
-
-    /**
-     * The job worker.
-     */
-    private ExecuteJobWorker jobWorker = null;
 
     /**
      * The job worker mutex.
@@ -111,12 +111,13 @@ public final class StatusOutputPanel extends JPanel {
     /**
      * Instantiates a new status output panel.
      *
-     * @param job the job
+     * @param jobWorker the job worker
      */
-    public StatusOutputPanel(final Job job) {
+    public StatusOutputPanel(final ExecuteJobWorker jobWorker) {
         super();
 
-        this.job = job;
+        this.jobWorker = checkNotNull(jobWorker, "Job worker may not be null");
+        this.job = jobWorker.getJob();
 
         setLayout(new MigLayout());
         add(getOutputButtonToolBar(), "dock north");
@@ -348,16 +349,5 @@ public final class StatusOutputPanel extends JPanel {
                 }
             }
         });
-    }
-
-    /**
-     * Sets the job worker.
-     *
-     * @param jobWorker the new job worker
-     */
-    public void setJobWorker(final ExecuteJobWorker jobWorker) {
-        synchronized (jobWorkerMutex) {
-            this.jobWorker = jobWorker;
-        }
     }
 }

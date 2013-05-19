@@ -20,10 +20,8 @@ package net.lmxm.ute.gui.statusoutput;
 
 import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.beans.jobs.Job;
-import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
-import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ButtonResourceType;
@@ -35,10 +33,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
@@ -46,7 +40,7 @@ import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
 /**
  * The Class StatusOutputTab.
  */
-public final class StatusOutputTab extends JPanel implements UteActionListener {
+public final class StatusOutputTab extends JPanel {
 
     /**
      * The Class CloseTabButton.
@@ -64,19 +58,17 @@ public final class StatusOutputTab extends JPanel implements UteActionListener {
          * @param actionListener the action listener
          */
         public CloseTabButton(final ActionListener actionListener) {
+            setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
             setContentAreaFilled(false);
             setFocusable(false);
             setPreferredSize(new Dimension(17, 17));
+            setRolloverEnabled(true);
             setToolTipText(ResourcesUtils.getResourceToolTipText(ButtonResourceType.CLOSE_TAB));
             setUI(new BasicButtonUI());
-
-            setBorder(BorderFactory.createEtchedBorder());
-            setBorderPainted(false);
+            setVisible(false);
 
             addActionListener(actionListener);
             addMouseListener(new TabMouseListener());
-
-            setRolloverEnabled(true);
         }
 
         /*
@@ -241,7 +233,7 @@ public final class StatusOutputTab extends JPanel implements UteActionListener {
     /**
      * The tabbed pane.
      */
-    private final JTabbedPane tabbedPane;
+    private final StatusOutputTabbedPane tabbedPane;
 
     /**
      * The title label.
@@ -259,7 +251,7 @@ public final class StatusOutputTab extends JPanel implements UteActionListener {
      * @param job the job being executed
      * @param tabbedPane the tabbed pane
      */
-    public StatusOutputTab(final Job job, final JTabbedPane tabbedPane) {
+    public StatusOutputTab(final Job job, final StatusOutputTabbedPane tabbedPane) {
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.job = checkNotNull(job, "Job not be null");
@@ -273,45 +265,6 @@ public final class StatusOutputTab extends JPanel implements UteActionListener {
         add(getCloseButton());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-     */
-    @Override
-    public void actionPerformed(final ActionEvent actionEvent) {
-        final ActionCommand actionCommand = ActionCommand.valueOf(actionEvent.getActionCommand());
-
-        if (actionCommand == ActionCommand.CLOSE_ALL_TABS) {
-            final int tabCount = tabbedPane.getTabCount();
-            final List<Integer> inactiveTabIndices = new ArrayList<Integer>();
-
-            for (int i = 0; i < tabCount; i++) {
-                final StatusOutputTab tab = (StatusOutputTab) tabbedPane.getTabComponentAt(i);
-
-                if (!tab.isJobRunning()) {
-                    inactiveTabIndices.add(i);
-                }
-            }
-
-            // Remove tabs in reverse order to avoid having to re-base indices
-            Collections.sort(inactiveTabIndices, new Comparator<Integer>() {
-                @Override
-                public int compare(final Integer integer1, final Integer integer2) {
-                    return integer2.compareTo(integer1);
-                }
-            });
-
-            for (final int index : inactiveTabIndices) {
-                tabbedPane.removeTabAt(index);
-            }
-        }
-    }
-
-    @Override
-    public boolean supports(ActionCommand actionCommand) {
-        return ActionCommand.CLOSE_ALL_TABS.equals(actionCommand);
-    }
-
     /**
      * Gets the close button.
      *
@@ -319,14 +272,7 @@ public final class StatusOutputTab extends JPanel implements UteActionListener {
      */
     private JButton getCloseButton() {
         if (closeButton == null) {
-            closeButton = new CloseTabButton(closeButtonActionListener) {
-                {
-                    setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
-                    setVisible(false);
-                }
-
-                private static final long serialVersionUID = 3020430249664319601L;
-            };
+            closeButton = new CloseTabButton(closeButtonActionListener);
         }
 
         return closeButton;
@@ -358,7 +304,7 @@ public final class StatusOutputTab extends JPanel implements UteActionListener {
      */
     protected StatusOutputTabPopupMenu getStatusOutputTabPopupMenu() {
         if (statusOutputTabPopupMenu == null) {
-            statusOutputTabPopupMenu = new StatusOutputTabPopupMenu(this);
+            statusOutputTabPopupMenu = new StatusOutputTabPopupMenu(tabbedPane);
         }
 
         return statusOutputTabPopupMenu;

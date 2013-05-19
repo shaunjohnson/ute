@@ -56,9 +56,7 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 	public ExecuteJobWorker(final Job job, final PropertiesHolder propertiesHolder) {
 		super();
 
-		checkNotNull(job, "Job may not be null");
-
-		this.job = job;
+		this.job = checkNotNull(job, "Job may not be null");
 		this.jobExecuter = JobExecuterFactory.create(job, propertiesHolder);
 	}
 
@@ -100,4 +98,13 @@ public final class ExecuteJobWorker extends SwingWorker<Void, Void> {
 
 		super.done();
 	}
+
+    /**
+     * Gets the job being executed.
+     *
+     * @return Job object
+     */
+    public Job getJob() {
+        return job;
+    }
 }
