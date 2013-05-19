@@ -32,7 +32,7 @@ public abstract class IdentifiableDomainBean implements DomainBean, Identifiable
 	private static final long serialVersionUID = -7677320296772799117L;
 
 	/** The id. */
-	private String id;
+	private String id = "";
 
 	/**
 	 * Instantiates a new identifiable domain bean.

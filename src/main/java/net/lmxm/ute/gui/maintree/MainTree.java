@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.maintree;
 
+import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.beans.EnabledStateBean;
 import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.beans.Preference;
@@ -33,7 +34,6 @@ import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.EnabledStateChangeEvent;
 import net.lmxm.ute.event.EnabledStateChangeListener;
 import net.lmxm.ute.event.IdChangeEvent;
-import net.lmxm.ute.event.IdChangeListener;
 import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.maintree.nodes.*;
 import net.lmxm.ute.gui.menus.*;
@@ -51,7 +51,7 @@ import java.util.Enumeration;
 /**
  * The Class MainTree.
  */
-public class MainTree extends JTree implements EnabledStateChangeListener, IdChangeListener {
+public class MainTree extends JTree implements EnabledStateChangeListener {
 
 	/**
 	 * The listener interface for receiving mainTreeKey events. The class that is interested in processing a mainTreeKey
@@ -784,41 +784,42 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 		return taskPopupMenu;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.lmxm.ute.listeners.IdChangeListener#idChanged(net.lmxm.ute.listeners.IdChangeEvent)
-	 */
-	@Override
-	public void idChanged(final IdChangeEvent idChangeEvent) {
-		final IdentifiableBean identifiableBean = idChangeEvent.getIdentifiableBean();
+	@Subscribe
+	public void handleIdChanged(final IdChangeEvent idChangeEvent) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                final IdentifiableBean identifiableBean = idChangeEvent.getIdentifiableBean();
 
-		if (identifiableBean instanceof FileSystemLocation) {
-			mainTreeModel.refreshFileSystemLocation((FileSystemLocation) identifiableBean);
-		}
-		else if (identifiableBean instanceof Job) {
-			mainTreeModel.refreshJob((Job) identifiableBean);
-		}
-		else if (identifiableBean instanceof HttpLocation) {
-			mainTreeModel.refreshHttpLocation((HttpLocation) identifiableBean);
-		}
-        else if (identifiableBean instanceof MavenRepositoryLocation) {
-            mainTreeModel.refreshMavenRepositoryLocation((MavenRepositoryLocation) identifiableBean);
-        }
-		else if (identifiableBean instanceof Preference) {
-			mainTreeModel.refreshPreference((Preference) identifiableBean);
-		}
-		else if (identifiableBean instanceof Property) {
-			mainTreeModel.refreshProperty((Property) identifiableBean);
-		}
-		else if (identifiableBean instanceof SubversionRepositoryLocation) {
-			mainTreeModel.refreshSubversionRepositoryLocation((SubversionRepositoryLocation) identifiableBean);
-		}
-		else if (identifiableBean instanceof Task) {
-			mainTreeModel.refreshTask((Task) identifiableBean);
-		}
-		else {
-			throw new IllegalStateException("Unsupported bean type"); // TODO
-		}
+                if (identifiableBean instanceof FileSystemLocation) {
+                    mainTreeModel.refreshFileSystemLocation((FileSystemLocation) identifiableBean);
+                }
+                else if (identifiableBean instanceof Job) {
+                    mainTreeModel.refreshJob((Job) identifiableBean);
+                }
+                else if (identifiableBean instanceof HttpLocation) {
+                    mainTreeModel.refreshHttpLocation((HttpLocation) identifiableBean);
+                }
+                else if (identifiableBean instanceof MavenRepositoryLocation) {
+                    mainTreeModel.refreshMavenRepositoryLocation((MavenRepositoryLocation) identifiableBean);
+                }
+                else if (identifiableBean instanceof Preference) {
+                    mainTreeModel.refreshPreference((Preference) identifiableBean);
+                }
+                else if (identifiableBean instanceof Property) {
+                    mainTreeModel.refreshProperty((Property) identifiableBean);
+                }
+                else if (identifiableBean instanceof SubversionRepositoryLocation) {
+                    mainTreeModel.refreshSubversionRepositoryLocation((SubversionRepositoryLocation) identifiableBean);
+                }
+                else if (identifiableBean instanceof Task) {
+                    mainTreeModel.refreshTask((Task) identifiableBean);
+                }
+                else {
+                    throw new IllegalStateException("Unsupported bean type"); // TODO
+                }
+            }
+        });
 	}
 
 	/**

@@ -23,7 +23,7 @@ import net.lmxm.ute.beans.IdentifiableBean;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.event.IdChangeEvent;
-import net.lmxm.ute.event.IdChangeListener;
+import net.lmxm.ute.event.IdChangeEventBus;
 import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -53,9 +53,6 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 
 	/** The description text area. */
 	private JTextArea descriptionTextArea = null;
-
-	/** The id change listeners. */
-	private final List<IdChangeListener> idChangeListeners = new ArrayList<IdChangeListener>();
 
 	/** The id text field. */
 	private JTextField idTextField = null;
@@ -92,15 +89,6 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 	}
 
 	/**
-	 * Adds the id change listener.
-	 * 
-	 * @param idChangeListener the id change listener
-	 */
-	public final void addIdChangeListener(final IdChangeListener idChangeListener) {
-		idChangeListeners.add(idChangeListener);
-	}
-
-	/**
 	 * Adds the input validators.
 	 */
 	private void addInputValidators() {
@@ -112,19 +100,6 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 
 			getIdTextField().setInputVerifier(inputValidator);
 			addInputValidator(inputValidator);
-		}
-	}
-
-	/**
-	 * Fire id changed event.
-	 * 
-	 * @param identifiableBean the identifiable bean
-	 */
-	private void fireIdChangedEvent(final IdentifiableBean identifiableBean) {
-		final IdChangeEvent idChangeEvent = new IdChangeEvent(this, identifiableBean);
-
-		for (final IdChangeListener idChangeListener : idChangeListeners) {
-			idChangeListener.idChanged(idChangeEvent);
 		}
 	}
 
@@ -179,10 +154,11 @@ public abstract class AbstractCommonEditorPanel extends AbstractEditorPanel {
 			idTextField.getDocument().addDocumentListener(new DocumentAdapter() {
 				@Override
 				public void valueChanged(final String newValue) {
-					if (getUserObject() instanceof IdentifiableBean) {
+                    if (getUserObject() instanceof IdentifiableBean) {
 						final IdentifiableBean identifiableBean = (IdentifiableBean) getUserObject();
 						identifiableBean.setId(newValue);
-						fireIdChangedEvent(identifiableBean);
+
+                        IdChangeEventBus.post(new IdChangeEvent(identifiableBean));
 					}
 				}
 			});

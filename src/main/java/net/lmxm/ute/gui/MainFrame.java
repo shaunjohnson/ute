@@ -33,6 +33,7 @@ import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.configuration.*;
 import net.lmxm.ute.enums.ActionCommand;
+import net.lmxm.ute.event.IdChangeEventBus;
 import net.lmxm.ute.event.StatusChangeEventBus;
 import net.lmxm.ute.executers.jobs.JobStatusEventBus;
 import net.lmxm.ute.gui.components.OptionPaneFactory;
@@ -1109,7 +1110,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private FileSystemDeleteTaskEditorPanel getFileSystemDeleteTaskEditorPanel() {
 		if (fileSystemDeleteTaskEditorPanel == null) {
 			fileSystemDeleteTaskEditorPanel = new FileSystemDeleteTaskEditorPanel(this, this);
-			fileSystemDeleteTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return fileSystemDeleteTaskEditorPanel;
@@ -1123,7 +1123,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private FileSystemLocationEditorPanel getFileSystemLocationEditorPanel() {
 		if (fileSystemLocationEditorPanel == null) {
 			fileSystemLocationEditorPanel = new FileSystemLocationEditorPanel(this, this);
-			fileSystemLocationEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return fileSystemLocationEditorPanel;
@@ -1162,7 +1161,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private FindReplaceTaskEditorPanel getFindReplaceTaskEditorPanel() {
 		if (findReplaceTaskEditorPanel == null) {
 			findReplaceTaskEditorPanel = new FindReplaceTaskEditorPanel(this, this);
-			findReplaceTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return findReplaceTaskEditorPanel;
@@ -1176,7 +1174,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private GroovyTaskEditorPanel getGroovyTaskEditorPanel() {
 		if (groovyTaskEditorPanel == null) {
 			groovyTaskEditorPanel = new GroovyTaskEditorPanel(this, this);
-			groovyTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return groovyTaskEditorPanel;
@@ -1190,7 +1187,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private HttpDownloadTaskEditorPanel getHttpDownloadTaskEditorPanel() {
 		if (httpDownloadTaskEditorPanel == null) {
 			httpDownloadTaskEditorPanel = new HttpDownloadTaskEditorPanel(this, this);
-			httpDownloadTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return httpDownloadTaskEditorPanel;
@@ -1204,7 +1200,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private MavenRepositoryDownloadTaskEditorPanel getMavenRepositoryDownloadTaskEditorPanel() {
 		if (mavenRepositoryDownloadTaskEditorPanel == null) {
             mavenRepositoryDownloadTaskEditorPanel = new MavenRepositoryDownloadTaskEditorPanel(this, this);
-            mavenRepositoryDownloadTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return mavenRepositoryDownloadTaskEditorPanel;
@@ -1218,7 +1213,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private HttpLocationEditorPanel getHttpLocationEditorPanel() {
 		if (httpLocationEditorPanel == null) {
 			httpLocationEditorPanel = new HttpLocationEditorPanel(this, this);
-			httpLocationEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return httpLocationEditorPanel;
@@ -1350,7 +1344,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private MainMenuBar getMainMenuBar() {
 		if (mainMenuBar == null) {
 			mainMenuBar = new MainMenuBar(this);
-		}
+        }
 		return mainMenuBar;
 	}
 
@@ -1384,6 +1378,8 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 		if (mainTree == null) {
 			mainTree = new MainTree(this, this);
 			mainTree.addTreeSelectionListener(this);
+
+            IdChangeEventBus.register(mainTree);
 		}
 
 		return mainTree;
@@ -1409,7 +1405,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
     private MavenRepositoryLocationEditorPanel getMavenRepositoryLocationEditorPanel() {
         if (mavenRepositoryLocationEditorPanel == null) {
             mavenRepositoryLocationEditorPanel = new MavenRepositoryLocationEditorPanel(this, this);
-            mavenRepositoryLocationEditorPanel.addIdChangeListener(getMainTree());
         }
 
         return mavenRepositoryLocationEditorPanel;
@@ -1436,7 +1431,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private PreferenceEditorPanel getPreferenceEditorPanel() {
 		if (preferenceEditorPanel == null) {
 			preferenceEditorPanel = new PreferenceEditorPanel(this, this);
-			preferenceEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return preferenceEditorPanel;
@@ -1476,7 +1470,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private PropertyEditorPanel getPropertyEditorPanel() {
 		if (propertyEditorPanel == null) {
 			propertyEditorPanel = new PropertyEditorPanel(this, this);
-			propertyEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return propertyEditorPanel;
@@ -1490,7 +1483,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private SequentialJobEditorPanel getSequentialJobEditorPanel() {
 		if (sequentialJobEditorPanel == null) {
 			sequentialJobEditorPanel = new SequentialJobEditorPanel(this, this);
-			sequentialJobEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return sequentialJobEditorPanel;
@@ -1504,7 +1496,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private SubversionExportTaskEditorPanel getSubversionExportTaskEditorPanel() {
 		if (subversionExportTaskEditorPanel == null) {
 			subversionExportTaskEditorPanel = new SubversionExportTaskEditorPanel(this, this);
-			subversionExportTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return subversionExportTaskEditorPanel;
@@ -1518,7 +1509,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private SubversionRepositoryLocationEditorPanel getSubversionRepositoryLocationEditorPanel() {
 		if (subversionRepositoryLocationEditorPanel == null) {
 			subversionRepositoryLocationEditorPanel = new SubversionRepositoryLocationEditorPanel(this, this);
-			subversionRepositoryLocationEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return subversionRepositoryLocationEditorPanel;
@@ -1545,7 +1535,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	private SubversionUpdateTaskEditorPanel getSubversionUpdateTaskEditorPanel() {
 		if (subversionUpdateTaskEditorPanel == null) {
 			subversionUpdateTaskEditorPanel = new SubversionUpdateTaskEditorPanel(this, this);
-			subversionUpdateTaskEditorPanel.addIdChangeListener(getMainTree());
 		}
 
 		return subversionUpdateTaskEditorPanel;

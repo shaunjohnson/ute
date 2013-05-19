@@ -27,10 +27,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * The Class IdChangeEvent.
  */
-public class IdChangeEvent extends EventObject {
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 6131907335835511055L;
+public class IdChangeEvent {
 
 	/** The identifiable bean. */
 	private final IdentifiableBean identifiableBean;
@@ -38,12 +35,9 @@ public class IdChangeEvent extends EventObject {
 	/**
 	 * Instantiates a new id change event.
 	 * 
-	 * @param source the source
 	 * @param identifiableBean the identifiable bean
 	 */
-	public IdChangeEvent(final Object source, final IdentifiableBean identifiableBean) {
-		super(source);
-
+	public IdChangeEvent(final IdentifiableBean identifiableBean) {
 		this.identifiableBean = checkNotNull(identifiableBean, "Identifiable bean is null");
 	}
 

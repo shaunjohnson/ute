@@ -38,21 +38,9 @@ public class IdChangeEventTest {
 	public void testGetIdentifiableBean() {
 		final IdentifiableBean bean = new TestJob();
 
-		final IdChangeEvent changeEvent = new IdChangeEvent(this, bean);
+		final IdChangeEvent changeEvent = new IdChangeEvent(bean);
 
-		assertNotNull(changeEvent.getSource());
 		assertEquals(bean, changeEvent.getIdentifiableBean());
-	}
-
-	/**
-	 * Test get source.
-	 */
-	@Test
-	public void testGetSource() {
-		final IdChangeEvent changeEvent = new IdChangeEvent(this, new TestJob());
-
-		assertNotNull(changeEvent.getSource());
-		assertSame(this, changeEvent.getSource());
 	}
 
 	/**
@@ -60,7 +48,7 @@ public class IdChangeEventTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testIdChangeEventNullIdentifiableBean() {
-		new IdChangeEvent(this, null);
+		new IdChangeEvent(null);
 	}
 
 	/**
@@ -68,6 +56,6 @@ public class IdChangeEventTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testIdChangeEventNullSource() {
-		new IdChangeEvent(null, new TestJob());
+		new IdChangeEvent(new TestJob());
 	}
 }
