@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.menus;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 
@@ -33,14 +34,14 @@ public abstract class AbstractMenuBar extends JMenuBar {
 	private static final long serialVersionUID = 345845895637052235L;
 
 	/** The action listener. */
-	private final ActionListener actionListener;
+	private final UteActionListener actionListener;
 
 	/**
 	 * Instantiates a new abstract menu bar.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public AbstractMenuBar(final ActionListener actionListener) {
+	public AbstractMenuBar(final UteActionListener actionListener) {
 		super();
 
 		this.actionListener = actionListener;

@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.gui.validation.InputValidator;
 import net.lmxm.ute.gui.validation.InputValidatorFactory;
@@ -52,7 +53,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public PropertyEditorToolBar(final ActionListener actionListener) {
+		public PropertyEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.DELETE_PROPERTY);
@@ -74,7 +75,7 @@ public final class PropertyEditorPanel extends AbstractCommonEditorPanel {
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public PropertyEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+	public PropertyEditorPanel(final ConfigurationHolder configurationHolder, final UteActionListener actionListener) {
 		super(LabelResourceType.PROPERTY, new PropertyEditorToolBar(actionListener), configurationHolder,
 				actionListener);
 

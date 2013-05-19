@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.gui.dialogs;
 
+import net.lmxm.ute.enums.ActionCommand;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -101,12 +103,17 @@ public class AboutDialog extends JDialog {
 	 */
 	private JButton getCloseButton() {
 		if (closeButton == null) {
-			closeButton = GuiComponentFactory.createButton(ButtonResourceType.CLOSE_DIALOG, new ActionListener() {
+			closeButton = GuiComponentFactory.createButton(ButtonResourceType.CLOSE_DIALOG, new UteActionListener() {
 				@Override
 				public void actionPerformed(final ActionEvent e) {
 					dispose();
 				}
-			});
+
+                @Override
+                public boolean supports(ActionCommand actionCommand) {
+                    return ActionCommand.CLOSE_DIALOG.equals(actionCommand);
+                }
+            });
 		}
 		return closeButton;
 	}

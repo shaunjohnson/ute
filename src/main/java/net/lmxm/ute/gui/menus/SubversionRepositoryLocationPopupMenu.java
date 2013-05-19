@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.menus;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 
 import java.awt.event.ActionListener;
@@ -35,7 +36,7 @@ public final class SubversionRepositoryLocationPopupMenu extends AbstractPopupMe
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public SubversionRepositoryLocationPopupMenu(final ActionListener actionListener) {
+	public SubversionRepositoryLocationPopupMenu(final UteActionListener actionListener) {
 		super(actionListener);
 
 		addMenuItem(MenuItemResourceType.ADD_SUBVERSION_REPOSITORY_LOCATION);

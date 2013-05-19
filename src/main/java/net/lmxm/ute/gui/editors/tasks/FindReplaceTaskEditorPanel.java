@@ -23,6 +23,7 @@ import net.lmxm.ute.beans.tasks.FindReplaceTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.enums.Scope;
 import net.lmxm.ute.exceptions.GuiException;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.components.FindReplacePatternsTableModel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
@@ -53,7 +54,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public FindReplaceTaskEditorToolBar(final ActionListener actionListener) {
+		public FindReplaceTaskEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 		}
 	}
@@ -91,7 +92,7 @@ public final class FindReplaceTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public FindReplaceTaskEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+	public FindReplaceTaskEditorPanel(final ConfigurationHolder configurationHolder, final UteActionListener actionListener) {
 		super(LabelResourceType.FIND_AND_REPLACE_TASK, new FindReplaceTaskEditorToolBar(actionListener),
 				configurationHolder, actionListener);
 

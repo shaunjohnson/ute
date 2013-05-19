@@ -72,6 +72,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.EnumSet;
 import java.util.List;
 
 import static net.lmxm.ute.ApplicationConstants.FILE_EXTENSION;
@@ -81,7 +82,7 @@ import static net.lmxm.ute.enums.ActionCommand.*;
  * The Class MainFrame.
  */
 @SuppressWarnings("serial")
-public final class MainFrame extends AbstractFrame implements ConfigurationHolder, ActionListener,
+public final class MainFrame extends AbstractFrame implements ConfigurationHolder, UteActionListener,
 		TreeSelectionListener {
 
 	/** The Constant LOGGER. */
@@ -92,6 +93,21 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2194241637714084500L;
+
+    /**
+     * Set of supported action commands.
+     */
+    private static final EnumSet<ActionCommand> SUPPORTED_ACTION_COMMANDS = EnumSet.of(
+            ABOUT, ADD_FILE_SYSTEM_DELETE_TASK, ADD_FILE_SYSTEM_LOCATION, ADD_FIND_REPLACE_TASK,
+            ADD_GROOVY_TASK, ADD_HTTP_DOWNLOAD_TASK, ADD_HTTP_LOCATION, ADD_MAVEN_REPOSITORY_DOWNLOAD_TASK,
+            ADD_MAVEN_REPOSITORY_LOCATION, ADD_JOB, ADD_PREFERENCE, ADD_PROPERTY,
+            ADD_SUBVERSION_EXPORT_TASK, ADD_SUBVERSION_REPOSITORY_LOCATION, ADD_SUBVERSION_UPDATE_TASK,
+            ADD_TASK, CLONE_FILE_SYSTEM_LOCATION, CLONE_HTTP_LOCATION, CLONE_JOB,
+            CLONE_MAVEN_REPOSITORY_LOCATION, CLONE_PREFERENCE, CLONE_PROPERTY,
+            CLONE_SUBVERSION_REPOSITORY_LOCATION, CLONE_TASK, COLLAPSE, DELETE_FILE_SYSTEM_LOCATION,
+            DELETE_HTTP_LOCATION, DELETE_JOB, DELETE_MAVEN_REPOSITORY_LOCATION, DELETE_PREFERENCE,
+            DELETE_PROPERTY, DELETE_SUBVERSION_REPOSITORY_LOCATION, DELETE_TASK, EDIT_PREFERENCES,
+            EXIT, EXPAND, EXECUTE, NEW_FILE, OPEN_FILE, RELOAD_FILE, SAVE_FILE, SAVE_FILE_AS);
 
 	/** The application preferences. */
 	private ApplicationPreferences applicationPreferences = null;
@@ -150,7 +166,7 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	/** The main menu bar. */
 	private MainMenuBar mainMenuBar = null;
 
-	/** The main split pane. */
+    /** The main split pane. */
 	private JSplitPane mainSplitPane = null;
 
     /** The Maven repository download task editor panel */
@@ -839,6 +855,11 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 			displayError(exception);
 		}
 	}
+
+    @Override
+         public boolean supports(ActionCommand actionCommand) {
+        return SUPPORTED_ACTION_COMMANDS.contains(actionCommand);
+    }
 
 	/**
 	 * Action reload file.

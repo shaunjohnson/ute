@@ -34,6 +34,7 @@ import net.lmxm.ute.event.EnabledStateChangeEvent;
 import net.lmxm.ute.event.EnabledStateChangeListener;
 import net.lmxm.ute.event.IdChangeEvent;
 import net.lmxm.ute.event.IdChangeListener;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.maintree.nodes.*;
 import net.lmxm.ute.gui.menus.*;
 import org.slf4j.Logger;
@@ -252,7 +253,7 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	private static final long serialVersionUID = -8466615023209238787L;
 
 	/** The action listener. */
-	private final ActionListener actionListener;
+	private final UteActionListener actionListener;
 
 	/** The file system location popup menu. */
 	private FileSystemLocationPopupMenu fileSystemLocationPopupMenu = null;
@@ -308,7 +309,7 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public MainTree(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+	public MainTree(final ConfigurationHolder configurationHolder, final UteActionListener actionListener) {
 		super();
 
 		this.actionListener = actionListener;
@@ -562,7 +563,7 @@ public class MainTree extends JTree implements EnabledStateChangeListener, IdCha
 	 * 
 	 * @return the action listener
 	 */
-	private ActionListener getActionListener() {
+	private UteActionListener getActionListener() {
 		return actionListener;
 	}
 

@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors.locations;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.event.DocumentAdapter;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -49,7 +50,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public SubversionRepositoryLocationEditorToolBar(final ActionListener actionListener) {
+		public SubversionRepositoryLocationEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.DELETE_SUBVERSION_REPOSITORY_LOCATION);
@@ -75,7 +76,7 @@ public final class SubversionRepositoryLocationEditorPanel extends AbstractHttpL
 	 * @param actionListener the action listener
 	 */
 	public SubversionRepositoryLocationEditorPanel(final ConfigurationHolder configurationHolder,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		super(LabelResourceType.SUBVERSION_REPOSITORY_LOCATION, new SubversionRepositoryLocationEditorToolBar(
 				actionListener), configurationHolder, actionListener);
 

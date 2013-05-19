@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.menus;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 
 import java.awt.event.ActionListener;
@@ -35,7 +36,7 @@ public final class MavenRepositoryLocationsRootPopupMenu extends AbstractPopupMe
 	 *
 	 * @param actionListener the action listener
 	 */
-	public MavenRepositoryLocationsRootPopupMenu(final ActionListener actionListener) {
+	public MavenRepositoryLocationsRootPopupMenu(final UteActionListener actionListener) {
 		super(actionListener);
 
 		addMenuItem(MenuItemResourceType.ADD_MAVEN_REPOSITORY_LOCATION);

@@ -29,7 +29,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * The Class HttpUtils.
  */
-public class HttpUtils {
+public final class HttpUtils {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtils.class);

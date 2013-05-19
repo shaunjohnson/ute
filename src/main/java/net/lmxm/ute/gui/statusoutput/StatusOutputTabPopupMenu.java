@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.statusoutput;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.menus.AbstractPopupMenu;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 
@@ -36,7 +37,7 @@ public final class StatusOutputTabPopupMenu extends AbstractPopupMenu {
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public StatusOutputTabPopupMenu(final ActionListener actionListener) {
+	public StatusOutputTabPopupMenu(final UteActionListener actionListener) {
 		super(actionListener);
 
 		addMenuItem(MenuItemResourceType.CLOSE_ALL_TABS);

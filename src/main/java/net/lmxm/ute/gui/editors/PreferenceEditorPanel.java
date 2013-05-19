@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors;
 import net.lmxm.ute.beans.DomainBean;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -49,7 +50,7 @@ public final class PreferenceEditorPanel extends AbstractCommonEditorPanel {
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public PreferenceEditorToolBar(final ActionListener actionListener) {
+		public PreferenceEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.DELETE_PREFERENCE);
@@ -71,7 +72,7 @@ public final class PreferenceEditorPanel extends AbstractCommonEditorPanel {
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public PreferenceEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+	public PreferenceEditorPanel(final ConfigurationHolder configurationHolder, final UteActionListener actionListener) {
 		super(LabelResourceType.PREFERENCE, new PreferenceEditorToolBar(actionListener), configurationHolder,
 				actionListener);
 

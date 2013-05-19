@@ -48,7 +48,7 @@ public enum ToolbarButtonResourceType implements ResourceType {
 
 	ADD_TASK(null, ActionCommand.ADD_TASK),
 
-    CLEAR(ImageUtil.CLEAR_ICON, null),
+    CLEAR(ImageUtil.CLEAR_ICON, ActionCommand.CLEAR),
 
 	COLLAPSE(ImageUtil.COLLAPSE_ICON, ActionCommand.COLLAPSE),
 
@@ -87,7 +87,7 @@ public enum ToolbarButtonResourceType implements ResourceType {
 
 	SAVE_FILE_AS(ImageUtil.SAVE_FILE_AS_ICON, ActionCommand.SAVE_FILE_AS),
 
-    STOP_JOB(ImageUtil.STOP_JOB_ICON, null);
+    STOP_JOB(ImageUtil.STOP_JOB_ICON, ActionCommand.STOP_JOB);
 
 	private final ActionCommand actionCommand;
 

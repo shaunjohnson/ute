@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors.tasks;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.SubversionUpdateTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -44,7 +45,7 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public SubversionUpdateTaskEditorToolBar(final ActionListener actionListener) {
+		public SubversionUpdateTaskEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 		}
 	}
@@ -59,7 +60,7 @@ public final class SubversionUpdateTaskEditorPanel extends AbstractTaskEditorPan
 	 * @param actionListener the action listener
 	 */
 	public SubversionUpdateTaskEditorPanel(final ConfigurationHolder configurationHolder,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		super(LabelResourceType.SUBVERSION_UPDATE_TASK, new SubversionUpdateTaskEditorToolBar(actionListener),
 				configurationHolder, actionListener);
 

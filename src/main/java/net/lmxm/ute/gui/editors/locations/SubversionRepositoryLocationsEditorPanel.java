@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors.locations;
 
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -44,7 +45,7 @@ public class SubversionRepositoryLocationsEditorPanel extends AbstractReadonlyEd
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public SubversionRepositoryLocationsEditorToolBar(final ActionListener actionListener) {
+		public SubversionRepositoryLocationsEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.ADD_SUBVERSION_REPOSITORY_LOCATION);
@@ -61,7 +62,7 @@ public class SubversionRepositoryLocationsEditorPanel extends AbstractReadonlyEd
 	 * @param actionListener the action listener
 	 */
 	public SubversionRepositoryLocationsEditorPanel(final ConfigurationHolder configurationHolder,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		super(LabelResourceType.SUBVERSION_REPOSITORY_LOCATIONS, new SubversionRepositoryLocationsEditorToolBar(
 				actionListener), configurationHolder, actionListener);
 

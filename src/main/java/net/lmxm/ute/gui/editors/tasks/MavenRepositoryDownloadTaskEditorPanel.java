@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors.tasks;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.MavenRepositoryDownloadTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.components.MavenArtifactsTableModel;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -49,7 +50,7 @@ public final class MavenRepositoryDownloadTaskEditorPanel extends AbstractTaskEd
 		 *
 		 * @param actionListener the action listener
 		 */
-		public MavenRepositoryDownloadTaskEditorToolBar(final ActionListener actionListener) {
+		public MavenRepositoryDownloadTaskEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 		}
 	}
@@ -73,7 +74,7 @@ public final class MavenRepositoryDownloadTaskEditorPanel extends AbstractTaskEd
 	 * @param actionListener the action listener
 	 */
 	public MavenRepositoryDownloadTaskEditorPanel(final ConfigurationHolder configurationHolder,
-                                                  final ActionListener actionListener) {
+                                                  final UteActionListener actionListener) {
 		super(LabelResourceType.MAVEN_REPOSITORY_DOWNLOAD_TASK, new MavenRepositoryDownloadTaskEditorToolBar(actionListener),
 				configurationHolder, actionListener);
 

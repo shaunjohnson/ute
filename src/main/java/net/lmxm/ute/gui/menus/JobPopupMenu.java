@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.menus;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 
 import java.awt.event.ActionListener;
@@ -35,7 +36,7 @@ public final class JobPopupMenu extends AbstractPopupMenu {
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public JobPopupMenu(final ActionListener actionListener) {
+	public JobPopupMenu(final UteActionListener actionListener) {
 		super(actionListener);
 
 		addMenuItem(MenuItemResourceType.EXECUTE_JOB);

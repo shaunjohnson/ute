@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
@@ -34,14 +35,14 @@ public abstract class AbstractToolBar extends JToolBar {
 	private static final long serialVersionUID = 8062663522559613599L;
 
 	/** The action listener. */
-	private final ActionListener actionListener;
+	private final UteActionListener actionListener;
 
 	/**
 	 * Instantiates a new abstract tool bar.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public AbstractToolBar(final ActionListener actionListener) {
+	public AbstractToolBar(final UteActionListener actionListener) {
 		super();
 
 		this.actionListener = actionListener;
@@ -55,17 +56,6 @@ public abstract class AbstractToolBar extends JToolBar {
 	 * @param guiComponentToolbarButton the gui component toolbar button
 	 */
 	protected final void addToolbarButton(final ToolbarButtonResourceType guiComponentToolbarButton) {
-		add(GuiComponentFactory.createToolbarButton(guiComponentToolbarButton, actionListener));
-	}
-
-	/**
-	 * Adds the toolbar button.
-	 * 
-	 * @param guiComponentToolbarButton the gui component toolbar button
-	 * @param actionListener the action listener
-	 */
-	protected final void addToolbarButton(final ToolbarButtonResourceType guiComponentToolbarButton,
-			final ActionListener actionListener) {
 		add(GuiComponentFactory.createToolbarButton(guiComponentToolbarButton, actionListener));
 	}
 

@@ -27,6 +27,7 @@ import net.lmxm.ute.enums.SubversionRevision;
 import net.lmxm.ute.event.DocumentAdapter;
 import net.lmxm.ute.exceptions.GuiException;
 import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -62,7 +63,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public SubversionExportTaskEditorToolBar(final ActionListener actionListener) {
+		public SubversionExportTaskEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 		}
 	}
@@ -103,7 +104,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 	 * @param actionListener the action listener
 	 */
 	public SubversionExportTaskEditorPanel(final ConfigurationHolder configurationHolder,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		super(LabelResourceType.SUBVERSION_EXPORT_TASK, new SubversionExportTaskEditorToolBar(actionListener),
 				configurationHolder, actionListener);
 

@@ -20,6 +20,7 @@ package net.lmxm.ute.gui.editors.locations;
 
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -44,7 +45,7 @@ public final class MavenRepositoryLocationEditorPanel extends AbstractHttpLocati
 		 *
 		 * @param actionListener the action listener
 		 */
-		public MavenRepositoryLocationEditorToolBar(final ActionListener actionListener) {
+		public MavenRepositoryLocationEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.DELETE_MAVEN_REPOSITORY_LOCATION);
@@ -60,7 +61,7 @@ public final class MavenRepositoryLocationEditorPanel extends AbstractHttpLocati
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public MavenRepositoryLocationEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+	public MavenRepositoryLocationEditorPanel(final ConfigurationHolder configurationHolder, final UteActionListener actionListener) {
 		super(LabelResourceType.MAVEN_REPOSITORY_LOCATION, new MavenRepositoryLocationEditorToolBar(actionListener), configurationHolder,
 				actionListener);
 

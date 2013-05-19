@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors;
 
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -43,7 +44,7 @@ public class PropertiesEditorPanel extends AbstractReadonlyEditorPanel {
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public PropertiesEditorToolBar(final ActionListener actionListener) {
+		public PropertiesEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.ADD_PROPERTY);
@@ -59,7 +60,7 @@ public class PropertiesEditorPanel extends AbstractReadonlyEditorPanel {
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public PropertiesEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+	public PropertiesEditorPanel(final ConfigurationHolder configurationHolder, final UteActionListener actionListener) {
 		super(LabelResourceType.PROPERTIES, new PropertiesEditorToolBar(actionListener), configurationHolder,
 				actionListener);
 

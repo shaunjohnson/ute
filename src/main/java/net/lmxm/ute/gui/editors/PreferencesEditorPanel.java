@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors;
 
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -43,7 +44,7 @@ public class PreferencesEditorPanel extends AbstractReadonlyEditorPanel {
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public PreferencesEditorToolBar(final ActionListener actionListener) {
+		public PreferencesEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.ADD_PREFERENCE);
@@ -59,7 +60,7 @@ public class PreferencesEditorPanel extends AbstractReadonlyEditorPanel {
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public PreferencesEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+	public PreferencesEditorPanel(final ConfigurationHolder configurationHolder, final UteActionListener actionListener) {
 		super(LabelResourceType.PREFERENCES, new PreferencesEditorToolBar(actionListener), configurationHolder,
 				actionListener);
 

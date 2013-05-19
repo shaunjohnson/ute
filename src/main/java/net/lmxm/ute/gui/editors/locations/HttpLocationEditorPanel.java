@@ -20,6 +20,7 @@ package net.lmxm.ute.gui.editors.locations;
 
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
@@ -44,7 +45,7 @@ public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPan
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public HttpLocationEditorToolBar(final ActionListener actionListener) {
+		public HttpLocationEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.DELETE_HTTP_LOCATION);
@@ -60,7 +61,7 @@ public final class HttpLocationEditorPanel extends AbstractHttpLocationEditorPan
 	 * @param configurationHolder the configuration holder
 	 * @param actionListener the action listener
 	 */
-	public HttpLocationEditorPanel(final ConfigurationHolder configurationHolder, final ActionListener actionListener) {
+	public HttpLocationEditorPanel(final ConfigurationHolder configurationHolder, final UteActionListener actionListener) {
 		super(LabelResourceType.HTTP_LOCATION, new HttpLocationEditorToolBar(actionListener), configurationHolder,
 				actionListener);
 

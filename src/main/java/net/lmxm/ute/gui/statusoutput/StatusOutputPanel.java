@@ -20,10 +20,12 @@ package net.lmxm.ute.gui.statusoutput;
 
 import com.google.common.eventbus.Subscribe;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.event.StatusChangeEventType;
 import net.lmxm.ute.exceptions.GuiException;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.workers.ExecuteJobWorker;
 import net.lmxm.ute.resources.types.ExceptionResourceType;
@@ -161,7 +163,7 @@ public final class StatusOutputPanel extends JPanel {
      */
     private JButton getClearOutputButton() {
         if (clearOutputButton == null) {
-            clearOutputButton = GuiComponentFactory.createToolbarButton(ToolbarButtonResourceType.CLEAR, new ActionListener() {
+            clearOutputButton = GuiComponentFactory.createToolbarButton(ToolbarButtonResourceType.CLEAR, new UteActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     SwingUtilities.invokeLater(new Runnable() {
@@ -170,6 +172,11 @@ public final class StatusOutputPanel extends JPanel {
                             getOutputPane().setText("");
                         }
                     });
+                }
+
+                @Override
+                public boolean supports(ActionCommand actionCommand) {
+                    return ActionCommand.CLEAR.equals(actionCommand);
                 }
             });
         }
@@ -252,9 +259,9 @@ public final class StatusOutputPanel extends JPanel {
      */
     private JButton getStopJobButton() {
         if (stopJobButton == null) {
-            stopJobButton = GuiComponentFactory.createToolbarButton(ToolbarButtonResourceType.STOP_JOB, new ActionListener() {
+            stopJobButton = GuiComponentFactory.createToolbarButton(ToolbarButtonResourceType.STOP_JOB, new UteActionListener() {
                 @Override
-                public void actionPerformed(final ActionEvent e) {
+                public void actionPerformed(final ActionEvent actionEvent) {
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
@@ -267,6 +274,11 @@ public final class StatusOutputPanel extends JPanel {
                             }
                         }
                     });
+                }
+
+                @Override
+                public boolean supports(final ActionCommand actionCommand) {
+                    return ActionCommand.STOP_JOB.equals(actionCommand);
                 }
             });
         }

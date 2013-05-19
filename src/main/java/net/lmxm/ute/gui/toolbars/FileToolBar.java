@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
 import java.awt.*;
@@ -36,7 +37,7 @@ public class FileToolBar extends AbstractToolBar {
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public FileToolBar(final ActionListener actionListener) {
+	public FileToolBar(final UteActionListener actionListener) {
 		super(actionListener);
 
 		addToolbarButton(ToolbarButtonResourceType.NEW_FILE);

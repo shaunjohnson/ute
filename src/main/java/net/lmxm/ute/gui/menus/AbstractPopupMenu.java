@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.menus;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 import net.lmxm.ute.resources.types.MenuResourceType;
@@ -37,14 +38,14 @@ public abstract class AbstractPopupMenu extends JPopupMenu {
 	private static final long serialVersionUID = -7518698215552137785L;
 
 	/** The action listener. */
-	private final ActionListener actionListener;
+	private final UteActionListener actionListener;
 
 	/**
 	 * Instantiates a new abstract popup menu.
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public AbstractPopupMenu(final ActionListener actionListener) {
+	public AbstractPopupMenu(final UteActionListener actionListener) {
 		super();
 
 		checkNotNull(actionListener, "Action listener may not be null");

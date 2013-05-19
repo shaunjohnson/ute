@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors.tasks;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.HttpDownloadTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -44,7 +45,7 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public HttpDownloadTaskEditorToolBar(final ActionListener actionListener) {
+		public HttpDownloadTaskEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 		}
 	}
@@ -59,7 +60,7 @@ public final class HttpDownloadTaskEditorPanel extends AbstractTaskEditorPanel {
 	 * @param actionListener the action listener
 	 */
 	public HttpDownloadTaskEditorPanel(final ConfigurationHolder configurationHolder,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		super(LabelResourceType.HTTP_DOWNLOAD_TASK, new HttpDownloadTaskEditorToolBar(actionListener),
 				configurationHolder, actionListener);
 

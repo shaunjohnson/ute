@@ -31,7 +31,7 @@ import static net.lmxm.ute.resources.types.ResourceValueType.*;
  */
 public enum MenuItemResourceType implements ResourceType {
 
-	ABOUT(ImageUtil.ABOUT_ICON, ActionCommand.ABOUT),
+	 ABOUT(ImageUtil.ABOUT_ICON, ActionCommand.ABOUT),
 
 	ADD_FILE_SYSTEM_DELETE_TASK(ImageUtil.ADD_FILE_SYSTEM_DELETE_TASK_ICON, ActionCommand.ADD_FILE_SYSTEM_DELETE_TASK),
 

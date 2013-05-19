@@ -20,7 +20,9 @@ package net.lmxm.ute.gui.editors.locations;
 
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.DocumentAdapter;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.gui.validation.InputValidator;
@@ -57,7 +59,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public FileSystemLocationEditorToolBar(final ActionListener actionListener) {
+		public FileSystemLocationEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.DELETE_FILE_SYSTEM_LOCATION);
@@ -86,7 +88,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 	 * @param actionListener the action listener
 	 */
 	public FileSystemLocationEditorPanel(final ConfigurationHolder configurationHolder,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		super(LabelResourceType.FILE_SYSTEM_LOCATION, new FileSystemLocationEditorToolBar(actionListener),
 				configurationHolder, actionListener);
 
@@ -133,7 +135,7 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 			final Component parent = this;
 
 			browsePathButton = GuiComponentFactory.createButton(ButtonResourceType.DIRECTORY_BROWSE,
-					new ActionListener() {
+					new UteActionListener() {
 						@Override
 						public void actionPerformed(final ActionEvent actionEvent) {
 							final JFileChooser fcOpen = new JFileChooser();
@@ -148,7 +150,12 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 								getPathTextField().setText(file.getAbsolutePath());
 							}
 						}
-					});
+
+                        @Override
+                        public boolean supports(ActionCommand actionCommand) {
+                            return ActionCommand.DIRECTORY_BROWSE.equals(actionCommand);
+                        }
+                    });
 		}
 
 		return browsePathButton;

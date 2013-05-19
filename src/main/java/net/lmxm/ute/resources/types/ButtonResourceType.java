@@ -33,7 +33,7 @@ public enum ButtonResourceType implements ResourceType {
 
     CLOSE_DIALOG(null, null),
     CLOSE_TAB(null, null),
-    DIRECTORY_BROWSE(null, null);
+    DIRECTORY_BROWSE(null, ActionCommand.DIRECTORY_BROWSE);
 
     private final ResourceValueType[] types = {TEXT, TOOLTIP_TEXT};
 

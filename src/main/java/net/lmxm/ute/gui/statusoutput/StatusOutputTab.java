@@ -23,6 +23,7 @@ import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.event.StatusChangeEvent;
 import net.lmxm.ute.executers.jobs.JobStatusEvent;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.resources.ImageUtil;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.ButtonResourceType;
@@ -45,7 +46,7 @@ import static net.lmxm.ute.executers.jobs.JobStatusEvent.JobStatusEventType.*;
 /**
  * The Class StatusOutputTab.
  */
-public final class StatusOutputTab extends JPanel implements ActionListener {
+public final class StatusOutputTab extends JPanel implements UteActionListener {
 
     /**
      * The Class CloseTabButton.
@@ -304,6 +305,11 @@ public final class StatusOutputTab extends JPanel implements ActionListener {
                 tabbedPane.removeTabAt(index);
             }
         }
+    }
+
+    @Override
+    public boolean supports(ActionCommand actionCommand) {
+        return ActionCommand.CLOSE_ALL_TABS.equals(actionCommand);
     }
 
     /**

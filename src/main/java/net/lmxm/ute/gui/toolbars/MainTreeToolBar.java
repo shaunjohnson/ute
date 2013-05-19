@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.resources.types.ToolbarButtonResourceType;
 
 import java.awt.*;
@@ -36,7 +37,7 @@ public class MainTreeToolBar extends AbstractToolBar {
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public MainTreeToolBar(final ActionListener actionListener) {
+	public MainTreeToolBar(final UteActionListener actionListener) {
 		super(actionListener);
 
 		addToolbarButtonNoText(ToolbarButtonResourceType.ADD_JOB);

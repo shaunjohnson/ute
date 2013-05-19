@@ -19,6 +19,7 @@
 package net.lmxm.ute.gui.editors.locations;
 
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.editors.AbstractReadonlyEditorPanel;
 import net.lmxm.ute.gui.toolbars.AbstractToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
@@ -44,7 +45,7 @@ public class FileSystemLocationsEditorPanel extends AbstractReadonlyEditorPanel 
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public FileSystemLocationsEditorToolBar(final ActionListener actionListener) {
+		public FileSystemLocationsEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 
 			addToolbarButton(ToolbarButtonResourceType.ADD_FILE_SYSTEM_LOCATION);
@@ -61,7 +62,7 @@ public class FileSystemLocationsEditorPanel extends AbstractReadonlyEditorPanel 
 	 * @param actionListener the action listener
 	 */
 	public FileSystemLocationsEditorPanel(final ConfigurationHolder configurationHolder,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		super(LabelResourceType.FILE_SYSTEM_LOCATIONS, new FileSystemLocationsEditorToolBar(actionListener),
 				configurationHolder, actionListener);
 

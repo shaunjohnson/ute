@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.toolbars;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.menus.AddTaskPopupMenu;
 
 import javax.swing.*;
@@ -31,8 +32,6 @@ import java.awt.event.MouseEvent;
  * component's <code>addAddTaskMouseListener<code> method. When
  * the addTaskMouse event occurs, that object's appropriate
  * method is invoked.
- * 
- * @see AddTaskMouseEvent
  */
 public class AddTaskMouseListener extends MouseAdapter {
 
@@ -44,7 +43,7 @@ public class AddTaskMouseListener extends MouseAdapter {
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public AddTaskMouseListener(final ActionListener actionListener) {
+	public AddTaskMouseListener(final UteActionListener actionListener) {
 		super();
 
 		addTaskPopupMenu = new AddTaskPopupMenu(actionListener);

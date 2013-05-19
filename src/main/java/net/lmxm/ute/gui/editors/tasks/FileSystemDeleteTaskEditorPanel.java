@@ -21,6 +21,7 @@ package net.lmxm.ute.gui.editors.tasks;
 import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.toolbars.AbstractTaskEditorToolBar;
 import net.lmxm.ute.resources.types.LabelResourceType;
 
@@ -44,7 +45,7 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 		 * 
 		 * @param actionListener the action listener
 		 */
-		public FileSystemDeleteTaskEditorToolBar(final ActionListener actionListener) {
+		public FileSystemDeleteTaskEditorToolBar(final UteActionListener actionListener) {
 			super(actionListener);
 		}
 	}
@@ -59,7 +60,7 @@ public final class FileSystemDeleteTaskEditorPanel extends AbstractTaskEditorPan
 	 * @param actionListener the action listener
 	 */
 	public FileSystemDeleteTaskEditorPanel(final ConfigurationHolder configurationHolder,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		super(LabelResourceType.FILE_SYSTEM_DELETE_TASK, new FileSystemDeleteTaskEditorToolBar(actionListener),
 				configurationHolder, actionListener);
 

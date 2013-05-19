@@ -18,6 +18,9 @@
  */
 package net.lmxm.ute.gui.components;
 
+import net.lmxm.ute.enums.ActionCommand;
+import net.lmxm.ute.exceptions.GuiException;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.resources.ResourcesUtils;
 import net.lmxm.ute.resources.types.*;
 
@@ -38,7 +41,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param actionListener the action listener
 	 * @return the j button
 	 */
-	public static JButton createButton(final ButtonResourceType guiComponentButton, final ActionListener actionListener) {
+	public static JButton createButton(final ButtonResourceType guiComponentButton, final UteActionListener actionListener) {
 		final JButton button = new JButton();
 
 		setIcon(button, guiComponentButton);
@@ -88,7 +91,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @return the j menu item
 	 */
 	public static JMenuItem createMenuItem(final MenuItemResourceType guiComponentMenuItem,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		final JMenuItem menuItem = new JMenuItem();
 
 		setIcon(menuItem, guiComponentMenuItem);
@@ -140,7 +143,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @return the j button
 	 */
 	public static JButton createToolbarButton(final ToolbarButtonResourceType guiComponentButton,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		final JButton button = new JButton();
 
 		setIcon(button, guiComponentButton);
@@ -159,7 +162,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @return the j button
 	 */
 	public static JButton createToolbarButton(final ToolbarButtonResourceType guiComponentButton,
-			final ActionListener actionListener, final MouseListener mouseListener) {
+			final UteActionListener actionListener, final MouseListener mouseListener) {
 		final JButton button = createToolbarButton(guiComponentButton, actionListener);
 
 		if (mouseListener != null) {
@@ -177,7 +180,7 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @return the j button
 	 */
 	public static JButton createToolbarButtonNoText(final ToolbarButtonResourceType guiComponentButton,
-			final ActionListener actionListener) {
+			final UteActionListener actionListener) {
 		final JButton button = new JButton();
 
 		setIcon(button, guiComponentButton);
@@ -209,14 +212,20 @@ public class GuiComponentFactory extends AbstractGuiFactory {
 	 * @param actionListener the action listener
 	 */
 	private static void setActionListener(final AbstractButton abstractButton, final ResourceType guiComponentType,
-			final ActionListener actionListener) {
-		if (actionListener != null) {
-			abstractButton.addActionListener(actionListener);
-		}
+			final UteActionListener actionListener) {
+        final ActionCommand actionCommand = guiComponentType.getActionCommand();
 
-		if (guiComponentType.getActionCommand() != null) {
-			abstractButton.setActionCommand(guiComponentType.getActionCommand().name());
+        if (actionListener != null && actionCommand != null) {
+            if (!actionListener.supports(actionCommand)) {
+                throw new GuiException(ExceptionResourceType.UNEXPECTED_ERROR);
+            }
+
+			abstractButton.addActionListener(actionListener);
+            abstractButton.setActionCommand(guiComponentType.getActionCommand().name());
 		}
+        else if (!(actionListener == null && actionCommand == null)) {
+            throw new GuiException(ExceptionResourceType.UNEXPECTED_ERROR);
+        }
 	}
 
 	/**

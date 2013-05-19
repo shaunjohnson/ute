@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.menus;
 
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.components.GuiComponentFactory;
 import net.lmxm.ute.resources.types.MenuItemResourceType;
 import net.lmxm.ute.resources.types.MenuResourceType;
@@ -47,7 +48,7 @@ public final class MainMenuBar extends AbstractMenuBar {
 	 * 
 	 * @param actionListener the action listener
 	 */
-	public MainMenuBar(final ActionListener actionListener) {
+	public MainMenuBar(final UteActionListener actionListener) {
 		super(actionListener);
 
 		add(getFileMenu());
@@ -98,6 +99,7 @@ public final class MainMenuBar extends AbstractMenuBar {
 	public JMenu getHelpMenu() {
 		if (helpMenu == null) {
 			helpMenu = GuiComponentFactory.createMenu(MenuResourceType.HELP);
+
 			addMenuItem(helpMenu, MenuItemResourceType.ABOUT);
 		}
 		return helpMenu;
