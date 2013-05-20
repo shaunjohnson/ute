@@ -1,8 +1,12 @@
 package net.lmxm.ute.utils.aether;
 
 import net.lmxm.ute.event.JobStatusChangeEventBus;
+import net.lmxm.ute.exceptions.TaskExecuterException;
+import net.lmxm.ute.resources.types.ExceptionResourceType;
 import org.apache.maven.repository.internal.MavenRepositorySystemSession;
 import org.codehaus.plexus.DefaultPlexusContainer;
+import org.codehaus.plexus.PlexusContainerException;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
 import org.sonatype.aether.RepositorySystem;
@@ -58,12 +62,21 @@ public final class AetherResolveUtils {
      * @param repositoryUrl URL of the Maven repository to work with
      * @throws Exception Error occurred during initialization of Aether
      */
-    public AetherResolveUtils(final JobStatusChangeEventBus jobStatusChangeEventBus, String repositoryUrl) throws Exception {
+    public AetherResolveUtils(final JobStatusChangeEventBus jobStatusChangeEventBus, String repositoryUrl) {
         super();
 
         this.jobStatusChangeEventBus = checkNotNull(jobStatusChangeEventBus, "Job status change event bus");
         remoteRepository = new RemoteRepository(REPOSITORY_ID, REPOSITORY_TYPE, repositoryUrl);
-        system = new DefaultPlexusContainer().lookup(RepositorySystem.class);
+
+        try {
+            system = new DefaultPlexusContainer().lookup(RepositorySystem.class);
+        }
+        catch (final ComponentLookupException e) {
+            throw new TaskExecuterException(ExceptionResourceType.UNEXPECTED_ERROR, e);
+        }
+        catch (final PlexusContainerException e) {
+            throw new TaskExecuterException(ExceptionResourceType.UNEXPECTED_ERROR, e);
+        }
     }
 
     /**
@@ -134,7 +147,8 @@ public final class AetherResolveUtils {
             }
             catch (IOException e) {
                 jobStatusChangeEventBus.error(MAVEN_REPOSITORY_DOWNLOAD_UNABLE_TO_DELETE_LOCAL_REPOSITORY, e.getMessage());
-                System.err.println("Unable to delete " + localRepositoryBaseDirectory);
+                throw new TaskExecuterException(ExceptionResourceType.UNABLE_TO_DELETE_DIRECTORY,
+                        localRepositoryBaseDirectory.getAbsoluteFile());
             }
         }
     }

@@ -153,7 +153,7 @@ public final class SubversionExportTask extends AbstractRenameFilesTask implemen
 	 * @param revisionDate the new revision date
 	 */
 	public void setRevisionDate(final Date revisionDate) {
-		this.revisionDate = revisionDate;
+		this.revisionDate = revisionDate == null ? null : (Date)revisionDate.clone();
 	}
 
 	/**
