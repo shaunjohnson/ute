@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans.locations;
 
+import net.lmxm.ute.beans.BeanType;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import org.apache.commons.lang3.StringUtils;
 
@@ -65,6 +66,16 @@ public final class FileSystemLocation extends IdentifiableDomainBean {
 	public String getPath() {
 		return path;
 	}
+
+    /**
+     * Gets the bean type.
+     *
+     * @return Bean type
+     */
+    @Override
+    public final BeanType getType() {
+        return BeanType.FileSystemLocation;
+    }
 
 	/*
 	 * (non-Javadoc)

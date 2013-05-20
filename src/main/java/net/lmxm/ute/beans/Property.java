@@ -101,6 +101,16 @@ public final class Property implements DomainBean, IdentifiableBean {
     }
 
     /**
+     * Gets the bean type.
+     *
+     * @return Bean type
+     */
+    @Override
+    public final BeanType getType() {
+        return BeanType.Property;
+    }
+
+    /**
      * Gets the current value.
      *
      * @return the current value

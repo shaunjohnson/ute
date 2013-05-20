@@ -59,53 +59,8 @@ public class MainTree extends JTree implements EnabledStateChangeListener {
 	/** The action listener. */
 	private final UteActionListener actionListener;
 
-	/** The file system location popup menu. */
-	private FileSystemLocationPopupMenu fileSystemLocationPopupMenu = null;
-
-	/** The file system locations root popup menu. */
-	private FileSystemLocationsRootPopupMenu fileSystemLocationsRootPopupMenu = null;
-
-	/** The http location popup menu. */
-	private HttpLocationPopupMenu httpLocationPopupMenu = null;
-
-	/** The http locations root popup menu. */
-	private HttpLocationsRootPopupMenu httpLocationsRootPopupMenu = null;
-
-	/** The job popup menu. */
-	private JobPopupMenu jobPopupMenu = null;
-
-	/** The jobs root popup menu. */
-	private JobsRootPopupMenu jobsRootPopupMenu = null;
-
-    /** The Maven repository location popup menu. */
-    private MavenRepositoryLocationPopupMenu mavenRepositoryLocationPopupMenu = null;
-
-    /** The Maven repository locations root popup menu. */
-    private MavenRepositoryLocationsRootPopupMenu mavenRepositoryLocationsRootPopupMenu = null;
-
 	/** The main tree model. */
 	private final MainTreeModel mainTreeModel;
-
-	/** The preference popup menu. */
-	private PreferencePopupMenu preferencePopupMenu = null;
-
-	/** The preferences root popup menu. */
-	private PreferencesRootPopupMenu preferencesRootPopupMenu = null;
-
-	/** The properties root popup menu. */
-	private PropertiesRootPopupMenu propertiesRootPopupMenu = null;
-
-	/** The property popup menu. */
-	private PropertyPopupMenu propertyPopupMenu = null;
-
-	/** The subversion repository location popup menu. */
-	private SubversionRepositoryLocationPopupMenu subversionRepositoryLocationPopupMenu = null;
-
-	/** The subversion repository locations root popup menu. */
-	private SubversionRepositoryLocationsRootPopupMenu subversionRepositoryLocationsRootPopupMenu = null;
-
-	/** The task popup menu. */
-	private TaskPopupMenu taskPopupMenu = null;
 
 	/**
 	 * Instantiates a new main tree.
@@ -129,7 +84,7 @@ public class MainTree extends JTree implements EnabledStateChangeListener {
 		setShowsRootHandles(true);
 
 		addKeyListener(new MainTreeKeyListener(this, actionListener));
-		addMouseListener(new MainTreeMouseListener(this));
+		addMouseListener(new MainTreeMouseListener(this, actionListener));
 
 		setDragEnabled(true);
 		setDropMode(DropMode.INSERT);
@@ -372,162 +327,6 @@ public class MainTree extends JTree implements EnabledStateChangeListener {
 	}
 
 	/**
-	 * Gets the file system location popup menu.
-	 * 
-	 * @return the file system location popup menu
-	 */
-	protected FileSystemLocationPopupMenu getFileSystemLocationPopupMenu() {
-		if (fileSystemLocationPopupMenu == null) {
-			fileSystemLocationPopupMenu = new FileSystemLocationPopupMenu(getActionListener());
-		}
-
-		return fileSystemLocationPopupMenu;
-	}
-
-	/**
-	 * Gets the file system locations root popup menu.
-	 * 
-	 * @return the file system locations root popup menu
-	 */
-	protected FileSystemLocationsRootPopupMenu getFileSystemLocationsRootPopupMenu() {
-		if (fileSystemLocationsRootPopupMenu == null) {
-			fileSystemLocationsRootPopupMenu = new FileSystemLocationsRootPopupMenu(getActionListener());
-		}
-
-		return fileSystemLocationsRootPopupMenu;
-	}
-
-	/**
-	 * Gets the http location popup menu.
-	 * 
-	 * @return the http location popup menu
-	 */
-	protected HttpLocationPopupMenu getHttpLocationPopupMenu() {
-		if (httpLocationPopupMenu == null) {
-			httpLocationPopupMenu = new HttpLocationPopupMenu(getActionListener());
-		}
-
-		return httpLocationPopupMenu;
-	}
-
-	/**
-	 * Gets the http locations root popup menu.
-	 * 
-	 * @return the http locations root popup menu
-	 */
-	protected HttpLocationsRootPopupMenu getHttpLocationsRootPopupMenu() {
-		if (httpLocationsRootPopupMenu == null) {
-			httpLocationsRootPopupMenu = new HttpLocationsRootPopupMenu(getActionListener());
-		}
-
-		return httpLocationsRootPopupMenu;
-	}
-
-	/**
-	 * Gets the job popup menu.
-	 * 
-	 * @return the job popup menu
-	 */
-	protected JobPopupMenu getJobPopupMenu() {
-		if (jobPopupMenu == null) {
-			jobPopupMenu = new JobPopupMenu(getActionListener());
-		}
-
-		return jobPopupMenu;
-	}
-
-	/**
-	 * Gets the jobs root popup menu.
-	 * 
-	 * @return the jobs root popup menu
-	 */
-	protected JobsRootPopupMenu getJobsRootPopupMenu() {
-		if (jobsRootPopupMenu == null) {
-			jobsRootPopupMenu = new JobsRootPopupMenu(getActionListener());
-		}
-
-		return jobsRootPopupMenu;
-	}
-
-    /**
-     * Gets the Maven repository location popup menu.
-     *
-     * @return the Maven repository location popup menu
-     */
-    protected MavenRepositoryLocationPopupMenu getMavenRepositoryLocationPopupMenu() {
-        if (mavenRepositoryLocationPopupMenu == null) {
-            mavenRepositoryLocationPopupMenu = new MavenRepositoryLocationPopupMenu(getActionListener());
-        }
-
-        return mavenRepositoryLocationPopupMenu;
-    }
-
-    /**
-     * Gets the Maven repository locations root popup menu.
-     *
-     * @return the Maven repository locations root popup menu
-     */
-    protected MavenRepositoryLocationsRootPopupMenu getMavenRepositoryLocationsRootPopupMenu() {
-        if (mavenRepositoryLocationsRootPopupMenu == null) {
-            mavenRepositoryLocationsRootPopupMenu = new MavenRepositoryLocationsRootPopupMenu(getActionListener());
-        }
-
-        return mavenRepositoryLocationsRootPopupMenu;
-    }
-
-	/**
-	 * Gets the preference popup menu.
-	 * 
-	 * @return the preference popup menu
-	 */
-	protected PreferencePopupMenu getPreferencePopupMenu() {
-		if (preferencePopupMenu == null) {
-			preferencePopupMenu = new PreferencePopupMenu(getActionListener());
-		}
-
-		return preferencePopupMenu;
-	}
-
-	/**
-	 * Gets the preferences root popup menu.
-	 * 
-	 * @return the preferences root popup menu
-	 */
-	protected PreferencesRootPopupMenu getPreferencesRootPopupMenu() {
-		if (preferencesRootPopupMenu == null) {
-			preferencesRootPopupMenu = new PreferencesRootPopupMenu(getActionListener());
-		}
-
-		return preferencesRootPopupMenu;
-	}
-
-	/**
-	 * Gets the properties root popup menu.
-	 * 
-	 * @return the properties root popup menu
-	 */
-	protected PropertiesRootPopupMenu getPropertiesRootPopupMenu() {
-		if (propertiesRootPopupMenu == null) {
-			propertiesRootPopupMenu = new PropertiesRootPopupMenu(getActionListener());
-		}
-
-		return propertiesRootPopupMenu;
-	}
-
-	/**
-	 * Gets the property popup menu.
-	 * 
-	 * @return the property popup menu
-	 */
-	protected PropertyPopupMenu getPropertyPopupMenu() {
-		if (propertyPopupMenu == null) {
-			propertyPopupMenu = new PropertyPopupMenu(getActionListener());
-		}
-
-		return propertyPopupMenu;
-	}
-
-	/**
 	 * Gets the selected tree object.
 	 * 
 	 * @return the selected tree object
@@ -546,46 +345,6 @@ public class MainTree extends JTree implements EnabledStateChangeListener {
 		}
 
 		return node.getUserObject();
-	}
-
-	/**
-	 * Gets the subversion repository location popup menu.
-	 * 
-	 * @return the subversion repository location popup menu
-	 */
-	protected SubversionRepositoryLocationPopupMenu getSubversionRepositoryLocationPopupMenu() {
-		if (subversionRepositoryLocationPopupMenu == null) {
-			subversionRepositoryLocationPopupMenu = new SubversionRepositoryLocationPopupMenu(getActionListener());
-		}
-
-		return subversionRepositoryLocationPopupMenu;
-	}
-
-	/**
-	 * Gets the subversion repository locations root popup menu.
-	 * 
-	 * @return the subversion repository locations root popup menu
-	 */
-	protected SubversionRepositoryLocationsRootPopupMenu getSubversionRepositoryLocationsRootPopupMenu() {
-		if (subversionRepositoryLocationsRootPopupMenu == null) {
-			subversionRepositoryLocationsRootPopupMenu = new SubversionRepositoryLocationsRootPopupMenu(
-					getActionListener());
-		}
-
-		return subversionRepositoryLocationsRootPopupMenu;
-	}
-
-	/**
-	 * Gets the task popup menu.
-	 * 
-	 * @return the task popup menu
-	 */
-	protected TaskPopupMenu getTaskPopupMenu() {
-		if (taskPopupMenu == null) {
-			taskPopupMenu = new TaskPopupMenu(getActionListener());
-		}
-
-		return taskPopupMenu;
 	}
 
 	@Subscribe

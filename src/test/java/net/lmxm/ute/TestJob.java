@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute;
 
+import net.lmxm.ute.beans.BeanType;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.tasks.Task;
@@ -74,4 +75,9 @@ public class TestJob extends IdentifiableDomainBean implements Job {
 	public void setDescription(final String description) {
 
 	}
+
+    @Override
+    public BeanType getType() {
+        return null;
+    }
 }

@@ -1,20 +1,31 @@
 package net.lmxm.ute.gui.maintree;
 
+import com.google.common.collect.ImmutableMap;
+import net.lmxm.ute.beans.BeanType;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.TypeBean;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.beans.tasks.*;
+import net.lmxm.ute.enums.ActionCommand;
+import net.lmxm.ute.gui.UteActionListener;
 import net.lmxm.ute.gui.maintree.nodes.*;
+import net.lmxm.ute.gui.menus.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Map;
+
+import static net.lmxm.ute.enums.ActionCommand.*;
+import static net.lmxm.ute.enums.ActionCommand.DELETE_TASK;
 
 /**
  * The listener interface for receiving mainTreeMouse events. The class that is interested in processing a
@@ -28,10 +39,36 @@ class MainTreeMouseListener extends MouseAdapter {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(MainTreeMouseListener.class);
 
-    private MainTree mainTree;
+    private final MainTree mainTree;
 
-    public MainTreeMouseListener(MainTree mainTree) {
+    private final Map<BeanType, JPopupMenu> userObjectPopupMenuMap;
+
+    public MainTreeMouseListener(final MainTree mainTree, final UteActionListener actionListener) {
         this.mainTree = mainTree;
+
+        userObjectPopupMenuMap = buildUserObjectPopupMenuMap(actionListener);
+    }
+
+    private Map<BeanType, JPopupMenu> buildUserObjectPopupMenuMap(final UteActionListener actionListener) {
+        final ImmutableMap.Builder<BeanType, JPopupMenu> builder = new ImmutableMap.Builder<BeanType, JPopupMenu>();
+
+        builder.put(BeanType.Job, new JobPopupMenu(actionListener));
+        builder.put(BeanType.JobsRootTreeNode, new JobsRootPopupMenu(actionListener));
+        builder.put(BeanType.FileSystemLocation, new FileSystemLocationPopupMenu(actionListener));
+        builder.put(BeanType.FileSystemLocationsRootTreeNode, new FileSystemLocationsRootPopupMenu(actionListener));
+        builder.put(BeanType.HttpLocation, new HttpLocationPopupMenu(actionListener));
+        builder.put(BeanType.HttpLocationsRootTreeNode, new HttpLocationsRootPopupMenu(actionListener));
+        builder.put(BeanType.MavenRepositoryLocation, new MavenRepositoryLocationPopupMenu(actionListener));
+        builder.put(BeanType.MavenRepositoryLocationsRootTreeNode, new MavenRepositoryLocationsRootPopupMenu(actionListener));
+        builder.put(BeanType.Preference, new PreferencePopupMenu(actionListener));
+        builder.put(BeanType.PreferencesRootTreeNode, new PreferencesRootPopupMenu(actionListener));
+        builder.put(BeanType.Property, new PropertyPopupMenu(actionListener));
+        builder.put(BeanType.PropertiesRootTreeNode, new PropertiesRootPopupMenu(actionListener));
+        builder.put(BeanType.SubversionRepositoryLocation, new SubversionRepositoryLocationsRootPopupMenu(actionListener));
+        builder.put(BeanType.SubversionRepositoryLocationsRootTreeNode, new SubversionRepositoryLocationsRootPopupMenu(actionListener));
+        builder.put(BeanType.Task, new TaskPopupMenu(actionListener));
+
+        return builder.build();
     }
 
     /**
@@ -49,65 +86,15 @@ class MainTreeMouseListener extends MouseAdapter {
             final int y = mouseEvent.getY();
 
             mainTree.selectTreeObjectAtLocation(x, y);
-
             final Object object = mainTree.getSelectedTreeObject();
 
             if (object != null) {
-                JPopupMenu popupMenu = null;
-
                 LOGGER.debug("{} Selected tree object is of type: {}", prefix, object.getClass().getName());
 
-                // Find popup menu appropriate to the item selected
-                if (object instanceof JobsRootTreeNode) {
-                    popupMenu = mainTree.getJobsRootPopupMenu();
-                }
-                else if (object instanceof Job) {
-                    popupMenu = mainTree.getJobPopupMenu();
-                }
-                else if (object instanceof Task) {
-                    popupMenu = mainTree.getTaskPopupMenu();
-                }
-                else if (object instanceof FileSystemLocationsRootTreeNode) {
-                    popupMenu = mainTree.getFileSystemLocationsRootPopupMenu();
-                }
-                else if (object instanceof FileSystemLocation) {
-                    popupMenu = mainTree.getFileSystemLocationPopupMenu();
-                }
-                else if (object instanceof HttpLocationsRootTreeNode) {
-                    popupMenu = mainTree.getHttpLocationsRootPopupMenu();
-                }
-                else if (object instanceof HttpLocation) {
-                    popupMenu = mainTree.getHttpLocationPopupMenu();
-                }
-                else if (object instanceof MavenRepositoryLocationsRootTreeNode) {
-                    popupMenu = mainTree.getMavenRepositoryLocationsRootPopupMenu();
-                }
-                else if (object instanceof MavenRepositoryLocation) {
-                    popupMenu = mainTree.getMavenRepositoryLocationPopupMenu();
-                }
-                else if (object instanceof SubversionRepositoryLocationsRootTreeNode) {
-                    popupMenu = mainTree.getSubversionRepositoryLocationsRootPopupMenu();
-                }
-                else if (object instanceof SubversionRepositoryLocation) {
-                    popupMenu = mainTree.getSubversionRepositoryLocationPopupMenu();
-                }
-                else if (object instanceof PreferencesRootTreeNode) {
-                    popupMenu = mainTree.getPreferencesRootPopupMenu();
-                }
-                else if (object instanceof Preference) {
-                    popupMenu = mainTree.getPreferencePopupMenu();
-                }
-                else if (object instanceof PropertiesRootTreeNode) {
-                    popupMenu = mainTree.getPropertiesRootPopupMenu();
-                }
-                else if (object instanceof Property) {
-                    popupMenu = mainTree.getPropertyPopupMenu();
-                }
-                else {
-                    LOGGER.debug("{} unsupported object; no popup will be displayed", prefix);
-                }
+                final TypeBean typeBean = (TypeBean)object;
 
-                // Display the popup menu if a match was found
+                // Find popup menu appropriate to the item selected
+                final JPopupMenu popupMenu = userObjectPopupMenuMap.get(typeBean.getType());
                 if (popupMenu != null) {
                     popupMenu.show(mouseEvent.getComponent(), x, y);
                 }

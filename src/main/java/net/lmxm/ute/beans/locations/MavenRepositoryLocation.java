@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.beans.locations;
 
+import net.lmxm.ute.beans.BeanType;
+
 /**
  * The Class MavenRepositoryLocation.
  */
@@ -50,4 +52,14 @@ public class MavenRepositoryLocation extends AbstractHttpLocation  {
 	public String getDisplayText() {
 		return getId();
 	}
+
+    /**
+     * Gets the bean type.
+     *
+     * @return Bean type
+     */
+    @Override
+    public final BeanType getType() {
+        return BeanType.MavenRepositoryLocation;
+    }
 }

@@ -112,6 +112,16 @@ public final class Preference implements DomainBean, IdentifiableBean {
     }
 
     /**
+     * Gets the bean type.
+     *
+     * @return Bean type
+     */
+    @Override
+    public final BeanType getType() {
+        return BeanType.Preference;
+    }
+
+    /**
      * Gets the current value.
      *
      * @return the current value

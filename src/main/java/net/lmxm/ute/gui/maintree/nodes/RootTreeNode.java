@@ -18,9 +18,11 @@
  */
 package net.lmxm.ute.gui.maintree.nodes;
 
+import net.lmxm.ute.beans.TypeBean;
+
 /**
  * The Interface RootTreeNode.
  */
-public interface RootTreeNode {
+public interface RootTreeNode extends TypeBean {
 
 }

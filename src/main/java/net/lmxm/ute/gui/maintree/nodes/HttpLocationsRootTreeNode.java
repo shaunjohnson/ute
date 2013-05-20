@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.gui.maintree.nodes;
 
+import net.lmxm.ute.beans.BeanType;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import net.lmxm.ute.resources.ResourcesUtils;
@@ -47,4 +48,14 @@ public final class HttpLocationsRootTreeNode extends AbstractRootTreeNode {
 
 		return String.format(format, configuration.getHttpLocations().size());
 	}
+
+    /**
+     * Gets the bean type.
+     *
+     * @return Bean type
+     */
+    @Override
+    public final BeanType getType() {
+        return BeanType.HttpLocationsRootTreeNode;
+    }
 }

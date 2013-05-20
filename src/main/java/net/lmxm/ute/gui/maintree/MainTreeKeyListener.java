@@ -1,16 +1,21 @@
 package net.lmxm.ute.gui.maintree;
 
 import com.google.common.collect.ImmutableMap;
+import net.lmxm.ute.beans.BeanType;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
+import net.lmxm.ute.beans.TypeBean;
 import net.lmxm.ute.beans.jobs.Job;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.beans.locations.MavenRepositoryLocation;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
-import net.lmxm.ute.beans.tasks.Task;
+import net.lmxm.ute.beans.tasks.*;
 import net.lmxm.ute.enums.ActionCommand;
 import net.lmxm.ute.gui.UteActionListener;
+import net.lmxm.ute.gui.menus.JobPopupMenu;
+import net.lmxm.ute.gui.menus.TaskPopupMenu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +39,7 @@ class MainTreeKeyListener extends KeyAdapter {
 
     private final ActionListener actionListener;
 
-    private final Map<Class, ActionCommand> userObjectActionCommandMap;
+    private final Map<BeanType, ActionCommand> userObjectActionCommandMap;
 
     public MainTreeKeyListener(final MainTree mainTree, final UteActionListener actionListener) {
         this.mainTree = checkNotNull(mainTree, "Main tree may not be null");
@@ -43,17 +48,17 @@ class MainTreeKeyListener extends KeyAdapter {
         userObjectActionCommandMap = buildUserObjectActionCommandMap();
     }
 
-    private Map<Class, ActionCommand> buildUserObjectActionCommandMap() {
-        final ImmutableMap.Builder<Class, ActionCommand> builder = new ImmutableMap.Builder<Class, ActionCommand>();
+    private Map<BeanType, ActionCommand> buildUserObjectActionCommandMap() {
+        final ImmutableMap.Builder<BeanType, ActionCommand> builder = new ImmutableMap.Builder<BeanType, ActionCommand>();
 
-        builder.put(FileSystemLocation.class, DELETE_FILE_SYSTEM_LOCATION);
-        builder.put(HttpLocation.class, DELETE_HTTP_LOCATION);
-        builder.put(Job.class, DELETE_JOB);
-        builder.put(MavenRepositoryLocation.class, DELETE_MAVEN_REPOSITORY_LOCATION);
-        builder.put(Preference.class, DELETE_PREFERENCE);
-        builder.put(Property.class, DELETE_PROPERTY);
-        builder.put(SubversionRepositoryLocation.class, DELETE_SUBVERSION_REPOSITORY_LOCATION);
-        builder.put(Task.class, DELETE_TASK);
+        builder.put(BeanType.FileSystemLocation, DELETE_FILE_SYSTEM_LOCATION);
+        builder.put(BeanType.HttpLocation, DELETE_HTTP_LOCATION);
+        builder.put(BeanType.Job, DELETE_JOB);
+        builder.put(BeanType.MavenRepositoryLocation, DELETE_MAVEN_REPOSITORY_LOCATION);
+        builder.put(BeanType.Preference, DELETE_PREFERENCE);
+        builder.put(BeanType.Property, DELETE_PROPERTY);
+        builder.put(BeanType.SubversionRepositoryLocation, DELETE_SUBVERSION_REPOSITORY_LOCATION);
+        builder.put(BeanType.Task, DELETE_TASK);
 
         return builder.build();
     }
@@ -76,10 +81,14 @@ class MainTreeKeyListener extends KeyAdapter {
     public void keyPressed(final KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_DELETE) {
             final Object userObject = mainTree.getSelectedTreeObject();
-            final ActionCommand actionCommand = userObjectActionCommandMap.get(userObject.getClass());
 
-            if (actionCommand != null) {
-                actionListener.actionPerformed(createActionEvent(actionCommand.name()));
+            if (userObject != null) {
+                final TypeBean typeBean = (TypeBean)userObject;
+                final ActionCommand actionCommand = userObjectActionCommandMap.get(typeBean.getType());
+
+                if (actionCommand != null) {
+                    actionListener.actionPerformed(createActionEvent(actionCommand.name()));
+                }
             }
         }
     }

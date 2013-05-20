@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans.locations;
 
+import net.lmxm.ute.beans.BeanType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -67,6 +68,16 @@ public final class SubversionRepositoryLocation extends AbstractHttpLocation {
 	public String getPassword() {
 		return password;
 	}
+
+    /**
+     * Gets the bean type.
+     *
+     * @return Bean type
+     */
+    @Override
+    public final BeanType getType() {
+        return BeanType.SubversionRepositoryLocation;
+    }
 
 	/**
 	 * Gets the username.

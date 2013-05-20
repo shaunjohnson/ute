@@ -24,7 +24,7 @@ import java.io.Serializable;
  * An identifiable bean is a serializable bean that contains an ID field that may be set, retrieved, as well as
  * include a method for generating user friendly text that may be used in a GUI to present to the user.
  */
-public interface IdentifiableBean extends Comparable<IdentifiableBean>, Serializable {
+public interface IdentifiableBean extends Comparable<IdentifiableBean>, Serializable, TypeBean {
 
 	/**
      * Generates user friendly display text that may be used in the GUI.

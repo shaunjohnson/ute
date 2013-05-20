@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans.jobs;
 
+import net.lmxm.ute.beans.BeanType;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import org.apache.commons.lang3.StringUtils;
 
@@ -57,6 +58,16 @@ public abstract class AbstractJob extends IdentifiableDomainBean implements Job 
 	public final String getDescription() {
 		return description;
 	}
+
+    /**
+     * Gets the bean type.
+     *
+     * @return Bean type
+     */
+    @Override
+    public final BeanType getType() {
+        return BeanType.Job;
+    }
 
 	/*
 	 * (non-Javadoc)

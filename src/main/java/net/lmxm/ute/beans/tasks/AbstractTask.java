@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.beans.tasks;
 
+import net.lmxm.ute.beans.BeanType;
 import net.lmxm.ute.beans.IdentifiableDomainBean;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.utils.DomainBeanUtils;
@@ -97,6 +98,16 @@ public abstract class AbstractTask extends IdentifiableDomainBean implements Tas
 	public final Job getJob() {
 		return job;
 	}
+
+    /**
+     * Gets the bean type.
+     *
+     * @return Bean type
+     */
+    @Override
+    public final BeanType getType() {
+        return BeanType.Task;
+    }
 
 	/*
 	 * (non-Javadoc)
