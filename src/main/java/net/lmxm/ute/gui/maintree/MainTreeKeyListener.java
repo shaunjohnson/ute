@@ -1,5 +1,6 @@
 package net.lmxm.ute.gui.maintree;
 
+import com.google.common.collect.ImmutableMap;
 import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.jobs.Job;
@@ -15,8 +16,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static net.lmxm.ute.enums.ActionCommand.*;
 
 /**
  * The listener interface for receiving mainTreeKey events. The class that is interested in processing a mainTreeKey
@@ -31,9 +34,28 @@ class MainTreeKeyListener extends KeyAdapter {
 
     private final ActionListener actionListener;
 
+    private final Map<Class, ActionCommand> userObjectActionCommandMap;
+
     public MainTreeKeyListener(final MainTree mainTree, final UteActionListener actionListener) {
         this.mainTree = checkNotNull(mainTree, "Main tree may not be null");
         this.actionListener = checkNotNull(actionListener, "Action listener may not be null");
+
+        userObjectActionCommandMap = buildUserObjectActionCommandMap();
+    }
+
+    private Map<Class, ActionCommand> buildUserObjectActionCommandMap() {
+        final ImmutableMap.Builder<Class, ActionCommand> builder = new ImmutableMap.Builder<Class, ActionCommand>();
+
+        builder.put(FileSystemLocation.class, DELETE_FILE_SYSTEM_LOCATION);
+        builder.put(HttpLocation.class, DELETE_HTTP_LOCATION);
+        builder.put(Job.class, DELETE_JOB);
+        builder.put(MavenRepositoryLocation.class, DELETE_MAVEN_REPOSITORY_LOCATION);
+        builder.put(Preference.class, DELETE_PREFERENCE);
+        builder.put(Property.class, DELETE_PROPERTY);
+        builder.put(SubversionRepositoryLocation.class, DELETE_SUBVERSION_REPOSITORY_LOCATION);
+        builder.put(Task.class, DELETE_TASK);
+
+        return builder.build();
     }
 
     /**
@@ -54,38 +76,10 @@ class MainTreeKeyListener extends KeyAdapter {
     public void keyPressed(final KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_DELETE) {
             final Object userObject = mainTree.getSelectedTreeObject();
-            final ActionEvent actionEvent;
+            final ActionCommand actionCommand = userObjectActionCommandMap.get(userObject.getClass());
 
-            if (userObject instanceof FileSystemLocation) {
-                actionEvent = createActionEvent(ActionCommand.DELETE_FILE_SYSTEM_LOCATION.name());
-            }
-            else if (userObject instanceof HttpLocation) {
-                actionEvent = createActionEvent(ActionCommand.DELETE_HTTP_LOCATION.name());
-            }
-            else if (userObject instanceof Job) {
-                actionEvent = createActionEvent(ActionCommand.DELETE_JOB.name());
-            }
-            else if (userObject instanceof MavenRepositoryLocation) {
-                actionEvent = createActionEvent(ActionCommand.DELETE_MAVEN_REPOSITORY_LOCATION.name());
-            }
-            else if (userObject instanceof Preference) {
-                actionEvent = createActionEvent(ActionCommand.DELETE_PREFERENCE.name());
-            }
-            else if (userObject instanceof Property) {
-                actionEvent = createActionEvent(ActionCommand.DELETE_PROPERTY.name());
-            }
-            else if (userObject instanceof SubversionRepositoryLocation) {
-                actionEvent = createActionEvent(ActionCommand.DELETE_SUBVERSION_REPOSITORY_LOCATION.name());
-            }
-            else if (userObject instanceof Task) {
-                actionEvent = createActionEvent(ActionCommand.DELETE_TASK.name());
-            }
-            else {
-                actionEvent = null;
-            }
-
-            if (actionEvent != null) {
-                actionListener.actionPerformed(actionEvent);
+            if (actionCommand != null) {
+                actionListener.actionPerformed(createActionEvent(actionCommand.name()));
             }
         }
     }
