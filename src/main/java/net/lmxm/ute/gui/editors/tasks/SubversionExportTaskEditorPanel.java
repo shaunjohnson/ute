@@ -198,12 +198,7 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 						final SubversionExportTask subversionExportTask = (SubversionExportTask) getUserObject();
 
 						final SortedSet<Date> selection = monthView.getSelection();
-						if (selection.size() == 0) {
-							subversionExportTask.setRevisionDate(null);
-						}
-						else {
-							subversionExportTask.setRevisionDate(selection.first());
-						}
+						subversionExportTask.setRevisionDate(selection.size() == 0 ? null : selection.first());
 					}
 				}
 			});
@@ -267,11 +262,6 @@ public final class SubversionExportTaskEditorPanel extends AbstractTaskEditorPan
 		if (subversionDepthComboBox == null) {
 			subversionDepthComboBox = new JComboBox();
 			subversionDepthComboBox.addActionListener(new ActionListener() {
-
-				/*
-				 * (non-Javadoc)
-				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-				 */
 				@Override
 				public void actionPerformed(final ActionEvent actionEvent) {
 					if (getUserObject() instanceof SubversionExportTask) {

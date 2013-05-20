@@ -141,12 +141,8 @@ public final class FileSystemLocationEditorPanel extends AbstractLocationEditorP
 
 							fcOpen.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-							final int returnVal = fcOpen.showOpenDialog(parent);
-
-							if (returnVal == JFileChooser.APPROVE_OPTION) {
-								final File file = fcOpen.getSelectedFile();
-
-								getPathTextField().setText(file.getAbsolutePath());
+							if (fcOpen.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
+								getPathTextField().setText(fcOpen.getSelectedFile().getAbsolutePath());
 							}
 						}
 
