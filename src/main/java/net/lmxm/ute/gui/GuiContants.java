@@ -26,7 +26,7 @@ public final class GuiContants {
     /**
      * Default font size.
      */
-    public static int DEFAULT_FONT_SIZE = 12;
+    public static final int DEFAULT_FONT_SIZE = 12;
 
     /**
      * Default location for the jobs split pane divider.
