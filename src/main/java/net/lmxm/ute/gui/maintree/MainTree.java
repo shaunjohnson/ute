@@ -318,15 +318,6 @@ public class MainTree extends JTree implements EnabledStateChangeListener {
 	}
 
 	/**
-	 * Gets the action listener.
-	 * 
-	 * @return the action listener
-	 */
-	private UteActionListener getActionListener() {
-		return actionListener;
-	}
-
-	/**
 	 * Gets the selected tree object.
 	 * 
 	 * @return the selected tree object
