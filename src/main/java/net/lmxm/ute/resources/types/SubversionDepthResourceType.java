@@ -32,7 +32,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
  * The Enum SubversionDepthResourceType.
  */
 public enum SubversionDepthResourceType implements ResourceType {
-
 	EMPTY,
 	FILES,
 	IMMEDIATES,

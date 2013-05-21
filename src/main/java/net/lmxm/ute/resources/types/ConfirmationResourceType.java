@@ -32,7 +32,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.MESSAGE;
  * The Enum ConfirmationResourceType.
  */
 public enum ConfirmationResourceType implements ResourceType {
-
     DELETE_JOB;
 
     private final Set<ResourceValueType> types = ImmutableSet.of(MESSAGE);

@@ -29,10 +29,9 @@ import java.util.Set;
 import static net.lmxm.ute.resources.types.ResourceValueType.MESSAGE;
 
 /**
- * The Enum ScopeResourceType.
+ * The Enum ValidatorResourceType.
  */
 public enum ValidatorResourceType implements ResourceType {
-
 	FILE_SYSTEM_LOCATION_ID_ALREADY_USED,
 	FILE_SYSTEM_LOCATION_ID_REQUIRED,
 	FILE_SYSTEM_LOCATION_PATH_REQUIRED,

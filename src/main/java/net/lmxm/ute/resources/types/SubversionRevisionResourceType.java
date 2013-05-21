@@ -32,7 +32,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
  * The Enum SubversionRevisionResourceType.
  */
 public enum SubversionRevisionResourceType implements ResourceType {
-
 	DATE,
 	HEAD,
 	NUMBERED;

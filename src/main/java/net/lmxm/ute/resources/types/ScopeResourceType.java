@@ -32,7 +32,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
  * The Enum ScopeResourceType.
  */
 public enum ScopeResourceType implements ResourceType {
-
 	FILE,
 	LINE;
 

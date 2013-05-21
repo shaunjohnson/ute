@@ -32,7 +32,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
  * The Enum TableColumnResourceType.
  */
 public enum TableColumnResourceType implements ResourceType {
-
 	FILE_NAME,
 	FIND,
     MAVEN_ARTIFACT_COORDINATES,

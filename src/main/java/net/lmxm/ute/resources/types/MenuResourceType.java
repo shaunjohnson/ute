@@ -33,7 +33,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.TOOLTIP_TEXT;
  * The Enum MenuResourceType.
  */
 public enum MenuResourceType implements ResourceType {
-
 	ADD_TASK,
 	EDIT,
 	FILE,

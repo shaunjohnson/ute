@@ -33,7 +33,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.MESSAGE;
  * The Enum StatusChangeMessageResourceType.
  */
 public enum StatusChangeMessageResourceType implements ResourceType {
-
 	DISABLED_TASK_SKIPPED,
 
 	FILE_DELETE_DIRECTORY_DELETE_FINISHED,

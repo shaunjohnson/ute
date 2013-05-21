@@ -28,7 +28,6 @@ import java.util.Set;
  * The Interface ResourceType.
  */
 public interface ResourceType {
-
 	/**
 	 * Gets the action command.
 	 * 

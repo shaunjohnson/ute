@@ -32,7 +32,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
  * The Enum ScopeResourceType.
  */
 public enum SubversionEventResourceType implements ResourceType {
-
 	LOCK_STATUS_UNLOCKED,
 	STATUS_ADDED,
 	STATUS_CONFLICTED,

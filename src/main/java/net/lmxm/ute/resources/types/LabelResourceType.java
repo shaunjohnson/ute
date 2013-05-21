@@ -33,7 +33,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.TOOLTIP_TEXT;
  * The Enum LabelResourceType.
  */
 public enum LabelResourceType implements ResourceType {
-
     ARTIFACT_COORDINATES,
     ARTIFACTS,
     CURRENT_VALUE,

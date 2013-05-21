@@ -33,7 +33,6 @@ import static net.lmxm.ute.resources.types.ResourceValueType.TITLE;
  * The Enum ScopeResourceType.
  */
 public enum ApplicationResourceType implements ResourceType {
-
     ABOUT(TEXT),
     ATTRIBUTIONS(TEXT),
     ERROR_OCCURRED(TITLE),

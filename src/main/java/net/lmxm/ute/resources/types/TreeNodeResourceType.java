@@ -29,9 +29,9 @@ import java.util.Set;
 import static net.lmxm.ute.resources.types.ResourceValueType.TEXT;
 
 /**
+ * The Enum TreeNodeResourceType.
  */
 public enum TreeNodeResourceType implements ResourceType {
-
 	FILE_SYSTEM_LOCATIONS,
 	HTTP_LOCATIONS,
 	JOBS,
