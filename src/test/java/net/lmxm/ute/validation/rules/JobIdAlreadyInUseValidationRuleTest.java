@@ -18,6 +18,8 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import net.lmxm.ute.TestConfigurationHolders;
+import net.lmxm.ute.beans.Preference;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
@@ -62,12 +64,7 @@ public class JobIdAlreadyInUseValidationRuleTest {
 	 */
 	@Test
 	public void testJobIdAlreadyInUseValidationRule() {
-		new JobIdAlreadyInUseValidationRule(new SequentialJob(), new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new JobIdAlreadyInUseValidationRule(new SequentialJob(), TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**
@@ -78,17 +75,21 @@ public class JobIdAlreadyInUseValidationRuleTest {
 		new JobIdAlreadyInUseValidationRule(new SequentialJob(), null);
 	}
 
+    /**
+     * Test configuration holder returning null configuration.
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testConfigurationHolderReturningNullConfiguration() {
+        new JobIdAlreadyInUseValidationRule(new SequentialJob(),
+                TestConfigurationHolders.CONFIGURATION_ALWAYS_NULL);
+    }
+
 	/**
 	 * Test job id already in use validation rule null location.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testJobIdAlreadyInUseValidationRuleNullLocation() {
-		new JobIdAlreadyInUseValidationRule(null, new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new JobIdAlreadyInUseValidationRule(null, TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**

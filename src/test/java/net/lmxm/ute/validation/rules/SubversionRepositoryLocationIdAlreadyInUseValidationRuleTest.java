@@ -1,23 +1,24 @@
 /**
  * Copyright (C) 2011 Shaun Johnson, LMXM LLC
- * 
+ *
  * This file is part of Universal Task Executor.
- * 
+ *
  * Universal Task Executor is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
+ *
  * Universal Task Executor is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * Universal Task Executor. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.lmxm.ute.validation.rules;
 
+import net.lmxm.ute.TestConfigurationHolders;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.locations.SubversionRepositoryLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
@@ -78,17 +79,22 @@ public class SubversionRepositoryLocationIdAlreadyInUseValidationRuleTest {
 		new SubversionRepositoryLocationIdAlreadyInUseValidationRule(new SubversionRepositoryLocation(), null);
 	}
 
+    /**
+     * Test configuration holder returning null configuration.
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testConfigurationHolderReturningNullConfiguration() {
+        new SubversionRepositoryLocationIdAlreadyInUseValidationRule(new SubversionRepositoryLocation(),
+                TestConfigurationHolders.CONFIGURATION_ALWAYS_NULL);
+    }
+
 	/**
 	 * Test subversion repository location id already in use validation rule null location.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testSubversionRepositoryLocationIdAlreadyInUseValidationRuleNullLocation() {
-		new SubversionRepositoryLocationIdAlreadyInUseValidationRule(null, new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new SubversionRepositoryLocationIdAlreadyInUseValidationRule(null,
+                TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**

@@ -18,7 +18,9 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import net.lmxm.ute.TestConfigurationHolders;
 import net.lmxm.ute.beans.configuration.Configuration;
+import net.lmxm.ute.beans.jobs.SequentialJob;
 import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import org.junit.Before;
@@ -61,12 +63,7 @@ public class HttpLocationIdAlreadyInUseValidationRuleTest {
 	 */
 	@Test
 	public void testHttpLocationIdAlreadyInUseValidationRule() {
-		new HttpLocationIdAlreadyInUseValidationRule(new HttpLocation(), new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new HttpLocationIdAlreadyInUseValidationRule(new HttpLocation(), TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**
@@ -77,17 +74,21 @@ public class HttpLocationIdAlreadyInUseValidationRuleTest {
 		new HttpLocationIdAlreadyInUseValidationRule(new HttpLocation(), null);
 	}
 
+    /**
+     * Test configuration holder returning null configuration.
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testConfigurationHolderReturningNullConfiguration() {
+        new HttpLocationIdAlreadyInUseValidationRule(new HttpLocation(),
+                TestConfigurationHolders.CONFIGURATION_ALWAYS_NULL);
+    }
+
 	/**
 	 * Test http location id already in use validation rule null location.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testHttpLocationIdAlreadyInUseValidationRuleNullLocation() {
-		new HttpLocationIdAlreadyInUseValidationRule(null, new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new HttpLocationIdAlreadyInUseValidationRule(null, TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**

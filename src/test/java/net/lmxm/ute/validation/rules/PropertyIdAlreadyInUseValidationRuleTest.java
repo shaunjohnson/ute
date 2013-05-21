@@ -18,8 +18,10 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import net.lmxm.ute.TestConfigurationHolders;
 import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.configuration.Configuration;
+import net.lmxm.ute.beans.tasks.FileSystemDeleteTask;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,12 +63,7 @@ public class PropertyIdAlreadyInUseValidationRuleTest {
 	 */
 	@Test
 	public void testPropertyIdAlreadyInUseValidationRule() {
-		new PropertyIdAlreadyInUseValidationRule(new Property(), new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new PropertyIdAlreadyInUseValidationRule(new Property(), TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**
@@ -77,17 +74,21 @@ public class PropertyIdAlreadyInUseValidationRuleTest {
 		new PropertyIdAlreadyInUseValidationRule(new Property(), null);
 	}
 
+    /**
+     * Test configuration holder returning null configuration.
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testConfigurationHolderReturningNullConfiguration() {
+        new PropertyIdAlreadyInUseValidationRule(new Property(),
+                TestConfigurationHolders.CONFIGURATION_ALWAYS_NULL);
+    }
+
 	/**
 	 * Test property id already in use validation rule null location.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testPropertyIdAlreadyInUseValidationRuleNullLocation() {
-		new PropertyIdAlreadyInUseValidationRule(null, new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new PropertyIdAlreadyInUseValidationRule(null, TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**

@@ -18,7 +18,9 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import net.lmxm.ute.TestConfigurationHolders;
 import net.lmxm.ute.beans.Preference;
+import net.lmxm.ute.beans.Property;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import org.junit.Before;
@@ -61,12 +63,7 @@ public class PreferenceIdAlreadyInUseValidationRuleTest {
 	 */
 	@Test
 	public void testPreferenceIdAlreadyInUseValidationRule() {
-		new PreferenceIdAlreadyInUseValidationRule(new Preference(), new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new PreferenceIdAlreadyInUseValidationRule(new Preference(), TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**
@@ -77,17 +74,21 @@ public class PreferenceIdAlreadyInUseValidationRuleTest {
 		new PreferenceIdAlreadyInUseValidationRule(new Preference(), null);
 	}
 
+    /**
+     * Test configuration holder returning null configuration.
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testConfigurationHolderReturningNullConfiguration() {
+        new PreferenceIdAlreadyInUseValidationRule(new Preference(),
+                TestConfigurationHolders.CONFIGURATION_ALWAYS_NULL);
+    }
+
 	/**
 	 * Test preference id already in use validation rule null location.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testPreferenceIdAlreadyInUseValidationRuleNullLocation() {
-		new PreferenceIdAlreadyInUseValidationRule(null, new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new PreferenceIdAlreadyInUseValidationRule(null, TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**

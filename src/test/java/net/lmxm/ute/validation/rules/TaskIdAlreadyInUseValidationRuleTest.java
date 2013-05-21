@@ -18,6 +18,7 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import net.lmxm.ute.TestConfigurationHolders;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.jobs.Job;
 import net.lmxm.ute.beans.jobs.SequentialJob;
@@ -70,12 +71,8 @@ public class TaskIdAlreadyInUseValidationRuleTest {
 	 */
 	@Test
 	public void testTaskIdAlreadyInUseValidationRule() {
-		new TaskIdAlreadyInUseValidationRule(new FileSystemDeleteTask(job), new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new TaskIdAlreadyInUseValidationRule(new FileSystemDeleteTask(job),
+                TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**
@@ -87,16 +84,20 @@ public class TaskIdAlreadyInUseValidationRuleTest {
 	}
 
 	/**
+	 * Test configuration holder returning null configuration.
+	 */
+	@Test(expected = IllegalStateException.class)
+	public void testConfigurationHolderReturningNullConfiguration() {
+		new TaskIdAlreadyInUseValidationRule(new FileSystemDeleteTask(job),
+                TestConfigurationHolders.CONFIGURATION_ALWAYS_NULL);
+	}
+
+	/**
 	 * Test task id already in use validation rule null location.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testTaskIdAlreadyInUseValidationRuleNullLocation() {
-		new TaskIdAlreadyInUseValidationRule(null, new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new TaskIdAlreadyInUseValidationRule(null, TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**

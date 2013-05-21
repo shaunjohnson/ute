@@ -18,8 +18,10 @@
  */
 package net.lmxm.ute.validation.rules;
 
+import net.lmxm.ute.TestConfigurationHolders;
 import net.lmxm.ute.beans.configuration.Configuration;
 import net.lmxm.ute.beans.locations.FileSystemLocation;
+import net.lmxm.ute.beans.locations.HttpLocation;
 import net.lmxm.ute.configuration.ConfigurationHolder;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,12 +63,8 @@ public class FileSystemLocationIdAlreadyInUseValidationRuleTest {
 	 */
 	@Test
 	public void testFileSystemLocationIdAlreadyInUseValidationRule() {
-		new FileSystemLocationIdAlreadyInUseValidationRule(new FileSystemLocation(), new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new FileSystemLocationIdAlreadyInUseValidationRule(new FileSystemLocation(),
+                TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**
@@ -77,17 +75,21 @@ public class FileSystemLocationIdAlreadyInUseValidationRuleTest {
 		new FileSystemLocationIdAlreadyInUseValidationRule(new FileSystemLocation(), null);
 	}
 
+    /**
+     * Test configuration holder returning null configuration.
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testConfigurationHolderReturningNullConfiguration() {
+        new FileSystemLocationIdAlreadyInUseValidationRule(new FileSystemLocation(),
+                TestConfigurationHolders.CONFIGURATION_ALWAYS_NULL);
+    }
+
 	/**
 	 * Test file system location id already in use validation rule null location.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testFileSystemLocationIdAlreadyInUseValidationRuleNullLocation() {
-		new FileSystemLocationIdAlreadyInUseValidationRule(null, new ConfigurationHolder() {
-			@Override
-			public Configuration getConfiguration() {
-				return new Configuration();
-			}
-		});
+		new FileSystemLocationIdAlreadyInUseValidationRule(null, TestConfigurationHolders.BLANK_CONFIGURATION);
 	}
 
 	/**
