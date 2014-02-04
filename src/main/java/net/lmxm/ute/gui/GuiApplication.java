@@ -26,8 +26,7 @@ import javax.swing.*;
 /**
  * The Class GuiApplication.
  */
-public class GuiApplication {
-
+public final class GuiApplication {
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory.getLogger(GuiApplication.class);
 
@@ -40,8 +39,7 @@ public class GuiApplication {
 		LOGGER.debug("{} entered", prefix);
 
 		UIManager.put("swing.boldMetal", Boolean.FALSE);
-
-		new MainFrame().setVisible(true);
+		MainFrame.createAndShow();
 
 		LOGGER.debug("{} exiting", prefix);
 	}

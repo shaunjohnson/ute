@@ -152,10 +152,22 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	/** The user preferences. */
 	private final UserPreferences userPreferences = new UserPreferences();
 
+    /**
+     * Create an instance of MainFrame and make it visible (on the EDT).
+     */
+    public static void createAndShow() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
+    }
+
 	/**
 	 * Instantiates a new main frame.
 	 */
-	public MainFrame() {
+	private MainFrame() {
 		super();
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1403,4 +1415,6 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
             displayError(e);
         }
 	}
+
+
 }
