@@ -1184,42 +1184,13 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 	 * Initialize.
 	 */
 	private void initialize() {
-		final String prefix = "initialize() :";
+        final String prefix = "initialize() :";
 
 		LOGGER.debug("{} entered", prefix);
 
-		final String filePath = userPreferences.getLastFileEditedPath();
-
-		if (FileSystemUtils.getInstance().fileExists(filePath)) {
-			LOGGER.debug("{} loading file {}", prefix, filePath);
-
-			try {
-				final File configurationFile = new File(filePath);
-				configuration = new ConfigurationReader(configurationFile).read();
-
-				loadAndValidatePreferences(configurationFile);
-			}
-			catch (final Exception e) {
-				LOGGER.debug("initialize() : Error occurred loading configuration file", e);
-
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
-				configuration = new Configuration();
-			}
-		}
-		else {
-			LOGGER.debug("{} starting with an empty configuration", prefix);
-
-			configuration = new Configuration();
-
-			// Clear out invalid entry in user preferences
-			userPreferences.removeLastFileEditedPath();
-		}
-
+        initializeConfiguration();
 		addWindowListener(new MainFrameWindowListener(this));
-
 		refreshJobsTree();
-
 		updateTitle();
 		setJMenuBar(getMainMenuBar());
 		setIconImage(ImageUtil.APPLICATION_ICON_IMAGE);
@@ -1236,6 +1207,42 @@ public final class MainFrame extends AbstractFrame implements ConfigurationHolde
 
 		LOGGER.debug("{} leaving", prefix);
 	}
+
+    /**
+     * Initialize the current configuration using the last file edited, or a new configuration if there is no known
+     * previously edited file.
+     */
+    private void initializeConfiguration() {
+        final String prefix = "initializeConfiguration() :";
+
+        final String filePath = userPreferences.getLastFileEditedPath();
+
+        if (FileSystemUtils.getInstance().fileExists(filePath)) {
+            LOGGER.debug("{} loading file {}", prefix, filePath);
+
+            try {
+                final File configurationFile = new File(filePath);
+                configuration = new ConfigurationReader(configurationFile).read();
+
+                loadAndValidatePreferences(configurationFile);
+            }
+            catch (final Exception e) {
+                LOGGER.debug("initialize() : Error occurred loading configuration file", e);
+
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+                configuration = new Configuration();
+            }
+        }
+        else {
+            LOGGER.debug("{} starting with an empty configuration", prefix);
+
+            configuration = new Configuration();
+
+            // Clear out invalid entry in user preferences
+            userPreferences.removeLastFileEditedPath();
+        }
+    }
 
     /**
      * Initializes the tree node editor map.
